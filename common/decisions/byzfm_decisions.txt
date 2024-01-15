@@ -1,0 +1,327 @@
+﻿mega_palation_decision = {
+	is_shown = {
+		has_variable = byzfm_mega_palation_accepted
+		NOT = {
+			any_scope_building = {
+				is_building_type = building_mega_palation
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = modifier_byzfm_palace_survey
+			}
+		}
+		NOT = {
+			has_variable = byzfm_imperial_palace_var
+		}
+	}
+	
+	possible = {	
+		produced_bureaucracy > 500
+		owns_entire_state_region = STATE_EASTERN_THRACE
+	}
+	
+	when_taken = {
+		set_variable = { 
+			name = byzfm_imperial_palace_var
+			value = 0
+		}
+		add_modifier = {
+			name = modifier_byzfm_palace_survey
+			months = 24
+		}
+		add_journal_entry = {
+			type = je_byzfm_mega_palation_survey
+		}
+		remove_variable = byzfm_mega_palation_accepted
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = { produced_bureaucracy > 2500 }
+			add = 5
+		}	
+		modifier = {
+			trigger = { 
+				produced_bureaucracy > 5000 
+				any_country = {
+					is_ai = no
+					has_variable = byzfm_imperial_palace_var
+				}
+			}
+			add = 50
+		}
+		modifier = {
+			OR = {
+				is_diplomatic_play_committed_participant = yes
+				is_at_war = yes
+			}
+			add = -1000
+		}	
+	}
+}
+
+chariot_racing_decision = {
+	is_shown = {
+		has_variable = byzfm_hippodrome_reopened
+		NOT = {
+			has_modifier = modifier_byzfm_chariot_racing
+		}
+	}
+	
+	possible = {
+		any_scope_building = {
+			is_building_type = building_hippodrome
+		}
+	}
+	
+	when_taken = {
+		custom_tooltip = {
+			text = chariot_racing_enabled_tt	
+			trigger_event = {
+				id = byzfm.45
+			}
+		}
+	}
+}
+
+expand_chariot_racing_decision = {
+	is_shown = {
+		has_modifier = modifier_byzfm_chariot_racing
+	}
+	
+	possible = {
+		has_modifier = modifier_byzfm_chariot_racing
+		has_technology_researched = electric_telegraph
+	}
+	
+	when_taken = {
+		remove_variable = byzfm_hippodrome_reopened
+		show_as_tooltip = {
+			remove_modifier = modifier_byzfm_chariot_racing
+			add_modifier = {
+				name = modifier_byzfm_expanded_chariot_racing
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = byzfm.46
+			}
+		}
+	}	
+}
+
+byzfm_UKR_decision = {
+	is_shown = {
+		has_journal_entry = je_byzfm_the_orthodox_realms
+		NOT = { has_variable = byzfm_UKR_var }
+		exists = c:UKR
+		c:UKR = {
+			is_subject = no
+			is_player = no
+		}
+	}
+	
+	possible = {
+		c:UKR = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			top_overlord = {
+				relations:root >= relations_threshold:cordial
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	
+	when_taken = {
+		set_variable = byzfm_UKR_var
+		trigger_event = {
+			id = byzfm.24 # The Ukranian Domain
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}	
+ 
+byzfm_BYE_decision = {
+	is_shown = {
+		has_journal_entry = je_byzfm_the_orthodox_realms
+		NOT = { has_variable = byzfm_BYE_var }
+		exists = c:BYE
+		c:BYE = {
+			is_subject = no
+			is_player = no
+		}
+	}
+	
+	possible = {
+		c:BYE = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			top_overlord = {
+				relations:root >= relations_threshold:cordial
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	
+	when_taken = {
+		set_variable = byzfm_BYE_var
+		trigger_event = {
+			id = byzfm.25 # The Belorussian Domain
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+ 
+byzfm_GEO_decision = {
+	is_shown = {
+		has_journal_entry = je_byzfm_the_orthodox_realms
+		NOT = { has_variable = byzfm_GEO_var }
+		exists = c:GEO
+		c:GEO = {
+			is_subject = no
+			is_player = no
+		}
+	}
+	
+	possible = {
+		c:GEO = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			top_overlord = {
+				relations:root >= relations_threshold:cordial
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	
+	when_taken = {
+		set_variable = byzfm_GEO_var
+		trigger_event = {
+			id = byzfm.26 # The Georgian Domain
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+ 
+byzfm_MOL_decision = {
+	is_shown = {
+		has_journal_entry = je_byzfm_the_orthodox_realms
+		NOT = { has_variable = byzfm_MOL_var }
+		exists = c:MOL
+		c:MOL = {
+			is_subject = no
+			is_player = no
+		}
+	}
+	
+	possible = {
+		c:MOL = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			top_overlord = {
+				relations:root >= relations_threshold:cordial
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	
+	when_taken = {
+		set_variable = byzfm_MOL_var
+		trigger_event = {
+			id = byzfm.27 # The Moldy Domain
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+
+byzfm_annex_theodoro_decision = {
+	is_shown = {
+		NOT = { has_variable = byzfm_theodoro_var }
+		has_variable = byzfm_byzantium_formed
+		is_subject = no
+		exists = c:THE
+		c:THE = {
+			is_subject = no
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:THE = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+	}
+
+	when_taken = {
+		set_variable = byzfm_theodoro_var
+		custom_tooltip = byzfm.92.tt
+		hidden_effect = {
+			trigger_event = {
+				id = byzfm.92
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+
+byzfm_annex_trabzon_decision = {
+	is_shown = {
+		NOT = { has_variable = byzfm_trabzon_var }
+		has_variable = byzfm_byzantium_formed
+		is_subject = no
+		exists = c:TRB
+		c:TRB = {
+			is_subject = no
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:TRB = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+	}
+
+	when_taken = {
+		set_variable = byzfm_trabzon_var
+		custom_tooltip = byzfm.93.tt
+		hidden_effect = {
+			trigger_event = {
+				id = byzfm.93
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}

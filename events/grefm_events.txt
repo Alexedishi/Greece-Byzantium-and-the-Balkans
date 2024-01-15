@@ -1,0 +1,3302 @@
+﻿namespace = grefm
+
+############################
+# # GREECE FLAVOR EVENTS # #
+# 001-099 - The Monarchy
+#	001-009 - Bavarocracy Event Chain
+#	010-019 - Government Reform Events
+#	020-029 - Absolutism Events
+#	030-039 - Disorder Events
+#	040-049 - Constitutional Monarchy Events
+#	050-059 - That nonsense with Venizelos
+# 100-199 - Reserved
+# 200-299 - Greek Nationalism
+#	200-209 - The Megali Idea
+#	210-219 - Revolt Events
+#	220-229 - Annexation Events
+# 300-399 - Cultural Events
+#	301-309 - Monument Events
+#	310-319 - Greek Orthodox Church Events
+#	320-329 - Miscellaneous Historical Events
+# 400-499 - Character Events
+# 	400-409 - Historical Characters
+#	410-419 - Agitator Events
+# 900-999 - Technical Events
+# *this is an outline, not a table of contents*
+############################
+
+################
+# THE MONARCHY #
+################
+
+#### THE BAVAROCRACY ####
+grefm.001 = { # Bavarocracy notification
+	type = country_event
+	placement = root
+	
+	title = grefm.001.t
+	desc = grefm.001.d
+	flavor = grefm.001.f
+	
+	event_image = {
+		video = "grefm_ottos_landing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # game start trigger
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		c:FRA = {
+			save_scope_as = france_scope
+		}
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = grefm.001.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_bavarocracy_main
+		}
+		scope:king_otto_scope = {
+			add_modifier = {
+				name = modifier_grefm_unpopular_ruler
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.010 # adds je_grefm_greek_constitution
+				days = 30
+			}
+			trigger_event = {
+				id = grefm.011 # adds je_grefm_land_reform
+				days = 50
+			}
+			trigger_event = {
+				id = grefm.013 # je_grefm_brigandage
+				days = 90
+			}
+			trigger_event = {
+				id = grefm.015 # je_grefm_civic_tradition
+				days = 150
+			}
+		}
+	}
+
+}
+
+grefm.002 = { # Revolution averted, Otto remains in power
+	type = country_event
+	placement = root
+	
+	title = grefm.002.t
+	desc = grefm.002.d
+	flavor = grefm.002.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		ig:ig_landowners = {
+			save_scope_as = ig_landowners_scope
+		}
+		set_variable = grefm_1843_revolution_happened
+	}
+	
+	option = {
+		name = grefm.002.a
+		default_option = yes
+		scope:king_otto_scope = {
+			remove_modifier = modifier_grefm_unpopular_ruler
+		}
+		ig:ig_intelligentsia = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		ig:ig_armed_forces = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		ig:ig_rural_folk = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		ig:ig_petty_bourgeoisie = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		set_variable = grefm_constitution_completed
+	}
+	
+}
+
+grefm.003 = { # 3 September 1843 Revolution
+	type = country_event
+	placement = root
+	
+	title = grefm.003.t
+	desc = grefm.003.d
+	flavor = grefm.003.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		if = {
+			limit = {
+				exists = c:EPI
+			}
+			recuit_tzavelas = yes
+		}
+		else = {
+			create_character = {
+				first_name = Kitsos
+				last_name = Tzavelas
+				birth_date = 1800.1.1
+				culture = cu:greek
+				religion = rel:orthodox
+				historical = yes
+				interest_group = ig_armed_forces
+				ideology = ideology_royalist
+				traits = {
+					persistent
+					brave
+				}
+			}
+		}
+		ig:ig_armed_forces = {
+			leader = {
+				save_scope_as = ig_armed_forces_scope
+			}
+		}
+		set_variable = grefm_1843_revolution_happened
+	}
+	
+	option = { # accept the new constitution
+		name = grefm.003.a
+		default_option = yes
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_hereditary_bureaucrats
+				}
+			}
+			activate_law = law_type:law_appointed_bureaucrats
+		}
+		if = {
+			limit = {
+				AND = {
+					OR = {
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_landed_voting
+						has_law = law_type:law_wealth_voting
+						has_law = law_type:law_census_voting
+					}
+					has_technology_researched = egalitarianism
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		else = {
+			activate_law = law_type:law_census_voting
+		}
+		ig:ig_intelligentsia = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced_opposition
+				is_decaying = yes
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_armed_forces = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced_opposition
+				is_decaying = yes
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_rural_folk = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced_opposition
+				is_decaying = yes
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced_opposition
+				is_decaying = yes
+				months = normal_modifier_time
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_constitution_enforced
+			is_decaying = yes
+			months = normal_modifier_time
+		}		
+		ig:ig_landowners = {
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced_landowners
+				is_decaying = yes
+				months = long_modifier_time
+			}
+		}
+		add_loyalists = {
+			value = 0.1
+		}
+		set_variable = grefm_constitution_completed
+	}
+	
+	option = { # Im sorry, Otto is feeling suicidal right now
+		name = grefm.003.b
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_rural_folk = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			value = 0.2
+		}
+		add_journal_entry = {
+			type = je_grefm_the_tyranny_of_house_wittelsbach
+		}
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 0
+		}
+	}
+		
+	
+}
+
+grefm.004  { # lol you really thought that INCREASING autocracy was the solution?
+	type = country_event
+	placement = root
+	
+	title = grefm.004.t
+	desc = grefm.004.d
+	flavor = grefm.004.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		scope:ig_intelligentsia = {
+			leader = {
+				save_scope_as = ig_intelligentsia_scope
+			}
+		}
+		ig:ig_armed_forces = {
+			leader = {
+				save_scope_as = ig_armed_forces_scope
+			}
+		}
+		ig:ig_rural_folk = {
+			leader = {
+				save_scope_as = ig_rural_folk_scope
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			leader = {
+				save_scope_as = ig_petty_bourgeoisie_scope
+			}
+		}
+		set_variable = grefm_1843_revolution_happened
+		
+	}
+	
+	option = {
+		name = grefm.004.a
+		default_option = yes
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		scope:ig_intelligentsia_scope = {
+			set_ideology = ideology:ideology_republican_leader
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		scope:ig_armed_forces_scope = {
+			set_ideology = ideology:ideology_republican_leader
+		}
+		ig:ig_rural_folk = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+			}
+		}
+		scope:ig_rural_folk_scope = {
+			set_ideology = ideology:ideology_republican_leader
+		}
+		ig:ig_petty_bourgeoisie = {
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+			}
+		}
+		scope:ig_petty_bourgeoisie_scope = {
+			set_ideology = ideology:ideology_republican_leader
+		}
+		add_modifier = {
+			name = modifier_grefm_tyrannical_ruler
+			is_decaying = yes
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			value = 0.2
+		}
+		add_journal_entry = {
+			type = je_grefm_the_tyranny_of_house_wittelsbach
+		}
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 0
+		}
+	}
+}
+
+grefm.005 = { # error 404 monarch not found
+	type = country_event
+	placement = root
+	
+	title = grefm.005.t
+	desc = grefm.005.d
+	flavor = grefm.005.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		set_variable = grefm_1843_revolution_happened
+		set_variable = grefm_bavarocracy_removed
+	}
+	
+	option = {
+		name = grefm.005.a
+		default_option = yes
+		ig:ig_intelligentsia = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_bavarocracy_opposition
+				}
+				remove_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_constitution_refused
+				}
+				remove_modifier = modifier_grefm_constitution_refused
+			}
+		}
+		ig:ig_armed_forces = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_bavarocracy_opposition
+				}
+				remove_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_constitution_refused
+				}
+				remove_modifier = modifier_grefm_constitution_refused
+			}
+		}
+		ig:ig_rural_folk = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_bavarocracy_opposition
+				}
+				remove_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_constitution_refused
+				}
+				remove_modifier = modifier_grefm_constitution_refused
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_bavarocracy_opposition
+				}
+				remove_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_constitution_refused
+				}
+				remove_modifier = modifier_grefm_constitution_refused
+			}
+		}
+		ig:ig_landowners = {
+			add_modifier = {
+				name = modifier_grefm_monarchy_abolished
+				is_decaying = yes
+				months = long_modifier_time
+			}
+		}
+		change_relations = {
+			country = c:FRA
+			value = -30
+		}
+		change_relations = {
+			country = c:GBR
+			value = -30
+		}
+		change_relations = {
+			country = c:RUS
+			value = -30
+		}
+	}
+	
+}
+
+
+
+grefm.006 = { # revolution of 1862
+	type = country_event
+	placement = root
+	
+	title = grefm.006.t
+	desc = grefm.006.d
+	flavor = grefm.006.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		heir = {
+			save_scope_as = otto_heir_scope
+		}
+		ig:ig_armed_forces = {
+			leader = {
+				save_scope_as = ig_armed_forces_scope
+			}
+		}
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+		s:STATE_BAVARIA = {
+			random_scope_state = {
+				save_scope_as = bavaria_state_scope
+			}
+		}
+		random_scope_character = {
+			limit = {
+				has_variable = grefm_is_voulgaris
+			}
+			save_scope_as = voulgaris_scope
+		}
+		if = {
+			limit = {
+				NOT = {
+					exists = scope:voulgaris_scope
+				}
+			}
+			ig:ig_intelligentsia = {
+				leader = {
+					save_scope_as = voulgaris_scope # close enough
+				}
+			}
+		}
+		set_variable = grefm_bavarocracy_completed
+	}
+	
+	option = {
+		name = grefm.006.a
+		default_option = yes
+		scope:voulgaris_scope = {
+				set_character_as_ruler = yes
+		}
+		scope:king_otto_scope = {
+			exile_character = yes
+		}
+		if = {
+			limit = {
+				exists = scope:otto_heir_scope
+			}
+			scope:otto_heir_scope = {
+				exile_character = yes
+			}
+		}
+		every_scope_character = {
+			limit = {
+				has_variable = grefm_bavarocrat
+			}
+			exile_character = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_hereditary_bureaucrats
+					has_law = law_type:law_appointed_bureaucrats
+				}
+			}
+			activate_law = law_type:law_elected_bureaucrats
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+					has_law = law_type:law_landed_voting
+					has_law = law_type:law_wealth_voting
+					has_law = law_type:law_census_voting
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		add_loyalists = {
+			value = 0.1
+		}
+		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_reform_modifiers = yes
+		trigger_event = {
+			id = grefm.009
+			days = 30
+		}
+	}
+	
+}
+
+grefm.007 = { # mandate secured
+	type = country_event
+	placement = root
+	
+	title = grefm.007.t
+	desc = grefm.007.d
+	flavor = grefm.007.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		set_variable = grefm_bavarocracy_completed
+	}
+
+	option = {
+		name = grefm.007.a
+		default_option = yes
+		scope:king_otto_scope = {
+			add_modifier = {
+				name = modifier_grefm_just_ruler
+				months = long_modifier_time
+			}
+		}
+		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_reform_modifiers = yes	
+	}
+	
+}
+
+grefm.008 = { # revolution of 1862, but more spicy
+	type = country_event
+	placement = root
+	
+	title = grefm.008.t
+	desc = grefm.008.d
+	flavor = grefm.008.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+		heir = {
+			save_scope_as = otto_heir_scope
+		}
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = ig_intelligentsia_scope
+			}
+		}
+		ig:ig_armed_forces = {
+			leader = {
+				save_scope_as = ig_armed_forces_scope
+			}
+		}
+		ig:ig_rural_folk = {
+			leader = {
+				save_scope_as = ig_rural_folk_scope
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			leader = {
+				save_scope_as = ig_petty_bourgeoisie_scope
+			}
+		}
+		if = {
+			limit = {
+				any_scope_character = {
+					has_variable = grefm_is_voulgaris
+				}
+			}
+			save_scope_as = voulgaris_scope
+		}
+		else = {
+			ig:ig_intelligentsia = {
+				leader = {
+					save_scope_as = voulgaris_scope # close enough
+				}
+			}
+		}
+		set_variable = grefm_bavarocracy_completed
+	}
+	
+	option = {
+		name = grefm.008.a
+		default_option = yes
+		scope:king_otto_scope = {
+			kill_character = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:otto_heir_scope
+				}
+				scope:otto_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		scope:voulgaris_scope = {
+				set_character_as_ruler = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_hereditary_bureaucrats
+					has_law = law_type:law_appointed_bureaucrats
+				}
+			}
+			activate_law = law_type:law_elected_bureaucrats
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+					has_law = law_type:law_landed_voting
+					has_law = law_type:law_wealth_voting
+					has_law = law_type:law_census_voting
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		add_loyalists = {
+			value = 0.1
+		}
+		every_scope_character = {
+			limit = {
+				has_variable = grefm_bavarocrat
+			}
+			exile_character = yes
+		}
+		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_reform_modifiers = yes
+		trigger_event = {
+			id = grefm.009
+			days = 30
+		}
+	}
+	
+}
+
+grefm.009 = { # 1862 head of state referendum
+	type = country_event
+	placement = root
+	
+	title = grefm.009.t
+	desc = grefm.009.d
+	flavor = grefm.009.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_variable = grefm_is_garibaldi
+			}
+			save_scope_as = grefm_garibaldi_scope
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = grefm_bavarocracy_completed }
+			}
+			set_variable = grefm_bavarocracy_completed
+		}
+	}
+	
+	option = { # William of Denmark - the historical option
+		name = grefm.009.1
+		default_option = yes
+		trigger = { # always available
+		}
+		custom_tooltip = {
+			text = grefm.009.1.tt
+			hidden_effect = {
+				create_character = {
+					first_name = George
+					last_name = Glucksburg
+					noble = yes
+					historical = yes
+					age = 17
+					culture = cu:danish
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_royalist
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Philippe de Flandre - the Belgian option
+		name = grefm.009.2
+		trigger = {
+			has_diplomatic_pact = {
+				who = c:BEL
+				type = alliance
+			}
+		}
+		custom_tooltip = {
+			text = grefm.009.2.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Philippe
+					last_name = de_Flandre
+					noble = yes
+					historical = yes
+					age = 25
+					culture = cu:flemish
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_royalist
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
+		name = grefm.009.3
+		trigger = {
+			has_technology_researched = mutual_funds
+			# has_variable = grefm_dr_moneybags_in_the_house
+		}
+		custom_tooltip = {
+			text = grefm.009.3.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Jean_Gabriel
+					last_name = Eynard
+					historical = yes
+					age = 87
+					culture = cu:alemannic
+					religion = rel:catholic
+					interest_group = ig_petty_bourgeoisie
+					ideology = ideology_moderate
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
+		name = grefm.009.4
+		trigger = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		custom_tooltip = {
+			text = grefm.009.4.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Ypsilantis
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+#						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
+		name = grefm.009.5
+		trigger = {
+			exists = scope:grefm_garibaldi_scope
+		}
+		scope:grefm_garibaldi_scope = {
+			set_character_as_ruler = yes
+		}
+	}
+
+	option = { # Make it a republic - unsurprisingly some voters just wrote this option in
+		name = grefm.009.6
+		trigger = {
+			has_technology_researched = egalitarianism
+		}
+		activate_law = law_type:law_presidential_republic
+		trigger_event = {
+			id = grefm.005 # convenient for cleanup, flavor, and damaging relations
+			popup = yes
+		}
+	}
+	
+	option = { # Dredge up a Palaiologos descendant
+		name = grefm.009.7
+		trigger = {
+			has_variable = byzfm_byzantium_formed
+		}
+		custom_tooltip = {
+			text = grefm.009.7.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Palaiologos
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						basic_political_operator
+					}
+					on_created = {
+#						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+	}
+
+}
+
+#### GOVERNMENT REFORM EVENTS ####
+grefm.010 = { # adds je_grefm_greek_constitution
+	type = country_event
+	placement = root
+	
+	title = grefm.010.t
+	desc = grefm.010.d
+	flavor = grefm.010.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by grefm.001
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.010.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_greek_constitution
+		}
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = modifier_grefm_bavarocracy_opposition
+			}
+		}
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = modifier_grefm_bavarocracy_opposition
+			}
+		}
+		ig:ig_rural_folk = {
+			add_modifier = {
+				name = modifier_grefm_bavarocracy_opposition
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			add_modifier = {
+				name = modifier_grefm_bavarocracy_opposition
+			}
+		}
+	}
+
+}
+
+grefm.011 = { # adds je_grefm_land_reform
+	type = country_event
+	placement = root
+	
+	title = grefm.011.t
+	desc = grefm.011.d
+	flavor = grefm.011.f
+	
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by grefm.001
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.011.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_land_reform
+		}
+		add_modifier = {
+			name = modifier_grefm_ispendje
+		}
+	}
+
+}
+
+grefm.012 = { # land reformation complete
+	type = country_event
+	placement = root
+	
+	title = grefm.012.t
+	desc = grefm.012.d
+	flavor = grefm.012.f
+	
+	event_image = {
+		video = "southamerica_factory_opening"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		set_variable = grefm_land_reform_completed
+	}
+	
+	option = {
+		name = grefm.012.a
+		default_option = yes
+		remove_modifier = modifier_grefm_ispendje
+		add_modifier = {
+			name = modifier_grefm_land_tax_reformed
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+grefm.013 = { # adds je_grefm_brigandage
+	type = country_event
+	placement = root
+	
+	title = grefm.013.t
+	desc = grefm.013.d
+	flavor = grefm.013.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		capital = {
+			save_scope_as = brigandage_state
+		}
+		set_variable = {
+			name = grefm_the_brigands_raided_again
+			value = 48 # four years before grem.030 can fire
+		}
+	}
+	
+	option = {
+		name = grefm.013.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_brigandage
+		}
+	}
+
+}
+
+grefm.014 = { # brigands suppressed
+	type = country_event
+	placement = root
+
+	title = grefm.014.t
+	desc = grefm.014.d
+	flavor = grefm.014.f
+
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		set_variable = grefm_brigandage_completed
+	}
+	
+	option = {
+		name = grefm.014.a
+		default_option = yes
+		add_loyalists = {
+			value = small_radicals
+		}
+		add_modifier = {
+			name = modifier_grefm_secured_order
+			months = long_modifier_time
+		}
+		every_scope_state = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_brigandage
+				}
+				remove_modifier = modifier_grefm_brigandage
+			}
+		}
+	}
+	
+}
+
+grefm.015 = { # adds je_grefm_civic_tradition
+	type = country_event
+	placement = root
+	
+	title = grefm.015.t
+	desc = grefm.015.d
+	flavor = grefm.015.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.015.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_civic_tradition
+		}
+		add_modifier = {
+			name = modifier_grefm_poor_administration
+		}
+	}
+
+}
+
+grefm.016 = { # civic reform complete
+	type = country_event
+	placement = root
+	
+	title = grefm.016.t
+	desc = grefm.016.d
+	flavor = grefm.016.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		set_variable = grefm_civic_tradition_completed
+	}
+	
+	option = {
+		name = grefm.016.a
+		default_option = yes
+		remove_modifier = modifier_grefm_poor_administration
+	}
+
+}
+
+
+#### DISORDER EVENTS ####
+grefm.030 = { # the brigands raid again
+	type = country_event
+	placement = scope:brigandage_state
+
+	title = grefm.030.t
+	desc = grefm.030.d
+	flavor = grefm.030.f
+
+	event_image = {
+		video = "votp_cops_march"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by je_grefm_brigandage
+		year > 1838
+		any_scope_state = {
+			NOT = { has_modifier = modifier_grefm_brigandage }
+		}
+		var:grefm_the_brigands_raided_again < 1
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				NOT = { has_modifier = modifier_grefm_brigandage }
+			}
+			save_scope_as = brigandage_state
+		}
+		change_variable = {
+			name = grefm_the_brigands_raided_again
+			add = 36 # three year cooldown
+		}
+	}
+	
+	option = {
+		name = grefm.030.a
+		default_option = yes
+		scope:brigandage_state = {
+			add_modifier = {
+				name = modifier_grefm_brigandage
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+	
+}
+
+
+#####################
+# GREEK NATIONALISM #
+#####################
+
+#### THE MEGALI IDEA ####
+grefm.200 = { # megali idea 1
+	type = country_event
+	placement = root
+
+	title = grefm.200.t
+	desc = grefm.200.d
+	flavor = grefm.200.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		country_has_primary_culture = cu:greek
+		has_technology_researched = nationalism
+		NOT = { has_variable = grefm_megali_idea_1 }
+		NOT = { has_variable = grefm_megali_idea_2 }
+	}
+
+	immediate = {
+		random_primary_culture = {
+			save_scope_as = greek_culture_scope
+		}
+		set_variable = grefm_megali_idea_1
+	}
+
+	option = {
+		name = grefm.200.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_NORTHERN_THRACE
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_MACEDONIA
+					owns_entire_state_region = STATE_MACEDONIA 
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					has_claim = s:STATE_WESTERN_THRACE
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_EAST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_CRETE
+					has_claim = s:STATE_CRETE
+				}
+			}
+			s:STATE_CRETE = {
+				add_claim = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.200.b
+		trigger = {
+			exists = c:TUR
+			c:TUR = {
+				OR = {
+					owns_entire_state_region = STATE_MACEDONIA
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					owns_entire_state_region = STATE_CRETE
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 20
+		}
+		custom_tooltip = {
+			text = grefm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+	}
+}
+
+grefm.201 = { # megali idea phase 2
+	type = country_event
+	placement = root
+
+	title = grefm.201.t
+	desc = grefm.201.d
+	flavor = grefm.201.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		has_variable = grefm_megali_idea_1
+		NOT = { has_variable = grefm_megali_idea_2 }
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_MACEDONIA
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				s:STATE_EASTERN_THRACE = {
+					any_scope_state = {
+						NOT = {
+							owner = ROOT
+						}
+					}
+				}
+			}
+			s:STATE_EASTERN_THRACE = {
+				random_scope_state = {
+					limit = {
+						NOT = {
+							owner = ROOT
+						}
+					}
+					owner = {
+						save_scope_as = thrace_owner
+					}
+				}
+			}
+		}
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = thrace_scope
+			}
+		}
+		s:STATE_AYDIN = {
+			random_scope_state = {
+				save_scope_as = aydin_scope
+			}
+		}
+		random_scope_state = {
+			limit = {
+				is_capital = yes
+			}
+			save_scope_as = grefm_capital_state
+		}
+		set_variable = grefm_megali_idea_2
+	}
+
+	option = { # vanilla option 1
+		name = grefm.201.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_megali_idea
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
+			}
+			s:STATE_EASTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_AYDIN }
+			}
+			s:STATE_AYDIN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_ALBANIA }
+			}
+			s:STATE_ALBANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_SKOPIA }
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:thrace_owner
+			}
+			create_incident = {
+				country = scope:thrace_owner
+				value = 20
+			}
+		}
+	}
+	
+	option = { # grefm option to remain as Greece but still get the Megali Idea chain
+		name = grefm.201.e
+		add_journal_entry = {
+			type = je_grefm_megali_idea
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
+			}
+			s:STATE_EASTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_AYDIN }
+			}
+			s:STATE_AYDIN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_ALBANIA }
+			}
+			s:STATE_ALBANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_SKOPIA }
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:thrace_owner
+			}
+			create_incident = {
+				country = scope:thrace_owner
+				value = 20
+			}
+		}
+		custom_tooltip = {
+			text = grefm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+		custom_tooltip = {
+			text = grefm_tzatzikisauce_tt
+			hidden_effect = {
+				set_variable = grefm_tzatzikisauce
+			}
+		}
+	}
+	
+	option = { # vanilla option 3, reordered for presentability
+		name = grefm.201.c
+		trigger = {
+			OR = {
+				NOT = { owns_entire_state_region = STATE_AYDIN }
+				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
+				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
+				NOT = { owns_entire_state_region = STATE_TRABZON }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_AYDIN }
+			}
+			s:STATE_AYDIN = {
+				remove_homeland = greek
+				custom_tooltip = {
+					text = move_greeks_tt
+					every_scope_state = {
+						every_scope_pop = {
+							limit = {
+								culture = cu:greek
+							}
+							move_pop = root.capital
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
+			}
+			s:STATE_EASTERN_THRACE = {
+				remove_homeland = greek
+				custom_tooltip = {
+					text = move_greeks_tt
+					every_scope_state = {
+						every_scope_pop = {
+							limit = {
+								culture = cu:greek
+							}
+							move_pop = root.capital
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
+			}
+			s:STATE_HUDAVENDIGAR = {
+				remove_homeland = greek
+				custom_tooltip = {
+					text = move_greeks_tt
+					every_scope_state = {
+						every_scope_pop = {
+							limit = {
+								culture = cu:greek
+							}
+							move_pop = root.capital
+						}
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_weaksauce_tt_2
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+		custom_tooltip = {
+			text = grefm.201.c.tt
+		}
+	}
+	
+	option = { # vanilla option 2, reordered for presentability
+		name = grefm.201.b
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
+		}
+		custom_tooltip = {
+			text = grefm_weaksauce_tt_2
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+	}
+	
+}
+
+grefm.202 = { # megali idea complete
+	type = country_event
+	placement = root
+	
+	title = grefm.202.t
+	desc = grefm.202.d
+	flavor = grefm.202.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		set_variable = grefm_megali_idea_3 # enables post-MI events (sorry, cath lab's OOS)
+	}
+	
+	option = {
+		name = grefm.202.a
+		default_option = yes
+		trigger = {
+			NOT = { has_variable = byzfm_weaksauce }
+		}
+		change_tag = BYZ
+		hidden_effect = {
+			trigger_event = {
+				id = byzfm.100 # lets go
+				days = 1 # lets the names update
+				popup = yes
+			}
+		}		
+	}
+	
+	option = {
+		name = grefm.202.b
+		trigger = {
+			NOT = { has_variable = byzfm_weaksauce }
+		}
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
+		}
+		custom_tooltip = {
+			text = grefm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+		custom_tooltip = {
+			text = grefm_tzatzikisauce_tt
+			hidden_effect = {
+				set_variable = grefm_tzatzikisauce
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.202.c
+		trigger = {
+			has_variable = grefm_tzatzikisauce
+		}
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
+		}
+	}
+}
+
+grefm.203 = { # the fate of the turks
+	type = country_event
+	placement = root
+	
+	title = grefm.203.t
+	desc = grefm.203.d
+	flavor = grefm.203.f
+
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		has_variable = grefm_megali_idea_3
+		has_technology_researched = civilizing_mission
+		NOT = {	has_variable = grefm_greek_homelands_event }
+	}
+		
+	immediate = {
+		set_variable = grefm_greek_homelands_event
+	}
+	
+	option = {
+		name = grefm.203.a
+		add_primary_culture = cu:turkish
+		add_radicals = {
+			culture = cu:greek
+			value = large_radicals
+		}
+		add_loyalists = {
+			culture = cu:turkish
+			value = medium_radicals
+		}
+		every_scope_state = {
+			add_modifier = {
+				name = modifier_grefm_turkish_integration
+				months = long_modifier_time
+			}
+		}
+	}
+		
+	option = {
+		name = grefm.203.b
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = greek_nationalism
+				}
+			}
+			add_modifier = {
+				name = greek_nationalism
+				months = long_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				exists = c:TUR
+			}
+			change_relations = {
+				country = c:TUR
+				value = -20
+			}
+		}
+		else = {
+			change_infamy = 5
+		}
+		set_variable = grefm_megali_idea_4 # enables turkish homelands event
+	}
+
+}
+
+grefm.204 = { # turkish homelands event
+	type = country_event
+	placement = scope:turkish_homeland_state
+	
+	title = grefm.204.t
+	desc = grefm.204.d
+	flavor = grefm.204.f
+	
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # will trigger for any state that shares Greek and Turkish homelands
+		has_variable = grefm_megali_idea_4
+		any_scope_state = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					AND = {
+						is_homeland = cu:turkish
+						is_homeland = cu:greek
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				AND = {
+					NOT = { has_variable = grefm_turkish_reserve }
+					state_region = {
+						AND = {
+							is_homeland = cu:turkish
+							is_homeland = cu:greek
+						}
+					}
+				}
+			}
+			save_scope_as = turkish_homeland_state
+		}
+	}
+	
+	option = { # kick them out
+		name = grefm.204.a
+		default_option = yes
+		scope:turkish_homeland_state = {
+			add_culture_standard_of_living_modifier = {
+				culture = cu:turkish
+				months = long_modifier_time
+				multiplier = -2
+			}
+			state_region = {
+				remove_homeland = turkish
+			}
+		}
+		add_radicals = {
+			culture = cu:turkish
+			value = medium_radicals
+		}
+	}
+	
+	option = { # set up a reserve
+		name = grefm.204.b
+		trigger = {
+			any_scope_state = {
+				NOT = { has_variable = grefm_turkish_reserve }
+			}
+		}
+		scope:turkish_homeland_state = {
+			add_culture_standard_of_living_modifier = {
+				culture = cu:turkish
+				months = long_modifier_time
+				multiplier = 2
+			}
+			add_loyalists_in_state = {
+				culture = cu:turkish
+				value = large_radicals
+			}
+			set_variable = grefm_turkish_reserve
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = small_radicals
+		}
+	}
+
+}
+
+grefm.205 = { # greek homeland expansion
+	type = country_event
+	placement = root
+	
+	title = grefm.205.t
+	desc = grefm.205.d
+	flavor = grefm.205.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		has_variable = grefm_megali_idea_3 # homelands will expand regardless of turkish homeland outcome
+		any_scope_state = {
+			AND = {
+				is_incorporated = yes
+				state_region = {
+					AND = {
+						state_in_anatolia = yes
+						NOT = { is_homeland = cu:greek }
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				AND = {
+					is_incorporated = yes
+					state_region = {
+						AND = {
+							state_in_anatolia = yes
+							NOT = { is_homeland = cu:greek }
+						}
+					}
+				}
+			}
+			save_scope_as = grefm_expansion_state
+		}
+	}
+	
+	
+	option = {
+		name = grefm.205.a
+		default_option = yes
+		scope:grefm_expansion_state = {
+			state_region = {
+				add_homeland = greek
+				
+			}
+		}
+	}
+
+}
+
+#### REVOLT EVENTS ####
+grefm.210 = { # option to provoke Epirote revolt
+	type = country_event
+	placement = root
+	
+	title = grefm.210.t
+	desc = grefm.210.d
+	flavor = grefm.210.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		country_has_primary_culture = cu:greek
+		has_technology_researched = nationalism
+		has_technology_researched = romanticism
+		exists = c:TUR
+		c:TUR = {
+			owns_entire_state_region = STATE_ALBANIA
+			is_player = no
+		}
+		NOT = { has_variable = byzfm_weaksauce }
+		NOT = { has_global_variable = grefm_epirus_revolt_considered }
+	}
+	
+	immediate = {
+		set_global_variable = grefm_epirus_revolt_considered
+	}
+	
+	option = { # give the Turks a wedgie
+		name = grefm.210.a
+		default_option = yes
+		change_relations = {
+			country = c:TUR
+			value = -15
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_insurrection
+			multiplier = money_amount_multiplier_medium
+			months = short_modifier_time
+		}
+		set_global_variable = grefm_epirus_revolt_greenlight
+	}
+	
+	option = { # play nice
+		name = grefm.210.b
+		change_relations = {
+			country = c:TUR
+			value = 10
+		}
+	}
+
+	cancellation_trigger = {
+		c:TUR = {
+			is_subject_of = ROOT
+		}
+	}	
+	
+}
+
+grefm.211 = { # Epirus revolt
+	type = country_event
+	placement = scope:albania_scope
+	
+	title = grefm.211.t
+	desc = grefm.211.d
+	flavor = grefm.211.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		owns_entire_state_region = STATE_ALBANIA		
+		is_at_war = yes
+		has_global_variable = grefm_epirus_revolt_greenlight
+		NOT = { has_global_variable = grefm_epirus_revolt_happened }
+	}
+
+	immediate = {
+		set_global_variable = grefm_epirus_revolt_happened
+		s:STATE_ALBANIA = {
+			random_scope_state = {
+				save_scope_as = albania_scope
+			}
+		}
+		create_country = {
+			tag = EPI
+			origin = this
+			province = p:xC42EC6
+			province = p:x7BE071
+			on_created = {
+			}
+		}
+		c:EPI = {
+			save_scope_as = epirus_scope
+			create_epirus_characters = yes
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = grefm.211.a
+		default_option = yes
+		scope:ottoman_scope = {
+			create_diplomatic_play = {
+				name = grefm_epirus_rebellion
+				target_country = c:EPI
+				type = dp_secession
+			}
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:EPI = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:EPI value = 100 }
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = c:GRE
+				}
+				c:GRE = {
+					trigger_event = {
+						id = grefm.212 # notifies GRE
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = c:BYZ
+				}
+				c:BYZ = {
+					trigger_event = {
+						id = grefm.212 # notifies BYZ
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+grefm.212 = { # notification of epirus revolt with option to join
+	type = country_event
+	placement = scope:albania_scope
+	
+	title = grefm.212.t
+	desc = grefm.212.d
+	flavor = grefm.212.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by grefm.211
+	}
+
+	immediate = {
+		s:STATE_ALBANIA = {
+			random_scope_state = {
+				save_scope_as = albania_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.212.a
+		default_option = yes
+		change_relations = {
+			country = c:EPI
+			value = 20
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			add_modifier = {
+				name = modifier_grefm_repudiated_truce
+				months = normal_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			create_incident = {
+				country = c:TUR
+				value = 15
+			}
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			end_truce = {
+				country = c:TUR
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.212.b
+		change_relations = {
+			country = c:EPI
+			value = -50
+		}
+		add_modifier = {
+			name = modifier_grefm_chickenshit
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+grefm.213 = { # option to provoke Cypriot revolt
+	type = country_event
+	placement = root
+	
+	title = grefm.213.t
+	desc = grefm.213.d
+	flavor = grefm.213.f
+	
+	placement = root
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		country_has_primary_culture = cu:greek
+		has_technology_researched = pan-nationalism
+		exists = c:TUR
+		c:TUR = {
+			owns_entire_state_region = STATE_CYPRUS	
+			is_player = no
+		}
+		NOT = { has_variable = byzfm_weaksauce }
+		NOT = { has_global_variable = grefm_cyprus_revolt_considered }
+	}
+	
+	immediate = {
+		set_global_variable = grefm_cyprus_revolt_considered
+	}
+	
+	option = { # give the Turks another wedgie
+		name = grefm.213.a
+		default_option = yes
+		change_relations = {
+			country = c:TUR
+			value = -15
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_insurrection
+			multiplier = money_amount_multiplier_medium
+			months = short_modifier_time
+		}
+		set_global_variable = grefm_cyprus_revolt_greenlight
+	}
+	
+	option = { # play nice
+		name = grefm.213.b
+		change_relations = {
+			country = c:TUR
+			value = 10
+		}
+	}
+	
+	cancellation_trigger = {
+		c:TUR = {
+			is_subject_of = ROOT
+		}
+	}
+
+}
+				
+grefm.214 = { # cypriot revolt
+	type = country_event
+	placement = scope:cyprus_state_scope
+	
+	title = grefm.214.t
+	desc = grefm.214.d
+	flavor = grefm.214.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		owns_entire_state_region = STATE_CYPRUS		
+		is_at_war = yes
+		has_global_variable = grefm_cyprus_revolt_greenlight
+		NOT = { has_global_variable = grefm_cyprus_revolt_happened }
+	}
+
+	immediate = {
+		set_global_variable = grefm_cyprus_revolt_happened
+		s:STATE_CYPRUS = {
+			random_scope_state = {
+				save_scope_as = cyprus_state_scope
+			}
+		}
+		create_country = {
+			tag = CYP
+			origin = this
+			state = s:STATE_CYPRUS.region_state:TUR
+			on_created = {
+			}
+		}
+		c:CYP = {
+			save_scope_as = cyprus_scope
+			create_cyprus_characters = yes
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = grefm.214.a
+		default_option = yes
+		scope:ottoman_scope = {
+			create_diplomatic_play = {
+				name = grefm_cyprus_rebellion
+				target_country = c:CYP
+				type = dp_secession
+			}
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:CYP = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:CYP value = 100 }
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = c:GRE
+				}
+				c:GRE = {
+					trigger_event = {
+						id = grefm.215 # notifies GRE
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = c:BYZ
+				}
+				c:BYZ = {
+					trigger_event = {
+						id = grefm.215 # notifies BYZ
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+grefm.215 = { # notification of epirus revolt with option to join
+	type = country_event
+	placement = scope:cyprus_state_scope
+	
+	title = grefm.215.t
+	desc = grefm.215.d
+	flavor = grefm.215.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by grefm.0017
+	}
+
+	immediate = {
+		s:STATE_CYPRUS = {
+			random_scope_state = {
+				save_scope_as = cyprus_state_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.215.a
+		default_option = yes
+		change_relations = {
+			country = c:CYP
+			value = 20
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			add_modifier = {
+				name = modifier_grefm_repudiated_truce
+				months = normal_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			create_incident = {
+				country = c:TUR
+				value = 15
+			}
+		}
+		if = {
+			limit = {
+				has_truce_with = c:TUR
+			}
+			end_truce = {
+				country = c:TUR
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.215.b
+		change_relations = {
+			country = c:CYP
+			value = -50
+		}
+		add_modifier = {
+			name = modifier_grefm_chickenshit
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+grefm.216 = { # cretian revolt repeatable trigger
+	orphan = yes
+}
+
+grefm.217 = { # Cretian revolt
+	orphan = yes
+}
+
+grefm.220 = { # ION annexation
+	type = country_event
+	placement = scope:ionian_overlord_capital
+
+	title = grefm.220.t
+	desc = grefm.220.d
+	flavor = grefm.220.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by decision
+	}
+
+	immediate = {
+		c:ION = {
+			save_scope_as = ionian_country
+			top_overlord = {
+				save_scope_as = ionian_overlord
+				capital = {
+					save_scope_as = ionian_overlord_capital
+				}
+			}
+		}
+	}
+
+	option = {
+		name = grefm.220.a
+		default_option = yes
+		annex = c:ION
+	}
+}
+
+
+grefm.221 = { # EPI annexation
+	type = country_event
+	placement = scope:epirus_capital
+	
+	title = grefm.221.t
+	desc = grefm.221.d
+	flavor = grefm.221.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+	}
+
+	immediate = {
+		c:EPI = {
+			save_scope_as = epirus_scope
+			capital = {
+				save_scope_as = epirus_capital
+			}
+		}
+	}
+
+	option = {
+		name = grefm.221.a
+		default_option = yes
+		annex = c:EPI
+	}
+}
+
+grefm.222 = { # CYP annexation
+	type = country_event
+	placement = scope:cyprus_capital
+	
+	title = grefm.222.t
+	desc = grefm.222.d
+	flavor = grefm.222.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+	}
+
+	immediate = {
+		c:CYP = {
+			save_scope_as = cyprus_scope
+			capital = {
+				save_scope_as = cyprus_capital
+			}
+		}
+	}
+
+	option = {
+		name = grefm.222.a
+		default_option = yes
+		annex = c:CYP
+	}
+}
+
+
+###################
+# CULTURAL EVENTS #
+###################
+
+#### MONUMENT EVENTS ####
+grefm.300 = { # olympics restarted
+	type = country_event
+	placement = root
+	
+	title = grefm.300.t
+	desc = grefm.300.d
+	flavor = grefm.300.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		has_variable = revive_olympics_decision_taken
+		has_modifier = modifier_olympic_games
+	}
+	
+	immediate = {
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = attica_state
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.300.a
+		default_option = yes
+		add_loyalists = {
+			value = small_radicals
+			culture = cu:greek
+		}
+		custom_tooltip = {
+			text = grefm.300.tt
+			hidden_effect = {
+				remove_modifier = modifier_olympic_games
+				add_modifier = modifier_grefm_olympic_games
+			}
+		}
+	}
+	
+}
+
+grefm.301 = { # canal survey finished
+	type = country_event
+	placement = scope:corinth_canal_site
+	
+	title = grefm.301.t
+	desc = grefm.301.d
+	flavor = grefm.301.f
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		# triggered by je_byzfm_mega_palation_survey
+	}
+	
+	immediate = {
+		s:STATE_PELOPONNESE = {
+			random_scope_state = {
+				save_scope_as = corinth_canal_site
+			}
+		}
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = ig_intelligentsia_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.301.a
+		default_option = yes
+		remove_modifier = modifier_grefm_corinth_canal_survey	
+		scope:corinth_canal_site = {
+			add_modifier = {
+				name = modifier_grefm_corinth_canal_site
+			}
+		}
+	}
+	
+}
+
+grefm.302 = { # canal completed
+	type = country_event
+	placement = scope:corinth_canal_site
+	
+	title = grefm.302.t
+	desc = grefm.302.d
+	flavor = grefm.302.f
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		any_scope_building = {
+			is_building_type = building_corinth_canal
+			occupancy >= 0.9
+		}
+		NOT = {
+			has_variable = grefm_canal_completed
+		}
+	}
+
+	immediate = {
+		s:STATE_PELOPONNESE = {
+			random_scope_state = {
+				save_scope_as = corinth_canal_site
+			}
+		}
+	}
+
+	option = {
+		name = grefm.302.a
+		default_option = yes
+		scope:corinth_canal_site = {
+			remove_modifier = modifier_grefm_corinth_canal_site
+		}
+		set_variable = grefm_canal_completed
+	}
+
+}
+
+grefm.303 = { # option to build the royal palace
+	type = country_event
+	placement = scope:palaia_anaktora_site
+	
+	title = grefm.303.t
+	desc = grefm.303.d
+	flavor = grefm.303.f
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		owns_entire_state_region = STATE_ATTICA
+		has_law = law_type:law_monarchy
+		has_variable = byzfm_weaksauce
+		has_variable = grefm_1843_revolution_happened
+		NOT = { has_variable = byzfm_byzantium_formed }
+		NOT = { has_variable = grefm_royal_residence_considered }
+	}
+
+	immediate = {
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = palaia_anaktora_site
+			}
+		}
+		set_variable = grefm_royal_residence_considered
+	}
+	
+	option = { # hell yeah
+		name = grefm.303.a
+		scope:palaia_anaktora_site = {
+			custom_tooltip = {
+				text = grefm_palaia_site_tt
+				hidden_effect = {
+					set_variable = grefm_palaia_site
+				}
+			}
+			add_radicals_in_state = {
+  				value = small_radicals
+  			}
+		}
+		change_relations = {
+			country = c:BAV
+			value = 25
+		}
+	}
+
+	option = { # hell no
+		default_option = yes
+		name = grefm.303.b
+		every_interest_group = {
+			limit = {
+				law_stance = {
+					law = law_type:law_monarchy
+					value > neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_ig_disapprove_of_no_palace
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+grefm.304 = { # Patriarchal Academy of Constantinople
+	type = country_event
+	placement = scope:university_state
+
+	title = grefm.304.t
+	desc = grefm.304.d
+	flavor = grefm.304.f
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:university_benefactor
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		country_has_primary_culture = cu:greek
+		NOT = { has_variable = grefm_university_considered }
+		has_technology_researched = romanticism
+		owns_entire_state_region = STATE_EASTERN_THRACE
+	}
+
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = { 
+				save_scope_as = university_benefactor
+			}
+		}
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = university_state
+			}
+		}
+		set_variable = grefm_university_considered
+	}
+
+	option = {
+		name = grefm.304.a
+		default_option = yes
+		trigger = {
+			scope:university_state = {
+				NOT = { has_building = building_university }
+			}
+		}
+		scope:university_state = {
+			create_building = {
+ 				building="building_university"
+ 				level=1
+ 				reserves=1
+ 			}
+		}
+		scope:university_benefactor.interest_group = {
+			add_modifier = {
+				name = modifier_university_built
+				months = normal_modifier_time
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.304.b
+		trigger = {
+			scope:university_state = {
+				has_building = building_university
+			}
+		}
+		scope:university_state = {
+			add_modifier = {
+ 				name = modifier_byzfm_great_school_of_the_nation
+ 				months = normal_modifier_time
+ 			}
+		}
+	}
+
+	option = {
+		name = grefm.304.c
+		scope:university_benefactor.interest_group = {
+			add_modifier = {
+				name = modifier_blocked_building_university
+				months = normal_modifier_time
+			}
+		}
+	}
+}
+
+grefm.305 = { # option to switch capital to Constantinople
+	type = country_event
+	placement = root
+	
+	title = grefm.305.t
+	desc = grefm.305.d
+	flavor = grefm.305.f
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		OR = {
+			has_journal_entry = je_grefm_megali_idea
+			has_variable = grefm_tzatzikisauce
+		}
+		s:STATE_EASTERN_THRACE = {
+			any_scope_state = {
+				is_capital = no
+			}
+		}
+		NOT = { has_variable = grefm_capital_considered }		
+	}
+
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = eastern_thrace_scope
+			}
+		}
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = attica_scope
+			}
+		}
+		set_variable = grefm_capital_considered
+	}
+	
+	cancellation_trigger = {
+		s:STATE_EASTERN_THRACE = {
+			any_scope_state = {
+				is_capital = yes
+			}
+		}
+	}
+	
+	option = { # yes please
+		name = grefm.305.a
+		default_option = yes
+		set_capital = STATE_EASTERN_THRACE
+		scope:eastern_thrace_scope = {
+			add_loyalists_in_state = {
+				value = medium_radicals
+				culture = cu:greek
+			}
+		}
+	}
+		
+	option = { # no I'm a poor boy
+		name = grefm.305.b
+		scope:attica_scope = {
+			add_modifier = {
+				name = modifier_grefm_development_focus
+				months = normal_modifier_time
+			}
+			add_loyalists_in_state = {
+				value = small_radicals
+				culture = cu:greek
+			}		
+		}
+	}
+
+}
+
+#### GREEK ORTHODOX CHURCH EVENTS ####
+grefm.310 = { # tomos of 1850
+	type = country_event
+	placement = root
+	
+	title = grefm.310.t
+	desc = grefm.310.d
+	flavor = grefm.310.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		c:GRE ?= this
+		year > 1849
+		NOT = { has_variable = byzfm_byzantium_formed }
+		NOT = { has_global_variable = grefm_tomos_of_1850_happened }
+	}
+	
+	immediate = {
+		set_global_variable = grefm_tomos_of_1850_happened
+	}
+	
+	option = {
+		name = grefm.310.a
+		default_option = yes
+		custom_tooltip = {
+			text = grefm.310.a.tt
+			hidden_effect = {
+				set_variable = grefm_tomos_of_autocephaly
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_autocephaly_granted
+			months = long_modifier_time
+		}
+	}
+	
+	option = {
+		name = grefm.310.b
+		set_variable = grefm_tomos_rejected
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_grefm_tomos_rejected
+				months = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			value = small_radicals
+			religion = rel:orthodox
+		}
+	}
+
+}
+
+grefm.311 = { # Jonas King arrives
+	orphan = yes
+}
+
+
+#############
+# TECHNICAL #
+#############
+grefm.900 = { # sets up grefm
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = { # game start trigger
+	}
+	
+	immediate = {
+		add_declared_interest = region_anatolia
+#		set_global_variable = grefm_mod_active
+	}
+	
+}
+
+
+grefm.901 = { # removes grefm.5 penalty if monarchy is restored
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		has_variable = grefm_bavarocracy_removed
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		ig:ig_landowners = {
+			if = {
+				limit = {
+					has_modifier = modifier_grefm_monarchy_abolished
+				}
+				remove_modifier = modifier_grefm_monarchy_abolished
+			}
+		}
+		remove_variable = grefm_bavarocracy_removed
+	}
+	
+}

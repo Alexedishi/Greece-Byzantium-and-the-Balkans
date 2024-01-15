@@ -1,0 +1,151 @@
+﻿grefm_corinth_canal_decision = {
+	is_shown = {
+		has_technology_researched = railways
+		has_variable = grefm_1843_revolution_happened
+		NOT = {
+			any_scope_building = {
+				is_building_type = building_corinth_canal
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = modifier_grefm_corinth_canal_survey
+			}
+		}
+		NOT = {
+			has_variable = grefm_corinth_canal_var
+		}
+	}
+	
+	possible = {	
+		produced_bureaucracy > 500
+		owns_entire_state_region = STATE_PELOPONNESE
+	}
+	
+	when_taken = {
+		set_variable = { 
+			name = grefm_corinth_canal_var
+			value = 0
+		}
+		add_modifier = {
+			name = modifier_grefm_corinth_canal_survey
+			months = 24
+		}
+		add_journal_entry = {
+			type = je_grefm_corinth_canal_survey
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = { produced_bureaucracy > 2500 }
+			add = 5
+		}	
+		modifier = {
+			trigger = { 
+				produced_bureaucracy > 5000 
+				any_country = {
+					is_ai = no
+					has_variable = grefm_corinth_canal_var
+				}
+			}
+			add = 50
+		}
+		modifier = {
+			OR = {
+				is_diplomatic_play_committed_participant = yes
+				is_at_war = yes
+			}
+			add = -1000
+		}	
+	}
+}
+
+
+
+grefm_annex_epirus_decision = {
+	is_shown = {
+		NOT = { has_variable = byzfm_epirus_var }
+		country_has_primary_culture = cu:greek
+		is_subject = no
+		exists = c:EPI
+		c:EPI = {
+			OR = {
+				is_subject = no
+				is_subject_of = ROOT
+			}
+			is_player = no
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:EPI = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+		c:EPI = {
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = byzfm_epirus_var
+		custom_tooltip = treaty_of_eprius_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.221
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+
+grefm_annex_cyprus_decision = {
+	is_shown = {
+		NOT = { has_variable = byzfm_cyprus_var }
+		country_has_primary_culture = cu:greek
+		is_subject = no
+		exists = c:CYP
+		c:CYP = {
+			is_subject = no
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:CYP = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+		c:CYP = {
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = byzfm_cyprus_var
+		custom_tooltip = treaty_of_cyprus_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.222
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}

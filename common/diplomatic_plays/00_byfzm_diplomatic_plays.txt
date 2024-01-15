@@ -1,0 +1,54 @@
+﻿dp_crusade = {
+	texture = "gfx/interface/icons/war_goals/crusade.dds"
+	
+	war_goal = make_dominion
+	
+	initiator_can_add_war_goals = no
+	
+	selectable_in_lens = {
+		has_variable = byzfm_crusades_unlocked
+	}
+	
+	possible = {
+		hidden_trigger = {
+			has_variable = byzfm_crusades_unlocked
+			NOT = { has_modifier = modifier_byzfm_crusade_launched }
+		}
+		NOT = { is_country_type = decentralized }
+		aggressive_diplomatic_plays_permitted = yes		
+		scope:target_country = {
+			OR = {
+				religion = rel:sunni
+				religion = rel:shiite
+			}
+		}
+		
+	}
+
+	on_weekly_pulse = {
+		scope:target_country = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = crusade_target
+					}
+				}
+				set_variable = crusade_target
+			}
+		}
+	}
+
+	on_war_begins = {
+		scope:initiator = {
+			add_modifier = {
+				name = modifier_byzfm_crusade_launched
+				months = 24
+			}
+		}
+			
+	}
+
+	on_war_end = {
+	}
+	
+}

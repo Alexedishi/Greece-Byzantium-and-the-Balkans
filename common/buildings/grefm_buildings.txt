@@ -1,0 +1,79 @@
+﻿building_corinth_canal = {
+	building_group = bg_monuments
+	texture = "gfx/interface/icons/building_icons/building_corinth_canal.dds"
+	
+	expandable = no
+	downsizeable = no
+	unique = yes
+
+	production_method_groups = {
+		pmg_base_building_corinth_canal
+	}
+
+	required_construction = construction_cost_monument	
+	
+	can_build_government = {
+		error_check = {
+			severity = fail
+			custom_tooltip = {
+				text = corinth_canal_can_construct_tt
+				has_modifier = modifier_grefm_corinth_canal_site
+			}
+		}
+		error_check = {
+			severity = invalid
+			this = {
+				state_region = s:STATE_PELOPONNESE
+			}
+		}
+	}
+	can_build_private = {
+		error_check = {
+			severity = potential
+			always = no
+		}
+	}	
+
+	ai_value = 1000
+
+}
+
+building_palaia_anaktora = {
+	building_group = bg_monuments
+	texture = "gfx/interface/icons/building_icons/building_palaia_anaktora.dds"
+	
+	expandable = no
+	downsizeable = no
+	unique = yes
+
+	production_method_groups = {
+		pmg_base_building_palaia_anaktora
+	}
+
+	required_construction = construction_cost_medium	
+	
+	can_build_government = {
+		error_check = {
+			severity = fail
+			custom_tooltip = {
+				text = palaia_anaktora_can_construct_tt
+				has_variable = grefm_palaia_site
+			}
+		}
+		error_check = {
+			severity = invalid
+			this = {
+				state_region = s:STATE_ATTICA
+			}
+		}
+	}
+	can_build_private = {
+		error_check = {
+			severity = potential
+			always = no
+		}
+	}	
+
+	ai_value = 1000
+
+}

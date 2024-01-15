@@ -1,0 +1,243 @@
+﻿clean_up_bavarocracy_modifiers = {
+	ig:ig_intelligentsia = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_armed_forces = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_rural_folk = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_petty_bourgeoisie = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_tyrannical_ruler
+		}
+		remove_modifier = modifier_grefm_tyrannical_ruler
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_bavarocracy
+		}
+		remove_modifier = modifier_grefm_bavarocracy
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = grefm_bavarocracy_removed }
+		}
+		set_variable = grefm_bavarocracy_removed
+	}
+}
+
+clean_up_bavarocracy_reform_modifiers = {
+	every_scope_state = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_brigandage
+			}
+			remove_modifier = modifier_grefm_brigandage
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_ispendje
+			}
+			remove_modifier = modifier_grefm_ispendje
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_poor_administration
+			}
+			remove_modifier = modifier_grefm_poor_administration
+		}
+	}
+}
+
+create_bavarocracy_characters = { # unused
+	create_character = {
+		first_name = Dimitrios
+		last_name = Voulgaris
+		birth_date = 1802.12.20
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		ig_leader = yes
+		interest_group = ig_intelligentsia
+		ideology = ideology_social_democrat
+		traits = {
+			expert_political_operator
+			brave
+			direct
+		}
+		on_created = {
+			set_variable = grefm_is_voulgaris
+		}
+	}
+	
+	create_character = {
+		first_name = Alexandros
+		last_name = Mavrokordatos
+		birth_date = 1791.2.11
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		interest_group = ig_intelligentsia
+		ideology = ideology_social_democrat
+		traits = {
+			basic_political_operator
+			persistent
+			meticulous
+		}
+		on_created = {
+#			set_variable = grefm_phanariot
+			add_character_role = agitator
+		}
+	}
+
+}
+
+
+create_cyprus_characters = {
+	create_character = {
+		first_name = Nikodemos
+		last_name = Mylonas
+		age = 65
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		ig_leader = yes
+		interest_group = ig_devout
+		hq = region_anatolia
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		commander_rank = commander_rank_2
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	
+}
+
+create_epirus_characters = {
+	create_character = {
+		first_name = Theodoros
+		last_name = Grivas
+		historical = yes
+		birth_date = 1797.1.1
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		ig_leader = yes
+		interest_group = ig_armed_forces
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	
+	create_character = {
+		first_name = Kitsos
+		last_name = Tzavelas
+		birth_date = 1800.1.1
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		interest_group = ig_armed_forces
+		hq = region_balkans
+		ideology = ideology_royalist
+		commander_rank = commander_rank_2
+		traits = {
+			persistent
+			brave
+		}
+		on_created = {
+			set_variable = grefm_is_tzavelas
+		}
+	}
+	
+}
+
+purge_turkish_homelands = {
+	every_scope_state = {
+		limit = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					is_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:turkish
+			value = small_radicals
+		}
+		state_region = {
+			remove_homeland = turkish
+		}
+	}
+}
+
+recuit_tzavelas = {
+	random_character = {
+		limit = {
+			has_variable = grefm_is_tzavelas
+		}
+		save_scope_as = tzavelas_scope
+	}
+	scope:tzavelas_scope = {
+		transfer_character = c:GRE
+		set_as_interest_group_leader = yes
+	}
+}
