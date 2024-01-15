@@ -1,0 +1,179 @@
+﻿on_monthly_pulse_country = {
+	on_actions = {
+		balkfm_monthly_pulse
+		bul_flavor_pulse
+		ser_flavor_pulse
+		mon_flavor_pulse
+	}
+}
+
+on_wargoal_enforced = {
+	on_actions = {
+		balkfm_crisis_wargoal_enforced
+	}
+}
+
+
+############
+
+balkfm_monthly_pulse = { # These events are persistently monitored
+	events = {
+		grefm.901 # non-GRE claims
+		grefm.903 # removes crete revolt variable
+		grefm.904 # revolt preemption
+		grefm.910 # EPI customs union
+		grefm.911 # epirote revolt
+		grefm.912 # cypriot revolt
+		grefm.913 # macedonian revolt
+		grefm.915 # assigns the revolt JE
+		
+		balkfm.100 # Creates Crisis DP and Escalates It
+		balkfm.911 # Creates BUL & ERUM
+	}
+}
+
+bul_flavor_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:bulgarian
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+}
+
+ser_flavor_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:serb
+		OR = {
+			c:SER ?= this
+		}
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+}
+
+mon_flavor_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:serb
+		OR = {
+			c:MON ?= this
+		}
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+}
+		
+		
+############
+
+#These on_actions are specifically to catch Bulgaria and create it as BUL & ERUM if possible
+
+on_country_released_as_independent = {
+	on_actions = {
+		bulfm_release_pulse
+	}
+}
+
+on_country_released_as_own_subject = {
+	on_actions = {
+		bulfm_release_pulse
+	}
+}
+
+bulfm_release_pulse = {
+	effect = {
+		if = {
+			limit = {
+				c:BUL ?= scope:target
+				NOT = { has_global_variable = bulfm_lion_awakened }
+			}
+			scope:target = {
+				set_bulgarian_laws = yes
+				create_bulgarian_characters = yes
+				trigger_event = {
+					id = balkfm.500 # The Golden Lion Awakens
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			create_country = {
+				tag = ERUM
+				origin = this
+				state = s:STATE_NORTHERN_THRACE.region_state:TUR
+				on_created = {
+				}
+			}
+		}
+		c:TUR ?= {
+			if  = {
+				limit = {
+					exists = c:ERUM
+				}
+				create_diplomatic_pact = {
+					country = c:ABU
+					type = puppet
+				}
+			}
+		}
+	}
+}
+
+############
+
+# These on_actions trigger from the victor scope
+
+balkfm_crisis_wargoal_enforced = {
+	trigger = {
+		OR = {
+			has_variable = balkfm_crisis_target
+			has_variable = balkfm_crisis_participant
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable = balkfm_crisis_participant
+			}
+			c:TUR = {
+				set_variable = balkfm_crisis_lost
+				trigger_event = {
+					id = balkfm.106 # The Treaty of Berlin
+				}
+			}
+			every_country = {
+				limit = {
+					has_variable = balkfm_crisis_participant
+				}
+				trigger_event = {
+					id = balkfm.106 # The Treaty of Berlin
+				}
+			}
+			set_global_variable = balkfm_eastern_crisis_resolved
+		}
+		if = {
+			limit = {
+				has_variable = balkfm_crisis_target
+			}
+			c:TUR = {
+				set_variable = balkfm_crisis_won
+				trigger_event = {
+					id = balkfm.107 # The Porte Triumphant
+				}
+			}
+			set_global_variable = balkfm_eastern_crisis_resolved
+		}
+	}
+}

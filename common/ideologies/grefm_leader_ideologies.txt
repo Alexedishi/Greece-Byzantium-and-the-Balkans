@@ -1,4 +1,90 @@
-﻿ideology_venizelist = {
+﻿ideology_bavarocrat = {
+	icon = "gfx/interface/icons/ideology_icons/ideology_leader/unused/ideology_leader_caudillismo.dds"
+	
+	character_ideology = yes
+	
+	lawgroup_governance_principles = {
+		law_monarchy = strongly_approve
+		law_presidential_republic = disapprove
+		law_parliamentary_republic = disapprove
+		law_theocracy = disapprove
+		law_council_republic = strongly_disapprove
+	}	
+	
+	lawgroup_distribution_of_power = {
+		law_single_party_state = disapprove
+		law_autocracy = strongly_approve
+		law_oligarchy = approve
+		law_technocracy = strongly_disapprove
+		law_anarchy = strongly_disapprove
+		law_universal_suffrage = strongly_disapprove
+		law_census_voting = strongly_disapprove
+		law_wealth_voting = strongly_disapprove
+		law_landed_voting = neutral				
+	}	
+	
+	lawgroup_church_and_state = {
+		law_state_religion = approve
+		law_freedom_of_conscience = disapprove
+		law_total_separation = strongly_disapprove
+		law_state_atheism = strongly_disapprove
+	}
+	
+	lawgroup_policing = {
+		law_local_police = strongly_approve
+		law_dedicated_police = neutral
+		law_militarized_police = approve
+		law_no_police = approve
+	}
+	
+	possible = {
+		owner = {
+			has_variable = grefm_bavarocracy
+		}
+		scope:interest_group = { 
+			OR = {
+				is_interest_group_type = ig_devout
+				is_interest_group_type = ig_rural_folk
+				is_interest_group_type = ig_petty_bourgeoisie
+				is_interest_group_type = ig_armed_forces
+			}
+		}
+		scope:interest_group = {
+			NOR = {
+				has_variable = communist_ig_var
+				has_variable = chose_vanguardism
+				has_variable = chose_fascism
+				has_variable = chose_conservatism
+				has_variable = chose_ethno_nationalism
+			}
+		}
+	}
+	
+	leader_weight = {
+		value = 100
+		if = {
+			limit = {
+				owner = {
+					has_law = law_type:law_monarchy
+				}
+				scope:interest_group = {
+					ig_approval > 5
+				}
+			}
+			add = 100 # slightly outweighs royalist
+		}
+		if = {
+			limit = {
+				owner = {
+					NOT = { has_law = law_type:law_monarchy }
+				}
+			}
+			multiply = 0 # will not manifest if Bavarocracy was abolished
+		}
+	}
+}	
+
+ideology_venizelist = {
 	icon = "gfx/interface/icons/ideology_icons/ideology_leader/unused/ideology_leader_populist.dds"
 	
 	character_ideology = yes
@@ -116,3 +202,4 @@
 		}
 	}
 }
+

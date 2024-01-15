@@ -1,29 +1,1141 @@
-﻿namespace = byzfm
+﻿##########################################
+# BYZANTIUM & ROMAN EMPIRE FLAVOR EVENTS #
+##########################################
 
-###############################
-# # BYZANTIUM FLAVOR EVENTS # #
-# 01-09 - Byzantine Restoration Events
-# 10-19 - Revenge of the Greeks Path
-# 20-29 - Russia, the Third Rome Path
-# 30-39 - Purple Pheonix Path
-# 40-49 - Cultural Events & Monuments
-# 50-59 - Chariot Racing Events
-# 60-69 - Orthodox Events
-# 70-79 - Unassigned
-# 80-89 - Miscellaneous Events
-# 90-99 - Technical Events
-###############################
+####################
 
-#############################
-# THE BYZANTINE RESTORATION #
-#############################
-byzfm.100 = { #Resurrection of the Byzantine Empire
+namespace = byzfm
+
+####################
+
+####	TABLE OF CONTENTS	####	#TOC
+
+# You can use the #BYZ_ comments to ctrl+F your way through the event list
+# The ## before an event indicates content not yet implemented; the >> indicates an event being moved in from another event module
+
+##	#BYZ0	OPEN	Events 001-099	##
+
+
+##	#BYZ1	HISTORY/CULTURAL EVENTS		Events 100-199	##
+
+#100-109 - Monument Events
+#	100 - The Méga Palátion
+#	101 - Imperial Palace Ruins Identified
+#	102 - Great Palace of Constantinople
+#	103 - The Hippodrome
+#	104 - The Hippodrome Reopened
+
+#110-119 - Chariot Racing Events
+#	110 - A Day at the Races (Reds)
+#	111 - A Day at the Races (Whites)
+#	112 - A Day at the Races (Greens)
+#	113 - A Day at the Races (Blues)
+#	114 - A Day at the Races (Purples)
+#	115 - A Day at the Races (Golds)
+#	116 - A Day at the Races - Diversum
+#	117 - Sporting Riot
+#	118 - Ruler Attempts to Join Race
+#	119 - Team Caught Cheating
+
+#120-129 - Chariot Racing Support Events
+#	121 - Chariot Racing Re-established
+#	122 - Chariot Racing Expanded
+#	123 - Drag Racing Event  
+
+
+##	#BYZ2	OPEN	Events 200-299	##
+
+
+##	#BYZ3	THE PURPLE PHEONIX	Events 300-399	##
+
+#300-309 - Purple Pheonix Events
+#	300 - The Pheonix Rises (Path Event)
+#	301 - The Byzantine Restoration
+#	302 - Nova Roma Constantinopolitana
+#	303 - The Rome of the East
+#	304 - The Basileia Rhōmaiōn ----commit event
+#	305 - The Purple Pheonix
+#	306 - Renovatio Imperii Romanorum
+
+#310-319 - Roman/Byzantine Imperial Ambitions
+#	310 - The Basileus Basileōn
+
+#320-329 - Annexation Events
+#	320 - Theodoro Annexation
+#	321 - Trabzon Annexation
+
+#330-339 - Purple Pheonix Support Events
+#	330 - Dalmatia Reclaimed
+#	331 - Lombardia Reclaimed
+#	332 - Magna Graecia Reclaimed
+#	333 - Exarchate of Ravenna Reclaimed	
+#	334 - The Eternal City
+
+
+##	#BYZ9	TECHNICAL EVENTS	Events 900-999	##
+
+####################
+
+
+######################################
+##	#BYZ0	OPEN	Events 001-099	##
+######################################
+
+# -None yet, lol-
+
+##########################################################
+##	#BYZ1	HISTORY/CULTURAL EVENTS		Events 100-199	##
+##########################################################
+
+#### MONUMENT EVENTS ####
+
+byzfm.100 = { # Enables Imperial Palace excavation
 	type = country_event
-	placement = ROOT
-
+	
 	title = byzfm.100.t
 	desc = byzfm.100.d
 	flavor = byzfm.100.f
+	
+	event_image = {
+		video = "byzfm_ruins"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = { has_variable = byzfm_palace_restoration }
+		OR = {
+			has_journal_entry = je_byzfm_restoration
+			has_journal_entry = je_byzfm_rome_of_the_east
+		}
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		is_subject = no
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = mega_palation_site
+			}
+		}
+		set_variable = byzfm_palace_restoration
+	}
+	
+	option = {
+		name = byzfm.100.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_byzfm_mega_palation
+		}
+		custom_tooltip = {
+			text = je_byzfm_mega_palation_tt
+		}
+	}
+}
+
+byzfm.101 = { # palace site ready
+	type = country_event
+	
+	title = byzfm.101.t
+	desc = byzfm.101.d
+	flavor = byzfm.101.f
+
+	placement = scope:mega_palation_site
+
+	event_image = {
+		video = "middleeast_engineer_blueprint"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by je_byzfm_mega_palation_survey
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = mega_palation_site
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.101.a
+		default_option = yes
+		scope:mega_palation_site = {
+			add_modifier = {
+				name = modifier_byzfm_palace_site
+			}
+		}		
+	}
+
+}
+
+byzfm.102 = { # palace rebuilt
+	type = country_event
+	
+	title = byzfm.102.t
+	desc = byzfm.102.d
+	flavor = byzfm.102.f
+	
+	placement = scope:mega_palation_site
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by je_mega_palation
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = mega_palation_site
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.102.a
+		default_option = yes
+		scope:mega_palation_site = {
+			remove_modifier = modifier_byzfm_palace_site
+		}
+		custom_tooltip = {
+			text = byzfm.102.tt
+			hidden_effect = {
+				grefm_artifact_modifier_effect = yes
+			}
+		}
+	}
+}
+
+byzfm.103 = { # hippodrome survey complete
+	type = country_event
+	
+	title = byzfm.103.t
+	desc = byzfm.103.d
+	flavor = byzfm.103.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_ruins"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.103.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_byzfm_hippodrome_reopening
+		}
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_hippodrome_site
+			}
+		}
+	}
+	
+}
+
+byzfm.104 = { # hippodrome rebuilt
+	type = country_event
+	
+	title = byzfm.104.t
+	desc = byzfm.104.d
+	flavor = byzfm.104.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.104.a
+		default_option = yes
+		custom_tooltip = {
+			text = byzfm.104.tt
+			hidden_effect = {
+				grefm_artifact_modifier_effect = yes
+			}
+		}
+		scope:byzantium_capital_state = {
+			remove_modifier = modifier_byzfm_hippodrome_site
+		}
+	}
+
+}
+
+
+#### CHARIOT RACING EVENTS ####
+
+byzfm.110 = { # reds win
+	type = country_event
+	
+	title = byzfm.110.t
+	desc = byzfm.110.d
+	flavor = byzfm.110.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.110.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+		
+}
+
+byzfm.111 = { # whites win
+	type = country_event
+	
+	title = byzfm.111.t
+	desc = byzfm.111.d
+	flavor = byzfm.111.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.111.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+
+}
+
+byzfm.112 = { # greens win
+	type = country_event
+	
+	title = byzfm.112.t
+	desc = byzfm.112.d
+	flavor = byzfm.112.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.112.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_rural_folk = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+
+}
+
+byzfm.113 = { # blues win
+	type = country_event
+	
+	title = byzfm.113.t
+	desc = byzfm.113.d
+	flavor = byzfm.113.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.113.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_petty_bourgeoisie = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+	
+}
+
+byzfm.114 = { # purples win
+	type = country_event
+	
+	title = byzfm.114.t
+	desc = byzfm.114.d
+	flavor = byzfm.114.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.114.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_landowners = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+	
+}
+
+byzfm.115 = { # golds win
+	type = country_event
+	
+	title = byzfm.115.t
+	desc = byzfm.115.d
+	flavor = byzfm.115.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.115.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		ig:ig_trade_unions = {
+			add_modifier = {
+				name = modifier_byzfm_ig_won_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+	
+}
+
+byzfm.116 = { # first match complete, crowd calls for diversum
+	type = country_event
+	
+	title = byzfm.116.t
+	desc = byzfm.116.d
+	flavor = byzfm.116.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}	
+	
+	option = { # hold the second round
+		name = byzfm.116.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_tiebreaker_race
+			months = 12
+		}
+		custom_tooltip = {
+			text = byzfm.116.tt
+			hidden_effect = {
+				byzfm_call_races = yes
+			}
+		}
+	}
+	
+	option = { # we'll call it a draw
+		name = byzfm.116.b
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_cancelled_races
+				months = 24
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+		
+}
+
+byzfm.117 = { # sporting riot
+	type = country_event
+	
+	title = byzfm.117.t
+	desc = byzfm.117.d
+	flavor = byzfm.117.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}	
+	
+	option = { # we'll call it a draw
+		name = byzfm.117.b
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_devastation = 10
+			add_modifier = {
+				name = modifier_byzfm_cancelled_races
+				months = 24
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+	
+}
+
+byzfm.118 = { # ruler tries to join in the races
+	type = country_event
+	
+	title = byzfm.118.t
+	desc = byzfm.118.d
+	flavor = byzfm.118.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+		ruler = {
+			save_scope_as = byzfm_ruler_scope
+		}
+	}	
+	
+	option = { # let him join in
+		name = byzfm.118.a
+		default_option = yes
+		scope:byzfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_byzfm_redneck_emperor
+				months = normal_modifier_time
+			}
+		}
+		custom_tooltip = {
+			text = byzfm.116.tt
+			hidden_effect = {
+				byzfm_call_races = yes
+			}
+		}
+	}
+	
+	option = { # bro thats like, really redneck...
+		name = byzfm.118.b
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_legitmacy_boost
+			months = normal_modifier_time
+		}
+		custom_tooltip = {
+			text = byzfm.116.tt
+			hidden_effect = {
+				byzfm_call_races = yes
+			}
+		}
+	}	
+	
+}
+
+byzfm.119 = { # team gets caught cheating
+	type = country_event
+	
+	title = byzfm.119.t
+	desc = byzfm.119.d
+	flavor = byzfm.119.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "votp_conspiring"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by byzfm_chariot_pulse_1/2
+		has_variable = byzfm_chariot_racing
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+		ruler = {
+			save_scope_as = byzfm_ruler_scope
+		}
+	}
+
+	option = { # root out the corruption
+		name = byzfm.119.a
+		default_option = yes
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_cancelled_races
+				months = 24
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+	
+	option = { # let them race
+		name = byzfm.119.b
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_ignored_corruption
+			months = normal_modifier_time
+		}
+		custom_tooltip = {
+			text = byzfm.119.tt
+			byzfm_call_races = yes
+		}
+	}
+	
+}
+
+#### CHARIOT RACING SUPPORT EVENTS ####
+
+byzfm.121 = { # chariot racing reestablished
+	type = country_event
+	
+	title = byzfm.121.t
+	desc = byzfm.121.d
+	flavor = byzfm.121.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by decision
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+		add_modifier = {
+			name = modifier_byzfm_chariot_racing
+		}
+	}
+	
+	option = {
+		name = byzfm.121.a
+		default_option = yes
+		set_variable = byzfm_chariot_racing
+		if = {
+			limit = {
+				has_modifier = modifier_olympic_games
+			}
+			remove_modifier = modifier_olympic_games
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_olympic_games
+			}
+			remove_modifier = modifier_grefm_olympic_games
+		}
+		scope:byzantium_capital_state = {
+			add_modifier = {
+				name = modifier_byzfm_held_chariot_races
+				months = 48
+			}
+		}
+		set_variable = {
+			name = byzfm_held_chariot_races
+			value = 48
+		}
+	}
+
+}
+
+byzfm.122 = { # chariot racing expanded
+	type = country_event
+	
+	title = byzfm.122.t
+	desc = byzfm.122.d
+	flavor = byzfm.122.f
+	
+	placement = scope:byzantium_capital_state
+	
+	event_image = {
+		video = "byzfm_chariot_race"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = { # triggered by decision
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+	
+	option = {
+		name = byzfm.122.a
+		default_option = yes
+		if = {
+			limit = {
+				has_modifier = modifier_olympic_games
+			}
+			remove_modifier = modifier_olympic_games
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_olympic_games
+			}
+			remove_modifier = modifier_grefm_olympic_games
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_byzfm_chariot_racing
+			}
+			remove_modifier = modifier_byzfm_chariot_racing
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_byzfm_expanded_chariot_racing
+				}
+			}
+			add_modifier = {
+				name = modifier_byzfm_expanded_chariot_racing
+			}
+		}
+	}
+	
+}
+
+byzfm.123 = { # drag racing in the hippodrome
+	type = country_event
+	placement = root
+	
+	title = byzfm.123.t
+	desc = byzfm.123.d
+	flavor = byzfm.123.f
+	
+	event_image = {
+		video = "byzfm_drag_race"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = { has_variable = byzfm_drag_racing }
+		any_scope_state = {
+			is_production_method_active = {
+				building_type = building_motor_industry
+				production_method = pm_automobile_production
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = byzfm_drag_racing
+	}
+	
+	option = {
+		name = byzfm.123.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_sanctioned_motorsport
+		}
+		add_loyalists = {
+			strata = poor
+			value = small_radicals
+		}
+		add_radicals = {
+			pop_type = academics
+			value = medium_radicals
+		}
+	}
+	
+	option = {
+		name = byzfm.123.b
+		add_modifier = {
+			name = modifier_byzfm_rejected_motorsport
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			strata = rich
+			value = medium_radicals
+		}
+		add_radicals = {
+			strata = poor
+			value = small_radicals
+		}
+	}
+
+}
+
+
+######################################
+##	#BYZ2	OPEN	Events 200-299	##
+######################################
+
+
+######################################################
+##	#BYZ3	THE PURPLE PHEONIX	Events 300-399	##
+######################################################
+
+#### THE PURPLE PHEONIX EVENTS ####
+
+byzfm.300 = { #Resurrection of the Byzantine Empire
+	type = country_event
+	placement = ROOT
+
+	title = byzfm.300.t
+	desc = byzfm.300.d
+	flavor = byzfm.300.f
 
 	gui_window = fullscreen_event
 
@@ -50,26 +1162,46 @@ byzfm.100 = { #Resurrection of the Byzantine Empire
 			}
 			save_scope_as = hagia_sofia_scope
 		}
+		save_scope_as = formation_country
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = ROOT
+			}
+			post_notification = unification_notification_byz
+		}
+		set_global_variable = has_formed_byz
 		set_variable = byzfm_byzantium_formed
 	}
 	
 	option = {
-		name = byzfm.100.a
+		name = byzfm.300.a
 		default_option = yes
 		trigger_event = {
-			id = byzfm.1
+			id = byzfm.301 # The Byzantine Restoration
 			days = 30
+		}
+		add_modifier = {
+			name = unification_prestige
+			months = very_long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			add_primary_culture = cu:greek
 		}
 	}
 }
 
 
-byzfm.1 = { # First event with the option to take claims in former Byzantine lands
+byzfm.301 = { # The Byzantine Restoration
 	type = country_event
 	
-	title = byzfm.1.t
-	desc = byzfm.1.d
-	flavor = byzfm.1.f
+	title = byzfm.301.t
+	desc = byzfm.301.d
+	flavor = byzfm.301.f
 	
 	event_image = {
 		video = "byzfm_georgios_averof"
@@ -93,93 +1225,6 @@ byzfm.1 = { # First event with the option to take claims in former Byzantine lan
 			}
 			save_scope_as = byzantium_capital_state
 		}
-	}
-	
-	option = {
-		name = byzfm.1.a
-		default_option = yes
-		set_capital = STATE_EASTERN_THRACE
-		add_journal_entry = {
-			type = je_byzfm_restoration
-		}
-		trigger_event = {
-			id = byzfm.2
-			days = 10
-		}
-	}
-	
-	option = {
-		name = byzfm.1.b
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_development_focus
-				months = normal_modifier_time
-			}
-			add_loyalists = {
-				value = small_radicals
-			}
-		}
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.1.c
-		trigger = {
-			ig:ig_armed_forces = {
-				is_insurrectionary = no
-				is_revolutionary = no
-			}
-		}
-		ig:ig_armed_forces = {
-			add_modifier = {
-				name = ig_gaining_support
-				months = normal_modifier_time
-			}
-		}
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
-		change_infamy = -20
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}	
-}
-
-byzfm.2 = {
-	type = country_event
-	
-	title = byzfm.2.t
-	desc = byzfm.2.d
-	flavor = byzfm.2.f
-	
-	event_image = {
-		video = "southamerica_aristocrats"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # Triggered by byzfm.1
-	}
-	
-	immediate = {
 		if = {
 			limit = {
 				any_state = {
@@ -208,145 +1253,41 @@ byzfm.2 = {
 		}
 	}
 	
-	option = { # take it all
-		name = byzfm.2.c # yes, its out of order fight me
+	option = {
+		name = byzfm.301.a
 		default_option = yes
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_MONTENEGRO }
-			}
-			s:STATE_MONTENEGRO = {
-				add_claim = ROOT
-			}
+		set_capital = STATE_EASTERN_THRACE
+		add_journal_entry = {
+			type = je_byzfm_restoration
 		}
-		if = {
+		every_state_region = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_SOUTHERN_SERBIA }
+				OR = {
+					region = sr:region_anatolia
+					region = sr:region_balkans
+				}
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
 			}
-			s:STATE_SOUTHERN_SERBIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_BULGARIA }
-			}
-			s:STATE_BULGARIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_DOBRUDJA }
-			}
-			s:STATE_DOBRUDJA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_KONYA }
-			}
-			s:STATE_KONYA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_KASTAMONU }
-			}
-			s:STATE_KASTAMONU = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_TRABZON }
-			}
-			s:STATE_TRABZON = {
-				add_claim = ROOT
-			}
-		}
-		
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ADANA }
-			}
-			s:STATE_ADANA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_CYPRUS }
-			}
-			s:STATE_CYPRUS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ANKARA }
-			}
-			s:STATE_ANKARA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_anatolia_target
-			}
-			create_incident = {
-				country = scope:byzantium_anatolia_target
-				value = 25
-			}
+			add_claim = ROOT
 		}
 	}
 	
-	option = { # balkans only
-		name = byzfm.2.a
-		set_variable = byzfm_balkans
-		if = {
+	option = {
+		name = byzfm.301.b
+		every_state_region = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_MONTENEGRO }
+				region = sr:region_anatolia
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
 			}
-			s:STATE_MONTENEGRO = {
-				add_claim = ROOT
-			}
+			add_claim = ROOT
 		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_SOUTHERN_SERBIA }
-			}
-			s:STATE_SOUTHERN_SERBIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_BULGARIA }
-			}
-			s:STATE_BULGARIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_DOBRUDJA }
-			}
-			s:STATE_DOBRUDJA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_balkans_target
-			}
-			create_incident = {
-				country = scope:byzantium_balkans_target
-				value = 15
-			}
-		}
+		change_infamy = -10
 		custom_tooltip = {
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
@@ -355,67 +1296,19 @@ byzfm.2 = {
 		}
 	}
 	
-	option = { # anatolia only
-		name = byzfm.2.b
-		set_variable = byzfm_anatolia
-		if = {
+	option = {
+		name = byzfm.301.c
+		every_state_region = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_KONYA }
+				region = sr:region_balkans
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
 			}
-			s:STATE_KONYA = {
-				add_claim = ROOT
-			}
+			add_claim = ROOT
 		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_KASTAMONU }
-			}
-			s:STATE_KASTAMONU = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_TRABZON }
-			}
-			s:STATE_TRABZON = {
-				add_claim = ROOT
-			}
-		}
-		
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ADANA }
-			}
-			s:STATE_ADANA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_CYPRUS }
-			}
-			s:STATE_CYPRUS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ANKARA }
-			}
-			s:STATE_ANKARA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_anatolia_target
-			}
-			create_incident = {
-				country = scope:byzantium_anatolia_target
-				value = 15
-			}
-		}
+		change_infamy = -10
 		custom_tooltip = {
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
@@ -423,15 +1316,15 @@ byzfm.2 = {
 			}
 		}
 	}
-	
+
 }
 
-byzfm.3 = { # end of first event chain
+byzfm.302 = { # Nova Roma Constantinopolitana
 	type = country_event
 	
-	title = byzfm.3.t
-	desc = byzfm.3.d
-	flavor = byzfm.3.f
+	title = byzfm.302.t
+	desc = byzfm.302.d
+	flavor = byzfm.302.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -456,16 +1349,8 @@ byzfm.3 = { # end of first event chain
 	}
 	
 	option = {
-		name = byzfm.3.a
+		name = byzfm.302.a
 		default_option = yes
-		scope:byzantium_emperor = {
-			if = {
-				limit = {
-					has_modifier = modifier_grefm_unpopular_ruler
-				}
-				remove_modifier = modifier_grefm_unpopular_ruler
-			}
-		}
 		scope:byzantium_emperor = {
 			add_modifier = {
 				name = modifier_byzfm_popular_emperor
@@ -477,20 +1362,19 @@ byzfm.3 = { # end of first event chain
 		}
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.4 # Event allowing continuation into the Levant
+				id = byzfm.303 # The Rome of the East
 				days = 20
 			}
 		}
 	}
 }
 
-
-byzfm.4 = { # Event allowing continuation into the Levant
+byzfm.303 = { # The Rome of the East
 	type = country_event
 	
-	title = byzfm.4.t
-	desc = byzfm.4.d
-	flavor = byzfm.4.f
+	title = byzfm.303.t
+	desc = byzfm.303.d
+	flavor = byzfm.303.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -511,23 +1395,10 @@ byzfm.4 = { # Event allowing continuation into the Levant
 		capital = {
 			save_scope_as = byzantium_capital
 		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_arabia = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_arabia_target
-			}
-		}
 	}
 	
 	option = { # reclaim the east
-		name = byzfm.4.a
+		name = byzfm.303.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_byzfm_rome_of_the_east
@@ -620,20 +1491,11 @@ byzfm.4 = { # Event allowing continuation into the Levant
 				add_claim = ROOT
 			}
 		}
-		if = {
-			limit = {
-				exists = scope:byzantium_arabia_target
-			}
-			create_incident = {
-				country = scope:byzantium_arabia_target
-				value = 15
-			}
-		}
 		default_option = yes
 	}
 	
 	option = { # nah bro, shits for the birds
-		name = byzfm.4.b
+		name = byzfm.303.b
 		change_infamy = -20
 		add_modifier = {
 			name = modifier_byzfm_rebirth
@@ -658,12 +1520,13 @@ byzfm.4 = { # Event allowing continuation into the Levant
 
 }
 
-byzfm.5 = { # used to allow conversion to ERE, now an off-ramp for no goddamn reason
+byzfm.304 = { # The Basileia Rhōmaiōn
+	## former byzfm.5 used to allow conversion to ERE, now an off-ramp for no goddamn reason
 	type = country_event
 	
-	title = byzfm.5.t
-	desc = byzfm.5.d
-	flavor = byzfm.5.f
+	title = byzfm.304.t
+	desc = byzfm.304.d
+	flavor = byzfm.304.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -677,58 +1540,55 @@ byzfm.5 = { # used to allow conversion to ERE, now an off-ramp for no goddamn re
 	
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 
-	trigger = {
-		# Triggered by JE
+	trigger = {	# Triggered by JE
 	}
 	
 	immediate = {
-		set_variable = byzfm_restoration_notified
+		set_variable = byzfm_byzantium_restored
 	}
 
-	option = {
-		name = byzfm.5.b
+	option = { # we finna spank the Pope
+		name = byzfm.304.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_byzfm_restored
-		}
-		custom_tooltip = {
-			text = byzfm.5.tt
-			hidden_effect = {
-				set_variable = byzfm_byzantium_restored
-				set_global_variable = byzfm_roman_empire_exists
-			}
+			months = long_modifier_time
+		}				
+		trigger_event = {
+			id = byzfm.305 # The Purple Pheonix
+			days = 30
 		}
 	}
-	
-	option = {
-		name = byzfm.5.a
+
+	option = { # whimpy whimpy whimpy
+		name = byzfm.304.b
 		add_modifier = {
-			name = modifier_byzfm_ere_restored
+			name = modifier_byzfm_rebirth
+			months = long_modifier_time
 		}
 		change_infamy = -25
 		custom_tooltip = {
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
-				set_variable = byzfm_byzantium_restored
 				set_variable = byzfm_weaksauce
+				remove_variable = byzfm_purple_phoenix
 			}
 		}
 	}
-	
 }
 
-byzfm.6 = { # branching path decision
+byzfm.305 = { # The Purple Pheonix
 	type = country_event
 	
-	title = byzfm.6.t
-	desc = byzfm.6.d
-	flavor = byzfm.6.f
+	title = byzfm.305.t
+	desc = byzfm.305.d
+	flavor = byzfm.305.f
 	
 	event_image = {
-		video = "southamerica_aristocrats"
+		video = "europenorthamerica_before_the_battle"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -737,146 +1597,136 @@ byzfm.6 = { # branching path decision
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
-		NOT = { has_variable = byzfm_branch_technical }
-		NOT = { has_variable = byzfm_weaksauce }
-		has_variable = byzfm_byzantium_restored
+		# Triggered by byzfm.6
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				any_state = {
-					state_in_italy = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_italy_target
-			}
+	}
+
+	option = {
+		name = byzfm.305.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_byzfm_the_purple_phoenix
 		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_arabia = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_arabia_target
-			}
+		add_journal_entry = {
+			type = je_byzfm_the_purple_phoenix_dalmatia
 		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_dneiper = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_crimea_target
-			}
+		add_journal_entry = {
+			type = je_byzfm_the_purple_phoenix_northern_italy
 		}
-		set_variable = byzfm_branch_technical
+		add_journal_entry = {
+			type = je_byzfm_the_purple_phoenix_southern_italy
+		}
+		add_journal_entry = {
+			type = je_byzfm_the_purple_phoenix_central_italy
+		}
 	}	
 	
-	option = { # we finna spank the Pope
-		name = byzfm.6.a
-		default_option = yes
-		custom_tooltip = {
-			text = byzfm_the_purple_phoenix_tt
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_arabia_target
-			}
-			create_incident = {
-				country = scope:byzantium_arabia_target
-				value = 25
-			}
-		}
-		set_variable = byzfm_purple_phoenix
-		hidden_effect = {
-			trigger_event = {
-				id = byzfm.31 # Rome Path
-				days = 30
-			}
-		}
-	}
-	
-	option = { # Revenge of the Greeks
-		name = byzfm.6.b
-		custom_tooltip = {
-			text = byzfm_the_revenge_of_the_greeks_tt
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_arabia_target
-			}
-			create_incident = {
-				country = scope:byzantium_arabia_target
-				value = 25
-			}
-		}
-		set_variable = byzfm_crusade
-		hidden_effect = {
-			trigger_event = {
-				id = byzfm.10 # Revenge Path
-				days = 30
-			}
-		}
-	}
-	
-	option = { # We're coming for you Nikki-boi!
-		name = byzfm.6.c
-		custom_tooltip = {
-			text = byzfm_russia_the_third_rome_tt
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_crimea_target
-			}
-			create_incident = {
-				country = scope:byzantium_crimea_target
-				value = 25
-			}
-		}
-		set_variable = byzfm_texas_left
-		hidden_effect = {
-			trigger_event = {
-				id = byzfm.20 # Russia Path
-				days = 30
-			}
-		}
-	}
-	
-	option = { # whimpy whimpy whimpy
-		name = byzfm.6.e
+	option = {
+		name = byzfm.305.b
 		add_modifier = {
-			name = modifier_byzfm_rebirth
+			name = modifier_byzfm_ere_restored
 		}
 		custom_tooltip = {
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
+				remove_variable = byzfm_purple_phoenix
 			}
 		}
 	}
-	
+
 }
 
-byzfm.7 = { # The Basileus Basileōn
+byzfm.306 = { # Renovatio Imperii Romanorum
+	type = country_event
+	
+	title = byzfm.306.t
+	desc = byzfm.306.d
+	flavor = byzfm.306.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	placement = ROOT
+	
+	trigger = {
+		# Triggered by JE
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = byzfm.306.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_ere_glory
+		}
+		set_capital = STATE_LAZIO
+		s:STATE_LAZIO = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_byzfm_the_eternal_city
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_LAZIO = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_byzfm_reintegrated_province
+					months = long_modifier_time
+				}
+			}
+		}	
+		change_tag = SPQR
+	}
+	
+	option = {
+		name = byzfm.306.b
+		add_modifier = {
+			name = modifier_byzfm_ere_glory
+		}
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_byzfm_the_queen_of_cities
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_LAZIO = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_byzfm_reintegrated_province
+					months = long_modifier_time
+				}
+			}
+		}	
+		change_tag = SPQR
+	}
+}
+
+#### ROMAN / BYZANTINE IMPERIAL AMBITIONS ####
+
+byzfm.310 = { # The Basileus Basileōn
 	type = country_event
 	placement = root
 	
-	title = byzfm.7.t
-	desc = byzfm.7.d
-	flavor = byzfm.7.f
+	title = byzfm.310.t
+	desc = byzfm.310.d
+	flavor = byzfm.310.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -913,7 +1763,7 @@ byzfm.7 = { # The Basileus Basileōn
 	}
 	
 	option = {
-		name = byzfm.7.a
+		name = byzfm.310.a
 		default_option = yes
 		scope:byzfm_ruler_scope = {
 			add_trait = trait_byzfm_porphyrogenitus
@@ -922,977 +1772,93 @@ byzfm.7 = { # The Basileus Basileōn
 
 }
 
-byzfm.8 = { # restoration of the patriarchate
+
+#### ANNEXATION EVENTS ####
+
+byzfm.320 = { # theodoro annexation
 	type = country_event
-	
-	title = byzfm.8.t
-	desc = byzfm.8.d
-	flavor = byzfm.8.f
-	
-	placement = root
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
 
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	title = byzfm.320.t
+	desc = byzfm.320.d
+	flavor = byzfm.320.f
 
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	placement = scope:theodoro_capital
 
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		has_variable = byzfm_byzantium_restored
-		NOT = { has_variable = byzfm_pentarchy_restoration }
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		owns_entire_state_region = STATE_ADANA
-		owns_entire_state_region = STATE_PALESTINE
-		owns_entire_state_region = STATE_LOWER_EGYPT
-		has_law = law_type:law_state_religion
-	}
-	
-	immediate = {
-		set_variable = byzfm_pentarchy_restoration
-		set_global_variable = grefm_tomos_of_1850_happened # just in case you get here before grem.206
-		ig:ig_devout = {
-			save_scope_as = ig_devout_scope
-		}
-		if = {
-			limit = {
-				ig:ig_devout = {
-					has_party = yes
-				}
-			}
-			ig:ig_devout = {
-				party = {
-					save_scope_as = ig_devout_party_scope
-				}
-			}
-		}
-	}
-	
-	option = { # declare the emperor divine
-		name = byzfm.8.a
-		default_option = yes
-		trigger = { # just in case you get here before grem.206
-			OR = {
-				has_variable = grefm_tomos_of_autocephaly
-				NOT = { has_variable = grefm_tomos_rejected } 
-			}
-		}
-		add_modifier = {
-			name = modifier_byzfm_nomos_empsychos
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-			religion = rel:orthodox
-		}
-	}
-	
-	option = { # nah, church and state are separate d00d
-		name = byzfm.8.b
-		trigger = { # just in case you get here before grem.206
-			OR = {
-				has_variable = grefm_tomos_of_autocephaly
-				NOT = { has_variable = grefm_tomos_rejected } 
-			}
-		}
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_byzfm_restored_pentarchy
-				is_decaying = yes
-				months = long_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:ig_devout_party_scope
-			}
-			scope:ig_devout_party_scope = {
-				add_momentum = 0.15
-			}
-		}
-		remove_variable = grefm_tomos_of_autocephaly
-		set_variable = grefm_tomos_rejected
-	}
-	
-	option = { # option if you rejected the Tomos on the grefm side
-		name = byzfm.8.c
-		trigger = {
-			has_variable = grefm_tomos_rejected
-		}
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_byzfm_restored_pentarchy
-				is_decaying = yes
-				months = long_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:ig_devout_party_scope
-			}
-			scope:ig_devout_party_scope = {
-				add_momentum = 0.10
-			}
-		}
-	}
-			
-}
-
-byzfm.9 = { # notification of the ERE to other countries
-	type = country_event
-	
-	title = byzfm.9.t
-	desc = byzfm.9.d
-	flavor = byzfm.9.f
-
-	placement = scope:byzantium_capital_state
-
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		has_global_variable = byzfm_roman_empire_exists
-		NOT = { has_variable = byzfm_restoration_notified }
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-		random_country = {
-			limit = {
-				has_variable = byzfm_byzantium_formed
-			}
-			save_scope_as = byzfm_byzantium_scope
-		}
-		scope:byzfm_byzantium_scope = {
-			ruler = {
-				save_scope_as = byzantium_emperor_scope
-			}
-			ig:ig_intelligentsia = {
-				leader = {
-					save_scope_as = byzantium_intellegenstia_leader_scope
-				}
-			}
-		}
-		set_variable = byzfm_restoration_notified
-	}
-	
-	option = {
-		name = byzfm.9.a
-		default_option = yes
-		trigger = {
-			country_rank >= rank_value:insignificant_power
-		}
-	}
-
-	option = {
-		name = byzfm.9.b
-		trigger = {
-			country_rank < rank_value:insignificant_power
-		}
-	}
-
-}
-
-#########################
-# REVENGE OF THE GREEKS #
-#########################
-
-byzfm.10 = { # event with options to commit to crusade or back down
-	type = country_event
-	
-	title = byzfm.10.t
-	desc = byzfm.10.d
-	flavor = byzfm.10.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		# Triggered by byzfm.6
-	}
-	
-	immediate = {
-	}
-
-	option = {
-		name = byzfm.10.a
-		default_option = yes
-		custom_tooltip = {
-			text = byzfm_crusades_enabled_tt
-			hidden_effect = {
-				set_variable = byzfm_crusades_unlocked
-			}
-		}
-		add_journal_entry = {
-			type = je_byzfm_revenge_of_the_greeks
-		}
-		set_variable = {
-			name = byzfm_crusade_counter
-			value = 0
-		}
-	}	
-	
-	option = {
-		name = byzfm.10.b
-		add_modifier = {
-			name = modifier_byzfm_ere_restored
-		}
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_crusade
-			}
-		}
-	}
-	
-}
-
-byzfm.11 = { # crusades successful, time to smoke Persia
-	type = country_event
-	
-	title = byzfm.11.t
-	desc = byzfm.11.d
-	flavor = byzfm.11.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	option = {
-		name = byzfm.11.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_church_of_the_east
-		}
-	}
-	
-}
-
-byzfm.12 = { # shame it wasn't the Sassanids... lets finish what Alexander started
-	type = country_event
-	
-	title = byzfm.12.t
-	desc = byzfm.12.d
-	flavor = byzfm.12.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	option = {
-		name = byzfm.12.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_graveyard_of_empires
-		}
-	}
-	
-}
-
-byzfm.13 = { # Hellenistic Empire choice
-	type = country_event
-	
-	title = byzfm.13.t
-	desc = byzfm.13.d
-	flavor = byzfm.13.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	option = {
-		name = byzfm.13.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_queen_of_cities
-					months = long_modifier_time
-				}
-			}
-		}
-		change_tag = HEMP
-	}
-	
-	option = {
-		name = byzfm.13.b
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_queen_of_cities
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-	
-}
-
-byzfm.14 = { # event bypassing je_byzfm_the_church_of_the_east
-	type = country_event
-	
-	title = byzfm.14.t
-	desc = byzfm.14.d
-	flavor = byzfm.14.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	option = {
-		name = byzfm.14.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_graveyard_of_empires
-		}
-	}
-	
-}
-
-byzfm.19 = { # hedjaz captured
-	type = country_event
-	
-	title = byzfm.19.t
-	desc = byzfm.19.d
-	flavor = byzfm.19.f
-	
-	placement = scope:hedjaz_state
-	
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		owns_entire_state_region = STATE_HEDJAZ
-		NOT = { has_global_variable = byzfm_smoked_mecca }
-		has_variable = byzfm_crusade
-	}
-	
-	immediate = {
-		s:STATE_HEDJAZ = {
-			random_scope_state = {
-				save_scope_as = hedjaz_state
-			}
-		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_arabia = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_arabia_target
-			}
-		}
-		set_global_variable = byzfm_smoked_mecca
-	}
-	
-	option = { # burn it down
-		name = byzfm.19.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_great_mosque_destroyed
-		}
-		add_radicals = {
-			value = very_large_radicals
-			religion = rel:sunni
-		}
-		add_radicals = {
-			value = very_large_radicals
-			religion = rel:shiite
-		}
-		scope:hedjaz_state = {
-			remove_building = building_masjid_al_haram
-			set_devastation = 90
-		}
-		if = {
-			limit = {
-				exists = scope:byzantium_arabia_target
-			}
-			create_incident = {
-				country = scope:byzantium_arabia_target
-				value = 15
-			}
-		}		
-	}
-	
-	option = { # turn it into a museum
-		name = byzfm.19.b
-		add_radicals = {
-			value = medium_radicals
-			religion = rel:sunni
-		}
-		add_radicals = {
-			value = medium_radicals
-			religion = rel:shiite
-		}
-		scope:hedjaz_state = {
-			remove_building = building_masjid_al_haram
-			set_devastation = 10
-		}
-		change_infamy = 10
-	}
-	
-	option = { # leave it be
-		name = byzfm.19.c
-		scope:hedjaz_state = {
-			add_loyalists_in_state = {
-				value = medium_radicals
-				religion = rel:sunni
-			}
-			add_loyalists_in_state = {
-				value = medium_radicals
-				religion = rel:shiite
-			}
-		}	
-	}
-	
-}
-
-
-
-
-##########################
-# RUSSIA, THE THIRD ROME #
-##########################
-
-byzfm.20 = { # event with options to commit to Russia or back down
-	type = country_event
-	
-	title = byzfm.20.t
-	desc = byzfm.20.d
-	flavor = byzfm.20.f
-	
-	placement = scope:russia_capital_scope
-	
-	event_image = {
-		video = "votp_gunboat_diplomacy"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		# Triggered by byzfm.6
-	}
-	
-	immediate = {
-		c:RUS = {
-			save_scope_as = russia_scope
-			ruler = {
-				save_scope_as = russia_ruler_scope
-			}
-			capital = {
-				save_scope_as = russia_capital_scope
-			}
-		}
-	}
-	
-	option = { # lets go to Crimea, I hear the grass is lovely there
-		name = byzfm.20.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_orthodox_realms
-		}
-	}
-	
-	option = { # nope
-		name = byzfm.20.b
-
-		add_modifier = {
-			name = modifier_byzfm_ere_restored
-		}
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_texas_left
-			}
-		}
-	}
-	
-}
-
-
-byzfm.21 = { # we're coming for you Nikki-boi!
-	type = country_event
-	
-	title = byzfm.21.t
-	desc = byzfm.21.d
-	flavor = byzfm.21.f
-	
-	placement = scope:russia_capital_scope
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by JE
-	}	
-	
-	immediate = {
-		c:RUS = {
-			save_scope_as = russia_scope
-			capital = {
-				save_scope_as = russia_capital_scope
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.21.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_third_rome
-		}
-	}
-	
-}
-
-
-byzfm.22 = { # conclusion of the Third Rome chain
-	type = country_event
-	
-	title = byzfm.22.t
-	desc = byzfm.22.d
-	flavor = byzfm.22.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by JE
-	}	
-	
-	immediate = {
-	}
-	
-	option = {
-		name = byzfm.22.a
-		default_option = yes
-		change_tag = ODXY
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_queen_of_cities
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.22.b
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_queen_of_cities
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-	
-}
-
-byzfm.23 = { # open 
-	orphan = yes
-}
-
-byzfm.24 = { # The Ukranian Domain
-	type = country_event
-	
-	title = byzfm.24.t
-	desc = byzfm.24.d
-	flavor = byzfm.24.f
-	
-	placement = scope:ukraine_capital_scope
-	
 	event_image = {
 		video = "unspecific_signed_contract"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
 	duration = 3
 	
 	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by decision
-	}	
-	
-	immediate = {
-		c:UKR = {
-			save_scope_as = ukraine_scope		
-			capital = {
-				save_scope_as = ukraine_capital_scope
-			}
-		}
-		ig:ig_devout = {
-			save_scope_as = ig_devout_scope
-		}
-	}
-	
-	option = {
-		name = byzfm.24.a
-		default_option = yes
-		create_diplomatic_pact = {
-			country = c:UKR
-			type = dominion
-		}
-		change_infamy = 15
-	}
-	
-}
 
-
-byzfm.25 = { # The Belorussian Domain
-	type = country_event
-	
-	title = byzfm.25.t
-	desc = byzfm.25.d
-	flavor = byzfm.25.f
-	
-	placement = scope:belarus_capital_scope
-	
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by decision
-	}	
-	
-	immediate = {
-		c:BYE = {
-			save_scope_as = belarus_scope
-			capital = {
-				save_scope_as = belarus_capital_scope
-			}
-		}
-		ig:ig_devout = {
-			save_scope_as = ig_devout_scope
-		}
-	}
-	
-	option = {
-		name = byzfm.25.a
-		default_option = yes
-		create_diplomatic_pact = {
-			country = c:BYE
-			type = dominion
-		}
-		change_infamy = 15
-	}
-	
-}
-
-
-byzfm.26 = { # The Georgian Domain
-	type = country_event
-	
-	title = byzfm.26.t
-	desc = byzfm.26.d
-	flavor = byzfm.26.f
-	
-	placement = scope:georgia_capital_scope
-	
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by decision
-	}	
-	
-	immediate = {
-		c:GEO = {
-			save_scope_as = georgia_scope
-			capital = {
-				save_scope_as = georgia_capital_scope
-			}
-		}
-		ig:ig_devout = {
-			save_scope_as = ig_devout_scope
-		}
-	}
-	
-	option = {
-		name = byzfm.26.a
-		default_option = yes
-		create_diplomatic_pact = {
-			country = c:GEO
-			type = dominion
-		}
-
-		change_infamy = 5
-	}
-	
-}
-
-
-byzfm.27 = { # The Moldy Domain
-	type = country_event
-	
-	title = byzfm.27.t
-	desc = byzfm.27.d
-	flavor = byzfm.27.f
-	
-	placement = scope:moldova_capital_scope
-	
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by decision
-	}	
-	
-	immediate = {
-		save_scope_as = moldova_scope
-		c:MOL = {
-			capital = {
-				save_scope_as = moldova_capital_scope
-			}
-		}
-		ig:ig_devout = {
-			save_scope_as = ig_devout_scope
-		}
-	}
-	
-	option = {
-		name = byzfm.27.a
-		default_option = yes
-		create_diplomatic_pact = {
-			country = c:MOL
-			type = dominion
-		}
-		change_infamy = 5
-	}
-	
-}
-
-
-######################
-# THE PURPLE PHEONIX #
-######################
-# bro we forgot byzfm.30
-
-byzfm.31 = { # event to commit to reconquest or back down
-	type = country_event
-	
-	title = byzfm.31.t
-	desc = byzfm.31.d
-	flavor = byzfm.31.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
 	trigger = {
-		# Triggered by byzfm.6
-	}
-	
-	immediate = {
 	}
 
-	option = {
-		name = byzfm.31.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_the_purple_phoenix
-		}
-		add_journal_entry = {
-			type = je_byzfm_the_purple_phoenix_dalmatia
-		}
-		add_journal_entry = {
-			type = je_byzfm_the_purple_phoenix_northern_italy
-		}
-		add_journal_entry = {
-			type = je_byzfm_the_purple_phoenix_southern_italy
-		}
-		add_journal_entry = {
-			type = je_byzfm_the_purple_phoenix_central_italy
-		}
-		set_variable = {
-			name = byzfm_italia_counter
-			value = 0
-		}
-	}	
-	
-	option = {
-		name = byzfm.31.b
-		add_modifier = {
-			name = modifier_byzfm_ere_restored
-		}
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_purple_phoenix
+	immediate = {
+		c:THE = {
+			save_scope_as = theodoro_scope
+			capital = {
+				save_scope_as = theodoro_capital
 			}
 		}
 	}
 
+	option = {
+		name = byzfm.320.a
+		default_option = yes
+		annex = c:THE
+	}
 }
 
-byzfm.32 = { # dalmatia secured
+byzfm.321 = { # trabzon annexation
+	type = country_event
+
+	title = byzfm.321.t
+	desc = byzfm.321.d
+	flavor = byzfm.321.f
+
+	placement = scope:trabzon_capital
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+
+	trigger = {
+	}
+
+	immediate = {
+		c:TRB = {
+			save_scope_as = trabzon_scope
+			capital = {
+				save_scope_as = trabzon_capital
+			}
+		}
+	}
+
+	option = {
+		name = byzfm.321.a
+		default_option = yes
+		annex = c:TRB
+	}
+}
+
+#### PURPLE PHEONIX SUPPORT EVENTS ####
+
+byzfm.330 = { # dalmatia secured
 	type = country_event
 	
-	title = byzfm.32.t
-	desc = byzfm.32.d
-	flavor = byzfm.32.f
+	title = byzfm.330.t
+	desc = byzfm.330.d
+	flavor = byzfm.330.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -1916,7 +1882,7 @@ byzfm.32 = { # dalmatia secured
 	}
 
 	option = {
-		name = byzfm.32.a
+		name = byzfm.330.a
 		default_option = yes
 		s:STATE_VENETIA = {
 			random_scope_state = {
@@ -1954,12 +1920,12 @@ byzfm.32 = { # dalmatia secured
 
 }
 
-byzfm.33 = { # northern italy secured
+byzfm.331 = { # northern italy secured
 	type = country_event
 	
-	title = byzfm.33.t
-	desc = byzfm.33.d
-	flavor = byzfm.33.f
+	title = byzfm.331.t
+	desc = byzfm.331.d
+	flavor = byzfm.331.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -1983,7 +1949,7 @@ byzfm.33 = { # northern italy secured
 	}
 
 	option = {
-		name = byzfm.33.a
+		name = byzfm.331.a
 		default_option = yes
 		s:STATE_SAVOY = {
 			random_scope_state = {
@@ -2021,12 +1987,12 @@ byzfm.33 = { # northern italy secured
 
 }
 
-byzfm.34 = { # southern italy secured
+byzfm.332 = { # southern italy secured
 	type = country_event
 	
-	title = byzfm.34.t
-	desc = byzfm.34.d
-	flavor = byzfm.34.f
+	title = byzfm.332.t
+	desc = byzfm.332.d
+	flavor = byzfm.332.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -2050,7 +2016,7 @@ byzfm.34 = { # southern italy secured
 	}
 
 	option = {
-		name = byzfm.34.a
+		name = byzfm.332.a
 		default_option = yes
 		s:STATE_ABRUZZO = {
 			random_scope_state = {
@@ -2088,12 +2054,12 @@ byzfm.34 = { # southern italy secured
 
 }
 
-byzfm.35 = { # central italy secured
+byzfm.333 = { # central italy secured
 	type = country_event
 	
-	title = byzfm.35.t
-	desc = byzfm.35.d
-	flavor = byzfm.35.f
+	title = byzfm.333.t
+	desc = byzfm.333.d
+	flavor = byzfm.333.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -2117,7 +2083,7 @@ byzfm.35 = { # central italy secured
 	}
 
 	option = {
-		name = byzfm.35.a
+		name = byzfm.333.a
 		default_option = yes
 		s:STATE_EMILIA = {
 			random_scope_state = {
@@ -2155,1507 +2121,8 @@ byzfm.35 = { # central italy secured
 
 }
 
-byzfm.36 = { # Rome secured
-	type = country_event
-	
-	title = byzfm.36.t
-	desc = byzfm.36.d
-	flavor = byzfm.36.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	placement = ROOT
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	immediate = {
-	}
 
-	option = {
-		name = byzfm.36.a
-		default_option = yes
-		s:STATE_LAZIO = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_reintegrated_province
-					months = long_modifier_time
-				}
-			}
-		}	
-	}
-
-}
-
-byzfm.37 = { # conversion to SPQR
-	type = country_event
-	
-	title = byzfm.37.t
-	desc = byzfm.37.d
-	flavor = byzfm.37.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	placement = ROOT
-	
-	trigger = {
-		# Triggered by JE
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = byzfm.37.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		set_capital = STATE_LAZIO
-		s:STATE_LAZIO = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_eternal_city
-					months = long_modifier_time
-				}
-			}
-		}
-		change_tag = SPQR
-	}
-	
-	option = {
-		name = byzfm.37.b
-		add_modifier = {
-			name = modifier_byzfm_ere_glory
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_byzfm_the_queen_of_cities
-					months = long_modifier_time
-				}
-			}
-		}
-		change_tag = SPQR
-	}
-}
-
-byzfm.38 = { # greco-roman relations
-	type = country_event
-	
-	title = byzfm.38.t
-	desc = byzfm.38.d
-	flavor = byzfm.38.f
-	
-	placement = ROOT
-	
-	event_image = {
-		video = "votp_realist_household"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		has_modifier = modifier_byzfm_ere_glory
-		NOT = { has_variable = byzfm_italian_homelands_event }
-		NOT = {	country_has_primary_culture = cu:north_italian }
-		NOT = {	country_has_primary_culture = cu:south_italian }
-	}
-		
-	immediate = {
-		set_variable = byzfm_italian_homelands_event
-	}
-	
-	option = {
-		name = byzfm.38.a
-		trigger = {
-			NOT = {
-				country_has_primary_culture = cu:turkish
-			}
-		}
-		add_primary_culture = cu:north_italian
-		add_primary_culture = cu:south_italian
-	}
-	
-	option = {
-		name = byzfm.38.b
-		trigger = {
-			country_has_primary_culture = cu:turkish
-		}
-		add_primary_culture = cu:north_italian
-		add_primary_culture = cu:south_italian
-		custom_tooltip = {
-			text = byzfm.38.tt
-			hidden_effect = {
-				add_radicals = {
-					value = small_radicals
-					culture = cu:north_italian
-				}
-				add_radicals = {
-					value = small_radicals
-					culture = cu:south_italian
-				}
-				add_radicals = {
-					value = small_radicals
-					culture = cu:turkish
-				}
-			}
-		}
-	}
-		
-	option = {
-		name = byzfm.38.c
-		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = modifier_grefm_greek_resurgence
-				}
-			}
-			add_modifier = {
-				name = modifier_grefm_greek_resurgence
-				months = long_modifier_time
-			}
-		}
-		add_radicals = {
-			value = medium_radicals
-			culture = cu:north_italian
-		}
-		add_radicals = {
-			value = medium_radicals
-			culture = cu:south_italian
-		}
-	}
-
-}
-
-
-#############
-# MONUMENTS #
-#############
-
-byzfm.40 = { # Enables Imperial Palace excavation
-	type = country_event
-	
-	title = byzfm.40.t
-	desc = byzfm.40.d
-	flavor = byzfm.40.f
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		NOT = { has_variable = byzfm_palace_restoration }
-		has_variable = byzfm_byzantium_formed
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		is_subject = no
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = mega_palation_site
-			}
-		}
-		set_variable = byzfm_palace_restoration
-	}
-	
-	option = {
-		name = byzfm.40.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_mega_palation
-		}
-		custom_tooltip = {
-			text = je_byzfm_mega_palation_tt
-		}
-	}
-}
-
-byzfm.41 = { # palace site ready
-	type = country_event
-	
-	title = byzfm.41.t
-	desc = byzfm.41.d
-	flavor = byzfm.41.f
-
-	placement = scope:mega_palation_site
-
-	event_image = {
-		video = "middleeast_engineer_blueprint"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		# triggered by je_byzfm_mega_palation_survey
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = mega_palation_site
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.41.a
-		default_option = yes
-		scope:mega_palation_site = {
-			add_modifier = {
-				name = modifier_byzfm_palace_site
-			}
-		}		
-	}
-
-}
-
-byzfm.42 = { # palace rebuilt
-	type = country_event
-	
-	title = byzfm.42.t
-	desc = byzfm.42.d
-	flavor = byzfm.42.f
-	
-	placement = scope:mega_palation_site
-	
-	event_image = {
-		video = "unspecific_world_fair"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-		# triggered by je_mega_palation
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = mega_palation_site
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.42.a
-		default_option = yes
-		scope:mega_palation_site = {
-			remove_modifier = modifier_byzfm_palace_site
-		}
-		custom_tooltip = byzfm.42.tt
-	}
-}
-
-byzfm.43 = { # hippodrome survey complete
-	type = country_event
-	
-	title = byzfm.43.t
-	desc = byzfm.43.d
-	flavor = byzfm.43.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.43.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_hippodrome_reopening
-		}
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_hippodrome_site
-			}
-		}
-	}
-	
-}
-
-byzfm.44 = { # hippodrome rebuilt
-	type = country_event
-	
-	title = byzfm.44.t
-	desc = byzfm.44.d
-	flavor = byzfm.44.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.44.a
-		default_option = yes
-		custom_tooltip = {
-			text = byzfm.44.tt
-		}
-		scope:byzantium_capital_state = {
-			remove_modifier = modifier_byzfm_hippodrome_site
-		}
-	}
-
-}
-
-byzfm.45 = { # chariot racing reestablished
-	type = country_event
-	
-	title = byzfm.45.t
-	desc = byzfm.45.d
-	flavor = byzfm.45.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by decision
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-		add_modifier = {
-			name = modifier_byzfm_chariot_racing
-		}
-	}
-	
-	option = {
-		name = byzfm.45.a
-		default_option = yes
-		set_variable = byzfm_chariot_racing
-		if = {
-			limit = {
-				has_modifier = modifier_olympic_games
-			}
-			remove_modifier = modifier_olympic_games
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_olympic_games
-			}
-			remove_modifier = modifier_grefm_olympic_games
-		}
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-
-}
-
-byzfm.46 = { # chariot racing expanded
-	type = country_event
-	
-	title = byzfm.46.t
-	desc = byzfm.46.d
-	flavor = byzfm.46.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by decision
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.46.a
-		default_option = yes
-		if = {
-			limit = {
-				has_modifier = modifier_olympic_games
-			}
-			remove_modifier = modifier_olympic_games
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_olympic_games
-			}
-			remove_modifier = modifier_grefm_olympic_games
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_byzfm_chariot_racing
-			}
-			remove_modifier = modifier_byzfm_chariot_racing
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = modifier_byzfm_expanded_chariot_racing
-				}
-			}
-			add_modifier = {
-				name = modifier_byzfm_expanded_chariot_racing
-			}
-		}
-	}
-	
-}
-
-byzfm.47 = { # drag racing in the hippodrome
-	type = country_event
-	placement = root
-	
-	title = byzfm.47.t
-	desc = byzfm.47.d
-	flavor = byzfm.47.f
-	
-	event_image = {
-		video = "byzfm_drag_race"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		NOT = { has_variable = byzfm_drag_racing }
-		any_scope_state = {
-			is_production_method_active = {
-				building_type = building_motor_industry
-				production_method = pm_automobile_production
-			}
-		}
-	}
-	
-	immediate = {
-		set_variable = byzfm_drag_racing
-	}
-	
-	option = {
-		name = byzfm.47.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_sanctioned_motorsport
-		}
-		add_loyalists = {
-			strata = poor
-			value = small_radicals
-		}
-		add_radicals = {
-			pop_type = academics
-			value = medium_radicals
-		}
-	}
-	
-	option = {
-		name = byzfm.47.b
-		add_modifier = {
-			name = modifier_byzfm_rejected_motorsport
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			strata = rich
-			value = medium_radicals
-		}
-		add_radicals = {
-			strata = poor
-			value = small_radicals
-		}
-	}
-
-}
-
-#################
-# RACING EVENTS #
-#################
-
-byzfm.50 = { # reds win
-	type = country_event
-	
-	title = byzfm.50.t
-	desc = byzfm.50.d
-	flavor = byzfm.50.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.50.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_industrialists = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-		
-}
-
-byzfm.51 = { # whites win
-	type = country_event
-	
-	title = byzfm.51.t
-	desc = byzfm.51.d
-	flavor = byzfm.51.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.51.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_intelligentsia = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-
-}
-
-byzfm.52 = { # greens win
-	type = country_event
-	
-	title = byzfm.52.t
-	desc = byzfm.52.d
-	flavor = byzfm.52.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.52.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_rural_folk = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-
-}
-
-byzfm.53 = { # blues win
-	type = country_event
-	
-	title = byzfm.53.t
-	desc = byzfm.53.d
-	flavor = byzfm.53.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.53.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_petty_bourgeoisie = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-	
-}
-
-byzfm.54 = { # purples win
-	type = country_event
-	
-	title = byzfm.54.t
-	desc = byzfm.54.d
-	flavor = byzfm.54.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.54.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_landowners = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-	
-}
-
-byzfm.55 = { # golds win
-	type = country_event
-	
-	title = byzfm.55.t
-	desc = byzfm.55.d
-	flavor = byzfm.55.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-	
-	option = {
-		name = byzfm.55.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_held_chariot_races
-				months = 48
-			}
-		}
-		ig:ig_trade_unions = {
-			add_modifier = {
-				name = modifier_byzfm_ig_won_races
-				months = 48
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-	
-}
-
-byzfm.56 = { # first match complete, crowd calls for diversum
-	type = country_event
-	
-	title = byzfm.56.t
-	desc = byzfm.56.d
-	flavor = byzfm.56.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}	
-	
-	option = { # hold the second round
-		name = byzfm.56.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_tiebreaker_race
-			months = 12
-		}
-		custom_tooltip = {
-			text = byzfm.56.tt
-			hidden_effect = {
-				trigger_event = {
-					id = byzfm.98 # second round of races
-					days = 30
-				}
-			}
-		}
-	}
-	
-	option = { # we'll call it a draw
-		name = byzfm.56.b
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_cancelled_races
-				months = 24
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-		
-}
-
-byzfm.57 = { # sporting riot
-	type = country_event
-	
-	title = byzfm.57.t
-	desc = byzfm.57.d
-	flavor = byzfm.57.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "byzfm_chariot_race"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}	
-	
-	option = { # we'll call it a draw
-		name = byzfm.57.b
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_devastation = 10
-			add_modifier = {
-				name = modifier_byzfm_cancelled_races
-				months = 24
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-	
-}
-
-byzfm.58 = { # ruler tries to join in the races
-	type = country_event
-	
-	title = byzfm.58.t
-	desc = byzfm.58.d
-	flavor = byzfm.58.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-		ruler = {
-			save_scope_as = byzfm_ruler_scope
-		}
-	}	
-	
-	option = { # let him join in
-		name = byzfm.58.a
-		default_option = yes
-		scope:byzfm_ruler_scope = {
-			add_modifier = {
-				name = modifier_byzfm_redneck_emperor
-				months = normal_modifier_time
-			}
-		}
-		custom_tooltip = {
-			text = byzfm.56.tt
-			hidden_effect = {
-				trigger_event = {
-					id = byzfm.98 # second round of races
-					days = 30
-				}
-			}
-		}
-	}
-	
-	option = { # bro thats like, really redneck...
-		name = byzfm.58.b
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_legitmacy_boost
-			months = normal_modifier_time
-		}
-		custom_tooltip = {
-			text = byzfm.56.tt
-			hidden_effect = {
-				trigger_event = {
-					id = byzfm.98 # second round of races
-					days = 30
-				}
-			}
-		}
-	}	
-	
-}
-
-byzfm.59 = { # team gets caught cheating
-	type = country_event
-	
-	title = byzfm.59.t
-	desc = byzfm.59.d
-	flavor = byzfm.59.f
-	
-	placement = scope:byzantium_capital_state
-	
-	event_image = {
-		video = "votp_conspiring"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = { # triggered by byzfm_chariot_pulse_1/2
-		has_variable = byzfm_chariot_racing
-	}
-	
-	immediate = {
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-		ruler = {
-			save_scope_as = byzfm_ruler_scope
-		}
-	}
-
-	option = { # root out the corruption
-		name = byzfm.59.a
-		default_option = yes
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_cancelled_races
-				months = 24
-			}
-		}
-		set_variable = {
-			name = byzfm_held_chariot_races
-			value = 48
-		}
-	}
-	
-	option = { # let them race
-		name = byzfm.59.b
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_ignored_corruption
-			months = normal_modifier_time
-		}
-		custom_tooltip = {
-			text = byzfm.59.tt
-			hidden_effect = {
-				trigger_event = {
-					id = byzfm.98 # second round of races
-					days = 30
-				}
-			}
-		}
-	}
-	
-}
-
-
-#################
-# MISCELLANEOUS #
-#################
-
-byzfm.90 = { # anatolia reclaimed
-	type = country_event
-	
-	title = byzfm.90.t
-	desc = byzfm.90.d
-	flavor = byzfm.90.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		has_variable = byzfm_anatolia
-		calc_true_if = {
-			amount > 9
-			country_or_subject_owns_entire_state_region = STATE_ADANA
-			country_or_subject_owns_entire_state_region = STATE_ANKARA
-			country_or_subject_owns_entire_state_region = STATE_AYDIN
-			country_or_subject_owns_entire_state_region = STATE_CYPRUS
-			country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
-			country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-			country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
-			country_or_subject_owns_entire_state_region = STATE_ERZURUM
-			country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
-			country_or_subject_owns_entire_state_region = STATE_KASTAMONU
-			country_or_subject_owns_entire_state_region = STATE_KONYA
-			country_or_subject_owns_entire_state_region = STATE_TRABZON
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = { 
-				has_variable = byzfm_anatolia
-			}
-			remove_variable = byzfm_anatolia
-		}
-	}
-		
-	option = {
-		name = byzfm.90.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
-	}
-}
-
-byzfm.91 = { # balkans reclaimed
-	type = country_event
-	
-	title = byzfm.91.t
-	desc = byzfm.91.d
-	flavor = byzfm.91.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		has_variable = byzfm_balkans
-		calc_true_if = {
-			amount > 11
-			country_or_subject_owns_entire_state_region = STATE_ALBANIA
-			country_or_subject_owns_entire_state_region = STATE_BOSNIA
-			country_or_subject_owns_entire_state_region = STATE_BULGARIA
-			country_or_subject_owns_entire_state_region = STATE_CRETE
-			country_or_subject_owns_entire_state_region = STATE_CROATIA
-			country_or_subject_owns_entire_state_region = STATE_DALMATIA
-			country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
-			country_or_subject_owns_entire_state_region = STATE_MACEDONIA
-			country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-			country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-			country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
-			country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
-			country_or_subject_owns_entire_state_region = STATE_SKOPIA
-			country_or_subject_owns_entire_state_region = STATE_SLAVONIA
-			country_or_subject_owns_entire_state_region = STATE_SLOVENIA
-			country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-			country_or_subject_owns_entire_state_region = STATE_THESSALIA
-			country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-			country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = { 
-				has_variable = byzfm_balkans
-			}
-			remove_variable = byzfm_balkans
-		}
-	}
-		
-	option = {
-		name = byzfm.91.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
-	}
-}
-
-byzfm.92 = { # theodoro annexation
-	type = country_event
-
-	title = byzfm.92.t
-	desc = byzfm.92.d
-	flavor = byzfm.92.f
-
-	placement = scope:theodoro_capital
-
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-	}
-
-	immediate = {
-		c:THE = {
-			save_scope_as = theodoro_scope
-			capital = {
-				save_scope_as = theodoro_capital
-			}
-		}
-	}
-
-	option = {
-		name = byzfm.92.a
-		default_option = yes
-		annex = c:THE
-	}
-}
-
-byzfm.93 = { # trabzon annexation
-	type = country_event
-
-	title = byzfm.93.t
-	desc = byzfm.93.d
-	flavor = byzfm.93.f
-
-	placement = scope:trabzon_capital
-
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-
-	trigger = {
-	}
-
-	immediate = {
-		c:TRB = {
-			save_scope_as = trabzon_scope
-			capital = {
-				save_scope_as = trabzon_capital
-			}
-		}
-	}
-
-	option = {
-		name = byzfm.93.a
-		default_option = yes
-		annex = c:TRB
-	}
-}
-
-#############
-# TECHNICAL #
-#############
-byzfm.98 = { # second round of races
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	# called by byzfm.56, 58, and 59
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				has_modifier = modifier_byzfm_chariot_racing
-			}
-			random_list = {
-				40 = {
-					trigger_event = { id = byzfm.50 } # reds win
-				}
-				40 = {
-					trigger_event = { id = byzfm.51 } # whites win
-				}
-				40 = {
-					trigger_event = { id = byzfm.52 } # greens win
-				}
-				40 = {
-					trigger_event = { id = byzfm.53 } # blues win
-				}
-				1 = {
-					trigger_event = { id = byzfm.57 } # sporting riot
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_byzfm_expanded_chariot_racing
-			}
-			random_list = {
-				25 = {
-					trigger_event = { id = byzfm.50 } # reds win
-				}
-				25 = {
-					trigger_event = { id = byzfm.51 } # whites win
-				}
-				25 = {
-					trigger_event = { id = byzfm.52 } # greens win
-				}
-				25 = {
-					trigger_event = { id = byzfm.53 } # blues win
-				}
-				25 = {
-					trigger_event = { id = byzfm.54 } # purples win
-				}
-				25 = {
-					trigger_event = { id = byzfm.55 } # golds win
-				}
-				1 = {
-					trigger_event = { id = byzfm.57 } # sporting riot
-				}
-			}
-		}
-	}
-	
-}
+##################################################
+##	#BYZ9	TECHNICAL EVENTS	Events 900-999	##
+##################################################
+# This block is likely to go unused, just marking it out in case there's a technical event that I don't want in the grefm side of things

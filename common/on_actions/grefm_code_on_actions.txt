@@ -1,16 +1,20 @@
 ﻿on_monthly_pulse_country = {
-  on_actions = {
-    grefm_monthly_pulse
-	grefm_crete_pulse
-  }
+	on_actions = {
+		grefm_monthly_pulse
+	}
 }
 
 grefm_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:greek
+	}
 	events = {
 		grefm.005 # error 404 monarch not found
 		grefm.043 # unfortunately we are bankrupt
 		grefm.044 # the military league
+		grefm.048 # a cretan champion alternate
 		grefm.101 # hellenic railways
+		grefm.103 # greek shipping
 		grefm.110 # decline of the heptanese school
 		grefm.111 # lake kopais
 		grefm.120 # olympics restarted
@@ -18,83 +22,26 @@ grefm_monthly_pulse = {
 		grefm.131 # the corinth canal
 		grefm.132 # the royal palace
 		grefm.201 # megali idea 2
-		grefm.203 # the fate of the turks
-		grefm.206 # capital switch option
+		grefm.203 # thessaly reminder
 		grefm.210 # epirus warm-up
 		grefm.212 # cyprus warm-up
-		grefm.901 # monarchy restoration cleanup
-		grefm.903 # removes crete revolt variable
-		grefm.904 # revolt preemption
-		grefm.911 # epirote revolt
-		grefm.912 # cypriot revolt
-		grefm.913 # macedonian revolt
-		grefm.914 # crete revolts again
+		grefm.216 # crete warm-up
+		grefm.260 # the fate of the turks
+		grefm.263 # capital switch option
+		grefm.264 # Greco-Roman relations
 	}
 	random_events = {
 		200 = 0
 		10 = grefm.031 # a perennial problem
-		15 = grefm.041 # who is to blame
+		20 = grefm.041 # who is to blame
 		20 = grefm.100 # fix brewery
 		20 = grefm.102 # greek aviation
 		10 = grefm.122 # university of constantinople
-		 5 = grefm.204 # turkish homelands
-		25 = grefm.205 # greek expansion
-		25 = grefm.207 # history of the greek nation
+		10 = grefm.157 # The Mask of Agammemnon
 		20 = grefm.214 # macedonia warm-up
-		25 = grefm.216 # greek nationalism in crete
-		25 = grefm.230 # tomos of 1850
 		25 = grefm.243 # greek identity completion
+		25 = grefm.244 # history of the greek nation
+		 5 = grefm.261 # turkish homelands
+		25 = grefm.262 # greek expansion		
 	}
-}
-
-grefm_crete_pulse = {
-	trigger = {
-		owns_entire_state_region = STATE_CRETE
-		has_global_variable = grefm_crete_revolt_var
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-	}
-	effect = {
-		if = {
-			limit = {
-				any_country = {
-					AND = {
-						has_global_variable = grefm_crete_revolt_var
-						owns_entire_state_region = STATE_CRETE
-						NOT = { has_journal_entry = je_grefm_the_cretan_revolts }
-						has_variable = grefm_lost_crete
-					}
-				}
-			}	
-			random_country = {
-				limit = {
-					owns_entire_state_region = STATE_CRETE
-				}
-				add_journal_entry = {
-					type = je_grefm_the_cretan_revolts
-				}
-			}
-		}
-		if = {
-			limit = {
-				AND = {
-					has_global_variable = grefm_crete_revolt_greenlight
-					has_global_variable = grefm_crete_revolt_var
-					NOT = { exists = c:CRE }
-				}
-			}
-			change_global_variable = {
-				name = grefm_crete_revolt_var
-				add = 1
-			}
-			clamp_global_variable = {
-				name = grefm_crete_revolt_var
-				max = 150
-				min = 0 
-			}
-		}	
-	}
-
 }

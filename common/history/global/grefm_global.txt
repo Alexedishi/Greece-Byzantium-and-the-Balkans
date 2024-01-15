@@ -1,11 +1,64 @@
-﻿COUNTRIES = {
+﻿GLOBAL = { # general mod setup
+	### Specific Country Setups
 	c:GRE = {
-		trigger_event = {
-			id = grefm.900 # grefm setup
-		}
 		trigger_event = {
 			id = grefm.001 # # Bavarocracy notification
 			days = 1 # scopes don't work unless we wait a day
 		}
+		trigger_event = {
+			id = grefm.900 # Compatibility Checker
+		}
+		set_variable = eocfm_is_autocephalus
+		set_variable = grefm_GRE
 	}
+	
+	c:MON = {
+		trigger_event = {
+			id = balkfm.300 # A Feudal Relic
+			days = 1
+		}
+	}	
+	
+	c:SER = {
+		trigger_event = {
+			id = balkfm.400 # Mileta's Rebellion
+			days = 1
+		}
+	}
+	
+	c:RUS ?= {
+		set_variable = eocfm_is_autocephalus
+		set_variable = eocfm_controls_moscow
+	}
+	
+	c:TUR ?= {
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+	}
+	
+	c:EGY ?= {
+		set_variable = eocfm_controls_alexandria
+		set_variable = eocfm_controls_jerusalem
+	}
+	
+	c:PAP ?= {
+		set_variable = eocfm_controls_rome
+	}
+	
+	### Variables
+	set_global_variable = {
+		name = grefm_crete_revolt_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = eocfm_council_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = grefm_balkan_wars_var
+		value = 0
+	}
+
 }

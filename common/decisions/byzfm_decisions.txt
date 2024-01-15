@@ -19,7 +19,7 @@
 		custom_tooltip = {
 			text = chariot_racing_enabled_tt	
 			trigger_event = {
-				id = byzfm.45
+				id = byzfm.121
 				popup = yes
 			}
 		}
@@ -51,146 +51,10 @@ expand_chariot_racing_decision = {
 		}
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.46
+				id = byzfm.122
 			}
 		}
 	}	
-}
-
-byzfm_UKR_decision = {
-	is_shown = {
-		has_journal_entry = je_byzfm_the_orthodox_realms
-		NOT = { has_variable = byzfm_UKR_var }
-		exists = c:UKR
-		c:UKR = {
-			is_subject = no
-			is_player = no
-		}
-	}
-	
-	possible = {
-		c:UKR = {
-			relations:root >= relations_threshold:cordial
-			is_at_war = no
-			top_overlord = {
-				relations:root >= relations_threshold:cordial
-				NOT = { has_war_with = ROOT }
-			}
-		}
-	}
-	
-	when_taken = {
-		set_variable = byzfm_UKR_var
-		trigger_event = {
-			id = byzfm.24 # The Ukranian Domain
-		}
-	}
-
-	ai_chance = {
-		base = 10
-	}
-}	
- 
-byzfm_BYE_decision = {
-	is_shown = {
-		has_journal_entry = je_byzfm_the_orthodox_realms
-		NOT = { has_variable = byzfm_BYE_var }
-		exists = c:BYE
-		c:BYE = {
-			is_subject = no
-			is_player = no
-		}
-	}
-	
-	possible = {
-		c:BYE = {
-			relations:root >= relations_threshold:cordial
-			is_at_war = no
-			top_overlord = {
-				relations:root >= relations_threshold:cordial
-				NOT = { has_war_with = ROOT }
-			}
-		}
-	}
-	
-	when_taken = {
-		set_variable = byzfm_BYE_var
-		trigger_event = {
-			id = byzfm.25 # The Belorussian Domain
-		}
-	}
-
-	ai_chance = {
-		base = 10
-	}
-}
- 
-byzfm_GEO_decision = {
-	is_shown = {
-		has_journal_entry = je_byzfm_the_orthodox_realms
-		NOT = { has_variable = byzfm_GEO_var }
-		exists = c:GEO
-		c:GEO = {
-			is_subject = no
-			is_player = no
-		}
-	}
-	
-	possible = {
-		c:GEO = {
-			relations:root >= relations_threshold:cordial
-			is_at_war = no
-			top_overlord = {
-				relations:root >= relations_threshold:cordial
-				NOT = { has_war_with = ROOT }
-			}
-		}
-	}
-	
-	when_taken = {
-		set_variable = byzfm_GEO_var
-		trigger_event = {
-			id = byzfm.26 # The Georgian Domain
-		}
-	}
-
-	ai_chance = {
-		base = 10
-	}
-}
- 
-byzfm_MOL_decision = {
-	is_shown = {
-		has_journal_entry = je_byzfm_the_orthodox_realms
-		NOT = { has_variable = byzfm_MOL_var }
-		exists = c:MOL
-		c:MOL = {
-			is_subject = no
-			is_player = no
-		}
-	}
-	
-	possible = {
-		c:MOL = {
-			relations:root >= relations_threshold:cordial
-			is_at_war = no
-			top_overlord = {
-				relations:root >= relations_threshold:cordial
-				NOT = { has_war_with = ROOT }
-			}
-		}
-	}
-	
-	when_taken = {
-		set_variable = byzfm_MOL_var
-		trigger_event = {
-			id = byzfm.27 # The Moldy Domain
-		}
-	}
-
-	ai_chance = {
-		base = 10
-	}
 }
 
 byzfm_annex_theodoro_decision = {
@@ -217,10 +81,10 @@ byzfm_annex_theodoro_decision = {
 
 	when_taken = {
 		set_variable = byzfm_theodoro_var
-		custom_tooltip = byzfm.92.tt
+		custom_tooltip = byzfm.320.tt
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.92
+				id = byzfm.320
 				days = 0
 				popup = yes
 			}
@@ -256,10 +120,10 @@ byzfm_annex_trabzon_decision = {
 
 	when_taken = {
 		set_variable = byzfm_trabzon_var
-		custom_tooltip = byzfm.93.tt
+		custom_tooltip = byzfm.321.tt
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.93
+				id = byzfm.321
 				days = 0
 				popup = yes
 			}

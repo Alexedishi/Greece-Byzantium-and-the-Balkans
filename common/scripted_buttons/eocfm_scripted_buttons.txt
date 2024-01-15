@@ -1,0 +1,149 @@
+﻿eocfm_declare_autocephaly_button = {
+	name = "eocfm_declare_autocephaly"
+	desc = "eocfm_declare_autocephaly_desc"
+	
+	visible = {
+		NOT = {
+			has_variable = eocfm_is_autocephalus
+		}
+	}
+	
+	possible = {
+		is_subject = no
+		custom_tooltip = {
+			text = eocfm_declare_autocephaly_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 500
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.110 # Declaration of Autocephaly (Generic)
+			popup = yes
+		}
+	}
+}
+
+eocfm_commission_icon_button = {
+	name = "eocfm_commission_icon"
+	desc = "eocfm_commission_icon_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = eocfm_commission_icon_tt1
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 200
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_commission_icon_tt2
+			hidden_trigger = {
+				eocfm_has_icon_trigger = no
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.020 # Commissioning an Icon
+			popup = yes
+		}
+	}
+}
+
+
+eocfm_convoke_council_button = {
+	name = "eocfm_convoke_council"
+	desc = "eocfm_convoke_council_desc"
+	
+	visible = {
+		global_var:eocfm_council_var < 5
+	}
+	
+	possible = {
+		is_subject = no
+		custom_tooltip = {
+			text = eocfm_controls_major_seat_tt
+			hidden_trigger = {
+				eocfm_controls_major_seat_trigger = yes
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_convoke_council_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 1000
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalus
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.030 # Council of X
+			days = 30
+			popup = yes
+		}
+	}
+}
+
+
+eocfm_integrate_seat_button = {
+	name = "eocfm_integrate_seat"
+	desc = "eocfm_integrate_seat_desc"
+	
+	visible = {
+		OR = {
+			AND = {
+				owns_entire_state_region = STATE_LAZIO
+				NOT = { has_variable = eocfm_controls_rome }
+			}
+			AND = {
+				owns_entire_state_region = STATE_EASTERN_THRACE
+				NOT = { has_variable = eocfm_controls_constantinople }
+			}
+			AND = {
+				owns_entire_state_region = STATE_ADANA
+				NOT = { has_variable = eocfm_controls_antioch }
+			}
+			AND = {
+				owns_entire_state_region = STATE_PALESTINE
+				NOT = { has_variable = eocfm_controls_jerusalem }
+			}
+			AND = {
+				owns_entire_state_region = STATE_LOWER_EGYPT
+				NOT = { has_variable = eocfm_controls_alexandria }
+			}
+			AND = {
+				owns_entire_state_region = STATE_MOSCOW
+				NOT = { has_variable = eocfm_controls_moscow }
+			}
+		}
+	}
+	
+	possible = {
+		is_subject = no
+		custom_tooltip = {
+			text = eocfm_integrate_seat_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 200
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.031 # Partiarchal Seat Claimed
+		}
+	}
+}

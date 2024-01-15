@@ -1,0 +1,407 @@
+﻿## EASTERN CRISIS EFFECTS ##
+
+balkfm_recruit_local_power = {
+	if = {
+		limit = {
+			any_country = {
+				any_country = {
+					capital = {
+						region = sr:region_balkans
+					}
+				}
+			}
+			NOT = { has_variable = balkfm_crisis_offered }
+		}
+		random_country = {
+			limit = {
+				capital = {
+					region = sr:region_balkans
+				}
+				NOT = { has_variable = balkfm_crisis_offered }
+			}
+			trigger_event = {
+				id = balkfm.101 # Recruit Local Power
+			}
+		}
+	}
+}
+
+balkfm_recruit_great_power = {
+	if = {
+		limit = {
+			any_country = {
+				NOT = { has_variable = balkfm_crisis_offered }
+				has_interest_marker_in_region = region_balkans
+				country_rank = rank_value:great_power
+			}
+		}
+		random_country = {
+			limit = {
+				NOT = { has_variable = balkfm_crisis_offered }
+				has_interest_marker_in_region = region_balkans
+				country_rank = rank_value:great_power
+			}
+			trigger_event = {
+				id = balkfm.102 # Recruit Great Power
+			}
+		}
+	}
+}
+
+balkfm_build_crisis = {
+	random_diplomatic_play = {
+		limit = {
+			is_diplomatic_play_type = dp_balkfm_crisis
+		}
+		save_scope_as = balkfm_crisis_scope
+	}
+	c:TUR = {
+		every_subject_or_below = {
+			limit = {
+				NOT = { any_overlord_or_above = { NOT = { ROOT = this } } }
+				OR = {
+					NOT = {
+						is_country_type = unrecognized
+					}
+					is_subject_type = subject_type_protectorate
+					is_subject_type = subject_type_dominion
+					is_subject_type = subject_type_puppet
+				}
+			}
+			make_independent = yes
+		}
+		trigger_event = {
+			id = balkfm.104 # Eastern Crisis Start (TUR)
+			popup = yes
+		}
+	}
+	every_country = {
+		limit = {
+			has_variable = balkfm_crisis_offered
+			has_truce_with = c:TUR
+		}
+		end_truce = {
+			country = c:TUR
+		}
+	}
+	every_country = {
+		limit = {
+			has_variable = balkfm_crisis_participant
+			NOT = {
+				is_diplomatic_play_enemy_of = C:TUR
+			}
+		}
+		trigger_event = {
+			id = balkfm.105 # Eastern Crisis Start (not-TUR)
+		}
+	}
+	every_country = {
+		limit = {
+			has_variable = balkfm_crisis_defender
+		}
+		trigger_event = {
+			id = balkfm.105 # Eastern Crisis Start (TUR)
+		}
+	}
+}
+
+## BULGARIA EFFECTS ##
+
+create_bulgarian_characters = {
+	# all ages are based on age at in 1879
+	create_character = {
+		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
+		first_name = Alexander
+		last_name = Battenburg
+		historical = yes
+		age = 22
+		culture = cu:bulgarian
+		religion = rel:protestant # was granted an exception to the constitution
+		ig_leader = yes
+		interest_group = ig_landowners
+		ruler = yes
+		ideology = ideology_royalist
+		traits = {
+			basic_political_operator
+			romantic
+			arrogant
+		}
+		on_created = {
+			set_variable = bulfm_is_alex
+		}
+	}
+	create_character = {
+		# Kliment Turnovski, prominent clergyman, sat at the first Grand National Assembly and was a loud supporter of Russia
+		first_name = Kliment
+		last_name = Turnovski
+		historical = yes
+		age = 38
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_devout
+		ideology = ideology_traditionalist 
+		traits = {
+			pious
+			arrogant
+		}
+	}
+	create_character = {
+		# Dragan Tsankov, prominent liberal leader, 3rd Prime Minister
+		first_name = Dragan
+		last_name = Tsankov
+		historical = yes
+		age = 50
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_intelligentsia
+		ideology = ideology_social_democrat
+		traits = {
+			basic_political_operator
+			cautious
+			tactful
+		}
+	}
+	create_character = {
+		# Konstantin Kesyakov, one of the highest ranking native Bulgarians in the early Bulgarian army; fled after the 1886 coup
+		first_name = Konstantin
+		last_name = Kesyakov
+		historical = yes
+		age = 40
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_armed_forces
+		ideology = ideology_liberal_leader
+		traits = {
+			direct
+			honorable
+		}
+	}
+	create_character = {
+		# Yanko Sakazov, one of the founders of the Bulgarian Social Democratic Union
+		first_name = Yanko
+		last_name = Sakazov
+		historical = yes
+		age = 22
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_trade_unions
+		ideology = ideology_liberal_leader
+		traits = {
+			direct
+			honorable
+			basic_political_operator
+		}
+	}
+}
+
+create_bulgarian_regency_characters = {
+	# all ages are based on age at in 1886
+	create_character = {
+		# Sava Mutkurov, Bulgarian general, tried to protect Alexander's claim to the throne; welcomed Ferdinand to the throne on his arrival
+		first_name = Sava
+		last_name = Mutkurov
+		historical = yes
+		age = 34
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_armed_forces
+		ideology = ideology_royalist
+		traits = {
+			direct
+			honorable
+		}
+	}
+	create_character = {
+		# Petko Karavelov, 4x prime minister and ardent liberal
+		first_name = Petko
+		last_name = Karavelov
+		historical = yes
+		age = 46
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_intelligentsia
+		ideology = ideology_social_democrat
+		traits = {
+			expert_political_operator
+			cautious
+		}
+	}
+	create_character = {
+		# Stefan Stambolov
+		first_name = Stefan
+		last_name = Stambolov
+		historical = yes
+		age = 40
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		interest_group = ig_rural_folk
+		ideology = ideology_authoritarian
+		traits = {
+			imposing
+			grifter
+			direct
+		}
+	}	
+}
+
+create_bulgarian_royals = {
+	# all ages are based on age at in 1886
+	create_character = {
+		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
+		first_name = Ferdinand
+		last_name = Saxe-Coburg_and_Gotha-Kohary
+		historical = yes
+		age = 25
+		culture = cu:south_german
+		religion = rel:catholic # seriously what was so hard about giving the orthodox an orthodox king smh
+		ig_leader = yes
+		interest_group = ig_landowners
+		ruler = yes
+		ideology = ideology_royalist
+		traits = {
+			basic_political_operator
+			romantic
+			brave
+		}
+		on_created = {
+#			set_variable = bulfm_is_ferdinand
+		}
+	}
+}
+
+set_bulgarian_laws = {
+	activate_law = law_type:law_monarchy
+	activate_law = law_type:law_universal_suffrage
+	activate_law = law_type:law_cultural_exclusion
+	activate_law = law_type:law_state_religion
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_professional_army
+	activate_law = law_type:law_traditionalism
+	activate_law = law_type:law_mercantilism
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_no_police
+	activate_law = law_type:law_right_of_assembly
+	activate_law = law_type:law_slavery_banned
+}
+
+
+battenburg_monthly_effect = {
+	if = { # RUS relations check
+		limit = {
+			AND = {
+				c:RUS = {
+					relations:root > relations_threshold:neutral
+				}
+				NOT = { 
+					has_variable = bulfm_tech_russia_pos
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			add = 1
+		}
+		remove_variable = bulfm_tech_russia_neg
+		set_variable = bulfm_tech_russia_pos
+	}
+	else_if = {
+		limit = {
+			AND = {
+				c:RUS = {
+					relations:root <= relations_threshold:neutral
+				}
+				NOT = { 
+					has_variable = bulfm_tech_russia_neg
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			subtract = 1
+		}
+		remove_variable = bulfm_tech_russia_pos
+		set_variable = bulfm_tech_russia_neg
+	}
+	if = { # landowners power check
+		limit = {
+			AND = {
+				ig:ig_landowners = {
+					is_powerful = yes
+					is_in_government = yes
+				}
+				NOT = {
+					has_variable = bulfm_tech_land_pos
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			add = 1
+		}
+		remove_variable = bulfm_tech_land_neg
+		set_variable = bulfm_tech_land_pos
+	}
+	else_if = {
+		limit = {
+			AND = {
+				ig:ig_landowners = {
+					is_in_government = no
+				}
+				NOT = {
+					has_variable = bulfm_tech_land_neg
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			subtract = 1
+		}
+		remove_variable = bulfm_tech_land_pos
+		set_variable = bulfm_tech_land_neg
+	}
+	if = { # military power check
+		limit = {
+			AND = {
+				ig:ig_armed_forces = {
+					is_in_government = no
+				}
+				NOT = {
+					has_variable = bulfm_tech_mil_pos
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			add = 1
+		}
+		remove_variable = bulfm_tech_mil_neg
+		set_variable = bulfm_tech_mil_pos
+	}
+	else_if = {
+		limit = {
+			AND = {
+				ig:ig_armed_forces = {
+					is_powerful = yes
+					is_in_government = yes
+				}
+				NOT = {
+					has_variable = bulfm_tech_mil_neg
+				}
+			}
+		}
+		change_variable = {
+			name = balkfm_countercoup_var
+			subtract = 1
+		}
+		remove_variable = bulfm_tech_mil_pos
+		set_variable = bulfm_tech_mil_neg
+	}
+}
+				

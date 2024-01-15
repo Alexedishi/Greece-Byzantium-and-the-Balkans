@@ -1,0 +1,60 @@
+﻿balkfm_purchase_rail_button = {
+	name = "balkfm_purchase_rail"
+	desc = "balkfm_purchase_rail_desc"
+	
+	visible = {
+		has_journal_entry = je_balkfm_bulgarian_railways
+		NOT = { has_variable = balkfm_bought_out_rail }
+	}
+		
+	possible = {
+		always = yes
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.513 # Extortionate Pricing
+		}
+		set_variable = balkfm_bought_out_rail
+	}
+}
+
+balkfm_annex_rumelia_button = {
+	name = "balkfm_annex_rumelia"
+	desc = "balkfm_annex_rumelia_desc"
+	
+	visible = {
+		is_subject = yes
+		exists = c:ERUM
+	}
+		
+	possible = {
+		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.581 # Union with East Rumelia
+		}
+	}
+}
+
+balkfm_declare_tsardom_button = {
+	name = "balkfm_declare_tsardom"
+	desc = "balkfm_declare_tsardom_desc"
+	
+	visible = {
+		is_subject = yes
+	}
+		
+	possible = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.582 # An Independent Bulgaria
+		}
+	}
+}

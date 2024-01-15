@@ -1,0 +1,725 @@
+﻿### These journals are for tags that don't have quite enough content to be split off from grefm_events
+
+###########################
+# GENERAL BALKANS CONTENT #
+###########################
+
+je_great_eastern_crisis_main = {
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+
+	group = je_group_balkfm_crisis
+
+	should_be_pinned_by_default = yes
+
+	immediate = {
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_great_eastern_crisis_tt
+			hidden_trigger = {
+				has_global_variable = balkfm_eastern_crisis_resolved
+			}
+		}
+	}
+
+	on_complete = {
+		show_as_tooltip = {
+			trigger_event = {
+				id = balkfm.106 # The Treaty of Berlin
+			}
+		}
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = balkfm_crisis_var
+				add = 1
+			}
+			clamp_variable = {
+				name = balkfm_crisis_var
+				max = 240
+				min = 0
+			}
+			if = {
+				limit = {
+					NOT = { has_global_variable = balkfm_crisis_happened }
+					global_var:balkfm_crisis_var > 20
+				}
+				balkfm_recruit_local_power = yes
+			}
+			if = {
+				limit = {
+					NOT = { has_global_variable = balkfm_crisis_happened }
+					global_var:balkfm_crisis_var > 50 
+				}
+				balkfm_recruit_great_power = yes
+			}
+			if = {
+				limit = {
+					NOT = { has_global_variable = balkfm_crisis_happened }
+					scope:journal_entry = {
+						is_goal_complete = yes
+					}
+					is_diplomatic_play_committed_participant = no
+					is_at_war = no
+				}
+				trigger_event = {
+					id = balkfm.103 # Create DP and escalate it
+				}
+			}
+		}
+	}
+
+	current_value = {
+		value = global_var:balkfm_crisis_var
+	}
+
+	goal_add_value = {
+		value = 240
+	}
+
+	progressbar = yes
+
+	weight = 500
+
+}
+
+je_great_eastern_crisis_sub = {
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+
+	group = je_group_balkfm_crisis
+
+	should_be_pinned_by_default = yes
+
+	immediate = {
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_great_eastern_crisis_tt
+			hidden_trigger = {
+				has_global_variable = balkfm_eastern_crisis_resolved
+			}
+		}
+	}
+
+	on_complete = {
+		show_as_tooltip = {
+			trigger_event = {
+				id = balkfm.106 # The Treaty of Berlin
+			}
+		}
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = balkfm_crisis_var
+				add = 1
+			}
+			clamp_variable = {
+				name = balkfm_crisis_var
+				max = 240
+				min = 0
+			}
+		}
+	}
+
+	current_value = {
+		value = global_var:balkfm_crisis_var
+	}
+
+	goal_add_value = {
+		value = 240
+	}
+
+	progressbar = yes
+
+	weight = 500
+
+}
+
+je_balkfm_the_balkan_league = { # for non-GRE countries
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}
+
+###############
+# YUGOSLAVISM #
+###############
+
+
+#####################
+# MONTENEGRO FLAVOR #
+#####################
+
+je_balkfm_the_prince_bishropic = {
+	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
+	
+	group = je_group_balkfm_montenegro
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_theocracy
+		NOT = { has_law = law_type:law_traditionalism }
+		NOT = { has_law = law_type:law_land_based_taxation }
+		NOT = { has_law = law_type:law_peasant_levies }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.309 # The Principality of Montenegro
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			NOT = { has_law = law_type:law_theocracy }
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.309 # The Principality of Montenegro
+			}
+		}
+	}
+	
+	weight = 1000
+}
+
+je_balkfm_the_montenegrin_frontiers = {
+	icon = "gfx/interface/icons/event_icons/event_obrenovic.dds"
+	
+	group = je_group_balkfm_montenegro
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		owns_entire_state_region = STATE_MONTENEGRO
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.380 # The Lands of Montenegro
+		}
+	}
+	
+}
+
+#################
+# SERBIA FLAVOR #
+#################
+
+je_balkfm_the_turkish_constitution = {
+	icon = "gfx/interface/icons/event_icons/event_obrenovic.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = balkfm_constitution_tt
+			hidden_trigger = {
+				has_variable = balkfm_constitution_enforced
+			}
+		}
+		custom_tooltip = {
+			text = balkfm_milo_bailed_tt
+			hidden_trigger = {
+				has_variable = balkfm_milos_yeeted
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.402 # An Inexperienced Ruler
+			days = 30
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.401 # Constitution Imposed
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_the_turkish_constitution_status
+				trigger = {
+					NOT = { 
+						has_variable = balkfm_constitution_enforced
+					}
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+
+}
+	
+je_balkfm_constitutionalism = {
+	icon = "gfx/interface/icons/event_icons/event_obrenovic.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		has_law = law_type:law_autocracy
+		has_law = law_type:law_serfdom
+		has_law = law_type:law_state_religion
+		has_law = law_type:law_traditionalism
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.403 # Mandate Secured # yes, this event appears yet again
+		}
+	}
+	
+	timeout = 1460 # I'm giving 4 years out of pity, Mihailo didn't even make it that far the poor bastard
+	
+	on_timeout = {
+		trigger_event = {
+			id = balkfm.404 # In Defense of the Constitution
+		}	
+	}
+	
+	weight = 1000
+
+}
+
+
+###################
+# BULGARIA FLAVOR #
+###################
+
+## BULGARIAN MONARCHISM ##
+
+je_balkfm_the_battenburg_monarchy = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_coup_var
+			value = 120 # Alexander had 87 months before the coup, I'm being generous here
+		}
+		set_variable = {
+			name = balkfm_countercoup_var
+			value = 0 # Generally, it should be hard to get this above 5 while retaining liberal laws
+		}
+		ROOT = {
+			save_scope_as = bulgaria_scope
+		}
+	}
+	
+	complete = { # Battenburgs stay in power
+		has_law = law_type:law_monarchy
+		AND = {
+			custom_tooltip = {
+				text = battenburg_monarchy_success_tt1
+				hidden_trigger = {
+					var:balkfm_countercoup_var > 5
+				}
+			}
+			custom_tooltip = {
+				text = battenburg_monarchy_success_tt2
+				hidden_trigger = {
+					has_variable = bulfm_alex_yeeted
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.507 # Countercoup!
+		}
+	}
+	
+	fail = { # Battenburgs get the boot
+		has_law = law_type:law_monarchy
+		AND = {
+			custom_tooltip = {
+				text = battenburg_monarchy_fail_tt1
+				hidden_trigger = {
+					var:balkfm_countercoup_var <= 5
+				}
+			}
+			custom_tooltip = {
+				text = battenburg_monarchy_fail_tt2
+				hidden_trigger = {
+					has_variable = bulfm_alex_yeeted
+				}
+			}
+		}
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = balkfm.507 # Countercoup!
+		}
+	}
+			
+	invalid = { # 404 monarch not found
+		NOT = { has_law = law_type:law_monarchy }
+	}
+	
+	on_invalid = {
+		set_variable = bulfm_alex_yeeted
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			battenburg_monthly_effect = yes # to avoid clutter
+			change_variable = {
+				name = balkfm_coup_var
+				subtract = 1 # yes this will go below zero for a few months idc
+			}
+		}
+		events = {
+			balkfm.501 # Democratic Obstructions
+			balkfm.502 # Conservative Tendencies
+			balkfm.503 # An Absolute Monarch
+			balkfm.504 # Russia Demands Subservience
+			balkfm.505 # The August Coup
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = balkfm_coup_warning_1
+				trigger = {
+					var:balkfm_coup_var > 60
+				}
+			}
+			triggered_desc = {
+				desc = balkfm_coup_warning_2
+				trigger = {
+					var:balkfm_coup_var > 30
+				}
+			}
+			triggered_desc = {
+				desc = balkfm_coup_warning_3
+				trigger = {
+					var:balkfm_coup_var > 15
+				}
+			}
+			triggered_desc = {
+				desc = balkfm_coup_warning_4
+				trigger = {
+					var:balkfm_coup_var < 16
+				}
+			}
+		}
+	}
+	
+	weight = 2000
+	
+}
+
+je_balkfm_bulgarian_railways = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	complete = {
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.514 # The Bulgarian Railways
+		}
+	}
+	
+	invalid = {
+		NOT = { owns_entire_state_region = STATE_BULGARIA }
+	}
+	
+	scripted_button = balkfm_purchase_rail_button
+	
+	weight = 200
+	
+}
+
+je_balkfm_brigandage = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	group = je_group_grefm_monarchism
+	
+	complete = {
+		has_law = law_type:law_dedicated_police
+		OR = {
+			institution_investment_level = {
+				institution = institution_police
+				value >= 3
+			}
+			NOT = {
+				any_scope_state = {
+					turmoil > 0.20
+				}
+			}
+		}
+	}
+	
+	on_complete = { 
+		trigger_event = {
+			id = balkfm.511 # The End of the Brigands
+		}
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = je_balkfm_alex_yeeted_tt
+			hidden_trigger = {
+				has_variable = bulfm_alex_yeeted
+			}
+		}
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_brigandage
+	}
+	
+	weight = 200
+	
+	transferable = no	
+}
+
+## BULGARIAN IRREDENTISM ##
+
+je_balkfm_the_liberation_of_bulgaria = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		is_subject = no
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE		
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.583 # Bulgarian Irredentism
+		}
+	}
+	
+	scripted_button = balkfm_annex_rumelia_button # balkfm.581
+	scripted_button = balkfm_declare_tsardom_button # balkfm.582
+	
+	weight = 1000
+	
+}
+
+je_balkfm_greater_bulgaria = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.584 # The Bulgarian Empire
+		}
+	}
+	
+	weight = 500
+
+}
+
+je_balkfm_the_bulgarian_empire = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA		
+		owns_entire_state_region = STATE_WALLACHIA
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_ALBANIA
+#		owns_entire_state_region = STATE_DOBRUDJA		
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.585 # The Future of Bulgaria
+		}
+	}
+	
+	weight = 500
+
+}
+
+je_balkfm_southern_slavia = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_WALLACHIA
+		owns_entire_state_region = STATE_DOBRUDJA
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_ALBANIA
+		owns_entire_state_region = STATE_MONTENEGRO
+		owns_entire_state_region = STATE_BOSNIA
+		owns_entire_state_region = STATE_DALMATIA
+		owns_entire_state_region = STATE_SLAVONIA
+		owns_entire_state_region = STATE_CROATIA
+		owns_entire_state_region = STATE_ISTRIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.586 # The Slavic Balkans
+		}
+	}
+	
+	weight = 500
+}
+
+je_balkfm_megali_idea = { # megali idea minus Attica and the Islands
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_balkfm_empire
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_WALLACHIA
+		owns_entire_state_region = STATE_ALBANIA
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_HUDAVENDIGAR
+		owns_entire_state_region = STATE_AYDIN		
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.587 # leaps to byzfm side
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_global_variable = grefm_megali_idea_completed
+				has_variable = bulfm_weaksauce
+			}
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_old_great_bulgaria = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	weight = 500
+	
+}
+
+
+########################################
+# MOLDOVA / WALLACHIA / ROMANIA FLAVOR #
+########################################
+
+
+
+#################
+# BOSNIA FLAVOR #
+#################
+
+
+
+###########
+# ALBANIA #
+###########
+
+

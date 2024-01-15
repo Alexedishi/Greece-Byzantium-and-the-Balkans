@@ -1,0 +1,100 @@
+﻿eocfm_has_icon_trigger = {
+	OR = {
+		has_modifier = modifier_eocfm_icon_christ_pantocrator
+		has_modifier = modifier_eocfm_icon_eleusa
+		has_modifier = modifier_eocfm_icon_john_climacus
+		has_modifier = modifier_eocfm_icon_michael_archistrategos
+		has_modifier = modifier_eocfm_icon_nikolaos_wonderworker
+		has_modifier = modifier_eocfm_icon_gregory_nazianzus
+		has_modifier = modifier_eocfm_icon_paul_of_thebes
+		has_modifier = modifier_eocfm_icon_issac_the_syrian
+		has_modifier = modifier_eocfm_icon_basil_megas
+	}
+}
+
+eocfm_can_integrate_seat_trigger = {
+	OR = {
+		AND = {
+			owns_entire_state_region = STATE_LAZIO
+			NOT = {
+				has_variable = eocfm_controls_rome
+			}
+		}
+		AND = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+			NOT = {
+				has_variable = eocfm_controls_constantinople
+			}
+		}
+		AND = {
+			owns_entire_state_region = STATE_ADANA
+			NOT = {
+				has_variable = eocfm_controls_antioch
+			}
+		}	
+		AND = {
+			owns_entire_state_region = STATE_LOWER_EGYPT
+			NOT = {
+				has_variable = eocfm_controls_alexandria
+			}
+		}	
+		AND = {
+			owns_entire_state_region = STATE_PALESTINE
+			NOT = {
+				has_variable = eocfm_controls_jerusalem
+			}
+		}	
+		AND = {
+			owns_entire_state_region = STATE_MOSCOW
+			NOT = {
+				has_variable = eocfm_controls_moscow
+			}
+		}
+	}
+}
+
+eocfm_controls_major_seat_trigger = {
+	OR = {
+		AND = {
+			owns_entire_state_region = STATE_LAZIO
+			has_variable = eocfm_controls_rome
+		}
+		AND = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+			has_variable = eocfm_controls_constantinople
+		}
+		AND = {
+			owns_entire_state_region = STATE_ADANA
+			has_variable = eocfm_controls_antioch
+		}	
+		AND = {
+			owns_entire_state_region = STATE_LOWER_EGYPT
+			has_variable = eocfm_controls_alexandria
+		}	
+		AND = {
+			owns_entire_state_region = STATE_PALESTINE
+			has_variable = eocfm_controls_jerusalem
+		}	
+		AND = {
+			owns_entire_state_region = STATE_MOSCOW
+			has_variable = eocfm_controls_moscow
+		}
+	}
+}
+
+eocfm_controls_all_seats = {
+	AND = {
+		owns_entire_state_region = STATE_LAZIO
+		has_variable = eocfm_controls_rome
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		has_variable = eocfm_controls_constantinople
+		owns_entire_state_region = STATE_ADANA
+		has_variable = eocfm_controls_antioch
+		owns_entire_state_region = STATE_LOWER_EGYPT
+		has_variable = eocfm_controls_alexandria
+		owns_entire_state_region = STATE_PALESTINE
+		has_variable = eocfm_controls_jerusalem
+		owns_entire_state_region = STATE_MOSCOW
+		has_variable = eocfm_controls_moscow
+	}
+}

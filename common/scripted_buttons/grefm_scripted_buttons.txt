@@ -170,7 +170,6 @@ grefm_crete_agitate_button = {
 	visible = {
 		NOT = { owns_entire_state_region = STATE_CRETE }
 		has_technology_researched = nationalism
-		NOT = { has_global_variable = grefm_crete_revolt_var_removed }
 		NOT = { exists = c:CRE }
 	}
 	
@@ -374,7 +373,7 @@ grefm_archeaology_gla_button = {
 		custom_tooltip = {
 			text = grefm_gla_exposed_tt
 			hidden_trigger = {
-				has_variable = grefm_gla_exposed
+				has_global_variable = grefm_gla_exposed
 			}
 		}
 		NOT = { has_modifier = modifier_grefm_active_excavation }
@@ -473,6 +472,43 @@ grefm_archeaology_larissa_button = {
 			days = 30
 		}
 		set_variable = grefm_larissa_excavation
+	}
+
+}
+
+grefm_archeaology_rhodes_button = {
+	name = "grefm_rhodes_button"
+	desc = "grefm_rhodes_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_rhodes_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_rhodes_tt
+			hidden_effect = {
+				s:STATE_EAST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_rhodes_excavation
 	}
 
 }

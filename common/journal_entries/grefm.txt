@@ -4,7 +4,7 @@
 je_grefm_bavarocracy_main = { # main entry
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes	
 	
@@ -69,7 +69,6 @@ je_grefm_bavarocracy_main = { # main entry
 	on_invalid = {
 		hidden_effect = {
 			clean_up_bavarocracy_modifiers = yes
-			clean_up_bavarocracy_reform_modifiers = yes
 		}
 	}
 	
@@ -103,7 +102,7 @@ je_grefm_bavarocracy_main = { # main entry
 je_grefm_greek_constitution = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes
 	
@@ -182,7 +181,7 @@ je_grefm_greek_constitution = {
 je_grefm_land_reform = {
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	complete = {
 		OR = {
@@ -223,7 +222,7 @@ je_grefm_land_reform = {
 je_grefm_brigandage = {
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	complete = {
 		has_law = law_type:law_dedicated_police
@@ -290,7 +289,7 @@ je_grefm_brigandage = {
 je_grefm_civic_tradition = {
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	complete = {
 		NOT = { has_law = law_type:law_hereditary_bureaucrats }
@@ -329,42 +328,9 @@ je_grefm_civic_tradition = {
 je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes	
-
-	on_monthly_pulse = {
-		effect = {
-			if = {
-				limit = {
-					has_law = law_type:law_monarchy
-					has_law = law_type:law_hereditary_bureaucrats
-					has_law = law_type:law_autocracy
-					has_law = law_type:law_state_religion		
-					has_law = law_type:law_tenant_farmers
-					NOT = {
-						any_civil_war = {
-							civil_war_progress > 0.5
-							is_civil_war_type = revolution
-						}
-					}
-					NOT = {
-						any_interest_group = {
-							law_stance = {
-								law = law_type:law_monarchy
-								value < neutral
-							}
-							is_in_government = yes
-						}
-					}
-				}
-				change_variable = {
-					name = grefm_tyranny_var
-					add = 1
-				}
-			}
-		}
-	}
 
 	complete = {
 		scope:journal_entry = {
@@ -414,7 +380,35 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 				has_variable = grefm_bavarocracy_completed
 			}
 		}
-	}	
+	}
+
+	modifiers_while_active {
+		modifier_grefm_tyrannical_ruler
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_hereditary_bureaucrats
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_state_religion		
+					has_law = law_type:law_tenant_farmers
+					NOT = {
+						any_civil_war = {
+							civil_war_progress > 0.5
+							is_civil_war_type = revolution
+						}
+					}
+				}
+				change_variable = {
+					name = grefm_tyranny_var
+					add = 1
+				}
+			}
+		}
+	}
 	
 	current_value = {
 		value = root.var:grefm_tyranny_var
@@ -437,7 +431,7 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 je_grefm_the_dedilomeni_principle = {
 	icon = "gfx/interface/icons/event_icons/event_glucksburg.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes
 	
@@ -518,7 +512,7 @@ je_grefm_the_dedilomeni_principle = {
 je_grefm_the_dedilomeni_principle_otto_alternate = {
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes
 	
@@ -622,7 +616,15 @@ je_grefm_the_dedilomeni_principle_otto_alternate = {
 	
 	fail = {
 		NOT = {
-			has_law = law_type:law_monarchy
+			has_law = law_type:law_monarchy 
+		}
+	}
+	
+	on_fail = {
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.005 # 404 monarch not found
+			}
 		}
 	}
 
@@ -632,10 +634,10 @@ je_grefm_the_dedilomeni_principle_otto_alternate = {
 	
 }
 
-je_grefm_the_military_league = { # this is a heavily modified vanilla coup JE
+je_grefm_the_military_league = { # this is a modified vanilla coup JE
 	icon = "gfx/interface/icons/event_icons/event_glucksburg.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_monarchism
 	
 	should_be_pinned_by_default = yes
 	
@@ -663,7 +665,6 @@ je_grefm_the_military_league = { # this is a heavily modified vanilla coup JE
 					scope:coup_ig = {
 						OR = {
 							is_powerful = no
-							ig_approval >= 0
 						}
 					}
 				}
@@ -862,7 +863,6 @@ je_grefm_the_military_league = { # this is a heavily modified vanilla coup JE
 					scope:coup_ig = {
 						OR = {
 							is_powerful = no
-							ig_approval >= 0
 						}
 					}
 				}
@@ -893,7 +893,7 @@ je_grefm_the_military_league = { # this is a heavily modified vanilla coup JE
 je_grefm_venizelism = {
 	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_venizelos
 	
 	should_be_pinned_by_default = yes
 	
@@ -948,7 +948,33 @@ je_grefm_venizelism = {
 
 }
 		
+je_grefm_the_balkan_league = {
+	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
 	
+	group = je_group_grefm_balkans
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		effect = {
+			change_global_variable = {
+				name = grefm_balkan_wars_var
+				add = 1
+			}
+		}
+	}
+	
+	weight = 2000
+	
+}
 
 ###################
 # THE MEGALI IDEA #
@@ -957,7 +983,7 @@ je_grefm_venizelism = {
 je_grefm_megali_idea = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 
@@ -988,7 +1014,6 @@ je_grefm_megali_idea = {
 	}
 
 	complete = {
-		has_law = law_type:law_monarchy
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		owns_entire_state_region = STATE_ATTICA
 		owns_entire_state_region = STATE_THESSALIA
@@ -1001,7 +1026,6 @@ je_grefm_megali_idea = {
 		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
 		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
 		owns_entire_state_region = STATE_ALBANIA
-#		owns_entire_state_region = STATE_CRETE
 	}
 
 	on_complete = {
@@ -1012,6 +1036,10 @@ je_grefm_megali_idea = {
 		hidden_trigger = {
 			has_global_variable = grefm_megali_idea_completed
 		}
+	}
+	
+	on_invalid = {
+		set_variable = grefm_tzatzikisauce
 	}
 
 	scripted_button = grefm_epirus_agitate_button
@@ -1038,15 +1066,15 @@ je_grefm_megali_idea = {
 			}
 		}
 	}
-				
 
 	weight = 4000 # second up to je_grefm_bavarocracy_main
+
 }
 
 je_grefm_greater_greece = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 
@@ -1063,7 +1091,7 @@ je_grefm_greater_greece = {
 	immediate = {
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.208 # greater greece
+				id = grefm.204 # greater greece
 			}
 		}
 	}
@@ -1087,18 +1115,16 @@ je_grefm_greater_greece = {
 			}
 		}
 		owns_entire_state_region = STATE_CRETE
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
 		owns_entire_state_region = STATE_CYPRUS
 		owns_entire_state_region = STATE_KASTAMONU
 		owns_entire_state_region = STATE_TRABZON
 		owns_entire_state_region = STATE_ADANA
-#		owns_entire_state_region = STATE_APULIA
-#		owns_entire_state_region = STATE_CALABRIA
-#		owns_entire_state_region = STATE_SICILY
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.209 # a greek dominion
+			id = grefm.205 # a greek dominion
 		}
 	}
 	
@@ -1119,7 +1145,7 @@ je_grefm_greater_greece = {
 je_grefm_greek_nationalism = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -1174,7 +1200,7 @@ je_grefm_greek_nationalism = {
 je_grefm_archaeology = {
 	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -1206,7 +1232,6 @@ je_grefm_archaeology = {
 			hidden_trigger = {
 				OR = {
 					AND = {
-						has_variable = byzfm_weaksauce
 						has_variable = grefm_parthenon_1_complete
 						has_variable = grefm_parthenon_2_complete
 						has_variable = grefm_knossos_1_complete
@@ -1214,6 +1239,7 @@ je_grefm_archaeology = {
 						has_variable = grefm_gla_complete
 						has_variable = grefm_delos_complete
 						has_variable = grefm_larissa_complete
+						has_variable = grefm_rhodes_complete
 					}
 					AND = {
 						has_variable = byzfm_byzantium_formed
@@ -1224,6 +1250,7 @@ je_grefm_archaeology = {
 						has_variable = grefm_gla_complete
 						has_variable = grefm_delos_complete
 						has_variable = grefm_larissa_complete
+						has_variable = grefm_rhodes_complete
 						has_variable = byzfm_mega_palation_complete
 						has_variable = byzfm_hippodrome_complete
 					}
@@ -1245,6 +1272,7 @@ je_grefm_archaeology = {
 	scripted_button = grefm_archeaology_gla_button
 	scripted_button = grefm_archeaology_delos_button
 	scripted_button = grefm_archeaology_larissa_button
+	scripted_button = grefm_archeaology_rhodes_button
 	scripted_button = grefm_archeaology_mega_palation_button
 	scripted_button = grefm_archeaology_hippodrome_button
 	
@@ -1317,7 +1345,7 @@ je_grefm_active_excavation = {
 je_grefm_national_language = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_nationalism
 	
 	is_shown_when_inactive = {
 		has_journal_entry = je_grefm_greek_nationalism
@@ -1360,6 +1388,8 @@ je_grefm_the_womens_journal = {
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
+		country_has_primary_culture = cu:greek
+		owns_entire_state_region = STATE_ATTICA
 		has_technology_researched = egalitarianism
 	}
 
@@ -1377,7 +1407,10 @@ je_grefm_the_womens_journal = {
 	}
 	
 	complete = {
-		has_law = law_type:law_women_in_the_workplace
+		OR = {
+			has_law = law_type:law_women_in_the_workplace
+			has_law = law_type:law_womens_suffrage
+		}
 		NOT = { has_law = law_type:law_child_labor_allowed }
 	}
 	
@@ -1400,7 +1433,198 @@ je_grefm_the_womens_journal = {
 	weight = 2996
 
 }
-			
+	
+#############################
+# THE REVENGE OF THE GREEKS #
+#############################
+
+je_grefm_revenge_of_the_greeks = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt1
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 9
+					country_or_subject_owns_entire_state_region = STATE_ALBANIA
+					country_or_subject_owns_entire_state_region = STATE_BOSNIA
+					country_or_subject_owns_entire_state_region = STATE_BULGARIA
+					country_or_subject_owns_entire_state_region = STATE_CRETE
+					country_or_subject_owns_entire_state_region = STATE_CROATIA
+					country_or_subject_owns_entire_state_region = STATE_DALMATIA
+					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
+					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
+					country_or_subject_owns_entire_state_region = STATE_SKOPIA
+					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
+					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_THESSALIA
+					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt2
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 8
+					country_or_subject_owns_entire_state_region = STATE_ADANA
+					country_or_subject_owns_entire_state_region = STATE_ANKARA
+					country_or_subject_owns_entire_state_region = STATE_AYDIN
+					country_or_subject_owns_entire_state_region = STATE_CYPRUS
+					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_ERZURUM
+					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
+					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
+					country_or_subject_owns_entire_state_region = STATE_KONYA
+					country_or_subject_owns_entire_state_region = STATE_TRABZON
+				}
+			}
+		}
+	}
+		
+	on_complete = {
+		trigger_event = {
+			id = grefm.302 # Nova Roma Constantinopolitana
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 10000
+}
+
+je_grefm_shores_of_phoenicia = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		country_rank >= rank_value:great_power
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+		country_or_subject_owns_entire_state_region = STATE_ALEPPO
+		country_or_subject_owns_entire_state_region = STATE_LEBANON
+		country_or_subject_owns_entire_state_region = STATE_SYRIA
+		country_or_subject_owns_entire_state_region = STATE_PALESTINE
+		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
+		country_or_subject_owns_entire_state_region = STATE_SINAI
+		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MATRUH
+#		country_or_subject_owns_entire_state_region = STATE_LIBYA # not held by Alexander III
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.304 # The Legacy of Alexander
+		}
+	}	
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_rome_of_the_east_status
+			}
+		}
+	}	
+
+	weight = 10000
+	
+}
+
+je_grefm_lands_of_arianon = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+
+	should_be_pinned_by_default = yes
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_ERZURUM
+		country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+		country_or_subject_owns_entire_state_region = STATE_FARS
+		country_or_subject_owns_entire_state_region = STATE_IRAKAJEMI
+		country_or_subject_owns_entire_state_region = STATE_ISFAHAN
+		country_or_subject_owns_entire_state_region = STATE_KHORASAN
+		country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
+		country_or_subject_owns_entire_state_region = STATE_LARISTAN
+		country_or_subject_owns_entire_state_region = STATE_LURISTAN
+		country_or_subject_owns_entire_state_region = STATE_MAZANDARAN
+		country_or_subject_owns_entire_state_region = STATE_SISTAN
+		country_or_subject_owns_entire_state_region = STATE_TABRIZ
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.306 # shame it wasn't the Sassanids... lets finish what Alexander started (The Graveyard of Empires)
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	weight = 10000
+	
+}
+
+je_grefm_the_graveyard_of_empires = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+
+	should_be_pinned_by_default = yes
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_EASTERN_AFGHANISTAN
+		country_or_subject_owns_entire_state_region = STATE_WESTERN_AFGHANISTAN
+		country_or_subject_owns_entire_state_region = STATE_BALUCHISTAN
+		country_or_subject_owns_entire_state_region = STATE_PASHTUNISTAN
+		country_or_subject_owns_entire_state_region = STATE_PUNJAB
+		country_or_subject_owns_entire_state_region = STATE_SINDH
+		country_or_subject_owns_entire_state_region = STATE_KASHMIR
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.307 # The Empire of the Greeks
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	weight = 10000
+	
+}
 
 ################
 # OTHER FLAVOR #
@@ -1461,8 +1685,6 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	
 	group = je_group_grefm_content
 
-	should_be_pinned_by_default = yes
-
 	complete = {
 		scope:journal_entry = {
 			is_goal_complete = yes
@@ -1496,8 +1718,6 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	goal_add_value = { # this is much smaller scale than the vanilla JE
 		add = 3
 	}
-
-	progressbar = yes
 	
 	on_monthly_pulse = {
 		events = {
@@ -1507,8 +1727,19 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 
 	on_yearly_pulse = {
 		random_events = {
-			9 = 0
-			1 = grefm.920 # arable land reclaimed in Kopaida
+			4 = 0
+			1 = grefm.916 # arable land reclaimed in Kopaida
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_grefm_land_reclaimation_status
+				trigger = {
+					always = yes
+				}
+			}
 		}
 	}
 
@@ -1519,39 +1750,16 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 je_grefm_the_cretan_revolts = {
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes 
-	
-	is_shown_when_inactive = {
-		has_global_variable = grefm_crete_revolt_greenlight
-		owns_entire_state_region = STATE_CRETE
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-	}
-				
-		
-	possible = {
-		NOT = { country_has_primary_culture = cu:greek }
-	}
 	
 	complete = {
 		has_law = law_type:law_multicultural
 	}
 	
 	invalid = {
-		OR = {
-			NOT = { owns_entire_state_region = STATE_CRETE }
-			hidden_trigger = {
-				has_global_variable = grefm_crete_revolt_var_removed
-			}
-		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_lost_crete
+		NOT = { owns_entire_state_region = STATE_CRETE }
 	}
 	
 	on_monthly_pulse = {
@@ -1559,6 +1767,33 @@ je_grefm_the_cretan_revolts = {
 			400 = 0
 			5 = grefm.250 # Priest Martyred in Crete
 			5 = grefm.251 # Wali of Crete Oversteps Authority
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = {
+						exists = c:CRE
+					}
+				}
+				change_global_variable = {
+					name = grefm_crete_revolt_var
+					add = 1
+				}
+				clamp_global_variable = {
+					name = grefm_crete_revolt_var
+					max = 150
+					min = 0 
+				}
+			}
+			if = {
+				limit = {
+					global_var:grefm_crete_revolt_var >= 150
+				}
+				trigger_event = {
+					id = grefm.914 # crete revolts again
+					popup = yes
+				}
+			}
 		}
 	}
 
@@ -1569,7 +1804,7 @@ je_grefm_the_cretan_revolts = {
 je_grefm_the_cretan_revolts_fallback = { # in case je_grefm_megali_idea is closed
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes 
 	
@@ -1587,12 +1822,6 @@ je_grefm_the_cretan_revolts_fallback = { # in case je_grefm_megali_idea is close
 	
 	complete = {
 		owns_entire_state_region = STATE_CRETE
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_global_variable = grefm_crete_revolt_var_removed
-		}
 	}
 	
 	scripted_button = grefm_crete_agitate_button

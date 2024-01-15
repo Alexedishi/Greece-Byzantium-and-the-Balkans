@@ -1,0 +1,118 @@
+﻿patriarch_authority_capacity = {
+	value = 0
+## SOURCES
+	if = {
+		limit = {
+			has_law = law_type:law_theocracy
+		}
+		add = 200
+	}
+	else = {
+		add = 100
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_state_religion
+		}
+		add = 200
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_freedom_of_conscience
+		}
+		add = 100
+	}
+	else = {
+		subtract = 100
+	}
+	if = {
+		limit = {
+			ig:ig_devout = {
+				is_powerful = yes
+				is_in_government = yes
+			}
+		}
+		add = 200
+	}
+	else_if = {
+		limit = {
+			ig:ig_devout = {
+				is_powerful = yes
+			}
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			eocfm_controls_all_seats = yes
+		}
+		add = 400
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_rome
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_constantinople
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_antioch
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_alexandria
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_jerusalem
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_moscow
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_is_autocephalus
+		}
+		add = 200
+	}
+## EXPENSES
+	if = {
+		limit = {
+			eocfm_has_icon_trigger = yes
+		}
+		subtract = 200
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_hosting_council
+		}
+		subtract = 1000
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_integrating_seat
+		}
+		subtract = 500
+	}
+}
+
+patriarch_authority_ratio = {
+	value = patriarch_authority_capacity
+	divide = 50
+	round = 1
+}

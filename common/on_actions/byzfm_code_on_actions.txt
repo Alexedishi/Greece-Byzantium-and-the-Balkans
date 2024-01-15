@@ -6,12 +6,6 @@
 	}
 }
 
-on_yearly_pulse_country = {
-	on_actions = {
-		byzfm_yearly_pulse
-	}
-}
-
 on_wargoal_enforced = {
 	on_actions = {
 		byzfm_wargoal_enforced
@@ -29,15 +23,8 @@ byfzm_monthly_pulse = {
 		}
 	}
 	events = {
-		byzfm.6  # ERE branching decision
-		byzfm.8  # restoration of the patriarchate
-		byzfm.9  # notification of the ERE to other countries
-		byzfm.19 # hedjaz captured
-		byzfm.38 # Greco-Roman relations
-		byzfm.40 # Event beginning construction of Imperial Palace
-		byzfm.47 # drag racing in the hippodrome
-		byzfm.90 # anatolia reclaimed
-		byzfm.91 # balkans reclaimed
+		byzfm.100 # Event beginning construction of Imperial Palace
+		byzfm.123 # drag racing in the hippodrome
 	}
 	random_events = {
 		100 = 0
@@ -60,15 +47,6 @@ byfzm_monthly_pulse = {
 	}
 }
 
-byzfm_yearly_pulse = {
-	events = {
-#		byzfm.99 # culture check
-	}
-	random_events = {
-		100 = 0
-	}
-}
-
 byzfm_chariot_pulse_1 = {
 	trigger = {
 		has_modifier = modifier_byzfm_chariot_racing
@@ -76,14 +54,14 @@ byzfm_chariot_pulse_1 = {
 		var:byzfm_held_chariot_races < 1
 	}
 	random_events = {
-		20 = byzfm.50 # reds win
-		20 = byzfm.51 # whites win
-		20 = byzfm.52 # greens win
-		20 = byzfm.53 # blues win
-		10 = byzfm.56 # first match complete, crowd calls for diversum
-		 1 = byzfm.57 # sporting riot
-		 1 = byzfm.58 # ruler tries to join race
-		 1 = byzfm.59 # team gets caught cheating
+		20 = byzfm.110 # reds win
+		20 = byzfm.111 # whites win
+		20 = byzfm.112 # greens win
+		20 = byzfm.113 # blues win
+		10 = byzfm.116 # first match complete, crowd calls for diversum
+		 1 = byzfm.117 # sporting riot
+		 1 = byzfm.118 # ruler tries to join race
+		 1 = byzfm.119 # team gets caught cheating
 	}
 }
 
@@ -94,16 +72,16 @@ byzfm_chariot_pulse_2 = {
 		var:byzfm_held_chariot_races < 1
 	}
 	random_events = {
-		25 = byzfm.50 # reds win - industrialists
-		25 = byzfm.51 # whites win - intel
-		25 = byzfm.52 # greens win - rural folk
-		25 = byzfm.53 # blues win - petite
-		25 = byzfm.54 # purples win - landowners
-		25 = byzfm.55 # golds win - trade unions
-		15 = byzfm.56 # first match complete, crowd calls for diversum
-		 5 = byzfm.57 # sporting riot
-		 5 = byzfm.58 # ruler tries to join race
-		 1 = byzfm.59 # team gets caught cheating
+		25 = byzfm.110 # reds win - industrialists
+		25 = byzfm.111 # whites win - intel
+		25 = byzfm.112 # greens win - rural folk
+		25 = byzfm.113 # blues win - petite
+		25 = byzfm.114 # purples win - landowners
+		25 = byzfm.115 # golds win - trade unions
+		15 = byzfm.116 # first match complete, crowd calls for diversum
+		 5 = byzfm.117 # sporting riot
+		 5 = byzfm.118 # ruler tries to join race
+		 1 = byzfm.119 # team gets caught cheating
 	}
 }
 
@@ -128,12 +106,6 @@ byzfm_wargoal_enforced = {
 		}
 		scope:crusade_target = {
 			set_state_religion = rel:orthodox
-		}
-		scope:crusade_aggressor = {
-			change_variable = {
-				name = byzfm_crusade_counter
-				add = 1
-			}
 		}
 		every_country = {
 			limit = {
