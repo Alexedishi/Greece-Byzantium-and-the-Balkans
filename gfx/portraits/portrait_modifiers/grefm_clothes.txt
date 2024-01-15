@@ -1,0 +1,53 @@
+﻿grefm_clothes = {
+	usage = game
+	selection_behavior = weighted_random
+
+    grefm_european_clothing_with_glasses = {
+        dna_modifiers = {
+            accessory = {
+                mode = add
+                gene = waistcoats
+                template = european_waistcoats
+                range = { 0 1 } # For the randomness to work correctly
+            }
+
+            accessory = {
+                mode = add
+                gene = civilian_coats
+                template = european_civilian_coats
+                range = { 0 1 } # For the randomness to work correctly
+            }
+
+            accessory = {
+                mode = add
+                gene = legwear
+                template = european_legwear
+                range = { 0 1 } # For the randomness to work correctly
+            }
+
+            accessory = {
+                mode = add
+                gene = props
+                template = female_glasses
+                range = { 0 0 }
+            }
+
+            accessory = {
+                mode = add
+                gene = outfits
+                template = no_outfit
+                range = { 0 1 }
+            }
+        }
+
+        weight = {
+            base = 0
+            modifier = {
+                add = 200000
+                scope:character ?= {
+                    has_template = grefm_venizelos_character_template
+                }
+            }
+        }
+    }
+}

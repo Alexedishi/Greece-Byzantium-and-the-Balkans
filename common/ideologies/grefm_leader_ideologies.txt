@@ -1,0 +1,118 @@
+﻿ideology_venizelist = {
+	icon = "gfx/interface/icons/ideology_icons/ideology_leader/unused/ideology_leader_populist.dds"
+	
+	character_ideology = yes
+
+	lawgroup_rights_of_women = {
+		law_no_womens_rights = neutral
+		law_women_own_property = approve
+		law_women_in_the_workplace = neutral
+		law_womens_suffrage = neutral
+	}
+
+	lawgroup_church_and_state = {
+		law_state_religion = approve
+		law_freedom_of_conscience = disapprove
+		law_total_separation = strongly_disapprove
+		law_state_atheism = strongly_disapprove
+	}
+
+	lawgroup_labor_rights = {		
+		law_worker_protections = approve
+		law_regulatory_bodies = approve
+		law_no_workers_rights = neutral
+	}
+
+	lawgroup_distribution_of_power = {
+		law_universal_suffrage = strongly_approve
+		law_census_voting = neutral
+		law_wealth_voting = disapprove
+		law_landed_voting = disapprove
+		law_anarchy = disapprove
+		law_technocracy = disapprove
+		law_oligarchy = strongly_disapprove
+		law_autocracy = strongly_disapprove	
+		law_single_party_state = strongly_disapprove	
+	}
+	
+	lawgroup_taxation = {
+		law_consumption_based_taxation = disapprove
+		law_land_based_taxation = disapprove
+		law_per_capita_based_taxation = neutral
+		law_proportional_taxation = approve
+		law_graduated_taxation = strongly_approve
+	}
+
+	lawgroup_welfare = {
+		law_poor_laws = strongly_disapprove
+		law_no_social_security = strongly_disapprove
+		law_wage_subsidies = approve
+		law_old_age_pension = strongly_approve
+	}
+
+	possible = { # social democrat requirements but with an event variable instead
+		owner = { has_variable = grefm_venizelos_has_landed }
+		NAND = {
+			has_role = agitator
+			owner = {
+				has_law = law_type:law_universal_suffrage
+				has_law = law_type:law_graduated_taxation
+				has_law = law_type:law_old_age_pension
+				has_law = law_type:law_worker_protections
+			}
+		}
+		scope:interest_group = {
+			OR = {
+				is_interest_group_type = ig_devout
+				is_interest_group_type = ig_rural_folk
+				is_interest_group_type = ig_intelligentsia
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_armed_forces
+			}
+		}
+		scope:interest_group = {
+			NOR = {
+				has_variable = communist_ig_var
+				has_variable = chose_vanguardism
+				has_variable = chose_fascism
+				has_variable = chose_conservatism
+				has_variable = chose_ethno_nationalism
+			}
+		}
+	}
+	
+	leader_weight = {
+		value = 100
+		if = {
+			limit = {
+				owner = {
+					NAND = {
+						has_law = law_type:law_graduated_taxation
+						has_law = law_type:law_universal_suffrage
+						has_law = law_type:law_worker_protections
+					}
+				}
+			}
+			add = 50
+		}
+		if = {
+			limit = {
+				scope:interest_group = {
+					is_interest_group_type = ig_trade_unions
+				}
+				owner = {
+					has_law = law_type:law_council_republic
+				}
+			}
+			multiply = 0.01
+		}		
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_venizelos_has_landed
+				}
+			}
+			multiply = 0 # won't happen without Venizelos
+		}
+	}
+}

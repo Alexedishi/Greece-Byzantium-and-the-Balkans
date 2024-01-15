@@ -1,0 +1,32 @@
+﻿byzfm_archeaology_mega_palation_button = {
+	name = "byzfm_mega_palation_button"
+	desc = "byzfm_mega_palation_button_desc"
+	
+	visible = {
+		owner = {
+			has_variable = byzfm_palace_restoration
+			NOT = { has_variable = byzfm_mega_palation_complete }
+			NOT = { has_journal_entry = je_grefm_archaeology }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+		has_law = law_type:law_monarchy
+	}
+	
+	effect = {
+		set_variable = { 
+			name = byzfm_imperial_palace_var
+			value = 0
+		}
+		add_modifier = {
+			name = modifier_grefm_active_excavation
+		}
+		add_journal_entry = {
+			type = je_byzfm_mega_palation_survey
+		}
+	}
+	
+}

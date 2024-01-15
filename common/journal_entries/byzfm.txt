@@ -1,0 +1,784 @@
+﻿#############################
+# THE BYZANTINE RESTORATION #
+#############################
+
+je_byzfm_restoration = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt1
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 9
+					country_or_subject_owns_entire_state_region = STATE_ALBANIA
+					country_or_subject_owns_entire_state_region = STATE_BOSNIA
+					country_or_subject_owns_entire_state_region = STATE_BULGARIA
+					country_or_subject_owns_entire_state_region = STATE_CRETE
+					country_or_subject_owns_entire_state_region = STATE_CROATIA
+					country_or_subject_owns_entire_state_region = STATE_DALMATIA
+					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
+					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
+					country_or_subject_owns_entire_state_region = STATE_SKOPIA
+					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
+					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_THESSALIA
+					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt2
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 8
+					country_or_subject_owns_entire_state_region = STATE_ADANA
+					country_or_subject_owns_entire_state_region = STATE_ANKARA
+					country_or_subject_owns_entire_state_region = STATE_AYDIN
+					country_or_subject_owns_entire_state_region = STATE_CYPRUS
+					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_ERZURUM
+					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
+					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
+					country_or_subject_owns_entire_state_region = STATE_KONYA
+					country_or_subject_owns_entire_state_region = STATE_TRABZON
+				}
+			}
+		}
+	}
+		
+	on_complete = {
+		trigger_event = {
+			id = byzfm.3
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 10000
+}
+
+je_byzfm_rome_of_the_east = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		country_rank >= rank_value:great_power
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+		country_or_subject_owns_entire_state_region = STATE_ALEPPO
+		country_or_subject_owns_entire_state_region = STATE_LEBANON
+		country_or_subject_owns_entire_state_region = STATE_SYRIA
+		country_or_subject_owns_entire_state_region = STATE_PALESTINE
+		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
+		country_or_subject_owns_entire_state_region = STATE_SINAI
+		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MATRUH
+		country_or_subject_owns_entire_state_region = STATE_LIBYA
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.5
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_rome_of_the_east_status
+			}
+		}
+	}	
+
+	weight = 10000
+	
+}
+
+######################
+# THE PURPLE PHEONIX #
+######################
+
+je_byzfm_the_purple_phoenix = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+		country_or_subject_owns_entire_state_region = STATE_LAZIO
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.36 # rome secured
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = byzfm.37 # option for SPQR
+				days = 30
+			}
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_the_purple_phoenix_status
+			}
+		}
+	}	
+
+	current_value = {
+		value = var:byzfm_italia_counter
+	}
+
+	goal_add_value = {
+		add = 4
+	}
+
+	progressbar = yes
+
+	weight = 10000
+
+}
+
+je_byzfm_the_purple_phoenix_dalmatia = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_VENETIA
+		owns_entire_state_region = STATE_ISTRIA
+		owns_entire_state_region = STATE_CROATIA
+		owns_entire_state_region = STATE_DALMATIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.32
+		}
+		change_variable = {
+			name = byzfm_italia_counter
+			add = 1
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_byzfm_the_purple_phoenix_northern_italy = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_SAVOY
+		owns_entire_state_region = STATE_LOMBARDY
+		owns_entire_state_region = STATE_PIEDMONT
+		owns_entire_state_region = STATE_SOUTH_TYROL
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.33
+		}
+		change_variable = {
+			name = byzfm_italia_counter
+			add = 1
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_byzfm_the_purple_phoenix_southern_italy = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_ABRUZZO
+		owns_entire_state_region = STATE_APULIA
+		owns_entire_state_region = STATE_CALABRIA
+		owns_entire_state_region = STATE_CAMPANIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.34
+		}
+		change_variable = {
+			name = byzfm_italia_counter
+			add = 1
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_byzfm_the_purple_phoenix_central_italy = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_EMILIA
+		owns_entire_state_region = STATE_ROMAGNA
+		owns_entire_state_region = STATE_TUSCANY
+		owns_entire_state_region = STATE_UMBRIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.35
+		}
+		change_variable = {
+			name = byzfm_italia_counter
+			add = 1
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+
+#########################
+# REVENGE OF THE GREEKS #
+#########################
+
+je_byzfm_revenge_of_the_greeks = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_byzfm_content
+
+	should_be_pinned_by_default = yes
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+		owns_entire_state_region = STATE_HEDJAZ
+		has_technology_researched = pan-nationalism
+	}
+	
+	on_complete = {
+		custom_tooltip = {
+			text = je_byzfm_revenge_of_the_greeks_tt
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					AND = {
+						country_or_subject_owns_entire_state_region = STATE_ERZURUM
+						country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+						country_or_subject_owns_entire_state_region = STATE_FARS
+						country_or_subject_owns_entire_state_region = STATE_IRAKAJEMI
+						country_or_subject_owns_entire_state_region = STATE_ISFAHAN
+						country_or_subject_owns_entire_state_region = STATE_KHORASAN
+						country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
+						country_or_subject_owns_entire_state_region = STATE_LARISTAN
+						country_or_subject_owns_entire_state_region = STATE_LURISTAN
+						country_or_subject_owns_entire_state_region = STATE_MAZANDARAN
+						country_or_subject_owns_entire_state_region = STATE_SISTAN
+						country_or_subject_owns_entire_state_region = STATE_TABRIZ
+					}
+				}
+				trigger_event = {
+					id = byzfm.14 # bypasses je_byzfm_the_church_of_the_east
+				}
+			}
+			else = {
+				trigger_event = {
+					id = byzfm.11 # crusades successful, time to smoke Persia
+				}
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:byzfm_crusade_counter
+	}
+
+	goal_add_value = {
+		add = 3
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	progressbar = yes
+
+	weight = 10000
+
+}
+
+je_byzfm_the_church_of_the_east = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_byzfm_content
+
+	should_be_pinned_by_default = yes
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_ERZURUM
+		country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+		country_or_subject_owns_entire_state_region = STATE_FARS
+		country_or_subject_owns_entire_state_region = STATE_IRAKAJEMI
+		country_or_subject_owns_entire_state_region = STATE_ISFAHAN
+		country_or_subject_owns_entire_state_region = STATE_KHORASAN
+		country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
+		country_or_subject_owns_entire_state_region = STATE_LARISTAN
+		country_or_subject_owns_entire_state_region = STATE_LURISTAN
+		country_or_subject_owns_entire_state_region = STATE_MAZANDARAN
+		country_or_subject_owns_entire_state_region = STATE_SISTAN
+		country_or_subject_owns_entire_state_region = STATE_TABRIZ
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.12 # shame it wasn't the Sassanids... lets finish what Alexander started
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	weight = 10000
+	
+}
+
+je_byzfm_the_graveyard_of_empires = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_byzfm_content
+
+	should_be_pinned_by_default = yes
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_EASTERN_AFGHANISTAN
+		country_or_subject_owns_entire_state_region = STATE_WESTERN_AFGHANISTAN
+		country_or_subject_owns_entire_state_region = STATE_BALUCHISTAN
+		country_or_subject_owns_entire_state_region = STATE_PASHTUNISTAN
+		country_or_subject_owns_entire_state_region = STATE_PUNJAB
+		country_or_subject_owns_entire_state_region = STATE_SINDH
+		country_or_subject_owns_entire_state_region = STATE_KASHMIR
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.13 # Hellenistic Empire choice
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	weight = 10000
+	
+}
+
+##########################
+# RUSSIA, THE THIRD ROME #
+##########################
+
+je_byzfm_the_orthodox_realms = {
+	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		hidden_trigger = {
+			has_variable = byzfm_texas_left
+		}
+		AND = {
+			custom_tooltip = {
+				text = je_byzfm_the_orthodox_realms_PENT
+			}
+			owns_entire_state_region = STATE_EASTERN_THRACE
+			owns_entire_state_region = STATE_ADANA
+			owns_entire_state_region = STATE_PALESTINE
+			owns_entire_state_region = STATE_LOWER_EGYPT
+		}
+		AND = {
+			custom_tooltip = {
+				text = je_byzfm_the_orthodox_realms_UKR
+			}
+			country_or_subject_owns_entire_state_region = STATE_KUBAN
+			country_or_subject_owns_entire_state_region = STATE_ROSTOV
+			country_or_subject_owns_entire_state_region = STATE_BESSARABIA
+			country_or_subject_owns_entire_state_region = STATE_CHERSON
+			country_or_subject_owns_entire_state_region = STATE_CRIMEA
+			country_or_subject_owns_entire_state_region = STATE_KIEV
+			country_or_subject_owns_entire_state_region = STATE_KURSK
+			country_or_subject_owns_entire_state_region = STATE_LUHANSK
+			country_or_subject_owns_entire_state_region = STATE_EAST_GALICIA
+			country_or_subject_owns_entire_state_region = STATE_VOLHYNIA
+		}
+		AND = {
+			custom_tooltip = {
+				text = je_byzfm_the_orthodox_realms_BYE
+			}
+			country_or_subject_owns_entire_state_region = STATE_MINSK
+			country_or_subject_owns_entire_state_region = STATE_ORSHA
+			country_or_subject_owns_entire_state_region = STATE_BREST
+		}
+		AND = {
+			custom_tooltip = {
+				text = je_byzfm_the_orthodox_realms_GEO
+			}
+			country_or_subject_owns_entire_state_region = STATE_GREATER_CAUCASUS
+		}
+		AND = {
+			custom_tooltip = {
+				text = je_byzfm_the_orthodox_realms_SLAV
+			}
+			country_or_subject_owns_entire_state_region = STATE_BOSNIA
+			country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+			country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+			country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			country_or_subject_owns_entire_state_region = STATE_BULGARIA
+			country_or_subject_owns_entire_state_region = STATE_DOBRUDJA
+			country_or_subject_owns_entire_state_region = STATE_WALLACHIA
+			country_or_subject_owns_entire_state_region = STATE_MOLDAVIA
+		}
+	}
+
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = byzfm.21 # we're coming for you Nikki-boi!
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_the_orthodox_realms_status
+			}
+		}
+	}
+
+	modifiers_while_active = {
+		modifier_byzfm_ecumenical_aspirations
+	}
+
+	weight = 10000
+
+}
+
+je_byzfm_the_third_rome = {
+	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		hidden_trigger = {
+			has_variable = byzfm_texas_left
+		}
+		OR = {
+			c:RUS = {
+				is_direct_subject_of = ROOT
+			}
+			custom_tooltip = {
+				text = je_byzfm_the_third_rome_tt
+				hidden_trigger = {
+					c:BYZ = {
+						has_diplomatic_pact = {
+							who = c:RUS
+							type = humiliation
+						}
+					}
+				}
+			}
+		}
+		country_or_subject_owns_entire_state_region = STATE_ARKHANGELSK
+		country_or_subject_owns_entire_state_region = STATE_BRYANSK
+		country_or_subject_owns_entire_state_region = STATE_GALICH
+		country_or_subject_owns_entire_state_region = STATE_KAZAN
+		country_or_subject_owns_entire_state_region = STATE_MOSCOW
+		country_or_subject_owns_entire_state_region = STATE_NOVGOROD
+		country_or_subject_owns_entire_state_region = STATE_SMOLENSK
+		country_or_subject_owns_entire_state_region = STATE_TVER
+	}
+
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = byzfm.22 # conclusion event
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_the_third_rome_status
+			}
+		}
+	}
+
+	weight = 10000
+
+}
+
+
+
+#################
+# MISCELLANEOUS #
+#################
+
+je_byzfm_mega_palation = {
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	
+	group = je_group_byzfm_content
+
+	immediate = {
+	}
+
+	complete = {
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+	}
+
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = byzfm.42 # palace rebuilt
+		}
+	}
+	
+	scripted_button = byzfm_archeaology_mega_palation_button
+
+	weight = 500
+	
+}
+
+
+je_byzfm_mega_palation_survey = {
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_byzfm_content
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = byzfm_imperial_palace_var
+				add = 1
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_modifier = modifier_grefm_active_excavation
+		remove_variable = byzfm_imperial_palace_var
+		set_variable = byzfm_mega_palation_complete
+		trigger_event = {
+			id = byzfm.41 # site ready
+		}
+	}
+
+	invalid = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+
+	on_invalid = {
+		remove_modifier = modifier_grefm_active_excavation
+		remove_variable = byzfm_imperial_palace_var
+	}
+
+	current_value = {
+		value = root.var:byzfm_imperial_palace_var
+	}
+
+	goal_add_value = {
+		value = 24
+	}
+
+	progressbar = yes
+
+	weight = 100
+
+	should_be_pinned_by_default = yes
+	
+}
+
+je_byzfm_hippodrome_reopening = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_byzfm_content
+
+	immediate = {
+	}
+
+	complete = {
+		any_scope_state = {
+			has_building = building_hippodrome
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = byzfm.44 # hippodrome rebuilt
+		}
+	}
+
+	weight = 1000
+	
+}
+
+je_byzfm_hippodrome_survey = {
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_byzfm_content
+
+	immediate = {
+		set_variable = {
+			name = byzfm_hippodrome_var
+			value = 0
+		}
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = byzantium_capital_state
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_modifier = modifier_grefm_active_excavation
+		remove_variable = byzfm_hippodrome_var
+		set_variable = byzfm_hippodrome_complete
+		trigger_event = {
+			id = byzfm.43 # hippodrome survey complete
+		}
+	}
+
+	invalid = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+
+	on_invalid = {
+		remove_modifier = modifier_grefm_active_excavation
+		remove_variable = byzfm_hippodrome_var
+		remove_variable = byzfm_hippodrome_fallback
+	}
+
+	current_value = {
+		value = root.var:byzfm_hippodrome_var
+	}
+
+	goal_add_value = {
+		value = 24
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = byzfm_hippodrome_var
+				add = 1
+			}
+		}
+	}
+
+	progressbar = yes
+
+	weight = 10
+
+	should_be_pinned_by_default = yes
+	
+}

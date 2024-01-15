@@ -62,11 +62,81 @@
 	}
 }
 
+grefm_dismiss_bavarians_decision = {
+	is_shown = {
+		NOT = { has_variable = grefm_dismissed_daddys_boys }
+		has_modifier = modifier_grefm_bavarian_auxiliaries
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_bavarian_auxiliaries
+	}
+	
+	when_taken = {
+		show_as_tooltip = {
+			remove_modifier = modifier_grefm_bavarian_auxiliaries
+			remove_modifier = modifier_grefm_funding_bavarian_auxiliaries
+			add_modifier = {
+				name = modifier_grefm_dismissed_bavarians
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.017
+				popup = yes
+			}
+		}
+		set_variable = grefm_dismissed_daddys_boys
+	}
+	
+	ai_chance = {
+		base = 1000 # AI Greece just dies with so many expenses
+	}
+	
+}
 
+grefm_lake_kopais_decision = {
+	is_shown = {
+		has_variable = grefm_lake_kopais_option
+		NOT = { has_variable = grefm_lake_kopais_option_taken }
+		owns_entire_state_region = STATE_ATTICA
+	}
+	
+	possible = {	
+		owns_entire_state_region = STATE_ATTICA
+	}
+	
+	when_taken = {
+		set_variable = grefm_lake_kopais_option_taken
+		set_global_variable = { 
+			name = grefm_lake_kopais_var
+			value = 0
+		}
+		add_modifier = {
+			name = modifier_grefm_reclaiming_land
+		}
+		add_journal_entry = {
+			type = je_grefm_land_reclaimation
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = { produced_bureaucracy > 2500 }
+			add = 5
+		}	
+	}
+}
+
+
+#####		
 
 grefm_annex_epirus_decision = {
 	is_shown = {
-		NOT = { has_variable = byzfm_epirus_var }
+		NOT = { has_variable = grefm_epirus_var }
 		country_has_primary_culture = cu:greek
 		is_subject = no
 		exists = c:EPI
@@ -92,11 +162,11 @@ grefm_annex_epirus_decision = {
 	}
 
 	when_taken = {
-		set_variable = byzfm_epirus_var
+		set_variable = grefm_epirus_var
 		custom_tooltip = treaty_of_eprius_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.221
+				id = grefm.221 # EPI Annexation
 				days = 0
 				popup = yes
 			}
@@ -110,7 +180,7 @@ grefm_annex_epirus_decision = {
 
 grefm_annex_cyprus_decision = {
 	is_shown = {
-		NOT = { has_variable = byzfm_cyprus_var }
+		NOT = { has_variable = grefm_cyprus_var }
 		country_has_primary_culture = cu:greek
 		is_subject = no
 		exists = c:CYP
@@ -134,11 +204,11 @@ grefm_annex_cyprus_decision = {
 	}
 
 	when_taken = {
-		set_variable = byzfm_cyprus_var
+		set_variable = grefm_cyprus_var
 		custom_tooltip = treaty_of_cyprus_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.222
+				id = grefm.222 # CYP Annexation
 				days = 0
 				popup = yes
 			}
@@ -148,4 +218,91 @@ grefm_annex_cyprus_decision = {
 	ai_chance = {
 		base = 10
 	}
+}
+
+grefm_annex_macedonia_decision = {
+	is_shown = {
+		NOT = { has_variable = grefm_macedonia_var }
+		country_has_primary_culture = cu:greek
+		is_subject = no
+		exists = c:MAC
+		c:MAC = {
+			is_subject = no
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:MAC = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+		c:MAC = {
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = grefm_macedonia_var
+		custom_tooltip = treaty_of_macedonia_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.224 # MAC Annexation
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+
+grefm_annex_crete_decision = {
+	is_shown = {
+		NOT = { has_variable = grefm_crete_var }
+		country_has_primary_culture = cu:greek
+		is_subject = no
+		exists = c:CRE
+		c:CRE = {
+			OR = {
+				is_subject = no
+				is_subject_of = ROOT
+			}
+			is_player = no
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = pan-nationalism
+		c:CRE = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+		c:CRE = {
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = grefm_crete_var
+		custom_tooltip = treaty_of_crete_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.223 # CRE Annexation
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+	
 }

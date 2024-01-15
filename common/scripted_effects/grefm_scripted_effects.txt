@@ -1,0 +1,314 @@
+﻿clean_up_bavarocracy_modifiers = {
+	ig:ig_intelligentsia = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_armed_forces = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_rural_folk = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	ig:ig_petty_bourgeoisie = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_bavarocracy_opposition
+			}
+			remove_modifier = modifier_grefm_bavarocracy_opposition
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_constitution_refused
+			}
+			remove_modifier = modifier_grefm_constitution_refused
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_tyrannical_ruler
+		}
+		remove_modifier = modifier_grefm_tyrannical_ruler
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_bavarocracy
+		}
+		remove_modifier = modifier_grefm_bavarocracy
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = grefm_bavarocracy_removed }
+		}
+		set_variable = grefm_bavarocracy_removed
+	}
+}
+
+clean_up_bavarocracy_reform_modifiers = {
+	every_scope_state = {
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_brigandage
+			}
+			remove_modifier = modifier_grefm_brigandage
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_timar
+			}
+			remove_modifier = modifier_grefm_timar
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_grefm_poor_administration
+			}
+			remove_modifier = modifier_grefm_poor_administration
+		}
+	}
+}
+
+
+create_cyprus_characters = {
+	create_character = {
+		first_name = Nikodemos
+		last_name = Mylonas
+		age = 65
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		ig_leader = yes
+		interest_group = ig_devout
+		hq = region_anatolia
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		commander_rank = commander_rank_2
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	
+}
+
+create_epirus_characters = {
+	create_character = {
+		first_name = Theodoros
+		last_name = Grivas
+		historical = yes
+		birth_date = 1797.1.1
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		ig_leader = yes
+		interest_group = ig_armed_forces
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	
+	create_character = {
+		first_name = Kitsos
+		last_name = Tzavelas
+		birth_date = 1800.1.1
+		culture = cu:greek
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		interest_group = ig_armed_forces
+		hq = region_balkans
+		ideology = ideology_royalist
+		commander_rank = commander_rank_2
+		traits = {
+			persistent
+			brave
+		}
+		on_created = {
+			set_variable = grefm_is_tzavelas
+		}
+	}
+	
+}
+
+purge_turkish_homelands = {
+	every_scope_state = {
+		limit = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					is_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:turkish
+			value = small_radicals
+		}
+		state_region = {
+			remove_homeland = cu:turkish
+		}
+	}
+}
+
+recuit_tzavelas = {
+	random_character = {
+		limit = {
+			has_variable = grefm_is_tzavelas
+		}
+		save_scope_as = tzavelas_scope
+	}
+	scope:tzavelas_scope = {
+		transfer_character = c:GRE
+		set_as_interest_group_leader = yes
+	}
+}
+
+#######
+grefm_create_feminism_characters = {
+	create_character = {
+		first_name = Kalliroi
+		last_name = Parren
+		culture = cu:greek
+		religion = rel:orthodox
+		female = yes
+		historical = yes
+		age = 24
+		ideology = ideology_feminist
+		interest_group = ig_intelligentsia
+		save_scope_as = kalliroi_scope
+		on_created = {
+			set_variable = grefm_is_kalliroi
+			place_character_in_void = 600
+		}
+	}
+	create_character = {
+		first_name = Avra
+		last_name = Theodoropoulou
+		culture = cu:greek
+		religion = rel:orthodox
+		female = yes
+		historical = yes
+		age = 14
+		ideology = ideology_feminist
+		interest_group = ig_intelligentsia
+		save_scope_as = theodoropoulou_scope
+		on_created = {
+			set_variable = grefm_is_theodoropoulou
+			place_character_in_void = 600
+		}
+	}
+}
+
+grefm_excavation_complete = {
+	change_variable = {
+		name = grefm_excavation_var
+		subtract = 36
+	}
+	every_scope_state = {
+		limit = {
+			has_variable = grefm_excavation_target
+		}
+		remove_variable = grefm_excavation_target
+	}
+	if = {
+		limit = {
+			has_variable = grefm_gla_excavation
+		}
+		trigger_event = {
+			id = grefm.142 # gla complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_parthenon_1_excavation
+		}
+		trigger_event = {
+			id = grefm.143 # parthenon 1 complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_parthenon_2_excavation
+		}
+		trigger_event = {
+			id = grefm.144 # parthenon 2 complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_mycenae_1_excavation
+		}
+		trigger_event = {
+			id = grefm.145 # mycenae 1 complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_mycenae_2_excavation
+		}
+		trigger_event = {
+			id = grefm.146 # mycenae 2 complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_delos_excavation
+		}
+		trigger_event = {
+			id = grefm.147 # delos complete
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_larissa_excavation
+		}
+		trigger_event = {
+			id = grefm.148 # larissa complete
+		}
+	}
+	else = {
+		remove_modifier = modifier_grefm_active_excavation
+	}
+	every_scope_state = {
+		limit = {
+			has_variable = grefm_excavation_target
+		}
+		remove_variable = grefm_excavation_target
+	}
+}

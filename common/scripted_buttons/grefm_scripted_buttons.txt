@@ -1,0 +1,545 @@
+﻿# REVOLT BUTTONS #
+grefm_epirus_agitate_button = {
+	name = "grefm_epirus_agitate_button"
+	desc = "grefm_epirus_agitate_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_ALBANIA }
+		has_global_variable = grefm_epirus_revolt_considered
+		NOT = { has_global_variable = grefm_epirus_revolt_greenlight }
+	}
+		
+	possible = {
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_grefm_funding_insurrection
+			multiplier = money_amount_multiplier_medium
+			months = short_modifier_time
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = short_modifier_time
+		}
+		set_global_variable = grefm_epirus_revolt_greenlight
+	}
+}
+
+
+
+grefm_epirus_provoke_button = {
+	name = "grefm_epirus_provoke_button"
+	desc = "grefm_epirus_provoke_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_ALBANIA }
+		NOT = { has_global_variable = grefm_epirus_revolt_forced }
+		NOT = { has_global_variable = grefm_epirus_revolt_happened }
+		has_global_variable = grefm_epirus_revolt_greenlight
+	}
+	
+	possible = {
+		is_at_war = no
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_epirus_provoke_tt
+			hidden_effect = {
+				set_global_variable = grefm_epirus_revolt_forced
+			}
+		}
+	}
+}
+
+grefm_cyprus_agitate_button = {
+	name = "grefm_cyprus_agitate_button"
+	desc = "grefm_cyprus_agitate_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_CYPRUS }
+		has_global_variable = grefm_cyprus_revolt_considered
+		NOT = { has_global_variable = grefm_cyprus_revolt_greenlight }
+	}
+		
+	possible = {
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_grefm_funding_insurrection
+			multiplier = money_amount_multiplier_medium
+			months = short_modifier_time
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = short_modifier_time
+		}
+		set_global_variable = grefm_cyprus_revolt_greenlight
+	}
+}
+
+grefm_cyprus_provoke_button = {
+	name = "grefm_cyprus_provoke_button"
+	desc = "grefm_cyprus_provoke_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_CYPRUS }
+		NOT = { has_global_variable = grefm_cyprus_revolt_forced }
+		NOT = { has_global_variable = grefm_cyprus_revolt_happened }
+		has_global_variable = grefm_cyprus_revolt_greenlight
+	}
+	
+	possible = {
+		is_at_war = no
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_cyprus_provoke_tt
+			hidden_effect = {
+				set_global_variable = grefm_cyprus_revolt_forced
+			}
+		}
+	}
+}
+
+grefm_macedonia_agitate_button = {
+	name = "grefm_macedonia_agitate_button"
+	desc = "grefm_macedonia_agitate_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_MACEDONIA }
+		has_global_variable = grefm_macedonia_revolt_considered
+		NOT = { has_global_variable = grefm_macedonia_revolt_greenlight }
+	}
+		
+	possible = {
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_grefm_funding_insurrection
+			multiplier = money_amount_multiplier_medium
+			months = short_modifier_time
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = short_modifier_time
+		}
+		set_global_variable = grefm_macedonia_revolt_greenlight
+	}
+}
+
+grefm_macedonia_provoke_button = {
+	name = "grefm_macedonia_provoke_button"
+	desc = "grefm_macedonia_provoke_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_MACEDONIA }
+		NOT = { has_global_variable = grefm_macedonia_revolt_forced }
+		NOT = { has_global_variable = grefm_macedonia_revolt_happened }
+		has_global_variable = grefm_macedonia_revolt_greenlight
+	}
+	
+	possible = {
+		is_at_war = no
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_macedonia_provoke_tt
+			hidden_effect = {
+				set_global_variable = grefm_macedonia_revolt_forced
+			}
+		}
+	}
+}
+
+grefm_crete_agitate_button = {
+	name = "grefm_crete_agitate_button"
+	desc = "grefm_crete_agitate_button_desc"
+	
+	visible = {
+		NOT = { owns_entire_state_region = STATE_CRETE }
+		has_technology_researched = nationalism
+		NOT = { has_global_variable = grefm_crete_revolt_var_removed }
+		NOT = { exists = c:CRE }
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		custom_tooltip = {
+			text = grefm_crete_agitate_tt
+			hidden_trigger = {
+				global_var:grefm_crete_revolt_var < 130
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = grefm.252 # Greek Agitation in Crete
+			days = 30
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = short_modifier_time
+		}
+	}
+}
+
+# ARCHEAOLOGY
+
+grefm_archeaology_parthenon_button_1 = {
+	name = "grefm_parthenon_button_1"
+	desc = "grefm_parthenon_button_1_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_parthenon_1_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ATTICA
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_parthenon_1_tt
+			hidden_effect = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_parthenon_1_excavation
+	}
+
+}
+
+grefm_archeaology_parthenon_button_2 = {
+	name = "grefm_parthenon_button_2"
+	desc = "grefm_parthenon_button_2_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_parthenon_2_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ATTICA
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+		custom_tooltip = {
+			text = grefm_parthenon_1_complete_tt
+			hidden_trigger = {
+				has_variable = grefm_parthenon_1_complete
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_parthenon_2_tt
+			hidden_effect = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_parthenon_2_excavation
+	}
+
+}
+
+grefm_archeaology_mycenae_button_1 = {
+	name = "grefm_mycenae_button_1"
+	desc = "grefm_mycenae_button_1_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_knossos_1_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_CRETE
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_knossos_1_tt
+			hidden_effect = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_mycenae_1_excavation
+	}
+
+}
+
+grefm_archeaology_mycenae_button_2 = {
+	name = "grefm_mycenae_button_2"
+	desc = "grefm_mycenae_button_2_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_knossos_2_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_CRETE
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+		custom_tooltip = {
+			text = grefm_knossos_1_complete_tt
+			hidden_trigger = {
+				has_variable = grefm_knossos_1_complete
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_knossos_2_tt
+			hidden_effect = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_mycenae_2_excavation
+	}
+
+}
+
+grefm_archeaology_gla_button = {
+	name = "grefm_gla_button"
+	desc = "grefm_gla_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_gla_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ATTICA
+		custom_tooltip = {
+			text = grefm_gla_exposed_tt
+			hidden_trigger = {
+				has_variable = grefm_gla_exposed
+			}
+		}
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_gla_tt
+			hidden_effect = {
+				set_variable = grefm_gla_excavation
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}			
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_gla_excavation
+	}
+
+}
+
+grefm_archeaology_delos_button = {
+	name = "grefm_delos_button"
+	desc = "grefm_delos_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_delos_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_delos_tt
+			hidden_effect = {
+				s:STATE_WEST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_delos_excavation
+	}
+
+}
+
+grefm_archeaology_larissa_button = {
+	name = "grefm_larissa_button"
+	desc = "grefm_larissa_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_larissa_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_THESSALIA
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_larissa_tt
+			hidden_effect = {
+				s:STATE_THESSALIA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		add_modifier = modifier_grefm_active_excavation
+		trigger_event = {
+			id = grefm.141 # expedition team departs
+			days = 30
+		}
+		set_variable = grefm_larissa_excavation
+	}
+
+}
+
+
+grefm_archeaology_mega_palation_button = {
+	name = "grefm_mega_palation_button"
+	desc = "grefm_mega_palation_button_desc"
+	
+	visible = {
+		owner = {
+			has_variable = byzfm_palace_restoration
+			NOT = { has_variable = byzfm_mega_palation_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+		has_law = law_type:law_monarchy
+	}
+	
+	effect = {
+		set_variable = { 
+			name = byzfm_imperial_palace_var
+			value = 0
+		}
+		add_modifier = {
+			name = modifier_grefm_active_excavation
+		}
+		add_journal_entry = {
+			type = je_byzfm_mega_palation_survey
+		}
+	}
+	
+}
+
+grefm_archeaology_hippodrome_button = {
+	name = "grefm_hippodrome_button"
+	desc = "grefm_hippodrome_button_desc"
+	
+	visible = {
+		owner = {
+			has_variable = byzfm_palace_restoration
+			NOT = { has_variable = byzfm_hippodrome_complete }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		NOT = { has_modifier = modifier_grefm_active_excavation }
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+	}
+	
+	effect = {
+		set_variable = { 
+			name = byzfm_hippodrome_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_byzfm_hippodrome_survey
+		}
+		add_modifier = {
+			name = modifier_grefm_active_excavation
+		}
+	}
+
+}
