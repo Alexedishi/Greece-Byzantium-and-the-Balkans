@@ -4,9 +4,13 @@
  je_group_eocfm_empire: "The Orthodox Realms"
  
  je_eocfm_patriarch_authority: "Eastern Orthodox Church"
- je_eocfm_patriarch_authority_reason: "As long as we do not forsake the faith, the state will be able to assert influence over its bishops that can be used to direct their efforts to the benefit of the state. The following factors influence Patriarch Authority:\n• #green +200#! for having Theocracy enacted.\n• #green +100#! for any other government type.\n• #green +200#! for having State Religion enacted.\n• #green +100#! for having Freedom of Conscience enacted.\n• #red -100#! for having Total Separation enacted.\n• #green +200#! if the Devout are powerful and in government.\n• #green +100#! if the Devout are powerful and not in government.\n• #green +100#! for every #bold Patriarchal Seat#! under our influence.\n• #green +400#! for controlling all six #bold Patriarchal Seats#!\n• #green +200#! for having Autocephaly."
- je_eocfm_patriarch_authority_tt_positive: ""
- je_eocfm_patriarch_authority_tt_negative: ""
+ je_eocfm_patriarch_authority_reason: "As long as we do not forsake the faith, the state will be able to assert influence over its bishops that can be used to direct their efforts to the benefit of the state. \n\nYour total generation of #blue [GetPlayer.MakeScope.Var('eocfm_patriarch_authority_var').GetValue]#! #o Patriarch Authority#! is due to:[SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_theocracy_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_monarchy_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_state_religion_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_free_religion_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_autocephaly_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_caesaropapism_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_subsidy_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_all_seats_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_rome_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_constantinople_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_antioch_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_alexandria_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_jerusalem_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_moscow_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_council_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_intregrating_seat_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_schismatic_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_total_separation_type')][SCOPE.GetRootScope.GetCountry.GetCustom('patriarch_authority_icon_type')]"
+ je_eocfm_patriarch_authority_status: "You have #blue [GetPlayer.MakeScope.Var('eocfm_patriarch_authority_var').GetValue]#! #o Patriarch Authority#!."
+ je_eocfm_patriarch_authority_tt_positive: "The following factors increase #o Patriarch Authority#!:"
+ je_eocfm_patriarch_authority_tt_negative: "The following factors decrease #o Patriarch Authority#!:"
+ je_eocfm_autocephaly: "Declaration of Autocephaly"
+ je_eocfm_autocephaly_reason: ""
+ je_eocfm_autocephaly_goal: ""
  
  je_eocfm_the_metropolitan_lands: "The Metropolitan Lands"
  je_eocfm_the_metropolitan_lands_reason: ""
@@ -24,14 +28,15 @@
  # decisions
  
  # tooltips
- eocfm_patriarch_authority_tt: "#italic This bonus will change based on your current amount of Patriarch Authority#!."
- eocfm_commission_icon_tt1: "Has #bold 200#! Patriarch Authority."
- eocfm_commission_icon_tt2: "Does not currently have an icon."
+ eocfm_commission_icon_tt: "Does not currently have an icon."
  eocfm_controls_major_seat_tt: "Controls one of the Patriarchal Seats."
- eocfm_convoke_council_tt: "Has #bold 1000#! Patriarch Authority."
- eocfm_has_autocephaly_tt: "Has delcared Autocephaly."
- eocfm_declare_autocephaly_tt: "Has #bold 500#! Patriarch Authority."
- eocfm_integrate_seat_tt: "Has #bold 200#! Patriarch Authority."
+ eocfm_has_autocephaly_tt: "Has declared Autocephaly."
+ eocfm_need_100_tt: "Has #blue 100#! Patriarch Authority."
+ eocfm_need_200_tt: "Has #blue 200#! Patriarch Authority."
+ eocfm_need_500_tt: "Has #blue 500#! Patriarch Authority."
+ eocfm_need_800_tt: "Has #blue 800#! Patriarch Authority."
+ eocfm_need_1000_tt: "Has #blue 1000#! Patriarch Authority."
+ eocfm_gain_100_tt: "This will increase Patriarch Authority by #blue 100#!."
 
  # notifications
 
@@ -44,6 +49,16 @@
  eocfm_convoke_council_desc: ""
  eocfm_integrate_seat: "Integrate Patriarchal Seat"
  eocfm_integrate_seat_desc: ""
+ eocfm_enact_caesaropapism: "Enact Caesaropapism"
+ eocfm_enact_caesaropapism_desc: ""
+ eocfm_revoke_caesaropapism: "Revoke Caesaropapism"
+ eocfm_revoke_caesaropapism_desc: ""
+ eocfm_subsidize_church: "Grant Church Subsidies"
+ eocfm_subsidize_church_desc: ""
+ eocfm_stop_subsidies: "Stop Church Subsidies"
+ eocfm_stop_subsidies_desc: ""
+ 
+ 
  
  # country_flavor_text
  
@@ -103,43 +118,26 @@
  concept_patriarch_authority_desc: "While nominally a single ecumenical church, the Eastern Orthodox Church structure is much more decentralized than its Western counterpart in Rome. Every nation plays host to prominent bishops that exert influence over the worship in their domain, sometimes in deviation from the Ecumenical Patriarch in Constantinople. Patriarch Authority represents the state's ability to sway its local bishops into "guiding" their adherents towards the will of the state."
  
  # custom loc
- eocfm_capacity_theocracy_a: ""
- eocfm_capacity_theocracy_b: ""
- eocfm_capacity_monarchy_a: ""
- eocfm_capacity_monarchy_b: ""
- eocfm_capacity_gov_generic_a: ""
- eocfm_capacity_gov_generic_b: ""
+ custom_eocfm_capacity_base: "\n• #green +100#! as a base."
+ custom_eocfm_capacity_theocracy: "\n• #green +200#! from having #yellow Theocracy#! enacted."
+ custom_eocfm_capacity_monarchy: "\n• #green +100#! from having #yellow Monarchy#! enacted."
+ custom_eocfm_capacity_state_church: "\n• #green +200#! from having State Religion enacted."
+ custom_eocfm_capactiy_religious_freedom: "\n• #green +100#! from having Freedom of Conscience enacted."
+ custom_eocfm_capacity_autocephalous: "\n• #green +200#! from having autocephaly."
+ custom_eocfm_capacity_caesaropapism: "\n• #green +100#! from having caesaropapism."
+ custom_eocfm_capacity_subsidies: "\n• #green +100#! from subsidizing the church."
  
- eocfm_capacity_state_church_a: ""
- eocfm_capacity_state_church_b: ""
- eocfm_capactiy_religious_freedom_a: ""
- eocfm_capactiy_religious_freedom_b: ""
- eocfm_capacity_total_separation_a: ""
- eocfm_capacity_total_separation_b: ""
+ custom_eocfm_controls_all_seats: "\n• #green +400#! from controlling all six #bold Patriarchal Seats#!"
+ custom_eocfm_capacity_rome_owned: "\n• #green +100#! from controling #bold Rome#!."
+ custom_eocfm_capacity_constantinople_owned: "\n• #green +100#! from controling #bold Constantinople#!."
+ custom_eocfm_capacity_antioch_owned: "\n• #green +100#! from controling #bold Antioch#!."
+ custom_eocfm_capacity_alexandria_owned: "\n• #green +100#! from controling #bold Alexandria#!."
+ custom_eocfm_capacity_jerusalem: "\n• #green +100#! from controling #bold Jerusalem#!."
+ custom_eocfm_capacity_moscow: "\n• #green +100#! from controling #bold Moscow#!."
  
- eocfm_capacity_devout_strong_gov_a: ""
- eocfm_capacity_devout_strong_gov_b: ""
- eocfm_capacity_devout_strong_notgov_a: ""
- eocfm_capacity_devout_strong_notgov_b: ""
- eocfm_capacity_devout_notstrong_notgov_a: ""
- eocfm_capacity_devout_notstrong_notgov_b: ""
- eocfm_capacity_devout_marginal_a: ""
- eocfm_capacity_devout_marginal_b: ""
- 
- eocfm_capacity_rome_owned_a: ""
- eocfm_capacity_rome_owned_b: ""
- eocfm_capacity_constantinople_owned_a: ""
- eocfm_capacity_constantinople_owned_b: ""
- eocfm_capacity_antioch_owned_a: ""
- eocfm_capacity_antioch_owned_b: ""
- eocfm_capacity_alexandria_owned_a: ""
- eocfm_capacity_alexandria_owned_b: ""
- eocfm_capacity_jerusalem_a: ""
- eocfm_capacity_jerusalem_b: ""
- eocfm_capacity_moscow_a: ""
- eocfm_capacity_moscow_b: ""
- 
- eocfm_capacity_autocephalus_a: ""
- eocfm_capacity_autocephalus_b: ""
- 
+ custom_eocfm_capacity_hosting_council: "\n• #red -1000#! while hosting the Ecumenical Council."
+ custom_eocfm_capacity_integrating_seat: "\n• #red -500#! while integrating a #bold Patriarchal Seat#!."
+ custom_eocfm_capacity_schismatic: "\n• #red -800#! from being in Schism."
+ custom_eocfm_capacity_total_separation: "\n• #red -100#! from having Total Separation enacted."
+ custom_eocfm_capacity_icon: "\n• #red -200#! from having icon is active."
  

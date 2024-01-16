@@ -2985,7 +2985,7 @@ grefm.120 = { # olympics restarted
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
-		NOT = { has_global_variable = grefm_morgenrote_var } # compat variable
+		morgenrote_is_active = no
 		has_variable = revive_olympics_decision_taken
 		has_modifier = modifier_olympic_games
 	}
@@ -4776,7 +4776,7 @@ grefm.201 = { # megali idea phase 2
 }
 
 grefm.202 = { # megali idea complete
-	## Pre-2.0 BYZ path branching occurred in byzfm.006, this event now provides branches into byzfm.300, eocfm.300, or grefm.300; BUL uses bulfm.300 via bulfm.207
+	## Pre-2.0 BYZ path branching occurred in byzfm.006, this event now provides branches into byzfm.300, eocfm.300, or grefm.300; BUL uses balkfm.300 via balkfm.207
 	type = country_event
 	placement = root
 	
@@ -5884,6 +5884,17 @@ grefm.240 = { # what is a greek
 	}
 	
 	immediate = {
+		if = { # in case MGR didn't get to it; goes unused in standalone grefm
+			limit = {
+				NOT = {
+					has_variable = manzoni_literary_tradition_var
+				}
+			}
+			set_variable = {
+				name = manzoni_literary_tradition_var
+				value = 0
+			}
+		}
 	}
 	
 	option = { # kicks off the event chain
@@ -6901,7 +6912,7 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 	desc = grefm.300.d
 	flavor = grefm.300.f
 
-	gui_window = fullscreen_event
+	gui_window = event_window_fullscreen
 
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -7486,7 +7497,6 @@ grefm.900 = { # Compatibility Checker
 	}
 	
 	immediate = { # mod-specific adjustments are in their own scripted_effect to minimize clutter here
-		grefm_compatibility_check = yes
 	}
 	
 }
@@ -7566,6 +7576,7 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 	immediate = {
 		remove_variable = grefm_is_glucksburg
 		remove_variable = grefm_dr_moneybags_in_the_house
+		remove_variable = byzfm_byzantium_restored
 	}
 	
 }

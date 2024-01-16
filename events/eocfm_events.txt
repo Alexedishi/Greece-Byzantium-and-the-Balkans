@@ -17,10 +17,11 @@ namespace = eocfm
 ##	#EOC0	GENERAL ORTHODOX FLAVOR EVENTS	Events 001-099	##
 
 #001-009 - General Events
-#	001 - Church-State Relations
-#	002 - ## Ecumenical Reform
-
-#010-019 - Metropolitan Events
+#	001 - The Bishops of the East
+#	002 - Church-State Relations
+#	003 - Ecumenical Reform
+#	004 - Bible Translation Published
+#	005 - ## Priestly Excesses
 
 #020-029 - Icon Events
 #	020 - Commissioning an Icon
@@ -49,7 +50,7 @@ namespace = eocfm
 
 #110-119 - Autocephaly Events
 #	110 - ## Declaration of Autocephaly (Generic)
-#	111 - Autocephaly of the Church of Greece (GRE)
+#	111 - Tomos of 1850 (GRE)
 #	112 - ## The Patriarch of All Bulgaria
 
 
@@ -88,7 +89,6 @@ namespace = eocfm
 #	900 - OPEN
 #	901 - Adds je_eocfm_patriarch_authority again
 #910-919 - Support Events
-#	910 - Assigns je_eocfm_patriarch_authority
 
 
 ####################
@@ -99,14 +99,86 @@ namespace = eocfm
 ##############################################################
 
 ####GENERAL EVENTS ####
-
-eocfm.001 = { # Church-State Relations
+eocfm.001 = { # assigns the patriarch authority JE
 	type = country_event
 	placement = root
 	
 	title = eocfm.001.t
 	desc = eocfm.001.d
 	flavor = eocfm.001.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		country_has_state_religion = rel:orthodox
+		NOT = { has_law = law_type:law_state_atheism }
+		NOT = { has_journal_entry = je_eocfm_patriarch_authority }
+	}
+	
+	immediate = {
+		ig:ig_devout = {
+			leader = {
+				save_scope_as = devout_leader_scope
+			}
+		}
+		set_variable = {
+			name = eocfm_patriarch_authority_var
+			value = 0
+		}		
+	}
+
+	option = {
+		name = eocfm.001.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eocfm_patriarch_authority
+		}
+		if = {
+			limit = {
+				c:RUS ?= this
+			}
+			trigger_event = {
+				id = eocfm.101 # Great Holy Synod (RUS)
+				days = 30
+			}
+		}
+		else_if = {
+			limit = {
+				c:GRE ?= this 
+			}
+			trigger_event = {
+				id = eocfm.102 # Greek Holy Synod
+				days = 30
+			}
+		}
+		else = {
+			trigger_event = {
+				id = eocfm.100 # National Synod of X
+				days = 30
+			}
+		}
+		set_variable = eocfm_received_patriarch_authority
+	}
+	
+}
+
+eocfm.002 = { # Church-State Relations
+	type = country_event
+	placement = root
+	
+	title = eocfm.002.t
+	desc = eocfm.002.d
+	flavor = eocfm.002.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -121,37 +193,261 @@ eocfm.001 = { # Church-State Relations
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
+		NOT = { has_variable = eocfm_caesaropapism_questioned }
+		has_modifier = modifier_eocfm_caesaropapism
 	}
 	
 	immediate = {
+		set_variable = eocfm_caesaropapism_questioned
 	}
 	
 	option = {
-		name = eocfm.001.a
+		name = eocfm.002.a 
 		default_option = yes
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_eocfm_supported_synod
-				months = normal_modifier_time
-			}
+		remove_modifier = modifier_eocfm_caesaropapism
+		add_modifier = {
+			name = modifier_eocfm_revoked_caesaropapism
+			months = normal_modifier_time
+			is_decaying = yes
 		}
-		add_loyalists = {
-			religion = rel:orthodox
-			value = medium_radicals
-		}		
 	}
 	
 	option = {
-		name = eocfm.001.b
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_eocfm_rejected_synod
-				months = normal_modifier_time
-			}
+		name = eocfm.002.b
+		add_modifier = {
+			name = modifier_eocfm_asserted_caesaropapism
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+}
+
+eocfm.003 = { # Ecumenical Reforms
+	type = country_event
+	placement = root
+	
+	title = eocfm.003.t
+	desc = eocfm.003.d
+	flavor = eocfm.003.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_reform_considered
+		}
+	}
+	
+	immediate = {
+		set_variable = eocfm_reform_considered
+	}
+	
+	option = { # Reform the Church
+		name = eocfm.003.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_backed_reforms
+			months = very_long_modifier_time
+		}
+	}
+	
+	option = { # Do Not
+		name = eocfm.003.b
+		add_modifier = {
+			name = modifier_eocfm_clung_to_tradition
+			months = very_long_modifier_time
 		}
 	}
 
 }
+
+eocfm.004 = { # Bible Translation Published
+	type = country_event
+	placement = root
+	
+	title = eocfm.004.t
+	desc = eocfm.004.d
+	flavor = eocfm.004.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = { 
+			has_variable = eocfm_bible_translated
+		}
+		NOT = {
+			has_law = law_type:law_ethnostate
+		}
+	}
+	
+	immediate = {
+		set_variable = eocfm_bible_translated
+		random_scope_state = {
+			save_scope_as = eocfm_event_state
+		}
+	}
+	
+	option = { # Allow the Common Tongue
+		name = eocfm.004.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_published_vulgar_bible
+			months = long_modifier_time
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Keep it Classy
+		name = eocfm.004.b
+		add_modifier = {
+			name =  modifier_eocfm_banned_vulgar_bible
+			months = long_modifier_time
+		}
+		add_radicals = {
+			pop_type = academics
+			value = medium_radicals
+		}
+	}
+
+}
+
+eocfm.005 = { # Priestly Excesses
+	type = country_event
+	placement = root
+	
+	title = eocfm.005.t
+	desc = eocfm.005.d
+	flavor = eocfm.005.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		has_modifier = modifier_eocfm_subsidizing_church
+		any_scope_state = {
+			NOT = {
+				has_modifier = modifier_eocfm_grand_cathedral
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_eocfm_grand_cathedral
+				}
+			}
+			save_scope_as = eocfm_event_state
+		}
+	}
+	
+	cooldown = { 
+		years = 20
+	}
+	
+	option = { # Allow Construction
+		name = eocfm.005.a
+		default_option = yes
+		scope:eocfm_event_state = {
+			add_modifier = {
+				name = modifier_eocfm_new_cathedral
+				months = long_modifier_time
+			}
+			add_loyalists_in_state = {
+				pop_type = clergymen
+				value = medium_radicals
+			}
+			add_radicals_in_state = {
+				pop_type = academics
+				value = small_radicals
+			}
+			add_radicals_in_state = {
+				pop_type = clerks
+				value = small_radicals
+			}
+		}
+	}
+	
+	option = { # Curtail Construction
+		name = eocfm.005.b
+		scope:eocfm_event_state = {
+			add_radicals_in_state = {
+				pop_type = clergymen
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				pop_type = academics
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				pop_type = clerks
+				value = medium_radicals
+			}
+		}
+	}
+	
+	option = { # Give More Moni
+		name = eocfm.005.c
+		add_treasury = -50000
+		scope:eocfm_event_state = {
+			add_modifier = {
+				name = modifier_eocfm_grand_cathedral
+				months = long_modifier_time
+			}
+		}
+		add_loyalists = {
+			pop_type = clergymen
+			value = large_radicals
+		}
+		add_loyalists = {
+			pop_type = capitalists
+			value = medium_radicals
+		}
+		add_radicals = {
+			pop_type = academics
+			value = medium_radicals
+		}
+		add_radicals = {
+			pop_type = clerks
+			value = medium_radicals
+		}
+	}
+
+}
+
 
 #### METROPOLITAN EVENTS ####
 
@@ -400,12 +696,28 @@ eocfm.100 = { # National Synod of X
 	immediate = {
 	}	
 	
-	option = {
-		name =  eocfm.100.a
+ 	option = {
+		name = eocfm.100.a
 		default_option = yes
-		trigger_event = {
-			id = eocfm.001 # Church-State Relations
-			days = 30
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_supported_synod
+				months = normal_modifier_time
+			}
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}		
+	}
+	
+	option = {
+		name = eocfm.100.b
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_rejected_synod
+				months = normal_modifier_time
+			}
 		}
 	}
 
@@ -437,12 +749,16 @@ eocfm.101 = { # Most Holy Synod (RUS)
 	immediate = {
 	}	
 	
-	option = {
-		name =  eocfm.101.a
+ 	option = {
+		name = eocfm.101.a
 		default_option = yes
-		trigger_event = {
-			id = eocfm.001 # Church-State Relations
-			days = 30
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_eocfm_caesaropapism
+				}
+			}
+			add_modifier = modifier_eocfm_caesaropapism
 		}
 	}
 
@@ -471,16 +787,27 @@ eocfm.101 = { # Most Holy Synod (RUS)
 	trigger = {
 	}
 	
-	immediate = { # triggered by JE
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_var
+			value = 0
+		}		
 	}	
 	
-	option = {
-		name =  eocfm.102.a
+ 	option = {
+		name = eocfm.102.a
 		default_option = yes
-		trigger_event = {
-			id = eocfm.001 # Church-State Relations
-			days = 30
+		add_journal_entry = {
+			type = je_eocfm_autocephaly
 		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_eocfm_caesaropapism
+				}
+			}
+			add_modifier = modifier_eocfm_caesaropapism
+		}	
 	}
 
 }
@@ -511,6 +838,7 @@ eocfm.110 = { # Declaration of Autocephaly (Generic)
 	}
 	
 	immediate = {
+		set_variable = eocfm_is_autocephalous
 	}
 	
 	option = {
@@ -520,7 +848,7 @@ eocfm.110 = { # Declaration of Autocephaly (Generic)
 
 }
 
-eocfm.111 = { # tomos of 1850
+eocfm.111 = { # Tomos of 1850
 	type = country_event
 	placement = root
 	
@@ -541,43 +869,20 @@ eocfm.111 = { # tomos of 1850
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
-		c:GRE ?= this
-		year > 1849
-		NOT = { has_global_variable = grefm_tomos_of_1850_happened }
 	}
 	
 	immediate = {
-		set_global_variable = grefm_tomos_of_1850_happened
+		set_variable = eocfm_is_autocephalous
 	}
 	
 	option = {
 		name = eocfm.111.a
 		default_option = yes
-		custom_tooltip = {
-			text = eocfm.111.a.tt
-			hidden_effect = {
-				set_variable = grefm_tomos_of_autocephaly
-			}
-		}
 		add_modifier = {
 			name = modifier_grefm_autocephaly_granted
 			months = long_modifier_time
 		}
-	}
-	
-	option = {
-		name = eocfm.111.b
-		set_variable = grefm_tomos_rejected
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_grefm_tomos_rejected
-				months = normal_modifier_time
-			}
-		}
-		add_radicals = {
-			value = small_radicals
-			religion = rel:orthodox
-		}
+		
 	}
 
 }
@@ -603,7 +908,7 @@ eocfm.300 = { # The Partiarchate Rises
 	desc = eocfm.300.d
 	flavor = eocfm.300.f
 
-	gui_window = fullscreen_event
+	gui_window = event_window_fullscreen
 
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -1289,7 +1594,7 @@ eocfm.310 = { # The Ancient Partiarchates
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
-		has_variable = eocfm_is_autocephalus
+		has_variable = eocfm_is_autocephalous
 		NOT = { has_variable = byzfm_pentarchy_restoration }
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		owns_entire_state_region = STATE_ADANA
@@ -1326,12 +1631,6 @@ eocfm.310 = { # The Ancient Partiarchates
 	option = { # declare the emperor divine
 		name = eocfm.310.a
 		default_option = yes
-		trigger = { # just in case you get here before eocfm.111 or as not GRE
-			OR = {
-				has_variable = grefm_tomos_of_autocephaly
-				NOT = { has_variable = grefm_tomos_rejected } 
-			}
-		}
 		add_modifier = {
 			name = modifier_byzfm_nomos_empsychos
 			months = normal_modifier_time
@@ -1344,12 +1643,6 @@ eocfm.310 = { # The Ancient Partiarchates
 	
 	option = { # nah, church and state are separate d00d
 		name = eocfm.310.b
-		trigger = { # just in case you get here before eocfm.111 or as not GRE
-			OR = {
-				has_variable = grefm_tomos_of_autocephaly
-				NOT = { has_variable = grefm_tomos_rejected } 
-			}
-		}
 		ig:ig_devout = {
 			add_modifier = {
 				name = modifier_byzfm_restored_pentarchy
@@ -1365,32 +1658,8 @@ eocfm.310 = { # The Ancient Partiarchates
 				add_momentum = 0.15
 			}
 		}
-		remove_variable = grefm_tomos_of_autocephaly
-		set_variable = grefm_tomos_rejected # won't affect you if you're not GRE
 	}
 	
-	option = { # option if you rejected the Tomos on the grefm side
-		name = eocfm.310.c
-		trigger = {
-			has_variable = grefm_tomos_rejected
-		}
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_byzfm_restored_pentarchy
-				is_decaying = yes
-				months = long_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:ig_devout_party_scope
-			}
-			scope:ig_devout_party_scope = {
-				add_momentum = 0.10
-			}
-		}
-	}
-			
 }
 
 eocfm.311 = { # The Restoration of the Pentarchy
@@ -1747,63 +2016,8 @@ eocfm.901 = { # adds je_eocfm_patriarch_authority again
 		add_journal_entry = {
 			type = je_eocfm_patriarch_authority
 		}
-		eocfm_update_authority_bonus = yes
+		eocfm_update_authority = yes
 		post_notification = eocfm_patriarch_authority_restored
 	}
 
-}
-			
-#### SUPPORT EVENTS ####
-
-eocfm.910 = { # assigns the patriarch authority JE
-	type = country_event
-	placement = root
-	
-	title = eocfm.910.t
-	desc = eocfm.910.d
-	flavor = eocfm.910.f
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {
-		country_has_state_religion = rel:orthodox
-		NOT = { has_law = law_type:law_state_atheism }
-		NOT = { has_journal_entry = je_eocfm_patriarch_authority }
-	}
-	
-	immediate = {
-		ig:ig_devout = {
-			leader = {
-				save_scope_as = devout_leader_scope
-			}
-		}
-		set_variable = {
-			name = eocfm_patriarch_authority_var
-			value = 0
-		}
-		set_variable = {
-			name = eocfm_patriarch_authority_ratio_var
-			value = 0
-		}		
-	}
-
-	option = {
-		name = eocfm.910.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_eocfm_patriarch_authority
-		}
-		set_variable = eocfm_received_patriarch_authority
-	}
-	
 }

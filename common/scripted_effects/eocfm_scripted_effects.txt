@@ -1,42 +1,11 @@
-﻿eocfm_update_authority_bonus = {
+﻿eocfm_update_authority = {
 	set_variable = {
 		name = eocfm_patriarch_authority_var
 		value = patriarch_authority_capacity
 	}
-	set_variable = {
-		name = eocfm_patriarch_authority_ratio_var
-		value = patriarch_authority_ratio
-	}
-	remove_modifier = modifier_eocfm_patriarch_authority_bonus
-	if = {
-		limit = {
-			var:eocfm_patriarch_authority_ratio_var >= 20
-		}
-		add_modifier = {
-			name = modifier_eocfm_patriarch_authority_bonus
-			multiplier = 20
-		}
-	}
-	if = {
-		limit = {
-			var:eocfm_patriarch_authority_ratio_var < 20
-			var:eocfm_patriarch_authority_ratio_var > 0
-		}
-		add_modifier = {
-			name = modifier_eocfm_patriarch_authority_bonus
-			multiplier = var:eocfm_patriarch_authority_ratio_var
-		}
-	}
-	else = {
-		add_modifier = {
-			name = modifier_eocfm_patriarch_authority_bonus
-			multiplier = 0
-		}
-	}
 }
 
 eocfm_clean_up_modifiers = {
-	remove_modifier = modifier_eocfm_patriarch_authority_bonus
 	remove_modifier = modifier_eocfm_icon_christ_pantocrator
 	remove_modifier = modifier_eocfm_icon_eleusa
 	remove_modifier = modifier_eocfm_icon_john_climacus

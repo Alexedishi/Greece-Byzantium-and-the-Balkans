@@ -1,9 +1,75 @@
-﻿balkfm_purchase_rail_button = {
+﻿# MONTENEGRO BUTTONS
+balkfm_compose_epic_button = {
+	name = "balkfm_compose_epic"
+	desc = "balkfm_compose_epic_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_composing_epic }
+	}
+	
+	effect = {
+		set_variable = {
+			name = balkfm_epic_composition_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_balkfm_mon_epic
+		}
+		add_modifier = modifier_balkfm_composing_epic
+	}
+}
+
+# SERBIA BUTTONS
+balkfm_cement_monarchy_button = {
+	name = "balkfm_cement_monarchy"
+	desc = "balkfm_cement_monarchy_desc"
+
+	visible = {
+		NOT = {
+			has_variable = balkfm_serbian_monarchy_resolved
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_cement_monarchy_tt1
+			hidden_trigger = {
+				var:ser_leading_dynasty_var >= 500
+			}
+		}
+		custom_tooltip = {
+			text = balkfm_cement_monarchy_tt2
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_constitution_pending
+				}
+			}
+		}
+		hidden_trigger = {
+			NOT = {
+				has_journal_entry = je_balkfm_ser_monarchism_consolidation
+			}
+		}
+	}
+
+	effect = {
+		add_journal_entry = {
+			type = je_balkfm_ser_monarchism_consolidation
+		}
+	}
+}
+
+# BULGARIA BUTTONS
+
+balkfm_purchase_rail_button = {
 	name = "balkfm_purchase_rail"
 	desc = "balkfm_purchase_rail_desc"
 	
 	visible = {
-		has_journal_entry = je_balkfm_bulgarian_railways
 		NOT = { has_variable = balkfm_bought_out_rail }
 	}
 		
@@ -26,16 +92,25 @@ balkfm_annex_rumelia_button = {
 	visible = {
 		is_subject = yes
 		exists = c:ERUM
+		NOT = { has_variable = balkfm_annex_rumelia_taken }
 	}
-		
+	
 	possible = {
-		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
+		c:ERUM ?= {
+			relations:root >= relations_threshold:amicable
+			is_subject_of = c:TUR
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+		c:TUR ?= {
+			relations:root < relations_threshold:neutral
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = balkfm.581 # Union with East Rumelia
 		}
+		set_variable = balkfm_annex_rumelia_taken
 	}
 }
 
@@ -48,6 +123,9 @@ balkfm_declare_tsardom_button = {
 	}
 		
 	possible = {
+		NOT = {
+			has_journal_entry = je_balkfm_bul_battenburg_monarchy
+		}
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
 	}

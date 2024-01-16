@@ -1,13 +1,19 @@
 ﻿patriarch_authority_capacity = {
 	value = 0
+## BASE	
+	add = 100
 ## SOURCES
+	# Law Check
 	if = {
 		limit = {
 			has_law = law_type:law_theocracy
 		}
 		add = 200
 	}
-	else = {
+	else_if = {
+		limit = {
+			has_law = law_type:law_monarchy
+		}
 		add = 100
 	}
 	if = {
@@ -22,26 +28,28 @@
 		}
 		add = 100
 	}
-	else = {
-		subtract = 100
-	}
 	if = {
 		limit = {
-			ig:ig_devout = {
-				is_powerful = yes
-				is_in_government = yes
-			}
+			has_variable = eocfm_is_autocephalous
 		}
 		add = 200
 	}
-	else_if = {
+	
+	# Modifiers Check
+	if = {
 		limit = {
-			ig:ig_devout = {
-				is_powerful = yes
-			}
+			has_modifier = modifier_eocfm_caesaropapism
 		}
 		add = 100
 	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_subsidizing_church
+		}
+		add = 100
+	}
+	
+	# Patriarchal Seats Check
 	if = {
 		limit = {
 			eocfm_controls_all_seats = yes
@@ -84,19 +92,9 @@
 		}
 		add = 100
 	}
-	if = {
-		limit = {
-			has_variable = eocfm_is_autocephalus
-		}
-		add = 200
-	}
+
 ## EXPENSES
-	if = {
-		limit = {
-			eocfm_has_icon_trigger = yes
-		}
-		subtract = 200
-	}
+	# Major Actions Check
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_hosting_council
@@ -109,10 +107,26 @@
 		}
 		subtract = 500
 	}
-}
-
-patriarch_authority_ratio = {
-	value = patriarch_authority_capacity
-	divide = 50
-	round = 1
+	if = {
+		limit = {
+			has_journal_entry = je_eocfm_autocephaly
+		}
+		subtract = 800
+	}
+	
+	# Law Check
+	if = {
+		limit = {
+			has_law = law_type:law_total_separation
+		}
+		subtract = 100
+	}
+	
+	# Modifiers Check
+	if = {
+		limit = {
+			eocfm_has_icon_trigger = yes
+		}
+		subtract = 200
+	}
 }

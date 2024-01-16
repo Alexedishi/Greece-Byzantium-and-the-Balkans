@@ -6,29 +6,6 @@
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		hidden_effect = {
-			if = {
-				limit = {
-					c:RUS ?= this
-				}
-				trigger_event = {
-					id = eocfm.101 # Great Holy Synod (RUS)
-				}
-			}
-			else_if = {
-				limit = {
-					c:GRE ?= this 
-				}
-				trigger_event = {
-					id = eocfm.102 # Greek Holy Synod
-				}
-			}
-			else = {
-				trigger_event = {
-					id = eocfm.100 # National Synod of X
-				}
-			}
-		}
 	}
 	
 	invalid = {
@@ -48,29 +25,107 @@
 		modifier_eocfm_base
 	}
 	
-	current_value = {
-		value = root.var:eocfm_patriarch_authority_var
-	}
-	
-	goal_add_value = {
-		value = 1000
-	}
-
-	progressbar = yes
-	
 	on_monthly_pulse = {	
 		effect = {
-			eocfm_update_authority_bonus = yes
+			eocfm_update_authority = yes
+		}
+		random_events = {
+			400 = 0
+			5 = eocfm.002 # State-Church Relations
+			5 = eocfm.003 # Ecumenical Reforms
+			5 = eocfm.004 # Bible Translation Published
+			5 = eocfm.005 # Priestly Excesses
 		}
 	}
 	
 	scripted_button = eocfm_declare_autocephaly_button
-	scripted_button = eocfm_commission_icon_button
 	scripted_button = eocfm_convoke_council_button
+	scripted_button = eocfm_commission_icon_button
 	scripted_button = eocfm_integrate_seat_button
+	scripted_button = eocfm_enact_caesaropapism_button
+	scripted_button = eocfm_revoke_caesaropapism_button
+	scripted_button = eocfm_subsidize_church_button
+	scripted_button = eocfm_stop_subsidies_button
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eocfm_patriarch_authority_status
+			}
+		}
+	}	
 	
 	weight = 1000
 	
+}
+
+je_eocfm_autocephaly = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_eocfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	
+	on_complete = {
+		if = {
+			limit = {
+				c:GRE ?= this
+			}
+			trigger_event = {
+				id = eocfm.111 # The Tomos of Autocephaly
+			}
+		}
+		else = {
+			trigger_event = {
+				id = eocfm.110 # Autocephaly of the Church of X
+			}
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_law = law_type:law_state_atheism
+			NOT = { country_has_state_religion = rel:orthodox }
+		}
+	}
+	
+	on_invalid = {
+		remove_variable = eocfm_schism_var
+	}
+	
+	current_value = {
+		value = var:eocfm_schism_var
+	}
+
+	goal_add_value = {
+		add = 120
+	}
+	
+	progressbar = yes
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = eocfm_schism_var
+				add = 1
+			}
+		}
+	}
+	
+	weight = 1000
 }
 
 ############################

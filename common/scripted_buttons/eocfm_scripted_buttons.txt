@@ -4,24 +4,69 @@
 	
 	visible = {
 		NOT = {
-			has_variable = eocfm_is_autocephalus
+			has_variable = eocfm_is_autocephalous
 		}
 	}
 	
 	possible = {
 		is_subject = no
 		custom_tooltip = {
-			text = eocfm_declare_autocephaly_tt
+			text = eocfm_need_800_tt
 			hidden_trigger = {
-				var:eocfm_patriarch_authority_var >= 500
+				var:eocfm_patriarch_authority_var >= 800
+			}
+		}
+		NOT = {
+			has_journal_entry = je_eocfm_autocephaly
+		}
+	}
+	
+	effect = {
+		add_journal_entry = {
+			type = je_eocfm_autocephaly
+		}
+	}
+}
+
+eocfm_convoke_council_button = {
+	name = "eocfm_convoke_council"
+	desc = "eocfm_convoke_council_desc"
+	
+	visible = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	possible = {
+		is_subject = no
+		custom_tooltip = {
+			text = eocfm_controls_major_seat_tt
+			hidden_trigger = {
+				eocfm_controls_major_seat_trigger = yes
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_need_1000_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 1000
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
 			}
 		}
 	}
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.110 # Declaration of Autocephaly (Generic)
+			id = eocfm.030 # Council of X
+			days = 30
 			popup = yes
+		}
+		change_variable = {
+			name = eocfm_council_var
+			add = 1
 		}
 	}
 }
@@ -36,13 +81,13 @@ eocfm_commission_icon_button = {
 	
 	possible = {
 		custom_tooltip = {
-			text = eocfm_commission_icon_tt1
+			text = eocfm_need_200_tt
 			hidden_trigger = {
 				var:eocfm_patriarch_authority_var >= 200
 			}
 		}
 		custom_tooltip = {
-			text = eocfm_commission_icon_tt2
+			text = eocfm_commission_icon_tt
 			hidden_trigger = {
 				eocfm_has_icon_trigger = no
 			}
@@ -56,47 +101,6 @@ eocfm_commission_icon_button = {
 		}
 	}
 }
-
-
-eocfm_convoke_council_button = {
-	name = "eocfm_convoke_council"
-	desc = "eocfm_convoke_council_desc"
-	
-	visible = {
-		global_var:eocfm_council_var < 5
-	}
-	
-	possible = {
-		is_subject = no
-		custom_tooltip = {
-			text = eocfm_controls_major_seat_tt
-			hidden_trigger = {
-				eocfm_controls_major_seat_trigger = yes
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_convoke_council_tt
-			hidden_trigger = {
-				var:eocfm_patriarch_authority_var >= 1000
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_has_autocephaly_tt
-			hidden_trigger = {
-				has_variable = eocfm_is_autocephalus
-			}
-		}
-	}
-	
-	effect = {
-		trigger_event = {
-			id = eocfm.030 # Council of X
-			days = 30
-			popup = yes
-		}
-	}
-}
-
 
 eocfm_integrate_seat_button = {
 	name = "eocfm_integrate_seat"
@@ -134,9 +138,9 @@ eocfm_integrate_seat_button = {
 	possible = {
 		is_subject = no
 		custom_tooltip = {
-			text = eocfm_integrate_seat_tt
+			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:eocfm_patriarch_authority_var >= 200
+				var:eocfm_patriarch_authority_var >= 500
 			}
 		}
 	}
@@ -147,3 +151,116 @@ eocfm_integrate_seat_button = {
 		}
 	}
 }
+
+eocfm_enact_caesaropapism_button = {
+	name = "eocfm_enact_caesaropapism"
+	desc = "eocfm_enact_caesaropapism_desc"
+	
+	visible = {
+		NOT = {
+			has_modifier = modifier_eocfm_caesaropapism
+		}
+	}
+	
+	possible = {	
+		ig:ig_devout = {
+			is_in_government = no
+			ig_approval > 0
+		}
+		NOT = {
+			has_modifier = modifier_eocfm_revoked_caesaropapism
+		}
+	}
+	
+	effect = {
+		custom_tooltip = eocfm_gain_100_tt
+		add_modifier = modifier_eocfm_caesaropapism
+		add_radicals = {
+			pop_type = clergymen
+			value = small_radicals
+		}
+		eocfm_update_authority = yes
+	}
+}
+
+eocfm_revoke_caesaropapism_button = {
+	name = "eocfm_revoke_caesaropapism"
+	desc = "eocfm_revoke_caesaropapism_desc"
+	
+	visible = {
+		has_modifier = modifier_eocfm_caesaropapism
+	}
+	
+	possible = {
+		has_modifier = modifier_eocfm_caesaropapism
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_caesaropapism
+		add_modifier = {
+			name = modifier_eocfm_revoked_caesaropapism
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		add_loyalists = {
+			pop_type = clergymen
+			value = small_radicals
+		}
+		remove_variable = eocfm_caesaropapism_questioned
+		eocfm_update_authority = yes
+	}
+}
+
+eocfm_subsidize_church_button = {
+	name = "eocfm_subsidize_church"
+	desc = "eocfm_subsidize_church_desc"
+	
+	visible = {
+		NOT = {
+			has_modifier = modifier_eocfm_subsidizing_church
+		}
+	}
+	
+	possible = {
+		always = yes
+	}
+	
+	effect = {
+		custom_tooltip = eocfm_gain_100_tt
+		add_modifier = {
+			name = modifier_eocfm_subsidizing_church
+			multiplier = money_amount_multiplier_medium
+		}
+		ig:ig_devout = {
+			add_modifier = modifier_eocfm_receiving_subsidies
+		}
+		eocfm_update_authority = yes
+	}
+}
+
+eocfm_stop_subsidies_button = {
+	name = "eocfm_stop_subsidies"
+	desc = "eocfm_stop_subsidies_desc"
+	
+	visible = {
+		has_modifier = modifier_eocfm_subsidizing_church
+	}
+	
+	possible = {
+		ig:ig_devout = {
+			NOR = {
+				is_powerful = yes
+				is_in_government = yes
+			}
+		}
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_subsidizing_church
+		ig:ig_devout = {
+			remove_modifier = modifier_eocfm_receiving_subsidies
+		}
+		eocfm_update_authority = yes
+	}
+}
+

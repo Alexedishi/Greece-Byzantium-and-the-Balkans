@@ -59,6 +59,7 @@ namespace = byzfm
 
 #310-319 - Roman/Byzantine Imperial Ambitions
 #	310 - The Basileus Basileōn
+#	311 - ## The Imperial Library [MGR]
 
 #320-329 - Annexation Events
 #	320 - Theodoro Annexation
@@ -1137,7 +1138,7 @@ byzfm.300 = { #Resurrection of the Byzantine Empire
 	desc = byzfm.300.d
 	flavor = byzfm.300.f
 
-	gui_window = fullscreen_event
+	gui_window = event_window_fullscreen
 
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -1184,14 +1185,6 @@ byzfm.300 = { #Resurrection of the Byzantine Empire
 			name = unification_prestige
 			months = very_long_modifier_time
 		}
-		if = {
-			limit = {
-				NOT = {
-					country_has_primary_culture = cu:greek
-				}
-			}
-			add_primary_culture = cu:greek
-		}
 	}
 }
 
@@ -1224,32 +1217,6 @@ byzfm.301 = { # The Byzantine Restoration
 				is_capital = yes
 			}
 			save_scope_as = byzantium_capital_state
-		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_balkans = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_balkans_target
-			}
-		}
-		if = {
-			limit = {
-				any_state = {
-					state_in_anatolia = yes
-					NOT = {
-						owner = ROOT
-						}
-					}
-				}
-			owner = {
-				save_scope_as = byzantium_anatolia_target
-			}
 		}
 	}
 	

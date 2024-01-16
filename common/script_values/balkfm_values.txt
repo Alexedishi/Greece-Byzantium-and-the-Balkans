@@ -1,0 +1,334 @@
+﻿obrenovic_progress_value = {
+	value = 0
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_single_party_state
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_oligarchy
+				has_law = law_type:law_technocracy
+			}
+		}
+		add = 1
+	}
+	else = {
+		subtract = 3 # because the obrenovics were famously autocractic
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_elected_bureaucrats
+		}
+		subtract = 1
+	}
+	else = {
+		add = 1 # base progress for either side
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_secret_police
+		}
+		add = 2
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_serfdom
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_tenant_farmers
+		}
+		add = 1
+	}
+	else = {
+		subtract = 2
+	}
+	
+	if = {
+		limit = {
+			c:RUS ?= {
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			c:RUS ?= {
+				relations:root = relations_threshold:cordial
+			}
+		}
+		add = 1
+	}
+	else_if = {
+		limit = {
+			c:RUS ?= {
+				relations:root = relations_threshold:poor
+			}
+		}
+		subtract = 1
+	}
+	else_if = {
+		limit = {
+			c:RUS ?= {
+				relations:root <= relations_threshold:cold
+			}
+		}
+		subtract = 2
+	}
+	
+}
+
+karadordevic_progress_value = {
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_landed_voting
+				has_law = law_type:law_wealth_voting
+			}
+		}
+		add = 1
+	}
+	else = {
+		subtract = 2
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		subtract = 2
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_appointed_bureaucrats
+		}
+		add = 1
+	}
+	else = {
+		add = 2
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_guaranteed_liberties
+		}
+		add = 2
+	}
+	
+	if = {
+		limit = {
+			has_law = law_type:law_serfdom
+		}
+		subtract = 2
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_tenant_farmers
+		}
+		subtract = 1
+	}
+	else = {
+		add = 2
+	}
+	
+	if = {
+		limit = {
+			c:AUS ?= {
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			c:AUS ?= {
+				relations:root = relations_threshold:cordial
+			}
+		}
+		add = 1
+	}
+	else_if = {
+		limit = {
+			c:AUS ?= {
+				relations:root = relations_threshold:poor
+			}
+		}
+		subtract = 1
+	}
+	else_if = {
+		limit = {
+			c:AUS ?= {
+				relations:root <= relations_threshold:cold
+			}
+		}
+		subtract = 2
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+			has_variable = balkfm_kaykay_var
+		}
+		subtract = 2 # Alexander Karadordevic lost a huge chunk of his support for failing to secure Serbian gains after the Crimean War, this should hobble the karadordevic_progress_value until he gets the boot
+	}
+	else_if = {
+		limit = {
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		}
+		add = 2
+	}
+}
+
+## BULGARIA VALUES ##
+balkfm_battenburg_support_value = {
+# Generally, it should be hard to get this above 5 while retaining liberal laws
+	value = 0
+	
+	# Russia relations check
+	if = {
+		limit = {
+			c:RUS = {
+				relations:root > relations_threshold:neutral
+			}
+		}
+		add = 1
+	}
+	else_if = {
+		limit = {
+			c:RUS = {
+				relations:root < relations_threshold:neutral
+			}
+		}
+		subtract = 1
+	}
+	
+	# Landowners power check
+	if = { 
+		limit = {
+			AND = {
+				ig:ig_landowners = {
+					is_powerful = yes
+					is_in_government = yes
+				}
+			}
+		}
+		add = 1
+	}
+	
+	# Military power check
+	if = {
+		limit = {
+			AND = {
+				ig:ig_armed_forces = {
+					is_powerful = yes
+					is_in_government = no
+				}
+			}
+		}
+		subtract = 1
+	}
+	
+	# Freedom of the press check (balkfm.501)
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_protected_speech
+				has_law = law_type:law_right_of_assembly
+			}
+		}
+		add = 1
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_censorship
+				has_law = law_type:law_outlawed_dissent
+			}
+		}
+		subtract = 1
+	}
+	
+	# Autocracy check (balkfm.502)
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
+			}
+		}
+		subtract = 2
+	}
+	
+	# Brigandage check (balkfm.510/511)
+	if = {
+		limit = {
+			has_variable = balkfm_brigandage_completed
+		}
+		add = 2
+	}
+	
+	# Railways check (balkfm.512/513/514)
+	if = {
+		limit = {
+			has_variable = balkfm_railways_built
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_railway_buyout
+		}
+		subtract = 1
+	}
+	
+	# Rumelia check (balkfm.581)
+	if = {
+		limit = {
+			AND = {
+				owns_entire_state_region = STATE_BULGARIA
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		subtract = 1
+	}
+	
+	# Schism check (balkfm.560)
+	if = {
+		limit = {
+			OR = {
+				has_journal_entry = je_eocfm_autocephaly
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		add = 1
+	}
+	
+}

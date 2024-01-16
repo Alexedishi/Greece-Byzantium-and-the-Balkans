@@ -4,13 +4,13 @@ balkfm_recruit_local_power = {
 	if = {
 		limit = {
 			any_country = {
-				any_country = {
-					capital = {
-						region = sr:region_balkans
-					}
+				NOT = { has_variable = balkfm_crisis_offered }
+				OR = {
+					capital = { region = sr:region_balkans }
+					c:MOL ?= this # this is hacky, but they technically aren't in the Balkans per the regions
+					c:WAL ?= this
 				}
 			}
-			NOT = { has_variable = balkfm_crisis_offered }
 		}
 		random_country = {
 			limit = {
@@ -31,6 +31,7 @@ balkfm_recruit_great_power = {
 		limit = {
 			any_country = {
 				NOT = { has_variable = balkfm_crisis_offered }
+				NOT = { has_variable = balkfm_crisis_target }
 				has_interest_marker_in_region = region_balkans
 				country_rank = rank_value:great_power
 			}
@@ -44,6 +45,197 @@ balkfm_recruit_great_power = {
 			trigger_event = {
 				id = balkfm.102 # Recruit Great Power
 			}
+		}
+	}
+}
+
+balkfm_stage_crisis_characters = {
+# event_window_crisis has this layout, from top to bottom, attackers on the left & defenders on the right:
+# 1 4 <--attackers and defenders
+# 2 5 <--initiator and target
+# 3 6 <-- attackers and defenders
+# you need to save each character scope into the variable "crisis_scope_(1-6)" which is read by the gui
+
+	# First round of assignments
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_attacker
+			NOT = { has_variable = balkfm_crisis_starter }
+			country_rank = rank_value:great_power
+		}
+		ruler = {
+			save_scope_as = crisis_scope_1
+		}
+	}		
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_starter
+		}
+		ruler = {
+			save_scope_as = crisis_scope_2
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_attacker
+			NOT = {
+				ruler = {
+					scope:crisis_scope_1 = this
+					scope:crisis_scope_2 = this
+				}
+			}
+		}
+		ruler = {
+			save_scope_as = crisis_scope_3
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_defender
+		}
+		ruler = {
+			save_scope_as = crisis_scope_4
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_target
+		}
+		ruler = {
+			save_scope_as = crisis_scope_5
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_defender
+			NOT = {
+				ruler = {
+					scope:crisis_scope_4 = this
+				}
+			}
+		}
+		ruler = { 
+			save_scope_as = crisis_scope_6
+		}
+	}
+	
+	# Second round checking for missing scopes
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_1
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_crisis_attacker
+				NOT = {
+					scope:crisis_scope_3 = this # There should be at least two minors involed in the crisis
+				}
+			}
+			save_scope_as = crisis_scope_1
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_4
+			}
+		}
+		balkfm_generate_hakki_pasha = yes
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_hakki_pasha
+			}
+			save_scope_as = crisis_scope_4
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_6
+			}
+		}
+		balkfm_generate_osman_nuri = yes
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_nuri_pasha
+			}
+			save_scope_as = crisis_scope_6
+		}
+	}
+
+	# Assigning scopes to variables so they can be accessed by the gui
+	set_variable = {
+		name = balkfm_crisis_var_1
+		value = scope:crisis_scope_1
+	}
+	set_variable = {
+		name = balkfm_crisis_var_2
+		value = scope:crisis_scope_2
+	}
+	set_variable = {
+		name = balkfm_crisis_var_3
+		value = scope:crisis_scope_3
+	}
+	set_variable = {
+		name = balkfm_crisis_var_4
+		value = scope:crisis_scope_4
+	}
+	set_variable = {
+		name = balkfm_crisis_var_5
+		value = scope:crisis_scope_5
+	}
+	set_variable = {
+		name = balkfm_crisis_var_6
+		value = scope:crisis_scope_6
+	}
+}
+
+balkfm_generate_hakki_pasha = {
+	# Kurt İsmail Hakkı Pasha, Commander of the Anatolian Army 1877-1878 
+	create_character = {
+		first_name = Kurt_Ismail
+		last_name = Hakki
+		historical = yes
+		age = 59 # age in 1877 at the start of the Russo-Turkish War
+		culture = cu:turkish
+		religion = rel:sunni
+		interest_group = ig_armed_forces
+		ideology = ideology_royalist
+		is_general = yes
+		traits = {
+			imposing
+			direct
+			expert_offensive_planner
+		}
+		on_created = {
+			set_variable = balkfm_is_hakki_pasha
+			set_variable = balkfm_pasha_var
+		}
+	}
+}
+
+balkfm_generate_osman_nuri = {
+	# Osman Nuri Pasha, Ottoman field marshal and one of the most decorated Pashas ever
+	create_character = {
+		first_name = Osman
+		last_name = Nuri
+		historical = yes
+		age = 59 # age in 1877 at the start of the Russo-Turkish War
+		culture = cu:turkish
+		religion = rel:sunni
+		interest_group = ig_armed_forces
+		ideology = ideology_royalist
+		is_general = yes
+		traits = {
+			persistent
+			engineer
+			expert_defensive_strategist
+		}
+		on_created = {
+			set_variable = balkfm_is_nuri_pasha
+			set_variable = balkfm_pasha_var
 		}
 	}
 }
@@ -67,6 +259,7 @@ balkfm_build_crisis = {
 					is_subject_type = subject_type_dominion
 					is_subject_type = subject_type_puppet
 				}
+				has_variable = balkfm_crisis_attacker
 			}
 			make_independent = yes
 		}
@@ -77,7 +270,7 @@ balkfm_build_crisis = {
 	}
 	every_country = {
 		limit = {
-			has_variable = balkfm_crisis_offered
+			balkfm_crisis_participant_trigger = yes
 			has_truce_with = c:TUR
 		}
 		end_truce = {
@@ -86,13 +279,11 @@ balkfm_build_crisis = {
 	}
 	every_country = {
 		limit = {
-			has_variable = balkfm_crisis_participant
-			NOT = {
-				is_diplomatic_play_enemy_of = C:TUR
-			}
+			has_variable = balkfm_crisis_attacker
 		}
 		trigger_event = {
 			id = balkfm.105 # Eastern Crisis Start (not-TUR)
+			popup = yes
 		}
 	}
 	every_country = {
@@ -105,9 +296,667 @@ balkfm_build_crisis = {
 	}
 }
 
-## BULGARIA EFFECTS ##
+balkfm_clean_up_crisis_variables = {
+	remove_variable = balkfm_crisis_rejected
+	remove_variable = balkfm_crisis_defender
+	remove_variable = balkfm_crisis_starter
+	remove_variable = balkfm_crisis_attacker
+	remove_variable = balkfm_crisis_target
+	remove_variable = balkfm_crisis_var_1
+	remove_variable = balkfm_crisis_var_2
+	remove_variable = balkfm_crisis_var_3
+	remove_variable = balkfm_crisis_var_4
+	remove_variable = balkfm_crisis_var_5
+	remove_variable = balkfm_crisis_var_6
+}
 
-create_bulgarian_characters = {
+## BALKAN WARS EFFECTS ##
+
+
+## TURK-SPLOSION EFFECTS ##
+balkfm_minor_turkboom = {
+}
+
+balkfm_major_turkboom = {
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:GRE }
+				owns_entire_state_region = STATE_ATTICA
+				owns_entire_state_region = STATE_PELOPONNESE
+			}
+		}
+		create_country = {
+			tag = GRE
+			origin = this
+			state = s:STATE_ATTICA.region_state:TUR
+			state = s:STATE_PELOPONNESE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				owns_entire_state_region = STATE_THESSALIA
+				exists = c:GRE
+			}
+		}
+		s:STATE_THESSALIA = {
+			random_scope_state = {
+				set_state_owner = c:GRE
+			}
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+				owns_entire_state_region = STATE_WESTERN_THRACE
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+			state = s:STATE_WESTERN_THRACE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				NOT = { exists = c:ERUM }
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		create_country = {
+			tag = ERUM # mwahaha no flavor for you
+			origin = this
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:SER }
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		create_country = {
+			tag = SER
+			origin = this
+			state = s:STATE_NORTHERN_SERBIA.region_state:TUR
+			state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				exists = c:SER
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				owns_entire_state_region = STATE_SKOPIA
+			}
+		}
+		s:STATE_SKOPIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+		s:STATE_SOUTHERN_SERBIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				exists = c:SER
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		s:STATE_SOUTHERN_SERBIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:ALB }
+				owns_entire_state_region = STATE_ALBANIA
+			}
+		}
+		create_country = {
+			tag = ALB
+			origin = this
+			state = s:STATE_ALBANIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:MAC }
+				owns_entire_state_region = STATE_MACEDONIA
+			}
+		}
+		create_country = {
+			tag = MAC
+			origin = this
+			state = s:STATE_MACEDONIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BOS }
+				owns_entire_state_region = STATE_BOSNIA
+			}
+		}
+		create_country = {
+			tag = BOS
+			origin = this
+			state = s:STATE_BOSNIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:MON }
+				owns_entire_state_region = STATE_MONTENEGRO
+			}
+		}
+		create_country = {
+			tag = MON
+			origin = this
+			state = s:STATE_MONTENEGRO.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				c:MON ?= {
+					NOT = {
+						owns_entire_state_region = STATE_MONTENEGRO
+					}
+				}
+			}
+		}
+		s:STATE_MONTENEGRO = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						c:TUR = this
+					}
+				}
+				set_state_owner = c:MON
+			}
+		}
+	}
+	if = {
+		limit = {
+			c:WAL ?= {
+				NOT = {
+					owns_entire_state_region = STATE_DOBRUDJA
+				}
+			}
+			has_state_in_state_region = STATE_DOBRUDJA
+		}
+		s:STATE_DOBRUDJA = {
+			random_scope_state = {
+				limit = {
+					owner = {
+						country_has_primary_culture = cu:turkish
+					}
+				}
+				set_state_owner = c:WAL
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = c:CRE
+			}
+			owns_entire_state_region = STATE_CRETE
+		}
+		create_country = {
+			tag = CRE
+			origin = this
+			state = s:STATE_CRETE.region_state:TUR
+		}
+	}
+}
+
+## MONTENEGRO EFFECTS ##
+balkfm_set_up_montenegro = {
+	ig:ig_landowners = {
+		leader = {
+			set_ideology = ideology:ideology_royalist
+		}
+	}
+	ig:ig_armed_forces = {
+		leader = {
+			set_ideology = ideology:ideology_jingoist
+		}
+	}
+	ig:ig_devout = {
+		leader = {
+			set_ideology = ideology:ideology_traditionalist
+		}
+	}
+	ig:ig_intelligentsia = {
+		leader = {
+			set_ideology = ideology:ideology_land_reformer
+		}
+	}
+	ig:ig_rural_folk = {
+		leader = {
+			set_ideology = ideology:ideology_traditionalist
+		}
+	}
+}
+
+balkfm_create_ali_pasha_characters = {
+	create_character = {
+		# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+		first_name = Ali
+		last_name = Rizvanbegovic
+		historical = yes
+		age = 53 # born 1783
+		culture = cu:serb
+		religion = rel:sunni
+		interest_group = ig_landowners
+		ideology = ideology_moderate
+		traits = {
+			pious
+			arrogant
+		}
+		on_created = {
+			set_variable = balkfm_is_ali_pasha
+			place_character_in_void = 500
+		}
+	}
+	create_character = {
+		# Osman Pasha Skopljak, vizier of the Scutari Eyalet
+		first_name = Osman
+		last_name = Skopljak
+		historical = yes
+		age = 30 # no English source found documenting age
+		culture = cu:serb
+		religion = rel:sunni
+		interest_group = ig_landowners
+		ideology = ideology_moderate
+		traits = {
+			pious
+			arrogant
+		}
+		on_created = {
+			set_variable = balkfm_is_osman_skopljak
+			place_character_in_void = 500
+		}
+	}
+	create_character = {
+		# Smaïl-aga Čengić, Ottoman lord in Bosnia, killed on the orders of the Bishop
+		first_name = Smail
+		last_name = Cengic
+		historical = yes
+		age = 56 # born 1780
+		culture = cu:serb
+		religion = rel:sunni
+		interest_group = ig_landowners
+		ideology = ideology_moderate
+		traits = {
+			arrogant
+			war_criminal
+		}
+		on_created = {
+			set_variable = balkfm_is_smail_aga
+			place_character_in_void = 500
+		}
+	}
+	create_character = {
+		# Ömer Pasha Lütfi, military commander in Bosnia 1850-1852, executed Ali Pasha in 1850.
+		first_name = Omer
+		last_name = Latas
+		historical = yes
+		age = 30 # born 1806
+		culture = cu:serb
+		religion = rel:orthodox
+		interest_group = ig_armed_forces
+		ideology = ideology_moderate
+		traits = {
+			arrogant
+		}
+		on_created = {
+			set_variable = balkfm_is_omar_pasha
+			place_character_in_void = 500
+		}
+	}
+}
+
+balkfm_save_ali_pasha_scopes = {
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_ali_pasha
+		}
+		save_scope_as = ali_pasha_scope
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_osman_skopljak
+		}
+		save_scope_as = osman_skopljak_scope
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_smail_aga
+		}
+		save_scope_as = smail_aga_scope
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_omar_pasha
+		}
+		save_scope_as = omar_pasha_scope
+	}
+}
+
+## SERBIA EFFECTS ##
+balkfm_set_monarchism_variables = {
+	set_variable = {
+		name = obrenovic_support_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_support_var
+		value = 0
+	}
+	set_variable = {
+		name = obrenovic_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_progress_var
+		value = 0
+	}	
+	set_variable = {
+		name = ser_leading_dynasty_var
+		value = 0
+	}
+	set_variable = obrenovic_crowned_var
+	set_variable = balkfm_russia_consul_var
+}
+	
+balkfm_calculate_dynasty_support = {
+	set_variable = {
+		name = obrenovic_progress_var
+		value = obrenovic_progress_value
+	}
+	set_variable = {
+		name = karadordevic_progress_var
+		value = karadordevic_progress_value
+	}
+}
+
+balkfm_update_dynasty_variables = {
+	change_variable = {
+		name = obrenovic_support_var
+		add = var:obrenovic_progress_var
+	}
+	clamp_variable = {
+		name = obrenovic_support_var
+		max = 500
+		min = 0
+	}
+	change_variable = {
+		name = karadordevic_support_var
+		add = var:karadordevic_progress_var
+	}
+	clamp_variable = {
+		name = karadordevic_support_var
+		max = 500
+		min = 0
+	}
+}
+
+balkfm_define_leading_dynasty = {
+	if = {
+		limit = {
+			var:obrenovic_support_var >= var:karadordevic_support_var # the >= ensures the value gets updated if the two are equal. The status_desc separately checks if the two are equal
+		}
+		set_variable = {
+			name = ser_leading_dynasty_var
+			value = var:obrenovic_support_var
+		}
+	}
+	else_if = {
+		limit = {
+			var:obrenovic_support_var < var:karadordevic_support_var
+		}
+		set_variable = {
+			name = ser_leading_dynasty_var
+			value = var:karadordevic_support_var
+		}
+	}
+}
+
+balkfm_karadordevic_takeover = {
+	ruler = {
+		save_scope_as = balkfm_obrenovic_scope
+	}
+	heir = {
+		save_scope_as = balkfm_heir_scope
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_karadordevic_tracker
+		}
+		save_scope_as = balkfm_karadordevic_scope
+	}
+	scope:balkfm_obrenovic_scope = {
+		set_variable = balkfm_obrenovic_tracker
+		place_character_in_void = 150 # characters will expire after 15 years
+	}
+	if = {
+		limit = {
+			exists = scope:balkfm_heir_scope
+		}
+		scope:balkfm_heir_scope = {
+			kill_character = yes # get better parents next time bub
+		}
+	}
+	if = {
+		limit = {
+			exists = scope:balkfm_karadordevic_scope
+		}
+		scope:balkfm_karadordevic_scope = {
+			set_character_as_ruler = yes
+		}
+	}
+	else = {
+		create_character = {
+			# dynamic Karađorđević
+			last_name = Karadordevic
+			historical = yes
+			age = 30
+			culture = cu:serb
+			traits = {
+				basic_political_operator
+			}
+			on_created = {
+				set_variable = balkfm_karadordevic_tracker
+			}
+		}
+	}
+	remove_variable = obrenovic_crowned_var
+	set_variable = karadordevic_crowned_var
+	trigger_event = {
+		id = balkfm.410 # House Karađorđević Takes the Throne
+	}
+}
+	
+balkfm_obrenovic_takeover = {
+	ruler = {
+		save_scope_as = balkfm_karadordevic_scope
+	}
+	heir = {
+		save_scope_as = balkfm_heir_scope
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_obrenovic_tracker
+		}
+		save_scope_as = balkfm_obrenovic_scope
+	}
+	scope:balkfm_karadordevic_scope = {
+		set_variable = balkfm_karadordevic_tracker
+		place_character_in_void = 150 # characters will expire after 15 years
+	}	
+	if = {
+		limit = {
+			exists = scope:balkfm_heir_scope
+		}
+		scope:balkfm_heir_scope = {
+			kill_character = yes # get better parents next time bub
+		}
+	}	
+	if = {
+		limit = {
+			exists = scope:balkfm_obrenovic_scope
+		}
+		scope:balkfm_obrenovic_scope = {
+			set_character_as_ruler = yes
+		}
+	}
+	else = {
+		create_character = {
+			# dynamic Obrenović
+			last_name = "Obrenovic"
+			historical = yes
+			age = 30
+			culture = cu:serb
+			traits = {
+				basic_political_operator
+			}
+			on_created = {
+				set_variable = balkfm_obrenovic_tracker
+			}
+		}
+	}
+	remove_variable = balkfm_kaykay_var
+	remove_variable = karadordevic_crowned_var
+	set_variable = obrenovic_crowned_var
+	trigger_event = {
+		id = balkfm.411 # House Obrenović Takes the Throne
+	}
+}
+
+balkfm_clean_up_ser_monarchism = { # these are all unnessecary once JE is closed
+	remove_variable = obrenovic_support_var
+	remove_variable = karadordevic_support_var
+	remove_variable = obrenovic_progress_var
+	remove_variable = karadordevic_progress_var
+	remove_variable = ser_leading_dynasty_var
+	remove_variable = karadordevic_crowned_var
+	remove_variable = obrenovic_crowned_var
+}
+
+## BULGARIA EFFECTS ##
+balkfm_create_bulgaria = { # creates BUL, followed by ERUM
+	create_country = {
+		tag = BUL
+		origin = this
+		state = s:STATE_BULGARIA.region_state:TUR
+		on_created = {
+		}
+	}
+	if = {
+		limit = {
+			c:TUR = {
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		create_country = {
+			tag = ERUM
+			origin = this
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+			on_created = {
+			}
+		}
+	}
+	c:TUR = {
+		create_diplomatic_pact = {
+			country = c:BUL
+			type = protectorate
+		}
+		if  = {
+			limit = {
+				exists = c:ERUM
+			}
+			create_diplomatic_pact = {
+				country = c:ERUM
+				type = puppet
+			}
+		}
+	}
+	c:BUL = {
+		balkfm_set_bulgarian_laws = yes
+		balkfm_create_bulgarian_characters = yes
+		trigger_event = {
+			id = balkfm.500 # The Golden Lion Awakens
+			days = 1 # or else the loc breaks
+		}
+	}
+}
+
+balkfm_set_bulgarian_laws = {
+	activate_law = law_type:law_monarchy
+	activate_law = law_type:law_universal_suffrage
+	activate_law = law_type:law_cultural_exclusion
+	activate_law = law_type:law_state_religion
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_professional_army
+	activate_law = law_type:law_traditionalism
+	activate_law = law_type:law_mercantilism
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_no_police
+	activate_law = law_type:law_right_of_assembly
+	activate_law = law_type:law_slavery_banned
+}
+
+balkfm_create_bulgarian_characters = {
 	# all ages are based on age at in 1879
 	create_character = {
 		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
@@ -127,7 +976,7 @@ create_bulgarian_characters = {
 			arrogant
 		}
 		on_created = {
-			set_variable = bulfm_is_alex
+			set_variable = balkfm_is_alex
 		}
 	}
 	create_character = {
@@ -198,7 +1047,7 @@ create_bulgarian_characters = {
 	}
 }
 
-create_bulgarian_regency_characters = {
+balkfm_create_bulgarian_regency_characters = {
 	# all ages are based on age at in 1886
 	create_character = {
 		# Sava Mutkurov, Bulgarian general, tried to protect Alexander's claim to the throne; welcomed Ferdinand to the throne on his arrival
@@ -251,7 +1100,7 @@ create_bulgarian_regency_characters = {
 	}	
 }
 
-create_bulgarian_royals = {
+balkfm_create_bulgarian_royals = {
 	# all ages are based on age at in 1886
 	create_character = {
 		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
@@ -271,137 +1120,9 @@ create_bulgarian_royals = {
 			brave
 		}
 		on_created = {
-#			set_variable = bulfm_is_ferdinand
+			set_variable = balkfm_is_ferdinand
+			place_character_in_void = 12
 		}
-	}
-}
-
-set_bulgarian_laws = {
-	activate_law = law_type:law_monarchy
-	activate_law = law_type:law_universal_suffrage
-	activate_law = law_type:law_cultural_exclusion
-	activate_law = law_type:law_state_religion
-	activate_law = law_type:law_appointed_bureaucrats
-	activate_law = law_type:law_professional_army
-	activate_law = law_type:law_traditionalism
-	activate_law = law_type:law_mercantilism
-	activate_law = law_type:law_tenant_farmers
-	activate_law = law_type:law_no_police
-	activate_law = law_type:law_right_of_assembly
-	activate_law = law_type:law_slavery_banned
-}
-
-
-battenburg_monthly_effect = {
-	if = { # RUS relations check
-		limit = {
-			AND = {
-				c:RUS = {
-					relations:root > relations_threshold:neutral
-				}
-				NOT = { 
-					has_variable = bulfm_tech_russia_pos
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			add = 1
-		}
-		remove_variable = bulfm_tech_russia_neg
-		set_variable = bulfm_tech_russia_pos
-	}
-	else_if = {
-		limit = {
-			AND = {
-				c:RUS = {
-					relations:root <= relations_threshold:neutral
-				}
-				NOT = { 
-					has_variable = bulfm_tech_russia_neg
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			subtract = 1
-		}
-		remove_variable = bulfm_tech_russia_pos
-		set_variable = bulfm_tech_russia_neg
-	}
-	if = { # landowners power check
-		limit = {
-			AND = {
-				ig:ig_landowners = {
-					is_powerful = yes
-					is_in_government = yes
-				}
-				NOT = {
-					has_variable = bulfm_tech_land_pos
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			add = 1
-		}
-		remove_variable = bulfm_tech_land_neg
-		set_variable = bulfm_tech_land_pos
-	}
-	else_if = {
-		limit = {
-			AND = {
-				ig:ig_landowners = {
-					is_in_government = no
-				}
-				NOT = {
-					has_variable = bulfm_tech_land_neg
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			subtract = 1
-		}
-		remove_variable = bulfm_tech_land_pos
-		set_variable = bulfm_tech_land_neg
-	}
-	if = { # military power check
-		limit = {
-			AND = {
-				ig:ig_armed_forces = {
-					is_in_government = no
-				}
-				NOT = {
-					has_variable = bulfm_tech_mil_pos
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			add = 1
-		}
-		remove_variable = bulfm_tech_mil_neg
-		set_variable = bulfm_tech_mil_pos
-	}
-	else_if = {
-		limit = {
-			AND = {
-				ig:ig_armed_forces = {
-					is_powerful = yes
-					is_in_government = yes
-				}
-				NOT = {
-					has_variable = bulfm_tech_mil_neg
-				}
-			}
-		}
-		change_variable = {
-			name = balkfm_countercoup_var
-			subtract = 1
-		}
-		remove_variable = bulfm_tech_mil_pos
-		set_variable = bulfm_tech_mil_neg
 	}
 }
 				

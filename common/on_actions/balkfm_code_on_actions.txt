@@ -1,9 +1,9 @@
 ﻿on_monthly_pulse_country = {
 	on_actions = {
 		balkfm_monthly_pulse
-		bul_flavor_pulse
-		ser_flavor_pulse
 		mon_flavor_pulse
+		ser_flavor_pulse
+		bul_flavor_pulse
 	}
 }
 
@@ -28,15 +28,20 @@ balkfm_monthly_pulse = { # These events are persistently monitored
 		grefm.915 # assigns the revolt JE
 		
 		balkfm.100 # Creates Crisis DP and Escalates It
-		balkfm.911 # Creates BUL & ERUM
 	}
 }
 
-bul_flavor_pulse = {
+mon_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:bulgarian
+		country_has_primary_culture = cu:serb
+		OR = {
+			c:MON ?= this
+		}
 	}
 	events = {
+		balkfm.332 # Knives in the Dark
+		balkfm.337 # The Arrogance of Smail-aga
+		balkfm.341 # Osman Pasha Attacks!
 	}
 	random_events = {
 		100 = 0
@@ -51,26 +56,23 @@ ser_flavor_pulse = {
 		}
 	}
 	events = {
+		balkfm.405 # Disruptive Influence
 	}
 	random_events = {
 		100 = 0
 	}
 }
 
-mon_flavor_pulse = {
+bul_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:serb
-		OR = {
-			c:MON ?= this
-		}
+		country_has_primary_culture = cu:bulgarian
 	}
 	events = {
 	}
 	random_events = {
 		100 = 0
 	}
-}
-		
+}		
 		
 ############
 
@@ -78,53 +80,86 @@ mon_flavor_pulse = {
 
 on_country_released_as_independent = {
 	on_actions = {
-		bulfm_release_pulse
+		balkfm_release_pulse_1
 	}
 }
 
 on_country_released_as_own_subject = {
 	on_actions = {
-		bulfm_release_pulse
+		balkfm_release_pulse_2
 	}
 }
 
-bulfm_release_pulse = {
+balkfm_release_pulse_1 = { # BUL keeps ERUM if fully independent
 	effect = {
 		if = {
 			limit = {
 				c:BUL ?= scope:target
-				NOT = { has_global_variable = bulfm_lion_awakened }
+				NOT = { has_global_variable = balkfm_lion_awakened }
 			}
 			scope:target = {
-				set_bulgarian_laws = yes
-				create_bulgarian_characters = yes
+				balkfm_set_bulgarian_laws = yes
+				balkfm_create_bulgarian_characters = yes
 				trigger_event = {
 					id = balkfm.500 # The Golden Lion Awakens
 				}
 			}
 		}
+	}
+}
+
+balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
+	effect = {
 		if = {
 			limit = {
-				c:TUR = {
-					owns_entire_state_region = STATE_NORTHERN_THRACE
+				c:BUL ?= scope:target
+				NOT = { has_global_variable = balkfm_lion_awakened }
+			}
+			scope:target = {
+				balkfm_set_bulgarian_laws = yes
+				balkfm_create_bulgarian_characters = yes
+				trigger_event = {
+					id = balkfm.500 # The Golden Lion Awakens
 				}
 			}
-			create_country = {
-				tag = ERUM
-				origin = this
-				state = s:STATE_NORTHERN_THRACE.region_state:TUR
-				on_created = {
-				}
-			}
-		}
-		c:TUR ?= {
-			if  = {
+			if = {
 				limit = {
-					exists = c:ERUM
+					c:TUR = {
+						owns_entire_state_region = STATE_NORTHERN_THRACE
+					}
 				}
-				create_diplomatic_pact = {
-					country = c:ABU
-					type = puppet
+				create_country = {
+					tag = ERUM
+					origin = this
+					state = s:STATE_NORTHERN_THRACE.region_state:TUR
+					on_created = {
+					}
+				}
+				c:TUR ?= {
+					create_diplomatic_pact = {
+						country = c:ERUM
+						type = puppet
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					c:BUL = {
+						owns_entire_state_region = STATE_NORTHERN_THRACE
+					}
+				}
+				create_country = {
+					tag = ERUM
+					origin = this
+					state = s:STATE_NORTHERN_THRACE.region_state:BUL
+					on_created = {
+					}
+				}
+				c:TUR ?= {
+					create_diplomatic_pact = {
+						country = c:ERUM
+						type = puppet
+					}
 				}
 			}
 		}
@@ -137,25 +172,20 @@ bulfm_release_pulse = {
 
 balkfm_crisis_wargoal_enforced = {
 	trigger = {
+		has_global_variable = balkfm_crisis_happened
 		OR = {
 			has_variable = balkfm_crisis_target
-			has_variable = balkfm_crisis_participant
+			has_variable = balkfm_crisis_starter
 		}
 	}
 	effect = {
 		if = {
 			limit = {
-				has_variable = balkfm_crisis_participant
-			}
-			c:TUR = {
-				set_variable = balkfm_crisis_lost
-				trigger_event = {
-					id = balkfm.106 # The Treaty of Berlin
-				}
+				has_variable = balkfm_crisis_starter
 			}
 			every_country = {
 				limit = {
-					has_variable = balkfm_crisis_participant
+					balkfm_crisis_participant_trigger = yes
 				}
 				trigger_event = {
 					id = balkfm.106 # The Treaty of Berlin
@@ -168,7 +198,6 @@ balkfm_crisis_wargoal_enforced = {
 				has_variable = balkfm_crisis_target
 			}
 			c:TUR = {
-				set_variable = balkfm_crisis_won
 				trigger_event = {
 					id = balkfm.107 # The Porte Triumphant
 				}
