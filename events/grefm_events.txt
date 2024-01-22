@@ -34,31 +34,43 @@ namespace = grefm
 #	014 - The End of the Brigands
 #	015 - Rampant Corruption
 #	016 - An Honorable Regime
-#	017 - Bavarian Auxiliaries Dismissed
-#	018 - The Return of the "Turk-Eater"
+#	017 - The Bavarian Auxiliary Corps
+#	018 - Bavarian Auxiliaries Dismissed
+#	019 - The Return of the "Turk-Eater"
 
-#020-029 - Absolutism Events
-#	020 - The Bavarian Auxiliary Corps
+#020-029 - Monarchy Support Events
+#	020 - The Brigands Raid Again
+#	021 - A Perennial Problem
+#	022 - Absolutism in Greece
 
-#030-039 - Disorder Events
-#	030 - The Brigands Raid Again
-#	031 - A Perennial Problem
+#030-039 - Constitutional Monarchy Events
+# 	030 - The King of the Hellenes
+#	031 - "Who is to Blame?"
+#	032 - A Harmonious State
+#	033 - "Unfortunately, We are Bankrupt" event
+#	034 - 
+#	035 - 
+#	036 - 
+#	037 - 
+#	038 - ## A King of Valour (Assassination Attempt)
+#	039 - ## Silver Jubilee
 
-#040-049 - Constitutional Monarchy Events
-# 	040 - The King of the Hellenes
-#	041 - "Who is to Blame?"
-#	042 - A Harmonious State
-#	043 - "Unfortunately, We are Bankrupt" event
-#	044 - The Military League
+#040-049 - Rise of Venizelos Events
+#	040 - Military Nepotism
+#	041 - The Military League
 #	045 - A Cretan Champion
 #	046 - The Goudi Coup
-#	047 - Absolutism in Greece
-#	048 - A Cretan Chamption (Alternate)
+#	047 - A Cretan Chamption (Alternate)
+#	048 - The Rise of the Ethnarch
+#	049 - The Rise of the Ethnarch (Alternate) -- end of 1.1 content
 
 #050-059 - That Nonsense with Venizelos
-#	050 - The Rise of the Ethnarch
-#	051 - The Rise of the Ethnarch (Alternate) -- end of 1.1 content
-#	052 - 
+#	050 - ## Convoking the National Assembly "Ankyra !"
+#	051 - ## A Stately Military (Foreign Recruits/Officers Allowed plus Disqualifying soliders for public office)
+#	052 - ## To Silence Naysayers (law_censorship, basically)
+#	053 - ## The Ignorant Masses (compulsory education)
+#	054 - ## The Bulgarian Question (students visit Athens)
+#	055 - ## 
 
 #060-069 - The National Schism
 #	060 - ## The Great Division -- end of 2.0 content
@@ -77,6 +89,7 @@ namespace = grefm
 #	111 - Lake Kopais Event
 #	112 - Lake Kopais Drained
 #	113 - A Citadel Emerges
+#	114 - Merchantile Rivalries
 
 #120-129 - Cultural Events
 #	120 - The Rebirth of the Olympics
@@ -113,6 +126,10 @@ namespace = grefm
 #	156 - Palace Uncovered
 #	157 - The Mask of Agammemnon
 
+#160-169 - Minor International Events
+#	160 - ##A Bulgarian Visitor
+
+#190-199 - Historical Content Not Otherwise Specified
 
 ##	#GRE2	GREEK NATIONALISM	Events 200-299	##
 	
@@ -301,7 +318,7 @@ grefm.001 = { # Bavarocracy notification
 				days = 90
 			}
 			trigger_event = {
-				id = grefm.020 # # bavarian auxiliary corps
+				id = grefm.017 # bavarian auxiliary corps
 				days = 120
 			}
 			trigger_event = {
@@ -779,7 +796,7 @@ grefm.007 = { # mandate secured
 			add_trait = demagogue
 		}
 		trigger_event = {
-			id = grefm.040 # the king of the hellenes
+			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
 	}
@@ -964,7 +981,7 @@ grefm.009 = { # 1862 head of state referendum
 			}
 		}
 		trigger_event = {
-			id = grefm.040 # the king of the hellenes
+			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
 	}
@@ -1001,7 +1018,7 @@ grefm.009 = { # 1862 head of state referendum
 			}
 		}
 		trigger_event = {
-			id = grefm.040 # the king of the hellenes
+			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
 	}
@@ -1034,7 +1051,7 @@ grefm.009 = { # 1862 head of state referendum
 			}
 		}
 		trigger_event = {
-			id = grefm.040 # the king of the hellenes
+			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
 		set_variable = grefm_dr_moneybags_in_the_house
@@ -1068,7 +1085,7 @@ grefm.009 = { # 1862 head of state referendum
 			}
 		}
 		trigger_event = {
-			id = grefm.040 # the king of the hellenes
+			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
 	}
@@ -1426,13 +1443,55 @@ grefm.016 = { # civic reform complete
 
 }
 
-grefm.017 = { # Bavarian Auxiliaries Dismissed
+grefm.017 = { # The Bavarian Auxiliary Corps
 	type = country_event
 	placement = root
 	
 	title = grefm.017.t
 	desc = grefm.017.d
 	flavor = grefm.017.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {	# triggered by grefm.1
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.017.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_bavarian_auxiliaries
+			months = long_modifier_time
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_bavarian_auxiliaries
+			months = long_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+	}
+
+}
+
+grefm.018 = { # Bavarian Auxiliaries Dismissed
+	type = country_event
+	placement = root
+	
+	title = grefm.018.t
+	desc = grefm.018.d
+	flavor = grefm.018.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -1456,7 +1515,7 @@ grefm.017 = { # Bavarian Auxiliaries Dismissed
 	}
 	
 	option = {
-		name = grefm.017.a
+		name = grefm.018.a
 		default_option = yes
 		remove_modifier = modifier_grefm_bavarian_auxiliaries
 		add_modifier = {
@@ -1477,13 +1536,13 @@ grefm.017 = { # Bavarian Auxiliaries Dismissed
 
 }
 
-grefm.018 = { # nikitas released from jail
+grefm.019 = { # nikitas released from jail
 	type = country_event
 	placement = root
 	
-	title = grefm.018.t
-	desc = grefm.018.d
-	flavor = grefm.018.f
+	title = grefm.019.t
+	desc = grefm.019.d
+	flavor = grefm.019.f
 	
 	event_image = {
 		video = "votp_garibaldi"
@@ -1504,7 +1563,7 @@ grefm.018 = { # nikitas released from jail
 	}	
 	
 	option = {
-		name = grefm.018.a
+		name = grefm.019.a
 		default_option = yes
 		create_character = {
 			template = grefm_nikitas_chracter_template
@@ -1518,59 +1577,15 @@ grefm.018 = { # nikitas released from jail
 
 }
 
-#### ABSOLUTISM EVENTS ####
+#### MONARCHY SUPPORT EVENTS ####
 
-grefm.020 = { # The Bavarian Auxiliary Corps
-	type = country_event
-	placement = root
-	
-	title = grefm.020.t
-	desc = grefm.020.d
-	flavor = grefm.020.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_otto.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = {	# triggered by grefm.1
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.020.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_bavarian_auxiliaries
-			months = long_modifier_time
-		}
-		add_modifier = {
-			name = modifier_grefm_funding_bavarian_auxiliaries
-			months = long_modifier_time
-			multiplier = money_amount_multiplier_small
-		}
-	}
-
-}
-
-#### DISORDER EVENTS ####
-
-grefm.030 = { # the brigands raid again
+grefm.020 = { # the brigands raid again
 	type = country_event
 	placement = scope:brigandage_state
 
-	title = grefm.030.t
-	desc = grefm.030.d
-	flavor = grefm.030.f
+	title = grefm.020.t
+	desc = grefm.020.d
+	flavor = grefm.020.f
 
 	event_image = {
 		video = "votp_cops_march"
@@ -1606,7 +1621,7 @@ grefm.030 = { # the brigands raid again
 	}
 	
 	option = {
-		name = grefm.030.a
+		name = grefm.020.a
 		default_option = yes
 		scope:brigandage_state = {
 			add_modifier = {
@@ -1621,13 +1636,13 @@ grefm.030 = { # the brigands raid again
 	
 }
 
-grefm.031 = { # a perennial problem
+grefm.021 = { # a perennial problem
 	type = country_event
 	placement = root
 	
-	title = grefm.031.t
-	desc = grefm.031.d
-	flavor = grefm.031.f
+	title = grefm.021.t
+	desc = grefm.021.d
+	flavor = grefm.021.f
 	
 	event_image = {
 		video = "votp_cops_march"
@@ -1663,7 +1678,7 @@ grefm.031 = { # a perennial problem
 	}
 	
 	option = {
-		name = grefm.031.a
+		name = grefm.021.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_legacy_brigandage
@@ -1674,29 +1689,71 @@ grefm.031 = { # a perennial problem
 
 }
 
-
-#### CONSTITUTIONAL MONARCHY EVENTS ####
-
-grefm.040 = { # the king of the hellenes
+grefm.022 = { # dedilomeni absolutism outcome 
 	type = country_event
 	placement = root
 	
-	title = grefm.040.t
+	title = grefm.022.t
+	desc = grefm.022.d
+	flavor = grefm.022.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = king_otto_scope
+		}
+	}
+	option = {
+		name = grefm.022.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_absolutist_rule
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			strata = rich
+			value = medium_radicals
+		}
+	}
+
+}
+
+#### CONSTITUTIONAL MONARCHY EVENTS ####
+
+grefm.030 = { # the king of the hellenes
+	type = country_event
+	placement = root
+	
+	title = grefm.030.t
 	desc = {
 		triggered_desc = {
-			desc = grefm.040.d1
+			desc = grefm.030.d1
 			trigger = {
 				has_variable = grefm_1862_election_held
 			}
 		}
 		triggered_desc = {
-			desc = grefm.040.d2
+			desc = grefm.030.d2
 			trigger = {
 				has_variable = grefm_bavarocracy_secured
 			}
 		}
 	}
-	flavor = grefm.040.f
+	flavor = grefm.030.f
 	
 	duration = 3
 	
@@ -1737,7 +1794,7 @@ grefm.040 = { # the king of the hellenes
 	}
 	
 	option = { # standard option if you crowned George I
-		name = grefm.040.a
+		name = grefm.030.a
 		default_option = yes
 		trigger = {
 			has_variable = grefm_1862_election_held
@@ -1750,7 +1807,7 @@ grefm.040 = { # the king of the hellenes
 	}
 	
 	option = { # alternate if you got here via je_grefm_the_tyranny_of_house_wittelsbach
-		name = grefm.040.a
+		name = grefm.030.a
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
 			NOT = { has_variable = byzfm_byzantium_formed }
@@ -1762,13 +1819,13 @@ grefm.040 = { # the king of the hellenes
 	
 }
 
-grefm.041 = { # who is to blame
+grefm.031 = { # who is to blame
 	type = country_event
 	placement = root
 	
-	title = grefm.041.t
-	desc = grefm.041.d
-	flavor = grefm.041.f
+	title = grefm.031.t
+	desc = grefm.031.d
+	flavor = grefm.031.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -1799,7 +1856,7 @@ grefm.041 = { # who is to blame
 	}
 	
 	option = {
-		name = grefm.041.a
+		name = grefm.031.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_the_dedilomeni_principle
@@ -1808,13 +1865,13 @@ grefm.041 = { # who is to blame
 
 }
 
-grefm.042 = { # a harmonious state
+grefm.032 = { # a harmonious state
 	type = country_event
 	placement = root
 	
-	title = grefm.042.t
-	desc = grefm.042.d
-	flavor = grefm.042.f
+	title = grefm.032.t
+	desc = grefm.032.d
+	flavor = grefm.032.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -1835,7 +1892,7 @@ grefm.042 = { # a harmonious state
 	}	
 	
 	option = {
-		name = grefm.042.a
+		name = grefm.032.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_harmonious_state
@@ -1849,13 +1906,13 @@ grefm.042 = { # a harmonious state
 
 }
 
-grefm.043 = { # unfortunately we are bankrupt
+grefm.033 = { # unfortunately we are bankrupt
 	type = country_event
 	placement = root
 	
-	title = grefm.043.t
-	desc = grefm.043.d
-	flavor = grefm.043.f
+	title = grefm.033.t
+	desc = grefm.033.d
+	flavor = grefm.033.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -1880,7 +1937,7 @@ grefm.043 = { # unfortunately we are bankrupt
 	}
 	
 	option = { # repudiate foreign loans
-		name = grefm.043.a
+		name = grefm.033.a
 		default_option = yes
 		remove_modifier = declared_bankruptcy
 		add_modifier = {
@@ -1893,7 +1950,7 @@ grefm.043 = { # unfortunately we are bankrupt
 	}
 	
 	option = { # reorganize our finances
-		name = grefm.043.b
+		name = grefm.033.b
 		remove_modifier = declared_bankruptcy
 		add_modifier = {
 			name = modifier_grefm_reorganized_finances
@@ -1903,13 +1960,64 @@ grefm.043 = { # unfortunately we are bankrupt
 	
 }
 
-grefm.044 = { # the military league
+#### THE RISE OF VENIZELOS EVENTS ####
+
+grefm.040 = { # Military Nepotism
 	type = country_event
 	placement = root
 	
-	title = grefm.044.t
-	desc = grefm.044.d
-	flavor = grefm.044.f
+	title = grefm.040.t
+	desc = grefm.040.d
+	flavor = grefm.040.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = { has_variable = grefm_military_league_happened }
+		has_journal_entry = je_grefm_megali_idea
+		has_technology_researched = political_agitation
+		has_variable = grefm_glucksburg_era
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = grefm.040.a
+		default_option = yes
+	}
+	
+	option = {
+		name = grefm.040.b
+	}
+	
+	after = {
+		trigger_event = {
+			id = grefm.041 # The Military League
+			days = 120
+		}
+	}
+
+}
+
+grefm.041 = { # the military league
+	type = country_event
+	placement = root
+	
+	title = grefm.041.t
+	desc = grefm.041.d
+	flavor = grefm.041.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -1976,7 +2084,7 @@ grefm.044 = { # the military league
 	}
 	
 	option = { # Advance the coup
-		name = grefm.044.a 
+		name = grefm.041.a 
 		add_journal_entry = { type = je_grefm_the_military_league }
 		custom_tooltip = {
 			text = coup_advance_25_tt
@@ -1995,7 +2103,7 @@ grefm.044 = { # the military league
 	}
 
 	option = { # Resist the coup
-		name = grefm.044.b
+		name = grefm.041.b
 		default_option = yes
 		add_journal_entry = { type = je_grefm_the_military_league }
 		custom_tooltip = {
@@ -2241,56 +2349,15 @@ grefm.046 = { # the goudi coup
 
 }
 
-grefm.047 = { # dedilomeni absolutism outcome 
+
+
+grefm.047 = { # A Cretan Champion Alternate
 	type = country_event
 	placement = root
 	
 	title = grefm.047.t
 	desc = grefm.047.d
 	flavor = grefm.047.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_otto.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm_greece_and_byzantium_flavor
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = king_otto_scope
-		}
-	}
-	option = {
-		name = grefm.047.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_absolutist_rule
-			months = long_modifier_time
-		}
-		add_loyalists = {
-			strata = rich
-			value = medium_radicals
-		}
-	}
-
-}
-
-grefm.048 = { # A Cretan Champion Alternate
-	type = country_event
-	placement = root
-	
-	title = grefm.048.t
-	desc = grefm.048.d
-	flavor = grefm.048.f
 	
 	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
 	
@@ -2340,7 +2407,7 @@ grefm.048 = { # A Cretan Champion Alternate
 	}
 	
 	option = { # accept the cretan
-		name = grefm.048.a
+		name = grefm.047.a
 		default_option = yes
 		set_variable = grefm_venizelos_has_landed
 		scope:grefm_venizelos_scope = {
@@ -2348,13 +2415,13 @@ grefm.048 = { # A Cretan Champion Alternate
 			set_as_interest_group_leader = yes
 		}
 		trigger_event = {
-			id = grefm.051
+			id = grefm.049
 			days = 30
 		}
 	}
 	
 	option = { # reject his ass
-		name = grefm.048.b
+		name = grefm.047.b
 		if = {
 			limit = {
 				empty_agitator_slots = 0
@@ -2377,15 +2444,13 @@ grefm.048 = { # A Cretan Champion Alternate
 	
 }
 
-#### THAT NONSENSE WITH VENIZELOS ####
-
-grefm.050 = { # venizelos has landed
+grefm.048 = { # venizelos has landed
 	type = country_event
 	placement = root
 	
-	title = grefm.050.t
-	desc = grefm.050.d
-	flavor = grefm.050.f
+	title = grefm.048.t
+	desc = grefm.048.d
+	flavor = grefm.048.f
 	
 	duration = 3
 	
@@ -2446,7 +2511,7 @@ grefm.050 = { # venizelos has landed
 	}	
 	
 	option = {
-		name = grefm.050.a
+		name = grefm.048.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_venizelism
@@ -2493,13 +2558,13 @@ grefm.050 = { # venizelos has landed
 
 }
 
-grefm.051 = { # venizelos has landed
+grefm.049 = { # venizelos has landed
 	type = country_event
 	placement = root
 	
-	title = grefm.051.t
-	desc = grefm.051.d
-	flavor = grefm.051.f
+	title = grefm.049.t
+	desc = grefm.049.d
+	flavor = grefm.049.f
 	
 	duration = 3
 	
@@ -2538,7 +2603,7 @@ grefm.051 = { # venizelos has landed
 	}	
 	
 	option = {
-		name = grefm.051.a
+		name = grefm.049.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_venizelism
@@ -2960,6 +3025,130 @@ grefm.113 = { # a citadel emerges
 
 }
 
+grefm.114 = { # Merchantile Rivalries
+	type = country_event
+	placement = root
+	
+	title = grefm.114.t
+	desc = grefm.114.d
+	flavor = grefm.114.f
+	
+	event_image = {
+		video = "unspecific_steam_ship"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		NOT = { has_variable = grefm_national_port_considered }
+		has_technology_researched = gantry_cranes
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_PELOPONNESE
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+	}
+	
+	immediate = {
+		set_variable = grefm_national_port_considered
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = attica_state_scope
+			}
+		}
+		s:STATE_PELOPONNESE = {
+			random_scope_state = {
+				save_scope_as = peloponnese_state_scope
+			}
+		}
+		s:STATE_WEST_AEGEAN_ISLANDS = {
+			random_scope_state = {
+				save_scope_as = west_aegean_state_scope
+			}
+		}
+	}
+	
+	option = { # Side with Piraeus
+		name = grefm.114.a
+		default_option = yes
+		scope:attica_state_scope = {	
+			add_modifier = {
+				name = modifier_grefm_national_port
+			}
+			add_loyalists_in_state = {
+				strata = poor
+				value = medium_radicals
+			}
+		}
+		scope:peloponnese_state_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+		scope:west_aegean_state_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+	}
+	
+	option = { # Side with Patras
+		name = grefm.114.b
+		scope:attica_state_scope = {	
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+		scope:peloponnese_state_scope = {
+			add_modifier = {
+				name = modifier_grefm_national_port
+			}
+			add_loyalists_in_state = {
+				strata = poor
+				value = medium_radicals
+			}
+		}
+		scope:west_aegean_state_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+	}
+	
+	option = { # Side with Syra
+		name = grefm.114.c
+		scope:attica_state_scope = {	
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+		scope:peloponnese_state_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+		scope:west_aegean_state_scope = {
+			add_modifier = {
+				name = modifier_grefm_national_port
+			}
+			add_loyalists_in_state = {
+				strata = poor
+				value = medium_radicals
+			}
+		}
+	}
+
+}
 
 #### CULTURAL EVENTS ####
 # events in this group center on Greek ethnogenesis
@@ -4328,6 +4517,7 @@ grefm.157 = { # The Mask of Agammemnon
 	dlc = dlc_grefm_greece_and_byzantium_flavor
 	
 	trigger = {
+		morgenrote_is_active = no
 		NOT = { has_global_variable = grefm_agammemnon_found }
 		has_variable = grefm_archeaology_var
 		var:grefm_archeaology_var > 4
@@ -4356,6 +4546,92 @@ grefm.157 = { # The Mask of Agammemnon
 			}
 		}
 			
+	}
+
+}
+
+#### MINOR INTERATIONAL EVENTS ####
+
+grefm.160 = { # A Bulgarian Visitor
+	type = country_event
+	placement = root
+	
+	title = grefm.160.t
+	desc = grefm.160.d
+	flavor = grefm.160.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm_greece_and_byzantium_flavor
+	
+	trigger = {
+		# triggered by balkfm.515
+	}
+	
+	immediate = {
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+			ruler = {
+				save_scope_as = bulgaria_ruler_scope
+			}
+		}
+		capital = {
+			save_scope_as = greece_capital_scope
+		}
+	}
+	
+	option = {
+		name = grefm.160.a
+		default_option = yes
+		c:BUL = {
+			set_variable = grefm_warm_reception
+		}
+		change_relations = {
+			country = c:BUL
+			value = 15
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					c:BUL = {
+						relations:root > relations_threshold:neutral
+						
+					}
+				}
+				add = 50
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.160.b
+		c:BUL = {
+			set_variable = grefm_cold_reception
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					c:BUL = {
+						relations:root <= relations_threshold:neutral
+					}
+				}
+				add = 20
+			}
+		}
 	}
 
 }
@@ -7688,6 +7964,12 @@ grefm.910 = { # Epirus customs union with GRE
 		c:GRE = {
 			save_scope_as = greece_scope
 		}
+		hidden_effect = { # Because the AI is stupid
+			change_relations = {
+				country = c:EPI
+				value = 50
+			}
+		}
 	}
 	
 	option = {
@@ -7698,6 +7980,10 @@ grefm.910 = { # Epirus customs union with GRE
 				country = c:EPI
 				type = customs_union
 			}
+		}
+		change_relations = {
+			country = c:EPI
+			value = 50
 		}
 	}
 	

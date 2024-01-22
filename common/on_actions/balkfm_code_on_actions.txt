@@ -1,15 +1,30 @@
-﻿on_monthly_pulse_country = {
+﻿#################################################
+# GREECE, BYZANTIUM, AND THE BALKANS ON_ACTIONS #
+#################################################
+
+# Originally, each module had it's own on_actions file. I've merged them for ease of editing and tracking.
+# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
+
+on_monthly_pulse_country = {
 	on_actions = {
 		balkfm_monthly_pulse
+		grefm_monthly_pulse
+		byfzm_monthly_pulse
 		mon_flavor_pulse
 		ser_flavor_pulse
 		bul_flavor_pulse
+		eocfm_monthly_pulse
+		
+		byzfm_chariot_pulse_1
+		byzfm_chariot_pulse_2	
 	}
 }
 
 on_wargoal_enforced = {
 	on_actions = {
+		byzfm_wargoal_enforced
 		balkfm_crisis_wargoal_enforced
+#		balkfm_thunderdome_wargoal_enforced
 	}
 }
 
@@ -27,7 +42,79 @@ balkfm_monthly_pulse = { # These events are persistently monitored
 		grefm.913 # macedonian revolt
 		grefm.915 # assigns the revolt JE
 		
-		balkfm.100 # Creates Crisis DP and Escalates It
+		balkfm.100 # Great Eastern Crisis Warmup
+	}
+}
+
+grefm_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:greek
+	}
+	events = {
+		grefm.005 # error 404 monarch not found
+		grefm.033 # unfortunately we are bankrupt
+		grefm.040 # Military Nepotism
+		grefm.047 # a cretan champion alternate
+		grefm.101 # hellenic railways
+		grefm.103 # greek shipping
+		grefm.110 # decline of the heptanese school
+		grefm.111 # lake kopais
+		grefm.114 # Merchantile Rivalry
+		grefm.120 # olympics restarted
+		grefm.121 # university of athens
+		grefm.131 # the corinth canal
+		grefm.132 # the royal palace
+		grefm.201 # megali idea 2
+		grefm.203 # thessaly reminder
+		grefm.210 # epirus warm-up
+		grefm.212 # cyprus warm-up
+		grefm.216 # crete warm-up
+		grefm.260 # the fate of the turks
+		grefm.263 # capital switch option
+		grefm.264 # Greco-Roman relations
+	}
+	random_events = {
+		200 = 0
+		10 = grefm.021 # a perennial problem
+		20 = grefm.031 # who is to blame
+		20 = grefm.100 # fix brewery
+		20 = grefm.102 # greek aviation
+		10 = grefm.122 # university of constantinople
+		10 = grefm.157 # The Mask of Agammemnon
+		20 = grefm.214 # macedonia warm-up
+		25 = grefm.243 # greek identity completion
+		25 = grefm.244 # history of the greek nation
+		 5 = grefm.261 # turkish homelands
+		25 = grefm.262 # greek expansion		
+	}
+}
+
+byfzm_monthly_pulse = {
+	trigger = {
+		has_global_variable = has_formed_byz
+	}
+	events = {
+		byzfm.100 # Event beginning construction of Imperial Palace
+		byzfm.123 # drag racing in the hippodrome
+	}
+	random_events = {
+		100 = 0
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable =  byzfm_held_chariot_races
+			}
+			change_variable = {
+				name = byzfm_held_chariot_races
+				add = -1
+			}
+			clamp_variable = { # just to avoid outlandish values
+				name = byzfm_held_chariot_races
+				max = 48 
+				min = 0 
+			}
+		}
 	}
 }
 
@@ -66,14 +153,75 @@ ser_flavor_pulse = {
 bul_flavor_pulse = {
 	trigger = {
 		country_has_primary_culture = cu:bulgarian
+		OR = {
+			c:BUL ?= this
+			c:TSAR ?= this
+		}
 	}
 	events = {
 	}
 	random_events = {
 		100 = 0
 	}
-}		
-		
+}
+
+eocfm_monthly_pulse = {
+	trigger = {
+		country_has_state_religion = rel:orthodox
+	}
+	events = {
+		eocfm.001 # Bishops of the East
+		eocfm.310 # The Ancient Partiarchates
+		eocfm.312 # The Capture of the Great Mosque
+		eocfm.901 # Restores JE
+	}
+	random_events = {
+		100 = 0
+	}
+}
+
+############
+
+# This pair of on_actions handle the chariot races
+
+byzfm_chariot_pulse_1 = {
+	trigger = {
+		has_modifier = modifier_byzfm_chariot_racing
+		has_variable = byzfm_held_chariot_races
+		var:byzfm_held_chariot_races < 1
+	}
+	random_events = {
+		20 = byzfm.110 # reds win
+		20 = byzfm.111 # whites win
+		20 = byzfm.112 # greens win
+		20 = byzfm.113 # blues win
+		10 = byzfm.116 # first match complete, crowd calls for diversum
+		 1 = byzfm.117 # sporting riot
+		 1 = byzfm.118 # ruler tries to join race
+		 1 = byzfm.119 # team gets caught cheating
+	}
+}
+
+byzfm_chariot_pulse_2 = {
+	trigger = {
+		has_modifier = modifier_byzfm_expanded_chariot_racing
+		has_variable = byzfm_held_chariot_races
+		var:byzfm_held_chariot_races < 1
+	}
+	random_events = {
+		25 = byzfm.110 # reds win - industrialists
+		25 = byzfm.111 # whites win - intel
+		25 = byzfm.112 # greens win - rural folk
+		25 = byzfm.113 # blues win - petite
+		25 = byzfm.114 # purples win - landowners
+		25 = byzfm.115 # golds win - trade unions
+		15 = byzfm.116 # first match complete, crowd calls for diversum
+		 5 = byzfm.117 # sporting riot
+		 5 = byzfm.118 # ruler tries to join race
+		 1 = byzfm.119 # team gets caught cheating
+	}
+}
+
 ############
 
 #These on_actions are specifically to catch Bulgaria and create it as BUL & ERUM if possible
@@ -168,7 +316,42 @@ balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
 
 ############
 
-# These on_actions trigger from the victor scope
+# This on_action changes the Crusade target's state religion. The crusade_target variable is set by the Crusade DP. This is very janky, I agree.
+
+byzfm_wargoal_enforced = {
+	trigger = {
+		any_country = {
+			has_variable = crusade_target
+		}
+	}
+	effect = {
+		random_country = {
+			limit = {
+				has_variable = crusade_target
+			}
+			save_scope_as = crusade_target
+		}
+		random_country = {
+			limit = {
+				has_variable = byzfm_crusades_unlocked
+			}
+			save_scope_as = crusade_aggressor
+		}
+		scope:crusade_target = {
+			set_state_religion = rel:orthodox
+		}
+		every_country = {
+			limit = {
+				has_variable = crusade_target
+			}
+			remove_variable = crusade_target
+		}
+	}
+}
+
+############
+
+# These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 
 balkfm_crisis_wargoal_enforced = {
 	trigger = {
@@ -188,10 +371,13 @@ balkfm_crisis_wargoal_enforced = {
 					balkfm_crisis_participant_trigger = yes
 				}
 				trigger_event = {
-					id = balkfm.106 # The Treaty of Berlin
+					id = balkfm.106 # The Treaty of San Stefano
 				}
 			}
-			set_global_variable = balkfm_eastern_crisis_resolved
+			set_global_variable = {
+				name = balkfm_berlin_congress_var
+				value = 0
+			}
 		}
 		if = {
 			limit = {
@@ -202,7 +388,10 @@ balkfm_crisis_wargoal_enforced = {
 					id = balkfm.107 # The Porte Triumphant
 				}
 			}
-			set_global_variable = balkfm_eastern_crisis_resolved
+			set_global_variable = {
+				name = balkfm_berlin_congress_var
+				value = 0
+			}
 		}
 	}
 }

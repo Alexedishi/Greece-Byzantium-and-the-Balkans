@@ -1,10 +1,9 @@
-﻿### These journals are for tags that don't have quite enough content to be split off from grefm_events
-
-###########################
+﻿###########################
 # GENERAL BALKANS CONTENT #
 ###########################
 
 je_great_eastern_crisis_main = {
+	# This is assigned to the Ottomans since they are the only guaranteed participant. This journal handles all on_actions, events, etc. 
 	icon = gfx/interface/icons/event_icons/event_ottoman.dds
 
 	group = je_group_balkfm_crisis
@@ -18,7 +17,7 @@ je_great_eastern_crisis_main = {
 		custom_tooltip = {
 			text = je_great_eastern_crisis_tt
 			hidden_trigger = {
-				has_global_variable = balkfm_eastern_crisis_resolved
+				has_global_variable = balkfm_berlin_congress_var
 			}
 		}
 	}
@@ -26,7 +25,7 @@ je_great_eastern_crisis_main = {
 	on_complete = {
 		show_as_tooltip = {
 			trigger_event = {
-				id = balkfm.106 # The Treaty of Berlin
+				id = balkfm.110 # The Congress of Berlin
 			}
 		}
 	}
@@ -66,7 +65,7 @@ je_great_eastern_crisis_main = {
 					is_at_war = no
 				}
 				trigger_event = {
-					id = balkfm.103 # Create DP and escalate it
+					id = balkfm.108 # Creates DP
 				}
 			}
 		}
@@ -100,17 +99,12 @@ je_great_eastern_crisis_sub = {
 		custom_tooltip = {
 			text = je_great_eastern_crisis_tt
 			hidden_trigger = {
-				has_global_variable = balkfm_eastern_crisis_resolved
+				has_global_variable = balkfm_berlin_congress_var
 			}
 		}
 	}
 
 	on_complete = {
-		show_as_tooltip = {
-			trigger_event = {
-				id = balkfm.106 # The Treaty of Berlin
-			}
-		}
 	}
 
 	on_monthly_pulse = {
@@ -141,7 +135,83 @@ je_great_eastern_crisis_sub = {
 
 }
 
-je_balkfm_the_balkan_league = { # for non-GRE countries
+je_balkfm_congress_of_berlin_main = {
+	# I would love to assign this to PRU, but for the sake of avoiding jank, it gets assigned to TUR
+	# This journal handles all the on_actions, events, and so on
+	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
+	
+	group = je_group_balkfm_crisis
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_global_variable = {
+			name = balkfm_berlin_congress_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_congress_of_berlin_tt
+			hidden_trigger = {
+				has_global_variable = balkfm_berlin_congress_completed
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.119 # The Treaty of Berlin
+		}
+		balkfm_clean_up_berlin_variables = yes
+	}
+
+	on_monthly_pulse = {
+		events = {
+			# Congress events here
+		}
+		effect = {
+			change_global_variable = {
+				name = balkfm_berlin_congress_var
+				add = 1
+			}
+		}
+	}
+
+	weight = 2000
+	
+}
+
+je_balkfm_congress_of_berlin_sub = {
+	# This is just an effect-less clone of the above JE; main JE handles all events/effects
+	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
+	
+	group = je_group_balkfm_crisis
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_congress_of_berlin_tt
+			hidden_trigger = {
+				has_global_variable = balkfm_berlin_congress_completed
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.119 # The Treaty of Berlin
+		}
+	}
+
+	weight = 2000
+	
+}
+
+je_balkfm_the_balkan_league = {
+	# unused for now, this will be built out once I get this far
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_balkfm_thunderdome
@@ -340,7 +410,7 @@ je_balkfm_mon_ali_pasha = {
 	
 	on_complete = {
 		add_modifier = {
-			name = balkfm_weathered_the_storm
+			name = modifier_balkfm_weathered_the_storm
 			months = normal_modifier_time
 		}
 	}
@@ -726,7 +796,7 @@ je_balkfm_bul_battenburg_monarchy = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.507 # Mandate Secured
+			id = balkfm.508 # Mandate Secured
 		}
 	}
 	
@@ -750,7 +820,7 @@ je_balkfm_bul_battenburg_monarchy = {
 	
 	on_fail = {
 		trigger_event = {
-			id = balkfm.509 # An Elected Prince
+			id = balkfm.520 # An Elected Prince
 		}
 	}
 			
@@ -773,6 +843,9 @@ je_balkfm_bul_battenburg_monarchy = {
 	progressbar = yes
 	
 	on_weekly_pulse = {
+		events = {
+			balkfm.509 # The August Coup
+		}
 		effect = {
 			set_variable = {
 				name = balkfm_countercoup_var
@@ -795,10 +868,9 @@ je_balkfm_bul_battenburg_monarchy = {
 		}
 		events = {
 			balkfm.501 # Democratic Obstructions
-			balkfm.502 # Conservative Tendencies
-			balkfm.503 # Defense of the Constitution
+			balkfm.502 # Dissident Publishings	
+			balkfm.503 # Tsarist Influence
 			balkfm.504 # Russia Demands Subservience
-			balkfm.508 # The August Coup
 		}
 	}
 	
@@ -825,7 +897,7 @@ je_balkfm_bul_battenburg_monarchy = {
 			triggered_desc = {
 				desc = balkfm_coup_warning_4
 				trigger = {
-					var:balkfm_coup_var < 16
+					var:balkfm_coup_var <= 15
 				}
 			}
 		}
@@ -833,6 +905,36 @@ je_balkfm_bul_battenburg_monarchy = {
 	
 	weight = 2000
 	
+}
+
+je_balkfm_bul_russian_influence = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria_major.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_bul_royal_influence_status
+			hidden_trigger = {
+				has_variable = balkfm_royal_tour_complete
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.506 # The Sobolev Regency
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_alex_yeeted
+		}
+	}
+	
+	weight = 500
+
 }
 
 je_balkfm_bul_railways = {
@@ -847,6 +949,7 @@ je_balkfm_bul_railways = {
 		trigger_event = {
 			id = balkfm.514 # The Bulgarian Railways
 		}
+		custom_tooltip = balkfm_countercoup_add_1
 		set_variable = balkfm_railways_built
 	}
 	
@@ -866,7 +969,9 @@ je_balkfm_bul_brigandage = {
 	group = je_group_grefm_monarchism
 	
 	complete = {
-		has_law = law_type:law_dedicated_police
+		NOT = {
+			has_law = law_type:law_no_police
+		}
 		OR = {
 			institution_investment_level = {
 				institution = institution_police
@@ -884,6 +989,7 @@ je_balkfm_bul_brigandage = {
 		trigger_event = {
 			id = balkfm.511 # The End of the Brigands
 		}
+		custom_tooltip = balkfm_countercoup_add_1
 	}
 	
 	invalid = {
@@ -913,7 +1019,22 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	
 	should_be_pinned_by_default = yes
 	
+	is_shown_when_inactive = {
+		c:BUL ?= this
+		NOT = { has_variable = balkfm_bulgarian_liberation }
+		owns_entire_state_region = STATE_BULGARIA
+		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = balkfm.580 # Dreams of the Tsardom
+		}
+		set_variable = balkfm_bulgarian_liberation
 	}
 	
 	complete = {
@@ -943,11 +1064,39 @@ je_balkfm_bul_liberation_of_bulgaria = {
 }
 
 je_balkfm_bul_greater_bulgaria = {
+	# NOTE: there is a corner case where BUL can be released with both STATE_BULGARIA and STATE_NORTHERN_THRACE, AND the on_actions won't catch it
+	# The variable balkfm_bulgarian_liberation combined with the owns_entire_state_region triggers will activate the correct journal entry
+	# balkfm.583 can be triggered by either journal, but will add je_balkfm_bul_greater_bulgaria if balkfm_bulgarian_liberation is present
+	# Yes, this is hacky and I don't like it either
+
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
 	
 	group = je_group_balkfm_bulgaria
 	
 	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:BUL ?= this
+		NOT = { has_variable = balkfm_bulgarian_liberation }
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_variable = balkfm_bulgarian_liberation }
+			}
+			trigger_event = {
+				id = balkfm.583 # Bulgarian Irredentism
+			}
+			set_variable = balkfm_bulgarian_liberation
+		}
+	}
 	
 	complete = {
 		owns_entire_state_region = STATE_BULGARIA
