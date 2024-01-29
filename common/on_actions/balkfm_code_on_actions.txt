@@ -368,7 +368,7 @@ balkfm_crisis_wargoal_enforced = {
 			}
 			every_country = {
 				limit = {
-					balkfm_crisis_participant_trigger = yes
+					has_variable = balkfm_crisis_offered
 				}
 				trigger_event = {
 					id = balkfm.106 # The Treaty of San Stefano
@@ -383,14 +383,15 @@ balkfm_crisis_wargoal_enforced = {
 			limit = {
 				has_variable = balkfm_crisis_target
 			}
-			c:TUR = {
+			every_country = {
+				limit = {
+					has_variable = balkfm_crisis_offered
+				}
 				trigger_event = {
 					id = balkfm.107 # The Porte Triumphant
 				}
 			}
-			set_global_variable = {
-				name = balkfm_berlin_congress_var
-				value = 0
+			set_global_variable = balkfm_porte_triumphant_var
 			}
 		}
 	}

@@ -3,21 +3,25 @@
 balkfm_recruit_local_power = {
 	if = {
 		limit = {
+			NOT = { has_global_variable = balkfm_crisis_happened }
+			global_var:balkfm_crisis_var >= 8
 			any_country = {
-				NOT = { has_variable = balkfm_crisis_offered }
 				OR = {
 					capital = { region = sr:region_balkans }
-					c:MOL ?= this # this is hacky, but they technically aren't in the Balkans per the regions
-					c:WAL ?= this
-				}
+					capital = { region = sr:region_danubia }
+				}				
+				NOT = { has_variable = balkfm_crisis_offered }
+				country_rank < rank_value:great_power	
 			}
 		}
 		random_country = {
 			limit = {
-				capital = {
-					region = sr:region_balkans
-				}
+				OR = {
+					capital = { region = sr:region_balkans }
+					capital = { region = sr:region_danubia }
+				}				
 				NOT = { has_variable = balkfm_crisis_offered }
+				country_rank < rank_value:great_power	
 			}
 			trigger_event = {
 				id = balkfm.101 # Recruit Local Power
@@ -29,22 +33,50 @@ balkfm_recruit_local_power = {
 balkfm_recruit_great_power = {
 	if = {
 		limit = {
+			NOT = { has_global_variable = balkfm_crisis_happened }
+			global_var:balkfm_crisis_var >= 40
 			any_country = {
-				NOT = { has_variable = balkfm_crisis_offered }
-				NOT = { has_variable = balkfm_crisis_target }
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_variable = balkfm_crisis_target
+				}
+				country_rank >= rank_value:great_power	
 				has_interest_marker_in_region = region_balkans
-				country_rank = rank_value:great_power
 			}
 		}
 		random_country = {
 			limit = {
-				NOT = { has_variable = balkfm_crisis_offered }
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_variable = balkfm_crisis_target
+				}
+				country_rank >= rank_value:great_power	
 				has_interest_marker_in_region = region_balkans
-				country_rank = rank_value:great_power
 			}
 			trigger_event = {
 				id = balkfm.102 # Recruit Great Power
 			}
+		}
+	}
+}
+
+balkfm_launch_uprisings = {
+	if = {
+		limit = {
+			NOT = { exists = c:BOS }
+			global_var:balkfm_crisis_var > 200
+		}
+		trigger_event = {
+			id = balkfm.120 # Herzegovina Uprising
+		}
+	}
+	if = {
+		limit = {
+			NOT = { exists = c:BUL }
+			global_var:balkfm_crisis_var > 225
+		}
+		trigger_event = {
+			id = balkfm.121 # April Uprising (Bulgaria)
 		}
 	}
 }
@@ -74,12 +106,6 @@ balkfm_build_crisis = {
 		}
 		trigger_event = {
 			id = balkfm.104 # GEC Start (Initiator / Target)
-			popup = yes
-		}
-		trigger_event = {
-			id = balkfm.103 # Herzegovina Uprising
-			days = 15
-			popup = yes
 		}
 	}
 	every_country = {
@@ -93,11 +119,13 @@ balkfm_build_crisis = {
 	}
 	every_country = {
 		limit = {
-			balkfm_crisis_participant_trigger = yes
+			OR = {
+				has_variable = balkfm_crisis_attacker
+				has_variable = balkfm_crisis_defender
+			}
 		}
 		trigger_event = {
 			id = balkfm.105 # GEC Start (Attackers / Defenders)
-			popup = yes
 		}
 	}
 }
@@ -106,8 +134,21 @@ balkfm_stage_crisis_characters = {
 # event_window_crisis has this layout, from top to bottom, attackers on the left & defenders on the right:
 # 1 4 <--attackers and defenders
 # 2 5 <--initiator and target
-# 3 6 <-- attackers and defenders
+# 3 6 <--attackers and defenders
 # you need to save each character scope into the variable "crisis_scope_(1-6)" which is read by the gui
+	# Saves country scopes for the localization
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_starter
+		}
+		save_scope_as = balkfm_starter_scope
+	}
+	random_country = {
+		limit = {
+			has_variable = balkfm_crisis_target
+		}
+		save_scope_as = balkfm_target_scope
+	}
 
 	# First round of assignments
 	random_country = {
@@ -319,257 +360,6 @@ balkfm_clean_up_crisis_variables = {
 	remove_variable = balkfm_crisis_var_4
 	remove_variable = balkfm_crisis_var_5
 	remove_variable = balkfm_crisis_var_6
-}
-
-balkfm_clean_up_berlin_variables = {
-}
-	
-
-## BALKAN WARS EFFECTS ##
-
-
-## TURK-SPLOSION EFFECTS ##
-balkfm_minor_turkboom = {
-}
-
-balkfm_major_turkboom = {
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:GRE }
-				owns_entire_state_region = STATE_ATTICA
-				owns_entire_state_region = STATE_PELOPONNESE
-			}
-		}
-		create_country = {
-			tag = GRE
-			origin = this
-			state = s:STATE_ATTICA.region_state:TUR
-			state = s:STATE_PELOPONNESE.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				owns_entire_state_region = STATE_THESSALIA
-				exists = c:GRE
-			}
-		}
-		s:STATE_THESSALIA = {
-			random_scope_state = {
-				set_state_owner = c:GRE
-			}
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:BUL }
-				owns_entire_state_region = STATE_BULGARIA
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-				owns_entire_state_region = STATE_WESTERN_THRACE
-			}
-		}
-		create_country = {
-			tag = BUL
-			origin = this
-			state = s:STATE_BULGARIA.region_state:TUR
-			state = s:STATE_NORTHERN_THRACE.region_state:TUR
-			state = s:STATE_WESTERN_THRACE.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:BUL }
-				owns_entire_state_region = STATE_BULGARIA
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-			}
-		}
-		create_country = {
-			tag = BUL
-			origin = this
-			state = s:STATE_BULGARIA.region_state:TUR
-			state = s:STATE_NORTHERN_THRACE.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:BUL }
-				owns_entire_state_region = STATE_BULGARIA
-			}
-		}
-		create_country = {
-			tag = BUL
-			origin = this
-			state = s:STATE_BULGARIA.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:BUL }
-				NOT = { exists = c:ERUM }
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-			}
-		}
-		create_country = {
-			tag = ERUM # mwahaha no flavor for you
-			origin = this
-			state = s:STATE_NORTHERN_THRACE.region_state:TUR
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:SER }
-				owns_entire_state_region = STATE_SOUTHERN_SERBIA
-			}
-		}
-		create_country = {
-			tag = SER
-			origin = this
-			state = s:STATE_NORTHERN_SERBIA.region_state:TUR
-			state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				exists = c:SER
-				owns_entire_state_region = STATE_SOUTHERN_SERBIA
-				owns_entire_state_region = STATE_SKOPIA
-			}
-		}
-		s:STATE_SKOPIA = {
-			random_scope_state = {
-				set_state_owner = c:SER
-			}
-		}
-		s:STATE_SOUTHERN_SERBIA = {
-			random_scope_state = {
-				set_state_owner = c:SER
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				exists = c:SER
-				owns_entire_state_region = STATE_SOUTHERN_SERBIA
-			}
-		}
-		s:STATE_SOUTHERN_SERBIA = {
-			random_scope_state = {
-				set_state_owner = c:SER
-			}
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:ALB }
-				owns_entire_state_region = STATE_ALBANIA
-			}
-		}
-		create_country = {
-			tag = ALB
-			origin = this
-			state = s:STATE_ALBANIA.region_state:TUR
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:MAC }
-				owns_entire_state_region = STATE_MACEDONIA
-			}
-		}
-		create_country = {
-			tag = MAC
-			origin = this
-			state = s:STATE_MACEDONIA.region_state:TUR
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:BOS }
-				owns_entire_state_region = STATE_BOSNIA
-			}
-		}
-		create_country = {
-			tag = BOS
-			origin = this
-			state = s:STATE_BOSNIA.region_state:TUR
-		}
-	}
-	if = {
-		limit = {
-			AND = {
-				NOT = { exists = c:MON }
-				owns_entire_state_region = STATE_MONTENEGRO
-			}
-		}
-		create_country = {
-			tag = MON
-			origin = this
-			state = s:STATE_MONTENEGRO.region_state:TUR
-		}
-	}
-	else_if = {
-		limit = {
-			AND = {
-				c:MON ?= {
-					NOT = {
-						owns_entire_state_region = STATE_MONTENEGRO
-					}
-				}
-			}
-		}
-		s:STATE_MONTENEGRO = {
-			every_scope_state = {
-				limit = {
-					owner = {
-						c:TUR = this
-					}
-				}
-				set_state_owner = c:MON
-			}
-		}
-	}
-	if = {
-		limit = {
-			c:WAL ?= {
-				NOT = {
-					owns_entire_state_region = STATE_DOBRUDJA
-				}
-			}
-			has_state_in_state_region = STATE_DOBRUDJA
-		}
-		s:STATE_DOBRUDJA = {
-			random_scope_state = {
-				limit = {
-					owner = {
-						country_has_primary_culture = cu:turkish
-					}
-				}
-				set_state_owner = c:WAL
-			}
-		}
-	}
-	if = {
-		limit = {
-			NOT = {
-				exists = c:CRE
-			}
-			owns_entire_state_region = STATE_CRETE
-		}
-		create_country = {
-			tag = CRE
-			origin = this
-			state = s:STATE_CRETE.region_state:TUR
-		}
-	}
+	remove_variable = balkfm_crisis_offered
+	remove_variable = balkfm_crisis_technical
 }

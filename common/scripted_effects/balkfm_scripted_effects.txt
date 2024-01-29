@@ -34,6 +34,7 @@ balkfm_create_ali_pasha_characters = {
 		last_name = Rizvanbegovic
 		historical = yes
 		age = 53 # born 1783
+		dna = mr_bos_rizvanbegovic_ali_pasha
 		culture = cu:serb
 		religion = rel:sunni
 		interest_group = ig_landowners
@@ -91,6 +92,7 @@ balkfm_create_ali_pasha_characters = {
 		last_name = Latas
 		historical = yes
 		age = 30 # born 1806
+		dna = mr_tur_lufti_omer_pasha
 		culture = cu:serb
 		religion = rel:orthodox
 		interest_group = ig_armed_forces
@@ -193,16 +195,16 @@ balkfm_update_dynasty_variables = {
 balkfm_define_leading_dynasty = {
 	if = {
 		limit = {
-			var:obrenovic_support_var >= var:karadordevic_support_var # the >= ensures the value gets updated if the two are equal. The status_desc separately checks if the two are equal
+			has_variable = obrenovic_crowned_var
 		}
 		set_variable = {
 			name = ser_leading_dynasty_var
 			value = var:obrenovic_support_var
 		}
 	}
-	else_if = {
+	if = {
 		limit = {
-			var:obrenovic_support_var < var:karadordevic_support_var
+			has_variable = karadordevic_crowned_var
 		}
 		set_variable = {
 			name = ser_leading_dynasty_var
@@ -333,7 +335,41 @@ balkfm_clean_up_ser_monarchism = { # these are all unnessecary once JE is closed
 }
 
 ## BULGARIA EFFECTS ##
-balkfm_create_bulgaria = { # creates BUL, followed by ERUM
+balkfm_create_bulgaria = { # creates BUL, used for the Great Eastern Crisis
+	if = {
+		limit = {
+			owns_entire_state_region = STATE_BULGARIA
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+			on_created = {
+			}
+		}
+	}
+	if = {
+		limit = {
+			exists = c:BUL
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+		s:STATE_NORTHERN_THRACE = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						c:TUR = this
+					}
+				}
+				set_state_owner = c:BUL
+			}
+		}
+	}
+	c:BUL = {
+		balkfm_set_bulgarian_laws = yes
+	}
+}
+
+balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testing purposes in balkfm.905.
 	create_country = {
 		tag = BUL
 		origin = this
@@ -403,6 +439,7 @@ balkfm_create_bulgarian_characters = {
 		last_name = Battenburg
 		historical = yes
 		age = 22
+		dna = mr_bul_battenberg_alexander
 		culture = cu:bulgarian
 		religion = rel:protestant # was granted an exception to the constitution
 		ig_leader = yes
@@ -547,6 +584,7 @@ balkfm_create_bulgarian_royals = {
 		last_name = Saxe-Coburg_and_Gotha-Kohary
 		historical = yes
 		age = 25
+		dna = mr_bul_sachsen_coburg_ferdinand
 		culture = cu:south_german
 		religion = rel:catholic # seriously what was so hard about giving the orthodox an orthodox king smh
 		ig_leader = yes
@@ -561,6 +599,252 @@ balkfm_create_bulgarian_royals = {
 		on_created = {
 			set_variable = balkfm_is_ferdinand
 			place_character_in_void = 12
+		}
+	}
+}
+
+## TURK-SPLOSION EFFECTS ##
+balkfm_minor_turkboom = {
+}
+
+balkfm_major_turkboom = {
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:GRE }
+				owns_entire_state_region = STATE_ATTICA
+				owns_entire_state_region = STATE_PELOPONNESE
+			}
+		}
+		create_country = {
+			tag = GRE
+			origin = this
+			state = s:STATE_ATTICA.region_state:TUR
+			state = s:STATE_PELOPONNESE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				owns_entire_state_region = STATE_THESSALIA
+				exists = c:GRE
+			}
+		}
+		s:STATE_THESSALIA = {
+			random_scope_state = {
+				set_state_owner = c:GRE
+			}
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+				owns_entire_state_region = STATE_WESTERN_THRACE
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+			state = s:STATE_WESTERN_THRACE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				owns_entire_state_region = STATE_BULGARIA
+			}
+		}
+		create_country = {
+			tag = BUL
+			origin = this
+			state = s:STATE_BULGARIA.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BUL }
+				NOT = { exists = c:ERUM }
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		create_country = {
+			tag = ERUM # mwahaha no flavor for you
+			origin = this
+			state = s:STATE_NORTHERN_THRACE.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:SER }
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		create_country = {
+			tag = SER
+			origin = this
+			state = s:STATE_NORTHERN_SERBIA.region_state:TUR
+			state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				exists = c:SER
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				owns_entire_state_region = STATE_SKOPIA
+			}
+		}
+		s:STATE_SKOPIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+		s:STATE_SOUTHERN_SERBIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				exists = c:SER
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		s:STATE_SOUTHERN_SERBIA = {
+			random_scope_state = {
+				set_state_owner = c:SER
+			}
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:ALB }
+				owns_entire_state_region = STATE_ALBANIA
+			}
+		}
+		create_country = {
+			tag = ALB
+			origin = this
+			state = s:STATE_ALBANIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:MAC }
+				owns_entire_state_region = STATE_MACEDONIA
+			}
+		}
+		create_country = {
+			tag = MAC
+			origin = this
+			state = s:STATE_MACEDONIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:BOS }
+				owns_entire_state_region = STATE_BOSNIA
+			}
+		}
+		create_country = {
+			tag = BOS
+			origin = this
+			state = s:STATE_BOSNIA.region_state:TUR
+		}
+	}
+	if = {
+		limit = {
+			AND = {
+				NOT = { exists = c:MON }
+				owns_entire_state_region = STATE_MONTENEGRO
+			}
+		}
+		create_country = {
+			tag = MON
+			origin = this
+			state = s:STATE_MONTENEGRO.region_state:TUR
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				c:MON ?= {
+					NOT = {
+						owns_entire_state_region = STATE_MONTENEGRO
+					}
+				}
+			}
+		}
+		s:STATE_MONTENEGRO = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						c:TUR = this
+					}
+				}
+				set_state_owner = c:MON
+			}
+		}
+	}
+	if = {
+		limit = {
+			c:WAL ?= {
+				NOT = {
+					owns_entire_state_region = STATE_DOBRUDJA
+				}
+			}
+			has_state_in_state_region = STATE_DOBRUDJA
+		}
+		s:STATE_DOBRUDJA = {
+			random_scope_state = {
+				limit = {
+					owner = {
+						country_has_primary_culture = cu:turkish
+					}
+				}
+				set_state_owner = c:WAL
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = c:CRE
+			}
+			owns_entire_state_region = STATE_CRETE
+		}
+		create_country = {
+			tag = CRE
+			origin = this
+			state = s:STATE_CRETE.region_state:TUR
 		}
 	}
 }

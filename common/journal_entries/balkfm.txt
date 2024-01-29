@@ -17,66 +17,51 @@ je_great_eastern_crisis_main = {
 		custom_tooltip = {
 			text = je_great_eastern_crisis_tt
 			hidden_trigger = {
-				has_global_variable = balkfm_berlin_congress_var
+				OR = {
+					has_global_variable = balkfm_berlin_congress_var
+					has_global_variable = balkfm_porte_triumphant_var
+				}
 			}
 		}
 	}
 
 	on_complete = {
-		show_as_tooltip = {
-			trigger_event = {
-				id = balkfm.110 # The Congress of Berlin
-			}
-		}
 	}
 
-	on_monthly_pulse = {
+	on_weekly_pulse = {
+		events = {
+			balkfm.108 # Creates GEC DP and Fires balkfm.109
+			balkfm.122 # Great Britain Attempts Deconfliction
+			balkfm.124 # France Attempts Deconfliction
+		}
 		effect = {
+			balkfm_launch_uprisings = yes
 			change_global_variable = {
 				name = balkfm_crisis_var
 				add = 1
 			}
 			clamp_global_variable = {
 				name = balkfm_crisis_var
-				max = 240
+				max = 250
 				min = 0
-			}
-			if = {
-				limit = {
-					NOT = { has_global_variable = balkfm_crisis_happened }
-					global_var:balkfm_crisis_var > 20
-				}
-				balkfm_recruit_local_power = yes
-			}
-			if = {
-				limit = {
-					NOT = { has_global_variable = balkfm_crisis_happened }
-					global_var:balkfm_crisis_var > 50 
-				}
-				balkfm_recruit_great_power = yes
-			}
-			if = {
-				limit = {
-					NOT = { has_global_variable = balkfm_crisis_happened }
-					scope:journal_entry = {
-						is_goal_complete = yes
-					}
-					is_diplomatic_play_committed_participant = no
-					is_at_war = no
-				}
-				trigger_event = {
-					id = balkfm.108 # Creates DP
-				}
 			}
 		}
 	}
+
+	on_monthly_pulse = {
+		effect = {
+			balkfm_recruit_local_power = yes
+			balkfm_recruit_great_power = yes
+		}
+	}
+		
 
 	current_value = {
 		value = global_var:balkfm_crisis_var
 	}
 
 	goal_add_value = {
-		value = 240
+		value = 250
 	}
 
 	progressbar = yes
@@ -99,7 +84,10 @@ je_great_eastern_crisis_sub = {
 		custom_tooltip = {
 			text = je_great_eastern_crisis_tt
 			hidden_trigger = {
-				has_global_variable = balkfm_berlin_congress_var
+				OR = {
+					has_global_variable = balkfm_berlin_congress_var
+					has_global_variable = balkfm_porte_triumphant_var
+				}
 			}
 		}
 	}
@@ -107,7 +95,7 @@ je_great_eastern_crisis_sub = {
 	on_complete = {
 	}
 
-	on_monthly_pulse = {
+	on_weekly_pulse = {
 		effect = {
 			change_global_variable = {
 				name = balkfm_crisis_var
@@ -115,7 +103,7 @@ je_great_eastern_crisis_sub = {
 			}
 			clamp_global_variable = {
 				name = balkfm_crisis_var
-				max = 240
+				max = 250
 				min = 0
 			}
 		}
@@ -126,7 +114,7 @@ je_great_eastern_crisis_sub = {
 	}
 
 	goal_add_value = {
-		value = 240
+		value = 250
 	}
 
 	progressbar = yes
@@ -155,7 +143,7 @@ je_balkfm_congress_of_berlin_main = {
 		custom_tooltip = {
 			text = je_balkfm_congress_of_berlin_tt
 			hidden_trigger = {
-				has_global_variable = balkfm_berlin_congress_completed
+				scope:journal_entry = { is_goal_complete = yes }
 			}
 		}
 	}
@@ -164,17 +152,63 @@ je_balkfm_congress_of_berlin_main = {
 		trigger_event = {
 			id = balkfm.119 # The Treaty of Berlin
 		}
-		balkfm_clean_up_berlin_variables = yes
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.910 # Cleans Up Crisis/Berlin Variables
+				days = 10
+			}
+		}
+		set_global_variable = balkfm_berlin_congress_completed
 	}
-
-	on_monthly_pulse = {
+	
+	on_weekly_pulse = { # events will fire rapidly one and another, the Congress only lasted a month. For gameplay reasons, this will take a little longer. Any irrelevant events will be skipped. These are listed in the order that they occur in.
 		events = {
-			# Congress events here
+			balkfm.111 # The Issue of Bulgaria
+			balkfm.112 # The Issue of Bosnia
+			balkfm.125 # The Convention of Tunis
+			balkfm.113 # The Issue of Montenegro
+			balkfm.114 # The Issue of Serbia
+#			balkfm.115 # The Issue of the Principalities
+			balkfm.123 # The Convention of Cyprus
+			balkfm.116 # The Issue of the Caucasus
+#			balkfm.117 # OPEN
+			balkfm.118 # The Greek Delegation
+#			balkfm.127 # The Convention of Constantinople
 		}
 		effect = {
 			change_global_variable = {
 				name = balkfm_berlin_congress_var
 				add = 1
+			}
+		}
+	}
+	
+	current_value = {
+		value = global_var:balkfm_berlin_congress_var
+	}
+
+	goal_add_value = {
+		value = 32
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status1
+			trigger = {
+				global_var:balkfm_berlin_congress_var < 4
+			}
+		}
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status2
+			trigger = {
+				global_var:balkfm_berlin_congress_var >= 4
+				global_var:balkfm_berlin_congress_var <= 27
+			}
+		}
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status3
+			trigger = {
+				global_var:balkfm_berlin_congress_var > 27
 			}
 		}
 	}
@@ -203,6 +237,28 @@ je_balkfm_congress_of_berlin_sub = {
 	on_complete = {
 		trigger_event = {
 			id = balkfm.119 # The Treaty of Berlin
+		}
+	}
+
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status1
+			trigger = {
+				global_var:balkfm_berlin_congress_var < 8
+			}
+		}
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status2
+			trigger = {
+				global_var:balkfm_berlin_congress_var >= 8
+				global_var:balkfm_berlin_congress_var <= 27
+			}
+		}
+		triggered_desc = {
+			desc = je_balkfm_congress_of_berlin_status3
+			trigger = {
+				global_var:balkfm_berlin_congress_var > 27
+			}
 		}
 	}
 
@@ -621,7 +677,7 @@ je_balkfm_ser_monarchism = {
 			balkfm.414 # Austria/Russia Requests Primacy
 		}
 		random_events = {
-			100 = 0
+			300 = 0
 			1 =	balkfm.412 # Plague Outbreak!
 			1 = balkfm.413 # Abusive Garrison
 			1 = balkfm.415 # National Desires
@@ -698,27 +754,6 @@ je_balkfm_ser_monarchism = {
 	
 	
 	weight = 1000
-
-}
-
-je_balkfm_ser_monarchism_consolidation = {
-	icon = "gfx/interface/icons/event_icons/event_serbia_major2.dds"
-	
-	group = je_group_balkfm_serbia
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-	}
-	
-	on_complete = {
-		set_variable = balkfm_serbian_monarchy_resolved
-	}
-
-	weight = 500
 
 }
 
@@ -1021,6 +1056,7 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	
 	is_shown_when_inactive = {
 		c:BUL ?= this
+		NOT = { has_global_variable = balkfm_crisis_var }
 		NOT = { has_variable = balkfm_bulgarian_liberation }
 		owns_entire_state_region = STATE_BULGARIA
 		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
@@ -1077,6 +1113,7 @@ je_balkfm_bul_greater_bulgaria = {
 	
 	is_shown_when_inactive = {
 		c:BUL ?= this
+		NOT = { has_global_variable = balkfm_crisis_var }
 		NOT = { has_variable = balkfm_bulgarian_liberation }
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
