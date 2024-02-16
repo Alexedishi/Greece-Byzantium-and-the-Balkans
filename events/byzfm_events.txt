@@ -111,10 +111,7 @@ byzfm.100 = { # Enables Imperial Palace excavation
 	
 	trigger = {
 		NOT = { has_variable = byzfm_palace_restoration }
-		OR = {
-			has_journal_entry = je_byzfm_restoration
-			has_journal_entry = je_byzfm_rome_of_the_east
-		}
+		has_variable = byzfm_byzantium_formed
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		is_subject = no
 	}
@@ -222,10 +219,15 @@ byzfm.102 = { # palace rebuilt
 		scope:mega_palation_site = {
 			remove_modifier = modifier_byzfm_palace_site
 		}
-		custom_tooltip = {
-			text = byzfm.102.tt
-			hidden_effect = {
-				grefm_artifact_modifier_effect = yes
+		if = {
+			limit = {
+				morgenrote_is_active = no
+			}
+			custom_tooltip = {
+				text = byzfm.102.tt
+				hidden_effect = {
+					grefm_artifact_modifier_effect = yes
+				}
 			}
 		}
 	}
@@ -313,10 +315,15 @@ byzfm.104 = { # hippodrome rebuilt
 	option = {
 		name = byzfm.104.a
 		default_option = yes
-		custom_tooltip = {
-			text = byzfm.104.tt
-			hidden_effect = {
-				grefm_artifact_modifier_effect = yes
+		if = {
+			limit = {
+				morgenrote_is_active = no
+			}
+			custom_tooltip = {
+				text = byzfm.104.tt
+				hidden_effect = {
+					grefm_artifact_modifier_effect = yes
+				}
 			}
 		}
 		scope:byzantium_capital_state = {
@@ -1182,7 +1189,7 @@ byzfm.300 = { #Resurrection of the Byzantine Empire
 			days = 30
 		}
 		add_modifier = {
-			name = unification_prestige
+			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
 		}
 	}
@@ -1464,9 +1471,6 @@ byzfm.303 = { # The Rome of the East
 	option = { # nah bro, shits for the birds
 		name = byzfm.303.b
 		change_infamy = -20
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
 		scope:byzantium_capital = {
 			add_modifier = {
 				name = modifier_byzfm_capital_assimiliation_boost
@@ -1519,7 +1523,7 @@ byzfm.304 = { # The Basileia Rhōmaiōn
 		default_option = yes
 		add_modifier = {
 			name = modifier_byzfm_restored
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}				
 		trigger_event = {
 			id = byzfm.305 # The Purple Pheonix
@@ -1530,8 +1534,8 @@ byzfm.304 = { # The Basileia Rhōmaiōn
 	option = { # whimpy whimpy whimpy
 		name = byzfm.304.b
 		add_modifier = {
-			name = modifier_byzfm_rebirth
-			months = long_modifier_time
+			name = modifier_byzfm_restored
+			months = very_long_modifier_time
 		}
 		change_infamy = -25
 		custom_tooltip = {
@@ -1588,22 +1592,8 @@ byzfm.305 = { # The Purple Pheonix
 		add_journal_entry = {
 			type = je_byzfm_the_purple_phoenix_central_italy
 		}
-	}	
-	
-	option = {
-		name = byzfm.305.b
-		add_modifier = {
-			name = modifier_byzfm_ere_restored
-		}
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_purple_phoenix
-			}
-		}
 	}
-
+	
 }
 
 byzfm.306 = { # Renovatio Imperii Romanorum
@@ -1638,7 +1628,7 @@ byzfm.306 = { # Renovatio Imperii Romanorum
 		name = byzfm.306.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		set_capital = STATE_LAZIO
 		s:STATE_LAZIO = {
@@ -1663,7 +1653,7 @@ byzfm.306 = { # Renovatio Imperii Romanorum
 	option = {
 		name = byzfm.306.b
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
@@ -1680,8 +1670,7 @@ byzfm.306 = { # Renovatio Imperii Romanorum
 					months = long_modifier_time
 				}
 			}
-		}	
-		change_tag = SPQR
+		}
 	}
 }
 

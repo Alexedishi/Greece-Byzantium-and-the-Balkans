@@ -5,10 +5,9 @@
 			id = grefm.001 # # Bavarocracy notification
 			days = 1 # scopes don't work unless we wait a day
 		}
-		trigger_event = {
-			id = grefm.900 # Compatibility Checker
-		}
-		set_variable = grefm_GRE
+		add_modifier = modifier_eocfm_caesaropapism
+		set_variable = eocfm_dissolved_monasteries
+		set_variable = grefm_mainland_claims_added
 	}
 	
 	c:MON = {
@@ -50,6 +49,16 @@
 	set_global_variable = {
 		name = grefm_crete_revolt_var
 		value = 0
+	}
+	
+	every_country = {
+		limit = {
+			country_has_state_religion = rel:orthodox
+			NOT = { has_law = law_type:law_state_atheism }
+		}
+		trigger_event = {
+			id = eocfm.001 # The Bishops of the East
+		}
 	}
 	
 	set_global_variable = {

@@ -47,7 +47,7 @@
  je_grefm_greater_greece: "Greater Greece"
  je_grefm_greater_greece_reason: "The Megali Idea has been brought to fruition, but only in its most basic form. Several Greek communities still lie beyond our borders. We have an imperative to see to it that our borders grow until every Greek may find shelter within the Greek state."
  je_grefm_corinth_canal_survey: "Corinth Canal Survey"
- je_grefm_corinth_canal_survey_reason: "Corinth Canal Survey"
+ je_grefm_corinth_canal_survey_reason: "The survery of the Corinth Canal is underway. Engineers are optimistic about plans to realize the millennia-old dream of cutting a channel across the isthimus."
  je_grefm_corinth_canal_survey_goal: "Wait for the survey to complete..."
  je_grefm_land_reclaimation: "Lake Kopais Reclamation"
  je_grefm_land_reclaimation_reason: "The Kopais Plain was a fertile land in antiquity. With our industrial might, we will see it restored to productivity. Currently, we estimate water levels have dropped by #blue [GetGlobalVariable('grefm_lake_kopais_var').GetValue]/3#!."
@@ -76,6 +76,8 @@
  je_grefm_lands_of_arianon_reason: "At the height of Greek influence, two successive Greco-Iranian Empires stretched across the Iranian plateau. It falls to use to reclaim these lands from their Islamic overlords."
  je_grefm_the_graveyard_of_empires: "The Graveyard of Empires"
  je_grefm_the_graveyard_of_empires_reason: "Just over two millennia ago, Alexander the Great's armies thundered across Eurasia, bringing lands past the Hindu Kush into the Greek sphere. For centuries after, Greek kingdoms rose and fell, ensuring Greek influence as far as the Indus River. Even later, the followers of Nestorius brought their heretical teachings to these lands. Now, the Empire will see these lands prosper under the Greek state."
+ 
+ 
  
  # events 
  ## moved to grefm_events_l_english
@@ -109,7 +111,7 @@
  je_grefm_greater_greece_tt: "Control the Greek homelands."
  je_grefm_greek_nationalism_tt1: "Establish our Greek roots."
  je_grefm_greek_nationalism_tt2: "Solve the question of the Greek language."
- je_grefm_greek_nationalism_tt3: "Await recognition of the Greek Orthodox Church."
+ je_grefm_greek_nationalism_tt3: "Secure recognition of the Greek Orthodox Church."
  
  je_grefm_megali_idea_crete_tt1: "Currently, the #greece Cretan Revolt#! has #red [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#! momentum. \nThe next revolt will occur when momentum reaches #bold 150#!."
  je_grefm_megali_idea_crete_tt2: "Crete has found peace through #italic enosis#!."
@@ -137,7 +139,8 @@
  grefm_future_update_tt: "This content will be added in the next update."
  
  # notifications
- grefm_claims_added: "We have gained claims on #o Attica#!, #o Peloponnese#!, #o Thessaly#! and the #o West Aegean Islands#!."
+ notification_notification_grefm_claims_added_name: "Greek Claims Added."
+ notification_notification_grefm_claims_added_desc: "We have gained claims on #o Attica#!, #o Peloponnese#!, #o Thessaly#! and the #o West Aegean Islands#!."
  
  # scripted buttons
  grefm_epirus_agitate_button: "Agitate Rebels in Epirus"
@@ -209,10 +212,6 @@
  modifier_grefm_poor_administration_desc: "Poor Administration"
  modifier_grefm_just_ruler: "Just Ruler"
  modifier_grefm_just_ruler_desc: "Just Ruler"
- modifier_grefm_autocephaly_granted: "Autocephaly Granted"
- modifier_grefm_autocephaly_granted_desc: "Autocephaly Granted"
- modifier_grefm_tomos_rejected: "Tomos Rejected"
- modifier_grefm_tomos_rejected_desc: "Tomos Rejected"
  
  modifier_grefm_turkish_integration: "Turkish Integration"
  modifier_grefm_turkish_integration_desc: "Turkish Integration"
@@ -295,6 +294,16 @@
  modifier_grefm_agitator_slot_desc: "Extra Agitator"
  modifier_grefm_national_port: "National Port"
  modifier_grefm_national_port_desc: "National Port"
+ modifier_grefm_ejected_jonas: "Ejected Jonas King"
+ modifier_grefm_ejected_jonas_desc: "Ejected Jonas King"
+ modifier_grefm_religious_deconfliction: "Religious Deconfliction"
+ modifier_grefm_religious_deconfliction_desc: "Religious Deconfliction"
+ modifier_grefm_religious_witchhunt: "Religious Witchhunt"
+ modifier_grefm_religious_witchhunt_desc: "Religious Witchhunt"
+ modifier_grefm_rebirth: "Greek Rebirth"
+ modifier_grefm_rebirth_desc: "Greek Rebirth"
+ modifier_grefm_hellenic_aspiriations: "Hellenic Aspiriations"
+ modifier_grefm_hellenic_aspiriations_desc: "Hellenic Aspiriations"
  
  # names
  Glucksburg: "Glücksburg"
@@ -363,8 +372,8 @@
  grefm_objective_idle_hint: ""
  
  # dlc
- dlc_grefm: "Greece & Byzantium Flavor"
- dlc_grefm_desc: "Develop the fledgling nation of #o Greece#! from its tumultuous transition into independence. Greece faces many challenges between the Ottoman Empire and domineering Great Powers, but overcoming them will allow you to take Greece onto the world stage or even restore the #o Byzantine Empire#!! \n\n (#italic #greece If you see this, the mod is active#!#!.)"
+ dlc_grefm: "Greece, Byzantium, & the Balkans Flavor"
+ dlc_grefm_desc: "Develop the fledgling nations of the Balkans from their tumultuous transitions into independence. Each faces many challenges between the Ottoman Empire and domineering Great Powers, but overcoming them will allow you to take them onto the world stage or even restore the #o Byzantine Empire#!! \n\n (#italic #greece If you see this, the mod is active#!#!.)"
  
  # archaeology localization
  je_grefm_archaeology: "Greek Cultural Roots"
@@ -410,3 +419,8 @@
  grefm_hippodrome_button: "Survey the Hippodrome"
  grefm_hippodrome_button_desc: "The Hippodrome served as a site for popular entertainment for centuries. While ruined, it's restoration is within the realm of possibility."
  
+ je_grefm_archaeology_mgr: "Greek Cultural Roots"
+ je_grefm_archaeology_mgr_reason: "Ruins of pre-historic and ancient Greek civilizations lie scattered across the Balkans and Anatolia. As Greeks, it falls to us to reclaim these relics of our heritage. #blue Use the#! #red Mörgenrote#! #blue interface to conduct excavations.#!\n\nCurrently, you have #variable [GetPlayer.MakeScope.Var('lepsius_local_artifact_minor').GetValue]#! #o Local Artifacts#! and #variable [GetPlayer.MakeScope.Var('lepsius_aegean_artifact_minor').GetValue]#! #o Aegean Artifacts#!."
+ je_grefm_archeaology_mgr_tt1: "We have established an #o Archaeological Team#!."
+ je_grefm_archeaology_mgr_tt2: "Collected #variable 50#! #o Local Artifacts#!."
+ je_grefm_archeaology_mgr_tt3: "Collected #variable 10#! #o Aegean Artifacts#!."

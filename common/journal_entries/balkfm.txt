@@ -78,6 +78,10 @@ je_great_eastern_crisis_sub = {
 	should_be_pinned_by_default = yes
 
 	immediate = {
+		set_variable = {
+			name = balkfm_crisis_local_var # each sequential sub-journal's goal value drifts upward for each sub-journal since they take the current value of balkfm_crisis_var global_var and then add 250, this ensures every country receives an accurate goal value
+			value = 0
+		}
 	}
 
 	complete = {
@@ -106,11 +110,15 @@ je_great_eastern_crisis_sub = {
 				max = 250
 				min = 0
 			}
+			set_variable = {
+				name = balkfm_crisis_local_var
+				value = global_var:balkfm_crisis_var
+			}
 		}
 	}
 
 	current_value = {
-		value = global_var:balkfm_crisis_var
+		value = local_var:balkfm_crisis_local_var
 	}
 
 	goal_add_value = {

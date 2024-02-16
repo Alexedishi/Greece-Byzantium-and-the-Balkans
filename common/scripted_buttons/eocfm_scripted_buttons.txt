@@ -19,6 +19,9 @@
 		NOT = {
 			has_journal_entry = je_eocfm_autocephaly
 		}
+		NOT = {
+			has_law = law_type:law_theocracy
+		}
 	}
 	
 	effect = {
@@ -38,6 +41,7 @@ eocfm_convoke_council_button = {
 	
 	possible = {
 		is_subject = no
+		is_at_war = no
 		custom_tooltip = {
 			text = eocfm_controls_major_seat_tt
 			hidden_trigger = {
@@ -56,18 +60,49 @@ eocfm_convoke_council_button = {
 				has_variable = eocfm_is_autocephalous
 			}
 		}
+		custom_tooltip = {
+			text = eocfm_convoke_council_tt1
+			hidden_trigger = {
+				global_var:eocfm_council_var < 4
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_convoke_council_tt2
+			hidden_trigger = {
+				eocfm_can_host_council_trigger = yes
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_convoke_council_tt3
+			hidden_trigger = {
+				NOT = {
+					any_country = {
+						has_variable = eocfm_council_host
+					}
+				}
+			}
+		}
 	}
 	
 	effect = {
+		set_variable = eocfm_council_host
+		set_global_variable = eocfm_council_ongoing
 		trigger_event = {
-			id = eocfm.030 # Council of X
+			id = eocfm.031 # Council of X
 			days = 30
 			popup = yes
 		}
-		change_variable = {
-			name = eocfm_council_var
-			add = 1
+		every_country = {
+			limit = {
+				has_journal_entry = je_eocfm_patriarch_authority
+				NOT = { has_variable = eocfm_council_host }
+			}
+			trigger_event = {
+				id = eocfm.030 # Ecumenical Council Convoked
+				days = 30
+			}
 		}
+		add_modifier = modifier_eocfm_hosting_council
 	}
 }
 
@@ -80,6 +115,7 @@ eocfm_commission_icon_button = {
 	}
 	
 	possible = {
+		has_technology_researched = romanticism
 		custom_tooltip = {
 			text = eocfm_need_200_tt
 			hidden_trigger = {
@@ -107,47 +143,42 @@ eocfm_integrate_seat_button = {
 	desc = "eocfm_integrate_seat_desc"
 	
 	visible = {
-		OR = {
-			AND = {
-				owns_entire_state_region = STATE_LAZIO
-				NOT = { has_variable = eocfm_controls_rome }
-			}
-			AND = {
-				owns_entire_state_region = STATE_EASTERN_THRACE
-				NOT = { has_variable = eocfm_controls_constantinople }
-			}
-			AND = {
-				owns_entire_state_region = STATE_ADANA
-				NOT = { has_variable = eocfm_controls_antioch }
-			}
-			AND = {
-				owns_entire_state_region = STATE_PALESTINE
-				NOT = { has_variable = eocfm_controls_jerusalem }
-			}
-			AND = {
-				owns_entire_state_region = STATE_LOWER_EGYPT
-				NOT = { has_variable = eocfm_controls_alexandria }
-			}
-			AND = {
-				owns_entire_state_region = STATE_MOSCOW
-				NOT = { has_variable = eocfm_controls_moscow }
-			}
-		}
+		always = yes
 	}
 	
 	possible = {
-		is_subject = no
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
 				var:eocfm_patriarch_authority_var >= 500
+			}
+		}		
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		is_subject = no
+		custom_tooltip = {
+			text = eocfm_integrate_seat_tt1
+			hidden_trigger = {
+				eocfm_can_integrate_seat_trigger = yes
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_integrate_seat_tt2
+			hidden_trigger = {
+				NOT = {
+					has_variable = eocfm_integration_var
+				}
 			}
 		}
 	}
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.031 # Partiarchal Seat Claimed
+			id = eocfm.050 # Partiarchal Seat Claimed
 		}
 	}
 }
@@ -163,6 +194,7 @@ eocfm_enact_caesaropapism_button = {
 	}
 	
 	possible = {	
+		has_technology_researched = tech_bureaucracy
 		ig:ig_devout = {
 			is_in_government = no
 			ig_approval > 0
@@ -193,6 +225,12 @@ eocfm_revoke_caesaropapism_button = {
 	
 	possible = {
 		has_modifier = modifier_eocfm_caesaropapism
+		custom_tooltip = {
+			text = eocfm_need_100_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 100
+			}
+		}
 	}
 	
 	effect = {
@@ -222,7 +260,9 @@ eocfm_subsidize_church_button = {
 	}
 	
 	possible = {
-		always = yes
+		NOT = {
+			has_modifier = modifier_eocfm_subsidizing_church
+		}
 	}
 	
 	effect = {
@@ -244,6 +284,12 @@ eocfm_stop_subsidies_button = {
 	
 	visible = {
 		has_modifier = modifier_eocfm_subsidizing_church
+		custom_tooltip = {
+			text = eocfm_need_100_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 100
+			}
+		}
 	}
 	
 	possible = {
@@ -264,3 +310,68 @@ eocfm_stop_subsidies_button = {
 	}
 }
 
+eocfm_establish_sunday_schools_button = {
+	name = "eocfm_establish_sunday_schools"
+	desc = "eocfm_establish_sunday_schools_desc"
+	
+	visible = {
+		NOT = { has_modifier = modifier_eocfm_sunday_schools }
+	}
+	
+	possible = {
+		NOT = { has_law = law_type:law_no_schools }
+		NOT = { has_law = law_type:law_total_separation }
+		NOT = { has_modifier = modifier_eocfm_sunday_schools }
+		NOT = { has_modifier = modifier_eocfm_disbanded_sunday_schools }
+	}
+	
+	effect = {
+		add_modifier = modifier_eocfm_sunday_schools
+	}
+}
+
+eocfm_disband_sunday_schools_button = {
+	name = "eocfm_disband_sunday_schools"
+	desc = "eocfm_disband_sunday_schools_desc"
+	
+	visible = {
+		has_modifier = modifier_eocfm_sunday_schools
+	}
+	
+	possible = {
+		has_modifier = modifier_eocfm_sunday_schools
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_sunday_schools
+		add_modifier = {
+			name = modifier_eocfm_disbanded_sunday_schools
+			months = normal_modifier_time
+		}
+	}
+}
+
+eocfm_dissolve_the_monasteries_button = {
+	name = "eocfm_dissolve_the_monasteries"
+	desc = "eocfm_dissolve_the_monasteries_desc"
+	
+	visible = {
+		NOT = { has_variable = eocfm_dissolved_monasteries }
+	}
+	
+	possible = {
+		ig:ig_devout = {
+			is_powerful = no
+			is_in_government = no
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_eocfm_dissolved_monasteries
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		set_variable = eocfm_dissolved_monasteries
+	}
+}

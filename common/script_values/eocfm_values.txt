@@ -18,21 +18,9 @@
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_state_religion
-		}
-		add = 200
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_freedom_of_conscience
+			has_law = law_type:law_religious_schools
 		}
 		add = 100
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_is_autocephalous
-		}
-		add = 200
 	}
 	
 	# Modifiers Check
@@ -52,7 +40,7 @@
 	# Patriarchal Seats Check
 	if = {
 		limit = {
-			eocfm_controls_all_seats = yes
+			eocfm_controls_all_seats_trigger = yes
 		}
 		add = 400
 	}
@@ -92,7 +80,35 @@
 		}
 		add = 100
 	}
-
+	
+	# Other Sources Check
+	if = {
+		limit = {
+			has_variable = eocfm_is_autocephalous
+		}
+		add = 200
+	}
+	
+## MULTIPLIERS
+	if = {
+		limit = {
+			has_law = law_type:law_state_religion
+		}
+		multiply = 1.50
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_freedom_of_conscience
+		}
+		multiply = 1.25
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_total_separation
+		}
+		multiply = 0.75
+	}
+	
 ## EXPENSES
 	# Major Actions Check
 	if = {
@@ -103,7 +119,7 @@
 	}
 	if = {
 		limit = {
-			has_modifier = modifier_eocfm_integrating_seat
+			has_journal_entry = je_eocfm_integrating_seat
 		}
 		subtract = 500
 	}
@@ -115,12 +131,7 @@
 	}
 	
 	# Law Check
-	if = {
-		limit = {
-			has_law = law_type:law_total_separation
-		}
-		subtract = 100
-	}
+		# Nothing to consider yet
 	
 	# Modifiers Check
 	if = {
@@ -129,4 +140,19 @@
 		}
 		subtract = 200
 	}
+	
+	# Decree Check
+	every_scope_state = {
+		limit = {
+			has_decree = decree_eocfm_consecrate_metropolitan
+		}
+		subtract = 100
+	}
+	every_scope_state = {
+		limit = {
+			has_decree = decree_eocfm_encourage_almsgiving
+		}
+		subtract = 100
+	}
+
 }

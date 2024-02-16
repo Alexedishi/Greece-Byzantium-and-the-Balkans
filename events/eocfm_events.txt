@@ -14,14 +14,20 @@ namespace = eocfm
 # The ## before an event indicates content not yet implemented; the >> indicates an event being moved in from another event module
 
 
-##	#EOC0	GENERAL ORTHODOX FLAVOR EVENTS	Events 001-099	##
+##	#EOC0	ORTHODOX FLAVOR EVENTS	Events 001-099	##
 
 #001-009 - General Events
 #	001 - The Bishops of the East
 #	002 - Church-State Relations
 #	003 - Ecumenical Reform
 #	004 - Bible Translation Published
-#	005 - ## Priestly Excesses
+#	005 - Priestly Excesses
+#	006 - Ruler Faith Conversion
+
+#10-19 - National Synod Events
+#	10 - National Synod of X
+#	11 - Most Holy Synod (RUS)
+#	12 - Greek Holy Synod
 
 #020-029 - Icon Events
 #	020 - Commissioning an Icon
@@ -36,22 +42,28 @@ namespace = eocfm
 #	029 - ## The Blessings of Basil the Great
 
 #030-039 - Ecumenical Council Events
-#	030 - ## Council of X
-#	031 - ## Partiarchal Seat Claimed
-#	032 - ## The X Crusades
+#	030 - Ecumenical Council Convoked
+#	031 - Council of X
+#	032 - Birth of the New Crusades
+#	033 - Epistle to the Easterners
+#	034 - Encyclical of the Eastern Patriarchs
+#	035 - Problems with Phyletism
+#	036 - Phyletism Addressed
+#	037 - An Outdated Calendar
+#	038 - Revised Julian Calendar
+#	039 - The Old Calendarists
 
+#040-049 - Autocephaly Events
+#	040 - ## Declaration of Autocephaly (Generic)
+#	041 - Tomos of 1850 (GRE)
+#	042 - ## The Patriarch of All Bulgaria
 
-##	#EOC1	HISTORY/CULTURAL EVENTS		Events 100-199	##
+#050-059 - Partiarchal Seat Events
+#	050 - ## Partiarchal Seat Claimed
+#	051 - ## Partiarchal Seat Integrated
 
-#100-109 - National Synod Events
-#	100 - National Synod of X
-#	101 - Most Holy Synod (RUS)
-#	102 - Greek Holy Synod
-
-#110-119 - Autocephaly Events
-#	110 - ## Declaration of Autocephaly (Generic)
-#	111 - Tomos of 1850 (GRE)
-#	112 - ## The Patriarch of All Bulgaria
+##	#EOC1	OPEN	Events 100-199	##
+# // Nothing to place here... //
 
 
 ##	#EOC2	OPEN	Events 200-299	##
@@ -88,14 +100,15 @@ namespace = eocfm
 #900-909 - Hidden Events
 #	900 - OPEN
 #	901 - Adds je_eocfm_patriarch_authority again
-#910-919 - Support Events
 
+#910-919 - Support Events
+#	910
 
 ####################
 
 
 ##############################################################
-##	#EOC0	GENERAL ORTHODOX FLAVOR EVENTS	Events 001-099	##
+##	#EOC0	ORTHODOX FLAVOR EVENTS	Events 001-099	##
 ##############################################################
 
 ####GENERAL EVENTS ####
@@ -123,6 +136,7 @@ eocfm.001 = { # assigns the patriarch authority JE
 		country_has_state_religion = rel:orthodox
 		NOT = { has_law = law_type:law_state_atheism }
 		NOT = { has_journal_entry = je_eocfm_patriarch_authority }
+		NOT = { has_variable = eocfm_patriarch_authority_var }
 	}
 	
 	immediate = {
@@ -131,10 +145,18 @@ eocfm.001 = { # assigns the patriarch authority JE
 				save_scope_as = devout_leader_scope
 			}
 		}
-		set_variable = {
-			name = eocfm_patriarch_authority_var
-			value = 0
-		}		
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_patriarch_authority_var
+				}
+			}
+			set_variable = {
+				name = eocfm_patriarch_authority_var
+				value = 0
+			}
+		}
+		eocfm_update_authority = yes
 	}
 
 	option = {
@@ -143,12 +165,13 @@ eocfm.001 = { # assigns the patriarch authority JE
 		add_journal_entry = {
 			type = je_eocfm_patriarch_authority
 		}
+		eocfm_update_seat_ownership = yes
 		if = {
 			limit = {
 				c:RUS ?= this
 			}
 			trigger_event = {
-				id = eocfm.101 # Great Holy Synod (RUS)
+				id = eocfm.011 # Great Holy Synod (RUS)
 				days = 30
 			}
 		}
@@ -157,13 +180,13 @@ eocfm.001 = { # assigns the patriarch authority JE
 				c:GRE ?= this 
 			}
 			trigger_event = {
-				id = eocfm.102 # Greek Holy Synod
+				id = eocfm.012 # Greek Holy Synod
 				days = 30
 			}
 		}
 		else = {
 			trigger_event = {
-				id = eocfm.100 # National Synod of X
+				id = eocfm.010 # National Synod of X
 				days = 30
 			}
 		}
@@ -298,12 +321,18 @@ eocfm.004 = { # Bible Translation Published
 		NOT = {
 			has_law = law_type:law_ethnostate
 		}
+		NOT = {
+			c:GRE ?= this # Greece has its own version of this event
+		}
 	}
 	
 	immediate = {
 		set_variable = eocfm_bible_translated
 		random_scope_state = {
 			save_scope_as = eocfm_event_state
+		}
+		ig:ig_intelligentsia = {
+			save_scope_as = intelligentsia_scope
 		}
 	}
 	
@@ -343,7 +372,7 @@ eocfm.005 = { # Priestly Excesses
 	flavor = eocfm.005.f
 	
 	event_image = {
-		video = "unspecific_ruler_speaking"
+		video = "southamerica_christianity"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
@@ -448,9 +477,255 @@ eocfm.005 = { # Priestly Excesses
 
 }
 
+eocfm.006 = { # A Heretical Ruler
+	type = country_event
+	placement = root
+	
+	title = eocfm.006.t
+	desc = eocfm.006.d
+	flavor = eocfm.006.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_ruler_conversion_considered
+		}
+		any_scope_character = {
+			is_ruler = yes
+			NOT = {
+				has_religion = orthodox
+			}
+		}
+		any_scope_character = {
+			is_heir = yes
+			NOT = {
+				has_religion = orthodox
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = eocfm_ruler_conversion_considered
+		ruler = {
+			save_scope_as = eocfm_ruler_scope
+		}
+		heir = {
+			save_scope_as = eocfm_heir_scope
+		}
+	}	
+	
+	option = { # Both will convert
+		name = eocfm.006.a
+		default_option = yes
+		scope:eocfm_ruler_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
+		scope:eocfm_heir_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
+		add_modifier = {
+			name = modifier_eocfm_ruler_accepted_conversion
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Heir will convert
+		name = eocfm.006.b
+		scope:eocfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		scope:eocfm_heir_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = small_radicals
+		}
+	}
+	
+	option = { # 99 THESES GO BRRRRRRRRR
+		name = eocfm.006.c
+		scope:eocfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		scope:eocfm_heir_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		add_modifier = {
+			name = modifier_eocfm_ruler_refused_conversion
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+	}
 
-#### METROPOLITAN EVENTS ####
+}
 
+#### NATIONAL SYNOD EVENTS EVENTS ####
+
+eocfm.010 = { # National Synod of X
+	type = country_event
+	placement = root
+	
+	title =  eocfm.010.t
+	desc =  eocfm.010.d
+	flavor =  eocfm.010.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+	}	
+	
+ 	option = {
+		name = eocfm.010.a
+		default_option = yes
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_supported_synod
+				months = normal_modifier_time
+			}
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}		
+	}
+	
+	option = {
+		name = eocfm.010.b
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_rejected_synod
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+eocfm.011 = { # Most Holy Synod (RUS)
+	type = country_event
+	placement = root
+	
+	title =  eocfm.011.t
+	desc =  eocfm.011.d
+	flavor =  eocfm.011.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+	}	
+	
+ 	option = {
+		name = eocfm.011.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_eocfm_caesaropapism
+				}
+			}
+			add_modifier = modifier_eocfm_caesaropapism
+		}
+	}
+
+}
+
+eocfm.012 = { # Greek Holy Synod
+	type = country_event
+	placement = root
+	
+	title =  eocfm.012.t
+	desc =  eocfm.012.d
+	flavor =  eocfm.012.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_var
+			value = 0
+		}		
+	}	
+	
+ 	option = {
+		name = eocfm.012.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eocfm_autocephaly
+		}
+		eocfm_update_authority = yes
+	}
+
+}
 
 #### ICON EVENTS ####
 
@@ -478,10 +753,19 @@ eocfm.020 = { # Commissioning an Icon
 	}
 	
 	immediate = {
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
 	}
 	
 	option = {
 		name = eocfm.020.1
+		trigger = {
+			NOR = {
+				has_variable = icon_page_2
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_christ_pantocrator
 			months = long_modifier_time
@@ -490,6 +774,12 @@ eocfm.020 = { # Commissioning an Icon
 
 	option = {
 		name = eocfm.020.2
+		trigger = {
+			NOR = {
+				has_variable = icon_page_2
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_eleusa
 			months = long_modifier_time
@@ -498,6 +788,12 @@ eocfm.020 = { # Commissioning an Icon
 
 	option = {
 		name = eocfm.020.3
+		trigger = {
+			NOR = {
+				has_variable = icon_page_2
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_john_climacus
 			months = long_modifier_time
@@ -506,62 +802,166 @@ eocfm.020 = { # Commissioning an Icon
 
 	option = {
 		name = eocfm.020.4
+		trigger = {
+			has_variable = icon_page_2
+			NOR = {
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_michael_archistrategos
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_2
 	}
 
 	option = {
 		name = eocfm.020.5
+		trigger = {
+			has_variable = icon_page_2
+			NOR = {
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_nikolaos_wonderworker
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_2
 	}
 
 	option = {
 		name = eocfm.020.6
+		trigger = {
+			has_variable = icon_page_2
+			NOR = {
+				has_variable = icon_page_3
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_gregory_nazianzus
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_2
 	}
 
 	option = {
 		name = eocfm.020.7
+		trigger = {
+			has_variable = icon_page_3
+			NOR = {
+				has_variable = icon_page_2
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_paul_of_thebes
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_3
 	}
 
 	option = {
 		name = eocfm.020.8
+		trigger = {
+			has_variable = icon_page_3
+			NOR = {
+				has_variable = icon_page_2
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_issac_the_syrian
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_3
 	}
 
 
 	option = {
 		name = eocfm.020.9
+		trigger = {
+			has_variable = icon_page_3
+			NOR = {
+				has_variable = icon_page_2
+			}
+		}
 		add_modifier = {
 			name = modifier_eocfm_icon_basil_megas
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_3
+	}
+	
+	option = { # Show Page 1
+		name = eocfm.020.a
+		trigger = {
+			has_variable = icon_page_3
+			NOR = {
+				has_variable = icon_page_2
+			}
+		}
+		custom_tooltip = eocfm.020.tt
+		remove_variable = icon_page_3
+		hidden_effect = {
+			trigger_event = {
+				id = eocfm.020
+				popup = yes
+			}
+		}
+	}
+	
+	option = { # Show Page 2
+		name = eocfm.020.a
+		trigger = {
+			NOR = {
+				has_variable = icon_page_2
+				has_variable = icon_page_3
+			}
+		}
+		custom_tooltip = eocfm.020.tt
+		set_variable = icon_page_2
+		hidden_effect = {
+			trigger_event = {
+				id = eocfm.020
+				popup = yes
+			}
+		}
+	}
+	
+	option = { # Show Page 3
+		name = eocfm.020.a
+		trigger = {
+			has_variable = icon_page_2
+			NOR = {
+				has_variable = icon_page_3
+			}
+		}
+		custom_tooltip = eocfm.020.tt
+		remove_variable = icon_page_2
+		set_variable = icon_page_3
+		hidden_effect = {
+			trigger_event = {
+				id = eocfm.020
+				popup = yes
+			}
+		}
 	}
 
 	option = {
-		name = eocfm.020.a
+		name = eocfm.020.b
 		default_option = yes
+		remove_variable = icon_page_2
+		remove_variable = icon_page_3		
 	}
+	
+	after = {
+		eocfm_update_authority = yes
+	}
+	
 }
 
 #### ECUMENICAL COUNCIL EVENTS ####
 
-eocfm.030 = { # Council of X
+eocfm.030 = { # Ecumenical Council Convoked
 	type = country_event
 	placement = root
 	
@@ -585,17 +985,22 @@ eocfm.030 = { # Council of X
 	}
 	
 	immediate = {
-		
-	}	
+		random_country = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			save_scope_as = eocfm_council_host_scope
+		}
+	}
 	
 	option = {
 		name = eocfm.030.a
 		default_option = yes
 	}
-
+	
 }
 
-eocfm.031 = { # Partiarchal Seat Claimed
+eocfm.031 = { # Council of X
 	type = country_event
 	placement = root
 	
@@ -607,7 +1012,7 @@ eocfm.031 = { # Partiarchal Seat Claimed
 		video = "southamerica_christianity"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_crozier.dds"
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -615,15 +1020,67 @@ eocfm.031 = { # Partiarchal Seat Claimed
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE button
+	trigger = {
 	}
 	
 	immediate = {
+		set_global_variable = {
+			name = eocfm_council_votes
+			value = 0
+		}
+		change_global_variable = {
+			name = eocfm_council_var
+			add = 1
+		}
 	}
 	
-	option = {
+	option = { # It's Crusadin' time!
 		name = eocfm.031.a
 		default_option = yes
+		trigger = {
+			has_variable = byzfm_byzantium_restored
+			NOT = { has_global_variable = byzfm_crusades_unlocked }
+		}
+		trigger_event = {
+			id = eocfm.032 # Birth of the New Crusades
+			days = 90
+		}
+	}
+	
+	option = { # Tell the Pope he sucks
+		name = eocfm.031.b
+		trigger = {
+			has_technology_researched = mass_communication
+			NOT = { has_global_variable = eocfm_epistle_considered }
+		}
+		trigger_event = {
+			id = eocfm.033 # Epistle to the Easterners
+			days = 90
+		}
+	}
+	
+	option = { # Deal with Phyletism
+		name = eocfm.031.c
+		trigger = {
+			has_technology_researched = nationalism
+			NOT = { has_global_variable = eocfm_phyletism_considered }
+		}
+		trigger_event = {
+			id = eocfm.035 # Problems with Phyletism
+			days = 90
+		}
+	}
+	
+	option = { # New Calendar
+		name = eocfm.031.e
+		trigger = {
+			has_technology_researched = pan-nationalism
+			NOT = { has_global_variable = eocfm_calendar_considered }
+		}
+		trigger_event = {
+			id = eocfm.037 # An Outdated Calendar
+			days = 90
+		}
 	}
 
 }
@@ -637,7 +1094,7 @@ eocfm.032 = { # Birth of the New Crusades
 	flavor = eocfm.032.f
 	
 	event_image = {
-		video = "southamerica_christianity"
+		video = "europenorthamerica_before_the_battle"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_crozier.dds"
@@ -652,31 +1109,632 @@ eocfm.032 = { # Birth of the New Crusades
 	}
 	
 	immediate = {
-	}	
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			every_country = {
+				limit = {
+					country_has_state_religion = rel:orthodox
+					NOT = { has_modifier = modifier_eocfm_hosting_council }
+				}
+				trigger_event = {
+					id = eocfm.032
+				}
+			}
+			set_global_variable = byzfm_crusades_unlocked
+		}
+	}
 	
 	option = {
 		name = eocfm.032.a
 		default_option = yes
-		set_variable = byzfm_crusades_unlocked
+		trigger = {
+			has_modifier = modifier_eocfm_hosting_council
+		}
+		custom_tooltip = byzfm_crusades_enabled_tt
+	}
+	
+	option = {
+		name = eocfm.032.b
+		trigger = {
+			NOT = { has_modifier = modifier_eocfm_hosting_council }
+		}
+		custom_tooltip = byzfm_crusades_enabled_tt
+	}
+	
+	after = {
+		eocfm_council_cleanup = yes
+	}
+
+}
+
+eocfm.033 = { # Epistle to the Easterners
+	type = country_event
+	placement = root
+	
+	title = eocfm.033.t
+	desc = eocfm.033.d
+	flavor = eocfm.033.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			every_country = {
+				limit = {
+					country_has_state_religion = rel:orthodox
+					NOT = { has_modifier = modifier_eocfm_hosting_council }
+				}
+				trigger_event = {
+					id = eocfm.033
+				}
+			}
+		}
+	}	
+	
+	option = { # F the Po-Pope
+		name = eocfm.033.a
+		default_option = yes
+		change_global_variable = {
+			name = eocfm_council_votes
+			subtract = 1
+		}
+		ai_chance = {
+			base = 95
+		}
+	}
+	
+	option = { # Why would you play nice with the Pope
+		name = eocfm.033.b
+		change_global_variable = {
+			name = eocfm_council_votes
+			add = 1
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+	
+	after = {
+		trigger_event = {
+			id = eocfm.034  # Encyclical of the Eastern Patriarchs
+			days = 120
+		}
+	}
+	
+}
+
+eocfm.034 = { # Encyclical of the Eastern Patriarchs
+	type = country_event
+	placement = root
+	
+	title = eocfm.034.t
+	desc = {
+		triggered_desc = {
+			desc = eocfm.034.d1
+			trigger = {
+				global_var:eocfm_council_votes <= 0
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.034.d2
+			trigger = {
+				global_var:eocfm_council_votes > 0
+			}
+		}
+	}
+	flavor = eocfm.034.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# Triggered by eocfm.033 # Epistle to the Easterners
+	}
+	
+	immediate = {
+		c:PAP ?= {
+			save_scope_as = eocfm_pope_scope
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			set_global_variable = eocfm_epistle_considered
+		}
+	}
+	
+	option = { # Epistle Rejected
+		name = eocfm.034.a
+		default_option = yes
+		trigger = {
+			global_var:eocfm_council_votes <= 0
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_pope_scope
+			}
+			change_relations = {
+				country = scope:eocfm_pope_scope
+				value = -50
+			}
+		}
+		add_modifier = {
+			name = modifier_eocfm_rejected_epistle
+			months = long_modifier_time
+		}
+	}
+	
+	option = { # Epistle Accepted
+		name = eocfm.034.b
+		trigger = {
+			global_var:eocfm_council_votes > 0
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_pope_scope
+			}
+			change_relations = {
+				country = scope:eocfm_pope_scope
+				value = 50
+			}
+		}
+		add_modifier = {
+			name = modifier_eocfm_accepted_epistle
+			months = long_modifier_time
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = large_radicals
+		}
+	}
+	
+	after = {
+		eocfm_council_cleanup = yes
+	}
+
+}
+	
+eocfm.035 = { # Problems with Phyletism
+	type = country_event
+	placement = root
+	
+	title = eocfm.035.t
+	desc = eocfm.035.d
+	flavor = eocfm.035.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			every_country = {
+				limit = {
+					country_has_state_religion = rel:orthodox
+					NOT = { has_modifier = modifier_eocfm_hosting_council }
+				}
+				trigger_event = {
+					id = eocfm.035
+				}
+			}
+		}
+	}
+	
+	option = { # Phyletism Condemned
+		name = eocfm.035.a
+		default_option = yes
+		change_global_variable = {
+			name = eocfm_council_votes
+			subtract = 1
+		}
+		ai_chance = {
+			base = 95
+		}
+	}
+	
+	option = { # Phyletism Accepted
+		name = eocfm.035.b
+		change_global_variable = {
+			name = eocfm_council_votes
+			add = 1
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+	
+	after = {
+		trigger_event = {
+			id = eocfm.036 # Phyletism Addressed
+			days = 120
+		}
+	}
+
+}
+
+eocfm.036 = { # Phyletism Addressed
+	type = country_event
+	placement = root
+	
+	title = eocfm.036.t
+	desc = {
+		triggered_desc = {
+			desc = eocfm.036.d1
+			trigger = {
+				global_var:eocfm_council_votes <= 0
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.036.d2
+			trigger = {
+				global_var:eocfm_council_votes > 0
+			}
+		}
+	}
+	flavor = eocfm.036.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			set_global_variable = eocfm_phyletism_considered
+		}
+	}
+	
+	option = { # Phyletism Condemned
+		name = eocfm.036.a
+		default_option = yes
+		trigger = {
+			global_var:eocfm_council_votes <= 0
+		}
+		add_modifier = {
+			name = modifier_eocfm_condemned_phyletism
+			months = long_modifier_time
+		}
+	}
+	
+	option = { # Phyletism Accepted
+		name = eocfm.036.b
+		trigger = {
+			global_var:eocfm_council_votes > 0
+		}
+		add_modifier = {
+			name = modifier_eocfm_endorsed_phyletism
+			months = long_modifier_time
+		}
+	}
+	
+	after = {
+		eocfm_council_cleanup = yes
+	}
+
+}
+
+eocfm.037 = { # An Outdated Calendar
+	type = country_event
+	placement = root
+	
+	title = eocfm.037.t
+	desc = eocfm.037.d
+	flavor = eocfm.037.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Time For some Changes
+		name = eocfm.037.a
+		default_option = yes
+		change_global_variable = {
+			name = eocfm_council_votes
+			add = 1
+		}
+		ai_chance = {
+			base = 95
+		}
+	}
+
+	option = { # Julian calendar or death
+		name = eocfm.037.b
+		change_global_variable = {
+			name = eocfm_council_votes
+			subtract = 1
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+
+	after = {
+		trigger_event = {
+			id = eocfm.038 # The Julian Calendar
+			days = 120
+		}
+	}
+	
+}
+
+eocfm.038 = { # The Julian Calendar
+	type = country_event
+	placement = root
+	
+	title = eocfm.038.t
+	desc = {
+		triggered_desc = {
+			desc = eocfm.038.d1
+			trigger = {
+				global_var:eocfm_council_votes >= 0
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.038.d2
+			trigger = {
+				global_var:eocfm_council_votes < 0
+			}
+		}
+	}
+	flavor = eocfm.038.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_modifier = modifier_eocfm_hosting_council
+			}
+			set_global_variable = eocfm_calendar_considered
+		}
+	}
+	
+	option = { # Revised Julian Calendar
+		name = eocfm.038.a
+		default_option = yes
+		trigger = {
+			global_var:eocfm_council_votes >= 0
+		}
+		add_modifier = {
+			name = modifier_eocfm_revised_julian_calendar
+			months = long_modifier_time
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Chrysostomos would be proud
+		name = eocfm.038.b
+		trigger = {
+			global_var:eocfm_council_votes < 0
+		}
+		add_modifier = {
+			name = modifier_eocfm_retained_old_calendar
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			pop_type = clergymen
+			value = large_radicals
+		}
+	}
+	
+	after = {
+		eocfm_council_cleanup = yes
+	}
+
+}
+
+#### AUTOCEPHALY EVENTS ####
+
+eocfm.040 = { # Declaration of Autocephaly (Generic)
+	type = country_event
+	placement = root
+	
+	title = eocfm.040.t
+	desc = eocfm.040.d
+	flavor = eocfm.040.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
+	}
+	
+	option = {
+		name = eocfm.040.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
+		}
+	}
+
+}
+
+eocfm.041 = { # Tomos of 1850
+	type = country_event
+	placement = root
+	
+	title = eocfm.041.t
+	desc = eocfm.041.d
+	flavor = eocfm.041.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
+	}
+	
+	option = {
+		name = eocfm.041.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
+		}
+	}
+
+}
+
+eocfm.042 = { # Unassigned Autocephaly Event
+	type = country_event
+	placement = root
+	
+	title = eocfm.042.t
+	desc = eocfm.042.d
+	flavor = eocfm.042.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
+	}
+	
+	option = {
+		name = eocfm.042.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
+		}
 	}
 	
 	orphan = yes
 
 }
 
-##########################################################
-##	#EOC1	HISTORY/CULTURAL EVENTS		Events 100-199	##
-##########################################################
-
-#### NATIONAL SYNOD EVENTS ####
-
-eocfm.100 = { # National Synod of X
+eocfm.043 = { # Metropolitanate of Cetinje
 	type = country_event
 	placement = root
 	
-	title =  eocfm.100.t
-	desc =  eocfm.100.d
-	flavor =  eocfm.100.f
+	title = eocfm.043.t
+	desc = eocfm.043.d
+	flavor = eocfm.043.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -690,46 +1748,32 @@ eocfm.100 = { # National Synod of X
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
 	}
 	
 	immediate = {
-	}	
-	
- 	option = {
-		name = eocfm.100.a
-		default_option = yes
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_eocfm_supported_synod
-				months = normal_modifier_time
-			}
-		}
-		add_loyalists = {
-			religion = rel:orthodox
-			value = medium_radicals
-		}		
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
 	}
 	
 	option = {
-		name = eocfm.100.b
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_eocfm_rejected_synod
-				months = normal_modifier_time
-			}
+		name = eocfm.043.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
 		}
 	}
 
 }
 
-eocfm.101 = { # Most Holy Synod (RUS)
+eocfm.044 = { # The Metropolitanate of Belgrade
 	type = country_event
 	placement = root
 	
-	title =  eocfm.101.t
-	desc =  eocfm.101.d
-	flavor =  eocfm.101.f
+	title = eocfm.044.t
+	desc = eocfm.044.d
+	flavor = eocfm.044.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -743,34 +1787,72 @@ eocfm.101 = { # Most Holy Synod (RUS)
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
 	}
 	
 	immediate = {
-	}	
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
+	}
 	
- 	option = {
-		name = eocfm.101.a
+	option = {
+		name = eocfm.044.a
 		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = modifier_eocfm_caesaropapism
-				}
-			}
-			add_modifier = modifier_eocfm_caesaropapism
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
 		}
 	}
 
 }
 
- eocfm.102 = { # Greek Holy Synod
+eocfm.045 = { # The Patriarch of All Bulgaria
 	type = country_event
 	placement = root
 	
-	title =  eocfm.102.t
-	desc =  eocfm.102.d
-	flavor =  eocfm.102.f
+	title = eocfm.045.t
+	desc = eocfm.045.d
+	flavor = eocfm.045.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = eocfm_is_autocephalous
+		eocfm_update_authority = yes
+	}
+	
+	option = {
+		name = eocfm.045.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
+		}
+	}
+
+}
+
+#### PATRIARHCAL SEAT EVENTS ####
+eocfm.050 = { # Partiarchal Seat Claimed
+	type = country_event
+	placement = root
+	
+	title = eocfm.050.t
+	desc = eocfm.050.d
+	flavor = eocfm.050.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -789,103 +1871,428 @@ eocfm.101 = { # Most Holy Synod (RUS)
 	
 	immediate = {
 		set_variable = {
-			name = eocfm_schism_var
+			name = eocfm_integration_var
 			value = 0
-		}		
-	}	
+		}
+	}
 	
- 	option = {
-		name = eocfm.102.a
-		default_option = yes
+	option = {
+		name = eocfm.050.1
+		trigger = {
+			owns_entire_state_region = STATE_LAZIO
+			NOT = { has_variable = eocfm_controls_rome }
+		}
 		add_journal_entry = {
-			type = je_eocfm_autocephaly
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_rome
+	}
+	
+	option = {
+		name = eocfm.050.2
+		trigger = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+			NOT = { has_variable = eocfm_controls_constantinople }
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_constantinople
+	}
+	
+	option = {
+		name = eocfm.050.3
+		trigger = {
+			owns_entire_state_region = STATE_ADANA
+			NOT = { has_variable = eocfm_controls_antioch }
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_antioch
+	}
+	
+	option = {
+		name = eocfm.050.4
+		trigger = {
+			owns_entire_state_region = STATE_LOWER_EGYPT
+			NOT = { has_variable = eocfm_controls_alexandria }
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_alexandria
+	}
+	
+	option = {
+		name = eocfm.050.5
+		trigger = {
+			owns_entire_state_region = STATE_PALESTINE
+			NOT = { has_variable = eocfm_controls_jerusalem }
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_jerusalem
+	}
+	
+	option = {
+		name = eocfm.050.6
+		trigger = {
+			owns_entire_state_region = STATE_MOSCOW
+			NOT = { has_variable = eocfm_controls_moscow }
+			C:RUS != this
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_moscow
+	}
+	
+	option = {
+		name = eocfm.050.6r
+		trigger = {
+			owns_entire_state_region = STATE_MOSCOW
+			NOT = { has_variable = eocfm_controls_moscow }
+			C:RUS ?= this
+		}
+		add_journal_entry = {
+			type = je_eocfm_integrating_seat
+		}
+		set_variable = eocfm_integrating_moscow
+	}
+	
+	option = {
+		name = eocfm.050.a
+		default_option = yes
+	}
+	
+}
+
+eocfm.051 = { # Partiarchal Seat Integrated
+	type = country_event
+	placement = root
+	
+	title = eocfm.051.t
+	desc = eocfm.051.d
+	flavor = eocfm.051.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_crozier.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by JE button
+	}
+	
+	immediate = {
+		eocfm_save_seat_controllers = yes
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_rome
 		}
 		if = {
 			limit = {
-				NOT = {
-					has_modifier = modifier_eocfm_caesaropapism
+				exists = scope:eocfm_rome_controller
+			}
+			scope:eocfm_rome_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}
+				remove_variable = eocfm_controls_rome
+			}
+		}
+		custom_tooltip = eocfm_controls_rome_tt
+		set_variable = eocfm_controls_rome
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_constantinople
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_constantinople_controller
+			}
+			scope:eocfm_constantinople_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}				
+				remove_variable = eocfm_controls_constantinople
+			}
+		}
+		custom_tooltip = eocfm_controls_constantinople_tt
+		set_variable = eocfm_controls_constantinople
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_antioch
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_antioch_controller
+			}
+			scope:eocfm_antioch_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}
+				remove_variable = eocfm_controls_antioch
+			}
+		}
+		custom_tooltip = eocfm_controls_antioch_tt
+		set_variable = eocfm_controls_antioch
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_alexandria
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_alexandria_controller
+			}
+			scope:eocfm_alexandria_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}
+				remove_variable = eocfm_controls_alexandria
+			}
+		}
+		custom_tooltip = eocfm_controls_alexandria_tt
+		set_variable = eocfm_controls_alexandria
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_jerusalem
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_jerusalem_controller
+			}
+			scope:eocfm_jerusalem_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}				
+				remove_variable = eocfm_controls_jerusalem
+			}
+		}
+		custom_tooltip = eocfm_controls_jerusalem_tt
+		set_variable = eocfm_controls_jerusalem
+	}
+	
+	option = {
+		name = eocfm.051.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_moscow
+		}
+		if = {
+			limit = {
+				exists = scope:eocfm_moscow_controller
+			}
+			scope:eocfm_moscow_controller = {
+				change_relations = {
+					country = root
+					value = -25
+				}				
+				remove_variable = eocfm_controls_moscow
+			}
+		}
+		custom_tooltip = eocfm_controls_moscow_tt
+		set_variable = eocfm_controls_moscow
+	}
+	
+	after = {
+		eocfm_remove_intregration_variables = yes
+		eocfm_update_authority = yes
+	}
+
+}
+
+eocfm.052 = { # Seat Integration Disputed (Part 1)
+	type = country_event
+	placement = root
+	
+	title = eocfm.052.t
+	desc = eocfm.052.d
+	flavor = eocfm.052.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_global_variable = eocfm_seat_event_var }
+		NOT = { has_variable = eocfm_seat_dispute_var }
+		eocfm_controls_major_seat_trigger = yes
+		NOT = { has_journal_entry = je_eocfm_integrating_seat }
+		any_country = {
+			has_variable = eocfm_integration_var
+			local_var:eocfm_integration_var < 80 # to avoid event finishing event chain early
+		}
+	}
+	
+	immediate = {
+		set_variable = eocfm_seat_dispute_var
+		set_global_variable = eocfm_seat_event_var # locks out this event chain until it resolves
+		random_country = {
+			limit = {
+				eocfm_is_integrating_seat_trigger = yes
+			}
+			save_scope_as = eocfm_integrator_scope
+		}
+		set_variable = eocfm_seat_disputer
+	}
+	
+	option = {
+		name = eocfm.052.a
+		default_option = yes
+		change_relations = {
+			country = scope:eocfm_integrator_scope
+			value = -20
+		}
+		scope:eocfm_integrator_scope = {
+			set_variable = eocfm_seat_opposed
+		}
+	}
+	
+	option = {
+		name = eocfm.052.b
+		change_relations = {
+			country = scope:eocfm_integrator_scope
+			value = 20
+		}
+		scope:eocfm_integrator_scope = {
+			set_variable = eocfm_seat_endorsed
+		}
+	}
+	
+	after = {
+		scope:eocfm_integrator_scope = {
+			trigger_event = {
+				id = eocfm.053 # Seat Integration Disputed (Part 2)
+			}
+		}
+	}
+
+	orphan = yes # event is functionally complete, but needs to be able to differentiate between concurrent integrations
+
+}
+
+eocfm.053 = { # Seat Integration Disputed (Part 2)
+	type = country_event
+	placement = root
+	
+	title = eocfm.053.t
+	desc = eocfm.053.d
+	flavor = eocfm.053.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_seat_disputer
+			}
+			save_scope_as = eocfm_disputer_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.053.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_seat_opposed
+		}
+		custom_tooltip = {
+			text = eocfm_integration_lose_6
+			hidden_effect = {
+				change_variable = {
+					name = eocfm_integration_var
+					subtract = 24
 				}
 			}
-			add_modifier = modifier_eocfm_caesaropapism
-		}	
-	}
-
-}
-
-#### AUTOCEPHALY EVENTS ####
-
-eocfm.110 = { # Declaration of Autocephaly (Generic)
-	type = country_event
-	placement = root
-	
-	title = eocfm.100.t
-	desc = eocfm.100.d
-	flavor = eocfm.100.f
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		set_variable = eocfm_is_autocephalous
-	}
-	
-	option = {
-		name = eocfm.100.a
-		default_option = yes
-	}
-
-}
-
-eocfm.111 = { # Tomos of 1850
-	type = country_event
-	placement = root
-	
-	title = eocfm.111.t
-	desc = eocfm.111.d
-	flavor = eocfm.111.f
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		set_variable = eocfm_is_autocephalous
-	}
-	
-	option = {
-		name = eocfm.111.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_autocephaly_granted
-			months = long_modifier_time
 		}
-		
+		remove_variable = eocfm_seat_opposed
+	}
+	
+	option = {
+		name = eocfm.053.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_seat_endorsed
+		}
+		custom_tooltip = {
+			text = eocfm_integration_gain_2
+			hidden_effect = {
+				change_variable = {
+					name = eocfm_integration_var
+					add = 8
+				}
+			}
+		}
+		remove_variable = eocfm_seat_endorsed
+	}
+	
+	after = {
+		scope:eocfm_disputer_scope = {
+			remove_variable = eocfm_seat_disputer
+		}
+		remove_global_variable = eocfm_seat_event_var
 	}
 
 }
+##########################################
+##	#EOC1	OPEN		Events 100-199	##
+##########################################
+# // Nothing to place here... //
 
 
 ######################################
@@ -952,7 +2359,7 @@ eocfm.300 = { # The Partiarchate Rises
 			days = 30
 		}
 		add_modifier = {
-			name = unification_prestige
+			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
 		}
 	}
@@ -1233,9 +2640,6 @@ eocfm.303 = { # Into the Holy Land
 	option = { # nah bro, shits for the birds
 		name = eocfm.303.b
 		change_infamy = -20
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
 		scope:byzantium_capital = {
 			add_modifier = {
 				name = modifier_byzfm_capital_assimiliation_boost
@@ -1288,7 +2692,7 @@ eocfm.304 = { # The Church of the East
 		default_option = yes
 		add_modifier = {
 			name = modifier_byzfm_restored
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}
 		trigger_event = {
 			id = eocfm.305 # Across the Hospitable Sea
@@ -1300,114 +2704,9 @@ eocfm.304 = { # The Church of the East
 		name = eocfm.304.b
 		add_modifier = {
 			name = modifier_byzfm_restored
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}
 		change_infamy = -25
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}
-	
-}
-
-eocfm.305 = { # the old "Texas Left" event, its back! (Across the Hospitable Sea)
-	type = country_event
-	
-	title = eocfm.305.t
-	desc = eocfm.305.d
-	flavor = eocfm.305.f
-	
-	placement = scope:russia_capital_scope
-	
-	event_image = {
-		video = "votp_gunboat_diplomacy"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = { # Triggered by eocfm.304
-	}
-	
-	immediate = {
-		c:RUS = {
-			capital = {
-				save_scope_as = russia_capital_scope
-			}
-		}
-	}
-	
-	option = { # Let's go to Crimea, I hear the grass is lovely there.
-		name = eocfm.305.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_eocfm_texas_left
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_CRIMEA }
-			}
-			s:STATE_CRIMEA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_KARS }
-			}
-			s:STATE_KARS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_GREATER_CAUCASUS }
-			}
-			s:STATE_GREATER_CAUCASUS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_DOBRUDJA }
-			}
-			s:STATE_DOBRUDJA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ARMENIA }
-			}
-			s:STATE_ARMENIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_AZERBAIJAN }
-			}
-			s:STATE_AZERBAIJAN = {
-				add_claim = ROOT
-			}
-		}
-	}
-	
-	
-	option = { # Their women scare me
-		name = eocfm.305.b
-
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
 		custom_tooltip = {
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
@@ -1419,12 +2718,12 @@ eocfm.305 = { # the old "Texas Left" event, its back! (Across the Hospitable Sea
 	
 }
 
-eocfm.306 = { # The Orthodox Realms
+eocfm.305 = { # The Orthodox Realms
 	type = country_event
 	
-	title = eocfm.306.t
-	desc = eocfm.306.d
-	flavor = eocfm.306.f
+	title = eocfm.305.t
+	desc = eocfm.305.d
+	flavor = eocfm.305.f
 	
 	placement = scope:russia_capital_scope
 	
@@ -1456,10 +2755,52 @@ eocfm.306 = { # The Orthodox Realms
 	}
 	
 	option = {
-		name = eocfm.306.a
+		name = eocfm.305.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_eocfm_the_orthodox_realms
+		}
+	}
+	
+}
+
+eocfm.306 = { # the old "Texas Left" event, its back! (Across the Hospitable Sea)
+	type = country_event
+	
+	title = eocfm.306.t
+	desc = eocfm.306.d
+	flavor = eocfm.306.f
+	
+	placement = scope:russia_capital_scope
+	
+	event_image = {
+		video = "votp_gunboat_diplomacy"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = { # Triggered by eocfm.304
+	}
+	
+	immediate = {
+		c:RUS = {
+			capital = {
+				save_scope_as = russia_capital_scope
+			}
+		}
+	}
+	
+	option = { # Let's go to Crimea, I hear the grass is lovely there.
+		name = eocfm.306.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eocfm_texas_left
 		}
 	}
 	
@@ -1539,7 +2880,7 @@ eocfm.308 = { # conclusion of the Third Rome chain
 		default_option = yes
 		change_tag = ODXY
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
@@ -1552,9 +2893,9 @@ eocfm.308 = { # conclusion of the Third Rome chain
 	}
 	
 	option = {
-		name = eocfm.308.a
+		name = eocfm.308.b
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
@@ -1596,21 +2937,27 @@ eocfm.310 = { # The Ancient Partiarchates
 	trigger = {
 		has_variable = eocfm_is_autocephalous
 		NOT = { has_variable = byzfm_pentarchy_restoration }
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		owns_entire_state_region = STATE_ADANA
-		owns_entire_state_region = STATE_PALESTINE
-		owns_entire_state_region = STATE_LOWER_EGYPT
+		AND = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+			has_variable = eocfm_controls_constantinople
+		}
+		AND = {
+			owns_entire_state_region = STATE_ADANA
+			has_variable = eocfm_controls_antioch
+		}	
+		AND = {
+			owns_entire_state_region = STATE_LOWER_EGYPT
+			has_variable = eocfm_controls_alexandria
+		}	
+		AND = {
+			owns_entire_state_region = STATE_PALESTINE
+			has_variable = eocfm_controls_jerusalem
+		}
 		has_law = law_type:law_state_religion
 	}
 	
 	immediate = {
 		set_variable = byzfm_pentarchy_restoration
-		if = {
-			limit = {
-				c:GRE ?= this
-			}
-			set_global_variable = grefm_tomos_of_1850_happened # just in case you get here before eocfm.111
-		}
 		ig:ig_devout = {
 			save_scope_as = ig_devout_scope
 		}
@@ -2021,3 +3368,5 @@ eocfm.901 = { # adds je_eocfm_patriarch_authority again
 	}
 
 }
+
+#### SUPPORT EVENTS ####

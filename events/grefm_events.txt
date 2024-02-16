@@ -97,7 +97,6 @@ namespace = grefm
 #	122 - The Great School of the Nation
 #	123 - The Women's Journal
 #	124 - National Council of Greek Women
-#	125 - ## Volunteer Apprentice, No. 274
 
 #130-139 - Monument Events
 #	130 - The Corinth Canal
@@ -127,7 +126,7 @@ namespace = grefm
 #	157 - The Mask of Agammemnon
 
 #160-169 - Minor International Events
-#	160 - ##A Bulgarian Visitor
+#	160 - A Bulgarian Visitor
 
 #190-199 - Historical Content Not Otherwise Specified
 
@@ -159,12 +158,10 @@ namespace = grefm
 #	224 - MAC Annexation
 
 #230-239 - Greek Church Events
-#	230 - Tomos of Autocephaly
-#	231 - ## Metropolitan Cathedral of Athens
-#	232 - ## Council of Constantinople of 1872
-#	231 - ## Jonas King Arrives
+#	230 - ## The Defence of Jonas King
+#	231 - ## Speech before the Areopagus
 #	232 - ## Jonas King Returns
-#	233 - ## USA Intervenes for Jonas
+#	233 - ## Foreign Intercession for Jonas King
 
 #240-249 - Greek Ethnogenesis
 #	240 - What is a "Greek?"
@@ -221,10 +218,9 @@ namespace = grefm
 
 	
 ##	#GRE8	COMPATIBILITY ALTERNATES	Events 800-899	##
-
-#810-819 - Morgenröte I (Archeaology)
-
-#820-829 - Morgenröte II (Misc. Culture)
+#800-809 - Morgenröte
+#	800 - Archaeological Society of Athens (MGR Alternate)
+#	801 - A Greek Identity (MGR Alternate)
 
 
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
@@ -945,6 +941,9 @@ grefm.009 = { # 1862 head of state referendum
 			}
 			set_variable = grefm_bavarocracy_completed
 		}
+		heir = {
+			save_scope_as = grefm_heir_scope
+		}
 		set_variable = grefm_1862_election_held
 		remove_variable = grefm_bavarocracy
 	}
@@ -984,6 +983,16 @@ grefm.009 = { # 1862 head of state referendum
 			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
 	}
 	
 	option = { # Philippe de Flandre - the Belgian option
@@ -1021,6 +1030,16 @@ grefm.009 = { # 1862 head of state referendum
 			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
 	}
 	
 	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
@@ -1053,6 +1072,16 @@ grefm.009 = { # 1862 head of state referendum
 		trigger_event = {
 			id = grefm.030 # the king of the hellenes
 			days = 30
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
 		}
 		set_variable = grefm_dr_moneybags_in_the_house
 	}
@@ -1088,6 +1117,16 @@ grefm.009 = { # 1862 head of state referendum
 			id = grefm.030 # the king of the hellenes
 			days = 30
 		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
 	}
 	
 	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
@@ -1097,6 +1136,16 @@ grefm.009 = { # 1862 head of state referendum
 		}
 		scope:grefm_garibaldi_scope = {
 			set_character_as_ruler = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
 		}
 	}
 
@@ -1144,6 +1193,16 @@ grefm.009 = { # 1862 head of state referendum
 		trigger_event = {	
 			id = byzfm.310 # The Basileus Basileōn
 			days = 10
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
 		}
 		set_variable = byzfm_took_the_purple
 	}
@@ -1781,9 +1840,6 @@ grefm.030 = { # the king of the hellenes
 			}
 			save_scope_as = grefm_capital_scope
 		}
-		create_character = {
-			template = grefm_trikoupis_character_template
-		}
 		random_character_in_void = {
 			limit = {
 				has_variable = grefm_is_trikoupis
@@ -1800,9 +1856,8 @@ grefm.030 = { # the king of the hellenes
 			has_variable = grefm_1862_election_held
 			NOT = { has_variable = byzfm_byzantium_formed }
 		}
-		scope:grefm_trikoupis_scope = {
-			transfer_character = ROOT
-			set_as_interest_group_leader = yes
+		create_character = {
+			template = grefm_trikoupis_character_template
 		}
 	}
 	
@@ -4286,6 +4341,10 @@ grefm.152 = { # Excavation Tomb Uncovered
 	immediate = {
 	}
 	
+	cooldown = {
+		years = 10 # this fired way too much in testing
+	}
+	
 	option = { # take your time
 		name = grefm.152.a
 		default_option = yes
@@ -4835,9 +4894,6 @@ grefm.201 = { # megali idea phase 2
 	option = { # vanilla option 1
 		name = grefm.201.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_megali_idea
-		}
 		if = {
 			limit = {
 				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
@@ -4876,72 +4932,15 @@ grefm.201 = { # megali idea phase 2
 			}
 			s:STATE_SKOPIA = {
 				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:thrace_owner
-			}
-			create_incident = {
-				country = scope:thrace_owner
-				value = 20
 			}
 		}
 	}
 	
-	option = { # grefm option to remain as Greece but still get the Megali Idea chain
-		name = grefm.201.e
-		add_journal_entry = {
-			type = je_grefm_megali_idea
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
-			}
-			s:STATE_EASTERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_AYDIN }
-			}
-			s:STATE_AYDIN = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
-			}
-			s:STATE_HUDAVENDIGAR = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ALBANIA }
-			}
-			s:STATE_ALBANIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_SKOPIA }
-			}
-			s:STATE_SKOPIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:thrace_owner
-			}
-			create_incident = {
-				country = scope:thrace_owner
-				value = 20
-			}
+	option = { # vanilla option 2
+		name = grefm.201.b
+		add_modifier = {
+			name = modifier_grefm_greek_resurgence
+			months = long_modifier_time
 		}
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
@@ -4949,15 +4948,9 @@ grefm.201 = { # megali idea phase 2
 				set_variable = byzfm_weaksauce
 			}
 		}
-		custom_tooltip = {
-			text = grefm_tzatzikisauce_tt
-			hidden_effect = {
-				set_variable = grefm_tzatzikisauce
-			}
-		}
 	}
 	
-	option = { # vanilla option 3, reordered for presentability
+	option = { # vanilla option 3
 		name = grefm.201.c
 		trigger = {
 			OR = {
@@ -5035,24 +5028,10 @@ grefm.201 = { # megali idea phase 2
 		}
 	}
 	
-	option = { # vanilla option 2, reordered for presentability
-		name = grefm.201.b
-		add_modifier = {
-			name = modifier_grefm_greek_resurgence
-			months = long_modifier_time
-		}
-		custom_tooltip = {
-			text = grefm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}
-	
 }
 
 grefm.202 = { # megali idea complete
-	## Pre-2.0 BYZ path branching occurred in byzfm.006, this event now provides branches into byzfm.300, eocfm.300, or grefm.300; BUL uses balkfm.300 via balkfm.207
+	## Pre-2.0 BYZ path branching occurred in byzfm.006, this event now provides branches into byzfm.300, eocfm.300, grefm.300, or grefm.204; BUL uses balkfm.570 via balkfm.587
 	type = country_event
 	placement = root
 	
@@ -5096,12 +5075,12 @@ grefm.202 = { # megali idea complete
 				}
 			}
 		}
+		change_tag = BYZ
 		set_variable = byzfm_purple_phoenix
 	}	
 	
 	option = { # The Revenge of the Greeks
 		name = grefm.202.2
-		default_option = yes
 		trigger = {
 			NOT = { has_variable = byzfm_weaksauce }
 		}
@@ -5115,17 +5094,17 @@ grefm.202 = { # megali idea complete
 				}
 			}
 		}
+		change_tag = BYZ
 		set_variable = byzfm_revenge_of_the_greeks
 	}
 
 	option = { # The Orthodox Realms
 		name = grefm.202.3
-		default_option = yes
 		trigger = {
 			NOT = { has_variable = byzfm_weaksauce }
 		}
 		custom_tooltip = {
-			text = byzfm_the_revenge_of_the_greeks_tt
+			text = byzfm_the_orthodox_realms_tt
 			hidden_effect = {
 				trigger_event = {
 					id = eocfm.300 # The Partiarchate Rises
@@ -5134,20 +5113,14 @@ grefm.202 = { # megali idea complete
 				}
 			}
 		}
+		change_tag = BYZ
 		set_variable = byzfm_texas_left
 	}
 
 	option = { # whimpy whimpy whimpy
 		name = grefm.202.4
-		trigger = {
-			NOT = { has_variable = byzfm_weaksauce }
-		}
-		add_modifier = {
-			name = modifier_grefm_greek_resurgence
-			months = long_modifier_time
-		}
 		custom_tooltip = {
-			text = grefm_weaksauce_tt
+			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
 			}
@@ -5155,28 +5128,13 @@ grefm.202 = { # megali idea complete
 		custom_tooltip = {
 			text = grefm_tzatzikisauce_tt
 			hidden_effect = {
-				set_variable = grefm_tzatzikisauce
-			}
-		}
-	}
-	
-	option = { # in case you're already whimpy
-		name = grefm.202.5
-		trigger = {
-			has_variable = byzfm_weaksauce
-		}
-		add_modifier = {
-			name = modifier_grefm_greek_resurgence
-			months = long_modifier_time
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_variable = grefm_tzatzikisauce
+				trigger_event = {
+					id = grefm.204 # Greater Greece
+					days = 30
 				}
 			}
-			set_variable = grefm_tzatzikisauce
 		}
+		set_variable = grefm_tzatzikisauce
 	}
 }
 
@@ -5202,6 +5160,7 @@ grefm.203 = { # The Lands of Thessaly
 	
 	trigger = {
 		NOT = { has_global_variable = grefm_thessaly_reminded }
+		c:GRE ?= this
 		NOT = { has_truce_with = c:TUR }	
 	}
 	
@@ -5252,7 +5211,7 @@ grefm.204 = { # greater greece
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
 	}
 	
 	immediate = {
@@ -5261,6 +5220,9 @@ grefm.204 = { # greater greece
 	option = {
 		name = grefm.204.a
 		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_greater_greece
+		}
 		if = {
 			limit = {
 				NOT = { owns_entire_state_region = STATE_CRETE }
@@ -5305,6 +5267,10 @@ grefm.204 = { # greater greece
 	
 	option = {
 		name = grefm.204.b
+		add_modifier = {
+			name = modifier_grefm_rebirth
+			months = very_long_modifier_time
+		}
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
 			hidden_effect = {
@@ -6132,7 +6098,275 @@ grefm.224 = { # MAC annexation
 
 #### GREEK ORTHODOX CHURCH EVENTS ####
 
-#-lol I keep putting this off-
+grefm.230 = { #  The Defence of Jonas King
+	type = country_event
+	placement = root
+	
+	title = grefm.230.t
+	desc = grefm.230.d
+	flavor = grefm.230.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_global_variable = jonas_king_started }
+		has_journal_entry = je_eocfm_patriarch_authority
+		owns_entire_state_region = STATE_ATTICA
+		OR = {
+			has_variable = grefm_1843_revolution_happened
+			has_variable = grefm_bavarocracy_completed
+		}
+	}
+	
+	immediate = {
+		set_global_variable = jonas_king_started
+		create_character = {
+			template = grefm_jonas_king_character_template
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_is_jonas_king
+			}
+			save_scope_as = grefm_jonas_scope
+		}
+		c:USA = {
+			save_scope_as = usa_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
+	}	
+	
+	option = { # Prosecute Jonas
+		name = grefm.230.a
+		default_option = yes
+		trigger_event = {
+			id = grefm.231 # Speech before the Areopagus
+			days = 240
+		}
+		add_radicals = {
+			religion = rel:protestant
+			value = small_radicals
+		}
+	}
+	
+	option = { # Let Jonas Go
+		name = grefm.230.b
+		add_loyalists = {
+			religion = rel:protestant
+			value = medium_radicals
+		}		
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+
+}
+
+grefm.231 = { # Speech before the Areopagus
+	type = country_event
+	placement = root
+	
+	title = grefm.231.t
+	desc = grefm.231.d
+	flavor = grefm.231.f
+	
+	event_image = {
+		video = "votp_hostile_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_is_jonas_king
+			}
+			save_scope_as = grefm_jonas_scope
+		}
+		c:USA = {
+			save_scope_as = usa_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
+	}	
+	
+	option = {
+		name = grefm.231.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_ejected_jonas
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			religion = rel:protestant
+			value = small_radicals
+		}
+		set_variable = grefm_jonas_yeeted
+	}
+
+}
+
+grefm.232 = { # Jonas King Returns
+	type = country_event
+	placement = root
+	
+	title = grefm.232.t
+	desc = grefm.232.d
+	flavor = grefm.232.f
+	
+	event_image = {
+		video = "unspecific_steam_ship"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_journal_entry = je_eocfm_patriarch_authority
+		has_variable = grefm_jonas_yeeted
+		NOT = { has_modifier = modifier_grefm_ejected_jonas }
+		any_character_in_void = {
+			has_variable = grefm_is_jonas_king
+		}
+	}
+	
+	immediate = {
+		remove_variable = grefm_jonas_yeeted
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_is_jonas_king
+			}
+			save_scope_as = grefm_jonas_scope
+		}
+		c:USA = {
+			save_scope_as = usa_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
+	}	
+	
+	option = { # Arrest Him!
+		name = grefm.232.a
+		default_option = yes
+		trigger_event = {
+			id = grefm.233 # Foreign Intercession for Jonas King
+			days = 45
+		}
+	}
+	
+	option = { # Leave Him Be
+		name = grefm.232.b
+		custom_tooltip = grefm.232.tt
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:protestant
+				country_rank >= rank_value:major_power
+			}
+			change_relations = {
+				country = c:GRE
+				value = 10
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_religious_deconfliction
+			months = normal_modifier_time
+		}		
+	}
+
+}
+
+grefm.233 = { # Foreign Intercession for Jonas King
+	type = country_event
+	placement = root
+	
+	title = grefm.233.t
+	desc = grefm.233.d
+	flavor = grefm.233.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_is_jonas_king
+			}
+			save_scope_as = grefm_jonas_scope
+		}
+		c:USA = {
+			save_scope_as = usa_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
+	}	
+	
+	option = { # Reconcile with King
+		name = grefm.233.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_religious_deconfliction
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = small_radicals
+		}
+	}
+	
+	option = { # We are the law
+		name = grefm.233.b
+		add_modifier = {
+			name = modifier_grefm_religious_witchhunt
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:USA
+			value = 10
+		}
+	}
+
+}
 
 #### GREEK ETHNOGENESIS EVENTS ####
 
@@ -7101,7 +7335,7 @@ grefm.264 = { # greco-roman relations
 	dlc = dlc_grefm
 
 	trigger = {
-		has_modifier = modifier_byzfm_ere_glory
+		has_modifier = modifier_byzfm_glory
 		NOT = { has_variable = byzfm_italian_homelands_event }
 		NOT = {	country_has_primary_culture = cu:north_italian }
 		NOT = {	country_has_primary_culture = cu:south_italian }
@@ -7232,10 +7466,11 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 			days = 30
 		}
 		add_modifier = {
-			name = unification_prestige
+			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
 		}
 	}
+	
 }
 
 grefm.301 = { # The Revenge of the Greeks
@@ -7513,9 +7748,6 @@ grefm.303 = { # The Shores of Phoenicia
 	option = { # nah bro, shits for the birds
 		name = grefm.303.b
 		change_infamy = -20
-		add_modifier = {
-			name = modifier_byzfm_rebirth
-		}
 		scope:byzantium_capital = {
 			add_modifier = {
 				name = modifier_byzfm_capital_assimiliation_boost
@@ -7639,6 +7871,7 @@ grefm.305 = { # The Lands of Arianōn
 			add_claim = ROOT
 		}
 	}
+	
 }
 
 grefm.306 = { # The Graveyard of Empires
@@ -7712,7 +7945,7 @@ grefm.307 = { # Hellenistic Empire choice
 		name = grefm.307.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
@@ -7728,7 +7961,7 @@ grefm.307 = { # Hellenistic Empire choice
 	option = { # remain BYZ
 		name = grefm.307.b
 		add_modifier = {
-			name = modifier_byzfm_ere_glory
+			name = modifier_byzfm_glory
 		}
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
@@ -7751,12 +7984,84 @@ grefm.307 = { # Hellenistic Empire choice
 ##########################################################
 # Currently, the only intentional compatibility is with "Morgenröte - Dawn of Flavor"
 
-#### MORGENRÖTE I EVENTS (Archeaology) ####
+#### MORGENRÖTE EVENTS ####
 
+grefm.800 = { # Archaeological Society of Athens (MGR Alternate)
+	type = country_event
+	placement = root
+	
+	title = grefm.800.t
+	desc = grefm.800.d
+	flavor = grefm.800.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = grefm.800.a
+		default_option = yes
+		custom_tooltip = grefm.800.tt
+	}
 
-#### MORGENRÖTE II EVENTS (Misc. Culture) ####
+}
 
+grefm.801 = { # A Greek Identity (MGR Alternate)
+	type = country_event
+	placement = root
+	
+	title = grefm.801.t
+	desc = grefm.801.d
+	flavor = grefm.801.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.801.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_archaiologiki_etaireia
+			months = long_modifier_time
+			multiplier = 10 # grants the full bonus value
+		}
+		add_loyalists = {
+			culture = cu:greek
+			value = small_radicals
+		}
+		set_variable = grefm_greek_identity_resolved
+	}
 
+}
 
 ##################################################
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
@@ -7775,6 +8080,8 @@ grefm.900 = { # Compatibility Checker
 	immediate = { # mod-specific adjustments are in their own scripted_effect to minimize clutter here
 	}
 	
+	orphan = yes
+	
 }
 
 
@@ -7784,10 +8091,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	hidden = yes
 	
 	trigger = {
-		c:ION ?= this
 		NOT = { has_variable = grefm_mainland_claims_added }
-		NOT = { has_variable = grefm_GRE }
-		NOT = { has_variable = byzfm_byzantium_formed }
 		is_subject = no
 	}
 	
@@ -7837,7 +8141,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 				add_claim = ROOT
 			}
 		}
-		post_notification = grefm_claims_added
+		post_notification = notification_grefm_claims_added
 	}
 	
 }
@@ -7852,7 +8156,9 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 	immediate = {
 		remove_variable = grefm_is_glucksburg
 		remove_variable = grefm_dr_moneybags_in_the_house
-		remove_variable = byzfm_byzantium_restored
+		set_variable = lepsius_local_artifact_minor
+		set_variable = lepsius_aegean_artifact_minor
+		set_variable = lepsius_first_excavation_team
 	}
 	
 }
@@ -7953,6 +8259,7 @@ grefm.910 = { # Epirus customs union with GRE
 		c:EPI ?= {
 			is_player = no
 			is_subject = no
+			is_diplomatic_play_committed_participant = no
 		}
 	}
 	
