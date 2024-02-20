@@ -4839,8 +4839,9 @@ grefm.201 = { # megali idea phase 2
 	dlc = dlc_grefm
 
 	trigger = {
-		has_variable = grefm_megali_idea_1
+		NOT = { has_variable = byzfm_byzantium_formed }
 		NOT = { has_variable = grefm_megali_idea_2 }
+		has_variable = grefm_megali_idea_1
 		owns_entire_state_region = STATE_THESSALIA
 		owns_entire_state_region = STATE_ATTICA
 		owns_entire_state_region = STATE_WESTERN_THRACE
@@ -5076,6 +5077,7 @@ grefm.202 = { # megali idea complete
 			}
 		}
 		change_tag = BYZ
+		set_variable = byzfm_byzantium_formed
 		set_variable = byzfm_purple_phoenix
 	}	
 	
@@ -5095,6 +5097,7 @@ grefm.202 = { # megali idea complete
 			}
 		}
 		change_tag = BYZ
+		set_variable = byzfm_byzantium_formed
 		set_variable = byzfm_revenge_of_the_greeks
 	}
 
@@ -5114,6 +5117,7 @@ grefm.202 = { # megali idea complete
 			}
 		}
 		change_tag = BYZ
+		set_variable = byzfm_byzantium_formed
 		set_variable = byzfm_texas_left
 	}
 
@@ -8156,6 +8160,7 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 	immediate = {
 		remove_variable = grefm_is_glucksburg
 		remove_variable = grefm_dr_moneybags_in_the_house
+		remove_global_variable = has_formed_tsar
 		set_variable = lepsius_local_artifact_minor
 		set_variable = lepsius_aegean_artifact_minor
 		set_variable = lepsius_first_excavation_team

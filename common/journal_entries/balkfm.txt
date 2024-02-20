@@ -118,7 +118,7 @@ je_great_eastern_crisis_sub = {
 	}
 
 	current_value = {
-		value = local_var:balkfm_crisis_local_var
+		value = var:balkfm_crisis_local_var
 	}
 
 	goal_add_value = {
@@ -159,6 +159,11 @@ je_balkfm_congress_of_berlin_main = {
 	on_complete = {
 		trigger_event = {
 			id = balkfm.119 # The Treaty of Berlin
+		}
+		hidden_effect = {
+			c:BUL ?= {
+				balkfm_create_bulgarian_characters = yes
+			}
 		}
 		hidden_effect = {
 			trigger_event = {
@@ -203,7 +208,7 @@ je_balkfm_congress_of_berlin_main = {
 		triggered_desc = {
 			desc = je_balkfm_congress_of_berlin_status1
 			trigger = {
-				global_var:balkfm_berlin_congress_var < 4
+				global_var:balkfm_berlin_congress_var <= 3
 			}
 		}
 		triggered_desc = {
@@ -955,6 +960,8 @@ je_balkfm_bul_russian_influence = {
 	
 	group = je_group_balkfm_bulgaria
 	
+	should_be_pinned_by_default = yes
+	
 	complete = {
 		custom_tooltip = {
 			text = je_balkfm_bul_royal_influence_status
@@ -986,6 +993,14 @@ je_balkfm_bul_railways = {
 	group = je_group_balkfm_bulgaria
 	
 	complete = {
+		any_scope_building = {
+			is_building_type = building_railway
+			building_has_goods_shortage = no
+		}
+		any_scope_building = {
+			has_active_production_method = pm_public_trams
+			building_has_goods_shortage = no
+		}
 	}
 	
 	on_complete = {
@@ -1064,8 +1079,11 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	
 	is_shown_when_inactive = {
 		c:BUL ?= this
-		NOT = { has_global_variable = balkfm_crisis_var }
-		NOT = { has_variable = balkfm_bulgarian_liberation }
+		NOR = { 
+			has_global_variable = balkfm_crisis_var
+			has_global_variable = balkfm_berlin_congress_var
+			has_variable = balkfm_bulgarian_liberation
+		}
 		owns_entire_state_region = STATE_BULGARIA
 		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
 	}
@@ -1075,10 +1093,10 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	}
 	
 	immediate = {
+		set_variable = balkfm_bulgarian_liberation
 		trigger_event = {
 			id = balkfm.580 # Dreams of the Tsardom
 		}
-		set_variable = balkfm_bulgarian_liberation
 	}
 	
 	complete = {
@@ -1108,42 +1126,18 @@ je_balkfm_bul_liberation_of_bulgaria = {
 }
 
 je_balkfm_bul_greater_bulgaria = {
-	# NOTE: there is a corner case where BUL can be released with both STATE_BULGARIA and STATE_NORTHERN_THRACE, AND the on_actions won't catch it
-	# The variable balkfm_bulgarian_liberation combined with the owns_entire_state_region triggers will activate the correct journal entry
-	# balkfm.583 can be triggered by either journal, but will add je_balkfm_bul_greater_bulgaria if balkfm_bulgarian_liberation is present
-	# Yes, this is hacky and I don't like it either
-
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
 	
 	group = je_group_balkfm_bulgaria
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-		c:BUL ?= this
-		NOT = { has_global_variable = balkfm_crisis_var }
-		NOT = { has_variable = balkfm_bulgarian_liberation }
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-	}
-	
-	possible = {
-		has_technology_researched = nationalism
-	}
-	
 	immediate = {
-		if = {
-			limit = {
-				NOT = { has_variable = balkfm_bulgarian_liberation }
-			}
-			trigger_event = {
-				id = balkfm.583 # Bulgarian Irredentism
-			}
-			set_variable = balkfm_bulgarian_liberation
-		}
 	}
 	
 	complete = {
+		has_law = law_type:law_monarchy
+		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
 		owns_entire_state_region = STATE_WESTERN_THRACE
@@ -1153,7 +1147,7 @@ je_balkfm_bul_greater_bulgaria = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.584 # The Bulgarian Empire
+			id = balkfm.584 # The Tsardom of Bulgaria
 		}
 	}
 	
@@ -1167,7 +1161,72 @@ je_balkfm_bul_greater_bulgaria = {
 
 }
 
-je_balkfm_bul_bulgarian_empire = {
+je_balkfm_bul_greater_bulgaria_alternate = {
+	# NOTE: there is a corner case where BUL can be released with both STATE_BULGARIA and STATE_NORTHERN_THRACE, AND the on_actions won't catch it
+	# The variable balkfm_bulgarian_liberation combined with the owns_entire_state_region triggers will activate the correct journal entry
+	# balkfm.583 can be triggered by either journal, but will add je_balkfm_bul_greater_bulgaria if balkfm_bulgarian_liberation is present
+	# Yes, this is hacky and I don't like it either
+
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:BUL ?= this
+		NOR = { 
+			has_global_variable = balkfm_crisis_var
+			has_global_variable = balkfm_berlin_congress_var
+			has_variable = balkfm_bulgarian_liberation
+		}
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_variable = balkfm_bulgarian_liberation }
+			}
+			set_variable = balkfm_bulgarian_liberation
+			trigger_event = {
+				id = balkfm.583 # Bulgarian Irredentism
+			}
+		}
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		is_subject = no
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.584 # The Tsardom of Bulgaria
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_weaksauce
+		}
+	}	
+	
+	weight = 500
+
+}
+
+je_balkfm_bul_tsardom = {
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
 	
 	group = je_group_balkfm_bulgaria
@@ -1175,12 +1234,12 @@ je_balkfm_bul_bulgarian_empire = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		has_law = law_type:law_monarchy
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
 		owns_entire_state_region = STATE_WESTERN_THRACE
 		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MACEDONIA		
-		owns_entire_state_region = STATE_WALLACHIA
+		owns_entire_state_region = STATE_MACEDONIA
 		owns_entire_state_region = STATE_NORTHERN_SERBIA
 		owns_entire_state_region = STATE_SOUTHERN_SERBIA
 		owns_entire_state_region = STATE_ALBANIA
@@ -1203,7 +1262,7 @@ je_balkfm_bul_bulgarian_empire = {
 
 }
 
-je_balkfm_bul_yugoslavia = {
+je_balkfm_bul_empire = {
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
 	
 	group = je_group_balkfm_bulgaria
@@ -1224,6 +1283,44 @@ je_balkfm_bul_yugoslavia = {
 		owns_entire_state_region = STATE_MONTENEGRO
 		owns_entire_state_region = STATE_BOSNIA
 		owns_entire_state_region = STATE_DALMATIA
+		owns_entire_state_region = STATE_CROATIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.586 # The Bulgarian Empire
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_weaksauce
+		}
+	}	
+	
+	weight = 500
+}
+
+je_balkfm_bul_yugoslavia = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_DOBRUDJA
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_ALBANIA
+		owns_entire_state_region = STATE_MONTENEGRO
+		owns_entire_state_region = STATE_BOSNIA
+		owns_entire_state_region = STATE_DALMATIA
 		owns_entire_state_region = STATE_SLAVONIA
 		owns_entire_state_region = STATE_CROATIA
 		owns_entire_state_region = STATE_ISTRIA
@@ -1231,7 +1328,7 @@ je_balkfm_bul_yugoslavia = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.586 # The Slavic Balkans
+			id = balkfm.587 # The Slavic Balkans
 		}
 	}
 	
@@ -1257,7 +1354,6 @@ je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 		owns_entire_state_region = STATE_WESTERN_THRACE
 		owns_entire_state_region = STATE_SKOPIA
 		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_WALLACHIA
 		owns_entire_state_region = STATE_ALBANIA
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		owns_entire_state_region = STATE_THESSALIA
@@ -1267,7 +1363,7 @@ je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.587 # leaps to byzfm side
+			id = balkfm.588 # The Queen of Cities
 		}
 		set_global_variable = grefm_megali_idea_completed
 	}
@@ -1275,7 +1371,6 @@ je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	invalid = {
 		hidden_trigger = {
 			OR = {
-				has_global_variable = grefm_megali_idea_completed
 				has_variable = balkfm_weaksauce
 				has_variable = byzfm_weaksauce
 			}

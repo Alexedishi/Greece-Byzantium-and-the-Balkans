@@ -72,9 +72,7 @@ balkfm_purchase_rail_button = {
 	}
 		
 	possible = {
-		hidden_trigger = {
-			always = yes
-		}
+		has_technology_researched = railways
 	}
 	
 	effect = {
@@ -134,7 +132,9 @@ balkfm_declare_tsardom_button = {
 	desc = "balkfm_declare_tsardom_desc"
 	
 	visible = {
+		NOT = { has_variable = balkfm_tsardom_declared }
 		is_subject = yes
+		exists = c:ERUM
 	}
 		
 	possible = {
@@ -142,12 +142,16 @@ balkfm_declare_tsardom_button = {
 			has_journal_entry = je_balkfm_bul_battenburg_monarchy
 		}
 		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
+		c:ERUM = {
+			is_subject_of = root
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = balkfm.582 # An Independent Bulgaria
 		}
+		custom_tooltip = balkfm_declare_tsardom_tt
+		set_variable = balkfm_tsardom_declared
 	}
 }

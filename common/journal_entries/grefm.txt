@@ -989,6 +989,7 @@ je_grefm_megali_idea = {
 
 	is_shown_when_inactive = {
 		country_has_primary_culture = cu:greek
+		NOT = { has_variable = byzfm_byzantium_formed }
 		NOT = { has_variable = grefm_megali_idea_1 }
 		NOT = { has_variable = grefm_megali_idea_2 }
 	}
@@ -1036,7 +1037,10 @@ je_grefm_megali_idea = {
 	
 	invalid = {
 		hidden_trigger = {
-			has_global_variable = grefm_megali_idea_completed
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = byzfm_weaksauce
+			}
 		}
 	}
 	
