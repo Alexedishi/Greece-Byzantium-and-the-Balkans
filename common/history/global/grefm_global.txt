@@ -1,11 +1,74 @@
-﻿COUNTRIES = {
+﻿GLOBAL = { # general mod setup
+	### Specific Country Setups
 	c:GRE = {
-		trigger_event = {
-			id = grefm.900 # grefm setup
-		}
 		trigger_event = {
 			id = grefm.001 # # Bavarocracy notification
 			days = 1 # scopes don't work unless we wait a day
 		}
+		add_modifier = modifier_eocfm_caesaropapism
+		set_variable = eocfm_dissolved_monasteries
+		set_variable = grefm_mainland_claims_added
 	}
+	
+	c:MON = {
+		trigger_event = {
+			id = balkfm.300 # A Feudal Relic
+			days = 1
+		}
+		balkfm_set_up_montenegro = yes
+	}
+	
+	c:SER = {
+		trigger_event = {
+			id = balkfm.400 # Mileta's Rebellion
+			days = 1
+		}
+		balkfm_set_monarchism_variables = yes
+	}
+	
+	c:RUS ?= {
+		set_variable = eocfm_is_autocephalous
+		set_variable = eocfm_controls_moscow
+	}
+	
+	c:TUR ?= {
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+	}
+	
+	c:EGY ?= {
+		set_variable = eocfm_controls_alexandria
+		set_variable = eocfm_controls_jerusalem
+	}
+	
+	c:PAP ?= {
+		set_variable = eocfm_controls_rome
+	}
+	
+	### Variables
+	set_global_variable = {
+		name = grefm_crete_revolt_var
+		value = 0
+	}
+	
+	every_country = {
+		limit = {
+			country_has_state_religion = rel:orthodox
+			NOT = { has_law = law_type:law_state_atheism }
+		}
+		trigger_event = {
+			id = eocfm.001 # The Bishops of the East
+		}
+	}
+	
+	set_global_variable = {
+		name = eocfm_council_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = grefm_balkan_wars_var
+		value = 0
+	}
+
 }

@@ -1,0 +1,32 @@
+﻿grefm_add_literary_tradition = {
+	#Truncated version of MGR's literary tradition effect, isolated to avoid touching MGR files directly
+	if = {
+		limit = {
+			morgenrote_is_active = yes
+		}
+		save_temporary_scope_value_as = { # this feels pedantic
+			name = literary_tradition_amount
+			value = 10
+		}
+	}
+	
+	# Calls MGR's tooltip... this tooltip is present in grefm, but gets overwritten by MGR
+	custom_tooltip = manzoni_add_x_literary_tradition_plus_x_tt
+	
+	# Add AMOUNT effect from MGR
+	if = { #Fallback if the variable does not exist yet
+		limit = {
+			NOT = {
+				has_variable = manzoni_literary_tradition_var
+			}
+		}
+		set_variable = {
+			name = manzoni_literary_tradition_var
+			value = 0
+		}
+	}
+	change_variable = {
+		name = manzoni_literary_tradition_var
+		add = scope:literary_tradition_amount
+	}
+}

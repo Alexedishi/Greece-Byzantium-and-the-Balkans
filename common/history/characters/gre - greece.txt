@@ -10,10 +10,14 @@
 			dna = dna_king_otto_of_greece
 			culture = cu:south_german
 			interest_group = ig_landowners
-			ideology = ideology_authoritarian
+			ideology = ideology_bavarocrat
 			traits = {
-				romantic
 				arrogant
+				romantic
+				trait_grefm_bavarocrat
+			}
+			on_created = {
+				set_variable = grefm_is_otto
 			}
 		}	
 		
@@ -26,10 +30,11 @@
 			culture = cu:south_german
 			ig_leader = yes
 			interest_group = ig_landowners
-			ideology = ideology_royalist
+			ideology = ideology_bavarocrat
 			traits = {
 				reckless
-				arrogant
+				imposing
+				trait_grefm_bavarocrat
 			}
 			on_created = {
 				set_variable = grefm_bavarocrat # just in case this guy is still alive in 1863
@@ -45,7 +50,7 @@
 			culture = cu:greek
 			ig_leader = yes
 			interest_group = ig_armed_forces
-			ideology = ideology_moderate
+			ideology = ideology_liberal_leader
 			traits = {
 				ambitious
 			}
@@ -67,7 +72,7 @@
 				pious
 			}
 			on_created = {
-#				set_variable = grefm_phanariot
+				set_variable = grefm_phanariot
 			}
 		}
 		
@@ -92,7 +97,65 @@
 			}
 		}
 		
-		create_character = { # lol not enough bureaucracy
+		create_character = {
+			# Alexandros Kontostavlos, member of Filiki Etaireia, business magnate, and Minister of Finance
+			first_name = Alexandros
+			last_name = Kontostavlos
+			birth_date = 1789.1.1
+			culture = cu:greek
+			religion = rel:orthodox
+			historical = yes
+			ig_leader = yes
+			interest_group = ig_petty_bourgeoisie
+			ideology = ideology_liberal_leader
+			traits = {
+				meticulous
+				basic_diplomat
+			}
+			on_created = {
+				set_variable = grefm_phanariot
+			}
+		}
+		
+		create_character = {
+			# Andreas Metaxas, first Prime Minister of Greece, was the man actually implementing the reforms of the era
+			first_name = Andreas
+			last_name = Metaxas
+			birth_date = 1790.1.1
+			dna = mr_gre_metaxas_andreas
+			culture = cu:greek
+			religion = rel:orthodox
+			historical = yes
+			ig_leader = yes
+			interest_group = ig_rural_folk # to reflect his position in rural laconia
+			ideology = ideology_social_democrat
+			traits = {
+				direct
+				expert_political_operator # he accomplished *a lot* behind the scenes
+			}
+			on_created = {
+				set_variable = grefm_phanariot
+			}
+		}
+		
+		create_character = {
+			# Kanellos Deligiannis, Morean business magnate and a prominent organizer of the revolution
+			first_name = Kanellos
+			last_name = Deligiannis
+			birth_date = 1780.1.1
+			culture = cu:greek
+			religion = rel:orthodox
+			historical = yes
+			ig_leader = yes
+			interest_group = ig_industrialists
+			ideology = ideology_liberal_leader
+			traits = {
+				arrogant
+				direct
+			}
+		}
+		
+		create_character = {
 			# Yannis Makriyannis, leader in the independence war and a leader in the 1843 revolution
 			first_name = "Yannis"
 			last_name = "Makriyannis"
@@ -103,6 +166,7 @@
 			interest_group = ig_armed_forces
 			traits = {
 				persistent
+				popular_commander
 			}
 		}
 		
@@ -114,8 +178,8 @@
 			historical = yes
 			age = 37
 			traits = {
-			#	romantic
-			#	poet
+				romantic
+				reserved
 			}
 			on_created = {
 				set_variable = grefm_bavarocrat
@@ -130,9 +194,9 @@
 			historical = yes
 			age = 40
 			traits = {
-			#	audacious
-			# 	expert_raider
-			 }
+				wrathful
+				expert_convoy_raider
+			}
 		}
 		
 		create_character = {
@@ -150,7 +214,7 @@
 				meticulous
 			}
 			on_created = {
-#				set_variable = grefm_phanariot
+				set_variable = grefm_phanariot
 				add_character_role = agitator
 			}
 		}

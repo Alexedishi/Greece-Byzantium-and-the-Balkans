@@ -1,0 +1,549 @@
+﻿je_eocfm_patriarch_authority = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_eocfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	invalid = {
+		OR = {
+			has_law = law_type:law_state_atheism
+			NOT = { country_has_state_religion = rel:orthodox }
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			eocfm_clean_up_modifiers = yes
+		}
+	}
+	
+	modifiers_while_active = {
+		modifier_eocfm_base
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			eocfm_update_authority = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			eocfm_update_bonus_malus = yes
+		}
+		random_events = {
+			400 = 0
+			5 = eocfm.002 # State-Church Relations
+			5 = eocfm.003 # Ecumenical Reforms
+			5 = eocfm.004 # Bible Translation Published
+			5 = eocfm.005 # Priestly Excesses
+			5 = eocfm.006 # A Heretical Ruler
+		}
+	}
+	
+	on_yearly_pulse = {
+		effect = {
+			eocfm_update_seat_ownership = yes
+		}
+	}
+	
+	scripted_button = eocfm_declare_autocephaly_button
+	scripted_button = eocfm_convoke_council_button
+	scripted_button = eocfm_commission_icon_button
+	scripted_button = eocfm_integrate_seat_button
+	scripted_button = eocfm_enact_caesaropapism_button
+	scripted_button = eocfm_revoke_caesaropapism_button
+	scripted_button = eocfm_subsidize_church_button
+	scripted_button = eocfm_stop_subsidies_button
+	scripted_button = eocfm_establish_sunday_schools_button
+	scripted_button = eocfm_disband_sunday_schools_button
+	scripted_button = eocfm_dissolve_the_monasteries_button
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eocfm_patriarch_authority_status
+			}
+		}
+	}	
+	
+	weight = 1000
+	
+}
+
+je_eocfm_autocephaly = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_eocfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	
+	on_complete = {
+		if = {
+			limit = {
+				c:GRE ?= this
+			}
+			trigger_event = {
+				id = eocfm.041 # The Tomos of Autocephaly
+			}
+		}
+		else_if = {
+			limit = {
+				c:MON ?= this
+			}
+			trigger_event = {
+				id = eocfm.043 # The Metropolitanate of Cetinje
+			}
+		}
+		else_if = {
+			limit = {
+				c:SER ?= this
+			}
+			trigger_event = {
+				id = eocfm.044 # The Metropolitanate of Belgrade
+			}
+		}
+		else_if = {
+			limit = {
+				c:BUL ?= this
+			}
+			trigger_event = {
+				id = eocfm.045 # The Patriarch of All Bulgaria
+			}
+		}
+		else = {
+			trigger_event = {
+				id = eocfm.040 # Autocephaly of the Church of X
+			}
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_law = law_type:law_state_atheism
+			NOT = { country_has_state_religion = rel:orthodox }
+		}
+	}
+	
+	on_invalid = {
+		remove_variable = eocfm_schism_var
+	}
+	
+	current_value = {
+		value = var:eocfm_schism_var
+	}
+
+	goal_add_value = {
+		add = 120
+	}
+	
+	progressbar = yes
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = eocfm_schism_var
+				add = 1
+			}
+		}
+	}
+	
+	weight = 1000
+
+}
+
+je_eocfm_integrating_seat = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_eocfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_integration_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = eocfm.051 # Patriarchal Seat Integrated
+		}
+	}
+	
+	invalid = {
+		NOT = {
+			has_journal_entry = je_eocfm_patriarch_authority
+		}
+	}
+	
+	on_invalid = {
+		eocfm_remove_intregration_variables = yes
+	}
+	
+	current_value = {
+		value = var:eocfm_integration_var
+	}
+
+	goal_add_value = {
+		add = 104
+	}
+	
+	progressbar = yes
+	
+	on_weekly_pulse = {
+		effect = {
+			change_variable = {
+				name = eocfm_integration_var
+				add = 1
+			}
+		}
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			200 = 0
+#			1 = eocfm.052 # Seat Integration Disputed (Part 1)
+		}
+	}
+	
+	weight = 1000
+
+}
+
+############################
+# THE ORTHODOX REALMS PATH #
+############################
+
+je_eocfm_the_metropolitan_lands = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_eocfm_ecumenical_aspirations
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt1
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 9
+					country_or_subject_owns_entire_state_region = STATE_ALBANIA
+					country_or_subject_owns_entire_state_region = STATE_BOSNIA
+					country_or_subject_owns_entire_state_region = STATE_BULGARIA
+					country_or_subject_owns_entire_state_region = STATE_CRETE
+					country_or_subject_owns_entire_state_region = STATE_CROATIA
+					country_or_subject_owns_entire_state_region = STATE_DALMATIA
+					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
+					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
+					country_or_subject_owns_entire_state_region = STATE_SKOPIA
+					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
+					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_THESSALIA
+					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt2
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 8
+					country_or_subject_owns_entire_state_region = STATE_ADANA
+					country_or_subject_owns_entire_state_region = STATE_ANKARA
+					country_or_subject_owns_entire_state_region = STATE_AYDIN
+					country_or_subject_owns_entire_state_region = STATE_CYPRUS
+					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_ERZURUM
+					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
+					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
+					country_or_subject_owns_entire_state_region = STATE_KONYA
+					country_or_subject_owns_entire_state_region = STATE_TRABZON
+				}
+			}
+		}
+	}
+		
+	on_complete = {
+		trigger_event = {
+			id = eocfm.302 # Nova Roma Constantinopolitana
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 10000
+}
+
+je_eocfm_church_of_the_east = {
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_eocfm_ecumenical_aspirations
+	}
+		
+	complete = {
+		country_rank >= rank_value:great_power
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+		country_or_subject_owns_entire_state_region = STATE_ALEPPO
+		country_or_subject_owns_entire_state_region = STATE_LEBANON
+		country_or_subject_owns_entire_state_region = STATE_SYRIA
+		country_or_subject_owns_entire_state_region = STATE_PALESTINE
+		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
+		country_or_subject_owns_entire_state_region = STATE_SINAI
+		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MATRUH
+		country_or_subject_owns_entire_state_region = STATE_LIBYA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = eocfm.304 # The Church of the East
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_rome_of_the_east_status
+			}
+		}
+	}	
+
+	weight = 10000
+	
+}
+
+je_eocfm_the_orthodox_realms = {
+	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
+	
+	group = je_group_eocfm_empire
+	
+	should_be_pinned_by_default = yes
+
+	modifiers_while_active = {
+		modifier_eocfm_ecumenical_aspirations
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_orthodox_realms_constantinople
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_variable = eocfm_controls_constantinople
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_orthodox_realms_antioch
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_ADANA
+					has_variable = eocfm_controls_antioch
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_orthodox_realms_alexandria
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_LOWER_EGYPT
+					has_variable = eocfm_controls_alexandria
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_orthodox_realms_jerusalem
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_PALESTINE
+					has_variable = eocfm_controls_jerusalem
+				}
+			}
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = eocfm.306 # The Orthodox Realms
+		}	
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eocfm_the_orthodox_realms_status
+			}
+		}
+	}
+
+	weight = 10000
+
+}
+
+
+
+je_eocfm_texas_left = { # yup, it's back
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	
+	group = je_group_eocfm_empire
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_eocfm_ecumenical_aspirations
+	}
+	
+	complete = {
+		calc_true_if = {
+			amount >= 4
+			country_or_subject_owns_entire_state_region = STATE_CRIMEA
+			country_or_subject_owns_entire_state_region = STATE_KARS
+			country_or_subject_owns_entire_state_region = STATE_GREATER_CAUCASUS
+			country_or_subject_owns_entire_state_region = STATE_DOBRUDJA
+			country_or_subject_owns_entire_state_region = STATE_ARMENIA
+			country_or_subject_owns_entire_state_region = STATE_AZERBAIJAN
+		}
+	}
+		
+	
+	on_complete = {
+		trigger_event = {
+			id = eocfm.307 # Moscow, the Third Rome
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 10000
+	
+}
+
+je_eocfm_the_third_rome = {
+	icon = "gfx/interface/icons/event_icons/event_russkie.dds"
+	
+	group = je_group_eocfm_empire
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_eocfm_ecumenical_aspirations
+	}
+	
+	complete = {
+		c:RUS ?= {
+			country_rank < rank_value:great_power
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_third_rome_tt1
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_MOSCOW
+					has_variable = eocfm_controls_moscow
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_eocfm_the_third_rome_tt2
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_variable = eocfm_controls_constantinople
+					owns_entire_state_region = STATE_ADANA
+					has_variable = eocfm_controls_antioch
+					owns_entire_state_region = STATE_LOWER_EGYPT
+					has_variable = eocfm_controls_alexandria
+					owns_entire_state_region = STATE_PALESTINE
+					has_variable = eocfm_controls_jerusalem
+				}
+			}
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = eocfm.308 # The Supremacy of Constantinopole
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_byzfm_the_third_rome_status
+			}
+		}
+	}
+
+	weight = 10000
+
+}

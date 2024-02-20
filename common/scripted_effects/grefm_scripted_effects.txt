@@ -1,11 +1,5 @@
 ﻿clean_up_bavarocracy_modifiers = {
-	ig:ig_intelligentsia = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_bavarocracy_opposition
-			}
-			remove_modifier = modifier_grefm_bavarocracy_opposition
-		}
+	every_interest_group = {
 		if = {
 			limit = {
 				has_modifier = modifier_grefm_constitution_refused
@@ -13,91 +7,15 @@
 			remove_modifier = modifier_grefm_constitution_refused
 		}
 	}
-	ig:ig_armed_forces = {
+	every_interest_group = {
 		if = {
 			limit = {
-				has_modifier = modifier_grefm_bavarocracy_opposition
+				has_modifier = modifier_grefm_constitution_enforced
 			}
-			remove_modifier = modifier_grefm_bavarocracy_opposition
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_constitution_refused
-			}
-			remove_modifier = modifier_grefm_constitution_refused
-		}
-	}
-	ig:ig_rural_folk = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_bavarocracy_opposition
-			}
-			remove_modifier = modifier_grefm_bavarocracy_opposition
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_constitution_refused
-			}
-			remove_modifier = modifier_grefm_constitution_refused
-		}
-	}
-	ig:ig_petty_bourgeoisie = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_bavarocracy_opposition
-			}
-			remove_modifier = modifier_grefm_bavarocracy_opposition
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_constitution_refused
-			}
-			remove_modifier = modifier_grefm_constitution_refused
-		}
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_grefm_tyrannical_ruler
-		}
-		remove_modifier = modifier_grefm_tyrannical_ruler
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_grefm_bavarocracy
-		}
-		remove_modifier = modifier_grefm_bavarocracy
-	}
-	if = {
-		limit = {
-			NOT = { has_variable = grefm_bavarocracy_removed }
-		}
-		set_variable = grefm_bavarocracy_removed
-	}
-}
-
-clean_up_bavarocracy_reform_modifiers = {
-	every_scope_state = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_brigandage
-			}
-			remove_modifier = modifier_grefm_brigandage
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_timar
-			}
-			remove_modifier = modifier_grefm_timar
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_poor_administration
-			}
-			remove_modifier = modifier_grefm_poor_administration
+			remove_modifier = modifier_grefm_constitution_enforced
 		}
 	}
 }
-
 
 create_cyprus_characters = {
 	create_character = {
@@ -159,11 +77,7 @@ create_epirus_characters = {
 			persistent
 			brave
 		}
-		on_created = {
-			set_variable = grefm_is_tzavelas
-		}
 	}
-	
 }
 
 purge_turkish_homelands = {
@@ -183,19 +97,6 @@ purge_turkish_homelands = {
 		state_region = {
 			remove_homeland = cu:turkish
 		}
-	}
-}
-
-recuit_tzavelas = {
-	random_character = {
-		limit = {
-			has_variable = grefm_is_tzavelas
-		}
-		save_scope_as = tzavelas_scope
-	}
-	scope:tzavelas_scope = {
-		transfer_character = c:GRE
-		set_as_interest_group_leader = yes
 	}
 }
 
@@ -236,9 +137,9 @@ grefm_create_feminism_characters = {
 }
 
 grefm_excavation_complete = {
-	change_variable = {
+	set_variable = {
 		name = grefm_excavation_var
-		subtract = 36
+		value = 0
 	}
 	every_scope_state = {
 		limit = {
@@ -302,6 +203,14 @@ grefm_excavation_complete = {
 			id = grefm.148 # larissa complete
 		}
 	}
+	else_if = {
+		limit = {
+			has_variable = grefm_rhodes_excavation
+		}
+		trigger_event = {
+			id = grefm.149 # rhodes complete
+		}
+	}
 	else = {
 		remove_modifier = modifier_grefm_active_excavation
 	}
@@ -310,5 +219,15 @@ grefm_excavation_complete = {
 			has_variable = grefm_excavation_target
 		}
 		remove_variable = grefm_excavation_target
+	}
+}
+
+grefm_artifact_modifier_effect = {
+	hidden_effect = {
+		remove_modifier = modifier_grefm_archaiologiki_etaireia
+	}
+	add_modifier = {
+		name = modifier_grefm_archaiologiki_etaireia
+		multiplier = grefm_artifact_value
 	}
 }

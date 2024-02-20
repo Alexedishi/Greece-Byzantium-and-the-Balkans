@@ -1,0 +1,128 @@
+﻿trait_grefm_bavarocrat = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/arrogant.dds"
+
+	character_modifier = {
+		character_popularity_add = -25
+	}
+
+	command_modifier = {
+	}
+	
+	country_modifier = {
+		country_authority_mult = 0.10
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.05
+	}
+	
+	possible = {
+		owner ?= {
+ 			has_variable = grefm_bavarocracy
+ 		}
+		is_heir = yes
+		NOT = { age < define:NCharacters|ADULT_AGE }
+	}
+	
+	weight = {
+		value = 1
+		if = {
+			limit = {
+				owner ?= {
+					has_variable = grefm_bavarocracy
+				}
+			}
+			multiply = 1000 # make it happen
+		}
+		else = {
+			multiply = 0
+		}
+	}
+				
+	replace = {
+		trait_child
+	}
+	
+	value = 1
+	
+}
+
+trait_grefm_turkophagos = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/social_banditry.dds"
+	
+	character_modifier = {
+		character_command_limit_mult = 0.3
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		unit_offense_mult = 0.2
+		character_battle_condition_surprise_maneuver_mult = 1.5
+		unit_morale_recovery_mult = 1
+	}
+	
+	country_modifier = {
+	}
+
+	agitator_modifier = {
+		interest_group_pol_str_mult = 0.025
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.05
+	}
+	
+	possible = {
+		always = no # unique to Nikitaras
+	}
+	
+	weight = {
+		value = 3
+	}
+				
+	replace = {
+	}
+	
+	value = 0
+}
+
+trait_grefm_ethnarch = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/erudite.dds"
+	
+	character_modifier = {
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		unit_offense_mult = 0.1
+		unit_defense_mult = 0.1
+	}
+	
+	country_modifier = {
+		country_authority_mult = 0.2
+	}
+
+	agitator_modifier = {
+		interest_group_pol_str_mult = 0.10
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.25
+	}
+	
+	possible = {
+		always = no # unique to Venizelos
+	}
+	
+	weight = {
+		value = 2
+	}
+				
+	replace = {
+	}
+	
+	value = 0
+}
