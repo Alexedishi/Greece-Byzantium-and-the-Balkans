@@ -29,7 +29,7 @@ namespace = balkfm
 #	100 - Great Eastern Crisis Warmup
 #	101 - Recruit Local Power
 #	102 - Recruit Great Power
-#	103 - OPEN
+#	103 - ## Recruit Ottoman Allies
 #	104 - Great Eastern Crisis Start (Initiator / Target)
 #	105 - Great Eastern Crisis Start (Attackers / Defenders)
 #	106 - The Treaty of San Stefano
@@ -257,11 +257,17 @@ balkfm.100 = { # Great Eastern Crisis Warmup
 	dlc = dlc_grefm
 	
 	trigger = {
-		
 		NOT = { has_global_variable = balkfm_crisis_happened }
 		NOT = { has_global_variable = balkfm_crisis_var }
-		c:TUR ?= this
-		has_technology_researched = nationalism	
+		has_technology_researched = nationalism
+		NOT = { has_technology_researched = pan-nationalism }
+		is_subject = no
+		is_junior_in_customs_union = no
+		OR = {
+			country_rank = rank_value:great_power
+			country_rank = rank_value:major_power
+			country_rank = rank_value:unrecognized_major_power
+		}
 		OR = {
 			c:GRE ?= {
 				has_technology_researched = nationalism
@@ -598,6 +604,95 @@ balkfm.102 = { # Recruit Great Power
 				}
 				add = 20
 			}
+		}
+	}
+	
+	after = {
+		remove_variable = balkfm_crisis_technical
+	}
+
+}
+
+balkfm.103 = { # Recruit Ottoman Ally
+	type = country_event
+	placement = root
+	
+	title = balkfm.103.t
+	desc = balkfm.103.d
+	flavor = balkfm.103.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = balkfm_crisis_offered	
+		set_variable = balkfm_crisis_technical
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = balkfm_crisis_technical
+				}
+				save_scope_as = balkfm_offered_scope
+			}
+		}
+	}	
+	
+	option = { # Honor the Alliance
+		name = balkfm.103.a
+		default_option = yes
+		custom_tooltip = {
+			text = balkfm_crisis_defend_tt
+			hidden_effect = {
+				set_variable = balkfm_crisis_defender
+			}
+		}
+		add_journal_entry = {
+			type = je_great_eastern_crisis_sub
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_balkfm_crisis_joined
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Hang the Porte out to dry
+		name = balkfm.103.b
+		change_relations = {
+			country = c:TUR
+			value = -50
+		}
+		set_variable = balkfm_crisis_rejected
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_balkfm_crisis_declined
+		}
+		ai_chance = {
+			base = 0 # your AI allies should not abandon you
 		}
 	}
 	
@@ -1006,7 +1101,7 @@ balkfm.108 = { # Creates GEC DP and Fires balkfm.109
 	trigger = {
 		NOT = { has_global_variable = balkfm_crisis_happened }
 		has_journal_entry = je_great_eastern_crisis_main
-		global_var:balkfm_crisis_var >= 250
+		global_var:balkfm_crisis_var >= 150
 		is_diplomatic_play_committed_participant = no
 		is_at_war = no
 	}
@@ -2197,7 +2292,6 @@ balkfm.122 = { # Great Britain Attempts Deconfliction
 		NOT = { has_global_variable = balkfm_crisis_gbr_deconfliction_var }
 		NOT = { has_global_variable = balkfm_crisis_happened }
 		has_journal_entry = je_great_eastern_crisis_main
-		global_var:balkfm_crisis_var >= 100
 		owns_entire_state_region = STATE_CYPRUS
 		c:GBR = {
 			is_ai = yes
@@ -2368,7 +2462,6 @@ balkfm.124 = { # France Attempts Deconfliction
 		NOT = { has_global_variable = balkfm_crisis_happened }
 		NOT = { has_global_variable = balkfm_crisis_fra_deconfliction_var }
 		has_journal_entry = je_great_eastern_crisis_main
-		global_var:balkfm_crisis_var >= 150
 		owns_entire_state_region = STATE_CYPRUS
 		c:FRA = {
 			is_ai = yes
@@ -2565,7 +2658,7 @@ balkfm.300 = { # A Feudal Relic
 		name = balkfm.300.a
 		default_option = yes
 		add_journal_entry = {
-			type = je_balkfm_mon_prince_bishropic
+			type = je_balkfm_mon_prince_bishopric
 		}
 		add_journal_entry = {
 			type = je_balkfm_mon_societal_reform

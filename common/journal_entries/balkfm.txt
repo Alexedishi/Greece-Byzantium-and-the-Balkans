@@ -35,23 +35,16 @@ je_great_eastern_crisis_main = {
 			balkfm.124 # France Attempts Deconfliction
 		}
 		effect = {
-			balkfm_launch_uprisings = yes
+			balkfm_recruit_participants = yes
 			change_global_variable = {
 				name = balkfm_crisis_var
 				add = 1
 			}
 			clamp_global_variable = {
 				name = balkfm_crisis_var
-				max = 250
+				max = 150
 				min = 0
 			}
-		}
-	}
-
-	on_monthly_pulse = {
-		effect = {
-			balkfm_recruit_local_power = yes
-			balkfm_recruit_great_power = yes
 		}
 	}
 		
@@ -61,7 +54,7 @@ je_great_eastern_crisis_main = {
 	}
 
 	goal_add_value = {
-		value = 250
+		value = 150
 	}
 
 	progressbar = yes
@@ -107,7 +100,7 @@ je_great_eastern_crisis_sub = {
 			}
 			clamp_global_variable = {
 				name = balkfm_crisis_var
-				max = 250
+				max = 150
 				min = 0
 			}
 			set_variable = {
@@ -306,7 +299,7 @@ je_balkfm_the_balkan_league = {
 # MONTENEGRO FLAVOR #
 #####################
 
-je_balkfm_mon_prince_bishropic = {
+je_balkfm_mon_prince_bishopric = {
 	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
 	
 	group = je_group_balkfm_montenegro
@@ -319,19 +312,19 @@ je_balkfm_mon_prince_bishropic = {
 	complete = {
 		NOT = { has_law = law_type:law_theocracy }
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishropic_tt1
+			text = balkfm_mon_prince_bishopric_tt1
 			hidden_trigger = {
 				has_variable = balkfm_mon_soc_completed
 			}
 		}
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishropic_tt2
+			text = balkfm_mon_prince_bishopric_tt2
 			hidden_trigger = {
 				has_variable = balkfm_mon_gov_completed
 			}
 		}
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishropic_tt3
+			text = balkfm_mon_prince_bishopric_tt3
 			hidden_trigger = {
 				has_variable = balkfm_mon_mil_completed
 			}

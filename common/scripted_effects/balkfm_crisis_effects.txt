@@ -1,47 +1,115 @@
 ﻿## EASTERN CRISIS EFFECTS ##
 
-balkfm_recruit_local_power = {
+balkfm_recruit_participants = {
 	if = {
 		limit = {
 			NOT = { has_global_variable = balkfm_crisis_happened }
 			global_var:balkfm_crisis_var >= 8
 			any_country = {
+				country_rank < rank_value:great_power
 				OR = {
 					capital = { region = sr:region_balkans }
 					capital = { region = sr:region_danubia }
-				}				
-				NOT = { has_variable = balkfm_crisis_offered }
-				country_rank < rank_value:great_power	
+				}
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}	
 			}
 		}
 		random_country = {
 			limit = {
+				country_rank < rank_value:great_power
 				OR = {
 					capital = { region = sr:region_balkans }
 					capital = { region = sr:region_danubia }
-				}				
-				NOT = { has_variable = balkfm_crisis_offered }
-				country_rank < rank_value:great_power	
+				}
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}					
 			}
 			trigger_event = {
 				id = balkfm.101 # Recruit Local Power
 			}
 		}
 	}
-}
-
-balkfm_recruit_great_power = {
-	if = {
+	else_if = {
 		limit = {
 			NOT = { has_global_variable = balkfm_crisis_happened }
-			global_var:balkfm_crisis_var >= 40
+			global_var:balkfm_crisis_var >= 24
+			any_country = {
+				country_rank >= rank_value:great_power
+				has_interest_marker_in_region = region_balkans
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_variable = balkfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				country_rank >= rank_value:great_power
+				has_interest_marker_in_region = region_balkans
+				NOR = {
+					has_variable = balkfm_crisis_offered
+					has_variable = balkfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+			trigger_event = {
+				id = balkfm.102 # Recruit Great Power
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_global_variable = balkfm_crisis_happened }
+			global_var:balkfm_crisis_var >= 36
 			any_country = {
 				NOR = {
 					has_variable = balkfm_crisis_offered
 					has_variable = balkfm_crisis_target
 				}
-				country_rank >= rank_value:great_power	
-				has_interest_marker_in_region = region_balkans
+				OR = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
 			}
 		}
 		random_country = {
@@ -50,30 +118,35 @@ balkfm_recruit_great_power = {
 					has_variable = balkfm_crisis_offered
 					has_variable = balkfm_crisis_target
 				}
-				country_rank >= rank_value:great_power	
-				has_interest_marker_in_region = region_balkans
+				OR = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
 			}
 			trigger_event = {
-				id = balkfm.102 # Recruit Great Power
+				id = balkfm.103 # Recruit Ottoman Ally
 			}
 		}
 	}
-}
-
-balkfm_launch_uprisings = {
-	if = {
+	else_if = {
 		limit = {
 			NOT = { exists = c:BOS }
-			global_var:balkfm_crisis_var > 200
+			global_var:balkfm_crisis_var > 100
 		}
 		trigger_event = {
 			id = balkfm.120 # Herzegovina Uprising
 		}
 	}
-	if = {
+	else_if = {
 		limit = {
 			NOT = { exists = c:BUL }
-			global_var:balkfm_crisis_var > 225
+			global_var:balkfm_crisis_var > 115
 		}
 		trigger_event = {
 			id = balkfm.121 # April Uprising (Bulgaria)
