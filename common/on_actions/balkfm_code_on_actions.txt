@@ -23,7 +23,8 @@ on_monthly_pulse_country = {
 
 on_wargoal_enforced = {
 	on_actions = {
-		byzfm_wargoal_enforced
+		eocfm_wargoal_enforced_1
+		eocfm_wargoal_enforced_2
 		balkfm_crisis_wargoal_enforced
 #		balkfm_thunderdome_wargoal_enforced
 	}
@@ -328,38 +329,50 @@ balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
 
 ############
 
-# This on_action changes the Crusade target's state religion. The crusade_target variable is set by the Crusade DP. This is very janky, I agree.
+# These on_actions changes the Crusade target's state religion or penalize the Crusade initiator if they lose. The crusade variables are set by the Crusade DP. This is very janky, I agree.
 
-byzfm_wargoal_enforced = {
+eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade success
 	trigger = {
-		any_country = {
-			has_variable = crusade_target
+		has_variable = eocfm_crusade_initiator
+		scope:target = {
+			has_variable = eocfm_crusade_target
 		}
 	}
 	effect = {
-		random_country = {
-			limit = {
-				has_variable = crusade_target
-			}
-			save_scope_as = crusade_target
-		}
-		random_country = {
-			limit = {
-				has_variable = byzfm_crusades_unlocked
-			}
-			save_scope_as = crusade_aggressor
-		}
-		scope:crusade_target = {
-			set_state_religion = rel:orthodox
-		}
+		remove_global_variable = eocfm_crusade_var
 		every_country = {
 			limit = {
-				has_variable = crusade_target
+				eocfm_crusade_participant_trigger = yes
 			}
-			remove_variable = crusade_target
+			trigger_event = {
+				id = eocfm.061 # Victorious Crusade
+			}
+			eocfm_crusade_cleanup = yes
 		}
 	}
 }
+
+eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
+	trigger = {
+		has_variable = eocfm_crusade_target
+		any_country = { # scope:initiator and scope:actor aren't available here, pdx pls
+			has_variable = eocfm_crusade_initiator
+		}
+	}
+	effect = {
+		remove_global_variable = eocfm_crusade_var
+		every_country = {
+			limit = {
+				eocfm_crusade_participant_trigger = yes
+			}
+			trigger_event = {
+				id = eocfm.062 # Failed Crusade
+			}
+			eocfm_crusade_cleanup = yes
+		}
+	}
+}
+	
 
 ############
 

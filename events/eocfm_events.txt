@@ -62,6 +62,11 @@ namespace = eocfm
 #	050 - ## Partiarchal Seat Claimed
 #	051 - ## Partiarchal Seat Integrated
 
+#060-061 - Crusade Events
+#	060 - The X Crusade
+#	061 - Victorious Crusade
+#	062 - Failed Crusade
+
 ##	#EOC1	OPEN	Events 100-199	##
 # // Nothing to place here... //
 
@@ -1039,7 +1044,7 @@ eocfm.031 = { # Council of X
 		default_option = yes
 		trigger = {
 			has_variable = byzfm_byzantium_restored
-			NOT = { has_global_variable = byzfm_crusades_unlocked }
+			NOT = { has_global_variable = eocfm_crusades_unlocked }
 		}
 		trigger_event = {
 			id = eocfm.032 # Birth of the New Crusades
@@ -1122,7 +1127,7 @@ eocfm.032 = { # Birth of the New Crusades
 					id = eocfm.032
 				}
 			}
-			set_global_variable = byzfm_crusades_unlocked
+			set_global_variable = eocfm_crusades_unlocked
 		}
 	}
 	
@@ -1132,7 +1137,7 @@ eocfm.032 = { # Birth of the New Crusades
 		trigger = {
 			has_modifier = modifier_eocfm_hosting_council
 		}
-		custom_tooltip = byzfm_crusades_enabled_tt
+		custom_tooltip = eocfm_crusades_enabled_tt
 	}
 	
 	option = {
@@ -1140,7 +1145,7 @@ eocfm.032 = { # Birth of the New Crusades
 		trigger = {
 			NOT = { has_modifier = modifier_eocfm_hosting_council }
 		}
-		custom_tooltip = byzfm_crusades_enabled_tt
+		custom_tooltip = eocfm_crusades_enabled_tt
 	}
 	
 	after = {
@@ -2289,6 +2294,238 @@ eocfm.053 = { # Seat Integration Disputed (Part 2)
 	}
 
 }
+
+eocfm.060 = { # Crusade Warmup
+	type = country_event
+	placement = root
+	
+	title = eocfm.060.t
+	desc = eocfm.060.d
+	flavor = eocfm.060.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = eocfm_crusade_initiator
+		NOT = { has_variable = eocfm_crusade_warmup_var }
+	}
+	
+	immediate = {
+		set_variable = eocfm_crusade_warmup_var
+		random_country = {
+			limit = {
+				has_variable = eocfm_crusade_target
+			}
+			save_scope_as = eocfm_crusade_target_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.060.a
+		default_option = yes
+		custom_tooltip = eocfm.060.tt
+	}
+
+}
+
+eocfm.061 = { # Victorious Crusade
+	type = country_event
+	placement = root
+	
+	title = {
+		triggered_desc = {
+			desc = eocfm.061.t1
+			trigger = {
+				has_variable = eocfm_crusade_initiator
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.061.t2
+			trigger = {
+				has_variable = eocfm_crusade_target
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = eocfm.061.d1
+			trigger = {
+				has_variable = eocfm_crusade_initiator
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.061.d2
+			trigger = {
+				has_variable = eocfm_crusade_target
+			}
+		}
+	}
+	flavor = eocfm.061.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_crusade_initiator
+			}
+			save_scope_as = eocfm_crusade_initiator_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_crusade_target
+			}
+			save_scope_as = eocfm_crusade_target_scope
+		}
+	}
+	
+	option = { # For the Initiator
+		name = eocfm.061.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_crusade_initiator
+		}
+		add_modifier = {
+			name = modifier_eocfm_successful_crusade
+			months = normal_modifier_time
+		}
+		show_as_tooltip = {
+			scope:eocfm_crusade_target_scope = {
+				set_state_religion = rel:orthodox
+			}
+		}
+	}
+	
+	option = { # For the Target
+		name = eocfm.061.b
+		trigger = {
+			has_variable = eocfm_crusade_target
+		}
+		set_state_religion = rel:orthodox
+		add_modifier = {
+			name = modifier_eocfm_forced_conversion
+			months = long_modifier_time
+		}
+	}
+
+}
+
+eocfm.062 = { # Victorious Crusade
+	type = country_event
+	placement = root
+	
+	title = {
+		triggered_desc = {
+			desc = eocfm.062.t1
+			trigger = {
+				has_variable = eocfm_crusade_initiator
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.062.t2
+			trigger = {
+				has_variable = eocfm_crusade_target
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = eocfm.062.d1
+			trigger = {
+				has_variable = eocfm_crusade_initiator
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.062.d2
+			trigger = {
+				has_variable = eocfm_crusade_target
+			}
+		}
+	}
+	flavor = eocfm.062.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_crusade_initiator
+			}
+			save_scope_as = eocfm_crusade_initiator_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_crusade_target
+			}
+			save_scope_as = eocfm_crusade_target_scope
+		}
+	}
+	
+	option = { # For the Initiator
+		name = eocfm.062.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_crusade_initiator
+		}
+		add_modifier = {
+			name = modifier_eocfm_failed_crusade
+			months = normal_modifier_time
+		}
+	}
+	
+	option = { # For the Target
+		name = eocfm.062.b
+		trigger = {
+			has_variable = eocfm_crusade_target
+		}
+		add_modifier = {
+			name = modifier_eocfm_resisted_conversion
+			months = long_modifier_time
+		}
+	}
+
+}
+
+
 ##########################################
 ##	#EOC1	OPEN		Events 100-199	##
 ##########################################
@@ -3037,7 +3274,7 @@ eocfm.312 = { # The Capture of the Great Mosque
 	trigger = {
 		owns_entire_state_region = STATE_HEDJAZ
 		NOT = { has_global_variable = byzfm_smoked_mecca }
-		has_variable = byzfm_crusades_unlocked
+		has_variable = eocfm_crusades_unlocked
 	}
 	
 	immediate = {
