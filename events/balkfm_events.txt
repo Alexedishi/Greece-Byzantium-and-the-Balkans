@@ -257,8 +257,8 @@ balkfm.100 = { # Great Eastern Crisis Warmup
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_global_variable = balkfm_crisis_happened }
 		NOT = { has_global_variable = balkfm_crisis_var }
+		NOT = { has_global_variable = balkfm_crisis_happened }
 		has_technology_researched = nationalism
 		NOT = { has_technology_researched = pan-nationalism }
 		is_subject = no
@@ -2127,9 +2127,10 @@ balkfm.119 = { # The Treaty of Berlin
 				days = 30
 			}
 		}
-		hidden_effect = {
-			balkfm_clean_up_crisis_variables = yes
-		}
+	}
+
+	after = {
+		balkfm_clean_up_crisis_variables = yes
 	}
 
 }
@@ -7303,6 +7304,32 @@ balkfm.910 = { # Cleans Up Global Crisis/Berlin Variables
 		remove_global_variable = balkfm_crisis_var
 		remove_global_variable = balkfm_berlin_congress_var
 	}
+	
+	
+	orphan = yes
+	
+}
+
+balkfm.911 = { # Cleans Up Balkan Wars Variables
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+#		every_country = {
+#			limit = {
+#				balkfm_thunderdome_participant_trigger = yes
+#			}
+#			balkfm_clean_up_thunderdome_variables = yes
+#		}
+#		remove_global_variable = balkfm_thunderdome_var
+	}
+	
+	
+	orphan = yes
 	
 }
 

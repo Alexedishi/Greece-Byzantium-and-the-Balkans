@@ -3278,6 +3278,7 @@ grefm.121 = { # The University of Athens
 	dlc = dlc_grefm
 	
 	trigger = {
+		morgenrote_is_active = no
 		country_has_primary_culture = cu:greek
 		NOT = { has_variable = grefm_athens_university_considered }
 		has_technology_researched = academia
@@ -8687,6 +8688,11 @@ grefm.914 = { # crete revolts again
 					}
 				}
 				add_diplomatic_play_war_support = { target = c:CRE value = 100 }
+				add_war_goal = {
+					holder = scope:crete_owner_scope
+					type = conquer_state
+					target_state = scope:crete_state_scope
+				}
 			}
 		}
 		hidden_effect = {

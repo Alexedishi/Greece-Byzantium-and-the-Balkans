@@ -89,9 +89,23 @@ balkfm_annex_rumelia_button = {
 	desc = "balkfm_annex_rumelia_desc"
 	
 	visible = {
-		is_subject = yes
-		exists = c:ERUM
 		NOT = { has_variable = balkfm_annex_rumelia_taken }
+		OR = {
+			AND = {
+				is_subject_of = c:TUR
+				c:ERUM ?= {
+					is_ai = yes
+					is_subject_of = c:TUR
+				}
+			}
+			AND = {
+				is_subject = no
+				c:ERUM ?= {
+					is_ai = yes
+					is_subject = no
+				}
+			}
+		}
 	}
 	
 	possible = {
