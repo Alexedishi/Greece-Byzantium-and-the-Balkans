@@ -17,7 +17,7 @@ BYZ = { # Byzantium overwritting vanilla entry
 		allow_overlord_canton = yes
 		subject_canton = BYZ
 		overlord_canton_scale = { @canton_scale_cross_x @canton_scale_cross_y }
-		priority = 0	
+		priority = 0
 	}
 	flag_definition = {
 		coa = BYZ_byzantine_empire
@@ -26,10 +26,12 @@ BYZ = { # Byzantium overwritting vanilla entry
 		overlord_canton_scale = { @canton_scale_cross_x @canton_scale_cross_y }
 		priority = 1
 		trigger = {
-			coa_def_monarchy_flag_trigger = yes
-			coa_def_autocracy_flag_trigger = yes
-			coa_def_military_junta_flag_trigger = yes
-			coa_def_fascist_flag_trigger = yes
+			OR = {
+				coa_def_monarchy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+				coa_def_military_junta_flag_trigger = yes
+				coa_def_fascist_flag_trigger = yes
+			}
 		}
 	}
 	flag_definition = {
@@ -51,6 +53,18 @@ BYZ = { # Byzantium overwritting vanilla entry
 		}
 	}
 	flag_definition = {
+		coa = ODXY_ecumene
+		allow_overlord_canton = yes
+		subject_canton = ODXY_ecumene
+		priority = 2
+		trigger = {
+			AND = {
+				coa_def_theocracy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+			}
+		}
+	}
+	flag_definition = {
 		coa = BYZ_byzantine_peoples_republic
 		allow_overlord_canton = yes
 		subject_canton = BYZ_byzantine_peoples_republic
@@ -66,9 +80,68 @@ BYZ = { # Byzantium overwritting vanilla entry
 
 ERE = {
 	flag_definition = {
-		coa = ERE
-		allow_overlord_canton = no
-		subject_canton = ERE
+		coa = BYZ
+		allow_overlord_canton = yes
+		subject_canton = BYZ
+		overlord_canton_scale = { @canton_scale_cross_x @canton_scale_cross_y }
+		priority = 0
+	}
+	flag_definition = {
+		coa = BYZ_byzantine_empire
+		allow_overlord_canton = yes
+		subject_canton = BYZ_byzantine_empire
+		overlord_canton_scale = { @canton_scale_cross_x @canton_scale_cross_y }
+		priority = 1
+		trigger = {
+			OR = {
+				coa_def_monarchy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+				coa_def_military_junta_flag_trigger = yes
+				coa_def_fascist_flag_trigger = yes
+			}
+		}
+	}
+	flag_definition = {
+		coa = BYZ_byzantine_republic
+		allow_overlord_canton = yes
+		subject_canton = BYZ_byzantine_republic
+		priority = 1
+		trigger = {
+			coa_def_republic_flag_trigger = yes
+		}
+	}
+	flag_definition = {
+		coa = BYZ_patriarchal_synod
+		allow_overlord_canton = yes
+		subject_canton = BYZ_patriarchal_synod
+		priority = 1
+		trigger = {
+			coa_def_theocracy_flag_trigger = yes
+		}
+	}
+	flag_definition = {
+		coa = ODXY_ecumene
+		allow_overlord_canton = yes
+		subject_canton = ODXY_ecumene
+		priority = 2
+		trigger = {
+			AND = {
+				coa_def_theocracy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+			}
+		}
+	}
+	flag_definition = {
+		coa = BYZ_byzantine_peoples_republic
+		allow_overlord_canton = yes
+		subject_canton = BYZ_byzantine_peoples_republic
+		priority = 10000 # going right past DEFAULT lol wtf pdx
+		trigger = {
+			OR = {
+				coa_def_communist_flag_trigger = yes
+				coa_def_anarchy_flag_trigger = yes
+			}
+		}
 	}
 }
 

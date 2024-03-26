@@ -1,4 +1,133 @@
-﻿# MONTENEGRO BUTTONS
+﻿# BALKAN WARS BUTTONS
+
+# YUGOSLAVIA BUTTONS
+balkfm_form_yugoslavia_button = {
+	name = "balkfm_form_yugoslavia"
+	desc = "balkfm_form_yugoslavia_desc"
+	
+	visible = {
+		NOR = {
+			has_global_variable = has_formed_yug
+			c:SRPS ?= this
+			c:TSAR ?= this
+			c:TRIU ?= this
+			c:BYZ ?= this
+		}
+	}
+	
+	possible = { 
+	# This are the vanilla requirements to form YUG, just retooled as a button
+	# BUL players: if this aligns poorly with previous Bulgarian conquests, remember: you're the one pulling a texas left into Yugoslavism
+		is_subject = no
+		custom_tooltip = {
+			text = balkfm_form_yug_tt
+			hidden_trigger = {
+				has_variable = balkfm_yugoslav_leader_var
+			}
+		}
+		calc_true_if = {
+			amount >= 8
+			owns_entire_state_region = STATE_NORTHERN_SERBIA
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			owns_entire_state_region = STATE_MONTENEGRO
+			owns_entire_state_region = STATE_BOSNIA
+			owns_entire_state_region = STATE_CROATIA
+			owns_entire_state_region = STATE_DALMATIA
+			owns_entire_state_region = STATE_SLAVONIA
+			owns_entire_state_region = STATE_SLOVENIA
+			owns_entire_state_region = STATE_ISTRIA
+			owns_entire_state_region = STATE_BANAT
+			owns_entire_state_region = STATE_DELVIDEK
+		}
+	}
+	
+	effect = {
+		change_tag = YUG
+		set_global_variable = has_formed_yug
+	}
+	
+}
+
+balkfm_austrian_agitation_button = {
+	name = "balkfm_austrian_agitation"
+	desc = "balkfm_austrian_agitation_desc"
+	
+	visible = {
+		c:AUS ?= {
+			any_scope_state = {
+				state_region = {
+					OR = {
+						is_homeland = cu:serb
+						is_homeland = cu:croat
+						is_homeland = cu:bosniak
+						is_homeland = cu:slovene
+						is_homeland = cu:bulgarian
+					}
+				}
+			}
+		}
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_nationalist_agitation
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		set_variable = balkfm_yugoslav_agitation_var
+		c:AUS ?= {
+			trigger_event = {
+				id = balkfm.205 # Yugoslavist Agitation in Austria
+			}
+		}
+	}
+}
+
+balkfm_ottoman_agitation_button = {
+	name = "balkfm_ottoman_agitation"
+	desc = "balkfm_ottoman_agitation_desc"
+	
+	visible = {
+		c:TUR ?= {
+			any_scope_state = {
+				state_region = {
+					OR = {
+						is_homeland = cu:serb
+						is_homeland = cu:croat
+						is_homeland = cu:bosniak
+						is_homeland = cu:slovene
+						is_homeland = cu:bulgarian
+					}
+				}
+			}
+		}
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_nationalist_agitation
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:TUR ?= {
+			trigger_event = {
+				id = balkfm.206 # Yugoslavist Agitation in Rumelia
+			}
+		}
+	}
+}
+
+# MONTENEGRO BUTTONS
 balkfm_compose_epic_button = {
 	name = "balkfm_compose_epic"
 	desc = "balkfm_compose_epic_desc"
@@ -29,8 +158,9 @@ balkfm_cement_monarchy_button = {
 	desc = "balkfm_cement_monarchy_desc"
 
 	visible = {
-		NOT = {
-			has_variable = balkfm_serbian_monarchy_resolved
+		NOR = {
+			has_variable = balkfm_pouring_cement_var
+			has_variable = balkfm_ser_cement_poured
 		}
 	}
 	
@@ -55,10 +185,50 @@ balkfm_cement_monarchy_button = {
 		custom_tooltip = {
 			text = balkfm_cement_monarchy_tt3
 			hidden_effect = {
-				set_variable = balkfm_serbian_monarchy_resolved
+				set_variable = {
+					name = balkfm_pouring_cement_var
+					value = 0
+				}
 			}
 		}
+		trigger_event = {
+			id = balkfm.420 # Cementing the Monarchy
+		}
 	}
+}
+
+balkfm_restore_serbia_button = {
+	name = "balkfm_restore_serbia"
+	desc = "balkfm_restore_serbia_desc"
+	
+	visible = {
+		NOT = { has_global_variable = has_formed_srps }
+		NOT = { c:YUG ?= this }
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_balkfm_ser_monarchism_tt
+			hidden_trigger = {
+				has_variable = balkfm_ser_cement_poured
+			}
+		}
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MONTENEGRO
+		owns_entire_state_region = STATE_BOSNIA
+		owns_entire_state_region = STATE_DALMATIA
+		owns_entire_state_region = STATE_SLAVONIA
+		owns_entire_state_region = STATE_BANAT
+		owns_entire_state_region = STATE_DELVIDEK
+	}
+	
+	effect = {
+		change_tag = SRPS
+		set_global_variable = has_formed_srps
+	}
+
 }
 
 # BULGARIA BUTTONS
@@ -167,5 +337,27 @@ balkfm_declare_tsardom_button = {
 		}
 		custom_tooltip = balkfm_declare_tsardom_tt
 		set_variable = balkfm_tsardom_declared
+	}
+}
+
+balkfm_proclaim_triune_button = {
+	name = "balkfm_proclaim_triune"
+	desc = "balkfm_proclaim_triune_desc"
+	
+	visible = {
+		NOT = { c:YUG ?= this }
+	}
+	
+	possible = {
+		is_subject = no
+		owns_entire_state_region = STATE_SLOVENIA
+		owns_entire_state_region = STATE_SLAVONIA
+		owns_entire_state_region = STATE_CROATIA
+		owns_entire_state_region = STATE_DALMATIA	
+	}
+	
+	effect = {
+		change_tag = TRIU
+		set_global_variable = has_formed_triu
 	}
 }

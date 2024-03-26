@@ -284,10 +284,232 @@ je_balkfm_the_balkan_league = {
 	
 }
 
+je_balkfm_thunderdome_main = {
+	# unused for now, this will be built out once I get this far
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}
+
+je_balkfm_thunderdome_sub = {
+	# unused for now, this will be built out once I get this far
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}
+
 ###############
 # YUGOSLAVISM #
 ###############
 
+je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for most Slavic tags
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_yugoslavism
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		OR = {
+			country_has_primary_culture = cu:serb
+			country_has_primary_culture = cu:croat
+			country_has_primary_culture = cu:bosniak
+			country_has_primary_culture = cu:slovene
+		}
+		NOR = { 
+			has_global_variable = has_formed_yug
+			has_global_variable = balkfm_yugoslavism_failed
+		}
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+		is_subject = no
+		hidden_trigger = { # these are here to block nacertanije from opening before a tag has independence
+			is_secessionist = no
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = balkfm_yugoslavism_started
+				}
+			}
+			set_variable = balkfm_yugoslav_leader_var # first come, first serve
+		}
+		balkfm_update_yugoslav_leader_scope = yes # avoids loc error in journal
+		if = {
+			limit = {
+				c:MON ?= this
+			}
+			trigger_event = {
+				id = balkfm.201 # Jugoslavism
+			}
+		}
+		else_if = {
+			limit = {
+				c:SER ?= this
+			}
+			trigger_event = {
+				id = balkfm.202 # "The Draft"
+			}
+		}
+		else = {
+			trigger_event = {
+				id = balkfm.200 # Illyrian Sentiment
+			}
+		}
+		set_global_variable = balkfm_yugoslavism_started
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_nacertanije_tt
+			hidden_trigger = {
+				c:YUG ?= this
+			}
+		}
+		has_technology_researched = pan-nationalism
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.209 # The Birth of Yugoslavia
+		}
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_balkfm_nacertanije_fail_tt
+			hidden_trigger = {
+				OR = {
+					c:SRPS ?= this
+					c:TSAR ?= this
+					c:TRIU ?= this
+					c:BYZ ?= this
+				}
+			}
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = balkfm_weaksauce
+				has_global_variable = balkfm_yugoslavism_failed
+			}
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_determine_yugoslav_leader = yes
+			balkfm_update_yugoslav_leader_scope = yes
+		}
+		events = {
+#			balkfm.204 # Yugoslav Uprising in X
+		}
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			180 = 0
+			20 = balkfm.203 # Yugoslav Breakaways Seek Union!
+			5 = balkfm.207 # Yugoslav Annexation
+		}
+	}
+	
+	scripted_button = balkfm_form_yugoslavia_button
+	scripted_button = balkfm_austrian_agitation_button
+	scripted_button = balkfm_ottoman_agitation_button
+
+	weight = 2000
+	
+}
+
+je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unification for Bulgaria
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_yugoslavism
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_nacertanije_tt
+			hidden_trigger = {
+				c:YUG ?= this
+			}
+		}
+		has_technology_researched = pan-nationalism		
+		owns_entire_state_region = STATE_BULGARIA
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_DOBRUDJA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.587 # The Slavic Balkans
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_variable = balkfm_weaksauce
+			has_global_variable = balkfm_yugoslavism_failed
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_determine_yugoslav_leader = yes
+			balkfm_update_yugoslav_leader_scope = yes
+		}
+		events = {
+#			balkfm.204 # Yugoslav Uprising in X
+		}
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			180 = 0
+			20 = balkfm.203 # Yugoslav Breakaways Seek Union!
+			5 = balkfm.207 # Yugoslav Annexation
+		}
+	}
+	
+	scripted_button = balkfm_form_yugoslavia_button
+	scripted_button = balkfm_austrian_agitation_button
+	scripted_button = balkfm_ottoman_agitation_button
+	
+	weight = 500
+	
+}
+	
 
 #####################
 # MONTENEGRO FLAVOR #
@@ -484,15 +706,7 @@ je_balkfm_mon_black_mountain = {
 	
 	group = je_group_balkfm_montenegro
 	
-	should_be_pinned_by_default = yes	
-	
-	is_shown_when_inactive = {
-		c:MON ?= this
-	}
-	
-	possible = {
-		has_technology_researched = nationalism
-	}
+	should_be_pinned_by_default = yes
 	
 	immediate = {
 	}
@@ -503,7 +717,7 @@ je_balkfm_mon_black_mountain = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.340 # The Lands of Montenegro
+			id = balkfm.381 # The Lands of Montenegro
 		}
 	}
 	
@@ -516,7 +730,7 @@ je_balkfm_mon_philosopher_bishop = {
 	
 	group = je_group_balkfm_montenegro	
 	
-	should_be_pinned_by_default = yes	
+	should_be_pinned_by_default = yes
 	
 	immediate = {
 	}
@@ -636,7 +850,7 @@ je_balkfm_ser_monarchism = {
 		custom_tooltip = {
 			text = je_balkfm_ser_monarchism_tt
 			hidden_trigger = {
-				has_variable = balkfm_serbian_monarchy_resolved
+				has_variable = balkfm_ser_cement_poured
 			}
 		}
 	}
@@ -681,6 +895,7 @@ je_balkfm_ser_monarchism = {
 			1 =	balkfm.412 # Plague Outbreak!
 			1 = balkfm.413 # Abusive Garrison
 			1 = balkfm.415 # National Desires
+			1 = balkfm.416 # Constitutional Reforms
 		}
 		effect = {
 			balkfm_update_dynasty_variables = yes
@@ -757,25 +972,112 @@ je_balkfm_ser_monarchism = {
 
 }
 
-je_balkfm_ser_nacertanije = {
+je_balkfm_ser_pouring_cement = {
+	icon = "gfx/interface/icons/event_icons/event_serbia_major1.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	
+	on_complete = {
+		set_variable = balkfm_ser_cement_poured
+		remove_variable = balkfm_pouring_cement_var
+	}
+	
+	fail = {
+		NOT = { has_law = law_type:law_monarchy }
+	}
+	
+	on_fail = {
+		remove_variable = balkfm_pouring_cement_var
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			200 = 0
+		}
+		effect = {
+			change_variable = {
+				name = balkfm_pouring_cement_var
+				add = 1
+			}
+		}
+	}
+	
+	current_value = {
+		value = root.var:balkfm_pouring_cement_var
+	}
+
+	goal_add_value = {
+		add = 60 # 5 years if you avoid every negative option
+	}
+
+	progressbar = yes
+	
+	weight = 500
+	
+}
+
+
+je_balkfm_ser_constitutionalism = {
+	icon = "gfx/interface/icons/event_icons/event_serbia_major2.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_modifier = modifier_balkfm_royal_turmoil }
+		NOR = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+			has_law = law_type:law_landed_voting
+		}
+		NOR = {
+			has_law = law_type:law_censorship
+			has_law = law_type:law_outlawed_dissent
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.417 # A New Constitution
+		}
+	}
+	
+	timeout = 1825 # mod's been out for over a year and this my first timeout journal since the Bavarocracy journals... anyway, this number is arbitrary. This should be neither too easy or too hard. 
+	
+	on_timeout = {
+		trigger_event = {
+			id = balkfm.418 # Absent Reform
+		}
+	}
+	
+	
+	weight = 500
+	
+}
+
+je_balkfm_ser_serbian_heartlands = {
 	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
 	
 	group = je_group_balkfm_serbia
 	
 	should_be_pinned_by_default = yes	
-
-	is_shown_when_inactive = {
-		c:SER ?= this
-	}
-	
-	possible = {
-		has_technology_researched = nationalism
-	}
 	
 	immediate = {
-		trigger_event = {
-			id = balkfm.480 # "The Draft"
-		}
 	}
 	
 	complete = {
@@ -785,8 +1087,47 @@ je_balkfm_ser_nacertanije = {
 	}
 	
 	on_complete = {
-		custom_tooltip = balkfm_content_planned
+		trigger_event = {
+			id = balkfm.481 # Greater Serbia
+		}
 	}
+
+	weight = 1000
+
+}
+
+je_balkfm_ser_greater_serbia = {
+	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_ser_greater_serbia_tt
+			hidden_trigger = {
+				c:SRPS ?= this
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.482 # The Rebirth of the Serbian Empire
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			NOT = { c:SER ?= this }
+		}
+	}
+	
+	scripted_button = balkfm_restore_serbia_button
 
 	weight = 1000
 
@@ -1288,46 +1629,6 @@ je_balkfm_bul_empire = {
 	weight = 500
 }
 
-je_balkfm_bul_yugoslavia = {
-	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
-	
-	group = je_group_balkfm_bulgaria
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_DOBRUDJA
-		owns_entire_state_region = STATE_NORTHERN_SERBIA
-		owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_ALBANIA
-		owns_entire_state_region = STATE_MONTENEGRO
-		owns_entire_state_region = STATE_BOSNIA
-		owns_entire_state_region = STATE_DALMATIA
-		owns_entire_state_region = STATE_SLAVONIA
-		owns_entire_state_region = STATE_CROATIA
-		owns_entire_state_region = STATE_ISTRIA
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.587 # The Slavic Balkans
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_weaksauce
-		}
-	}	
-	
-	weight = 500
-}
-
 je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
@@ -1482,3 +1783,47 @@ je_balkfm_bul_restoration = { # this copied in from the byzfm side, only differe
 ###########
 
 
+######################
+# SLOVENIA / CROATIA #
+######################
+
+je_balkfm_triune_restoration = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_triune
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_triune_restoration_tt
+			hidden_trigger = {
+				c:TRIU ?= this
+			}
+		}
+		has_technology_researched = pan-nationalism
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.981 # Restoration of the Triune Kingdom
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = balkfm_weaksauce
+				has_global_variable = has_formed_triu
+			}
+		}
+	}
+	
+	scripted_button = balkfm_proclaim_triune_button
+	
+	weight = 500
+	
+}

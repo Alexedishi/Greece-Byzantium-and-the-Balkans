@@ -562,7 +562,7 @@ je_grefm_the_dedilomeni_principle_otto_alternate = {
 						has_law = law_type:law_universal_suffrage
 					}
 					trigger_event = {
-						id = grefm.033 # a harmonious state
+						id = grefm.032 # a harmonious state
 					}
 				}
 				else = {
@@ -890,7 +890,11 @@ je_grefm_the_military_league = { # this is a modified vanilla coup JE
 	
 }
 
-je_grefm_venizelism = {
+################################
+# THAT NONSENSE WITH VENIZELOS #
+################################
+
+je_grefm_venizelism_main = {
 	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
 	
 	group = je_group_grefm_venizelos
@@ -901,17 +905,68 @@ je_grefm_venizelism = {
 		custom_tooltip = {
 			text = je_grefm_venizelism_tt1
 			hidden_trigger = {
-				has_variable = grefm_megali_idea_3
+				has_variable = grefm_greek_nationalism_completed
 			}
 		}
 		custom_tooltip = {
 			text = je_grefm_venizelism_tt2
 			hidden_trigger = {
-				has_variable = grefm_greek_nationalism_completed
+				has_variable = grefm_venizelism_civics_completed
 			}
 		}
+		custom_tooltip = {
+			text = je_grefm_venizelism_tt3
+			hidden_trigger = {
+				has_variable = grefm_venizelism_military_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_venizelism_tt4
+			hidden_trigger = {
+				has_variable = grefm_venizelism_society_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_venizelism_tt5
+			hidden_trigger = {
+				has_variable = grefm_venizelism_education_completed
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.059 # The Greek State Resurgent
+		}
+		set_variable = grefm_venizelism_completed
+	}
+	
+	fail = {
+		OR = {
+			has_law = law_type:law_council_republic
+			has_law = law_type:law_anarchy
+		}
+	}
+	
+	on_fail = {
+		set_variable = grefm_venizelism_completed
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_venizelist_tilt # Ankyra! Ankyra! Ankyra!
+	}
+	
+	weight = 2000
+
+}
+
+je_grefm_venizelism_civics = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_grefm_venizelos
+	
+	complete = {
 		has_law = law_type:law_universal_suffrage
-		has_law = law_type:law_state_religion
 		NOT = { has_law = law_type:law_hereditary_bureaucrats }
 		OR = {
 			has_law = law_type:law_commercialized_agriculture
@@ -921,60 +976,191 @@ je_grefm_venizelism = {
 			has_law = law_type:law_dedicated_police
 			has_law = law_type:law_militarized_police
 		}
-		has_law = law_type:law_public_schools
-		has_law = law_type:law_compulsory_primary_school
-	}
-	
-	on_complete = {
-		custom_tooltip = grefm_future_update_tt
-	}
-	
-	fail = {
-		OR = {
-			has_law = law_type:law_council_republic
-			has_law = law_type:law_presidential_republic
-			has_law = law_type:law_anarchy
-		}
-	}
-	
-	on_fail = {
-	}
-	
-	modifiers_while_active = {
-		modifier_grefm_venizelist_tilt
-	}
-	
-	weight = 2000
-
-}
-		
-je_grefm_the_balkan_league = {
-	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
-	
-	group = je_group_grefm_balkans
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-	
-	on_monthly_pulse = {
-		events = {
-		}
-		effect = {
-			change_global_variable = {
-				name = grefm_balkan_wars_var
-				add = 1
+		any_scope_building = {
+			is_building_type = building_government_administration
+			OR = {
+				has_active_production_method = pm_vertical_filing_cabinets
+				has_active_production_method = pm_switch_boards
 			}
 		}
 	}
 	
-	weight = 2000
+	on_complete = {
+		trigger_event = {
+			id = grefm.052 # A Competent Bureaucracy
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_variable = grefm_venizelism_completed
+			has_variable = grefm_venizelism_civics_completed
+		}
+	}
+	
+	weight = 500
 	
 }
+
+je_grefm_venizelism_military = { # The numbers used in this journal are not arbitrary. See the notes below.
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	group = je_group_grefm_venizelos
+	
+	complete = {
+		has_law = law_type:law_mass_conscription
+		any_combat_unit = {
+			count >= 80 # This is based on the frontline forces of the Army of Thessaly; see below.
+			OR = {
+				has_unit_type = unit_type:combat_unit_type_trench_infantry
+				has_unit_type = unit_type:combat_unit_type_squad_infantry
+				has_unit_type = unit_type:combat_unit_type_mechanized_infantry
+				has_unit_type = unit_type:combat_unit_type_shrapnel_artillery
+				has_unit_type = unit_type:combat_unit_type_siege_artillery
+				has_unit_type = unit_type:combat_unit_type_heavy_tank
+			}
+		}
+		any_combat_unit = {
+			count >= 20 # This is a round number based on surface combatants at the start of WWI; see below.
+			OR = {
+				has_unit_type = unit_type:combat_unit_type_destroyer
+				has_unit_type = unit_type:combat_unit_type_torpedo_boat
+				has_unit_type = unit_type:combat_unit_type_scout_cruiser
+				has_unit_type = unit_type:combat_unit_type_ironclad
+				has_unit_type = unit_type:combat_unit_type_dreadnought
+				has_unit_type = unit_type:combat_unit_type_battleship
+			}
+		}
+	}
+	
+	## Some Notes on the completion requirements (drawn from Greek-language sources):
+		# The Greek Army during the First Balkan War consisted of roughly 130k men with no corps-level or higher structure in place until war was declared.
+			# The primary force was was the "Army of Thessaly", with roughly 100k men, of which 80k were organized into frontline units. The "Concise History of the Balkan Wars" states:
+				# 59 Infantry with 4 Evzones battalions
+				# 8 Cavalry Companies
+				# 32 Artillery Companies
+			# The Secondary force was of the "Army of Epirus" that varied from 10k to 13k men with various forms of organization.
+			# A third force the "Interior Army" is referenced in some sources with between 10k to 20k men, but doesn't seem to have been intended as a frontline formation.
+		# The Hellenic navy had around a dozen ships during the Balkan Wars with a rapid expansion of the Navy occuring after the outbreak of hostilities; They joined WWI with 22 surface combatants.
+		# I have contradicting sources about when exactly conscription was adopted and in which forms, but it was definitely in place as general conscription by 1917 when Greece joined WWI.
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.054 # A Formidable Military
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_variable = grefm_venizelism_completed
+			has_variable = grefm_venizelism_military_completed
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_grefm_venizelism_society = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+	
+	group = je_group_grefm_venizelos
+
+	complete = {
+		NOT = { has_law = law_type:law_no_womens_rights }
+		NOT = { has_law = law_type:law_child_labor_allowed }
+		NOT = { has_law = law_type:law_no_workers_rights }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.056 # A Modern Society
+		}
+	}
+
+	invalid = {
+		OR = {
+			has_variable = grefm_venizelism_completed
+			has_variable = grefm_venizelism_society_completed
+		}
+	}
+
+	weight = 500
+
+}
+
+je_grefm_venizelism_education = {
+	icon = "gfx/interface/icons/event_icons/tutorial_icon.dds"
+	
+	group = je_group_grefm_venizelos
+	
+	complete = {
+		has_law = law_type:law_public_schools
+		has_law = law_type:law_compulsory_primary_school
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 4
+		}
+		literacy_rate >= 0.50
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.058 # An Educated Populace
+		}
+	}
+	
+	invalid = {
+		OR = {
+			has_variable = grefm_venizelism_completed
+			has_variable = grefm_venizelism_education_completed
+		}
+	}
+	
+	weight = 500
+
+}
+
+je_grefm_venizelism_constitution = {
+	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
+	
+	group = je_group_grefm_venizelos
+
+	complete = {
+		NOT = { has_law = law_type:law_monarchy }
+	}
+	
+	on_complete = {
+		if = {
+			limit = {
+				NOT = { has_variable = grefm_bavarocracy }
+			}
+			trigger_event = {
+				id = grefm.023 # The Monarchy Abolished
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = grefm_bavarocracy
+			}
+			show_as_tooltip = {
+				trigger_event = {
+					id = grefm.005 # This is for looks, it triggers from the monthly pulse
+				}
+			}
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_venizelism_completed
+		}
+	}
+
+	weight = 500
+
+}
+
 
 ###################
 # THE MEGALI IDEA #
@@ -1649,6 +1835,53 @@ je_grefm_the_graveyard_of_empires = {
 # OTHER FLAVOR #
 ################
 
+je_grefm_grecoturkism = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_grefm_content
+	
+	modifiers_while_active = {
+		modifier_grefm_turkish_integration
+	}
+	
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = grefm.265 # Greco-Turkish Relations
+		}
+		show_as_tooltip = {
+			add_primary_culture = cu:turkish
+		}
+		set_variable = grefm_turkeytime # enables grefm.900
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = grefm_turkish_integration_var
+				add = 1
+			}
+		}
+	}
+		
+	
+	current_value = {
+		value = root.var:grefm_turkish_integration_var
+	}
+
+	goal_add_value = {
+		value = 240
+	}
+
+	progressbar = yes
+
+	weight = 1000
+	
+}
+
 je_grefm_corinth_canal_survey = {
 	icon = "gfx/interface/icons/event_icons/event_map.dds"
 	
@@ -1951,6 +2184,14 @@ je_grefm_archaeology_mgr = { # Alternate journal entry; Replaces je_grefm_archae
 	
 }
 
+je_grefm_venizelism_humanities = { # This journal is added alongside the other Venizelism entries if MGR is present; this represents Venizelo's recognition of the Greek humanities
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_grefm_nationalism
+	
+	weight = 500
+	
+}
 
 #####################
 # UNUSED /TECHNICAL #
@@ -1971,4 +2212,62 @@ je_grefm_intro = {
 	
 	weight = 1
 	
+}
+
+je_grefm_venizelism = { # this is here to avoid breaking saves; this will disappear in the future
+	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
+	
+	group = je_group_grefm_venizelos
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_venizelism_tt1x
+			hidden_trigger = {
+				has_variable = grefm_megali_idea_3
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_venizelism_tt2x
+			hidden_trigger = {
+				has_variable = grefm_greek_nationalism_completed
+			}
+		}
+		has_law = law_type:law_universal_suffrage
+		has_law = law_type:law_state_religion
+		NOT = { has_law = law_type:law_hereditary_bureaucrats }
+		OR = {
+			has_law = law_type:law_commercialized_agriculture
+			has_law = law_type:law_homesteading
+		}
+		OR = {
+			has_law = law_type:law_dedicated_police
+			has_law = law_type:law_militarized_police
+		}
+		has_law = law_type:law_public_schools
+		has_law = law_type:law_compulsory_primary_school
+	}
+	
+	on_complete = {
+		custom_tooltip = grefm_future_update_tt
+	}
+	
+	fail = {
+		OR = {
+			has_law = law_type:law_council_republic
+			has_law = law_type:law_presidential_republic
+			has_law = law_type:law_anarchy
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_venizelist_tilt
+	}
+	
+	weight = 2000
+
 }

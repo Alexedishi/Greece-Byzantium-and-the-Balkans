@@ -1,4 +1,109 @@
-﻿## MONTENEGRO EFFECTS ##
+﻿##YUGOSLAVIA EFFECTS ##
+balkfm_determine_yugoslav_leader = {
+	if = {
+		limit = {
+			has_variable = balkfm_yugoslav_leader_var
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_yugoslav_leader_var
+			}
+			remove_variable = balkfm_yugoslav_leader_var
+		}
+	}
+	ordered_country = {
+		limit = {
+			OR = {
+				has_journal_entry = je_balkfm_nacertanije
+				has_journal_entry = je_balkfm_nacertanije_alternate
+			}
+		}
+		order_by = prestige
+		max = 1
+		check_range_bounds = no
+		set_variable = balkfm_yugoslav_leader_var
+	}
+}
+
+balkfm_update_yugoslav_leader_scope = {
+	random_country = {
+		limit = {
+			has_variable = balkfm_yugoslav_leader_var
+		}
+		save_scope_as = yugoslav_leader_scope
+	}
+}
+
+balkfm_rile_up_yugoslavs = {
+	add_radicals = {
+		culture = cu:serb
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:croat
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:bosniak
+		value = large_radicals
+	}	
+	add_radicals = {
+		culture = cu:slovene
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:bulgarian
+		value = large_radicals
+	}	
+}
+
+balkfm_sad_yugoslavs = {
+	add_radicals = {
+		culture = cu:serb
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:croat
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:bosniak
+		value = large_radicals
+	}	
+	add_radicals = {
+		culture = cu:slovene
+		value = large_radicals
+	}
+	add_radicals = {
+		culture = cu:bulgarian
+		value = large_radicals
+	}	
+}
+
+balkfm_happy_yugoslavs = {
+	add_loyalists = {
+		culture = cu:serb
+		value = large_radicals
+	}
+	add_loyalists = {
+		culture = cu:croat
+		value = large_radicals
+	}
+	add_loyalists = {
+		culture = cu:bosniak
+		value = large_radicals
+	}	
+	add_loyalists = {
+		culture = cu:slovene
+		value = large_radicals
+	}
+	add_loyalists = {
+		culture = cu:bulgarian
+		value = large_radicals
+	}	
+}
+
+## MONTENEGRO EFFECTS ##
 balkfm_set_up_montenegro = {
 	ig:ig_landowners = {
 		leader = {
@@ -292,7 +397,7 @@ balkfm_obrenovic_takeover = {
 		scope:balkfm_heir_scope = {
 			kill_character = yes # get better parents next time bub
 		}
-	}	
+	}
 	if = {
 		limit = {
 			exists = scope:balkfm_obrenovic_scope
