@@ -69,22 +69,34 @@ balkfm_austrian_agitation_button = {
 	}
 	
 	possible = {
-		NOT = {
-			has_modifier = modifier_balkfm_nationalist_agitation
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		hidden_trigger = {
+			NOT = { has_global_variable = balkfm_yugoslav_agitation_var }
 		}
 	}
 	
 	effect = {
+		set_global_variable = balkfm_yugoslav_agitation_var
+		set_variable = balkfm_yugoslav_agitation_actor
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation
 			months = 37
 		}
-		set_variable = balkfm_yugoslav_agitation_var
 		c:AUS ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland = yes
+				}
+				set_variable = balkfm_yugoslav_agitation_target
+			}
 			trigger_event = {
 				id = balkfm.205 # Yugoslavist Agitation in Austria
 			}
 		}
+		trigger_event = {
+			id = balkfm.205 # Yugoslavist Agitation in Austria
+		}
+		remove_global_variable = balkfm_yugoslav_agitation_var
 	}
 }
 
@@ -109,21 +121,34 @@ balkfm_ottoman_agitation_button = {
 	}
 	
 	possible = {
-		NOT = {
-			has_modifier = modifier_balkfm_nationalist_agitation
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		hidden_trigger = {
+			NOT = { has_global_variable = balkfm_yugoslav_agitation_var }
 		}
 	}
 	
 	effect = {
+		set_global_variable = balkfm_yugoslav_agitation_var
+		set_variable = balkfm_yugoslav_agitation_actor
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation
 			months = 37
 		}
 		c:TUR ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland = yes
+				}
+				set_variable = balkfm_yugoslav_agitation_target
+			}
 			trigger_event = {
-				id = balkfm.206 # Yugoslavist Agitation in Rumelia
+				id = balkfm.206 # Yugoslavist Agitation in the Ottoman Empire
 			}
 		}
+		trigger_event = {
+			id = balkfm.206 # Yugoslavist Agitation in the Ottoman Empire
+		}
+		remove_global_variable = balkfm_yugoslav_agitation_var
 	}
 }
 

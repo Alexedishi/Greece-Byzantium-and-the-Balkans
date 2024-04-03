@@ -325,7 +325,7 @@ je_balkfm_thunderdome_sub = {
 ###############
 
 je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for most Slavic tags
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	group = je_group_balkfm_yugoslavism
 	
@@ -452,7 +452,7 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 }
 
 je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unification for Bulgaria
-	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	group = je_group_balkfm_yugoslavism
 	
@@ -895,7 +895,6 @@ je_balkfm_ser_monarchism = {
 			1 =	balkfm.412 # Plague Outbreak!
 			1 = balkfm.413 # Abusive Garrison
 			1 = balkfm.415 # National Desires
-			1 = balkfm.416 # Constitutional Reforms
 		}
 		effect = {
 			balkfm_update_dynasty_variables = yes
@@ -1028,7 +1027,7 @@ je_balkfm_ser_pouring_cement = {
 }
 
 
-je_balkfm_ser_constitutionalism = {
+je_balkfm_ser_defenders = {
 	icon = "gfx/interface/icons/event_icons/event_serbia_major2.dds"
 	
 	group = je_group_balkfm_serbia
@@ -1040,35 +1039,159 @@ je_balkfm_ser_constitutionalism = {
 	
 	complete = {
 		NOT = { has_modifier = modifier_balkfm_royal_turmoil }
-		NOR = {
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_oligarchy
-			has_law = law_type:law_landed_voting
+		custom_tooltip = {
+			text = je_balkfm_ser_defenders_tt1
+			hidden_trigger = {
+				has_variable = balkfm_statism_completed
+			}
 		}
-		NOR = {
-			has_law = law_type:law_censorship
-			has_law = law_type:law_outlawed_dissent
+		custom_tooltip = {
+			text = je_balkfm_ser_defenders_tt2
+			hidden_trigger = {
+				has_variable = balkfm_civics_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_balkfm_ser_defenders_tt3
+			hidden_trigger = {
+				has_variable = balkfm_economy_completed
+			}
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.417 # A New Constitution
+			id = balkfm.405 # A New Constitution
 		}
+		set_variable = balkfm_defenders_completed
 	}
 	
-	timeout = 1825 # mod's been out for over a year and this my first timeout journal since the Bavarocracy journals... anyway, this number is arbitrary. This should be neither too easy or too hard. 
+	timeout = 3650 # mod's been out for over a year and this my first timeout journal since the Bavarocracy journals... anyway, this number is based on the "Defenders" being dominant in Serbian politics from roughly 1838-1858
 	
 	on_timeout = {
 		trigger_event = {
-			id = balkfm.418 # Absent Reform
+			id = balkfm.406 # Absent Reform
+		}
+		set_variable = balkfm_defenders_completed
+	}
+	
+	invalid = {
+		NOT = {
+			has_law = law_type:law_monarchy
 		}
 	}
 	
+	on_invalid = {
+		set_variable = balkfm_defenders_completed
+	}
 	
 	weight = 500
 	
 }
+
+je_balkfm_ser_statism = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOR = { 
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_hereditary_bureaucrats
+			has_law = law_type:law_peasant_levies
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = balkfm.407 # Stately Foundation Established
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_defenders_completed
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_ser_civics = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_consumption_based_taxation
+			has_law = law_type:law_no_schools
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.408 # Civil Code Implemented
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_defenders_completed
+		}
+	}
+	
+	weight = 500
+	
+}
+		
+je_balkfm_economic_reform = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_balkfm_serbia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_isolationism
+			has_law = law_type:law_consumption_based_taxation
+			has_law = law_type:law_land_based_taxation
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.409 # Economic System Reformed
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_defenders_completed
+		}
+	}
+	
+	weight = 500
+	
+}
+	
 
 je_balkfm_ser_serbian_heartlands = {
 	icon = "gfx/interface/icons/event_icons/event_serbia.dds"

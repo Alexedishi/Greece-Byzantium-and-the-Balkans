@@ -85,7 +85,7 @@ namespace = balkfm
 
 ## #BALK2	YUGOSLAVIA FLAVOR	Events 200-299 ##
 
-#200-209 - Yugoslavian Unifcation 
+#200-209 - Yugoslavian Unification Events
 #	200 - Illyrian Sentiment
 #	201 - Jugoslavism
 #	202 - "The Draft"
@@ -96,7 +96,6 @@ namespace = balkfm
 #	207 - Yugoslav Annexation
 #	208 - Yugoslavism Fizzles Out
 #	209 - The Birth of Yugoslavia
-
 
 ## #BALK3	MONTENEGRO FLAVOR	Events 300-399 ##
 
@@ -149,7 +148,11 @@ namespace = balkfm
 #	402 - An Inexperienced Ruler
 #	403 - Mandate Secured
 #	404 - Defenders of the Constitution
-#	405 - Disruptive Influence
+#	405 - ##A New Constitution
+#	406 - ##Absent Reform
+#	407 - ##Stately Foundation Established
+#	408 - ##Civil Code Implemented
+#	409 - ##Economic System Reformed
 
 #410-419 - Dynastic Rivalry Events
 #	410 - House Karađorđević Takes the Throne
@@ -158,12 +161,10 @@ namespace = balkfm
 #	413 - Abusive Garrison
 #	414 - Austria/Russia Requests Primacy
 #	415 - National Desires
-#	416 - Constitutional Reforms
-#	417 - A New Constitution
-#	418 - Absent Reform
+#	416 - ##The Blood Feud
 
-#420-429 - Hereditary Monarchy Events
-#	420 - Cementing the Monarchy
+#470-479 - Diplomatic Events
+#	470 - Disruptive Influence
 
 #480-489 - Serbian Nationalism
 #	480 - The Serbian Heartlands
@@ -2952,7 +2953,7 @@ balkfm.200 = { # Illyrian Sentiment
 		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -2964,30 +2965,36 @@ balkfm.200 = { # Illyrian Sentiment
 	}
 	
 	immediate = {
-	}	
+	}
 	
 	option = {
 		name = balkfm.200.a
 		default_option = yes
-		custom_tooltip = {
-			text = balkfm_support_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_supporting_yugoslavism
-			}
-		}
-		balkfm_happy_yugoslavs = yes
+		custom_tooltip = balkfm_yug_annex_tt
 	}
 	
-	option = {
-		name = balkfm.200.b
-		custom_tooltip = {
-			text = balkfm_oppose_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_opposing_yugoslavism
-			}
-		}
-		balkfm_sad_yugoslavs = yes
-	}
+#	option = {
+#		name = balkfm.200.a
+#		default_option = yes
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
+#		balkfm_happy_yugoslavs = yes
+#	}
+	
+#	option = {
+#		name = balkfm.200.b
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
+#		balkfm_sad_yugoslavs = yes
+#	}
 	
 	after = {
 		if = {
@@ -3018,7 +3025,7 @@ balkfm.201 = { # Jugoslavism
 		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3030,30 +3037,36 @@ balkfm.201 = { # Jugoslavism
 	}
 	
 	immediate = {
-	}	
-	
+	}
+
 	option = {
 		name = balkfm.201.a
 		default_option = yes
-		custom_tooltip = {
-			text = balkfm_support_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_supporting_yugoslavism
-			}
-		}
-		balkfm_happy_yugoslavs = yes
+		custom_tooltip = balkfm_yug_annex_tt
 	}
 	
-	option = {
-		name = balkfm.201.b
-		custom_tooltip = {
-			text = balkfm_oppose_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_opposing_yugoslavism
-			}
-		}
-		balkfm_sad_yugoslavs = yes
-	}
+#	option = {
+#		name = balkfm.201.a
+#		default_option = yes
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
+#		balkfm_happy_yugoslavs = yes
+#	}
+	
+#	option = {
+#		name = balkfm.201.b
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
+#		balkfm_sad_yugoslavs = yes
+#	}
 	
 	after = {
 		trigger_event = {
@@ -3076,7 +3089,7 @@ balkfm.202 = { # The Draft
 
 	left_icon = scope:garasanin_scope
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
@@ -3123,23 +3136,25 @@ balkfm.202 = { # The Draft
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
 		}
-		custom_tooltip = {
-			text = balkfm_support_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_supporting_yugoslavism
-			}
-		}
+		custom_tooltip = balkfm_yug_annex_tt
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
 		balkfm_happy_yugoslavs = yes
 	}
 	
 	option = { # I'm a poor boy
 		name = balkfm.202.b
-		custom_tooltip = {
-			text = balkfm_oppose_yugoslavism_tt
-			hidden_effect = {
-				set_variable = balkfm_opposing_yugoslavism
-			}
-		}
+		custom_tooltip = balkfm_yug_annex_tt
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
 		balkfm_sad_yugoslavs = yes
 	}
 
@@ -3166,7 +3181,7 @@ balkfm.203 = { # Yugoslav Breakaways Seek Union!
 		video = "europenorthamerica_political_extremism"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3181,6 +3196,7 @@ balkfm.203 = { # Yugoslav Breakaways Seek Union!
 			is_player = no
 			is_diplomatic_play_committed_participant = no
 			is_at_war = no
+			has_journal_entry = je_balkfm_nacertanije
 		}
 	}
 	
@@ -3259,25 +3275,27 @@ balkfm.205 = { # Yugoslavist Agitation in Austria
 	}
 	
 	immediate = {
+		c:AUS = {
+			save_scope_as = austria_scope
+		}
 		random_scope_state = {
 			limit = {
-				balkfm_is_yugoslav_homeland = yes
+				has_variable = balkfm_yugoslav_agitation_target
 			}
 			save_scope_as = yugoslav_agitation_scope
 		}
 		random_country = {
 			limit = {
-				has_variable = balkfm_yugoslav_agitation_var
+				has_variable = balkfm_yugoslav_agitation_actor
 			}
 			save_scope_as = yugoslav_agitator_scope
-			remove_variable = balkfm_yugoslav_agitation_var
 		}
-		scope:yugoslav_agitator_scope = {
-			hidden_effect = {
-				trigger_event = {
-					id = balkfm.205
-					popup = yes
-				}
+		if = {
+			limit = {
+				has_variable = balkfm_yugoslav_agitation_actor
+			}
+			scope:yugoslav_agitation_scope = {
+				remove_variable = balkfm_yugoslav_agitation_target
 			}
 		}
 	}
@@ -3306,7 +3324,7 @@ balkfm.205 = { # Yugoslavist Agitation in Austria
 
 }
 
-balkfm.206 = { # Yugoslavist Agitation in Austria
+balkfm.206 = { # Yugoslavist Agitation in the Ottoman Empire
 	type = country_event
 	placement = scope:yugoslav_agitation_scope
 	
@@ -3343,27 +3361,29 @@ balkfm.206 = { # Yugoslavist Agitation in Austria
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 		random_scope_state = {
 			limit = {
-				balkfm_is_yugoslav_homeland = yes
+				has_variable = balkfm_yugoslav_agitation_target
 			}
 			save_scope_as = yugoslav_agitation_scope
 		}
 		random_country = {
 			limit = {
-				has_variable = balkfm_yugoslav_agitation_var
+				has_variable = balkfm_yugoslav_agitation_actor
 			}
 			save_scope_as = yugoslav_agitator_scope
-			remove_variable = balkfm_yugoslav_agitation_var
 		}
-		scope:yugoslav_agitator_scope = {
-			hidden_effect = {
-				trigger_event = {
-					id = balkfm.206
-					popup = yes
-				}
+		if = {
+			limit = {
+				has_variable = balkfm_yugoslav_agitation_actor
 			}
-		}		
+			scope:yugoslav_agitation_scope = {
+				remove_variable = balkfm_yugoslav_agitation_target
+			}
+		}	
 	}
 	
 	option = {
@@ -3402,7 +3422,7 @@ balkfm.207 = { # Yugoslav Annexation
 		video = "unspecific_signed_contract"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3516,7 +3536,7 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 
 	duration = 3
 	
@@ -3568,6 +3588,7 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 	}
 	
 }
+
 
 #################################################
 ## #BALK3	MONTENEGRO FLAVOR	Events 300-399 ##
@@ -4020,7 +4041,7 @@ balkfm.332 = { # Knives in the Dark
 	
 	trigger = {
 		has_journal_entry = je_balkfm_mon_ali_pasha
-		has_global_variable = balkfm_stabby_stabby # set by balkfm.405 (Disruptive Influence)
+		has_global_variable = balkfm_stabby_stabby # set by balkfm.470 (Disruptive Influence)
 	}
 	
 	immediate = {
@@ -4799,6 +4820,9 @@ balkfm.401 = { # A Constitution Imposed
 			id = balkfm.402 # An Inexperienced Ruler
 			days = 30
 		}
+		call_election = {
+			months = 1
+		}
 		set_variable = balkfm_milos_bailed_out
 	}
 	
@@ -4979,6 +5003,12 @@ balkfm.404 = { # In Defense of the Constitution
 					set_variable = balkfm_karadordevic_tracker
 				}
 			}
+			random_scope_character = {
+				limit = {
+					has_variable = balkfm_karadordevic_tracker
+				}
+				save_scope_as = kaykay_scope
+			}			
 			set_variable = balkfm_kaykay_var
 		}
 		remove_variable = balkfm_milos_bailed_out
@@ -5017,6 +5047,9 @@ balkfm.404 = { # In Defense of the Constitution
 				}
 			}
 		}
+		add_journal_entry = {
+			type = je_balkfm_ser_defenders
+		}
 		remove_variable = obrenovic_crowned_var
 		set_variable = karadordevic_crowned_var
 	}
@@ -5027,7 +5060,7 @@ balkfm.404 = { # In Defense of the Constitution
 
 }
 
-balkfm.405 = { # Disruptive Influence
+balkfm.405 = { # A New Constitution
 	type = country_event
 	placement = root
 	
@@ -5036,10 +5069,10 @@ balkfm.405 = { # Disruptive Influence
 	flavor = balkfm.405.f
 	
 	event_image = {
-		video = "southamerica_aristocrats"
+		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -5048,60 +5081,189 @@ balkfm.405 = { # Disruptive Influence
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_global_variable = balkfm_humac_happened # set by balkfm.331 (Negociations at Humac)
-		exists = c:MON
 	}
 	
 	immediate = {
-		remove_global_variable = balkfm_humac_happened
-		balkfm_save_ali_pasha_scopes = yes
-		c:MON = {
-			save_scope_as = montenegro_scope
-			ruler = {
-				save_scope_as = montenegro_ruler_scope
-			}
-		}
-		s:STATE_NORTHERN_SERBIA = {
-			random_scope_state = {
-				save_scope_as = northern_serbia_state_scope
-			}
-		}
 	}
 	
-	option = { # stir the pot
+	option = {
 		name = balkfm.405.a
 		default_option = yes
-		change_relations = {
-			country = c:MON
-			value = 20
+		add_modifier = {
+			name = modifier_balkfm_responsive_regime
+			months = normal_modifier_time
 		}
-		set_global_variable = balkfm_stabby_stabby # triggers balkfm.332 (Knives in the Dark)
-		ai_chance = {
-			base = 10
-			modifier = {
-				trigger = {
-					c:MON ?= {
-						relations:root < relations_threshold:neutral
-					}
-				}
-				add = -10
-			}
+		add_loyalists = {
+			value = small_radicals
 		}
 	}
+
+}
+
+balkfm.406 = { # Absent Reform
+	type = country_event
+	placement = root
 	
-	option = { # do nothing
-		name = balkfm.405.b
-		ai_chance = {
-			base = 0
-			modifier = {
-				trigger = {
-					c:MON ?= {
-						relations:root < relations_threshold:neutral
-					}
-				}
-				add = 10
-			}
+	title = balkfm.406.t
+	desc = balkfm.406.d
+	flavor = balkfm.406.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.406.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_absent_reforms
+			months = normal_modifier_time
 		}
+		add_radicals = {
+			strata = middle
+			value = medium_radicals
+		}
+		add_radicals = {
+			strata = poor
+			value = medium_radicals
+		}
+	}
+
+}
+
+balkfm.407 = { # Stately Foundation Established
+	type = country_event
+	placement = root
+	
+	title = balkfm.407.t
+	desc = balkfm.407.d
+	flavor = balkfm.407.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.407.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_stately_foundation
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_statism_completed
+	}
+
+}
+
+balkfm.408 = { # Civil Code Implemented
+	type = country_event
+	placement = root
+	
+	title = balkfm.408.t
+	desc = balkfm.408.d
+	flavor = balkfm.408.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.408.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_civil_code_established
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_civics_completed
+	}
+
+}
+
+balkfm.409 = { # Economic System Reformed
+	type = country_event
+	placement = root
+	
+	title = balkfm.409.t
+	desc = balkfm.409.d
+	flavor = balkfm.409.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.409.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_modernized_economics
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_economy_completed
 	}
 
 }
@@ -5693,131 +5855,6 @@ balkfm.415 = { # National Desires
 
 }
 
-balkfm.416 = { # Constitutional Reforms
-	type = country_event
-	placement = root
-	
-	title = balkfm.416.t
-	desc = balkfm.416.d
-	flavor = balkfm.416.f
-	
-	event_image = {
-		video = "africa_leader_arguing"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { has_variable = balkfm_ristic_on_deck }
-		has_modifier = modifier_balkfm_royal_turmoil
-		OR = {
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_oligarchy
-		}
-		OR = {
-			has_law = law_type:law_censorship
-			has_law = law_type:law_outlawed_dissent
-		}
-	}
-	
-	immediate = {
-		set_variable = balkfm_ristic_on_deck
-	}
-	
-	cancellation_trigger = {
-		NOT = { has_journal_entry = je_balkfm_ser_monarchism }
-	}
-	
-	option = {
-		name = balkfm.416.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_ser_constitutionalism
-		}
-	}
-
-}
-
-balkfm.417 = { # A New Constitution
-	type = country_event
-	placement = root
-	
-	title = balkfm.417.t
-	desc = balkfm.417.d
-	flavor = balkfm.417.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.417.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_responsive_regime
-			months = normal_modifier_time
-		}
-	}
-
-}
-
-balkfm.418 = { # Absent Reform
-	type = country_event
-	placement = root
-	
-	title = balkfm.418.t
-	desc = balkfm.418.d
-	flavor = balkfm.418.f
-	
-	event_image = {
-		video = "europenorthamerica_political_extremism"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.418.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_absent_reforms
-			months = normal_modifier_time
-		}
-	}
-
-}
-
 #### HEREDITARY MONARCHY EVENTS ####
 
 balkfm.420 = { # Cementing the Monarchy
@@ -5869,6 +5906,86 @@ balkfm.420 = { # Cementing the Monarchy
 #
 }
 
+#### DIPLOMATIC EVENTS ####
+
+balkfm.470 = { # Disruptive Influence
+	type = country_event
+	placement = root
+	
+	title = balkfm.470.t
+	desc = balkfm.470.d
+	flavor = balkfm.470.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = balkfm_humac_happened # set by balkfm.331 (Negociations at Humac)
+		exists = c:MON
+	}
+	
+	immediate = {
+		remove_global_variable = balkfm_humac_happened
+		balkfm_save_ali_pasha_scopes = yes
+		c:MON = {
+			save_scope_as = montenegro_scope
+			ruler = {
+				save_scope_as = montenegro_ruler_scope
+			}
+		}
+		s:STATE_NORTHERN_SERBIA = {
+			random_scope_state = {
+				save_scope_as = northern_serbia_state_scope
+			}
+		}
+	}
+	
+	option = { # stir the pot
+		name = balkfm.470.a
+		default_option = yes
+		change_relations = {
+			country = c:MON
+			value = 20
+		}
+		set_global_variable = balkfm_stabby_stabby # triggers balkfm.332 (Knives in the Dark)
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					c:MON ?= {
+						relations:root < relations_threshold:neutral
+					}
+				}
+				add = -10
+			}
+		}
+	}
+	
+	option = { # do nothing
+		name = balkfm.470.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					c:MON ?= {
+						relations:root < relations_threshold:neutral
+					}
+				}
+				add = 10
+			}
+		}
+	}
+
+}
 
 
 #### SERBIAN NATIONALISM EVENTS ####
