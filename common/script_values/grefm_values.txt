@@ -61,3 +61,37 @@
 		add = 1
 	}
 }
+
+grefm_crete_boost_value = {
+	value = 0
+	every_country = {
+		limit = {
+			has_modifier = modifier_grefm_funding_crete
+		}
+		add = 1
+	}
+}
+
+grefm_crete_progress_value = {
+	value = 0
+	if = {
+		limit = {
+			any_country = {
+				owns_entire_state_region = STATE_CRETE
+				has_technology_researched = nationalism
+			}
+		}
+		add = 0.5
+	}
+	add = var:grefm_crete_boost_var
+	add = var:grefm_crete_turmoil_var
+	if = {
+		limit = {
+			any_country = {
+				country_has_primary_culture = cu:greek
+				owns_entire_state_region = STATE_CRETE
+			}
+		}
+		multiply = 0
+	}
+}

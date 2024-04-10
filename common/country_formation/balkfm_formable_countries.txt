@@ -1,2 +1,25 @@
 ﻿YUG = {
 }
+
+RUME = {
+	states = {
+		STATE_SKOPIA
+		STATE_WESTERN_THRACE
+		STATE_MACEDONIA
+		STATE_THESSALIA
+		STATE_ALBANIA
+		STATE_SOUTHERN_SERBIA
+		STATE_NORTHERN_SERBIA
+		STATE_BULGARIA
+		STATE_NORTHERN_THRACE # The Rumelia Eyelet did not comprise the entirety of the Bulgaria and Northern Thrace state regions; this is impossible to render in game without jank.
+	}
+	
+	required_states_fraction = 1.0
+	
+	ai_will_do = { always = yes }
+
+	possible = {
+		country_has_state_religion = rel:sunni
+		NOT = { has_game_rule = plausible_formable_nations } # This is ridiculous and you know it
+	}
+}

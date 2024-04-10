@@ -231,3 +231,33 @@ grefm_artifact_modifier_effect = {
 		multiplier = grefm_artifact_value
 	}
 }
+
+########
+
+grefm_calculate_crete_progress_effect = {
+	s:STATE_CRETE = {
+		random_scope_state = {
+			limit = {
+				owner = {
+					OR = { # convoluted check in case Crete is a split state
+						has_journal_entry = je_grefm_the_cretan_revolts
+					}
+				}
+			}
+			ROOT = {
+				set_variable = {
+					name = grefm_crete_turmoil_var
+					value = prev.turmoil
+				}
+			}
+		}
+	}
+	set_variable = {
+		name = grefm_crete_boost_var
+		value = grefm_crete_boost_value
+	}
+	set_variable = {
+		name = grefm_crete_progress_var
+		value = grefm_crete_progress_value
+	}
+}

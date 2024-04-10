@@ -2,20 +2,18 @@
 # GREECE, BYZANTIUM, AND THE BALKANS ON_ACTIONS #
 #################################################
 
-# Originally, each module had it's own on_actions file. I've merged them for ease of editing and tracking.
-# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
-
 on_monthly_pulse_country = {
 	on_actions = {
-		balkfm_monthly_pulse
 		grefm_monthly_pulse
 		byfzm_monthly_pulse
+		
+		balkfm_monthly_pulse
 		crisis_monthly_pulse
 #		yug_flavor_pulse
 		mon_flavor_pulse
 		ser_flavor_pulse
 		bul_flavor_pulse
-#		rom_flavor_pulse
+		rom_flavor_pulse
 #		bos_flavor_pulse
 #		alb_flavor_pulse
 #		triu_flavor_pulse
@@ -56,12 +54,18 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 
 crisis_monthly_pulse = { # These are for firing the crisis events/TUR-specific extensions of this mod. Ottoman Flavor is out of scope for this mod.
 	trigger = {
-		country_has_primary_culture = cu:turkish
+		c:TUR ?= this
 	}
 	events = {
+		balkfm.081 # The Schemes of Ali Pasha
+		balkfm.082 # Ali Pasha Ascendant
 		balkfm.100 # Great Eastern Crisis Warmup
 	}
 }
+
+############
+
+# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 
 grefm_monthly_pulse = {
 	trigger = {
@@ -143,15 +147,15 @@ byfzm_monthly_pulse = {
 
 mon_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:serb
 		OR = {
 			c:MON ?= this
 		}
 	}
 	events = {
+		balkfm.030 # Creates Hersek with Smaïl-aga at the Helm
+		balkfm.031 # Creates Hersek with Ali Pasha at the Helm
+		balkfm.032 # Cleans up after balkfm.031
 		balkfm.332 # Knives in the Dark
-#		balkfm.337 # The Arrogance of Smail-aga
-		balkfm.341 # Osman Pasha Attacks!
 	}
 	random_events = {
 		100 = 0
@@ -160,7 +164,6 @@ mon_flavor_pulse = {
 
 ser_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:serb
 		OR = {
 			c:SER ?= this
 			c:SRPS ?= this
@@ -176,10 +179,24 @@ ser_flavor_pulse = {
 
 bul_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:bulgarian
 		OR = {
 			c:BUL ?= this
 			c:TSAR ?= this
+		}
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+}
+
+rom_flavor_pulse = {
+	trigger = {
+		OR = {
+			c:WAL ?= this
+			c:MOL ?= this
+			c:ROM ?= this
 		}
 	}
 	events = {

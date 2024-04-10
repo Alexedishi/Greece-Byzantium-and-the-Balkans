@@ -2,11 +2,28 @@
 # GENERAL BALKANS CONTENT #
 ###########################
 
+je_balkfm_the_eastern_question_main = {
+	# This is assigned to the Ottomans and used to track variables and handle on_actions. All other journals will reference these variables. 
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+	
+	group = je_group_balkfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+}
+
+je_balkfm_the_eastern_question_sub = {
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+	
+	group = je_group_balkfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+}
+
 je_great_eastern_crisis_main = {
 	# This is assigned to the Ottomans since they are the only guaranteed participant. This journal handles all on_actions, events, etc. 
 	icon = gfx/interface/icons/event_icons/event_ottoman.dds
 
-	group = je_group_balkfm_crisis
+	group = je_group_balkfm_eastern_question
 
 	should_be_pinned_by_default = yes
 
@@ -66,7 +83,7 @@ je_great_eastern_crisis_main = {
 je_great_eastern_crisis_sub = {
 	icon = gfx/interface/icons/event_icons/event_ottoman.dds
 
-	group = je_group_balkfm_crisis
+	group = je_group_balkfm_eastern_question
 
 	should_be_pinned_by_default = yes
 
@@ -129,7 +146,7 @@ je_balkfm_congress_of_berlin_main = {
 	# This journal handles all the on_actions, events, and so on
 	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
 	
-	group = je_group_balkfm_crisis
+	group = je_group_balkfm_eastern_question
 	
 	should_be_pinned_by_default = yes
 	
@@ -221,7 +238,7 @@ je_balkfm_congress_of_berlin_sub = {
 	# This is just an effect-less clone of the above JE; main JE handles all events/effects
 	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
 	
-	group = je_group_balkfm_crisis
+	group = je_group_balkfm_eastern_question
 	
 	should_be_pinned_by_default = yes
 	
@@ -681,7 +698,7 @@ je_balkfm_mon_ali_pasha = {
 		custom_tooltip = {
 			text = je_balkfm_mon_ali_pasha_tt
 			hidden_trigger = {
-				has_variable = balkfm_ali_pasha_completed
+				has_global_variable = balkfm_ali_pasha_waxed
 			}
 		}
 	}
@@ -690,6 +707,12 @@ je_balkfm_mon_ali_pasha = {
 		add_modifier = {
 			name = modifier_balkfm_weathered_the_storm
 			months = normal_modifier_time
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.340 # Osman Pasha Attacks!
+				days = 240
+			}
 		}
 	}
 	
@@ -857,7 +880,7 @@ je_balkfm_ser_monarchism = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.403 # Mandate Secured
+			id = balkfm.419 # Mandate Secured
 		}
 		hidden_effect = {
 			balkfm_clean_up_ser_monarchism = yes
@@ -887,7 +910,7 @@ je_balkfm_ser_monarchism = {
 	on_monthly_pulse = {
 		events = {
 			balkfm.401 # Constitution Imposed
-			balkfm.404 # In Defense of the Constitution
+			balkfm.403 # Defenders of the Constitution
 			balkfm.414 # Austria/Russia Requests Primacy
 		}
 		random_events = {
@@ -1094,8 +1117,6 @@ je_balkfm_ser_statism = {
 	
 	group = je_group_balkfm_serbia
 	
-	should_be_pinned_by_default = yes
-	
 	immediate = {
 	}
 	
@@ -1128,8 +1149,6 @@ je_balkfm_ser_civics = {
 	
 	group = je_group_balkfm_serbia
 	
-	should_be_pinned_by_default = yes
-	
 	immediate = {
 	}
 	
@@ -1157,12 +1176,10 @@ je_balkfm_ser_civics = {
 	
 }
 		
-je_balkfm_economic_reform = {
+je_balkfm_ser_economics = {
 	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
 	group = je_group_balkfm_serbia
-	
-	should_be_pinned_by_default = yes
 	
 	immediate = {
 	}
@@ -1893,7 +1910,293 @@ je_balkfm_bul_restoration = { # this copied in from the byzfm side, only differe
 # MOLDOVA / WALLACHIA / ROMANIA FLAVOR #
 ########################################
 
+je_balkfm_rom_regulamentul_organic = {
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt1
+			hidden_trigger = {
+				has_variable = balkfm_regulamentul_legal
+			}
+		}
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt2
+			hidden_trigger = {
+				has_variable = balkfm_regulamentul_economic
+			}
+		}
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt3
+			hidden_trigger = {
+				has_variable = balkfm_regulamentul_social
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.625 # The Death of Feudalism
+		}
+		set_variable = balkfm_regulamentul_completed
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt4
+			hidden_trigger = {
+				c:ROM ?= this
+			}
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {	
+			has_variable = balkfm_regulamentul_completed
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.624 # Electing a Hospodar
+		}
+	}
+	
+	on_yearly_pulse = {
+		## The Akkerman Convention imposed seven year terms on the hospodars; one election in Wallachia, this was basically never respected, but for gameplay reason's it's a fixed term.
+		effect = {
+			change_variable = {
+				name = balkfm_regulamentul_var
+				subtract = 1
+			}
+		}
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_regulamentul_organic
+	}
+	
+	status_desc = {	
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt1
+				trigger = {
+					var:balkfm_regulamentul_var >= 2
+				}
+			}
+			triggered_desc = {	
+				desc =  je_balkfm_rom_regulamentul_election_tt2
+				trigger = {
+					var:balkfm_regulamentul_var = 1
+				}
+			}
+			triggered_desc = {	
+				desc =  je_balkfm_rom_regulamentul_election_tt3
+				trigger = {
+					var:balkfm_regulamentul_var < 1
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
 
+je_balkfm_rom_legal_modernization = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_autocracy }
+		NOT = { has_law = law_type:law_state_religion }
+		NOT = { has_law = law_type:law_hereditary_bureaucrats }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.621 # Renewed Legal Standards
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_rom_economic_modernization = {
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_traditionalism }
+		NOR = { 
+			has_law = law_type:law_land_based_taxation
+			has_law = law_type:law_consumption_based_taxation
+		}
+		NOT = { has_law = law_type:law_isolationism }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.622 # Modernized Economy
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_rom_social_modernization = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_serdom }
+		has_law = law_type:law_slavery_banned
+		NOT = { has_law = law_type:law_no_schools }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.623 # Social Equity
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_rom_united_principalities = { # this journal integrates all vanilla unification content into one journal entry
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+    is_shown_when_inactive = {
+		country_has_primary_culture = cu:romanian
+    }
+	
+    possible = {
+        has_technology_researched = nationalism
+        NOT = {
+            any_overlord_or_above ?= { # Can't unite the principalities if you're already the lesser in a pact with another Romanian state
+                country_has_primary_culture = cu:romanian
+            }
+        }
+    }	
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = balkfm_has_formed_rom_tt
+			hidden_trigger = {
+				c:ROM ?= this
+			}
+		}
+	}
+	
+	on_complete = {
+	}
+	
+    fail = {
+        OR = {
+            custom_tooltip = {
+                text = balkfm_no_other_romanians_tt
+				hidden_trigger = {
+					NOT = {
+						any_country = {
+							NOT = { this = ROOT }
+							country_has_primary_culture = cu:romanian 
+						}
+					}
+				}
+            }
+            custom_tooltip = {
+                text = balkfm_rom_formed_tt
+				hidden_trigger = {
+					AND = {
+						exists = c:ROM
+						NOT = { c:ROM ?= this }
+					}
+				}
+            }
+			custom_tooltip = {
+				text = balkfm_rom_lost_union_tt
+				hidden_trigger = {
+					any_country = {
+						AND = {
+							has_variable = romania_union_partner
+							NOT = { is_subject_of = ROOT }
+						}
+					}
+				}
+			}
+        }
+    }
+	
+    on_fail = {
+        hidden_effect = {
+            remove_variable = ROM_united_principality
+        }
+    }
+	
+    on_monthly_pulse = {
+        effect = {
+			if = {
+				limit = {
+					has_variable = romanian_union_var
+				}
+				change_variable = {
+					name = romanian_union_var
+					add = 1
+				}
+				clamp_variable = {
+					name = romanian_union_var
+					min = 0
+					max = 120
+				}
+			}
+        }
+    }
+	
+	scripted_button = balkfm_unite_principalities_button
+	scripted_button = balkfm_all_for_one_button
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
+
+    # timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
+
+    weight = 1000
+	
+}
 
 #################
 # BOSNIA FLAVOR #

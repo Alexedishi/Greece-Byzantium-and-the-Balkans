@@ -5,13 +5,17 @@
  je_group_balkfm_montenegro: "Montenegro Flavor"
  je_group_balkfm_serbia: "Serbian Flavor"
  je_group_balkfm_bulgaria: "Bulgaria Flavor"
- je_group_balkfm_crisis: "Great Eastern Crisis"
+ je_group_balkfm_eastern_question: "The Eastern Question"
  je_group_balkfm_thunderdome: "The Balkan Wars"
  je_group_balkfm_empire: "The Byzantine Restoration"
  je_group_balkfm_ambition: "Balkan Imperial Ambitions"
  je_group_balkfm_yugoslavism: "Yugoslavism"
  
- # great eastern crisis content
+ # the eastern question Content
+ je_balkfm_the_eastern_question_main: "The Eastern Question"
+ je_balkfm_the_eastern_question_main_reason: ""
+ je_balkfm_the_eastern_question_sub: "The Eastern Question"
+ je_balkfm_the_eastern_question_sub_reason: ""
  je_great_eastern_crisis_main: "The Great Eastern Crisis"
  je_great_eastern_crisis_main_reason: "The Ottoman Empire is in crisis. Beset with problems from within and without, the Porte struggles to maintain control over the Empire. As nationalism sweeps the country, the state's non-Turkish subjects have begun to resort to armed uprisings with the goal of establishing governments free of Ottomn influence.\n\nLikewise, the European powers have taken advantage of the military and economic stagnation of the Empire to impose their will upon the Sultan. Even now, the court of the Russian Tsar has its eyes fixed upon our lands along the Cascausus and Danube. Unless we are able to stand our ground against European aggression, it is only a matter of time before our Empire will crumble.\n\n#red War is coming, we must be ready#!."
  je_great_eastern_crisis_sub: "The Great Eastern Crisis"
@@ -109,8 +113,8 @@
  je_balkfm_ser_statism_reason: ""
  je_balkfm_ser_civics: "The Civic Code"
  je_balkfm_ser_civics_reason: ""
- je_balkfm_economic_reform: "Outdate Economics"
- je_balkfm_economic_reform_reason: ""
+ je_balkfm_ser_economics: "Outdated Economics"
+ je_balkfm_ser_economics_reason: ""
  
  je_balkfm_ser_serbian_heartlands: "The Serbian Heartlands"
  je_balkfm_ser_serbian_heartlands_reason: "[ROOT.GetCountry.GetName] exists only as a shadow of itself. Our nation has no future as long as the majority of our peoples remain under the thumb of foreign empires."
@@ -166,6 +170,29 @@
  je_balkfm_bul_restoration: "The Byzantine Restoration"
  je_balkfm_bul_restoration_reason: "The Byzantine heartlands once stretched across both the Balkans and Anatolia. We will restore our dominion over these lands."
  
+ # Romanian Flavor
+ je_balkfm_rom_regulamentul_organic: "The Regulamentul Organic"
+ je_balkfm_rom_regulamentul_organic_reason: "[ROOT.GetCountry.GetName] exists only nominally as part of the Ottoman Empire. However, the country's newfound autonomy, both the cities and the countryside remain hopelessly backwards. Disrupted by centuries of conflict along the Austrian Military Frontier and the perennial Russo-Turkish conflicts, the state exercises minimal authority in its rural communities and the economy remains feudal in all but name.\n\nUsing its status as the gaurantor of the Romanian people, the Russian Empire has imposed the#italic  Regulamentul Organic#!, or the Organic Law, upon the [ROOT.GetCountry.GetAdjectiveNoFormatting] state. Its various stipulations mandate that [ROOT.GetCountry.GetNameNoFormatting] take steps to modernize itself and her people.\n\n#blue The Regulamentul Organic imposes a seven year term limit on our [ROOT.GetCountry.GetRuler.GetPrimaryRole.Title]#!."
+ je_balkfm_rom_regulamentul_organic_status: "#bold [GetPlayer.MakeScope.Var('obrenovic_support_var').GetValue]#! year(s) remain in [ROOT.GetCountry.GetRuler.GetFirstName]'s term."
+ je_rom_regulamentul_organic_tt1: "We have formalized our legal system."
+ je_rom_regulamentul_organic_tt2: "We have modernized our economy."
+ je_rom_regulamentul_organic_tt3: "We have reformed our social order."
+ je_rom_regulamentul_organic_tt4: "We have formed #yellow Romania#!."
+ je_balkfm_rom_regulamentul_election_tt1: "Our #bold Hospodar's#! term has #bold  [GetPlayer.MakeScope.Var('balkfm_regulamentul_var').GetValue]#! years remaining."
+ je_balkfm_rom_regulamentul_election_tt2: "The #bold Hospodar#! election will occur next year."
+ je_balkfm_rom_regulamentul_election_tt3: "The #bold Hospodar#! election is imminent."
+ je_balkfm_rom_legal_modernization: "Regulamentul: Legal Standards"
+ je_balkfm_rom_legal_modernization_reason: ""
+ je_balkfm_rom_economic_modernization: "Regulamentul: Economic Development"
+ je_balkfm_rom_economic_modernization_reason: ""
+ je_balkfm_rom_social_modernization: "Regulamentul: Social Reforms"
+ je_balkfm_rom_social_modernization_reason: ""
+ 
+ je_balkfm_rom_united_principalities: "The Romanian Principalities"
+ je_balkfm_rom_united_principalities_reason: "The Danubian principalities rouse from their long lethargy. The rights and interests of the homeland cry out for liberation; the good and happiness of the Romanian nation demands action! We must pursue union, and help build a single country for our people. Caution must be exercised, however—we cannot upset any [Concept('concept_great_power', '$concept_great_powers$')] in the process."
+ je_balkfm_rom_united_principalities_reason_status_1: "Unite the Principalities."
+ je_balkfm_rom_united_principalities_reason_status_2: "Maintain the union of principalities for 10 years."
+ 
  # Triune Flavor
  je_balkfm_triune_restoration: "Unification of the Triune Kingdom"
  je_balkfm_triune_restoration_reason: "With the decline of the Austrian Empire, the concept of the #yellow Triune Kingdom#!, a union between Croatia, Slavonia, and Dalmatia took hold as a means to give the Slavs a proper voice within the Empire. However, political efforts were frustrated by the pro-Magyar policies of the Hungarian state. Now that we have secured our independence, it falls to us to take up the cause of the Croats and Slovenes."
@@ -175,9 +202,11 @@
  
  
  # tooltips
+ balkfm_friend_with_all_great_powers_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has #bold positive#! relations with every [concept_great_power] that has an [concept_active_interest] in the region."
+ 
  balkfm_support_yugoslavism_tt: "This will commit us to supporting the cause of Yugoslavism."
  balkfm_oppose_yugoslavism_tt: "This will commit us to opposing the cause of Yugoslavism."
- balkfm_yug_annex_tt: "Yo
+ balkfm_yug_annex_tt: "If we are the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!, #yellow #tooltip:[GetRawTextTooltipTag('balkfm_yug_cultures_tt')] Jugoslav#!#! nations may seek union with us."
  balkfm_form_yug_tt: "We are the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!."
  balkfm_yug_leader_tt: "The #bold Yugoslav Unification Leader#! is the country with the highest prestige amongst all #yellow #tooltip:[GetRawTextTooltipTag('balkfm_yug_cultures_tt')] Jugoslav#!#! cultures."
  balkfm_yug_cultures_tt: "[GetCulture('serb').GetName], [GetCulture('croat').GetName], [GetCulture('slovene').GetName], [GetCulture('bosniak').GetName], and [GetCulture('bulgarian').GetName]."
@@ -195,6 +224,13 @@
  balkfm_karadordevic_minus_50: "House #yellow Karađorđević#! loses 50 #o Senate Suppport#!."
  
  balkfm_declare_tsardom_tt: "#red Bulgaria will become independent!#!"
+ 
+ balkfm_united_principalities_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has formed a [concept_personal_union] over another #bold Romanian#! country or made it a [concept_puppet] of [SCOPE.GetRootScope.GetCountry.GetName]."
+ balkfm_no_other_romanians_tt: "There are no other #bold Romanian#! countries to unite with."
+ balkfm_rom_formed_tt: "#bold Romania#! has already formed."
+ balkfm_has_formed_rom_tt: "We have formed #bold Romania#!."
+ balkfm_rom_lost_union_tt: "The Romanian Union has been broken."
+ balkfm_rom_amicable_or_better_relations_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has #bold amicable#! or better relations with another [GetCulture('romanian').GetName] country, and either both countries are independent or are subjects of the same overlord that can themselves have subjects."
  
  balkfm_content_planned: "#blue #bold This content will be added in the next update#!#!."
  
@@ -238,6 +274,15 @@
  balkfm_declare_tsardom: "Declare the Tsardom"
  balkfm_declare_tsardom_desc: "Bulgaria is whole. It falls to the Prince to shed the farce of Ottoman suzerainty and reclaim the old Bulgarian crown."
  
+ balkfm_unite_principalities: "Unite the Principalities"
+ balkfm_unite_principalities_desc: "The first step in unifying the Romanian nation is establishing a single ruler among our people. Ensuring common leadership, even if our countries remain separate on paper, will do much for the cause of unification."
+ balkfm_all_for_one: "Secure the Romanian State"
+ balkfm_all_for_one_desc: "Together, we are stronger. We must preserve the tentative union we have, that from it we may forge a single, great Romania."
+ balkfm_bessarabian_retrocession: "The South Bessarabian Retrocession"
+ balkfm_bessarabian_retrocession_desc: "Moldavia once controlled lands that gave it access to the sea. It would be to our benefit to regain this former territory, and connect our country to the maritime trade of the Black Sea."
+ balkfm_marea_unire: "Marea Unire"
+ balkfm_marea_unire_desc: "The Great Union of all Romanian peoples requires not just a union of the Danubian principalities, but a union of all Romanian lands—including Transylvania."
+ 
  balkfm_proclaim_triune: "Proclaim the Triune Kingdom"
  balkfm_proclaim_triune_desc: "We have united the crowns of Croatia, Slavonia, and Dalmatia. All that remains is to proclaim the union of these lands into a single, independent, nation."
  
@@ -270,6 +315,8 @@
  modifier_balkfm_caucasus_secured_desc: "Cascausus Secured"
  modifier_balkfm_porte_triumphant: "Glory of the Sublime Porte"
  modifier_balkfm_porte_triumphant_desc: "Glory of the Sublime Porte"
+ modifier_balkfm_chickenshit: "Spineless Leadership"
+ modifier_balkfm_chickenshit_desc: "Spineless Leadership"
  
  modifier_balkfm_thunderdome: "Nationalist Fury"
  modifier_balkfm_thunderdome_desc: "Nationalist Fury"
@@ -366,6 +413,19 @@
  modifier_balkfm_bulgarian_resurgence: "Bulgarian Resurgence"
  modifier_balkfm_bulgarian_resurgence_desc: "Bulgarian Resurgence"
  
+ modifier_balkfm_regulamentul_organic: "Regulamentul Organic"
+ modifier_balkfm_regulamentul_organic_desc: "Regulamentul Organic"
+ modifier_balkfm_legal_reforms: "Implemented Legal Reforms"
+ modifier_balkfm_legal_reforms_desc: "Implemented Legal Reforms"
+ modifier_balkfm_economic_reforms: "Restructured Economy"
+ modifier_balkfm_economic_reforms_desc: "Restructured Economy"
+ modifier_balkfm_social_reforms: "Reformed Society"
+ modifier_balkfm_social_reforms_desc: "Reformed Society"
+ modifier_balkfm_outgrew_feudalist_roots: "Outgrew Feudal Roots"
+ modifier_balkfm_outgrew_feudalist_roots_desc: "Outgrew Feudal Roots"
+ modifier_balkfm_romanian_resurgence: "Romanian Resurgence"
+ modifier_balkfm_romanian_resurgence_desc: "Romanian Resurgence"
+ 
  modifier_balkfm_triune_resurgence: "Triune Resurgence"
  modifier_balkfm_triune_resurgence_desc: "Triune Resurgence"
  
@@ -395,11 +455,21 @@
 
  Zimonjic: "Zimonjić"
  
+ Bibescu: "Bibescu"
+ Epureanu: "Epureanu"
+ Manolache: "Manolache"
+ Emanoil: "Emanoil"
+ Baleanu: "Băleanu"
+ Barbu: "Barbu"
+ Stirbei: "Știrbei"
+ Cantacuzino: "Cantacuzino"
+ 
  # traits
  
  
  # ideologies
- 
+ ideology_kogalnitchanism: "Kogalnitchanism"
+ ideology_kogalnitchanism_desc: "#lore Inspired by the writings of Mihail Kogălniceanu, this character believes the destruction of feudalism is the only way forward for the Principalities."
  
  # diplomatic plays
  balkfm_great_eastern_crisis: "The Great Eastern Crisis"

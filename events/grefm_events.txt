@@ -941,7 +941,7 @@ grefm.009 = { # 1862 head of state referendum
 	immediate = {
 		random_scope_character = {
 			limit = {
-				has_variable = grefm_is_garibaldi
+				has_template = garibaldi_character_template
 			}
 			save_scope_as = grefm_garibaldi_scope
 		}
@@ -5133,8 +5133,7 @@ grefm.157 = { # The Mask of Agammemnon
 				pop_type = academics
 				value = medium_radicals
 			}
-		}
-			
+		}	
 	}
 
 }
@@ -9030,6 +9029,8 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 		remove_variable = grefm_is_glucksburg
 		remove_variable = grefm_dr_moneybags_in_the_house
 		remove_global_variable = has_formed_tsar
+		remove_variable = romania_subject
+		set_variable = romania_unification_in_motion
 		set_variable = eocfm_crusade_attacker
 		set_variable = eocfm_crusade_defender
 		
@@ -9114,9 +9115,9 @@ grefm.905 = { # hidden event triggering the Don Pacifico Affair
 	
 	trigger = {
 		NOT = { has_global_variable = grefm_don_pacifico_happened }
+		year >= 1848
 		c:GRE ?= this
 		has_journal_entry = je_grefm_bavarocracy_main
-		year >= 1848
 		has_diplomatic_relevance = c:POR
 		has_diplomatic_relevance = c:GBR
 	}
@@ -9532,12 +9533,14 @@ grefm.914 = { # crete revolts again
 	dlc = dlc_grefm
 
 	trigger = {
+		global_var:grefm_crete_revolt_var >= 100
+		NOT = { exists = c:CRE }
 	}
 
 	immediate = {
-		change_global_variable = {
+		set_global_variable = {
 			name = grefm_crete_revolt_var
-			subtract = 150
+			value = 0
 		}
 		s:STATE_CRETE = {
 			random_scope_state = {

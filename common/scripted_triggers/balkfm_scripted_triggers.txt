@@ -24,3 +24,22 @@ balkfm_is_yugoslav_homeland = {
 	is_homeland = cu:slovene
 	is_homeland = cu:bulgarian
 }
+
+balkfm_is_annexation_candidate_trigger = {
+	has_journal_entry = je_balkfm_nacertanije
+	is_player = no
+	is_diplomatic_play_committed_participant = no
+	is_at_war = no
+	is_adjacent_to_country = root
+	OR = {
+		is_subject = no
+		is_subject_of = root
+		has_diplomatic_pact = {
+			who = root
+			type = alliance
+		}
+	}
+	NOT = {
+		has_variable = balkfm_annexation_declined
+	}
+}
