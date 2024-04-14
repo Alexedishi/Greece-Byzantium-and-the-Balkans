@@ -463,15 +463,6 @@ balkfm.030 = { # Creates Hersek with Smaïl-aga at the Helm
 			origin = c:TUR
 			state = s:STATE_BOSNIA.region_state:TUR
 		}
-		c:HRSK = {
-			random_character_in_void = {
-				limit = {
-					has_variable = balkfm_is_smail_aga
-				}
-				transfer_character = c:HRSK
-				set_character_as_ruler = yes
-			}
-		}
 		s:STATE_BOSNIA = {
 			random_scope_state = {
 				save_scope_as = bosnia_state_scope
@@ -514,12 +505,25 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 			state = s:STATE_BOSNIA.region_state:TUR
 		}
 		c:HRSK = {
-			random_character_in_void = {
-				limit = {
-					has_variable = balkfm_is_ali_pasha
+			create_character = {
+				# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+				first_name = Ali
+				last_name = Rizvanbegovic
+				historical = yes
+				age = 53 # born 1783
+				dna = mr_bos_rizvanbegovic_ali_pasha
+				culture = cu:serb
+				religion = rel:sunni
+				interest_group = ig_landowners
+				ideology = ideology_moderate
+				ruler = yes
+				traits = {
+					pious
+					arrogant
 				}
-				transfer_character = c:HRSK
-				set_character_as_ruler = yes
+				on_created = {
+					set_variable = balkfm_is_ali_pasha
+				}
 			}
 		}
 		s:STATE_BOSNIA = {
@@ -644,7 +648,32 @@ balkfm.081 = { # The Schemes of Ali Pasha
 	}
 	
 	immediate = {
-		balkfm_save_ali_pasha_scopes = yes
+		create_character = {
+			# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+			first_name = Ali
+			last_name = Rizvanbegovic
+			historical = yes
+			age = 53 # born 1783
+			dna = mr_bos_rizvanbegovic_ali_pasha
+			culture = cu:serb
+			religion = rel:sunni
+			interest_group = ig_landowners
+			ideology = ideology_moderate
+			traits = {
+				pious
+				arrogant
+			}
+			on_created = {
+				set_variable = balkfm_is_ali_pasha
+				place_character_in_void = 500
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_ali_pasha
+			}
+			save_scope_as = ali_pasha_scope
+		}
 	}
 	
 	option = { # Clip Him
@@ -4497,6 +4526,13 @@ balkfm.331 = { # Negociations At Humac
 				expert_defensive_strategist
 			}
 		}
+		hidden_effect = {
+			c:TUR = {
+				trigger_event = {
+					id = balkfm.080 # Skirmishes with Montenegro
+				}
+			}
+		}
 		set_global_variable = balkfm_humac_happened
 		ai_chance = {
 			base = 100
@@ -4801,7 +4837,10 @@ balkfm.336 = { # Duplicitous Diplomacy
 		}
 		hidden_effect = {
 			c:TUR = {
-				trigger_event = balkfm.080 # Skirmishes with Montenegro
+				trigger_event = {
+					id = balkfm.081 # The Schemes of Ali Pasha
+					days = 120
+				}
 			}
 		}
 	}
@@ -4907,7 +4946,7 @@ balkfm.337 = { # The Arrogance of Smaïl-aga
 
 }
 
-balkfm.338 = { # The Arrogance of Smaïl-aga
+balkfm.338 = { # The Arrogance of Ali Pasha
 	type = country_event
 	placement = root
 	
@@ -9576,7 +9615,7 @@ balkfm.623 = { # Social Equity
 
 }
 
-balkfm.624 = { # Electing a Hospodar
+balkfm.624 = { # Electing a Hospodar (MOL)
 	type = country_event
 	placement = root
 	
@@ -9597,10 +9636,35 @@ balkfm.624 = { # Electing a Hospodar
 	dlc = dlc_grefm
 	
 	trigger = {
+		var:balkfm_regulamentul_var <= 0
+		c:MOL ?= this
 	}
 	
 	immediate = {
-		balkfm_generate_hospodars_effect = yes
+		change_variable = {
+			name = balkfm_hospodar_election_counter
+			add = 1
+		}		
+		change_variable = {
+			name = balkfm_regulamentul_var
+			add = 7
+		}
+		balkfm_moldavian_election_effect = yes
+		ruler = {
+			save_scope_as = balkfm_hospodar_candidate_1
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_m1
+			}
+			save_scope_as = balkfm_hospodar_candidate_2
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_m2
+			}
+			save_scope_as = balkfm_hospodar_candidate_3
+		}
 	}
 	
 	option = { # keep current ruler
@@ -9640,13 +9704,99 @@ balkfm.624 = { # Electing a Hospodar
 
 }
 
-balkfm.625 = { # The Death of Feudalism
+balkfm.625 = { # Electing a Hospodar (WAL)
 	type = country_event
 	placement = root
 	
 	title = balkfm.625.t
 	desc = balkfm.625.d
 	flavor = balkfm.625.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:balkfm_regulamentul_var <= 0
+		c:WAL ?= this
+	}
+	
+	immediate = {
+		change_variable = {
+			name = balkfm_hospodar_election_counter
+			add = 1
+		}		
+		change_variable = {
+			name = balkfm_regulamentul_var
+			add = 7
+		}
+		balkfm_wallachian_election_effect = yes
+		ruler = {
+			save_scope_as = balkfm_hospodar_candidate_1
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_w1
+			}
+			save_scope_as = balkfm_hospodar_candidate_2
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_w2
+			}
+			save_scope_as = balkfm_hospodar_candidate_3
+		}
+	}
+	
+	option = { # keep current ruler
+		name = balkfm.625.a
+		default_option = yes
+		scope:balkfm_hospodar_candidate_1 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # historical successor
+		name = balkfm.625.b
+		scope:balkfm_hospodar_candidate_2 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # alternate successor
+		name = balkfm.625.c
+		scope:balkfm_hospodar_candidate_3 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	after = {
+
+		ruler = {
+			remove_variable = balkfm_hospodar_m1
+			remove_variable = balkfm_hospodar_m2
+			remove_variable = balkfm_hospodar_w1
+			remove_variable = balkfm_hospodar_w2
+		}
+	}
+
+}
+
+balkfm.626 = { # The Death of Feudalism
+	type = country_event
+	placement = root
+	
+	title = balkfm.626.t
+	desc = balkfm.626.d
+	flavor = balkfm.626.f
 	
 	event_image = {
 		video = "unspecific_world_fair"
@@ -9667,7 +9817,7 @@ balkfm.625 = { # The Death of Feudalism
 	}
 	
 	option = {
-		name = balkfm.625.a
+		name = balkfm.626.a
 		default_option = yes
 		add_loyalists = {
 			value = medium_radicals

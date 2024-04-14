@@ -467,6 +467,9 @@ grefm.003 = { # 3 September 1843 Revolution
 			strata = poor
 			value = small_radicals
 		}
+		call_election = {
+			months = 6
+		}
 		set_variable = grefm_constitution_completed
 	}
 	
@@ -9114,10 +9117,7 @@ grefm.905 = { # hidden event triggering the Don Pacifico Affair
 	hidden = yes
 	
 	trigger = {
-		NOT = { has_global_variable = grefm_don_pacifico_happened }
-		year >= 1848
-		c:GRE ?= this
-		has_journal_entry = je_grefm_bavarocracy_main
+		has_variable = grefm_don_pacifico_var
 		has_diplomatic_relevance = c:POR
 		has_diplomatic_relevance = c:GBR
 	}
@@ -9128,7 +9128,7 @@ grefm.905 = { # hidden event triggering the Don Pacifico Affair
 				id = grefm.161 # The Don Pacifico Affair
 			}
 		}
-		set_global_variable = grefm_don_pacifico_happened
+		remove_variable = grefm_don_pacifico_var
 	}
 	
 }

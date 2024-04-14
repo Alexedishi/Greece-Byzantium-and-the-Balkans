@@ -707,310 +707,265 @@ balkfm_create_bulgarian_royals = {
 
 ## ROMANIA EFFECTS ##
 
-balkfm_generate_hospodars_effect = {
-	change_variable = {
-		name = balkfm_hospodar_election_counter
-		add = 1
-	}
-	if = {
+balkfm_moldavian_election_effect = {
+	if = { # First Election
 		limit = {
-			c:MON ?= this
+			var:balkfm_hospodar_election_counter <= 1
 		}
-		
-		## These effects generate two candidates based on the election counter
-		if = { # First Election
-			limit = {
-				var:balkfm_hospodar_election_counter <= 1
-			}
-			create_character = { # Mihail Kogălniceanu, Romanian nationalist; inspired the 1848 Moldavian Revolution
-				first_name = Mihail
-				last_name = Kogalniceanu
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				ideology = ideology_kogalnitchanism
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_m1
-					place_character_in_void = 6
-				}
-			}
-			create_character = { # Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
-				first_name = Ion
-				last_name = Ghica
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				ideology = ideology_reformer
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_m2
-					place_character_in_void = 6
-				}
+		create_character = { # Mihail Kogălniceanu, Romanian nationalist; inspired the 1848 Moldavian Revolution
+			first_name = Mihail
+			last_name = Kogalniceanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_m1
+				place_character_in_void = 6
 			}
 		}
-		if = { # Second Election
-			limit = {
-				var:balkfm_hospodar_election_counter = 2
-			}
-			create_character = { # Grigore Alexandru Ghica, Prince of Moldavia 1849-1853/1854-1856
-				first_name = Grigore
-				last_name = Ghica
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 40 # birth date unclear; was in his 40s when elected
-				ideology = ideology_humanitarian_royalist
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_m1
-					place_character_in_void = 6
-				}
-			}
-			create_character = { # Manolache Costache Epureanu, 2x Prime Minister of Romania, participated in the ad hoc committee in Moldavia after the 1848 Revolution
-				first_name = Manolache
-				last_name = Epureanu
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				ideology = ideology_traditionalist
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_m2
-					place_character_in_void = 6
-				}
+		create_character = { # Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
+			first_name = Ion
+			last_name = Ghica
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_reformer
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_m2
+				place_character_in_void = 6
 			}
 		}
-		if = { # Third Election
-			limit = {
-				var:balkfm_hospodar_election_counter = 3
-			}	
-			create_character = { # Alexandru Ioan Cuza, first Domnitor of the United Principalities
-				first_name = Alexandru
-				last_name = Cuza
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 41 # age when he was elected
-				ideology = ideology_kogalnitchanism
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_m1
-					place_character_in_void = 6
-				}
-			}
-			create_character = { # Ioan Grigore Ghica, son of Grigore Ghica
-				first_name = Ioan
-				last_name = Ghica
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 29 # if election is held in 1859
-				ideology = ideology_jingoist_leader
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_m2
-					place_character_in_void = 6
-				}
-			}
-		}
-		if = { # Future Elections
-			limit = {
-				var:balkfm_hospodar_election_counter > 3
-			}	
-			create_character = {
-				culture = cu:romanian
-				religion = rel:orthodox
-				age = 40
-				ideology = ideology_kogalnitchanism
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_m1
-					place_character_in_void = 6
-				}
-			}
-			create_character = {
-				culture = cu:romanian
-				religion = rel:orthodox
-				age = 40
-				ideology = ideology_royalist
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_m2
-					place_character_in_void = 6
-				}
-			}
-		}
-		
-		## These effects save scopes after character creation
-		ruler = {
-			save_scope_as = balkfm_hospodar_candidate_1
-		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_hospodar_m1
-			}
-			save_scope_as = balkfm_hospodar_candidate_2
-		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_hospodar_m2
-			}
-			save_scope_as = balkfm_hospodar_candidate_2
-		}		
 	}
 	
-	if = {
+	if = { # Second Election
 		limit = {
-			c:WAL ?= this
+			var:balkfm_hospodar_election_counter = 2
 		}
-		
-		## These effects generate two candidates based on the election counter
-		if = { # First Election
-			limit = {
-				var:balkfm_hospodar_election_counter <= 1
-			}
-			create_character = { # Gheorghe Bibescu, second hospodar of Wallachia
-				first_name = Gheorghe
-				last_name = Bibescu
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 40
-				ideology = ideology_reformer
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_w1
-					place_character_in_void = 6
-				}
-			}
-			create_character = { # Emanoil Băleanu, candidate in the 1842 election
-				first_name = Emanoil
-				last_name = Baleanu
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 40
-				ideology = ideology_social_democrat
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_w2
-					place_character_in_void = 6
-				}
+		create_character = { # Grigore Alexandru Ghica, Prince of Moldavia 1849-1853/1854-1856
+			first_name = Grigore
+			last_name = Ghica
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 40 # birth date unclear; was in his 40s when elected
+			ideology = ideology_humanitarian_royalist
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_m1
+				place_character_in_void = 6
 			}
 		}
-		if = { # Second Election
-			limit = {
-				var:balkfm_hospodar_election_counter = 2
-			}
-			create_character = { # Barbu Dimitrie Știrbei, third hospodar of Wallachia
-				first_name = Barbu
-				last_name = Stirbei
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 40
-				ideology = ideology_reformer
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_w1
-					place_character_in_void = 6
-				}
-			}
-			create_character = { # Constantin Cantacuzino, boyar leader during the Regulamentul era
-				first_name = Constantin
-				last_name = Cantacuzino
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 60
-				ideology = ideology_traditionalist
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_w2
-					place_character_in_void = 6
-				}
+		create_character = { # Manolache Costache Epureanu, 2x Prime Minister of Romania, participated in the ad hoc committee in Moldavia after the 1848 Revolution
+			first_name = Manolache
+			last_name = Epureanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_traditionalist
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_m2
+				place_character_in_void = 6
 			}
 		}
-		if = { # Third Election
-			limit = {
-				var:balkfm_hospodar_election_counter = 3
-			}	
-			create_character = {
-				first_name = Alexander
-				last_name = Cuza
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 41 # age when he was elected
-				ideology = ideology_kogalnitchanism
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_w1
-					place_character_in_void = 6
-				}
-			}
-			create_character = {
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_w2
-					place_character_in_void = 6
-				}
+	}
+	
+	if = { # Third Election
+		limit = {
+			var:balkfm_hospodar_election_counter = 3
+		}	
+		create_character = { # Alexandru Ioan Cuza, first Domnitor of the United Principalities
+			first_name = Alexandru
+			last_name = Cuza
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 41 # age when he was elected
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_m1
+				place_character_in_void = 6
 			}
 		}
-		if = { # Future Elections
-			limit = {
-				var:balkfm_hospodar_election_counter > 3
-			}	
-			create_character = {
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				ideology = ideology_moderate
-				interest_group = ig_intelligentsia
-				on_created = {
-					set_variable = balkfm_hospodar_w1
-					place_character_in_void = 6
-				}
-			}
-			create_character = {
-				culture = cu:romanian
-				religion = rel:orthodox
-				historical = yes
-				age = 45
-				ideology = ideology_moderate
-				interest_group = ig_landowners
-				on_created = {
-					set_variable = balkfm_hospodar_w2
-					place_character_in_void = 6
-				}
+		create_character = { # Ioan Grigore Ghica, son of Grigore Ghica
+			first_name = Ioan
+			last_name = Ghica
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 29 # if election is held in 1859
+			ideology = ideology_jingoist_leader
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_m2
+				place_character_in_void = 6
 			}
 		}
-		
-		## These effects save scopes after character creation
-		ruler = {
-			save_scope_as = balkfm_hospodar_candidate_1
-		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_hospodar_w1
+	}
+	
+	if = { # Future Elections
+		limit = {
+			var:balkfm_hospodar_election_counter > 3
+		}	
+		create_character = {
+			culture = cu:romanian
+			religion = rel:orthodox
+			age = 40
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_m1
+				place_character_in_void = 6
 			}
-			save_scope_as = balkfm_hospodar_candidate_2
 		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_hospodar_w2
+		create_character = {
+			culture = cu:romanian
+			religion = rel:orthodox
+			age = 40
+			ideology = ideology_royalist
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_m2
+				place_character_in_void = 6
 			}
-			save_scope_as = balkfm_hospodar_candidate_3
-		}		
+		}
+	}
+
+}
+
+balkfm_wallachian_election_effect = {
+	## These effects generate two candidates based on the election counter
+	if = { # First Election
+		limit = {
+			var:balkfm_hospodar_election_counter <= 1
+		}
+		create_character = { # Gheorghe Bibescu, second hospodar of Wallachia
+			first_name = Gheorghe
+			last_name = Bibescu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 40
+			ideology = ideology_reformer
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_w1
+				place_character_in_void = 6
+			}
+		}
+		create_character = { # Emanoil Băleanu, candidate in the 1842 election
+			first_name = Emanoil
+			last_name = Baleanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 40
+			ideology = ideology_social_democrat
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_w2
+				place_character_in_void = 6
+			}
+		}
+	}
+	if = { # Second Election
+		limit = {
+			var:balkfm_hospodar_election_counter = 2
+		}
+		create_character = { # Barbu Dimitrie Știrbei, third hospodar of Wallachia
+			first_name = Barbu
+			last_name = Stirbei
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 40
+			ideology = ideology_reformer
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_w1
+				place_character_in_void = 6
+			}
+		}
+		create_character = { # Constantin Cantacuzino, boyar leader during the Regulamentul era
+			first_name = Constantin
+			last_name = Cantacuzino
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 60
+			ideology = ideology_traditionalist
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_w2
+				place_character_in_void = 6
+			}
+		}
+	}
+	if = { # Third Election
+		limit = {
+			var:balkfm_hospodar_election_counter = 3
+		}	
+		create_character = {
+			first_name = Alexander
+			last_name = Cuza
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 41 # age when he was elected
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_w1
+				place_character_in_void = 6
+			}
+		}
+		create_character = {
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_w2
+				place_character_in_void = 6
+			}
+		}
+	}
+	if = { # Future Elections
+		limit = {
+			var:balkfm_hospodar_election_counter > 3
+		}	
+		create_character = {
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_moderate
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_hospodar_w1
+				place_character_in_void = 6
+			}
+		}
+		create_character = {
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_moderate
+			interest_group = ig_landowners
+			on_created = {
+				set_variable = balkfm_hospodar_w2
+				place_character_in_void = 6
+			}
+		}
 	}
 
 }

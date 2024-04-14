@@ -152,6 +152,7 @@ je_grefm_greek_constitution = {
 				}
 			}
 		}
+		set_variable = grefm_don_pacifico_var
 	}
 			
 	
@@ -164,6 +165,7 @@ je_grefm_greek_constitution = {
 				popup = yes
 			}
 		}
+		set_variable = grefm_don_pacifico_var
 	}
 
 	invalid = {
@@ -1009,26 +1011,30 @@ je_grefm_venizelism_military = { # The numbers used in this journal are not arbi
 	
 	complete = {
 		has_law = law_type:law_mass_conscription
-		any_combat_unit = {
-			count >= 80 # This is based on the frontline forces of the Army of Thessaly; see below.
-			OR = {
-				has_unit_type = unit_type:combat_unit_type_trench_infantry
-				has_unit_type = unit_type:combat_unit_type_squad_infantry
-				has_unit_type = unit_type:combat_unit_type_mechanized_infantry
-				has_unit_type = unit_type:combat_unit_type_shrapnel_artillery
-				has_unit_type = unit_type:combat_unit_type_siege_artillery
-				has_unit_type = unit_type:combat_unit_type_heavy_tank
+		any_military_formation = {
+			any_combat_unit = {
+				count >= 80 # This is based on the frontline forces of the Army of Thessaly; see below.
+				OR = {
+					has_unit_type = unit_type:combat_unit_type_trench_infantry
+					has_unit_type = unit_type:combat_unit_type_squad_infantry
+					has_unit_type = unit_type:combat_unit_type_mechanized_infantry
+					has_unit_type = unit_type:combat_unit_type_shrapnel_artillery
+					has_unit_type = unit_type:combat_unit_type_siege_artillery
+					has_unit_type = unit_type:combat_unit_type_heavy_tank
+				}
 			}
 		}
-		any_combat_unit = {
-			count >= 20 # This is a round number based on surface combatants at the start of WWI; see below.
-			OR = {
-				has_unit_type = unit_type:combat_unit_type_destroyer
-				has_unit_type = unit_type:combat_unit_type_torpedo_boat
-				has_unit_type = unit_type:combat_unit_type_scout_cruiser
-				has_unit_type = unit_type:combat_unit_type_ironclad
-				has_unit_type = unit_type:combat_unit_type_dreadnought
-				has_unit_type = unit_type:combat_unit_type_battleship
+		any_military_formation = {
+			any_combat_unit = {
+				count >= 20 # This is a round number based on surface combatants at the start of WWI; see below.
+				OR = {
+					has_unit_type = unit_type:combat_unit_type_destroyer
+					has_unit_type = unit_type:combat_unit_type_torpedo_boat
+					has_unit_type = unit_type:combat_unit_type_scout_cruiser
+					has_unit_type = unit_type:combat_unit_type_ironclad
+					has_unit_type = unit_type:combat_unit_type_dreadnought
+					has_unit_type = unit_type:combat_unit_type_battleship
+				}
 			}
 		}
 	}
@@ -2010,7 +2016,22 @@ je_grefm_the_cretan_revolts = {
 	
 	group = je_group_grefm_nationalism
 	
-	should_be_pinned_by_default = yes 
+	should_be_pinned_by_default = yes
+	
+	immediate = { # Initializes these variables
+		set_variable = {
+			name = grefm_crete_turmoil_var
+			value = 0
+		}
+		set_variable = {
+			name = grefm_crete_boost_var
+			value = 0
+		}
+		set_variable = {
+			name = grefm_crete_progress_var
+			value = 0
+		}
+	}
 	
 	complete = {
 		has_law = law_type:law_multicultural
@@ -2039,7 +2060,7 @@ je_grefm_the_cretan_revolts = {
 				}
 				change_global_variable = {
 					name = grefm_crete_revolt_var
-					add = global_var:grefm_crete_progress_var
+					add = var:grefm_crete_progress_var
 				}
 				clamp_global_variable = {
 					name = grefm_crete_revolt_var
