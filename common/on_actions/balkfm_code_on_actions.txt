@@ -97,8 +97,8 @@ grefm_monthly_pulse = {
 		 5 = grefm.230 # The Defence of Jonas King
 		25 = grefm.243 # greek identity completion
 		25 = grefm.244 # history of the greek nation
-		 1 = grefm.261 # turkish homelands
-		 1 = grefm.262 # greek expansion		
+		25 = grefm.261 # turkish homelands
+		10 = grefm.262 # greek expansion		
 	}
 }
 
@@ -390,23 +390,31 @@ balkfm_crisis_wargoal_enforced = {
 		if = {
 			limit = {
 				has_variable = balkfm_crisis_starter
+				NOT = { has_global_variable = balkfm_berlin_congress_var }
 			}
 			every_country = {
 				limit = {
 					has_variable = balkfm_crisis_offered
+					NOT = { has_variable = eqfm_congress_offered }
 				}
 				trigger_event = {
 					id = balkfm.106 # The Treaty of San Stefano
 				}
 			}
-			set_global_variable = {
-				name = balkfm_berlin_congress_var
-				value = 0
+			if = {
+				limit = {
+					NOT = { has_global_variable = balkfm_berlin_congress_var }
+				}
+				set_global_variable = {
+					name = balkfm_berlin_congress_var
+					value = 0
+				}
 			}
 		}
 		if = {
 			limit = {
 				has_variable = balkfm_crisis_target
+				NOT = { has_variable = eqfm_congress_offered }
 			}
 			every_country = {
 				limit = {
@@ -415,6 +423,7 @@ balkfm_crisis_wargoal_enforced = {
 				trigger_event = {
 					id = balkfm.107 # The Porte Triumphant
 				}
+				set_variable = eqfm_congress_offered
 			}
 			set_global_variable = balkfm_porte_triumphant_var
 		}
