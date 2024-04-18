@@ -834,7 +834,15 @@ balkfm.106 = { # The Treaty of San Stefano
 	trigger = { # triggered by balkfm_crisis_wargoal_enforced
 	}
 	
+	cancellation_trigger = { # Loop Prevention
+		OR = {
+			has_journal_entry = je_balkfm_congress_of_berlin_main
+			has_journal_entry = je_balkfm_congress_of_berlin_sub
+		}
+	}	
+	
 	immediate = {
+		set_variable = eqfm_congress_offered # Loop Prevention
 		if = {
 			limit = {
 				c:BUL = this
@@ -894,6 +902,15 @@ balkfm.106 = { # The Treaty of San Stefano
 				capital = {
 					save_scope_as = germany_capital_scope
 				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_global_variable = balkfm_berlin_congress_var }
+			}
+			set_global_variable = {
+				name = balkfm_berlin_congress_var
+				value = 0
 			}
 		}
 	}
@@ -1201,6 +1218,13 @@ balkfm.110 = { # The Congress of Berlin
 	dlc = dlc_grefm
 	
 	trigger = {
+	}
+	
+	cancellation_trigger = { # Loop Prevention
+		OR = {
+			has_journal_entry = je_balkfm_congress_of_berlin_main
+			has_journal_entry = je_balkfm_congress_of_berlin_sub
+		}
 	}
 	
 	immediate = {
