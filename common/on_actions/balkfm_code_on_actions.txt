@@ -8,7 +8,6 @@ on_monthly_pulse_country = {
 		byfzm_monthly_pulse
 		
 		balkfm_monthly_pulse
-		crisis_monthly_pulse
 #		yug_flavor_pulse
 		mon_flavor_pulse
 		ser_flavor_pulse
@@ -28,8 +27,8 @@ on_wargoal_enforced = {
 	on_actions = {
 		eocfm_wargoal_enforced_1
 		eocfm_wargoal_enforced_2
-		balkfm_crisis_wargoal_enforced
-#		balkfm_thunderdome_wargoal_enforced
+		eqfm_crisis_wargoal_enforced
+#		eqfm_thunderdome_wargoal_enforced
 	}
 }
 
@@ -49,16 +48,9 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 		balkfm.020 # Places Yugoslav Secession Variable
 		balkfm.208 # Yugoslavism Fizzles Out
 		balkfm.598 # The Bulgarian State
-	}
-}
-
-crisis_monthly_pulse = { # These are for firing the crisis events/TUR-specific extensions of this mod. Ottoman Flavor is out of scope for this mod.
-	trigger = {
-		c:TUR ?= this
-	}
-	events = {
-		balkfm.082 # Ali Pasha Ascendant
-		balkfm.100 # Great Eastern Crisis Warmup
+		
+		eqfm.004 # Nationalism Sweeps the Balkans
+		eqfm.009 # Adds je_eqfm_sub as appropriate
 	}
 }
 
@@ -404,45 +396,53 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 
 # These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 
-balkfm_crisis_wargoal_enforced = {
+eqfm_crisis_wargoal_enforced = {
 	trigger = {
-		has_global_variable = balkfm_crisis_happened
+		has_global_variable = eqfm_crisis_happened
 		OR = {
-			has_variable = balkfm_crisis_target
-			has_variable = balkfm_crisis_starter
+			has_variable = eqfm_crisis_target
+			has_variable = eqfm_crisis_initiator
 		}
 	}
 	effect = {
 		if = {
 			limit = {
-				has_variable = balkfm_crisis_starter
+				has_variable = eqfm_crisis_initiator
+				NOT = { has_global_variable = eqfm_berlin_congress_var }
 			}
 			every_country = {
 				limit = {
-					has_variable = balkfm_crisis_offered
+					has_variable = eqfm_crisis_offered
+					NOT = { has_variable = eqfm_congress_offered }
 				}
 				trigger_event = {
-					id = balkfm.106 # The Treaty of San Stefano
+					id = eqfm.119 # The Treaty of San Stefano
 				}
 			}
-			set_global_variable = {
-				name = balkfm_berlin_congress_var
-				value = 0
+			if = {
+				limit = {
+					NOT = { has_global_variable = eqfm_berlin_congress_var }
+				}
+				set_global_variable = {
+					name = eqfm_berlin_congress_var
+					value = 0
+				}
 			}
 		}
 		if = {
 			limit = {
-				has_variable = balkfm_crisis_target
+				has_variable = eqfm_crisis_target
+				NOT = { has_variable = eqfm_congress_offered }
 			}
 			every_country = {
 				limit = {
-					has_variable = balkfm_crisis_offered
+					has_variable = eqfm_crisis_offered
 				}
 				trigger_event = {
-					id = balkfm.107 # The Porte Triumphant
+					id = eqfm.118 # The Porte Triumphant
 				}
 			}
-			set_global_variable = balkfm_porte_triumphant_var
+			set_global_variable = eqfm_porte_triumphant_var
 		}
 	}
 }

@@ -1,9 +1,25 @@
-﻿balkfm_crisis_participant_trigger = {
+﻿balkfm_balkans_involved_trigger = {
 	OR = {
-		has_variable = balkfm_crisis_starter
-		has_variable = balkfm_crisis_attacker
-		has_variable = balkfm_crisis_defender
-		has_variable = balkfm_crisis_target
+		has_interest_marker_in_region = sr:region_balkans
+		capital = {
+			state_in_balkans = yes
+		}
+	}
+}
+
+balkfm_balkans_native_trigger = {
+	AND = {
+		OR = {
+			country_has_primary_culture = cu:greek
+			country_has_primary_culture = cu:serb
+			country_has_primary_culture = cu:croat
+			country_has_primary_culture = cu:bosniak
+			country_has_primary_culture = cu:slovene
+			country_has_primary_culture = cu:bulgarian
+		}
+		capital = {
+			state_in_balkans = yes
+		}
 	}
 }
 

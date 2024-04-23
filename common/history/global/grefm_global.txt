@@ -46,6 +46,10 @@
 	}
 	
 	c:TUR ?= {
+		trigger_event = {
+			id = eqfm.001 # The Eastern Question
+		}
+		eqfm_calculate_tension_variables_effect = yes
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
 	}
@@ -60,13 +64,55 @@
 	}
 	
 	### Variables
-#	set_global_variable = { # This variable handles tension in the Balkans
-#		name = balkfm_eastern_question_var
-#		value = 0
-#	}
+	# EQM Tension Variables
+	set_global_variable = {
+		name = eqfm_tension_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_greek_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = 0
+	}
 	
-	set_global_variable = { # This variable handles Crete revolt momentum
+	# Crete Revolt Momentum Variables
+	set_global_variable = { 
 		name = grefm_crete_revolt_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_turmoil_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_boost_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_progress_var
 		value = 0
 	}
 	
@@ -77,6 +123,27 @@
 		}
 		trigger_event = {
 			id = eocfm.001 # The Bishops of the East
+		}
+	}
+	
+	every_country = {
+		limit = {
+			country_rank >= rank_value:great_power
+			has_interest_marker_in_region = sr:region_balkans
+		}
+		trigger_event = {
+			id = eqfm.002 # The Sick Man of Europe
+			days = 30
+		}
+	}
+	
+	every_country = {
+		limit = {
+			balkfm_balkans_native_trigger = yes
+		}
+		trigger_event = {
+			id = eqfm.003 # The Decline of the Porte
+			days = 15
 		}
 	}
 	

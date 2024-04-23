@@ -1,0 +1,88 @@
+﻿eqfm_anti_turk_button = {
+	name = "eqfm_anti_turk_button"
+	desc = "eqfm_anti_turk_button_desc"
+	
+	visible = {
+		NOR = { 
+			has_variable = eqfm_anti_turk_var
+			has_variable = eqfm_pro_turk_var
+		}
+		country_rank = rank_value:great_power
+	}
+	
+	possible = {
+		c:TUR = {
+			relations:root < relations_threshold:cordial
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_eqfm_influencing_balkans
+		}
+		custom_tooltip = {
+			text = eqfm_anti_turk_tt
+			hidden_effect = {
+				set_variable = eqfm_anti_turk_var
+			}
+		}
+	}
+}
+
+eqfm_pro_turk_button = {
+	name = "eqfm_pro_turk_button"
+	desc = "eqfm_pro_turk_button_desc"
+	
+	visible = {
+		NOR = { 
+			has_variable = eqfm_anti_turk_var
+			has_variable = eqfm_pro_turk_var
+		}
+		country_rank = rank_value:great_power
+	}
+	
+	possible = {
+		c:TUR = {
+			relations:root > relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_eqfm_influencing_balkans
+		}
+		custom_tooltip = {
+			text = eqfm_pro_turk_tt
+			hidden_effect = {
+				set_variable = eqfm_pro_turk_var
+			}
+		}
+	}
+}
+
+eqfm_neutral_button = {
+	name = "eqfm_neutral_button"
+	desc = "eqfm_neutral_button_desc"
+	
+	visible = {
+		OR = { 
+			has_variable = eqfm_anti_turk_var
+			has_variable = eqfm_pro_turk_var
+		}
+	}
+	
+	possible = {
+		is_diplomatic_play_committed_participant = no
+	}
+	
+	effect = {
+		remove_modifier = modifier_eqfm_influencing_balkans
+		custom_tooltip = {
+			text = eqfm_neutral_tt
+			hidden_effect = {
+				remove_variable = eqfm_anti_turk_var
+				remove_variable = eqfm_pro_turk_var
+			}
+		}
+	}
+}

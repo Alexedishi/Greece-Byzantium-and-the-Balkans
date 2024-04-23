@@ -1,345 +1,4 @@
-﻿###########################
-# GENERAL BALKANS CONTENT #
-###########################
-
-je_balkfm_the_eastern_question_main = {
-	# This is assigned to the Ottomans and used to track variables and handle on_actions. All other journals will reference these variables. 
-	icon = gfx/interface/icons/event_icons/event_ottoman.dds
-	
-	group = je_group_balkfm_eastern_question
-	
-	should_be_pinned_by_default = yes
-}
-
-je_balkfm_the_eastern_question_sub = {
-	icon = gfx/interface/icons/event_icons/event_ottoman.dds
-	
-	group = je_group_balkfm_eastern_question
-	
-	should_be_pinned_by_default = yes
-}
-
-je_great_eastern_crisis_main = {
-	# This is assigned to the Ottomans since they are the only guaranteed participant. This journal handles all on_actions, events, etc. 
-	icon = gfx/interface/icons/event_icons/event_ottoman.dds
-
-	group = je_group_balkfm_eastern_question
-
-	should_be_pinned_by_default = yes
-
-	immediate = {
-	}
-
-	complete = {
-		custom_tooltip = {
-			text = je_great_eastern_crisis_tt
-			hidden_trigger = {
-				OR = {
-					has_global_variable = balkfm_berlin_congress_var
-					has_global_variable = balkfm_porte_triumphant_var
-				}
-			}
-		}
-	}
-
-	on_complete = {
-	}
-
-	on_weekly_pulse = {
-		events = {
-			balkfm.108 # Creates GEC DP and Fires balkfm.109
-			balkfm.122 # Great Britain Attempts Deconfliction
-			balkfm.124 # France Attempts Deconfliction
-		}
-		effect = {
-			balkfm_recruit_participants = yes
-			change_global_variable = {
-				name = balkfm_crisis_var
-				add = 1
-			}
-			clamp_global_variable = {
-				name = balkfm_crisis_var
-				max = 150
-				min = 0
-			}
-		}
-	}
-		
-
-	current_value = {
-		value = global_var:balkfm_crisis_var
-	}
-
-	goal_add_value = {
-		value = 150
-	}
-
-	progressbar = yes
-
-	weight = 500
-
-}
-
-je_great_eastern_crisis_sub = {
-	icon = gfx/interface/icons/event_icons/event_ottoman.dds
-
-	group = je_group_balkfm_eastern_question
-
-	should_be_pinned_by_default = yes
-
-	immediate = {
-		set_variable = {
-			name = balkfm_crisis_local_var # each sequential sub-journal's goal value drifts upward for each sub-journal since they take the current value of balkfm_crisis_var global_var and then add 250, this ensures every country receives an accurate goal value
-			value = 0
-		}
-	}
-
-	complete = {
-		custom_tooltip = {
-			text = je_great_eastern_crisis_tt
-			hidden_trigger = {
-				OR = {
-					has_global_variable = balkfm_berlin_congress_var
-					has_global_variable = balkfm_porte_triumphant_var
-				}
-			}
-		}
-	}
-
-	on_complete = {
-	}
-
-	on_weekly_pulse = {
-		effect = {
-			change_global_variable = {
-				name = balkfm_crisis_var
-				add = 1
-			}
-			clamp_global_variable = {
-				name = balkfm_crisis_var
-				max = 150
-				min = 0
-			}
-			set_variable = {
-				name = balkfm_crisis_local_var
-				value = global_var:balkfm_crisis_var
-			}
-		}
-	}
-
-	current_value = {
-		value = var:balkfm_crisis_local_var
-	}
-
-	goal_add_value = {
-		value = 250
-	}
-
-	progressbar = yes
-
-	weight = 500
-
-}
-
-je_balkfm_congress_of_berlin_main = {
-	# I would love to assign this to PRU, but for the sake of avoiding jank, it gets assigned to TUR
-	# This journal handles all the on_actions, events, and so on
-	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
-	
-	group = je_group_balkfm_eastern_question
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-		set_global_variable = {
-			name = balkfm_berlin_congress_var
-			value = 0
-		}
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_balkfm_congress_of_berlin_tt
-			hidden_trigger = {
-				scope:journal_entry = { is_goal_complete = yes }
-			}
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.119 # The Treaty of Berlin
-		}
-		hidden_effect = {
-			c:BUL ?= {
-				balkfm_create_bulgarian_characters = yes
-			}
-		}
-		set_global_variable = balkfm_berlin_congress_completed
-		remove_global_variable = balkfm_crisis_var
-		remove_global_variable = balkfm_berlin_congress_var
-	}
-	
-	on_weekly_pulse = { # events will fire rapidly one and another, the Congress only lasted a month. For gameplay reasons, this will take a little longer. Any irrelevant events will be skipped. These are listed in the order that they occur in.
-		events = {
-			balkfm.111 # The Issue of Bulgaria
-			balkfm.112 # The Issue of Bosnia
-			balkfm.125 # The Convention of Tunis
-			balkfm.113 # The Issue of Montenegro
-			balkfm.114 # The Issue of Serbia
-#			balkfm.115 # The Issue of the Principalities
-			balkfm.123 # The Convention of Cyprus
-			balkfm.116 # The Issue of the Caucasus
-#			balkfm.117 # OPEN
-			balkfm.118 # The Greek Delegation
-#			balkfm.127 # The Convention of Constantinople
-		}
-		effect = {
-			change_global_variable = {
-				name = balkfm_berlin_congress_var
-				add = 1
-			}
-		}
-	}
-	
-	current_value = {
-		value = global_var:balkfm_berlin_congress_var
-	}
-
-	goal_add_value = {
-		value = 32
-	}
-	
-	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status1
-			trigger = {
-				global_var:balkfm_berlin_congress_var <= 3
-			}
-		}
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status2
-			trigger = {
-				global_var:balkfm_berlin_congress_var >= 4
-				global_var:balkfm_berlin_congress_var <= 27
-			}
-		}
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status3
-			trigger = {
-				global_var:balkfm_berlin_congress_var > 27
-			}
-		}
-	}
-
-	weight = 2000
-	
-}
-
-je_balkfm_congress_of_berlin_sub = {
-	# This is just an effect-less clone of the above JE; main JE handles all events/effects
-	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
-	
-	group = je_group_balkfm_eastern_question
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-		custom_tooltip = {
-			text = je_balkfm_congress_of_berlin_tt
-			hidden_trigger = {
-				has_global_variable = balkfm_berlin_congress_completed
-			}
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.119 # The Treaty of Berlin
-		}
-	}
-
-	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status1
-			trigger = {
-				global_var:balkfm_berlin_congress_var < 8
-			}
-		}
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status2
-			trigger = {
-				global_var:balkfm_berlin_congress_var >= 8
-				global_var:balkfm_berlin_congress_var <= 27
-			}
-		}
-		triggered_desc = {
-			desc = je_balkfm_congress_of_berlin_status3
-			trigger = {
-				global_var:balkfm_berlin_congress_var > 27
-			}
-		}
-	}
-
-	weight = 2000
-	
-}
-
-je_balkfm_the_balkan_league = {
-	# unused for now, this will be built out once I get this far
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	group = je_group_balkfm_thunderdome
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-
-	weight = 2000
-	
-}
-
-je_balkfm_thunderdome_main = {
-	# unused for now, this will be built out once I get this far
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	group = je_group_balkfm_thunderdome
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-
-	weight = 2000
-	
-}
-
-je_balkfm_thunderdome_sub = {
-	# unused for now, this will be built out once I get this far
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	group = je_group_balkfm_thunderdome
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-
-	weight = 2000
-	
-}
-
-###############
+﻿###############
 # YUGOSLAVISM #
 ###############
 
@@ -365,6 +24,7 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 	
 	possible = {
 		has_technology_researched = nationalism
+		is_subject = no
 		hidden_trigger = { # these are here to block nacertanije from opening before a tag has independence
 			is_secessionist = no
 		}
@@ -1549,8 +1209,8 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	is_shown_when_inactive = {
 		c:BUL ?= this
 		NOR = { 
-			has_global_variable = balkfm_crisis_var
-			has_global_variable = balkfm_berlin_congress_var
+			has_global_variable = eqfm_crisis_var
+			has_global_variable = eqfm_berlin_congress_var
 			has_variable = balkfm_bulgarian_liberation
 		}
 		owns_entire_state_region = STATE_BULGARIA
@@ -1645,8 +1305,8 @@ je_balkfm_bul_greater_bulgaria_alternate = {
 	is_shown_when_inactive = {
 		c:BUL ?= this
 		NOR = { 
-			has_global_variable = balkfm_crisis_var
-			has_global_variable = balkfm_berlin_congress_var
+			has_global_variable = eqfm_crisis_var
+			has_global_variable = eqfm_berlin_congress_var
 			has_variable = balkfm_bulgarian_liberation
 		}
 		owns_entire_state_region = STATE_BULGARIA
@@ -1912,7 +1572,7 @@ je_balkfm_bul_restoration = { # this copied in from the byzfm side, only differe
 ########################################
 
 je_balkfm_rom_regulamentul_organic = {
-	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -1946,10 +1606,9 @@ je_balkfm_rom_regulamentul_organic = {
 		trigger_event = {
 			id = balkfm.626 # The Death of Feudalism
 		}
-		set_variable = balkfm_regulamentul_completed
 	}
 	
-	fail = {
+	invalid = {
 		custom_tooltip = {
 			text = je_rom_regulamentul_organic_tt4
 			hidden_trigger = {
@@ -1958,10 +1617,7 @@ je_balkfm_rom_regulamentul_organic = {
 		}
 	}
 	
-	invalid = {
-		hidden_trigger = {	
-			has_variable = balkfm_regulamentul_completed
-		}
+	on_invalid = {
 	}
 	
 	on_monthly_pulse = {
@@ -1972,7 +1628,6 @@ je_balkfm_rom_regulamentul_organic = {
 	}
 	
 	on_yearly_pulse = {
-		## The Akkerman Convention imposed seven year terms on the hospodars; one election in Wallachia, this was basically never respected, but for gameplay reason's it's a fixed term.
 		effect = {
 			change_variable = {
 				name = balkfm_regulamentul_var
@@ -1980,35 +1635,6 @@ je_balkfm_rom_regulamentul_organic = {
 			}
 		}
 	}
-	
-	modifiers_while_active = {
-		modifier_balkfm_regulamentul_organic
-	}
-	
-	status_desc = {	
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_rom_regulamentul_election_tt1
-				trigger = {
-					var:balkfm_regulamentul_var >= 2
-				}
-			}
-			triggered_desc = {	
-				desc =  je_balkfm_rom_regulamentul_election_tt2
-				trigger = {
-					var:balkfm_regulamentul_var = 1
-				}
-			}
-			triggered_desc = {	
-				desc =  je_balkfm_rom_regulamentul_election_tt3
-				trigger = {
-					var:balkfm_regulamentul_var < 1
-				}
-			}
-		}
-	}
-	
-	weight = 1000
 	
 }
 
@@ -2034,12 +1660,10 @@ je_balkfm_rom_legal_modernization = {
 		}
 	}
 	
-	weight = 500
-	
 }
 
 je_balkfm_rom_economic_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -2059,16 +1683,14 @@ je_balkfm_rom_economic_modernization = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.622 # Modernized Economy
+			id = balkfm.622 # A Modernized Economy
 		}
 	}
-	
-	weight = 500
 	
 }
 
 je_balkfm_rom_social_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -2078,7 +1700,7 @@ je_balkfm_rom_social_modernization = {
 	}
 	
 	complete = {
-		NOT = { has_law = law_type:law_serfdom }
+		NOT = { has_law = law_type:law_serdom }
 		has_law = law_type:law_slavery_banned
 		NOT = { has_law = law_type:law_no_schools }
 	}
@@ -2088,8 +1710,6 @@ je_balkfm_rom_social_modernization = {
 			id = balkfm.623 # Social Equity
 		}
 	}
-	
-	weight = 500
 	
 }
 

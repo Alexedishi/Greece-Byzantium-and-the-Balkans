@@ -338,6 +338,7 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 		scope:journal_entry = {
 			is_goal_complete = yes
 		}
+		has_revolution = no
 		has_law = law_type:law_monarchy
 		has_law = law_type:law_hereditary_bureaucrats
 		has_law = law_type:law_autocracy
@@ -397,12 +398,7 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 					has_law = law_type:law_autocracy
 					has_law = law_type:law_state_religion		
 					has_law = law_type:law_tenant_farmers
-					NOT = {
-						any_civil_war = {
-							civil_war_progress > 0.5
-							is_civil_war_type = revolution
-						}
-					}
+					has_revolution = no
 				}
 				change_variable = {
 					name = grefm_tyranny_var
@@ -1207,20 +1203,24 @@ je_grefm_megali_idea = {
 	}
 
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		owns_entire_state_region = STATE_ATTICA
-		owns_entire_state_region = STATE_THESSALIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_HUDAVENDIGAR
-		owns_entire_state_region = STATE_AYDIN
-		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-		owns_entire_state_region = STATE_ALBANIA
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
 	}
 
 	on_complete = {
