@@ -27,22 +27,22 @@ namespace = eqfm
 ##  #EQFM0  GENERAL EASTERN QUESTION EVENTS  Events  001-099  ##
 
 #001-009 - EQFM Intro Events
-#	001 - ##The Eastern Question (TUR)
-#	002 - ##The Sick Man of Europe (Great Powers)
-#	003 - ##The Decline of the Porte (Local Tags)
-#	004 - ##Nationalism Sweeps the Balkans
-#	005 - 
-#	006 -
+#	001 - The Eastern Question (TUR)
+#	002 - The Sick Man of Europe (Great Powers)
+#	003 - The Decline of the Porte (Local Tags)
+#	004 - Nationalism Sweeps the Balkans
+#	005 - OPEN
+#	006 - OPEN
 #	007 - ##Rumelia Lost
 #	008 - ##Dominion Over Rumelia
-#	009 - ##[TECH] Adds je_eqfm_sub as appropriate
+#	009 - [TECH] Adds je_eqfm_sub as appropriate
 
 
 #010-019 - EQFM Tension Events
-#	010 - ##Extortionate Taxation in State
-#	011 - ##Plague Outbreak in State
-#	012 - ##Ecumenical Patriarch Demands Protections
-#	013 - ##Church Burned in State
+#	010 - Extortionate Taxation in State
+#	011 - Plague Outbreak in State
+#	012 - Ecumenical Patriarch Demands Protections
+#	013 - ##Churches Burned in State
 #	014 - ##Popular Speaker Lynched in State
 #	015 - ##Brigandage in State
 
@@ -140,6 +140,42 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 	}
 	
 	immediate = {
+		set_global_variable = {
+			name = eqfm_tension_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_greek_radicals_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_serb_radicals_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_bulgarian_radicals_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_bosniak_radicals_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_nationalism_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_accelerate_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_culture_var
+			value = 0
+		}
+		set_global_variable = {
+			name = eqfm_religion_var
+			value = 0
+		}
 		eqfm_calculate_tension_variables_effect = yes
 		set_variable = eqfm_tension_started
 	}
@@ -439,11 +475,9 @@ eqfm.010 = { # Extortionate Taxation in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
+		NOR = {
 			has_global_variable = eqfm_tension_event_cooldown_var
-		}
-		any_state = {
-			NOR = {
+			any_state = {
 				has_modifier = modifier_eqfm_overtaxed
 				has_modifier = modifier_eqfm_tax_break_given
 			}
@@ -455,12 +489,11 @@ eqfm.010 = { # Extortionate Taxation in State
 			limit = {
 				state_in_balkans = yes
 			}
-			set_variable = eqfm_tension_target_var
 			save_scope_as = eqfm_tension_target_scope
 		}
 		set_global_variable = {
 			name = eqfm_tension_event_cooldown_var
-			days = 720 # two years
+			days = 720 # two year lockout
 		}
 	}
 	
@@ -500,6 +533,317 @@ eqfm.010 = { # Extortionate Taxation in State
 	}
 	
 }
+
+eqfm.011 = { # Plague Outbreak in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.011.t
+	desc = eqfm.011.d
+	flavor = eqfm.011.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_plague_outbreak
+				has_modifier = modifier_eqfm_mitigated_plague
+			}
+		}
+		institution_investment_level = {
+			institution = institution_health_system
+			value < 4
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # Let Them Die
+		name = eqfm.011.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = large_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_plague_outbreak
+				months = normal_modifier_time
+			}
+		}
+		eqfm_add_medium_tension_effect = yes
+	}
+	
+	option = { # Implement Quarantine
+		name = eqfm.011.b
+		scope:eqfm_tension_target_scope = {
+			add_loyalists_in_state = {
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_mitigated_plague
+				months = short_modifier_time
+			}
+		}
+	}
+
+}
+
+eqfm.012 = { # Ecumenical Patriarch Demands Protections
+	type = country_event
+	placement = root
+	
+	title = eqfm.012.t
+	desc = eqfm.012.d
+	flavor = eqfm.012.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_variable = eqfm_firman_requested
+			has_global_variable = eqfm_tension_event_cooldown_var
+		}
+		has_variable = eocfm_controls_constantinople
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = eqfm_tension_target_scope
+			}
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+		set_variable = eqfm_firman_requested
+	}
+	
+	option = { # Patriarch? More like Faketriarch!
+		name = eqfm.012.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = large_radicals
+			}
+		}
+		eqfm_add_large_tension_effect = yes
+	}
+	
+	option = { # Help a Beggar Out
+		name = eqfm.012.b
+		scope:eqfm_tension_target_scope = {
+			add_loyalists_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_granted_religious_firman
+				months = short_modifier_time
+			}
+		}
+	}
+
+}
+
+eqfm.013 = { # Churches Burned in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.013.t
+	desc = eqfm.013.d
+	flavor = eqfm.013.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_churches_burned
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # They Can Deal With It
+		name = eqfm.013.a
+		default_option = yes
+	}
+	
+	option = { # Pay Them Back
+		name = eqfm.013.b
+		## TODO treasury cost
+	}
+
+}
+
+eqfm.014 = { # Popular Speaker Lynched in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.014.t
+	desc = eqfm.014.d
+	flavor = eqfm.014.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_minority_leader_killed
+				has_modifier = modifier_eqfm_protected_minorities
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # Let the Killers Go
+		name = eqfm.014.a
+		default_option = yes
+	}
+	
+	option = { # Bring Them to Justice
+		name = eqfm.014.b
+	}
+
+}
+
+eqfm.015 = { # Brigandage in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.015.t
+	desc = eqfm.015.d
+	flavor = eqfm.015.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_brigandage
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # They'll be Fine
+		name = eqfm.014.a
+		default_option = yes
+	}
+	
+	option = { # Extend Assistance
+		name = eqfm.014.b
+	}
+
+}
+
+
+
 
 #### EQFM UPRISING EVENTS ####
 
