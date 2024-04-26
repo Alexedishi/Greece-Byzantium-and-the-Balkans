@@ -1239,12 +1239,6 @@ je_grefm_megali_idea = {
 	on_invalid = {
 		set_variable = grefm_tzatzikisauce
 	}
-	
-	on_monthly_pulse = {
-		effect = {
-			grefm_calculate_crete_progress_effect = yes # this only calculates the numbers for the loc; je_grefm_the_cretan_revolts handles updating the global var
-		}
-	}
 
 	scripted_button = grefm_epirus_agitate_button
 	scripted_button = grefm_epirus_provoke_button
@@ -2020,11 +2014,11 @@ je_grefm_the_cretan_revolts = {
 	
 	immediate = { # Initializes these variables
 		set_variable = {
-			name = grefm_crete_turmoil_var
+			name = grefm_crete_radicals_var
 			value = 0
 		}
 		set_variable = {
-			name = grefm_crete_boost_var
+			name = grefm_crete_accelerate_var
 			value = 0
 		}
 		set_variable = {
@@ -2041,6 +2035,12 @@ je_grefm_the_cretan_revolts = {
 		NOT = { owns_entire_state_region = STATE_CRETE }
 	}
 	
+	on_weekly_pulse = {
+		effect = {
+			grefm_calculate_crete_variables_effect = yes
+		}
+	}
+	
 	on_monthly_pulse = {
 		events = {
 			grefm.914 # crete revolts again
@@ -2051,22 +2051,13 @@ je_grefm_the_cretan_revolts = {
 			5 = grefm.251 # Wali of Crete Oversteps Authority
 		}
 		effect = {
-			grefm_calculate_crete_progress_effect = yes
 			if = {
 				limit = {
 					NOT = {
 						exists = c:CRE
 					}
 				}
-				change_global_variable = {
-					name = grefm_crete_revolt_var
-					add = var:grefm_crete_progress_var
-				}
-				clamp_global_variable = {
-					name = grefm_crete_revolt_var
-					max = 100
-					min = 0 
-				}
+				grefm_push_crete_variables_effect = yes
 			}
 		}
 	}
@@ -2118,12 +2109,6 @@ je_grefm_the_cretan_revolts_fallback = { # in case je_grefm_megali_idea is close
 		owns_entire_state_region = STATE_CRETE
 	}
 	
-	on_monthly_pulse = {
-		effect = {
-			grefm_calculate_crete_progress_effect = yes
-		}
-	}
-	
 	scripted_button = grefm_crete_agitate_button
 		
 	status_desc = {
@@ -2141,7 +2126,7 @@ je_grefm_the_cretan_revolts_fallback = { # in case je_grefm_megali_idea is close
 				}
 			}
 		}
-	}		
+	}
 
 	weight = 100
 

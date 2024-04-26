@@ -62,7 +62,23 @@
 	}
 }
 
-grefm_crete_boost_value = {
+grefm_crete_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_CRETE
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_crete_accelerate_value = {
 	value = 0
 	every_country = {
 		limit = {
@@ -72,26 +88,23 @@ grefm_crete_boost_value = {
 	}
 }
 
-grefm_crete_progress_value = {
+grefm_crete_nationalism_value = {
 	value = 0
 	if = {
 		limit = {
 			any_country = {
-				owns_entire_state_region = STATE_CRETE
+				country_has_primary_culture = cu:greek
 				has_technology_researched = nationalism
 			}
 		}
-		add = 0.5
+		add = 1
 	}
-	add = var:grefm_crete_boost_var
-	add = var:grefm_crete_turmoil_var
-	if = {
-		limit = {
-			any_country = {
-				country_has_primary_culture = cu:greek
-				owns_entire_state_region = STATE_CRETE
-			}
-		}
-		multiply = 0
-	}
+}
+
+grefm_crete_progress_value = {
+	value = 0
+	add = 0.5 # this is the base progress
+	add = global_var:grefm_crete_radicals_var
+	add = global_var:grefm_crete_accelerate_var
+	add = global_var:grefm_crete_nationalism_var
 }

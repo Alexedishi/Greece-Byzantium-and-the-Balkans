@@ -140,42 +140,7 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 	}
 	
 	immediate = {
-		set_global_variable = {
-			name = eqfm_tension_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_greek_radicals_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_serb_radicals_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_bulgarian_radicals_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_bosniak_radicals_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_nationalism_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_accelerate_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_culture_var
-			value = 0
-		}
-		set_global_variable = {
-			name = eqfm_religion_var
-			value = 0
-		}
+		eqfm_initialize_tension_variables = yes
 		eqfm_calculate_tension_variables_effect = yes
 		set_variable = eqfm_tension_started
 	}
@@ -185,6 +150,14 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 		default_option = yes
 		add_journal_entry = {
 			type = je_eqfm_main
+		}
+		hidden_effect = {
+			every_scope_state = {
+				limit = {
+					state_in_balkans = yes
+				}
+				eqfm_add_medium_radicals_effect = yes
+			}
 		}
 	}
 
@@ -216,6 +189,9 @@ eqfm.002 = { # The Sick Man of Europe
 	
 	immediate = {
 		set_variable = eqfm_tension_started
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
@@ -254,6 +230,9 @@ eqfm.003 = { # The Decline of the Porte
 	
 	immediate = {
 		set_variable = eqfm_tension_started
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
@@ -325,8 +304,8 @@ eqfm.004 = { # Nationalism Sweeps the Balkans
 				}
 			}
 			add_technology_progress = {
-				progress = 5000 
 				technology = nationalism
+				progress = 5000 
 			}
 		}
 		else = {

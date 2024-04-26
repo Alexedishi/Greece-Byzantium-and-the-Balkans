@@ -1,5 +1,97 @@
-﻿eqfm_calculate_tension_variables_effect = {
+﻿eqfm_initialize_tension_variables = {
+	set_global_variable = {
+		name = eqfm_tension_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_accelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_decelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = eqfm_greek_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_croat_radicals_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = eqfm_greek_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_croat_loyalists_var
+		value = 0
+	}
+}
+
+eqfm_calculate_tension_variables_effect = {
+	# These effects set basic sources
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = eqfm_nationalism_value
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = eqfm_culture_value
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = eqfm_religion_value
+	}
+	set_global_variable = {
+		name = eqfm_accelerate_var
+		value = eqfm_accelerate_value
+	}
+	set_global_variable = {
+		name = eqfm_decelerate_var
+		value = eqfm_decelerate_value
+	}
+
 	# These else blocks set the values to zero to avoid excessive if blocks downstream; excluding radicals not in their homelands is intentional
+	# Radicals First
 	if = {
 		limit = {
 			any_scope_state = {
@@ -20,7 +112,6 @@
 			value = 0
 		}
 	}
-	
 	if = {
 		limit = {
 			any_scope_state = {
@@ -40,7 +131,6 @@
 			value = 0
 		}
 	}
-	
 	if = {
 		limit = {
 			any_scope_state = {
@@ -60,7 +150,6 @@
 			value = 0
 		}
 	}
-	
 	if = {
 		limit = {
 			any_scope_state = {
@@ -80,7 +169,6 @@
 			value = 0
 		}
 	}
-	
 	if = {
 		limit = {
 			any_scope_state = {
@@ -99,30 +187,113 @@
 			name = eqfm_croat_radicals_var
 			value = 0
 		}
-	}	
+	}
+	# Then come the loyalists
+	if = {
+		limit = {
+			any_scope_state = {
+				state_in_balkans = yes
+				state_region = {
+					is_homeland = cu:greek
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_greek_loyalists_var
+			value = eqfm_greek_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_greek_loyalists_var
+			value = 0
+		}
+	}
 	
-	# These effects set other, simplier sources
-	set_global_variable = {
-		name = eqfm_nationalism_var
-		value = eqfm_nationalism_value
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:serb
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_serb_loyalists_var
+			value = eqfm_serb_loyalists_value
+		}
 	}
-	set_global_variable = {
-		name = eqfm_culture_var
-		value = eqfm_culture_value
-	}
-	set_global_variable = {
-		name = eqfm_religion_var
-		value = eqfm_religion_value
+	else = {
+		set_global_variable = {
+			name = eqfm_serb_loyalists_var
+			value = 0
+		}
 	}
 	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bulgarian
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bulgarian_loyalists_var
+			value = eqfm_bulgarian_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bulgarian_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bosniak
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bosniak_loyalists_var
+			value = eqfm_bosniak_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bosniak_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_croat_loyalists_var
+			value = eqfm_croat_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_croat_loyalists_var
+			value = 0
+		}
+	}
+	
+	# This is last, for obvious reasons
 	set_global_variable = {
 		name = eqfm_tension_progress_var
 		value = eqfm_tension_progress_value
-	}
-	
-	set_global_variable = {
-		name = eqfm_accelerate_var
-		value = eqfm_accelerate_value
 	}
 }
 
@@ -130,6 +301,11 @@ eqfm_push_tension_effect = {
 	change_global_variable = {
 		name = eqfm_tension_var
 		add = global_var:eqfm_tension_progress_var
+	}
+	clamp_global_variable = {
+		name = eqfm_tension_var
+		max = 500
+		min = 0
 	}
 }
 

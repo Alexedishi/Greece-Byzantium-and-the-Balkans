@@ -77,9 +77,9 @@
  je_grefm_the_womens_journal: "The Women's Journal"
  je_grefm_the_womens_journal_reason: "Spearheaded by Kalliroi Parren and backed by the greater Feminism movement, women across the Greek state yearn for better treatment. Historically seen as little more than housewives, women seek their own role in advancing the nationalist cause of the Greek people. The publication, #italic The Women's Journal#!, has acted as a herald for this movement putting forth the ideas that women should own their own property and that children should be taken off the factory floors."
  je_grefm_the_cretan_revolts: "The Cretan Revolts"
- je_grefm_the_cretan_revolts_reason: "The Cretan Greeks have been resisting non-Orthodox rule ever since the island was captured from the Byzantine Empire in the 1200s. With the rise of nationalism across the Mediterranean, it is only a matter of time before they take up arms against us. \n\nCurrently, the revolt has #red [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#! momentum. The next revolt will occur when momentum reaches #bold 150#!."
+ je_grefm_the_cretan_revolts_reason: "The Cretan Greeks have been resisting non-Orthodox rule ever since the island was captured from the Byzantine Empire in the 1200s. With the rise of nationalism across the Mediterranean, it is only a matter of time before they take up arms against us. \n\nCurrently, the revolt has #blue #bold [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#!#! momentum. This is expected to change by #bold #tooltippable #tooltip:[GetRawTextTooltipTag('grefm_crete_progress_tt')] [GetGlobalVariable('grefm_crete_progress_var').GetValue]#!#!#! next month. The next revolt will occur when momentum reaches #bold 200#!."
  je_grefm_the_cretan_revolts_fallback: "The Cretan Revolts"
- je_grefm_the_cretan_revolts_fallback_reason: "The Cretan Greeks have been resisting non-Orthodox rule ever since the island was captured from the Byzantine Empire in the 1200s. With the rise of nationalism across the Mediterranean, it is only a matter of time before they take up arms against us. \n\nCurrently, the revolt has #red [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#! momentum. The next revolt will occur when momentum reaches #bold 150#!."
+ je_grefm_the_cretan_revolts_fallback_reason: "The Cretan Greeks have been resisting non-Orthodox rule ever since the island was captured from the Byzantine Empire in the 1200s. With the rise of nationalism across the Mediterranean, it is only a matter of time before they take up arms against us. \n\nCurrently, the revolt has #red [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#! momentum. The next revolt will occur when momentum reaches #bold 200#!."
  
  je_grefm_the_balkan_league: "The Balkan League"
  je_grefm_the_balkan_league_reason: ""
@@ -136,8 +136,10 @@
  je_grefm_greek_nationalism_tt2: "Solve the question of the Greek language."
  je_grefm_greek_nationalism_tt3: "Secure recognition of the Greek Orthodox Church."
  
- je_grefm_megali_idea_crete_tt1: "Currently, the #greece Cretan Revolt#! has #red [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#! momentum. \nThe next revolt will occur when momentum reaches #bold 150#!."
+ je_grefm_megali_idea_crete_tt1: "The #greece Cretan Revolt#! has #bold #tooltippable #tooltip:[GetRawTextTooltipTag('grefm_crete_progress_tt')] [GetGlobalVariable('grefm_crete_revolt_var').GetValue]/200#!#!#! momentum."
  je_grefm_megali_idea_crete_tt2: "Crete has found peace through #italic enosis#!."
+ 
+ grefm_crete_progress_tt: "Current revolt progress is due to:\n•#red #bold +0.5#!#! base value.\n•#red #bold +[GetGlobalVariable('grefm_crete_radicals_var').GetValue]#!#! from [GetCulture('greek').GetName] radicals in Crete.\n•#red #bold +[GetGlobalVariable('grefm_crete_accelerate_var').GetValue]#!#! from foreign interference in Crete.\n•#red #bold +[GetGlobalVariable('grefm_crete_nationalism_var').GetValue]#!#! from #yellow Nationalism#! taking root in the Greek state."
  grefm_epirus_provoke_tt: "The Epirote Revolt will occur next month."
  grefm_cyprus_provoke_tt: "The Cypriot Revolt will occur next month."
  grefm_macedonia_provoke_tt: "The Macedonian Revolt will occur next month."
@@ -175,6 +177,8 @@
  notification_notification_don_pacifico_gre1_desc: "The Greek state has accepted our offer to settle the dispute with Don Pacifico. Our mutual relations have improved."
  notification_notification_don_pacifico_gre2_name: "[SCOPE.sCountry('greece_scope').GetName] rejects our compromise."
  notification_notification_don_pacifico_gre2_desc: "The Greek state has refused to cooperate with our attempts to settle the dispute with Don Pacifico. Our mutual relations have declined."
+ notification_notification_grefm_crete_accelerated_name: "Cretan Separatists Receive Funding"
+ notification_notification_grefm_crete_accelerated_desc: "[GetCulture('greek').GetName] benefactors have begun directing funds to separatist movements in #yellow Crete#!. This is expected to increase monthly revolt momentum change by #bold #red 1#!#!."
  
  # scripted buttons
  grefm_epirus_agitate_button: "Agitate Rebels in Epirus"

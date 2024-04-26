@@ -5,13 +5,14 @@
  
  # The Eastern Question Content
  je_eqfm_main: "The Eastern Question"
- je_eqfm_main_reason: "The [SCOPE.sCountry('ottoman_scope').GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate.\n\nAs the #bold Porte#!, struggles to reassert its control over Rumelia and defend itelf from the Great Powers, its Orthodox subjects across the Balkans have beung to take up arms in defiance of the Empire.\n\nTension across the Balkans will increase monthly based on several factors. Currently, tension is expected to increase by -- next month.\n\nIf the tension level becomes too high, we will be at risk of mass uprisings by the Orthodox peoples in Rumelia. We must find a path for coexistence."
+ je_eqfm_main_reason: "The [ROOT.GetCountry.GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate. As the #bold Porte#!, struggles to reassert its control over Rumelia and defend itelf from the Great Powers, its Orthodox subjects across the Balkans have beung to take up arms in defiance of the Empire.\n\n#o The #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Tension#!#! across the Balkans is expected to change by #blue #bold [GetGlobalVariable('eqfm_tension_progress_var').GetValue]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],eqfm_tension_progress several factors#!.\n\n#italic If the tension level becomes too high, we will be at risk of mass uprisings by our subjects in #yellow Rumelia#!. We must find a path for coexistence.#!"
  je_eqfm_sub: "The Eastern Question"
- je_eqfm_sub_reason: "The [SCOPE.sCountry('ottoman_scope').GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate.\n\nAs the #bold Porte#!, struggles to reassert its control over Rumelia and defend itelf from the Great Powers, its Orthodox subjects across the Balkans have beung to take up arms in defiance of the Empire.\n\nTension across the Balkans will increase monthly based on several factors. Currently, tension is expected to increase by -- next month.\n\nIf the tension level becomes too high, we will be at risk of mass uprisings by the Orthodox peoples in Rumelia. We must find a path for coexistence."
- je_eqfm_status_1: "Current Phase: #bold #green Calm#!#!."
- je_eqfm_status_2: "Current Phase: #bold #yellow Unrest#!#!."
- je_eqfm_status_3: "Current Phase: #bold #red Hostility#!#!."
- je_eqfm_status_4: "Current Phase: #bold #blue Deconfliction#!#!."
+ je_eqfm_sub_reason: "The [SCOPE.sCountry('ottoman_scope').GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate.\n\nAs the #bold Porte#! struggles to reassert its control over Rumelia and defend itelf from the Great Powers, its Orthodox subjects across the Balkans have begun to take up arms in defiance of the Empire.\n\n#o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Tension#!#! across the Balkans will change monthly based on several factors. Currently, tension is expected to change by #blue #bold [GetGlobalVariable('eqfm_tension_progress_var').GetValue]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],eqfm_tension_progress several factors#!.
+ je_eqfm_fail_tt: "The #bold Ottoman Empire#! has been expelled from the Balkans."
+ je_eqfm_status_1: "Current Phase: #bold #green Calm#! (#tooltippable #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] [GetGlobalVariable('eqfm_tension_var').GetValue]#!#!)#!."
+ je_eqfm_status_2: "Current Phase: #bold #yellow Unrest#! (#tooltippable #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] [GetGlobalVariable('eqfm_tension_var').GetValue]#!#!)#!."
+ je_eqfm_status_3: "Current Phase: #bold #red Hostility#! (#tooltippable #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] [GetGlobalVariable('eqfm_tension_var').GetValue]#!#!)#!."
+ je_eqfm_status_4: "Current Phase: #bold #blue Deconfliction#! (#tooltippable #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] [GetGlobalVariable('eqfm_tension_var').GetValue]#!#!)#!."
  
  je_eqfm_crisis_main: "The Great Eastern Crisis"
  je_eqfm_crisis_main_reason: "The Ottoman Empire is in crisis. Beset with problems from within and without, the Porte struggles to maintain control over the Empire. As nationalism sweeps the country, the state's non-Turkish subjects have begun to resort to armed uprisings with the goal of establishing governments free of Ottomn influence.\n\nLikewise, the European powers have taken advantage of the military and economic stagnation of the Empire to impose their will upon the Sultan. Even now, the court of the Russian Tsar has its eyes fixed upon our lands along the Cascausus and Danube. Unless we are able to stand our ground against European aggression, it is only a matter of time before our Empire will crumble.\n\n#red War is coming, we must be ready#!."
@@ -46,13 +47,15 @@
  
  # tooltips
  eqfm_tension_tt: "#yellow Tension#! in the Balkans is a measure of the resistance to Ottoman rule. Should tension rise too high, the #bold Porte#! may face mass uprisings in the Balkans."
- eqfm_tension_progress_tt: "Current tension progress is due to:\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_greek_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_serb_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_bulgarian_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_bosniak_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_croat_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_ethnostate_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_supremacy_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_segregation_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_exclusion_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_state_religion_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_free_religion_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_state_atheism_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_nationalism_tension')]\n•[SCOPE.GetRootScope.GetCountry.GetCustom('custom_eqfm_accelerate_tension')]"
+ eqfm_tension_progress: "Current tension progress is due to:\n•#red #bold +[GetGlobalVariable('eqfm_greek_radicals_var').GetValue]#!#! from [GetCulture('greek').GetName] radicals in the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_serb_radicals_var').GetValue]#!#! from [GetCulture('serb').GetName] radicals in the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_bulgarian_radicals_var').GetValue]#!#! from [GetCulture('bulgarian').GetName] radicals in the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_bosniak_radicals_var').GetValue]#!#! from [GetCulture('bosniak').GetName] radicals in the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_croat_radicals_var').GetValue]#!#! from [GetCulture('croat').GetName] radicals in the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_culture_var').GetValue]#!#! from Ottoman #yellow Citizenship#! policy.\n•#red #bold +[GetGlobalVariable('eqfm_religion_var').GetValue]#!#! from Ottoman #yellow Religious#! policy.\n•#red #bold +[GetGlobalVariable('eqfm_nationalism_var').GetValue]#!#! from nationalist movements across the Balkans.\n•#red #bold +[GetGlobalVariable('eqfm_tension_accelerate_var').GetValue]#!#! from foreign interference in the Balkans."
  eqfm_success_tt: "The #bold Sublime Porte#! has secured domionion over the Balkans."
  eqfm_failure_tt: "The #bold Sublime Porte#! has lost control of the Balkans."
  
  eqfm_pro_turk_tt: "This will align us in favor of Ottoman rule over the Balkans."
  eqfm_anti_turk_tt: "This will place us in opposition of Ottoman rule over the Balkans."
  eqfm_neutral_tt: "This will remove us from our commitments with respect to Ottoman rule in the Balkans."
+ eqfm_accelerate_tt: "This will increase monthly #o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Balkan Tension#!#! progress by #bold 1#!."
+ eqfm_decelerate_tt: "This will decrease monthly #o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Balkan Tension#!#! progress by #bold 1#!."
  
  eqfm_add_tension_small_tt: "This will increase #o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Balkan Tension#!#! by #bold 10#!."
  eqfm_add_tension_medium_tt: "This will increase #o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Balkan Tension#!#! by #bold 25#!."
@@ -62,23 +65,6 @@
  eqfm_content_planned: "#blue #bold This content will be added in the next update#!#!."
  
  # custom loc
- custom_eqfm_greek_tension: "#red #bold +[GetGlobalVariable('eqfm_greek_radicals_var').GetValue]#!#! from [GetCulture('greek').GetName] radicals in the Balkans."
- custom_eqfm_serb_tension: "#red #bold +[GetGlobalVariable('eqfm_serb_radicals_var').GetValue]#!#! from [GetCulture('serb').GetName] radicals in the Balkans."
- custom_eqfm_bulgarian_tension: "#red #bold +[GetGlobalVariable('eqfm_bulgarian_radicals_var').GetValue]#!#! from [GetCulture('bulgarian').GetName] radicals in the Balkans."
- custom_eqfm_bosniak_tension: "#red #bold +[GetGlobalVariable('eqfm_bosniak_radicals_var').GetValue]#!#! from [GetCulture('bosniak').GetName] radicals in the Balkans."
- custom_eqfm_croat_tension: "#red #bold +[GetGlobalVariable('eqfm_croat_radicals_var').GetValue]#!#! from [GetCulture('croat').GetName] radicals in the Balkans."
- 
- custom_eqfm_ethnostate_tension: "#red #bold +1#!#! from the Ottoman #yellow Ethnostate#! policy."
- custom_eqfm_supremacy_tension: "#red #bold +0.75#!#! from the Ottoman #yellow National Supremacy#! policy."
- custom_eqfm_segregation_tension: "#red #bold +0.50#!#! from the Ottoman #yellow Racial Segregation#! policy."
- custom_eqfm_exclusion_tension: "#red #bold +0.25#!#! from the Ottoman #yellow Cultural Exclusion#! policy."
- 
- custom_eqfm_state_religion_tension: "#red #bold +1#!#! from the Ottoman #yellow State Religion#! policy."
- custom_eqfm_free_religion_tension: "#red #bold +0.50#!#! from the Ottoman #yellow Freedom of Conscience#! policy."
- custom_eqfm_state_atheism_tension: "#red #bold +2#!#! from the Ottoman #yellow State Atheism#! policy."
- 
- custom_eqfm_nationalism_tension: "#red #bold +[GetGlobalVariable('eqfm_nationalism_var').GetValue]#!#! from nationalist movements across the Balkans."
- custom_eqfm_accelerate_tension: "#red #bold +[GetGlobalVariable('eqfm_tension_accelerate_var').GetValue]#!#! from foreign interference in the Balkans."
  
  # notifications
  notification_notification_tension_taxation_name: "Overtaxation Raises Tensions"
@@ -99,6 +85,14 @@
  eqfm_neutral_button: "Take Up Neutral Stance"
  eqfm_neutral_button_desc: "The Balkans are fraught with deceit and treachery. We cannot risk our direct involvement in the region any longer."
  
+ eqfm_accelerate: "Stoke Nationalist Tensions"
+ eqfm_accelerate_desc: "The Balkans are rife with ethnic tensions as the native peoples of the Balkans struggle to define themselves in opposition to Ottoman rule over the region. In support of our opposition to the Ottomans we could devote resources to fund these breakway movements."
+ eqfm_decelerate: "Mitigate Nationalist Tensions"
+ eqfm_decelerate_desc: "The conflicts erupted across the Balkans are a threat to both the international order and the prosperity of the people that call the region home. If we are to provide meaningful support to the Ottomans, we should commit resources to mitigate these separatist sentiments."
+ eqfm_clutch: "Reduce Diplomatic Involvement"
+ eqfm_clutch_desc: "Our involvement in the Balkans only exposes us to further risk. We should reduce our diplomatic footprint before we become even more entangled in the region."
+ 
+ 
  
  # country_flavor_text
  
@@ -114,8 +108,10 @@
  modifier_eqfm_nationalist_fervor_desc: "Nationalist Fervor"
  modifier_eqfm_influencing_balkans: "Influencing Balkans"
  modifier_eqfm_influencing_balkans_desc: "Influencing Balkans"
- modifier_eqfm_accelerating_tensions: "Accelerating Balkan Tensions"
- modifier_eqfm_accelerating_tensions_desc: "Accelerating Balkan Tensions"
+ modifier_eqfm_accelerating_tensions: "Stoking Balkan Tensions"
+ modifier_eqfm_accelerating_tensions_desc: "Stoking Balkan Tensions"
+ modifier_eqfm_decelerating_tensions: "Mitigating Balkan Tensions"
+ modifier_eqfm_decelerating_tensions_desc: "Mitigating Balkan Tensions"
  modifier_eqfm_overtaxed: "Overtaxed"
  modifier_eqfm_overtaxed_desc: "Overtaxed"
  modifier_eqfm_tax_break_given: "Tax Break Given"

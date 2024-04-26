@@ -12,7 +12,10 @@
 	
 	possible = {
 		c:TUR = {
-			relations:root < relations_threshold:cordial
+			relations:root < relations_threshold:neutral
+		}
+		NOT = {
+			has_modifier = modifier_eqfm_decelerating_tensions
 		}
 	}
 	
@@ -43,7 +46,10 @@ eqfm_pro_turk_button = {
 	
 	possible = {
 		c:TUR = {
-			relations:root > relations_threshold:cold
+			relations:root > relations_threshold:neutral
+		}
+		NOT = {
+			has_modifier = modifier_eqfm_accelerating_tensions
 		}
 	}
 	
@@ -73,6 +79,10 @@ eqfm_neutral_button = {
 	
 	possible = {
 		is_diplomatic_play_committed_participant = no
+		NOR = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
 	}
 	
 	effect = {
@@ -83,6 +93,84 @@ eqfm_neutral_button = {
 				remove_variable = eqfm_anti_turk_var
 				remove_variable = eqfm_pro_turk_var
 			}
+		}
+	}
+}
+
+eqfm_accelerate_button = {
+	name = "eqfm_accelerate"
+	desc = "eqfm_accelerate_desc"
+	
+	visible = {
+		has_variable = eqfm_anti_turk_var
+		country_rank >= rank_value:great_power
+		c:TUR != this
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+		}
+	}
+	
+	effect = {
+		add_modifier = modifier_eqfm_accelerating_tensions
+		custom_tooltip = eqfm_accelerate_tt
+	}
+}
+
+eqfm_decelerate_button = {
+	name = "eqfm_decelerate"
+	desc = "eqfm_decelerate_desc"
+	
+	visible = {
+		has_variable = eqfm_pro_turk_var
+		country_rank >= rank_value:great_power
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
+	}
+	
+	effect = {
+		add_modifier = modifier_eqfm_decelerating_tensions
+		custom_tooltip = eqfm_decelerate_tt
+	}
+}
+
+eqfm_clutch_button = {
+	name = "eqfm_clutch"
+	desc = "eqfm_clutch_desc"
+	
+	visible = {
+		OR = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
+	}
+	
+	possible = {
+		is_diplomatic_play_committed_participant = no
+		OR = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_eqfm_accelerating_tensions
+			}
+			remove_modifier = modifier_eqfm_accelerating_tensions
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_eqfm_decelerating_tensions
+			}
+			remove_modifier = modifier_eqfm_decelerating_tensions
 		}
 	}
 }

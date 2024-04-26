@@ -9533,7 +9533,7 @@ grefm.914 = { # crete revolts again
 	dlc = dlc_grefm
 
 	trigger = {
-		global_var:grefm_crete_revolt_var >= 100
+		global_var:grefm_crete_revolt_var >= 200
 		NOT = { exists = c:CRE }
 	}
 
@@ -9637,24 +9637,26 @@ grefm.915 = { # assigns the revolt JE
 	}
 	
 	immediate = {
+		if = {
+			limit = {
+				NOT = { has_global_variable = grefm_crete_revolt_greenlight }
+			}
+			set_global_variable = grefm_crete_revolt_greenlight
+		}
 		s:STATE_CRETE = {
 			random_scope_state = {
 				save_scope_as = crete_state_scope
 			}
 		}
-		add_journal_entry = {
-			type = je_grefm_the_cretan_revolts
-		}
+		grefm_calculate_crete_variables_effect = yes
 	}
 
 	option = {
 		name = grefm.915.a
-		custom_tooltip = grefm.216.tt
-		show_as_tooltip = {
-			add_journal_entry = {
-				type = je_grefm_the_cretan_revolts
-			}
+		add_journal_entry = {
+			type = je_grefm_the_cretan_revolts
 		}
+		custom_tooltip = grefm.216.tt
 	}
 	
 }

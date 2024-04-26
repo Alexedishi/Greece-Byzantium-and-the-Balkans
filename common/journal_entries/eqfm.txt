@@ -15,42 +15,62 @@ je_eqfm_main = {
 	
 	complete = {
 		has_technology_researched = pan-nationalism
-		has_law = law_type:law_multiculturalism
-		has_law = law_type:law_freedom_of_conscience
-		any_scope_state = {
-			radical_fraction = {
-				value > 0.25
-				culture = cu:greek
+		has_law = law_type:law_multicultural
+		NOT = {
+			AND = {
+				any_scope_state = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:greek
+					}
+				}
 			}
-			state_in_balkans = yes
 		}
-		any_scope_state = {
-			radical_fraction = {
-				value > 0.25
-				culture = cu:serb
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:serb
+					}
+					
+				}
 			}
-			state_in_balkans = yes
 		}
-		any_scope_state = {
-			radical_fraction = {
-				value > 0.25
-				culture = cu:bulgarian
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:bulgarian
+					}
+				}
 			}
-			state_in_balkans = yes
 		}
-		any_scope_state = {
-			radical_fraction = {
-				value > 0.25
-				culture = cu:bosniak
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:bosniak
+					}
+				}
 			}
-			state_in_balkans = yes
 		}
-		any_scope_state = {
-			radical_fraction = {
-				value > 0.25
-				culture = cu:croat
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:croat
+					}
+				}
 			}
-			state_in_balkans = yes
 		}
 	}
 	
@@ -62,9 +82,14 @@ je_eqfm_main = {
 	}
 	
 	fail = {
-		NOT = {
-			any_scope_state = {
-				state_in_balkans = no
+		custom_tooltip = {
+			text = je_eqfm_fail_tt
+			hidden_trigger = {
+				NOT = {
+					any_scope_state = {
+						region = sr:region_anatolia
+					}
+				}
 			}
 		}
 	}
@@ -113,6 +138,35 @@ je_eqfm_main = {
 		}
 	}
 	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eqfm_status_4
+				trigger = {
+					has_global_variable = eqfm_deconfliction_var
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_3
+				trigger = {
+					global_var:eqfm_tension_var >= 300
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_2
+				trigger = {
+					global_var:eqfm_tension_var >= 100
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_1
+				trigger = {
+					global_var:eqfm_tension_var < 100
+				}
+			}
+		}
+	}	
+	
 	weight = 1000
 	
 }
@@ -123,6 +177,12 @@ je_eqfm_sub = {
 	group = je_group_eqfm_eastern_question
 	
 	should_be_pinned_by_default = yes
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
 	
 	complete = {
 		OR = {
@@ -154,9 +214,40 @@ je_eqfm_sub = {
 		}
 	}
 	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eqfm_status_4
+				trigger = {
+					has_global_variable = eqfm_deconfliction_var
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_3
+				trigger = {
+					global_var:eqfm_tension_var >= 300
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_2
+				trigger = {
+					global_var:eqfm_tension_var >= 100
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_1
+				trigger = {
+					global_var:eqfm_tension_var < 100
+				}
+			}
+		}
+	}
+	
 	scripted_button = eqfm_anti_turk_button
 	scripted_button = eqfm_pro_turk_button
 	scripted_button = eqfm_neutral_button
+	scripted_button = eqfm_accelerate_button
+	scripted_button = eqfm_decelerate_button
 	
 	weight = 1000
 	
