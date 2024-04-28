@@ -30,6 +30,36 @@
 			}
 		}
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				OR = {
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = dominate
+					}
+				}
+				influence > 100
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+			}
+			add = -1000
+		}
+	}
 }
 
 eqfm_pro_turk_button = {
@@ -64,6 +94,32 @@ eqfm_pro_turk_button = {
 			}
 		}
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				OR = {
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = befriend
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = protect
+					}
+				}
+				influence > 100
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+			}
+			add = -1000
+		}
+	}
 }
 
 eqfm_neutral_button = {
@@ -95,6 +151,43 @@ eqfm_neutral_button = {
 			}
 		}
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who c:TUR
+					secret_goal = none
+				}
+			}
+			add = 10
+		}
+		modifier = {
+			trigger = {
+				has_variable = eqfm_anti_turk_var
+				c:TUR ?= {
+					relations:root >= relations_threshold:cordial
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_variable = eqfm_pro_turk_var
+				c:TUR ?= {
+					relations:root <= relations_threshold:cold
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+			}
+			add = 1000
+		}
+	}
 }
 
 eqfm_accelerate_button = {
@@ -117,6 +210,47 @@ eqfm_accelerate_button = {
 		add_modifier = modifier_eqfm_accelerating_tensions
 		custom_tooltip = eqfm_accelerate_tt
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				OR = {
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 10
+		}
+		modifier = {
+			trigger = {
+				has_variable = eqfm_anti_turk_var
+				c:TUR ?= {
+					relations:root >= relations_threshold:cordial
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
 }
 
 eqfm_decelerate_button = {
@@ -138,6 +272,44 @@ eqfm_decelerate_button = {
 		add_modifier = modifier_eqfm_decelerating_tensions
 		custom_tooltip = eqfm_decelerate_tt
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				OR = {
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = befriend
+					}
+					has_secret_goal = {
+						who c:TUR
+						secret_goal = protect
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 10
+		}
+		modifier = {
+			trigger = {
+				has_variable = eqfm_anti_turk_var
+				c:TUR ?= {
+					relations:root <= relations_threshold:cold
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 eqfm_clutch_button = {
@@ -173,4 +345,49 @@ eqfm_clutch_button = {
 			remove_modifier = modifier_eqfm_decelerating_tensions
 		}
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_modifier = modifier_eqfm_accelerating_tensions
+			}
+			c:TUR ?= {
+				relations:root >= relations_threshold:neutral
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_eqfm_decelerating_tensions
+			}
+			c:TUR ?= {
+				relations:root <= relations_threshold:neutral
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOR = {
+					has_variable = eqfm_anti_turk_var
+					has_variable = eqfm_pro_turk_var
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+		modifier = { # this is so the AI can take up neutrality in the event their influence tanks
+			trigger = {
+				influence < 0
+			}
+			add = 1000
+		}
+	}
+	
 }

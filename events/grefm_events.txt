@@ -9136,74 +9136,9 @@ grefm.905 = { # hidden event triggering the Don Pacifico Affair
 
 #### NOTIFICATION EVENTS ####
 
-grefm.910 = { # Epirus customs union with GRE
-	type = country_event
-	placement = scope:epirus_scope
+grefm.910 = { # Was Customs Union event with EPI, now OPEN due to incoming changes in SoI
 	
-	title = grefm.910.t
-	desc = grefm.910.d
-	flavor = grefm.910.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		NOT = { has_variable = grefm_epi_union_considered }
-		c:GRE ?= this
-		c:EPI ?= {
-			is_player = no
-			is_subject = no
-			is_diplomatic_play_committed_participant = no
-		}
-	}
-	
-	immediate = {
-		set_variable = grefm_epi_union_considered
-		c:EPI = {
-			save_scope_as = epirus_scope
-		}
-		c:GRE = {
-			save_scope_as = greece_scope
-		}
-		hidden_effect = { # Because the AI is stupid
-			change_relations = {
-				country = c:EPI
-				value = 50
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.910.a
-		default_option = yes
-		c:GRE = {
-			create_diplomatic_pact = {
-				country = c:EPI
-				type = customs_union
-			}
-		}
-		change_relations = {
-			country = c:EPI
-			value = 50
-		}
-	}
-	
-	option = {
-		name = grefm.910.b
-		change_relations = {
-			country = c:EPI
-			value = -50
-		}
-	}
+	orphan = yes
 	
 }
 
