@@ -1572,7 +1572,7 @@ je_balkfm_bul_restoration = { # this copied in from the byzfm side, only differe
 ########################################
 
 je_balkfm_rom_regulamentul_organic = {
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -1618,6 +1618,7 @@ je_balkfm_rom_regulamentul_organic = {
 	}
 	
 	on_invalid = {
+		set_variable = balkfm_regulamentul_completed
 	}
 	
 	on_monthly_pulse = {
@@ -1629,12 +1630,48 @@ je_balkfm_rom_regulamentul_organic = {
 	
 	on_yearly_pulse = {
 		effect = {
-			change_variable = {
-				name = balkfm_regulamentul_var
-				subtract = 1
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+				}
+				change_variable = {
+					name = balkfm_regulamentul_var
+					subtract = 1
+				}
+			}
+			else = {
+				set_variable = {
+					name = balkfm_regulamentul_var
+					value = 7
+				}
 			}
 		}
 	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt1
+				trigger = {
+					var:balkfm_regulamentul_var > 1
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt2
+				trigger = {
+					var:balkfm_regulamentul_var = 1
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt3
+				trigger = {
+					var:balkfm_regulamentul_var < 1
+				}
+			}
+		}
+	}
+	
+	weight = 2000
 	
 }
 
@@ -1660,10 +1697,18 @@ je_balkfm_rom_legal_modernization = {
 		}
 	}
 	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_regulamentul_completed
+		}
+	}
+	
+	weight = 1000
+	
 }
 
 je_balkfm_rom_economic_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -1687,10 +1732,18 @@ je_balkfm_rom_economic_modernization = {
 		}
 	}
 	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_regulamentul_completed
+		}
+	}
+	
+	weight = 1000
+	
 }
 
 je_balkfm_rom_social_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -1710,6 +1763,14 @@ je_balkfm_rom_social_modernization = {
 			id = balkfm.623 # Social Equity
 		}
 	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_regulamentul_completed
+		}
+	}
+	
+	weight = 1000
 	
 }
 

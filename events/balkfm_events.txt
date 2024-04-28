@@ -21,8 +21,8 @@ namespace = balkfm
 ##  #BALK0  NON-SPECIFIC & TECHNICAL EVENTS  Events 001-099  ##
 
 #001-009 - Hidden Technical Events (Debug Country Spawns)
-#	001 - Minor Turk-splosion
-#	002 - Major Turk-splosion
+#	001 - Absolute Balkanization
+#	002 - Turk-splosion
 #	003 - Creates/Releases MON
 #	004	- Creates/Releases SER
 #	005 - Creates/Releases BUL
@@ -255,7 +255,7 @@ namespace = balkfm
 
 #### HIDDEN TECHNICAL EVENTS (COUNTRY SPAWNS) ####
 
-balkfm.001 = { # Minor Turk-splosion
+balkfm.001 = { # Absolute Balkanization
 	type = country_event
 	placement = root
 	hidden = yes
@@ -264,14 +264,14 @@ balkfm.001 = { # Minor Turk-splosion
 	}
 
 	immediate = {
-		balkfm_minor_turkboom = yes
+		balkfm_balkanize_effect = yes
 	}
 	
 	orphan = yes
 	
 }
 
-balkfm.002 = { # Major Turk-splosion
+balkfm.002 = { # Turk-splosion
 	type = country_event
 	placement = root
 	hidden = yes
@@ -280,7 +280,7 @@ balkfm.002 = { # Major Turk-splosion
 	}
 
 	immediate = {
-		balkfm_major_turkboom = yes
+		balkfm_turkboom_effect = yes
 	}
 	
 	orphan = yes
@@ -1320,25 +1320,12 @@ balkfm.204 = { # Yugoslav Uprising in X
 	
 }
 
-balkfm.205 = { # Yugoslavist Agitation in Austria
+balkfm.205 = { # Yugoslavist Agitation (Nacertanije)
 	type = country_event
-	placement = scope:yugoslav_agitation_scope
+	placement = scope:balkfm_agitation_state_scope
 	
 	title = balkfm.205.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.205.d1
-			trigger = {
-				c:AUS ?= this
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.205.d2
-			trigger = {
-				balkfm_has_yugoslav_culture = yes
-			}
-		}
-	}
+	desc = balkfm.205.d
 	flavor = balkfm.205.f
 	
 	event_image = {
@@ -1357,74 +1344,42 @@ balkfm.205 = { # Yugoslavist Agitation in Austria
 	}
 	
 	immediate = {
-		c:AUS = {
-			save_scope_as = austria_scope
-		}
-		random_scope_state = {
+		random_state = {
 			limit = {
-				has_variable = balkfm_yugoslav_agitation_target
+				has_variable = balkfm_yugoslav_state_target
 			}
-			save_scope_as = yugoslav_agitation_scope
+			save_scope_as = balkfm_agitation_state_scope
+			owner = {
+				save_scope_as = balkfm_agitation_owner_scope
+			}
 		}
-		random_country = {
-			limit = {
-				has_variable = balkfm_yugoslav_agitation_actor
-			}
-			save_scope_as = yugoslav_agitator_scope
-		}
-		if = {
-			limit = {
-				has_variable = balkfm_yugoslav_agitation_actor
-			}
-			scope:yugoslav_agitation_scope = {
-				remove_variable = balkfm_yugoslav_agitation_target
-			}
+		scope:balkfm_agitation_state_scope = {
+			remove_variable = balkfm_yugoslav_state_target
 		}
 	}
 	
 	option = {
 		name = balkfm.205.a
 		default_option = yes
-		trigger = {
-			c:AUS ?= this
-		}
-		scope:yugoslav_agitation_scope = {
-			balkfm_rile_up_yugoslavs = yes
-		}
-	}
-	
-	option = {
-		name = balkfm.205.b
-		trigger = {
-			NOT = { c:AUS ?= this }
-		}
 		create_incident = {
-			country = c:AUS
+			country = scope:balkfm_agitation_owner_scope
 			value = 10
+		}
+		show_as_tooltip = {
+			scope:balkfm_agitation_state_scope = {
+				balkfm_rile_up_yugoslavs = yes
+			}
 		}
 	}
 
 }
 
-balkfm.206 = { # Yugoslavist Agitation in the Ottoman Empire
+balkfm.206 = { # Yugoslavist Agitation (AUS/TUR)
 	type = country_event
-	placement = scope:yugoslav_agitation_scope
+	placement = scope:balkfm_agitation_state_scope
 	
 	title = balkfm.206.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.206.d1
-			trigger = {
-				c:TUR ?= this
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.206.d2
-			trigger = {
-				balkfm_has_yugoslav_culture = yes
-			}
-		}
-	}
+	desc = balkfm.206.d
 	flavor = balkfm.206.f
 	
 	event_image = {
@@ -1443,50 +1398,25 @@ balkfm.206 = { # Yugoslavist Agitation in the Ottoman Empire
 	}
 	
 	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		random_scope_state = {
+		random_state = {
 			limit = {
-				has_variable = balkfm_yugoslav_agitation_target
+				has_variable = balkfm_yugoslav_state_target
 			}
-			save_scope_as = yugoslav_agitation_scope
+			save_scope_as = balkfm_agitation_state_scope
 		}
 		random_country = {
 			limit = {
 				has_variable = balkfm_yugoslav_agitation_actor
 			}
-			save_scope_as = yugoslav_agitator_scope
+			save_scope_as = balkfm_yugoslav_agitator_scope
 		}
-		if = {
-			limit = {
-				has_variable = balkfm_yugoslav_agitation_actor
-			}
-			scope:yugoslav_agitation_scope = {
-				remove_variable = balkfm_yugoslav_agitation_target
-			}
-		}	
 	}
 	
 	option = {
 		name = balkfm.206.a
 		default_option = yes
-		trigger = {
-			c:TUR ?= this
-		}
-		scope:yugoslav_agitation_scope = {
+		scope:balkfm_agitation_state_scope = {
 			balkfm_rile_up_yugoslavs = yes
-		}
-	}
-	
-	option = {
-		name = balkfm.206.b
-		trigger = {
-			NOT = { c:TUR ?= this }
-		}
-		create_incident = {
-			country = c:TUR
-			value = 10
 		}
 	}
 
@@ -7362,6 +7292,7 @@ balkfm.626 = { # The Death of Feudalism
 	}	
 	
 	immediate = {
+		set_variable = balkfm_regulamentul_completed
 	}
 	
 	option = {

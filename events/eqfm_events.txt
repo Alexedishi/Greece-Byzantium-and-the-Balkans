@@ -158,6 +158,25 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 				}
 				eqfm_add_medium_radicals_effect = yes
 			}
+			every_country = {
+				limit = {
+					country_rank >= rank_value:great_power
+					has_diplomatic_relevance = c:TUR
+				}
+				trigger_event = {
+					id = eqfm.002 # The Sick Man of Europe
+					days = 15
+				}
+			}
+			every_country = {
+				limit = {
+					balkfm_balkans_native_trigger = yes
+				}
+				trigger_event = {
+					id = eqfm.003 # The Decline of the Porte
+					days = 15
+				}
+			}
 		}
 	}
 
@@ -304,8 +323,8 @@ eqfm.004 = { # Nationalism Sweeps the Balkans
 				}
 			}
 			add_technology_progress = {
-				technology = nationalism
 				progress = 5000 
+				technology = nationalism
 			}
 		}
 		else = {

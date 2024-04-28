@@ -70,13 +70,9 @@ balkfm_austrian_agitation_button = {
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
-		hidden_trigger = {
-			NOT = { has_global_variable = balkfm_yugoslav_agitation_var }
-		}
 	}
 	
 	effect = {
-		set_global_variable = balkfm_yugoslav_agitation_var
 		set_variable = balkfm_yugoslav_agitation_actor
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation
@@ -87,16 +83,16 @@ balkfm_austrian_agitation_button = {
 				limit = {
 					balkfm_is_yugoslav_homeland = yes
 				}
-				set_variable = balkfm_yugoslav_agitation_target
+				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.205 # Yugoslavist Agitation in Austria
+				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
 			}
 		}
 		trigger_event = {
-			id = balkfm.205 # Yugoslavist Agitation in Austria
+			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
 		}
-		remove_global_variable = balkfm_yugoslav_agitation_var
+		remove_variable = balkfm_yugoslav_agitation_actor
 	}
 }
 
@@ -122,13 +118,9 @@ balkfm_ottoman_agitation_button = {
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
-		hidden_trigger = {
-			NOT = { has_global_variable = balkfm_yugoslav_agitation_var }
-		}
 	}
 	
 	effect = {
-		set_global_variable = balkfm_yugoslav_agitation_var
 		set_variable = balkfm_yugoslav_agitation_actor
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation
@@ -139,16 +131,16 @@ balkfm_ottoman_agitation_button = {
 				limit = {
 					balkfm_is_yugoslav_homeland = yes
 				}
-				set_variable = balkfm_yugoslav_agitation_target
+				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.206 # Yugoslavist Agitation in the Ottoman Empire
+				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
 			}
 		}
 		trigger_event = {
-			id = balkfm.206 # Yugoslavist Agitation in the Ottoman Empire
+			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
 		}
-		remove_global_variable = balkfm_yugoslav_agitation_var
+		remove_variable = balkfm_yugoslav_agitation_actor
 	}
 }
 
@@ -455,6 +447,7 @@ balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
 	
 	visible = {
 		has_variable = ROM_united_principality
+		has_variable = balkfm_formed_ROM
 	}
 	
 	possible = {
@@ -473,6 +466,7 @@ balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
 		show_as_tooltip = {
 			change_tag = ROM # this should serve as a warning that you'll lose access to the other two buttons if you unite too early
 		}
+		set_variable = balkfm_formed_ROM
 	}
 }
 
