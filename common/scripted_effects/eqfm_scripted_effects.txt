@@ -314,7 +314,7 @@ eqfm_phase_check_effect = {
 		limit = {
 			global_var:eqfm_tension_var <= 0
 		}
-		remove_variable = eqfm_deconfliction_var
+		remove_global_variable = eqfm_deconfliction_var
 	}
 }
 
@@ -609,6 +609,229 @@ eqfm_add_very_large_tension_effect = {
 				add = 100
 			}
 		}
+	}
+}
+
+eqfm_massacre_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:greek
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:serb
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:bulgarian
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:bosniak
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:croat
+		}
+	}
+}
+
+eqfm_create_rebellion_effect = {
+	scope:eqfm_riot_state_scope = {
+		switch = {
+			trigger = state_region
+			s:STATE_BOSNIA = {
+				create_country = {
+					tag = BOS
+					origin = this
+					state = s:STATE_BOSNIA.region_state:TUR
+				}
+				c:BOS = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				create_country = {
+					tag = MON
+					origin = this
+					state = s:STATE_MONTENEGRO.region_state:TUR
+				}
+				c:MON = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_ALBANIA = {
+				create_country = {
+					tag = ALB
+					origin = this
+					state = s:STATE_ALBANIA.region_state:TUR
+				}
+				c:ALB = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_SKOPIA = {
+				create_country = {
+					tag = NMAC
+					origin = this
+					state = s:STATE_SKOPIA.region_state:TUR
+				}
+				c:NMAC = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			} 
+			s:STATE_NORTHERN_THRACE = {
+				create_country = {
+					tag = ERUM
+					origin = this
+					state = s:STATE_NORTHERN_THRACE.region_state:TUR
+				}
+				c:ERUM = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_BULGARIA = {
+				create_country = {
+				tag = BUL
+				origin = this
+				state = s:STATE_BULGARIA.region_state:TUR
+				}
+				c:BUL = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_SOUTHERN_SERBIA = {
+				create_country = {
+					tag = NISH
+					origin = this
+					state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+				}
+				c:NISH = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_NORTHERN_SERBIA = {
+				create_country = {
+					tag = SER
+					origin = this
+					state = s:STATE_NORTHERN_SERBIA.region_state:TUR
+				}
+				c:SER = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_PELOPONNESE = {
+				create_country = {
+					tag = MORE
+					origin = this
+					state = s:STATE_PELOPONNESE.region_state:TUR
+				}
+				c:MORE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_IONIAN_ISLANDS = {
+				create_country = {
+					tag = ION
+					origin = this
+					state = s:STATE_IONIAN_ISLANDS.region_state:TUR
+				}
+				c:ION = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_ATTICA = {
+				create_country = {
+					tag = ATHE
+					origin = this
+					state = s:STATE_ATTICA.region_state:TUR
+				}
+				c:ATHE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_THESSALIA = {
+				create_country = {
+					tag = EPI
+					origin = this
+					state = s:STATE_THESSALIA.region_state:TUR
+				}
+				c:EPI = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_MACEDONIA = {
+				create_country = {
+					tag = MAC
+					origin = this
+					state = s:STATE_MACEDONIA.region_state:TUR
+				}
+				c:MAC = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_CRETE = {
+				create_country = {
+					tag = CRE
+					origin = this
+					state = s:STATE_CRETE.region_state:TUR
+				}
+				c:CRE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				create_country = {
+					tag = NAXO
+					origin = this
+					state = s:STATE_WEST_AEGEAN_ISLANDS.region_state:TUR
+				}
+				c:NAXO = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+		}
+	}
+	scope:eqfm_rebellion_scope = {
+		set_variable = eqfm_rebellion_tag_tracker
+	}
+	trigger_event = {
+		id = eqfm.025 # Balkan Country Rebellion
+		days = 1 # Let It Cook
 	}
 }
 
