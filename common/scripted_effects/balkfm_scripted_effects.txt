@@ -30,26 +30,61 @@ balkfm_update_yugoslav_leader_scope = {
 }
 
 balkfm_rile_up_yugoslavs = {
-	add_radicals = {
-		culture = cu:serb
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:serb
+			value = large_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:croat
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:croat
+			value = large_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:bosniak
-		value = large_radicals
-	}	
-	add_radicals = {
-		culture = cu:slovene
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bosniak
+			value = large_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:bulgarian
-		value = large_radicals
-	}	
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:slovene
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bulgarian
+			value = large_radicals
+		}
+	}
 }
 
 balkfm_sad_yugoslavs = {
@@ -534,7 +569,15 @@ balkfm_set_bulgarian_laws = {
 balkfm_create_bulgarian_characters = {
 	# all ages are based on age at in 1879
 	heir = {
-		kill_character = yes # just some housekeeping 
+		save_scope_as = balkfm_bul_heir_scope
+	}
+	if = {
+		limit = {
+			exists = scope:balkfm_bul_heir_scope
+		}
+		scope:balkfm_bul_heir_scope = {
+			kill_character = yes # just some housekeeping
+		}
 	}
 	create_character = {
 		# Alexander I, elected to rule the Principality of Bulgaria with Russian support

@@ -360,7 +360,7 @@ eqfm_relations_adjustment_effect = {
 		limit = {
 			has_variable = eqfm_pro_turk_var
 			c:TUR = {
-				relations:root < relations_threshold:amiable
+				relations:root < relations_threshold:cordial
 			}
 		}
 		change_relations = {
@@ -851,6 +851,7 @@ eqfm_recruit_participants_effect = {
 				}
 				NOR = {
 					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
 					has_diplomatic_pact = {
 						who = c:TUR
 						type = defensive_pact
@@ -871,6 +872,7 @@ eqfm_recruit_participants_effect = {
 				}
 				NOR = {
 					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
 					has_diplomatic_pact = {
 						who = c:TUR
 						type = defensive_pact
@@ -1017,7 +1019,7 @@ eqfm_stage_crisis_characters_effect = {
 		limit = {
 			has_variable = eqfm_crisis_attacker
 			NOT = { has_variable = eqfm_crisis_initiator }
-			country_rank = rank_value:great_power
+			country_rank >= rank_value:great_power
 		}
 		ruler = {
 			save_scope_as = crisis_scope_1
@@ -1086,10 +1088,14 @@ eqfm_stage_crisis_characters_effect = {
 			limit = {
 				has_variable = eqfm_crisis_attacker
 				NOT = {
-					THIS = scope:crisis_scope_3 # There should be at least two minors involed in the crisis
+					ruler = {
+						THIS = scope:crisis_scope_3 # There should be at least two minors involed in the crisis
+					}
 				}
 			}
-			save_scope_as = crisis_scope_1
+			ruler = {
+				save_scope_as = crisis_scope_1
+			}
 		}
 	}
 	if = {

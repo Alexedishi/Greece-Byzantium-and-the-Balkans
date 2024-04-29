@@ -162,7 +162,7 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 				limit = {
 					country_rank >= rank_value:great_power
 					has_diplomatic_relevance = c:TUR
-					c:TUR != this
+					NOT = { c:TUR = this }
 				}
 				trigger_event = {
 					id = eqfm.002 # The Sick Man of Europe
@@ -172,6 +172,7 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 			every_country = {
 				limit = {
 					balkfm_balkans_native_trigger = yes
+					NOT = { c:TUR = this }
 				}
 				trigger_event = {
 					id = eqfm.003 # The Decline of the Porte
@@ -260,79 +261,6 @@ eqfm.003 = { # The Decline of the Porte
 		default_option = yes
 		add_journal_entry = {
 			type = je_eqfm_sub
-		}
-	}
-
-}
-
-eqfm.004 = { # Nationalism Sweeps the Balkans
-	type = country_event
-	placement = root
-	
-	title = eqfm.004.t
-	desc = eqfm.004.d
-	flavor = eqfm.004.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = {
-			has_variable = eqfm_nationalism_boosted
-		}
-		any_country = {
-			OR = {
-				balkfm_balkans_native_trigger = yes
-				c:WAL ?= this
-				c:MOL ?= this
-			}
-			has_technology_researched = nationalism
-		}
-	}
-	
-	immediate = {
-		random_country = {
-			limit = {
-				OR = {
-					balkfm_balkans_native_trigger = yes
-					c:WAL ?= this
-					c:MOL ?= this
-				}
-				has_technology_researched = nationalism
-			}
-			save_scope_as = eqfm_nationalism_scope
-		}
-		set_variable = eqfm_nationalism_boosted
-	}
-	
-	option = {
-		name = eqfm.004.a
-		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_technology_researched = nationalism
-				}
-			}
-			add_technology_progress = {
-				progress = 5000 
-				technology = nationalism
-			}
-		}
-		else = {
-			add_modifier = {
-				name = modifier_eqfm_nationalist_fervor
-				months = normal_modifier_time
-			}
 		}
 	}
 
@@ -1472,7 +1400,7 @@ eqfm.100 = { # A Crisis in Rumelia (Initiator/TUR)
 			hidden_effect = {
 				set_variable = eqfm_crisis_initiator
 			}
-		}	
+		}
 		c:TUR = {
 			trigger_event = {
 				id = eqfm.100 # A Crisis in Rumelia (Initiator/TUR)
@@ -2278,6 +2206,7 @@ eqfm.110 = { # Sets Variables and Starts Warmup Chain
 		}
 		random_country = {
 			limit = {
+				has_journal_entry = je_eqfm_sub
 				has_variable = eqfm_anti_turk_var
 				NOT = { has_variable = eqfm_crisis_rejected }
 			}
@@ -3804,9 +3733,11 @@ eqfm.129 = { # The Treaty of Berlin
 			limit = {
 				c:TUR ?= this
 			}
-			trigger_event = {
-				id = eqfm.139 # Crisis/Congress Global Variable Cleanup
-				days = 15
+			hidden_effect = {
+				trigger_event = {
+					id = eqfm.139 # Crisis/Congress Global Variable Cleanup
+					days = 15
+				}
 			}
 		}
 	}

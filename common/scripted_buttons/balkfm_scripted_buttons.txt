@@ -55,15 +55,7 @@ balkfm_austrian_agitation_button = {
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				state_region = {
-					OR = {
-						is_homeland = cu:serb
-						is_homeland = cu:croat
-						is_homeland = cu:bosniak
-						is_homeland = cu:slovene
-						is_homeland = cu:bulgarian
-					}
-				}
+				balkfm_is_yugoslav_homeland = yes
 			}
 		}
 	}
@@ -94,6 +86,19 @@ balkfm_austrian_agitation_button = {
 		}
 		remove_variable = balkfm_yugoslav_agitation_actor
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:AUS
+					secret_goal = antagonize
+				}
+			}
+			add = 10
+		}
+	}
 }
 
 balkfm_ottoman_agitation_button = {
@@ -103,15 +108,7 @@ balkfm_ottoman_agitation_button = {
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				state_region = {
-					OR = {
-						is_homeland = cu:serb
-						is_homeland = cu:croat
-						is_homeland = cu:bosniak
-						is_homeland = cu:slovene
-						is_homeland = cu:bulgarian
-					}
-				}
+				balkfm_is_yugoslav_homeland = yes
 			}
 		}
 	}
@@ -141,6 +138,19 @@ balkfm_ottoman_agitation_button = {
 			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
 		}
 		remove_variable = balkfm_yugoslav_agitation_actor
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:TUR
+					secret_goal = antagonize
+				}
+			}
+			add = 10
+		}
 	}
 }
 
