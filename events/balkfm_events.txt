@@ -1177,6 +1177,13 @@ balkfm.202 = { # The Draft (SER)
 	trigger = {
 	}
 	
+	cancellation_trigger = { # Loop Prevention
+		OR = {
+			has_journal_entry = je_balkfm_congress_of_berlin_main
+			has_journal_entry = je_balkfm_congress_of_berlin_sub
+		}
+	}	
+	
 	immediate = {
 		# Ilija Garašanin, Prime Minister of Serbia 1861-1867, author of "The Draft"
 		create_character = {
@@ -1284,6 +1291,15 @@ balkfm.203 = { # Yugoslav Breakaways Seek Union!
 				has_variable = balkfm_breakaway_var
 			}
 			save_scope_as = balkfm_breakaway_scope
+		}
+		if = {
+			limit = {
+				NOT = { has_global_variable = balkfm_berlin_congress_var }
+			}
+			set_global_variable = {
+				name = balkfm_berlin_congress_var
+				value = 0
+			}
 		}
 	}
 	
@@ -1395,6 +1411,13 @@ balkfm.206 = { # Yugoslavist Agitation (AUS/TUR)
 	dlc = dlc_grefm
 	
 	trigger = {
+	}
+	
+	cancellation_trigger = { # Loop Prevention
+		OR = {
+			has_journal_entry = je_balkfm_congress_of_berlin_main
+			has_journal_entry = je_balkfm_congress_of_berlin_sub
+		}
 	}
 	
 	immediate = {
