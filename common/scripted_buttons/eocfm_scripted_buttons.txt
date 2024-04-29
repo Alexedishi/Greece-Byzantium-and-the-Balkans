@@ -77,7 +77,7 @@ eocfm_convoke_council_button = {
 			hidden_trigger = {
 				NOT = {
 					any_country = {
-						has_variable = eocfm_council_host
+						has_modifier = modifier_eocfm_hosting_council
 					}
 				}
 			}
@@ -85,8 +85,15 @@ eocfm_convoke_council_button = {
 	}
 	
 	effect = {
-		set_variable = eocfm_council_host
-		set_global_variable = eocfm_council_ongoing
+		show_as_tooltip = {
+			add_modifier = modifier_eocfm_hosting_council
+		}
+		hidden_effect = { # This is to present the player clean information in the UI, but has a time limit to avoid variable shenanigans
+			add_modifier = {
+				name = modifier_eocfm_hosting_council
+				months = 12
+			}
+		}
 		trigger_event = {
 			id = eocfm.031 # Council of X
 			days = 30
@@ -95,14 +102,13 @@ eocfm_convoke_council_button = {
 		every_country = {
 			limit = {
 				has_journal_entry = je_eocfm_patriarch_authority
-				NOT = { has_variable = eocfm_council_host }
+				NOT = { has_modifier = modifier_eocfm_hosting_council }
 			}
 			trigger_event = {
 				id = eocfm.030 # Ecumenical Council Convoked
 				days = 30
 			}
 		}
-		add_modifier = modifier_eocfm_hosting_council
 	}
 }
 
