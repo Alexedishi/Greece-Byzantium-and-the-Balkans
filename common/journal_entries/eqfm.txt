@@ -1,0 +1,572 @@
+﻿################################
+# THE EASTERN QUESTION CONTENT #
+################################
+
+je_eqfm_main = {
+	# This is assigned to the Ottomans and used to track variables and handle on_actions. All other journals will reference these variables. 
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+	
+	group = je_group_eqfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_technology_researched = pan-nationalism
+		has_law = law_type:law_multicultural
+		NOT = {
+			AND = {
+				any_scope_state = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:greek
+					}
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:serb
+					}
+					
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:bulgarian
+					}
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:bosniak
+					}
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				AND = {
+					state_in_balkans = no
+					radical_fraction = {
+						value > 0.25
+						culture = cu:croat
+					}
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = eqfm.008 # Dominion Over Rumelia
+		}
+		set_global_variable = eqfm_rumelia_secured
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_eqfm_fail_tt
+			hidden_trigger = {
+				NOT = {
+					any_scope_state = {
+						region = sr:region_anatolia
+					}
+				}
+			}
+		}
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = eqfm.007 # Rumelia Lost
+		}
+		set_global_variable = eqfm_rumelia_lost
+	}
+	
+	invalid = { # technical trigger for testing
+		hidden_trigger = {
+			OR = {
+				has_global_variable = eqfm_rumelia_secured
+				has_global_variable = eqfm_rumelia_lost
+				has_global_variable = eqfm_cancel_struggle
+			}
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			eqfm_calculate_tension_variables_effect = yes
+		}
+	}
+
+	on_monthly_pulse = {
+		events = {
+			balkfm.082 # Ali Pasha Ascendant
+			eqfm.110 # Sets GEC Variables and Starts Warmup Chain
+		}
+		random_events = {
+			400 = 0
+			5 = eqfm.010 # Extortionate Taxation in State
+			5 = eqfm.011 # Plague Outbreak in State
+			5 = eqfm.012 # Ecumenical Patriarch Demands Protections
+			5 = eqfm.013 # Church Burned in State
+			5 = eqfm.014 # Popular Speaker Lynched in State
+			5 = eqfm.015 # Brigandage in State
+			5 = eqfm.020 # Riots in State
+		}
+		effect = {
+			eqfm_push_tension_effect = yes
+			eqfm_phase_check_effect = yes
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eqfm_status_4
+				trigger = {
+					has_global_variable = eqfm_deconfliction_var
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_3
+				trigger = {
+					global_var:eqfm_tension_var >= 300
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_2
+				trigger = {
+					global_var:eqfm_tension_var >= 100
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_1
+				trigger = {
+					global_var:eqfm_tension_var < 100
+				}
+			}
+		}
+	}	
+	
+	weight = 1000
+	
+}
+
+je_eqfm_sub = {
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+	
+	group = je_group_eqfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	complete = {
+		OR = {
+			custom_tooltip = {
+				text = eqfm_success_tt
+				hidden_trigger = {
+					has_global_variable = eqfm_rumelia_secured
+				}
+			}
+			custom_tooltip = {
+				text = eqfm_failure_tt
+				hidden_trigger = {
+					has_global_variable = eqfm_rumelia_lost
+				}
+			}
+		}
+	}
+	
+	invalid = { # technical trigger for testing
+		hidden_trigger = {
+			has_global_variable = eqfm_cancel_struggle
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			eqfm_relations_adjustment_effect = yes
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_eqfm_status_4
+				trigger = {
+					has_global_variable = eqfm_deconfliction_var
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_3
+				trigger = {
+					global_var:eqfm_tension_var >= 300
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_2
+				trigger = {
+					global_var:eqfm_tension_var >= 100
+				}
+			}
+			triggered_desc = {
+				desc = je_eqfm_status_1
+				trigger = {
+					global_var:eqfm_tension_var < 100
+				}
+			}
+		}
+	}
+	
+	scripted_button = eqfm_anti_turk_button
+	scripted_button = eqfm_pro_turk_button
+	scripted_button = eqfm_neutral_button
+	scripted_button = eqfm_accelerate_button
+	scripted_button = eqfm_decelerate_button
+	
+	weight = 1000
+	
+}
+
+je_eqfm_crisis_main = {
+	# This is assigned to the Ottomans since they are the only guaranteed participant. This journal handles all on_actions, events, etc. 
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+
+	group = je_group_eqfm_eastern_question
+
+	should_be_pinned_by_default = yes
+
+	immediate = {
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_eqfm_crisis_tt
+			hidden_trigger = {
+				OR = {
+					has_global_variable = eqfm_berlin_congress_var
+					has_global_variable = eqfm_porte_triumphant_var
+				}
+			}
+		}
+	}
+
+	on_complete = {
+	}
+
+	on_weekly_pulse = {
+		events = {
+			eqfm.111 # Creates GEC DP and Fires eqfm.112
+			eqfm.104 # Great Britain Attempts Deconfliction
+			eqfm.105 # France Attempts Deconfliction
+#			eqfm.106 # Greece Attempts Deconfliction
+		}
+		effect = {
+			eqfm_recruit_participants_effect = yes
+			change_global_variable = {
+				name = eqfm_crisis_var
+				add = 1
+			}
+			clamp_global_variable = {
+				name = eqfm_crisis_var
+				max = 150
+				min = 0
+			}
+		}
+	}
+		
+
+	current_value = {
+		value = global_var:eqfm_crisis_var
+	}
+
+	goal_add_value = {
+		value = 150
+	}
+
+	progressbar = yes
+
+	weight = 500
+
+}
+
+je_eqfm_crisis_sub = {
+	icon = gfx/interface/icons/event_icons/event_ottoman.dds
+
+	group = je_group_eqfm_eastern_question
+
+	should_be_pinned_by_default = yes
+
+	immediate = {
+		set_variable = { # This ensures every country receives an accurate goal value
+			name = eqfm_crisis_local_var 
+			value = 0
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_eqfm_crisis_tt
+			hidden_trigger = {
+				OR = {
+					has_global_variable = eqfm_berlin_congress_var
+					has_global_variable = eqfm_porte_triumphant_var
+				}
+			}
+		}
+	}
+
+	on_complete = {
+	}
+
+	on_weekly_pulse = {
+		effect = {
+			change_global_variable = {
+				name = eqfm_crisis_var
+				add = 1
+			}
+			clamp_global_variable = {
+				name = eqfm_crisis_var
+				max = 150
+				min = 0
+			}
+			set_variable = {
+				name = eqfm_crisis_local_var
+				value = global_var:eqfm_crisis_var
+			}
+		}
+	}
+
+	current_value = {
+		value = var:eqfm_crisis_local_var
+	}
+
+	goal_add_value = {
+		value = 250
+	}
+
+	progressbar = yes
+
+	weight = 500
+
+}
+
+je_eqfm_congress_of_berlin_main = {
+	# I would love to assign this to PRU, but for the sake of avoiding jank, it gets assigned to TUR
+	# This journal handles all the on_actions, events, and so on
+	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
+	
+	group = je_group_eqfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_global_variable = {
+			name = eqfm_berlin_congress_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_eqfm_congress_of_berlin_tt
+			hidden_trigger = {
+				scope:journal_entry = { is_goal_complete = yes }
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = eqfm.129 # The Treaty of Berlin
+		}
+		hidden_effect = {
+			c:BUL ?= {
+				balkfm_create_bulgarian_characters = yes
+			}
+		}
+		set_global_variable = eqfm_berlin_congress_completed
+	}
+	
+	on_weekly_pulse = { # events will fire rapidly one and another, the Congress only lasted a month. For gameplay reasons, this will take a little longer. Any irrelevant events will be skipped. These are listed in the order that they occur in.
+		events = {
+			eqfm.121 # The Issue of Bulgaria
+			eqfm.122 # The Issue of Bosnia
+			eqfm.131 # The Convention of Tunis
+			eqfm.123 # The Issue of Montenegro
+			eqfm.124 # The Issue of Serbia
+#			eqfm.125 # The Issue of the Principalities
+			eqfm.130 # The Convention of Cyprus
+			eqfm.126 # The Issue of the Caucasus
+#			eqfm.127 # OPEN
+			eqfm.128 # The Greek Delegation
+#			eqfm.132 # The Convention of Constantinople
+		}
+		effect = {
+			change_global_variable = {
+				name = eqfm_berlin_congress_var
+				add = 1
+			}
+		}
+	}
+	
+	current_value = {
+		value = global_var:eqfm_berlin_congress_var
+	}
+
+	goal_add_value = {
+		value = 32
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status1
+			trigger = {
+				global_var:eqfm_berlin_congress_var <= 3
+			}
+		}
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status2
+			trigger = {
+				global_var:eqfm_berlin_congress_var >= 4
+				global_var:eqfm_berlin_congress_var <= 27
+			}
+		}
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status3
+			trigger = {
+				global_var:eqfm_berlin_congress_var > 27
+			}
+		}
+	}
+
+	weight = 2000
+	
+}
+
+je_eqfm_congress_of_berlin_sub = {
+	# This is just an effect-less clone of the above JE; main JE handles all events/effects
+	icon = "gfx/interface/icons/event_icons/event_bismark.dds"
+	
+	group = je_group_eqfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+		custom_tooltip = {
+			text = je_eqfm_congress_of_berlin_tt
+			hidden_trigger = {
+				has_global_variable = eqfm_berlin_congress_completed
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = eqfm.129 # The Treaty of Berlin
+		}
+	}
+
+	status_desc = {
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status1
+			trigger = {
+				global_var:eqfm_berlin_congress_var < 8
+			}
+		}
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status2
+			trigger = {
+				global_var:eqfm_berlin_congress_var >= 8
+				global_var:eqfm_berlin_congress_var <= 27
+			}
+		}
+		triggered_desc = {
+			desc = je_eqfm_congress_of_berlin_status3
+			trigger = {
+				global_var:eqfm_berlin_congress_var > 27
+			}
+		}
+	}
+
+	weight = 2000
+	
+}
+
+je_eqfm_the_balkan_league = {
+	# unused for now, this will be built out once I get this far
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_eqfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}
+
+je_eqfm_thunderdome_main = {
+	# unused for now, this will be built out once I get this far
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_eqfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}
+
+je_eqfm_thunderdome_sub = {
+	# unused for now, this will be built out once I get this far
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_eqfm_thunderdome
+	
+	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+
+	weight = 2000
+	
+}

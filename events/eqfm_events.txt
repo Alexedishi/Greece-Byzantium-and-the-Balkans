@@ -1,0 +1,3965 @@
+﻿###############################
+# THE EASTERN QUESTION EVENTS #
+###############################
+# Events contained here pertain to the Eastern Question and its associated crises; this has been split from balkfm due to the increase in scope for the Eastern Question content and to keep the balkfm module focused on flavor.
+# je_eqm_main is assigned to and handled by TUR; this is for ease of scripting since the Ottoman State is THE constant for most Balkan crises. Proper Ottoman/Turkish flavor is out of scope for this mod.
+
+####################
+
+# For Greece content, see the "grefm" module
+# For Byzantium content, see the "byzfm" module
+# For Balkan Nations content, see the "balkfm" module
+# For Orthodox Church content, see the "eocfm" module
+# For Eastern Question content, see the "eqfm" module
+
+####################
+
+namespace = eqfm
+
+####################
+
+####	TABLE OF CONTENTS	####	#TOC
+
+# You can use the #EQFM_ comments to ctrl+F your way through the event list
+# The ## before an event indicates content not yet implemented; the >> indicates an event being moved in from another event module
+# [XXX] refers to events that occur only if other mods are present and detected
+
+##  #EQFM0  GENERAL EASTERN QUESTION EVENTS  Events  001-099  ##
+
+#001-009 - EQFM Intro Events
+#	001 - The Eastern Question (TUR)
+#	002 - The Sick Man of Europe (Great Powers)
+#	003 - The Decline of the Porte (Local Tags)
+#	004 - Nationalism Sweeps the Balkans
+#	005 - OPEN
+#	006 - OPEN
+#	007 - ##Rumelia Lost
+#	008 - ##Dominion Over Rumelia
+#	009 - [TECH] Adds je_eqfm_sub as appropriate
+
+
+#010-019 - EQFM Tension Events
+#	010 - Extortionate Taxation in State
+#	011 - Plague Outbreak in State
+#	012 - Ecumenical Patriarch Demands Protections
+#	013 - Churches Burned in State
+#	014 - Popular Speaker Lynched in State
+#	015 - Brigandage in State
+
+#020-029 - EQFM Uprising Events
+#	020 - Riots in State
+#	021 - Violence in State Worsens
+#	022 - Massacre in State
+#	023 - State Rebellion Suppressed
+#	024 - [TECH] Creates a Revolter Tag
+#	025 - Balkan Country Rebellion
+
+
+##  #EQFM1  THE GREAT EASTERN CRISIS  Events 100-109  ##
+
+#100-109 - Great Eastern Crisis Warmup Events
+#	100 - A Crisis in Rumelia (Initiator/TUR)
+#	101 - A Crisis in Rumelia (Recruit Local Power)
+#	102 - A Crisis in the East (Recruit Neutral/Hostile Great Powers)
+#	103 - A Crisis in the East (Recruit Allied Countries)
+#	104 - Great Britain Attempts Deconfliction
+#	105 - France Attempts Deconfliction
+#	106 - ##Greece Attempts Deconfliction
+# 	107 - Bosnia Takes Up Arms!
+#	108 - Bulgaria Takes Up Arms!
+#	109 - Great Eastern Crisis Superevent
+
+#110-119 - Great Eastern Crisis Events
+#	110 - [TECH] Sets Variables and Starts Warmup Chain
+#	111 - [TECH] Assigns Tags and Preps event_window Scopes
+#	112 - [TECH] Creates GEC DP and Fires Crisis Starts
+#	113 - [TECH] Crisis Start for TUR
+#	114 - [TECH] Crisis Start for Initiator
+#	115 - [TECH] Crisis Start for Attackers
+#	116 - [TECH] Crisis Start for Defenders
+#	117 - [TECH] Crisis Start for Uninvolved
+#	118 - >>The Porte Triumphant
+#	119 - >>The Treaty of San Stefano
+
+#120-129 - Congress of Berlin Events
+#	120 - The Congress of Berlin
+#	121 - The Issue of Bulgaria
+#	122 - The Issue of Bosnia
+#	123 - The Issue of Montenegro
+#	124 - The Issue of Serbia
+#	125 - ##The Issue of the Principalities
+#	126 - >>The Issue of the Caucasus
+#	127 - OPEN
+#	128 - >>The Greek Delegation
+#	129 - >>The Treaty of Berlin
+
+#130-139 - Congress of Berlin Support Events
+#	130 - >>The Convention of Cyprus
+#	131 - >>The Convention of Tunis
+#	132 - ##The Convention of Constantinople
+#	139 - [TECH] Cleans Up Global Crisis/Berlin Variables
+
+
+##  #EQFM2  THE BALKAN WARS Events 200-209  ##
+
+#200-209 - The Balkan League Events
+
+#210-219 - Balkan Wars Phase 1 Events
+
+#220-229 - Balkan Wars Phase 2 Events
+
+
+###############################################################
+##  #EQFM0  GENERAL EASTERN QUESTION EVENTS  Events  001-099  ##
+###############################################################
+
+##### EQFM INTRO EVENTS ####
+
+eqfm.001 = { # The Eastern Question (TUR Intro)
+	type = country_event
+	placement = root
+	
+	title = eqfm.001.t
+	desc = eqfm.001.d
+	flavor = eqfm.001.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		eqfm_initialize_tension_variables = yes
+		eqfm_calculate_tension_variables_effect = yes
+		set_variable = eqfm_tension_started
+	}
+	
+	option = {
+		name = eqfm.001.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eqfm_main
+		}
+		hidden_effect = {
+			every_scope_state = {
+				limit = {
+					state_in_balkans = yes
+				}
+				eqfm_add_medium_radicals_effect = yes
+			}
+			every_country = {
+				limit = {
+					country_rank >= rank_value:great_power
+					has_diplomatic_relevance = c:TUR
+					NOT = { c:TUR = this }
+				}
+				trigger_event = {
+					id = eqfm.002 # The Sick Man of Europe
+					days = 15
+				}
+			}
+			every_country = {
+				limit = {
+					balkfm_balkans_native_trigger = yes
+					NOT = { c:TUR = this }
+				}
+				trigger_event = {
+					id = eqfm.003 # The Decline of the Porte
+					days = 15
+				}
+			}
+		}
+	}
+
+}
+
+eqfm.002 = { # The Sick Man of Europe
+	type = country_event
+	placement = root
+	
+	title = eqfm.002.t
+	desc = eqfm.002.d
+	flavor = eqfm.002.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		set_variable = eqfm_tension_started
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.002.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eqfm_sub
+		}
+	}
+
+}
+
+eqfm.003 = { # The Decline of the Porte
+	type = country_event
+	placement = root
+	
+	title = eqfm.003.t
+	desc = eqfm.003.d
+	flavor = eqfm.003.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		set_variable = eqfm_tension_started
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.003.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_eqfm_sub
+		}
+	}
+
+}
+
+eqfm.005 = { #OPEN
+	orphan = yes
+}
+
+eqfm.006 = { # OPEN
+	orphan = yes
+}
+
+eqfm.007 = { # Rumelia Lost
+	type = country_event
+	placement = root
+	
+	title = eqfm.007.t
+	desc = eqfm.007.d
+	flavor = eqfm.007.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = eqfm.007.a
+		default_option = yes
+	}
+
+}
+
+eqfm.008 = { # Dominion Over Rumelia
+	type = country_event
+	placement = root
+	
+	title = eqfm.008.t
+	desc = eqfm.008.d
+	flavor = eqfm.008.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = eqfm.008.a
+		default_option = yes
+	}
+
+}
+
+eqfm.009 = { # Adds je_eqfm_sub as appropriate
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOR = { 
+			has_global_variable = eqfm_rumelia_secured
+			has_global_variable = eqfm_rumelia_lost
+		}
+		has_variable = eqfm_tension_started
+		NOT = { has_journal_entry = je_eqfm_sub }
+		OR = {
+			AND = {
+				country_rank >= rank_value:great_power
+				has_interest_marker_in_region = sr:region_balkans
+			}
+			balkfm_balkans_native_trigger = yes
+			c:WAL ?= this
+			c:MOL ?= this
+			c:ROM ?= this
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_eqfm_sub
+		}
+	}
+	
+}
+
+#### EQFM TENSION EVENTS ####
+
+eqfm.010 = { # Extortionate Taxation in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.010.t
+	desc = eqfm.010.d
+	flavor = eqfm.010.f
+	
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_overtaxed
+				has_modifier = modifier_eqfm_tax_break_given
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # Maintain Taxation
+		name = eqfm.010.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_modifier = {
+				name = modifier_eqfm_overtaxed
+				months = normal_modifier_time
+			}
+			eqfm_reduce_state_sol_effect = yes
+		}
+		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_tension_taxation
+			}
+		}
+	}
+	
+	option = { # Reduce Taxation
+		name = eqfm.010.b
+		add_modifier = {
+			name = modifier_eqfm_tax_break_given
+			months = normal_modifier_time
+		}
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				pop_type = aristocrats
+				value = medium_radicals
+			}
+		}
+	}
+	
+}
+
+eqfm.011 = { # Plague Outbreak in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.011.t
+	desc = eqfm.011.d
+	flavor = eqfm.011.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_plague_outbreak
+				has_modifier = modifier_eqfm_mitigated_plague
+			}
+		}
+		institution_investment_level = {
+			institution = institution_health_system
+			value < 4
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # Let Them Die
+		name = eqfm.011.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = large_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_plague_outbreak
+				months = normal_modifier_time
+			}
+		}
+		eqfm_add_medium_tension_effect = yes
+	}
+	
+	option = { # Implement Quarantine
+		name = eqfm.011.b
+		scope:eqfm_tension_target_scope = {
+			add_loyalists_in_state = {
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_mitigated_plague
+				months = short_modifier_time
+			}
+		}
+	}
+
+}
+
+eqfm.012 = { # Ecumenical Patriarch Demands Protections
+	type = country_event
+	placement = root
+	
+	title = eqfm.012.t
+	desc = eqfm.012.d
+	flavor = eqfm.012.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_variable = eqfm_firman_requested
+			has_global_variable = eqfm_tension_event_cooldown_var
+		}
+		has_variable = eocfm_controls_constantinople
+	}
+	
+	immediate = {
+		s:STATE_EASTERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = eqfm_tension_target_scope
+			}
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+		set_variable = eqfm_firman_requested
+	}
+	
+	option = { # Patriarch? More like Faketriarch!
+		name = eqfm.012.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+		}
+		eqfm_add_medium_tension_effect = yes
+	}
+	
+	option = { # Help a Beggar Out
+		name = eqfm.012.b
+		scope:eqfm_tension_target_scope = {
+			add_loyalists_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_granted_religious_firman
+				months = short_modifier_time
+			}
+		}
+	}
+
+}
+
+eqfm.013 = { # Churches Burned in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.013.t
+	desc = eqfm.013.d
+	flavor = eqfm.013.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			any_state = {
+				has_modifier = modifier_eqfm_churches_burned
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # They Can Deal With It
+		name = eqfm.013.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_churches_burned
+				months = normal_modifier_time
+			}
+		}
+		eqfm_add_medium_tension_effect = yes
+	}
+	
+	option = { # Pay Them Back
+		name = eqfm.013.b
+		scope:eqfm_tension_target_scope = {
+			add_loyalists_in_state = {
+				religion = rel:orthodox
+				value = small_radicals
+			}
+			add_modifier = {
+				name = modifier_eqfm_churches_burned
+				months = normal_modifier_time
+			}
+			add_modifier = {
+				name = modifier_eqfm_rebuilding_churches
+				months = normal_modifier_time
+			}
+			add_treasury = -20000
+		}
+		eqfm_add_small_tension_effect = yes
+	}
+
+}
+
+eqfm.014 = { # Popular Speaker Lynched in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.014.t
+	desc = eqfm.014.d
+	flavor = eqfm.014.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+			has_modifier = modifier_eqfm_protected_minorities
+			any_state = {
+				has_modifier = modifier_eqfm_minority_leader_killed
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # Let the Killers Go
+		name = eqfm.014.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			eqfm_add_medium_radicals_effect = yes
+			add_modifier = {
+				name = modifier_eqfm_minority_leader_killed
+				months = normal_modifier_time
+			}
+		}
+		eqfm_add_medium_tension_effect = yes
+	}
+	
+	option = { # Bring Them to Justice
+		name = eqfm.014.b
+		add_modifier = {
+			name = modifier_eqfm_protected_minorities
+			months = normal_modifier_time
+		}
+		add_modifier = {
+			name = modifier_eqfm_local_garrison_deployed
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
+
+eqfm.015 = { # Brigandage in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.015.t
+	desc = eqfm.015.d
+	flavor = eqfm.015.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_global_variable = eqfm_tension_event_cooldown_var
+		}
+		any_state = {
+			NOR = {
+				has_modifier = modifier_eqfm_brigandage
+				has_modifier = modifier_eqfm_local_garrison_deployed
+			}
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				NOT = { has_modifier = modifier_eqfm_local_garrison_deployed }
+			}
+			save_scope_as = eqfm_tension_target_scope
+		}
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+	}
+	
+	option = { # They'll be Fine
+		name = eqfm.015.a
+		default_option = yes
+		scope:eqfm_tension_target_scope = {
+			add_modifier = {
+				name = modifier_eqfm_brigandage
+				months = normal_modifier_time
+			}
+		}
+	}
+	
+	option = { # Extend Assistance
+		name = eqfm.015.b
+		scope:eqfm_tension_target_scope = {
+			add_modifier = {
+				name = modifier_eqfm_local_garrison_deployed
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+#### EQFM UPRISING EVENTS ####
+
+eqfm.020 = { # Riots in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.020.t
+	desc = eqfm.020.d
+	flavor = eqfm.020.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = { 
+			has_global_variable = eqfm_riot_var 
+			has_global_variable = eqfm_tension_event_cooldown_var
+		}
+		global_var:eqfm_tension_var <= 500
+		any_scope_state = {
+			state_in_balkans = yes
+			is_split_state = no
+			NOR = {
+				state_region = s:STATE_SLOVENIA
+				state_region = s:STATE_CROATIA
+				state_region = s:STATE_SLAVONIA
+				state_region = s:STATE_DALMATIA
+				state_region = s:STATE_EASTERN_THRACE
+			}
+			OR = {
+				radical_fraction = {
+					value = 0.50
+					culture = cu:greek
+				}
+				radical_fraction = {
+					value = 0.50
+					culture = cu:serb
+				}
+				radical_fraction = {
+					value = 0.50
+					culture = cu:bulgarian
+				}
+				radical_fraction = {
+					value = 0.50
+					culture = cu:bosniak
+				}
+				radical_fraction = {
+					value = 0.50
+					culture = cu:croat
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = eqfm_tension_event_cooldown_var
+			days = 720 # two year lockout
+		}
+		set_global_variable = eqfm_riot_var
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				is_split_state = no
+				NOR = {
+					state_region = s:STATE_SLOVENIA
+					state_region = s:STATE_CROATIA
+					state_region = s:STATE_SLAVONIA
+					state_region = s:STATE_DALMATIA
+					state_region = s:STATE_EASTERN_THRACE
+				}
+				OR = {
+					radical_fraction = {
+						value = 0.50
+						culture = cu:greek
+					}
+					radical_fraction = {
+						value = 0.50
+						culture = cu:serb
+					}
+					radical_fraction = {
+						value = 0.50
+						culture = cu:bulgarian
+					}
+					radical_fraction = {
+						value = 0.50
+						culture = cu:bosniak
+					}
+					radical_fraction = {
+						value = 0.50
+						culture = cu:croat
+					}
+				}
+			}
+			save_scope_as = eqfm_riot_state_scope
+			set_variable = eqfm_riot_state_var
+		}
+	}
+	
+	option = { # Drop the Hammer
+		name = eqfm.020.a
+		default_option = yes
+		scope:eqfm_riot_state_scope = {
+			eqfm_add_medium_radicals_effect = yes
+		}
+		custom_tooltip = {
+			text = eqfm.020.a.tt
+			hidden_effect = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = eqfm.023 # Rebellion in State Suppressed
+							days = 30
+						}
+					}
+					40 = {
+						trigger_event = {
+							id = eqfm.021 # Violence in State Worsens
+							days = 30
+						}
+					}
+					10 = {
+						trigger = {
+							scope:eqfm_riot_state_scope = {
+								NOT = { 
+									has_modifier = modifier_eqfm_civilians_massacred 
+								}
+							}
+						}
+						trigger_event = {
+							id = eqfm.022 # Massacre in State
+							days = 30
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Let Them Be
+		name = eqfm.020.b
+		scope:eqfm_riot_state_scope = {
+			add_modifier = {
+				name = modifier_eqfm_ethnic_riots
+				months = short_modifier_time
+				is_decaying = yes
+			}
+			add_radicals_in_state = {
+				culture = cu:turkish
+				value = large_radicals
+			}
+		}
+		custom_tooltip = {
+			text = eqfm.020.b.tt
+			hidden_effect = {
+				random_list = {
+					10 = {
+						trigger_event = {
+							id = eqfm.023 # Rebellion in State Suppressed
+							days = 30
+						}
+					}
+					90 = {
+						trigger_event = {
+							id = eqfm.021 # Violence in State Worsens
+							days = 30
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+eqfm.021 = { # Violence in State Worsens
+	type = country_event
+	placement = root
+	
+	title = eqfm.021.t
+	desc = eqfm.021.d
+	flavor = eqfm.021.f
+	
+	event_image = {
+		video = "votp_cops_march"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm Uprising Event Chain
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = eqfm_riot_state_var
+			}
+			save_scope_as = eqfm_riot_state_scope
+		}
+	}
+	
+	option = { # Thrown Down Harder
+		name = eqfm.021.a
+		default_option = yes
+		scope:eqfm_riot_state_scope = {
+			add_modifier = {
+				name = modifier_eqfm_harsh_suppression
+				months = short_modifier_time
+			}
+		}
+		custom_tooltip = {
+			text = eqfm.021.a.tt
+			hidden_effect = {
+				random_list = {
+					50 = {
+						trigger = {
+							scope:eqfm_riot_state_scope = {
+								NOT = { 
+									has_modifier = modifier_eqfm_civilians_massacred 
+								}
+							}
+						}
+						trigger_event = {
+							id = eqfm.022 # Massacre in State
+							days = 30
+						}
+					}
+					50 = {
+						trigger_event = {
+							id = eqfm.023 # Rebellion in State Suppressed
+							days = 30
+						}
+					}
+					50 = {
+						trigger = {
+							scope:eqfm_riot_state_scope = {
+								has_modifier = modifier_eqfm_civilians_massacred
+							}
+						}
+						trigger_event = {
+							id = eqfm.024 # Creates Revolt Tag
+							days = 30
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Keep Pulling Punches
+		name = eqfm.021.b
+		add_modifier = {
+			name = modifier_eqfm_impotent_authority
+			months = normal_modifier_time
+		}
+		custom_tooltip = {
+			text = eqfm.021.b.tt
+			hidden_effect = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = eqfm.023 # Rebellion in State Suppressed
+							days = 30
+						}
+					}
+					50 = {
+						trigger_event = {
+							id = eqfm.024 # Creates Revolt Tag
+							days = 30
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+eqfm.022 = { # Massacre in State
+	type = country_event
+	placement = root
+	
+	title = eqfm.022.t
+	desc = eqfm.022.d
+	flavor = eqfm.022.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm Uprising Event Chain
+	}	
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = eqfm_riot_state_var
+			}
+			save_scope_as = eqfm_riot_state_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.022.a
+		default_option = yes
+		scope:eqfm_riot_state_scope = {
+			eqfm_massacre_effect = yes
+			eqfm_add_large_radicals_effect = yes
+			eqfm_reduce_state_sol_effect = yes
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					trigger_event = {
+						id = eqfm.023 # Rebellion in State Suppressed
+						days = 30
+					}
+				}
+				50 ={
+					trigger_event = {
+						id = eqfm.024 # Creates Revolter Tag
+						days = 30
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+eqfm.023 = { # State Rebellion Suppressed
+	type = country_event
+	placement = root
+	
+	title = eqfm.023.t
+	desc = eqfm.023.d
+	flavor = eqfm.023.f
+	
+	event_image = {
+		video = "votp_prison"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm Uprising Event Chain
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = eqfm_riot_state_var
+			}
+			save_scope_as = eqfm_riot_state_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.023.a
+		default_option = yes
+		scope:eqfm_riot_state_scope = {
+			add_modifier = {
+				name = modifier_eqfm_separatism_suppressed
+				months = long_modifier_time
+				is_decaying = yes
+			}
+			remove_variable = eqfm_riot_state_var
+		}
+		remove_global_variable = eqfm_riot_var
+	}
+
+}
+
+eqfm.024 = { # Creates a Revolter Tag
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm Uprising Event Chain
+	}
+
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = eqfm_riot_state_var
+			}
+			save_scope_as = eqfm_riot_state_scope
+		}
+		eqfm_create_rebellion_effect = yes
+	}
+	
+}
+
+eqfm.025 = { # Balkan Country Rebellion
+	type = country_event
+	placement = root
+	
+	title = eqfm.025.t
+	desc = eqfm.025.d
+	flavor = eqfm.025.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm Uprising Event Chain
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eqfm_rebellion_tag_tracker
+			}
+			save_scope_as = eqfm_rebellion_scope
+		}
+	}
+	
+	option = { # Assert Our Dominion
+		name = eqfm.025.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = grefm_macedonia_rebellion
+			target_country = c:MAC
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					scope:eqfm_rebellion_scope = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = scope:eqfm_rebellion_scope value = 100 }
+			}
+		}
+		custom_tooltip = {
+			text = eqfm_deconfliction_tt
+			hidden_effect = {
+				set_global_variable = eqfm_deconfliction_var
+			}
+		}
+	}
+	
+	option = { # Let Them Go
+		name = eqfm.025.b
+		add_radicals = {
+			culture = cu:turkish
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_eqfm_caved_to_separatists
+			months = normal_modifier_time
+		}
+		custom_tooltip = {
+			text = eqfm_deconfliction_tt
+			hidden_effect = {
+				set_global_variable = eqfm_deconfliction_var
+			}
+		}
+	}
+
+}
+
+########################################################
+##  #EQFM1  THE GREAT EASTERN CRISIS  Events 100-109  ##
+########################################################
+
+#### GREAT EASTERN CRISIS WARMUP EVENTS ####
+
+eqfm.100 = { # A Crisis in Rumelia (Initiator/TUR)
+	type = country_event
+	placement = root
+	
+	title = eqfm.100.t
+	desc = {
+		triggered_desc = {
+			desc = eqfm.100.d1
+			trigger = {
+				NOT = { c:TUR = this }
+			}
+		}
+		triggered_desc = {
+			desc = eqfm.100.d2
+			trigger = {
+				c:TUR = this
+			}
+		}
+	}
+	flavor = eqfm.100.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm.110
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eqfm_crisis_initiator
+			}
+			save_scope_as = eqfm_starter_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		set_variable = eqfm_crisis_offered
+	}
+	
+	option = { # Attack the Turks
+		name = eqfm.100.a
+		default_option = yes
+		trigger = {
+			NOT = {
+				c:TUR = this
+			}
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_sub
+		}
+		custom_tooltip = {
+			text = eqfm_crisis_leader_tt
+			hidden_effect = {
+				set_variable = eqfm_crisis_initiator
+			}
+		}
+		c:TUR = {
+			trigger_event = {
+				id = eqfm.100 # A Crisis in Rumelia (Initiator/TUR)
+			}
+		}
+	}
+	
+	option = { # Be Lame
+		name = eqfm.100.b
+		trigger = {
+			NOT = { c:TUR = this }
+		}
+		set_variable = eqfm_crisis_rejected
+	}
+	
+	option = {
+		name = eqfm.100.c
+		trigger = {
+			c:TUR = this
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_main
+		}
+		every_scope_state = {
+			limit = {
+				state_region = {
+					NOT = {
+						is_homeland = cu:turkish
+					}
+				}
+				region = sr:region_balkans
+			}
+			eqfm_add_medium_radicals_effect = yes
+		}
+		set_variable = eqfm_crisis_target
+	}
+	
+}
+
+eqfm.101 = { # A Crisis in Rumelia (Recruit Local Power)
+	type = country_event
+	placement = root
+	
+	title = eqfm.101.t
+	desc = eqfm.101.d
+	flavor = eqfm.101.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_eqfm_crisis_main
+	}
+	
+	immediate = {
+		set_variable = eqfm_crisis_offered
+		set_variable = eqfm_crisis_technical
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_technical
+				}
+				save_scope_as = eqfm_offered_scope
+			}
+		}
+	}
+	
+	option = { # Rise Up
+		name = eqfm.101.a
+		default_option = yes
+		custom_tooltip = {
+			text = eqfm_crisis_join_tt
+			hidden_effect = {
+				set_variable = eqfm_crisis_attacker
+			}
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_sub
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_technical
+				}
+				save_scope_as = eqfm_offered_scope
+			}
+			post_notification = notification_eqfm_crisis_joined
+		}
+		hidden_effect = {
+			create_truce = {
+				country = c:TUR
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+		
+	}
+	
+	option = { # Be Docile
+		name = eqfm.101.b
+		custom_tooltip = {
+			text = eqfm_crisis_decline_tt
+			hidden_effect = {
+				set_variable = balkfm_weaksauce
+			}
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_technical
+				}
+				save_scope_as = eqfm_offered_scope
+			}
+			post_notification = notification_eqfm_crisis_declined
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+
+	after = {
+		remove_variable = eqfm_crisis_technical
+	}
+
+}
+
+eqfm.102 = { # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
+	type = country_event
+	placement = root
+	
+	title = eqfm.102.t
+	desc = eqfm.102.d
+	flavor = eqfm.102.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_eqfm_crisis_main
+	}
+	
+	immediate = {
+		set_variable = eqfm_crisis_offered
+		set_variable = eqfm_crisis_technical
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_technical
+				}
+				save_scope_as = eqfm_offered_scope
+			}
+		}	
+	}
+	
+	option = { # Pile In
+		name = eqfm.102.a
+		default_option = yes
+		custom_tooltip = {
+			text = eqfm_crisis_join_tt
+			hidden_effect = {
+				set_variable = eqfm_crisis_attacker
+			}
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_sub
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_eqfm_crisis_joined
+		}
+		hidden_effect = {
+			create_truce = {
+				country = c:TUR
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				trigger = {
+					c:TUR ?= {
+						relations:root < relations_threshold:cordial
+					}
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					c:TUR ?= {
+						relations:root >= relations_threshold:cordial
+					}
+				}
+				add = -25
+			}
+			modifier = {
+				trigger = {
+					c:RUS ?= this # Russo-Turkish War vibes
+				}
+				add = 1000
+			}
+			modifier = {
+				trigger = {
+					c:AUS ?= this # Austria was promised the occupation of Bosnia-Herzegovina
+				}
+				add = 500
+			}
+			modifier = {
+				trigger = {
+					c:FRA ?= this # France had no real interests in the Balkans, her attention was more on Algeria/Tunisia
+				}
+				add = -50
+			}
+		}
+	}
+	
+	option = { # Back the Porte
+		name = eqfm.102.b
+		custom_tooltip = {
+			text = eqfm_crisis_defend_tt
+			hidden_effect = {
+				set_variable = eqfm_crisis_defender
+			}
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_sub
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_eqfm_crisis_defending
+		}
+		hidden_effect = {
+			create_truce = {
+				country = c:TUR
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					c:TUR ?= {
+						relations:root > relations_threshold:cordial
+					}
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					c:GBR = this # Great Britain should sometimes swing this way
+				}
+				add = 10
+			}
+		}
+	}
+	
+	option = { # not my problem
+		name = eqfm.102.c
+		set_variable = eqfm_crisis_rejected
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_eqfm_crisis_declined
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					c:TUR ?= {
+						relations:root > relations_threshold:neutral
+					}
+				}
+				add = -15
+			}
+			modifier = {
+				trigger = {
+					c:TUR ?= {
+						relations:root <= relations_threshold:neutral
+					}
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					c:GBR = this # Great Britain should sometimes swing this way
+				}
+				add = 20
+			}
+		}
+	}
+	
+	after = {
+		remove_variable = eqfm_crisis_technical
+	}
+
+}
+
+eqfm.103 = { # A Crisis in the East (Recruit Allied Countries)
+	type = country_event
+	placement = root
+	
+	title = eqfm.103.t
+	desc = eqfm.103.d
+	flavor = eqfm.103.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_eqfm_crisis_main
+	}
+	
+	immediate = {
+		set_variable = eqfm_crisis_offered	
+		set_variable = eqfm_crisis_technical
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_technical
+				}
+				save_scope_as = eqfm_offered_scope
+			}
+		}
+	}
+	
+	option = { # Honor the Alliance
+		name = eqfm.103.a
+		default_option = yes
+		custom_tooltip = {
+			text = eqfm_crisis_defend_tt
+			hidden_effect = {
+				set_variable = eqfm_crisis_defender
+			}
+		}
+		add_journal_entry = {
+			type = je_eqfm_crisis_sub
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_eqfm_crisis_joined
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Hang the Porte out to dry
+		name = eqfm.103.b
+		change_relations = {
+			country = c:TUR
+			value = -50
+		}
+		set_variable = eqfm_crisis_rejected
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:TUR
+			}
+			post_notification = notification_eqfm_crisis_declined
+		}
+		ai_chance = {
+			base = 0 # your AI allies should not abandon you
+		}
+	}
+	
+	after = {
+		remove_variable = eqfm_crisis_technical
+	}
+
+}
+
+eqfm.104 = { # Great Britain Attempts Deconfliction
+	type = country_event
+	placement = root
+	
+	title = eqfm.104.t
+	desc = eqfm.104.d
+	flavor = eqfm.104.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_global_variable = eqfm_crisis_gbr_deconfliction_var }
+		NOT = { has_global_variable = eqfm_crisis_happened }
+		has_journal_entry = je_eqfm_crisis_main
+		owns_entire_state_region = STATE_CYPRUS
+		c:GBR = {
+			is_ai = yes
+			has_variable = eqfm_crisis_attacker
+		}
+	}
+	
+	immediate = {
+		set_global_variable = eqfm_crisis_gbr_deconfliction_var
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		s:STATE_CYPRUS = {
+			random_scope_state = {
+				save_scope_as = cyprus_state_scope
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.104.a
+		default_option = yes
+		custom_tooltip = {
+			text = eqfm.104.tt
+			hidden_effect = {
+				c:GBR = {
+					remove_variable = eqfm_crisis_attacker
+					set_variable = eqfm_cyprus_convention
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.104.b
+		change_relations = {
+			country = c:GBR
+			value = -10
+		}
+	}
+
+}
+
+eqfm.105 = { # France Attempts Deconfliction
+	type = country_event
+	placement = root
+	
+	title = eqfm.105.t
+	desc = eqfm.105.d
+	flavor = eqfm.105.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_global_variable = eqfm_crisis_happened }
+		NOT = { has_global_variable = eqfm_crisis_fra_deconfliction_var }
+		has_journal_entry = je_eqfm_crisis_main
+		owns_entire_state_region = STATE_CYPRUS
+		c:FRA = {
+			is_ai = yes
+			has_variable = eqfm_crisis_attacker
+		}
+		c:TUN ?= {
+			is_subject_of = c:TUR
+		}
+	}
+	
+	immediate = {
+		set_global_variable = eqfm_crisis_fra_deconfliction_var
+		c:FRA = {
+			save_scope_as = france_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:TUN ={
+			save_scope_as = tunis_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.105.a
+		default_option = yes
+		custom_tooltip = {
+			text = eqfm.105.tt
+			hidden_effect = {
+				c:FRA = {
+					remove_variable = eqfm_crisis_attacker
+					set_variable = eqfm_tunis_convention
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.105.b
+		change_relations = {
+			country = c:FRA
+			value = -10
+		}
+	}
+
+}
+
+eqfm.106 = { # Greece Attempts Deconfliction
+
+	orphan = yes
+	
+}
+
+eqfm.107 = { # Herzegovina Uprising
+	type = country_event
+	placement = root
+	
+	title = eqfm.107.t
+	desc = eqfm.107.d
+	flavor = eqfm.107.f
+	
+	event_image = {
+		video = "balkfm_bosnia_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm_build_crisis_effect
+	}
+	
+	immediate = {
+		create_country = {
+			tag = BOS
+			origin = this
+			state = s:STATE_BOSNIA.region_state:TUR
+			on_created = {
+			}
+		}
+		c:BOS = {
+			save_scope_as = bosnia_scope
+			set_variable = eqfm_crisis_offered
+			set_variable = eqfm_crisis_attacker
+			add_journal_entry = {
+				type = je_eqfm_crisis_sub
+			}
+			set_variable = {
+				name = eqfm_crisis_local_var
+				value = global_var:eqfm_crisis_var
+			}
+			create_character = {
+				# Bogdan Zimonjić, Serbian priest and commander participated in two major uprisings against the Ottomans in 1852 and 1875
+				first_name = Bogdan
+				last_name = Zimonjic
+				historical = yes
+				ruler = yes
+				age = 62 # age at the time of the Herzegovina uprising
+				culture = cu:serb
+				religion = rel:orthodox
+				interest_group = ig_devout # seriously what is it with Bosnian priests and leading uprisings, it's awesome
+				ideology = ideology_moderate
+				is_general = yes
+				traits = {
+					brave
+					persistent
+					expert_defensive_strategist # to buy Bosnia time for Austria to hopefully pile in
+				}
+				on_created = {
+					set_variable = balkfm_is_zimonjic
+				}
+			}
+		}
+		random_character = {
+			limit = {
+				has_variable = balkfm_is_zimonjic
+			}
+			save_scope_as = balkfm_zimonjic_scope
+		}
+		create_truce = {
+			country = c:BOS
+			months = 12
+		}
+	}
+	
+	option = {
+		name = eqfm.107.a
+		default_option = yes
+	}
+
+}
+
+eqfm.108 = { # April Uprising (Bulgaria)
+	type = country_event
+	placement = root
+	
+	title = eqfm.108.t
+	desc = eqfm.108.d
+	flavor = eqfm.108.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eqfm_build_crisis_effect
+	}
+	
+	immediate = {
+		balkfm_create_bulgaria = yes
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+			set_variable = eqfm_crisis_offered
+			set_variable = eqfm_crisis_attacker
+			add_journal_entry = {
+				type = je_eqfm_crisis_sub
+			}
+			set_variable = {
+				name = eqfm_crisis_local_var
+				value = global_var:eqfm_crisis_var
+			}
+			balkfm_set_bulgarian_laws = yes
+		}
+		create_truce = {
+			country = c:BUL
+			months = 12
+		}
+	}
+	
+	option = {
+		name = eqfm.108.a
+		default_option = yes
+	}
+
+}
+
+eqfm.109 = { # Great Eastern Crisis Superevent
+	type = country_event
+	placement = root
+	
+	title = eqfm.109.t
+	desc = eqfm.109.d
+	flavor = eqfm.109.f
+	
+	gui_window = event_window_crisis
+	
+	event_image = {
+		video = "eqfm_balkan_crisis"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { 
+		# triggered by eqfm.113/114/115/116
+	}
+	
+	immediate = {
+		eqfm_stage_crisis_characters_effect = yes
+	}
+	
+	option = {
+		name = eqfm.109.a
+		default_option = yes
+	}
+	
+}
+
+#### GREAT EASTERN CRISIS EVENTS ####
+
+eqfm.110 = { # Sets Variables and Starts Warmup Chain
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOT = { has_global_variable = eqfm_crisis_var }
+		NOT = { has_global_variable = eqfm_crisis_happened }
+		has_technology_researched = nationalism
+		NOT = { has_technology_researched = pan-nationalism }
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		calc_true_if = {
+			amount >= 3
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_BULGARIA
+			owns_entire_state_region = STATE_NORTHERN_SERBIA
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			owns_entire_state_region = STATE_MONTENEGRO
+			owns_entire_state_region = STATE_BOSNIA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+		}
+		OR = {
+			country_rank = rank_value:great_power
+			country_rank = rank_value:major_power
+			country_rank = rank_value:unrecognized_major_power
+		}
+		is_subject = no
+		is_junior_in_customs_union = no		
+		OR = {
+			c:GRE ?= {
+				has_technology_researched = nationalism
+			}
+			c:SER ?= {
+				has_technology_researched = nationalism
+			}
+			c:MON ?= {
+				has_technology_researched = nationalism
+			}
+		}
+		any_country = {
+			has_variable = eqfm_anti_turk_var
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = eqfm_crisis_var
+			value = 0
+		}
+		random_country = {
+			limit = {
+				has_journal_entry = je_eqfm_sub
+				has_variable = eqfm_anti_turk_var
+				NOT = { has_variable = eqfm_crisis_rejected }
+			}
+			trigger_event = {
+				id = eqfm.100 # A Crisis in Rumelia (Initiator/TUR)
+			}
+		}
+	}
+
+}
+
+eqfm.111 = { # Creates GEC DP and Fires eqfm.112
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOT = { has_global_variable = eqfm_crisis_happened }
+		has_journal_entry = je_eqfm_crisis_main
+		global_var:eqfm_crisis_var >= 150
+		is_diplomatic_play_committed_participant = no
+		is_at_war = no
+	}
+
+	immediate = {
+		set_global_variable = eqfm_crisis_happened
+		if = {
+			limit = {
+				c:RUS = {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			c:RUS = {
+				set_variable = eqfm_crisis_initiator
+				save_scope_as = eqfm_crisis_initiator_scope
+			}
+		}
+		else = {			
+			random_country = {
+				limit = {
+					has_variable = eqfm_crisis_attacker
+					country_rank = rank_value:great_power
+					is_diplomatic_play_committed_participant = no
+				}
+				set_variable = eqfm_crisis_initiator
+				save_scope_as = eqfm_crisis_initiator_scope
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:eqfm_crisis_initiator_scope
+			}
+			scope:eqfm_crisis_initiator_scope = {
+				create_diplomatic_play = {
+					name = eqfm_great_eastern_crisis
+					target_country = c:TUR
+					type = dp_eqfm_crisis
+					war = yes
+				}
+			}
+			trigger_event = {
+				id = eqfm.112 # Assigns Tags and preps scopes for the event_window
+				days = 1 # let it cook
+			}
+		}
+		else = {
+			remove_global_variable = eqfm_crisis_happened
+		}
+	}
+	
+}
+
+eqfm.112 = { # Assigns Tags, preps scopes for the event_window, and triggers country-specific technical starts
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_eqfm_crisis
+			}
+			save_scope_as = eqfm_crisis_scope
+		}
+		c:TUR = {
+			every_subject_or_below = {
+				limit = {
+					NOT = { any_overlord_or_above = { NOT = { ROOT = this } } }
+					OR = {
+						NOT = {
+							is_country_type = unrecognized
+						}
+						is_subject_type = subject_type_protectorate
+						is_subject_type = subject_type_dominion
+						is_subject_type = subject_type_puppet
+					}
+					has_variable = eqfm_crisis_attacker
+				}
+				make_independent = yes
+			}
+			trigger_event = {
+				id = eqfm.113 # Crisis Start for TUR
+			}
+		}
+		every_country = {
+			limit = {
+				eqfm_crisis_participant_trigger = yes
+				has_truce_with = c:TUR
+			}
+			end_truce = {
+				country = c:TUR
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eqfm_crisis_initiator
+			}
+			trigger_event = {
+				id = eqfm.114 # Crisis Start for Initiator
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = eqfm_crisis_attacker
+			}
+			trigger_event = {
+				id = eqfm.115 # Crisis Start for Attackers
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = eqfm_crisis_defender
+			}
+			trigger_event = {
+				id = eqfm.116 # Crisis Start for Defenders
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = eqfm_crisis_rejected
+			}
+			trigger_event = {
+				id = eqfm.117 # Crisis Start for Uninvolved
+			}
+		}
+	}
+	
+	# So what happened here is that the original script was trying to fire scripted effects from inside of other scripted effects. I've already done it before, so I don't know what broke to cause an unhandled exception. Separating the crisis effects into separate events and further into their own scripted_effects file seems to have corrected the issue.
+	
+}
+
+eqfm.113 = { # Crisis Start for TUR
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm.112
+	}
+
+	immediate = {
+		eqfm_generate_hakki_pasha_effect = yes
+		eqfm_generate_osman_nuri_effect = yes
+		trigger_event = {
+			id = eqfm.109 # Great Eastern Crisis Superevent
+		}
+	}
+	
+}
+
+eqfm.114 = { # Crisis Start for Initiator
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm.112
+	}
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_eqfm_crisis
+			}
+			save_scope_as = eqfm_crisis_scope
+		}
+		trigger_event = {
+			id = eqfm.109 # Great Eastern Crisis Superevent
+		}
+	}
+	
+}
+
+eqfm.115 = { # Crisis Start for Attackers
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm.112
+	}
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_eqfm_crisis
+			}
+			save_scope_as = eqfm_crisis_scope
+		}
+		scope:eqfm_crisis_scope = {
+			add_initiator_backers = { root }
+			add_diplomatic_play_war_support  = {
+				target = root
+				value = 100
+			}
+		}
+		trigger_event = {
+			id = eqfm.109 # Great Eastern Crisis Superevent
+		}
+	}
+	
+}
+
+eqfm.116 = { # Crisis Start for Defenders
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm.112
+	}
+
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_eqfm_crisis
+			}
+			save_scope_as = eqfm_crisis_scope
+		}
+		scope:eqfm_crisis_scope = {
+			add_target_backers = { root }
+			add_diplomatic_play_war_support  = {
+				target = root
+				value = 100
+			}
+		}
+		trigger_event = {
+			id = eqfm.109 # Great Eastern Crisis Superevent
+		}
+	}
+	
+}
+
+eqfm.117 = { # Crisis Start for Uninvolved
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# triggered by eqfm.112
+	}
+
+	immediate = {
+#		random_diplomatic_play = {
+#			limit = {
+#				is_diplomatic_play_type = dp_eqfm_crisis
+#			}
+#			save_scope_as = eqfm_crisis_scope
+#		}
+		trigger_event = {
+			id = eqfm.109 # Great Eastern Crisis Superevent
+		}
+	}
+	
+}
+
+eqfm.118 = { # The Porte Triumphant
+	type = country_event
+	placement = root
+	
+	title = eqfm.118.t
+	desc = eqfm.118.d
+	flavor = eqfm.118.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by eqfm_crisis_wargoal_enforced
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		set_variable = eqfm_congress_offered # Loop Prevention
+	}
+	
+	option = {
+		name = eqfm.118.a
+		default_option = yes
+		trigger = {
+			c:TUR ?= this
+		}
+		add_modifier = {
+			name = modifier_eqfm_porte_triumphant
+			months = long_modifier_time
+		}
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			set_country_type = recognized
+		}
+		if = {
+			limit = {
+				c:MON ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:MON
+		}		
+		if = {
+			limit = {
+				c:SER ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:SER
+		}
+		if = {
+			limit = {
+				c:BUL ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:BUL
+		}
+		if = {
+			limit = {
+				c:WAL ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:WAL
+		}
+		if = {
+			limit = {
+				c:MOL ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:MOL
+		}
+		if = {
+			limit = {
+				c:BOS ?= {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+			annex = c:BOS
+		}
+		if = {
+			limit = {
+				c:RUS ?= {
+					has_variable = eqfm_crisis_attacker
+					has_state_in_state_region = STATE_DOBRUDJA
+				}
+			}
+			s:STATE_DOBRUDJA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:RUS = this
+						}
+					}
+					set_state_owner = c:TUR
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:RUS ?= {
+					has_variable = eqfm_crisis_attacker
+					has_state_in_state_region = STATE_BESSARABIA
+				}
+			}
+			s:STATE_BESSARABIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:RUS = this
+						}
+					}
+					set_state_owner = c:TUR
+				}
+			}
+		}		
+		if = {
+			limit = {
+				c:AUS ?= {
+					has_variable = eqfm_crisis_attacker
+					has_state_in_state_region = STATE_MONTENEGRO
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:AUS = this
+						}
+					}
+					set_state_owner = c:TUR
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.118.b
+		trigger = {
+			has_variable = eqfm_crisis_defender
+		}
+		add_modifier = {
+			name = modifier_eqfm_protected_balance
+			months = normal_modifier_time
+		}
+	}
+	
+	option = {
+		name = eqfm.118.c
+		trigger = {
+			has_variable = eqfm_crisis_attacker
+		}
+		add_modifier = {
+			name = modifier_eqfm_lost_crisis
+			months = normal_modifier_time
+		}
+	}
+	
+	option = {
+		name = eqfm.118.e
+		trigger = {
+			NOR = {
+				has_variable = eqfm_crisis_attacker
+				has_variable = eqfm_crisis_defender
+				has_variable = eqfm_crisis_target
+			}
+		}
+	}
+	
+	after = {
+		eqfm_clean_up_crisis_variables_effect = yes
+	}
+	
+}
+
+eqfm.119 = { # The Treaty of San Stefano
+	type = country_event
+	placement = root
+	
+	title = eqfm.119.t
+	desc = eqfm.119.d
+	flavor = eqfm.119.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by eqfm_crisis_wargoal_enforced
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:BUL = this
+			}
+			s:STATE_MACEDONIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:BUL
+				}
+			}
+			s:STATE_SKOPIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:BUL
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:BOS = this
+			}
+			c:TUR = {
+				create_diplomatic_pact = {
+					country = c:BOS
+					type = protectorate
+				}
+			}
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+		}
+		if = {
+			limit = {
+				exists = c:GER
+			}
+			c:GER = {
+				save_scope_as = germany_scope
+				capital = {
+					save_scope_as = germany_capital_scope
+				}
+			}
+		}
+		else = {
+			c:PRU = {
+				save_scope_as = germany_scope
+				capital = {
+					save_scope_as = germany_capital_scope
+				}
+			}
+		}
+		set_variable = eqfm_congress_offered # Loop Prevention
+	}
+	
+	option = {
+		name = eqfm.119.a
+		default_option = yes
+		trigger_event = {
+			id = eqfm.120 # The Congress of Berlin
+			days = 90
+		}
+	}
+
+}
+
+#### CONGRESS OF BERLIN EVENTS ####
+
+eqfm.120 = { # The Congress of Berlin
+	type = country_event
+	placement = root
+	
+	title = eqfm.120.t
+	desc = eqfm.120.d
+	flavor = eqfm.120.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	cancellation_trigger = { # Loop Prevention
+		OR = {
+			has_journal_entry = je_eqfm_congress_of_berlin_main
+			has_journal_entry = je_eqfm_congress_of_berlin_sub
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		if = {
+			limit = {
+				exists = c:GER
+			}
+			c:GER = {
+				save_scope_as = germany_scope
+				capital = {
+					save_scope_as = germany_capital_scope
+				}
+			}
+		}
+		else = {
+			c:PRU = {
+				save_scope_as = germany_scope
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.120.a
+		default_option = yes
+		if = {
+			limit = {
+				c:TUR ?= this
+			}
+			add_journal_entry = {
+				type = je_eqfm_congress_of_berlin_main
+			}
+		}
+		else = {
+			add_journal_entry = {
+				type = je_eqfm_congress_of_berlin_sub
+			}
+		}
+	}
+
+}
+
+eqfm.121 = { # The Issue of Bulgaria
+	type = country_event
+	placement = root
+	
+	title = eqfm.121.t
+	desc = eqfm.121.d
+	flavor = eqfm.121.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 4
+		exists = c:BUL
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.121
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					exists = c:ERUM
+				}
+				c:BUL ?= {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			create_country = {
+				tag = ERUM
+				origin = this
+				state = s:STATE_NORTHERN_THRACE.region_state:BUL
+				on_created = {
+				}
+			}
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:AUS = {
+			save_scope_as = austria_scope
+		}
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = { # option for BUL
+		name = eqfm.121.a
+		default_option = yes
+		trigger = {
+			c:BUL ?= this
+		}
+		if = {
+			limit = {
+				owns_entire_state_region = STATE_MACEDONIA
+			}
+			s:STATE_MACEDONIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:BUL = this
+						}
+					}
+					set_state_owner = c:TUR
+				}
+			}
+		}
+		if = {
+			limit = {
+				owns_entire_state_region = STATE_SKOPIA
+			}
+			s:STATE_SKOPIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:BUL = this
+						}
+					}
+					set_state_owner = c:TUR
+				}
+			}
+		}
+		custom_tooltip = eqfm.121.tt1
+		custom_tooltip = eqfm.121.tt2	
+	}
+	
+	option = { # option for TUR
+		name = eqfm.121.b
+		trigger = {
+			c:TUR ?= this
+		}
+		create_diplomatic_pact = {
+			country = c:BUL
+			type = protectorate
+		}
+		if  = {
+			limit = {
+				exists = c:ERUM
+			}
+			create_diplomatic_pact = {
+				country = c:ERUM
+				type = puppet
+			}
+		}
+		custom_tooltip = eqfm.121.tt1
+	}
+	
+	option = { # option for everyone else
+		name = eqfm.121.c
+		trigger = {
+			NOR = {
+				c:BUL ?= this
+				c:TUR ?= this
+			}
+		}
+		custom_tooltip = eqfm.121.tt1
+		custom_tooltip = eqfm.121.tt2
+	}
+	
+}
+
+eqfm.122 = { # The Issue of Bosnia
+	type = country_event
+	placement = root
+	
+	title = eqfm.122.t
+	desc = {
+		triggered_desc = {
+			desc = eqfm.122.d1
+			trigger = {
+				c:AUS = {
+					has_variable = eqfm_crisis_attacker
+				}
+			}
+		}
+		triggered_desc = {
+			desc = eqfm.122.d2
+			trigger = {
+				c:AUS = {
+					NOT = {
+						has_variable = eqfm_crisis_attacker
+					}
+				}
+			}
+		}
+	}
+	flavor = eqfm.122.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 6
+		exists = c:BOS
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR ?= this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.122
+				}
+			}
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:AUS = {
+			save_scope_as = austria_scope
+		}
+		c:BOS = {
+			save_scope_as = bosnia_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = { # for BOS, if Austria was lazy
+		name = eqfm.122.a1 
+		trigger = {
+			c:BOS ?= this
+			c:AUS ?= {
+				NOT = { has_variable = eqfm_crisis_attacker }
+			}
+		}
+		add_modifier = {
+			name = modifier_eqfm_national_awakening
+			months = long_modifier_time
+		}
+		add_treasury = 50000
+		custom_tooltip = eqfm.122.tt
+	}
+	
+	option = { # for BOS, if Austria piled in
+		name = eqfm.122.a2
+		trigger = {
+			c:BOS ?= this
+			c:AUS ?= { has_variable = eqfm_crisis_attacker }
+		}
+		show_as_tooltip = {
+			c:AUS = {
+				create_diplomatic_pact = {
+					country = c:BOS
+					type = protectorate
+				}
+			}
+		}
+	}
+	
+	option = { # for AUS, if they were lazy
+		name = eqfm.122.b1
+		default_option = yes
+		trigger = {
+			c:AUS ?= this
+			c:AUS ?= {
+				NOT = { has_variable = eqfm_crisis_attacker }
+			}
+		}
+		custom_tooltip = eqfm.122.tt
+	}
+	
+	option = { # for AUS, if they piled in
+		name = eqfm.122.b2
+		trigger = {
+			c:AUS ?= this
+			c:AUS ?= { has_variable = eqfm_crisis_attacker }
+		}
+		c:AUS = {
+			create_diplomatic_pact = {
+				country = c:BOS
+				type = protectorate
+			}
+		}
+	}
+
+	option = { # for everyone else, if AUS was lazy
+		name = eqfm.122.c1
+		default_option = yes
+		trigger = {
+			NOR = {
+				c:BOS ?= this
+				c:AUS ?= this
+				c:AUS ?= { has_variable = eqfm_crisis_attacker }
+			}
+		}
+		custom_tooltip = eqfm.122.tt
+	}
+	
+	option = { # for everyone else, if AUS piled in
+		name = eqfm.122.c2
+		trigger = {
+			c:AUS ?= { has_variable = eqfm_crisis_attacker }
+			c:BOS != this
+			c:AUS != this
+		}
+		show_as_tooltip = {
+			c:AUS = {
+				create_diplomatic_pact = {
+					country = c:BOS
+					type = protectorate
+				}
+			}
+		}
+	}
+
+}
+
+eqfm.123 = { # The Issue of Montenegro
+	type = country_event
+	placement = root
+	
+	title = eqfm.123.t
+	desc = eqfm.123.d
+	flavor = eqfm.123.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 12
+		c:MON ?= {
+			has_variable = eqfm_crisis_attacker
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.123
+				}
+			}
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:MON = {
+			save_scope_as = montenegro_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = {
+		name = eqfm.123.a
+		default_option = yes
+		trigger = {
+			c:MON != this
+		}
+	}
+	
+	option = {
+		name = eqfm.123.a
+		custom_tooltip = eqfm.123.tt
+		trigger = {
+			c:MON = this
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					has_state_in_state_region = STATE_MONTENEGRO
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:MON
+				}
+			}
+		}
+		else = {
+			add_modifier = {
+				name = modifier_eqfm_national_awakening
+				months = long_modifier_time
+			}
+			add_treasury = 100000
+		}
+	}
+	
+}
+
+eqfm.124 = { # The Issue of Serbia
+	type = country_event
+	placement = root
+	
+	title = eqfm.124.t
+	desc = eqfm.124.d
+	flavor = eqfm.124.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 14
+		c:SER ?= {
+			has_variable = eqfm_crisis_attacker
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.124
+				}
+			}
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:SER = {
+			save_scope_as = serbia_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = {
+		name = eqfm.124.a
+		trigger = {
+			c:SER != this
+		}
+	}
+	
+	option = {
+		name = eqfm.124.b
+		default_option = yes
+		trigger = {
+			c:SER ?= this
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				}
+			}
+			s:STATE_SOUTHERN_SERBIA = {
+				set_owner_of_provinces = {
+					country = c:SER
+					provinces = {
+						x334B53
+						xAC083C
+						x18B761
+						x62A730
+						xD021E0
+					}
+				}
+			}
+		}
+		else = {
+			add_modifier = {
+				name = modifier_eqfm_national_awakening
+				months = long_modifier_time
+			}
+			add_treasury = 100000
+		}
+	}
+
+}
+
+eqfm.125 = { # The Issue of the Principalities
+	type = country_event
+	placement = root
+	
+	title = eqfm.125.t
+	desc = eqfm.125.d
+	flavor = eqfm.125.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 16
+		# TODO UPM&W Trigger
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.125
+				}
+			}
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}	
+	
+	option = {
+		name = eqfm.125.a
+		default_option = yes
+	}
+	
+}
+
+eqfm.126 = { # The Issue of the Caucasus
+	type = country_event
+	placement = root
+	
+	title = eqfm.126.t
+	desc = eqfm.126.d
+	flavor = eqfm.126.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 20
+		c:RUS = {
+			has_variable = eqfm_crisis_attacker
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.126
+				}
+			}
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}	
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}	
+	
+	option = {
+		name = eqfm.126.a
+		default_option = yes
+		trigger = {
+			c:RUS != this
+		}
+	}
+	
+	option = {
+		name = eqfm.126.b
+		trigger = {
+			c:RUS = this
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					has_state_in_state_region = STATE_KARS
+				}
+			}
+			s:STATE_KARS = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:RUS
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_KARS
+				c:TUR = {
+					has_state_in_state_region = STATE_TRABZON
+				}
+			}
+			s:STATE_TRABZON = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:RUS
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_KARS
+				owns_entire_state_region = STATE_TRABZON
+				c:TUR = {
+					has_state_in_state_region = STATE_ERZURUM
+				}
+			}
+			s:STATE_ERZURUM = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:RUS
+				}
+			}
+		}
+		else = {
+			add_modifier = {
+				name = modifier_eqfm_caucasus_secured
+				months = long_modifier_time
+			}
+		}
+	}
+	
+}
+
+eqfm.127 = { # OPEN
+	orphan = yes
+}
+
+eqfm.128 = { # The Greek Delegation
+	type = country_event
+	placement = root
+	
+	title = eqfm.128.t
+	desc = eqfm.128.d
+	flavor = eqfm.128.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 22
+		c:GRE ?= {
+			has_variable = eqfm_crisis_attacker
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.128
+				}
+			}
+		}
+		c:GRE = {
+			save_scope_as = greece_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = {
+		name = eqfm.128.a
+		default_option = yes
+		trigger = {
+			c:GRE != this
+		}
+	}
+	
+	option = {
+		name = eqfm.128.b
+		trigger = {
+			c:GRE ?= this
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					has_state_in_state_region = STATE_THESSALIA
+				}
+			}
+			s:STATE_THESSALIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:GRE
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				c:GRE = {
+					owns_entire_state_region = STATE_THESSALIA
+				}
+				c:TUR = {
+					has_state_in_state_region = STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							c:TUR = this
+						}
+					}
+					set_state_owner = c:GRE
+				}
+			}
+		}
+		else = {
+			add_treasury = 100000
+		}
+	}
+	
+}
+
+eqfm.129 = { # The Treaty of Berlin
+	type = country_event
+	placement = root
+	
+	title = eqfm.129.t
+	desc = eqfm.129.d
+	flavor = eqfm.129.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = eqfm.129.a
+		default_option = yes
+		if = {
+			limit = {
+				OR = {
+					has_variable = eqfm_crisis_attacker
+					has_variable = eqfm_crisis_initiator
+				}
+				country_rank < rank_value:great_power
+			}
+			add_modifier = {
+				name = modifier_eqfm_won_crisis
+				months = normal_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_variable = eqfm_crisis_attacker
+					has_variable = eqfm_crisis_initiator
+				}
+				country_rank >= rank_value:great_power
+			}
+			add_modifier = {
+				name = modifier_eqfm_protected_balance
+				months = normal_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_variable = eqfm_crisis_attacker
+					has_variable = eqfm_crisis_target
+				}
+			}
+			add_modifier = {
+				name = modifier_eqfm_lost_crisis
+				months = normal_modifier_time
+			}
+		}
+		if = {
+			limit = {
+				c:BUL ?= this
+			}
+			trigger_event = {
+				id = balkfm.500 # The Golden Lion Awakens
+				days = 30
+			}
+		}
+		if = {
+			limit = {
+				c:TUR ?= this
+			}
+			hidden_effect = {
+				trigger_event = {
+					id = eqfm.139 # Crisis/Congress Global Variable Cleanup
+					days = 15
+				}
+			}
+		}
+	}
+
+	after = {
+		eqfm_clean_up_crisis_variables_effect = yes
+	}
+
+}
+
+#### CONGRESS OF BERLIN SUPPORT EVENTS ####
+
+eqfm.130 = { # The Convention of Cyprus
+	type = country_event
+	placement = root
+	
+	title = eqfm.130.t
+	desc = eqfm.130.d
+	flavor = eqfm.130.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 16
+		c:GBR ?= {
+			OR = {
+				has_variable = eqfm_crisis_attacker
+				has_variable = eqfm_cyprus_convention
+			}
+		}
+		c:TUR ?= {
+			owns_entire_state_region = STATE_CYPRUS
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.130
+				}
+			}
+			create_country = {
+				tag = CYP
+				origin = this
+				state = s:STATE_CYPRUS.region_state:TUR
+				on_created = {
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:CYP
+				type = protectorate
+			}
+		}
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = {
+		name = eqfm.130.a
+		default_option = yes
+		trigger = {
+			c:GBR != this
+		}
+		show_as_tooltip = {
+			c:GBR = {
+				create_diplomatic_pact = {
+					country = c:CYP
+					type = protectorate
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.130.a
+		trigger = {
+			c:GBR = this
+		}
+		create_diplomatic_pact = {
+			country = c:CYP
+			type = protectorate
+		}
+		remove_variable = eqfm_cyprus_convention
+	}
+	
+}
+
+
+
+eqfm.131 = { # The Convention of Tunis
+	type = country_event
+	placement = root
+	
+	title = eqfm.131.t
+	desc = eqfm.131.d
+	flavor = eqfm.131.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:eqfm_berlin_congress_var = 8
+		c:FRA ?= {
+			OR = {
+				has_variable = eqfm_crisis_attacker
+				has_variable = eqfm_tunis_convention
+			}
+		}
+		c:TUN ?= {
+			is_subject_of = c:TUR
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_congress_of_berlin_sub
+				}
+				trigger_event = {
+					id = eqfm.131
+				}
+			}
+		}
+		c:FRA = {
+			save_scope_as = france_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:TUN ={
+			save_scope_as = tunis_scope
+		}
+	}
+	
+	cooldown = { # just to simplify trigger block
+		months = 1
+	}
+	
+	option = {
+		name = eqfm.131.a
+		default_option = yes
+		trigger = {
+			c:FRA != this
+		}
+		show_as_tooltip = {
+			c:FRA = {
+				create_diplomatic_pact = {
+					country = c:TUN
+					type = protectorate
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = eqfm.131.a
+		trigger = {
+			c:FRA = this
+		}
+		create_diplomatic_pact = {
+			country = c:TUN
+			type = protectorate
+		}
+	}
+	
+}
+
+eqfm.132 = { # The Convention of Constantinople
+	
+	orphan = yes
+	
+}
+
+eqfm.139 = { # Cleans Up Global Crisis/Berlin Variables
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+		remove_global_variable = eqfm_crisis_var
+		remove_global_variable = eqfm_berlin_congress_var
+	}
+	
+}

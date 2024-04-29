@@ -1,0 +1,282 @@
+﻿## EASTERN QUESTION VALUES ##
+eqfm_tension_progress_value = {
+	value = 0
+	add = global_var:eqfm_nationalism_var
+	add = global_var:eqfm_accelerate_var
+	subtract = global_var:eqfm_decelerate_var
+	add = global_var:eqfm_culture_var
+	add = global_var:eqfm_religion_var
+	add = global_var:eqfm_greek_radicals_var
+	add = global_var:eqfm_serb_radicals_var
+	add = global_var:eqfm_bulgarian_radicals_var
+	add = global_var:eqfm_bosniak_radicals_var
+	add = global_var:eqfm_croat_radicals_var
+	subtract = global_var:eqfm_greek_loyalists_var
+	subtract = global_var:eqfm_serb_loyalists_var
+	subtract = global_var:eqfm_bulgarian_loyalists_var
+	subtract = global_var:eqfm_bosniak_loyalists_var
+	subtract = global_var:eqfm_croat_loyalists_var
+	round = 0.01
+	if = {
+		limit = {
+			has_global_variable = eqfm_deconfliction_var
+		}
+		multiply = 0
+		subtract = 10
+	}
+}
+
+eqfm_nationalism_value = {
+	value = 0
+	every_country = {
+		limit = {
+			balkfm_balkans_native_trigger = yes
+			has_technology_researched = nationalism
+		}
+		add = 0.5
+	}
+}
+
+eqfm_accelerate_value = {
+	value = 0
+	every_country = {
+		limit = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+		}
+		add = 1
+	}
+}
+
+eqfm_decelerate_value = {
+	value = 0
+	every_country = {
+		limit = {
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
+		add = 1
+	}
+}
+
+eqfm_culture_value = {
+	value = 0
+	if = {
+		limit = {
+			has_law = law_type:law_ethnostate
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_national_supremacy
+		}
+		add = 0.75
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_racial_segregation
+		}
+		add = 0.50
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_cultural_exclusion
+		}
+		add = 0.25
+	}
+}
+
+eqfm_religion_value = {
+	value = 0
+	if = {
+		limit = {
+			has_law = law_type:law_state_religion
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_freedom_of_conscience
+		}
+		add = 0.5
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_state_atheism
+		}
+		add = 2
+	}
+}
+
+## Radical Fractions ##
+
+eqfm_greek_radicals_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+	
+eqfm_serb_radicals_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = serb
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_bulgarian_radicals_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = bulgarian
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_bosniak_radicals_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = bosniak
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_croat_radicals_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = croat
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+## Loyalist Fractions ##
+
+eqfm_greek_loyalists_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_loyalist_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+	
+eqfm_serb_loyalists_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = serb
+			}
+			add = pop_loyalist_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_bulgarian_loyalists_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = bulgarian
+			}
+			add = pop_loyalist_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_bosniak_loyalists_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = bosniak
+			}
+			add = pop_loyalist_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}
+
+eqfm_croat_loyalists_value = {
+	value = 0
+	every_scope_state = {
+		limit = {
+			state_in_balkans = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = croat
+			}
+			add = pop_loyalist_fraction
+		}
+	}
+	divide = 100
+	round_to = 0.01
+}

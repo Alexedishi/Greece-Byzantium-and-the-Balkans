@@ -174,12 +174,9 @@ grefm_crete_agitate_button = {
 	}
 	
 	possible = {
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		custom_tooltip = {
-			text = grefm_crete_agitate_tt
-			hidden_trigger = {
-				global_var:grefm_crete_revolt_var < 130
-			}
+		NOR = { 
+			has_modifier = modifier_grefm_nationalist_agitation 
+			has_modifier = modifier_grefm_funding_crete
 		}
 	}
 	
@@ -191,6 +188,19 @@ grefm_crete_agitate_button = {
 		add_modifier = {
 			name = modifier_grefm_nationalist_agitation
 			months = short_modifier_time
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_crete
+			months = normal_modifier_time
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
+			}
+			post_notification = notification_grefm_crete_accelerated
 		}
 	}
 }

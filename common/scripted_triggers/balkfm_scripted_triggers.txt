@@ -1,8 +1,66 @@
-﻿balkfm_crisis_participant_trigger = {
+﻿balkfm_balkans_involved_trigger = {
 	OR = {
-		has_variable = balkfm_crisis_starter
-		has_variable = balkfm_crisis_attacker
-		has_variable = balkfm_crisis_defender
-		has_variable = balkfm_crisis_target
+		has_interest_marker_in_region = sr:region_balkans
+		capital = {
+			state_in_balkans = yes
+		}
+	}
+}
+
+balkfm_balkans_native_trigger = {
+	AND = {
+		OR = {
+			country_has_primary_culture = cu:greek
+			country_has_primary_culture = cu:serb
+			country_has_primary_culture = cu:croat
+			country_has_primary_culture = cu:bosniak
+			country_has_primary_culture = cu:slovene
+			country_has_primary_culture = cu:bulgarian
+		}
+		capital = {
+			state_in_balkans = yes
+		}
+	}
+}
+
+balkfm_has_yugoslav_culture = {
+	OR = {
+		country_has_primary_culture = cu:serb
+		country_has_primary_culture = cu:croat
+		country_has_primary_culture = cu:bosniak
+		country_has_primary_culture = cu:slovene
+		country_has_primary_culture = cu:bulgarian
+	}
+}
+
+balkfm_is_yugoslav_homeland = {
+	state_region = {
+		OR = {
+			is_homeland = cu:serb
+			is_homeland = cu:croat
+			is_homeland = cu:bosniak
+			is_homeland = cu:slovene
+			is_homeland = cu:bulgarian
+		}
+	}
+}
+
+balkfm_is_annexation_candidate_trigger = {
+	has_journal_entry = je_balkfm_nacertanije
+	is_player = no
+	is_diplomatic_play_committed_participant = no
+	is_at_war = no
+	is_adjacent_to_country = root
+	OR = {
+		is_subject = no
+		is_subject_of = root
+		has_diplomatic_pact = {
+			who = root
+			type = alliance
+		}
+		relations:root >= relations_threshold:friendly
+	}
+	NOT = {
+		has_variable = balkfm_annexation_declined
 	}
 }

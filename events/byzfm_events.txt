@@ -59,7 +59,8 @@ namespace = byzfm
 
 #310-319 - Roman/Byzantine Imperial Ambitions
 #	310 - The Basileus Basileōn
-#	311 - ## The Imperial Library [MGR]
+#	311 - A Greek Basileus
+#	312 - ## The Imperial Library [MGR]
 
 #320-329 - Annexation Events
 #	320 - Theodoro Annexation
@@ -1696,7 +1697,8 @@ byzfm.310 = { # The Basileus Basileōn
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by grefm.009
+	trigger = { 
+		# triggered by grefm.009 or byzfm.311
 	}
 	
 	immediate = {
@@ -1708,24 +1710,248 @@ byzfm.310 = { # The Basileus Basileōn
 				save_scope_as = devout_leader_scope
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_variable = byzfm_took_the_purple
-				}
-			}
-			set_variable = byzfm_took_the_purple
-		}
+		set_variable = byzfm_ruler_culture_considered # blocks byzfm.311
 	}
 	
 	option = {
 		name = byzfm.310.a
 		default_option = yes
+		trigger = {
+			has_variable = byzfm_took_the_purple
+		}
 		scope:byzfm_ruler_scope = {
 			add_trait = trait_byzfm_porphyrogenitus
 		}
 	}
-
+	
+}
+	
+byzfm.311 = { # A Greek Basileus
+	type = country_event
+	placement = root
+	
+	title = byzfm.311.t
+	desc = byzfm.311.d
+	flavor = byzfm.311.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_palaiologos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_variable = byzfm_ruler_culture_considered }
+		NOT = { has_variable = byzfm_weaksauce }
+		NOT = { has_journal_entry = je_grefm_bavarocracy_main }
+		has_variable = byzfm_byzantium_restored
+		has_law = law_type:law_monarchy
+		country_rank >= rank_value:major_power
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = byzfm_ruler_scope
+		}
+		heir = {
+			save_scope_as = byzfm_heir_scope
+		}
+		ig:ig_devout = {
+			leader = {
+				save_scope_as = devout_leader_scope
+			}
+		}
+		set_variable = byzfm_ruler_culture_considered
+	}	
+	
+	option = { # Dredge Up a Palaiologos
+		name = byzfm.311.1
+		trigger_event = {	
+			id = byzfm.310 # The Basileus Basileōn
+			days = 10
+		}
+		custom_tooltip = {
+			text = byzfm.311.1.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Palaiologos
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						trait_byzfm_porphyrogenitus
+						ambitious
+						charismatic
+						basic_political_operator
+					}
+					on_created = {
+						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:byzfm_heir_scope
+				}
+				scope:byzfm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_variable = byzfm_took_the_purple
+	}
+	
+	option = { # Elect a Komnenos Phanariot
+		name = byzfm.311.2
+		trigger_event = {	
+			id = byzfm.310 # The Basileus Basileōn
+			days = 10
+		}
+		custom_tooltip = {
+			text = byzfm.311.2.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Komnenos
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						trait_byzfm_porphyrogenitus
+						ambitious
+						charismatic
+						basic_political_operator
+					}
+					on_created = {
+						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:byzfm_heir_scope
+				}
+				scope:byzfm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_variable = byzfm_took_the_purple
+	}
+	
+	option = { # Elect an Angelos Phanariot
+		name = byzfm.311.3
+		trigger_event = {	
+			id = byzfm.310 # The Basileus Basileōn
+			days = 10
+		}
+		custom_tooltip = {
+			text = byzfm.311.3.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Angelos
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						trait_byzfm_porphyrogenitus
+						ambitious
+						charismatic
+						basic_political_operator
+					}
+					on_created = {
+						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:byzfm_heir_scope
+				}
+				scope:byzfm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_variable = byzfm_took_the_purple
+	}
+	
+	option = { # Elect a Doukas Phanariot
+		name = byzfm.311.4
+		trigger_event = {	
+			id = byzfm.310 # The Basileus Basileōn
+			days = 10
+		}
+		custom_tooltip = {
+			text = byzfm.311.4.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Doukas
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						trait_byzfm_porphyrogenitus
+						ambitious
+						charismatic
+						basic_political_operator
+					}
+					on_created = {
+						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:byzfm_heir_scope
+				}
+				scope:byzfm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_variable = byzfm_took_the_purple
+	}
+	
+	option = { # Keep the Current Ruler
+		name = byzfm.311.5
+		default_option = yes
+		scope:byzfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_byzfm_imperial_legitimacy
+			}
+		}
+	}
+	
 }
 
 

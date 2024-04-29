@@ -42,38 +42,43 @@ namespace = grefm
 #	020 - The Brigands Raid Again
 #	021 - A Perennial Problem
 #	022 - Absolutism in Greece
+#	023 - The Monarchy Abolished
 
 #030-039 - Constitutional Monarchy Events
 # 	030 - The King of the Hellenes
 #	031 - "Who is to Blame?"
 #	032 - A Harmonious State
 #	033 - "Unfortunately, We are Bankrupt" event
-#	034 - 
-#	035 - 
-#	036 - 
-#	037 - 
+#	034 - OPEN
+#	035 - OPEN
+#	036 - OPEN
+#	037 - ## The Bulgarian Détente (students visit Athens)
 #	038 - ## A King of Valour (Assassination Attempt)
 #	039 - ## Silver Jubilee
 
 #040-049 - Rise of Venizelos Events
-#	040 - Military Nepotism
+#	040 - Nationalist Fervor
 #	041 - The Military League
 #	045 - A Cretan Champion
 #	046 - The Goudi Coup
 #	047 - A Cretan Chamption (Alternate)
 #	048 - The Rise of the Ethnarch
-#	049 - The Rise of the Ethnarch (Alternate) -- end of 1.1 content
+#	049 - The Rise of the Ethnarch (Alternate)
 
 #050-059 - That Nonsense with Venizelos
-#	050 - ## Convoking the National Assembly "Ankyra !"
-#	051 - ## A Stately Military (Foreign Recruits/Officers Allowed plus Disqualifying soliders for public office)
-#	052 - ## To Silence Naysayers (law_censorship, basically)
-#	053 - ## The Ignorant Masses (compulsory education)
-#	054 - ## The Bulgarian Question (students visit Athens)
-#	055 - ## 
+#	050 - The Nature of the National Assembly
+#	051 - Rejuventating the State
+#	052 - A Competent Bureaucracy
+#	053 - Reorganzing the Military
+#	054 - A Formdiable Military
+#	055 - Advancing Society
+#	056 - A Modern Society
+#	057 - The Ignorant Masses
+#	058 - An Educated Populace
+#	059 - The Greek State Resurgent
 
 #060-069 - The National Schism
-#	060 - ## The Great Division -- end of 2.0 content
+#	060 - ## The Great Division
 
 
 ##	#GRE1	HISTORY/CULTURAL EVENTS		Events 100-199	##
@@ -127,6 +132,8 @@ namespace = grefm
 
 #160-169 - Minor International Events
 #	160 - A Bulgarian Visitor
+#	161 - The Don Pacifico Affair
+#	162 - 
 
 #190-199 - Historical Content Not Otherwise Specified
 
@@ -158,10 +165,10 @@ namespace = grefm
 #	224 - MAC Annexation
 
 #230-239 - Greek Church Events
-#	230 - ## The Defence of Jonas King
-#	231 - ## Speech before the Areopagus
-#	232 - ## Jonas King Returns
-#	233 - ## Foreign Intercession for Jonas King
+#	230 - The Defence of Jonas King
+#	231 - Speech before the Areopagus
+#	232 - Jonas King Returns
+#	233 - Foreign Intercession for Jonas King
 
 #240-249 - Greek Ethnogenesis
 #	240 - What is a "Greek?"
@@ -205,10 +212,10 @@ namespace = grefm
 #  320-329 - OPEN
 
 
-##	#GRE4	GREAT EASTERN CRISIS / BALKAN WARS	Events 400-499	##
+##	#GRE4	OPEN	Events 400-499	##
 
 
-##	#GRE5	COUNTRY-SPECIFIC FLAVOR NOT OTHERWISE SPECIFIED		Events 500-599	##
+##	#GRE5	OPEN	Events 500-599	##
 
 
 ##	#GRE6	OPEN	Events 600-699	##
@@ -226,7 +233,7 @@ namespace = grefm
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
 
 #900-909 - Hidden Events
-#	900 - Compatibility Checker
+#	900 - Re-adds Turkish Culture if lost through tag switch
 #	901 - Adds Mainland Greece claims to non-GRE Greek nations
 #	902 - Collection of unused variables
 #	903 - Removes crete revolt variable
@@ -240,6 +247,9 @@ namespace = grefm
 #	914 - Crete Revolts Again (TUR/EGY)
 #	915 - Greek Nationalism in Crete
 #	915 - Land Reclaimed in Kopaida
+
+#920-929 - Events Triggered for Other Countries
+#
 
 ############################
 
@@ -456,6 +466,9 @@ grefm.003 = { # 3 September 1843 Revolution
 		add_loyalists = {
 			strata = poor
 			value = small_radicals
+		}
+		call_election = {
+			months = 6
 		}
 		set_variable = grefm_constitution_completed
 	}
@@ -931,7 +944,7 @@ grefm.009 = { # 1862 head of state referendum
 	immediate = {
 		random_scope_character = {
 			limit = {
-				has_variable = grefm_is_garibaldi
+				has_template = garibaldi_character_template
 			}
 			save_scope_as = grefm_garibaldi_scope
 		}
@@ -944,7 +957,6 @@ grefm.009 = { # 1862 head of state referendum
 		heir = {
 			save_scope_as = grefm_heir_scope
 		}
-		set_variable = grefm_1862_election_held
 		remove_variable = grefm_bavarocracy
 	}
 	
@@ -1184,7 +1196,7 @@ grefm.009 = { # 1862 head of state referendum
 						basic_political_operator
 					}
 					on_created = {
-#						set_variable = grefm_phanariot
+						set_variable = grefm_phanariot
 						set_character_as_ruler = yes
 					}
 				}
@@ -1205,6 +1217,10 @@ grefm.009 = { # 1862 head of state referendum
 			}
 		}
 		set_variable = byzfm_took_the_purple
+	}
+	
+	after = {
+		set_variable = grefm_1862_election_held
 	}
 
 }
@@ -1791,6 +1807,43 @@ grefm.022 = { # dedilomeni absolutism outcome
 
 }
 
+grefm.023 = { # The Monarchy Abolished
+	type = country_event
+	placement = root
+	
+	title = grefm.023.t
+	desc = grefm.023.d
+	flavor = grefm.023.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = grefm.023.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_embraced_republicanism
+			months = normal_modifier_time
+		}
+	}
+
+}
+
 #### CONSTITUTIONAL MONARCHY EVENTS ####
 
 grefm.030 = { # the king of the hellenes
@@ -2017,7 +2070,7 @@ grefm.033 = { # unfortunately we are bankrupt
 
 #### THE RISE OF VENIZELOS EVENTS ####
 
-grefm.040 = { # Military Nepotism
+grefm.040 = { # Nationalist Fervor
 	type = country_event
 	placement = root
 	
@@ -2040,27 +2093,47 @@ grefm.040 = { # Military Nepotism
 	trigger = {
 		NOT = { has_variable = grefm_military_league_happened }
 		has_journal_entry = je_grefm_megali_idea
+		has_technology_researched = pan-nationalism
 		has_technology_researched = political_agitation
-		has_variable = grefm_glucksburg_era
-		has_law = law_type:law_monarchy
+		OR = {
+			has_variable = grefm_glucksburg_era
+			has_variable = grefm_bavarocracy_secured
+		}
 	}
 	
 	immediate = {
-	}	
+		set_variable = grefm_military_league_happened
+	}
 	
 	option = {
 		name = grefm.040.a
 		default_option = yes
-	}
-	
-	option = {
-		name = grefm.040.b
-	}
-	
-	after = {
-		trigger_event = {
-			id = grefm.041 # The Military League
-			days = 120
+		if = {
+			limit = {
+				has_law = law_type:law_monarchy
+				ig:ig_armed_forces = {
+					is_powerful = yes
+					law_stance = {
+						law = law_type:law_parliamentary_republic
+						value > neutral
+					}
+					law_stance = {
+						law = law_type:law_autocracy
+						value > neutral
+					}
+					ig_approval < 5
+				}
+			}
+			trigger_event = {
+				id = grefm.041 # The Military League
+				days = 120
+			}
+		}
+		else = {
+			trigger_event = {
+				id = grefm.047 # A Cretan Champion (Alternate)
+				days = 120
+			}
 		}
 	}
 
@@ -2087,23 +2160,6 @@ grefm.041 = { # the military league
 	dlc = dlc_grefm
 
 	trigger = {
-		NOT = { has_variable = grefm_military_league_happened }
-		has_journal_entry = je_grefm_megali_idea
-		has_technology_researched = political_agitation
-		has_variable = grefm_glucksburg_era
-		has_law = law_type:law_monarchy
-		ig:ig_armed_forces = {
-			is_powerful = yes
-			law_stance = {
-				law = law_type:law_parliamentary_republic
-				value > neutral
-			}
-			law_stance = {
-				law = law_type:law_autocracy
-				value > neutral
-			}
-			ig_approval < 5
-		}
 	}
 	
 	immediate = {
@@ -2135,7 +2191,6 @@ grefm.041 = { # the military league
 			value = 0
 		}
 		remove_variable = grefm_glucksburg_era
-		set_variable = grefm_military_league_happened
 	}
 	
 	option = { # Advance the coup
@@ -2232,6 +2287,7 @@ grefm.045 = { # a cretan champion
 		scope:grefm_venizelos_scope = {
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
+			set_variable = grefm_is_venizelos
 		}
 	}
 	
@@ -2404,8 +2460,6 @@ grefm.046 = { # the goudi coup
 
 }
 
-
-
 grefm.047 = { # A Cretan Champion Alternate
 	type = country_event
 	placement = root
@@ -2432,13 +2486,6 @@ grefm.047 = { # A Cretan Champion Alternate
 	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
 	
 	trigger = {
-		NOT = { has_variable = grefm_military_league_happened }
-		has_journal_entry = je_grefm_megali_idea
-		has_technology_researched = political_agitation
-		NOT = { has_variable = grefm_glucksburg_era }
-		ig:ig_armed_forces = {
-			is_powerful = no
-		}
 	}
 	
 	immediate = {
@@ -2468,9 +2515,10 @@ grefm.047 = { # A Cretan Champion Alternate
 		scope:grefm_venizelos_scope = {
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
+			set_variable = grefm_is_venizelos
 		}
 		trigger_event = {
-			id = grefm.049
+			id = grefm.049 # The Rise of the Ethnarch (Alternate)
 			days = 30
 		}
 	}
@@ -2568,12 +2616,6 @@ grefm.048 = { # venizelos has landed
 	option = {
 		name = grefm.048.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_venizelism
-		}
-		show_as_tooltip = {
-			add_modifier = modifier_grefm_venizelist_tilt
-		}
 		scope:coup_ig = {
 			add_modifier = {
 				name = failed_coup
@@ -2609,11 +2651,15 @@ grefm.048 = { # venizelos has landed
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
 		}
+		trigger_event = {
+			id = grefm.050 # The Nature of the National Assembly
+			days = 90
+		}
 	}
 
 }
 
-grefm.049 = { # venizelos has landed
+grefm.049 = { #  Rise of the Ethnarch (Alternate)
 	type = country_event
 	placement = root
 	
@@ -2655,20 +2701,506 @@ grefm.049 = { # venizelos has landed
 			}
 			save_scope_as = ioannis_metaxas_scope
 		}
-	}	
+	}
 	
 	option = {
 		name = grefm.049.a
 		default_option = yes
+		scope:ioannis_metaxas_scope = {
+			transfer_character = ROOT
+			set_as_interest_group_leader = yes
+		}
+		trigger_event = {
+			id = grefm.050 # The Nature of the National Assembly
+			days = 90
+		}
+	}
+
+}
+
+#### THAT NONSENSE WITH VENIZELOS ####
+
+grefm.050 = { # The Nature of the National Assembly
+	type = country_event
+	placement = root
+	
+	title = grefm.050.t
+	desc = grefm.050.d
+	flavor = grefm.050.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = grefm_venizelos_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.050.a
+		default_option = yes
 		add_journal_entry = {
-			type = je_grefm_venizelism
+			type = je_grefm_venizelism_main
 		}
 		show_as_tooltip = {
 			add_modifier = modifier_grefm_venizelist_tilt
 		}
-		scope:ioannis_metaxas_scope = {
-			transfer_character = ROOT
-			set_as_interest_group_leader = yes
+		if = {
+			limit = {
+				in_election_campaign = no
+			}
+			call_election = {
+				months = 1
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.050.b
+		trigger = {
+			has_law = law_type:law_monarchy
+		}
+		add_journal_entry = {
+			type = je_grefm_venizelism_main
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_venizelist_tilt
+		}		
+		add_journal_entry = {
+			type = je_grefm_venizelism_constitution
+		}
+		if = {
+			limit = {
+				in_election_campaign = no
+			}
+			call_election = {
+				months = 1
+			}
+		}
+	}
+	
+	after = {
+		hidden_effect = { # the National Assembly conlcuded its reforms much more quickly than this, but gameplay lol
+			trigger_event = {
+				id = grefm.051 # Rejuventating the State
+				days = 60
+			}
+			trigger_event = {
+				id = grefm.053 # Reorganzing the Military
+				days = 90
+			}
+			trigger_event = {
+				id = grefm.055 # Advancing Society
+				days = 120
+			}
+			trigger_event = {
+				id = grefm.057 # The Ignorant Masses
+				days = 150
+			}
+		}
+	}
+
+}
+
+grefm.051 = { # Rejuventating the State
+	type = country_event
+	placement = root
+	
+	title = grefm.051.t
+	desc = grefm.051.d
+	flavor = grefm.051.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = grefm_venizelos_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.051.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_venizelism_civics
+		}
+	}
+
+}
+
+grefm.052 = { # A Competent Bureaucracy
+	type = country_event
+	placement = root
+	
+	title = grefm.052.t
+	desc = grefm.052.d
+	flavor = grefm.052.f
+	
+	event_image = {
+		video = "southamerica_election"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.052.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_competent_bureaucracy
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = bureaucrats
+			value = medium_radicals
+		}
+		add_loyalists = {
+			pop_type = peasants
+			value = large_radicals
+		}
+		set_variable = grefm_venizelism_civics_completed
+	}
+
+}
+
+grefm.053 = { # Reorganizing the Military
+	type = country_event
+	placement = root
+	
+	title = grefm.053.t
+	desc = grefm.053.d
+	flavor = grefm.053.f
+	
+	event_image = {
+		video = "middleeast_battlefield_trenches"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = grefm_venizelos_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.053.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_venizelism_military
+		}
+	}
+
+}
+
+grefm.054 = { # A Formidable Military
+	type = country_event
+	placement = root
+	
+	title = grefm.054.t
+	desc = grefm.054.d
+	flavor = grefm.054.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.054.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_military_reorganized
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = officers
+			value = medium_radicals
+		}
+		add_loyalists = {
+			pop_type = soldiers
+			value = large_radicals
+		}
+		set_variable = grefm_venizelism_military_completed
+	}
+
+}
+
+grefm.055 = { # Advancing Society
+	type = country_event
+	placement = root
+	
+	title = grefm.055.t
+	desc = grefm.055.d
+	flavor = grefm.055.f
+	
+	event_image = {
+		video = "europenorthamerica_sufferage"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = grefm_venizelos_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.055.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_venizelism_society
+		}
+	}
+
+}
+
+grefm.056 = { # A Modern Society
+	type = country_event
+	placement = root
+	
+	title = grefm.056.t
+	desc = grefm.056.d
+	flavor = grefm.056.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.056.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_society_modernized
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = shopkeepers
+			value = medium_radicals
+		}
+		add_loyalists = {
+			pop_type = laborers
+			value = large_radicals
+		}
+		set_variable = grefm_venizelism_society_completed
+	}
+
+}
+
+
+grefm.057 = { # The Ignorant Masses
+	type = country_event
+	placement = root
+	
+	title = grefm.057.t
+	desc = grefm.057.d
+	flavor = grefm.057.f
+	
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = grefm_venizelos_scope
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.057.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_venizelism_education
+		}
+	}
+
+}
+
+grefm.058 = { # An Educated Populace
+	type = country_event
+	placement = root
+	
+	title = grefm.058.t
+	desc = grefm.058.d
+	flavor = grefm.058.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = grefm.058.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_populace_educated
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = academics
+			value = medium_radicals
+		}
+		add_loyalists = {
+			strata = poor
+			value = large_radicals
+		}
+		set_variable = grefm_venizelism_education_completed
+	}
+
+}
+
+grefm.059 = { # The Cretan Triumphant
+	type = country_event
+	placement = root
+	
+	title = grefm.059.t
+	desc = grefm.059.d
+	flavor = grefm.059.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.059.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_venizelist_triumph
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
 		}
 	}
 
@@ -4604,8 +5136,7 @@ grefm.157 = { # The Mask of Agammemnon
 				pop_type = academics
 				value = medium_radicals
 			}
-		}
-			
+		}	
 	}
 
 }
@@ -4664,7 +5195,6 @@ grefm.160 = { # A Bulgarian Visitor
 				trigger = {
 					c:BUL = {
 						relations:root > relations_threshold:neutral
-						
 					}
 				}
 				add = 50
@@ -4691,6 +5221,221 @@ grefm.160 = { # A Bulgarian Visitor
 				}
 				add = 20
 			}
+		}
+	}
+
+}
+
+grefm.161 = { # The Don Pacifico Affair
+	type = country_event
+	placement = scope:attica_state_scope
+	
+	title = grefm.161.t
+	desc = {
+		triggered_desc = {
+			desc = grefm.161.d1
+			trigger = {
+				c:POR = this
+			}
+		}
+		triggered_desc = {
+			desc = grefm.161.d2
+			trigger = {
+				c:GBR = this
+			}
+		}
+		triggered_desc = {
+			desc = grefm.161.d3
+			trigger = {
+				c:GRE = this
+			}
+		}
+	}
+	flavor = grefm.161.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = attica_state_scope
+			}
+		}
+		c:GRE = {
+			save_scope_as = greece_scope
+		}
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+		c:POR = {
+			save_scope_as = portugal_scope
+		}
+	}
+	
+	option = { # Seek Redress (POR)
+		name = grefm.161.por1
+		default_option = yes
+		trigger = {
+			c:POR = this
+		}
+		c:GBR = {
+			trigger_event = {
+				id = grefm.161 # this event for GBR to consider
+				days = 15
+			}
+		}
+		change_relations = {
+			country = c:GBR
+			value = -15
+		}
+		ai_chance = {
+			base = 1000 # should almost always happen
+		}
+	}
+	
+	option = { # Let it Slide (POR)
+		name = grefm.161.por2
+		trigger = {
+			c:POR = this
+		}
+		add_modifier = {
+			name = modifier_grefm_abandoned_don_pacifico
+			months = normal_modifier_time
+		}
+		ai_chance = {
+			base = 1 # should almost never happen
+		}
+	}
+	
+	option = { # Support Portugal (GBR)
+		name = grefm.161.gbr1
+		trigger = {
+			c:GBR = this
+		}
+		c:GRE = {
+			trigger_event = {
+				id = grefm.161 # this event for GRE to consider
+				days = 15
+			}
+		}
+		change_relations = {
+			country = c:GRE
+			value = -15
+		}
+		change_relations = {
+			country = c:POR
+			value = 25
+		}
+		c:POR = {
+			c:GBR = {
+				save_scope_as = uk_scope
+			}
+			post_notification = notification_don_pacifico_gbr1
+		}
+	}
+	
+	option = { # Simp for Greece (GBR)
+		name = grefm.161.gbr2
+		trigger = {
+			c:GBR = this
+		}
+		change_relations = {
+			country = c:POR
+			value = -15
+		}
+		change_relations = {
+			country = c:GRE
+			value = 25
+		}
+		c:POR = {
+			c:GBR = {
+				save_scope_as = uk_scope
+			}
+			post_notification = notification_don_pacifico_gbr2
+		}
+	}
+	
+	option = { # Offer Reparations (GRE)
+		name = grefm.161.gre1
+		trigger = {
+			c:GRE = this
+		}
+		c:GBR = {
+			c:GRE = {
+				save_scope_as = greece_scope
+			}
+			post_notification = notification_don_pacifico_gre1
+		}
+		c:POR = {
+			c:GRE = {
+				save_scope_as = greece_scope
+			}
+			post_notification = notification_don_pacifico_gre1
+		}
+		add_modifier = {
+			name = modifier_grefm_chastized_mob
+			months = normal_modifier_time
+		}
+		add_treasury = -35700 # Don Pacifico demanded £32,000 plus 10% interest for his property plus an additional £500 for physical mistreatment
+		add_radicals = {
+			strata = poor
+			value = small_radicals
+		}
+		change_relations = {
+			country = c:POR
+			value = 20
+		}
+		change_relations = {
+			country = c:GBR
+			value = 20
+		}
+	}
+	
+	option = { # Reject Any Compromise (GRE)
+		name = grefm.161.gre2
+		trigger = {
+			c:GRE = this
+		}
+		c:GBR = {
+			c:GRE = {
+				save_scope_as = greece_scope
+			}
+			post_notification = notification_don_pacifico_gre2
+		}
+		c:POR = {
+			c:GRE = {
+				save_scope_as = greece_scope
+			}
+			post_notification = notification_don_pacifico_gre2
+		}
+		add_modifier = {
+			name = modifier_grefm_rejected_compromise
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			strata = poor
+			value = small_radicals
+		}
+		change_relations = {
+			country = c:POR
+			value = -20
+		}
+		change_relations = {
+			country = c:GBR
+			value = -25
 		}
 	}
 
@@ -5128,6 +5873,7 @@ grefm.202 = { # megali idea complete
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
+				set_variable = grefm_tzatzikisauce
 			}
 		}
 		custom_tooltip = {
@@ -5139,7 +5885,6 @@ grefm.202 = { # megali idea complete
 				}
 			}
 		}
-		set_variable = grefm_tzatzikisauce
 	}
 }
 
@@ -6806,10 +7551,25 @@ grefm.250 = { # Priest Martyred in Crete
 				owns_entire_state_region = STATE_CRETE
 			}
 		}
-		remove_variable = grefm_250_A
-		remove_variable = grefm_250_B
+		if = {
+			limit = {
+				has_variable = grefm_250_A
+			}
+			custom_tooltip = grefm_crete_momentum_plus_20
+		}
+		if = {
+			limit = {
+				has_variable = grefm_250_B
+			}
+			custom_tooltip = grefm_crete_momentum_plus_5
+		}
 	}
-		
+	
+	after = {
+		remove_variable = grefm_250_A
+		remove_variable = grefm_250_B	
+	}
+	
 }
 
 grefm.251 = { # Wali of Crete Oversteps Authority
@@ -6916,15 +7676,39 @@ grefm.251 = { # Wali of Crete Oversteps Authority
 				owns_entire_state_region = STATE_CRETE
 			}
 		}
-		remove_variable = grefm_251_A
-		remove_variable = grefm_251_B
+		if = {
+			limit = {
+				has_variable = grefm_251_A
+			}
+			custom_tooltip = grefm_crete_momentum_plus_10
+		}
+		if = {
+			limit = {
+				has_variable = grefm_251_B
+			}
+			show_as_tooltip = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						add_radicals_in_state = {
+							culture = cu:turkish
+							value = small_radicals
+						}
+					}
+				}
+			}
+		}
 	}
-		
+	
+	after = {
+		remove_variable = grefm_251_A
+		remove_variable = grefm_251_B	
+	}
+	
 }
 
 grefm.252 = { # Greek Agitation in Crete
 	type = country_event
-	placement = scope:agitation_scope
+	placement = scope:crete_state_scope
 	
 	title = grefm.252.t
 	desc = grefm.252.d
@@ -6948,9 +7732,9 @@ grefm.252 = { # Greek Agitation in Crete
 	immediate = {
 		s:STATE_CRETE = {
 			random_scope_state = {
-				save_scope_as = agitation_scope
+				save_scope_as = crete_state_scope
 				owner = {
-					save_scope_as = agitation_owner_scope
+					save_scope_as = crete_owner_scope
 				}
 			}
 		}
@@ -6962,6 +7746,15 @@ grefm.252 = { # Greek Agitation in Crete
 		trigger = {
 			owns_entire_state_region = STATE_CRETE
 		}
+		custom_tooltip = {
+			text = grefm_crete_momentum_plus_20
+			hidden_effect = {	
+				change_global_variable = {
+					name = grefm_crete_revolt_var
+					add = 20
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -6969,12 +7762,9 @@ grefm.252 = { # Greek Agitation in Crete
 		trigger = {
 			NOT = { owns_entire_state_region = STATE_CRETE }
 		}
-		create_incident = {
-			country = scope:agitation_owner_scope
-			value = 5
-		}
+		custom_tooltip = grefm_crete_momentum_plus_20
 		hidden_effect = {
-			scope:agitation_owner_scope ?= {
+			scope:crete_owner_scope ?= {
 				trigger_event = {
 					id = grefm.252
 				}
@@ -7016,9 +7806,8 @@ grefm.260 = { # the fate of the turks
 		set_variable = grefm_greek_homelands_event
 	}
 	
-	option = {
+	option = { # Integrate the Turks
 		name = grefm.260.a
-		add_primary_culture = cu:turkish
 		add_radicals = {
 			culture = cu:greek
 			value = large_radicals
@@ -7027,28 +7816,18 @@ grefm.260 = { # the fate of the turks
 			culture = cu:turkish
 			value = medium_radicals
 		}
-		every_scope_state = {
-			add_modifier = {
-				name = modifier_grefm_turkish_integration
-				months = long_modifier_time
-			}
+		set_variable = {
+			name = grefm_turkish_integration_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_grefm_grecoturkism
 		}
 	}
 		
-	option = {
+	option = { # Return the Favor
 		name = grefm.260.b
 		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = modifier_grefm_greek_resurgence
-				}
-			}
-			add_modifier = {
-				name = modifier_grefm_greek_resurgence
-				months = long_modifier_time
-			}
-		}
 		if = {
 			limit = {
 				exists = c:TUR
@@ -7116,27 +7895,42 @@ grefm.261 = { # turkish homelands event
 			}
 			save_scope_as = turkish_homeland_state
 		}
+		random_scope_state = {
+			limit = {
+				has_variable = grefm_turkish_reserve
+			}
+			save_scope_as = turkish_reserve_state
+		}
+	}
+	
+	cooldown = {
+		months = 18 # This should be slower than Greek homeland expansion
 	}
 	
 	option = { # kick them out
 		name = grefm.261.a
 		default_option = yes
+		trigger = {
+			any_scope_state = {
+				NOT = { has_variable = grefm_turkish_reserve }
+			}
+		}
 		scope:turkish_homeland_state = {
 			show_as_tooltip = {
-				remove_homeland = cu:turkish
+				remove_homeland = cu:turkish # This strange bit of janky ensures a tooltip is presented to the player
 			}
 			add_culture_standard_of_living_modifier = {
 				culture = cu:turkish
-				months = long_modifier_time
+				months = very_long_modifier_time
 				multiplier = -2
 			}
 			state_region = {
 				hidden_effect = {
-					remove_homeland = cu:turkish
+					remove_homeland = cu:turkish # having this in the state_region executes the effect, but doesn't show a tooltip
 				}
 			}
 		}
-		add_radicals = {
+		add_radicals = { # They will NOT take this lying down
 			culture = cu:turkish
 			value = medium_radicals
 		}
@@ -7152,7 +7946,7 @@ grefm.261 = { # turkish homelands event
 		scope:turkish_homeland_state = {
 			add_culture_standard_of_living_modifier = {
 				culture = cu:turkish
-				months = long_modifier_time
+				months = very_long_modifier_time
 				multiplier = 2
 			}
 			add_loyalists_in_state = {
@@ -7164,6 +7958,35 @@ grefm.261 = { # turkish homelands event
 		add_radicals = {
 			culture = cu:greek
 			value = small_radicals
+		}
+	}
+	
+	option = { # Send them to the Reserve
+		name = grefm.261.c
+		default_option = yes
+		trigger = {
+			any_scope_state = {
+				has_variable = grefm_turkish_reserve
+			}
+		}
+		scope:turkish_homeland_state = {
+			show_as_tooltip = {
+				remove_homeland = cu:turkish
+			}
+			add_culture_standard_of_living_modifier = {
+				culture = cu:turkish
+				months = very_long_modifier_time
+				multiplier = -2
+			}
+			state_region = {
+				hidden_effect = {
+					remove_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals = { # You treat them like animals, they'll view you like an animal. You deserve this.
+			culture = cu:turkish
+			value = medium_radicals
 		}
 	}
 
@@ -7219,6 +8042,10 @@ grefm.262 = { # greek homeland expansion
 			}
 			save_scope_as = grefm_expansion_state
 		}
+	}
+	
+	cooldown = {
+		months = 12
 	}
 	
 	
@@ -7413,6 +8240,44 @@ grefm.264 = { # greco-roman relations
 
 }
 
+grefm.265 = { # Greco-Turkish Relations
+	type = country_event
+	placement = root
+	
+	title = grefm.265.t
+	desc = grefm.265.d
+	flavor = grefm.265.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.265.a
+		default_option = yes
+		add_primary_culture = cu:turkish
+		add_loyalists = {
+			culture = cu:turkish
+			value = large_radicals
+		}
+	}
+
+}
+
 ######################################################
 ##	#GRE3	REVENGE OF THE GREEKS	Events 300-399	##
 ######################################################
@@ -7548,6 +8413,7 @@ grefm.301 = { # The Revenge of the Greeks
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
+				set_variable = grefm_tzatzikisauce
 			}
 		}
 	}
@@ -7569,6 +8435,7 @@ grefm.301 = { # The Revenge of the Greeks
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
+				set_variable = grefm_tzatzikisauce
 			}
 		}
 	}
@@ -7767,6 +8634,7 @@ grefm.303 = { # The Shores of Phoenicia
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
+				set_variable = grefm_tzatzikisauce
 			}
 		}
 	}
@@ -8074,18 +8942,19 @@ grefm.801 = { # A Greek Identity (MGR Alternate)
 
 #### HIDDEN EVENTS ####
 
-grefm.900 = { # Compatibility Checker
+grefm.900 = { # Re-adds Turkish Culture if Lost Through Tag Switch
 	type = country_event
 	placement = root
 	hidden = yes
 	
-	trigger = { # fired at game start
+	trigger = {
+		has_variable = grefm_turkeytime
+		NOT = { country_has_primary_culture = cu:turkish }
 	}
 	
-	immediate = { # mod-specific adjustments are in their own scripted_effect to minimize clutter here
+	immediate = {
+		add_primary_culture = cu:turkish
 	}
-	
-	orphan = yes
 	
 }
 
@@ -8097,6 +8966,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	
 	trigger = {
 		NOT = { has_variable = grefm_mainland_claims_added }
+		country_has_primary_culture = cu:greek
 		is_subject = no
 	}
 	
@@ -8162,8 +9032,11 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 		remove_variable = grefm_is_glucksburg
 		remove_variable = grefm_dr_moneybags_in_the_house
 		remove_global_variable = has_formed_tsar
+		remove_variable = romania_subject
+		set_variable = romania_unification_in_motion
 		set_variable = eocfm_crusade_attacker
 		set_variable = eocfm_crusade_defender
+		set_global_variable = eqfm_cancel_struggle
 		
 		set_variable = lepsius_local_artifact_minor
 		set_variable = lepsius_aegean_artifact_minor
@@ -8238,78 +9111,34 @@ grefm.904 = { # preempts revolts if a tag is freed somehow
 		}
 	}
 }
-	
 
-#### NOTIFICATION EVENTS ####
-
-grefm.910 = { # Epirus customs union with GRE
+grefm.905 = { # hidden event triggering the Don Pacifico Affair
 	type = country_event
-	placement = scope:epirus_scope
+	placement = root
+	hidden = yes
 	
-	title = grefm.910.t
-	desc = grefm.910.d
-	flavor = grefm.910.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
 	trigger = {
-		NOT = { has_variable = grefm_epi_union_considered }
-		c:GRE ?= this
-		c:EPI ?= {
-			is_player = no
-			is_subject = no
-			is_diplomatic_play_committed_participant = no
-		}
+		has_variable = grefm_don_pacifico_var
+		has_diplomatic_relevance = c:POR
+		has_diplomatic_relevance = c:GBR
 	}
 	
 	immediate = {
-		set_variable = grefm_epi_union_considered
-		c:EPI = {
-			save_scope_as = epirus_scope
-		}
-		c:GRE = {
-			save_scope_as = greece_scope
-		}
-		hidden_effect = { # Because the AI is stupid
-			change_relations = {
-				country = c:EPI
-				value = 50
+		c:POR = {
+			trigger_event = {
+				id = grefm.161 # The Don Pacifico Affair
 			}
 		}
+		remove_variable = grefm_don_pacifico_var
 	}
 	
-	option = {
-		name = grefm.910.a
-		default_option = yes
-		c:GRE = {
-			create_diplomatic_pact = {
-				country = c:EPI
-				type = customs_union
-			}
-		}
-		change_relations = {
-			country = c:EPI
-			value = 50
-		}
-	}
+}
+
+#### NOTIFICATION EVENTS ####
+
+grefm.910 = { # Was Customs Union event with EPI, now OPEN due to incoming changes in SoI
 	
-	option = {
-		name = grefm.910.b
-		change_relations = {
-			country = c:EPI
-			value = -50
-		}
-	}
+	orphan = yes
 	
 }
 
@@ -8640,12 +9469,14 @@ grefm.914 = { # crete revolts again
 	dlc = dlc_grefm
 
 	trigger = {
+		global_var:grefm_crete_revolt_var >= 200
+		NOT = { exists = c:CRE }
 	}
 
 	immediate = {
-		change_global_variable = {
+		set_global_variable = {
 			name = grefm_crete_revolt_var
-			subtract = 150
+			value = 0
 		}
 		s:STATE_CRETE = {
 			random_scope_state = {
@@ -8742,24 +9573,26 @@ grefm.915 = { # assigns the revolt JE
 	}
 	
 	immediate = {
+		if = {
+			limit = {
+				NOT = { has_global_variable = grefm_crete_revolt_greenlight }
+			}
+			set_global_variable = grefm_crete_revolt_greenlight
+		}
 		s:STATE_CRETE = {
 			random_scope_state = {
 				save_scope_as = crete_state_scope
 			}
 		}
-		add_journal_entry = {
-			type = je_grefm_the_cretan_revolts
-		}
+		grefm_calculate_crete_variables_effect = yes
 	}
 
 	option = {
 		name = grefm.915.a
-		custom_tooltip = grefm.216.tt
-		show_as_tooltip = {
-			add_journal_entry = {
-				type = je_grefm_the_cretan_revolts
-			}
+		add_journal_entry = {
+			type = je_grefm_the_cretan_revolts
 		}
+		custom_tooltip = grefm.216.tt
 	}
 	
 }

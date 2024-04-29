@@ -1,19 +1,21 @@
-﻿#################################################
+#################################################
 # GREECE, BYZANTIUM, AND THE BALKANS ON_ACTIONS #
 #################################################
 
-# Originally, each module had it's own on_actions file. I've merged them for ease of editing and tracking.
-# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
-
 on_monthly_pulse_country = {
 	on_actions = {
-		balkfm_monthly_pulse
 		grefm_monthly_pulse
 		byfzm_monthly_pulse
-		turfm_monthly_pulse
+		
+		balkfm_monthly_pulse
+#		yug_flavor_pulse
 		mon_flavor_pulse
 		ser_flavor_pulse
 		bul_flavor_pulse
+		rom_flavor_pulse
+#		bos_flavor_pulse
+#		alb_flavor_pulse
+#		triu_flavor_pulse
 		eocfm_monthly_pulse
 		
 		byzfm_chariot_pulse_1
@@ -25,46 +27,43 @@ on_wargoal_enforced = {
 	on_actions = {
 		eocfm_wargoal_enforced_1
 		eocfm_wargoal_enforced_2
-		balkfm_crisis_wargoal_enforced
-#		balkfm_thunderdome_wargoal_enforced
+		eqfm_crisis_wargoal_enforced
+#		eqfm_thunderdome_wargoal_enforced
 	}
 }
 
 
 ############
 
-balkfm_monthly_pulse = { # These events are persistently monitored
+balkfm_monthly_pulse = { # These events are monitored from all scopes
 	events = {
 		grefm.903 # removes crete revolt variable
 		grefm.904 # revolt preemption
-		grefm.910 # EPI customs union
 		grefm.911 # epirote revolt
 		grefm.912 # cypriot revolt
 		grefm.913 # macedonian revolt
 		grefm.915 # assigns the revolt JE
 		
+		balkfm.020 # Places Yugoslav Secession Variable
+		balkfm.208 # Yugoslavism Fizzles Out
 		balkfm.598 # The Bulgarian State
+		
+		eqfm.009 # Adds je_eqfm_sub as appropriate
 	}
 }
 
-turfm_monthly_pulse = { # These are for firing the crisis events/TUR-specific extensions of this mod. Ottoman Flavor is out of scope for this mod.
-	trigger = {
-		country_has_primary_culture = cu:turkish
-	}
-	events = {
-		balkfm.100 # Great Eastern Crisis Warmup
-	}
-}
+############
+
+# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 
 grefm_monthly_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:greek
+		country_has_primary_culture = cu:greek 
 	}
 	events = {
 		grefm.005 # error 404 monarch not found
 		grefm.033 # unfortunately we are bankrupt
 		grefm.040 # Military Nepotism
-		grefm.047 # a cretan champion alternate
 		grefm.101 # hellenic railways
 		grefm.103 # greek shipping
 		grefm.110 # decline of the heptanese school
@@ -83,6 +82,7 @@ grefm_monthly_pulse = {
 		grefm.260 # the fate of the turks
 		grefm.263 # capital switch option
 		grefm.264 # Greco-Roman relations
+		grefm.900 # Re-Adds Trukish Culture
 		grefm.901 # non-GRE claims
 	}
 	random_events = {
@@ -98,7 +98,8 @@ grefm_monthly_pulse = {
 		25 = grefm.243 # greek identity completion
 		25 = grefm.244 # history of the greek nation
 		25 = grefm.261 # turkish homelands
-		10 = grefm.262 # greek expansion		
+		25 = grefm.262 # greek expansion	
+		10 = grefm.905 # Don Pacifico Affair
 	}
 }
 
@@ -112,6 +113,7 @@ byfzm_monthly_pulse = {
 	}
 	random_events = {
 		100 = 0
+		 1 = byzfm.311 # A Greek Basileus
 	}
 	effect = {
 		if = {
@@ -133,30 +135,30 @@ byfzm_monthly_pulse = {
 
 mon_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:serb
 		OR = {
 			c:MON ?= this
 		}
 	}
 	events = {
+		balkfm.032 # Cleans up after balkfm.031
 		balkfm.332 # Knives in the Dark
-#		balkfm.337 # The Arrogance of Smail-aga
-		balkfm.341 # Osman Pasha Attacks!
 	}
 	random_events = {
 		100 = 0
+		  5 = balkfm.030 # Creates Hersek with Smaïl-aga at the Helm
+		  5 = balkfm.031 # Creates Hersek with Ali Pasha at the Helm
 	}
 }
 
 ser_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:serb
 		OR = {
 			c:SER ?= this
+			c:SRPS ?= this
 		}
 	}
 	events = {
-		balkfm.405 # Disruptive Influence
+		balkfm.470 # Disruptive Influence
 	}
 	random_events = {
 		100 = 0
@@ -165,10 +167,24 @@ ser_flavor_pulse = {
 
 bul_flavor_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:bulgarian
 		OR = {
 			c:BUL ?= this
 			c:TSAR ?= this
+		}
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+}
+
+rom_flavor_pulse = {
+	trigger = {
+		OR = {
+			c:WAL ?= this
+			c:MOL ?= this
+			c:ROM ?= this
 		}
 	}
 	events = {
@@ -378,54 +394,55 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 
 # These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 
-balkfm_crisis_wargoal_enforced = {
+eqfm_crisis_wargoal_enforced = {
 	trigger = {
-		has_global_variable = balkfm_crisis_happened
+		has_global_variable = eqfm_crisis_happened
 		OR = {
-			has_variable = balkfm_crisis_target
-			has_variable = balkfm_crisis_starter
+			has_variable = eqfm_crisis_target
+			has_variable = eqfm_crisis_initiator
 		}
 	}
 	effect = {
 		if = {
 			limit = {
-				has_variable = balkfm_crisis_starter
-				NOT = { has_global_variable = balkfm_berlin_congress_var }
+				has_variable = eqfm_crisis_initiator
+				NOT = { has_global_variable = eqfm_berlin_congress_var }
 			}
 			every_country = {
 				limit = {
-					has_variable = balkfm_crisis_offered
+					has_variable = eqfm_crisis_offered
 					NOT = { has_variable = eqfm_congress_offered }
 				}
 				trigger_event = {
-					id = balkfm.106 # The Treaty of San Stefano
+					id = eqfm.119 # The Treaty of San Stefano
 				}
 			}
 			if = {
 				limit = {
-					NOT = { has_global_variable = balkfm_berlin_congress_var }
+					NOT = { has_global_variable = eqfm_berlin_congress_var }
 				}
 				set_global_variable = {
-					name = balkfm_berlin_congress_var
+					name = eqfm_berlin_congress_var
 					value = 0
 				}
 			}
 		}
 		if = {
 			limit = {
-				has_variable = balkfm_crisis_target
+				has_variable = eqfm_crisis_target
+
 				NOT = { has_variable = eqfm_congress_offered }
 			}
 			every_country = {
 				limit = {
-					has_variable = balkfm_crisis_offered
+					has_variable = eqfm_crisis_offered
 				}
 				trigger_event = {
-					id = balkfm.107 # The Porte Triumphant
+					id = eqfm.118 # The Porte Triumphant
 				}
 				set_variable = eqfm_congress_offered
 			}
-			set_global_variable = balkfm_porte_triumphant_var
+			set_global_variable = eqfm_porte_triumphant_var
 		}
 	}
 }

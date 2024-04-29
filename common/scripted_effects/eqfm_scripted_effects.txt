@@ -1,0 +1,1233 @@
+﻿eqfm_initialize_tension_variables = {
+	set_global_variable = {
+		name = eqfm_tension_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_accelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_decelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = eqfm_greek_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_croat_radicals_var
+		value = 0
+	}
+	
+	set_global_variable = {
+		name = eqfm_greek_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_loyalists_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_croat_loyalists_var
+		value = 0
+	}
+}
+
+eqfm_calculate_tension_variables_effect = {
+	# These effects set basic sources
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = eqfm_nationalism_value
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = eqfm_culture_value
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = eqfm_religion_value
+	}
+	set_global_variable = {
+		name = eqfm_accelerate_var
+		value = eqfm_accelerate_value
+	}
+	set_global_variable = {
+		name = eqfm_decelerate_var
+		value = eqfm_decelerate_value
+	}
+
+	# These else blocks set the values to zero to avoid excessive if blocks downstream; excluding radicals not in their homelands is intentional
+	# Radicals First
+	if = {
+		limit = {
+			any_scope_state = {
+				state_in_balkans = yes
+				state_region = {
+					is_homeland = cu:greek
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_greek_radicals_var
+			value = eqfm_greek_radicals_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_greek_radicals_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:serb
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_serb_radicals_var
+			value = eqfm_serb_radicals_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_serb_radicals_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bulgarian
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bulgarian_radicals_var
+			value = eqfm_bulgarian_radicals_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bulgarian_radicals_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bosniak
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bosniak_radicals_var
+			value = eqfm_bosniak_radicals_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bosniak_radicals_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_croat_radicals_var
+			value = eqfm_croat_radicals_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_croat_radicals_var
+			value = 0
+		}
+	}
+	# Then come the loyalists
+	if = {
+		limit = {
+			any_scope_state = {
+				state_in_balkans = yes
+				state_region = {
+					is_homeland = cu:greek
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_greek_loyalists_var
+			value = eqfm_greek_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_greek_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:serb
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_serb_loyalists_var
+			value = eqfm_serb_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_serb_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bulgarian
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bulgarian_loyalists_var
+			value = eqfm_bulgarian_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bulgarian_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:bosniak
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_bosniak_loyalists_var
+			value = eqfm_bosniak_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_bosniak_loyalists_var
+			value = 0
+		}
+	}
+	
+	if = {
+		limit = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+		}
+		set_global_variable = {
+			name = eqfm_croat_loyalists_var
+			value = eqfm_croat_loyalists_value
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eqfm_croat_loyalists_var
+			value = 0
+		}
+	}
+	
+	# This is last, for obvious reasons
+	set_global_variable = {
+		name = eqfm_tension_progress_var
+		value = eqfm_tension_progress_value
+	}
+}
+
+eqfm_push_tension_effect = {
+	change_global_variable = {
+		name = eqfm_tension_var
+		add = global_var:eqfm_tension_progress_var
+	}
+	clamp_global_variable = {
+		name = eqfm_tension_var
+		max = 500
+		min = 0
+	}
+}
+
+eqfm_phase_check_effect = {
+	if = {
+		limit = {
+			global_var:eqfm_tension_var <= 0
+		}
+		remove_global_variable = eqfm_deconfliction_var
+	}
+}
+
+eqfm_determine_opposition_leader_effect = {
+	random_country = {
+		limit = {
+			has_variable = eqfm_opposition_leader_var
+		}
+		remove_variable = eqfm_opposition_leader_var
+	}
+	ordered_country = {
+		limit = {
+			has_journal_entry = je_eqfm_sub
+			has_variable = eqfm_anti_turk_var
+		}
+		order_by = prestige
+		max = 1
+		check_range_bounds = no
+		set_variable = eqfm_opposition_leader_var
+	}
+}
+
+eqfm_relations_adjustment_effect = {
+	if = {
+		limit = {
+			has_variable = eqfm_anti_turk_var
+			c:TUR = {
+				relations:root > relations_threshold:cold
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = -1
+		}
+		c:TUR = {
+			change_relations = {
+				country = root
+				value = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eqfm_pro_turk_var
+			c:TUR = {
+				relations:root < relations_threshold:cordial
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 1
+		}
+		c:TUR = {
+			change_relations = {
+				country = root
+				value = 1
+			}
+		}
+	}
+}
+
+eqfm_add_medium_radicals_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bosniak
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:croat
+			value = medium_radicals
+		}
+	}
+}
+
+eqfm_add_large_radicals_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:greek
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:serb
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bulgarian
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:bosniak
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:croat
+			value = large_radicals
+		}
+	}
+}
+
+eqfm_reduce_state_sol_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		add_culture_standard_of_living_modifier = {
+			culture = cu:greek
+			months = normal_modifier_time
+			multiplier = -1
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_culture_standard_of_living_modifier = {
+			culture = cu:serb
+			months = normal_modifier_time
+			multiplier = -1
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_culture_standard_of_living_modifier = {
+			culture = cu:bulgarian
+			months = normal_modifier_time
+			multiplier = -1
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_culture_standard_of_living_modifier = {
+			culture = cu:bosniak
+			months = normal_modifier_time
+			multiplier = -1
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_culture_standard_of_living_modifier = {
+			culture = cu:croat
+			months = normal_modifier_time
+			multiplier = -1
+		}
+	}
+}
+
+eqfm_add_small_tension_effect = {
+	custom_tooltip = {
+		text = eqfm_add_tension_small_tt
+		hidden_effect = {
+			change_global_variable = {
+				name = eqfm_tension_var
+				add = 10
+			}
+		}
+	}
+}
+
+eqfm_add_medium_tension_effect = {
+	custom_tooltip = {
+		text = eqfm_add_tension_medium_tt
+		hidden_effect = {
+			change_global_variable = {
+				name = eqfm_tension_var
+				add = 25
+			}
+		}
+	}
+}
+
+eqfm_add_large_tension_effect = {
+	custom_tooltip = {
+		text = eqfm_add_tension_large_tt
+		hidden_effect = {
+			change_global_variable = {
+				name = eqfm_tension_var
+				add = 50
+			}
+		}
+	}
+}
+
+eqfm_add_very_large_tension_effect = {
+	custom_tooltip = {
+		text = eqfm_add_tension_very_large_tt
+		hidden_effect = {
+			change_global_variable = {
+				name = eqfm_tension_var
+				add = 100
+			}
+		}
+	}
+}
+
+eqfm_massacre_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:greek
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:serb
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:bulgarian
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:bosniak
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		kill_population_percent = {
+			percent = 0.05
+			culture = cu:croat
+		}
+	}
+}
+
+eqfm_create_rebellion_effect = {
+	scope:eqfm_riot_state_scope = {
+		switch = {
+			trigger = state_region
+			s:STATE_BOSNIA = {
+				create_country = {
+					tag = BOS
+					origin = this
+					state = s:STATE_BOSNIA.region_state:TUR
+				}
+				c:BOS = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				create_country = {
+					tag = MON
+					origin = this
+					state = s:STATE_MONTENEGRO.region_state:TUR
+				}
+				c:MON = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_ALBANIA = {
+				create_country = {
+					tag = ALB
+					origin = this
+					state = s:STATE_ALBANIA.region_state:TUR
+				}
+				c:ALB = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_SKOPIA = {
+				create_country = {
+					tag = NMAC
+					origin = this
+					state = s:STATE_SKOPIA.region_state:TUR
+				}
+				c:NMAC = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			} 
+			s:STATE_NORTHERN_THRACE = {
+				create_country = {
+					tag = ERUM
+					origin = this
+					state = s:STATE_NORTHERN_THRACE.region_state:TUR
+				}
+				c:ERUM = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				create_country = {
+					tag = THRA
+					origin = this
+					state = s:STATE_WESTERN_THRACE.region_state:TUR
+				}
+				c:THRA = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_BULGARIA = {
+				create_country = {
+				tag = BUL
+				origin = this
+				state = s:STATE_BULGARIA.region_state:TUR
+				}
+				c:BUL = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_SOUTHERN_SERBIA = {
+				create_country = {
+					tag = NISH
+					origin = this
+					state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+				}
+				c:NISH = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_NORTHERN_SERBIA = {
+				create_country = {
+					tag = SER
+					origin = this
+					state = s:STATE_NORTHERN_SERBIA.region_state:TUR
+				}
+				c:SER = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_PELOPONNESE = {
+				create_country = {
+					tag = MORE
+					origin = this
+					state = s:STATE_PELOPONNESE.region_state:TUR
+				}
+				c:MORE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_IONIAN_ISLANDS = {
+				create_country = {
+					tag = ION
+					origin = this
+					state = s:STATE_IONIAN_ISLANDS.region_state:TUR
+				}
+				c:ION = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_ATTICA = {
+				create_country = {
+					tag = ATHE
+					origin = this
+					state = s:STATE_ATTICA.region_state:TUR
+				}
+				c:ATHE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_THESSALIA = {
+				create_country = {
+					tag = EPI
+					origin = this
+					state = s:STATE_THESSALIA.region_state:TUR
+				}
+				c:EPI = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_MACEDONIA = {
+				create_country = {
+					tag = MAC
+					origin = this
+					state = s:STATE_MACEDONIA.region_state:TUR
+				}
+				c:MAC = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_CRETE = {
+				create_country = {
+					tag = CRE
+					origin = this
+					state = s:STATE_CRETE.region_state:TUR
+				}
+				c:CRE = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				create_country = {
+					tag = NAXO
+					origin = this
+					state = s:STATE_WEST_AEGEAN_ISLANDS.region_state:TUR
+				}
+				c:NAXO = {
+					save_scope_as = eqfm_rebellion_scope
+				}
+			}
+		}
+	}
+	scope:eqfm_rebellion_scope = {
+		set_variable = eqfm_rebellion_tag_tracker
+	}
+	trigger_event = {
+		id = eqfm.025 # Balkan Country Rebellion
+		days = 1 # Let It Cook
+	}
+}
+
+## EASTERN CRISIS EFFECTS ##
+
+eqfm_recruit_participants_effect = {
+	if = {
+		limit = {
+			NOT = { has_global_variable = eqfm_crisis_happened }
+			global_var:eqfm_crisis_var >= 8
+			any_country = {
+				country_rank < rank_value:great_power
+				OR = {
+					capital = { region = sr:region_balkans }
+					capital = { region = sr:region_danubia }
+				}
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				country_rank < rank_value:great_power
+				OR = {
+					capital = { region = sr:region_balkans }
+					capital = { region = sr:region_danubia }
+				}
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}					
+			}
+			trigger_event = {
+				id = eqfm.101 # A Crisis in Rumelia (Recruit Local Power)
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_global_variable = eqfm_crisis_happened }
+			global_var:eqfm_crisis_var >= 24
+			any_country = {
+				country_rank >= rank_value:great_power
+				has_interest_marker_in_region = region_balkans
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				country_rank >= rank_value:great_power
+				has_interest_marker_in_region = region_balkans
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+			trigger_event = {
+				id = eqfm.102 # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_global_variable = eqfm_crisis_happened }
+			global_var:eqfm_crisis_var >= 36
+			any_country = {
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+				}
+				OR = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				NOR = {
+					has_variable = eqfm_crisis_offered
+					has_variable = eqfm_crisis_target
+				}
+				OR = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = defensive_pact
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = alliance
+					}
+				}
+			}
+			trigger_event = {
+				id = eqfm.103 # A Crisis in the East (Recruit Allied Countries)
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { exists = c:BOS }
+			global_var:eqfm_crisis_var > 100
+		}
+		trigger_event = {
+			id = eqfm.107 # Herzegovina Uprising
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { exists = c:BUL }
+			global_var:eqfm_crisis_var > 115
+		}
+		trigger_event = {
+			id = eqfm.108 # April Uprising (Bulgaria)
+		}
+	}
+}
+
+eqfm_stage_crisis_characters_effect = {
+# event_window_crisis has this layout, from top to bottom, attackers on the left & defenders on the right:
+# 1 4 <--attackers and defenders
+# 2 5 <--initiator and target
+# 3 6 <--attackers and defenders
+# you need to save each character scope into the variable "crisis_scope_(1-6)" which is read by the gui
+	# Saves country scopes for the localization
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_initiator
+		}
+		save_scope_as = eqfm_initiator_scope
+	}
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_target
+		}
+		save_scope_as = eqfm_target_scope
+	}
+
+	# First round of assignments
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_attacker
+			NOT = { has_variable = eqfm_crisis_initiator }
+			country_rank >= rank_value:great_power
+		}
+		ruler = {
+			save_scope_as = crisis_scope_1
+		}
+	}		
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_initiator
+		}
+		ruler = {
+			save_scope_as = crisis_scope_2
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_attacker
+			NOT = {
+				ruler = {
+					THIS = scope:crisis_scope_1
+					THIS = scope:crisis_scope_2
+				}
+			}
+		}
+		ruler = {
+			save_scope_as = crisis_scope_3
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_defender
+		}
+		ruler = {
+			save_scope_as = crisis_scope_4
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_target
+		}
+		ruler = {
+			save_scope_as = crisis_scope_5
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = eqfm_crisis_defender
+			NOT = {
+				ruler = {
+					scope:crisis_scope_4 = this
+				}
+			}
+		}
+		ruler = { 
+			save_scope_as = crisis_scope_6
+		}
+	}
+	
+	# Second round checking for missing scopes
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_1
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eqfm_crisis_attacker
+				NOT = {
+					ruler = {
+						THIS = scope:crisis_scope_3 # There should be at least two minors involed in the crisis
+					}
+				}
+			}
+			ruler = {
+				save_scope_as = crisis_scope_1
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_4
+			}
+		}
+		random_character = {
+			limit = {
+				has_variable = eqfm_is_hakki_pasha
+			}
+			save_scope_as = crisis_scope_4
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_6
+			}
+		}
+		random_character = {
+			limit = {
+				has_variable = eqfm_is_nuri_pasha
+			}
+			save_scope_as = crisis_scope_6
+		}
+	}
+
+	# Assigning scopes to variables so they can be accessed by the gui
+	set_variable = {
+		name = crisis_character_1
+		value = scope:crisis_scope_1
+	}
+	set_variable = {
+		name = crisis_character_2
+		value = scope:crisis_scope_2
+	}
+	set_variable = {
+		name = crisis_character_3
+		value = scope:crisis_scope_3
+	}
+	set_variable = {
+		name = crisis_character_4
+		value = scope:crisis_scope_4
+	}
+	set_variable = {
+		name = crisis_character_5
+		value = scope:crisis_scope_5
+	}
+	set_variable = {
+		name = crisis_character_6
+		value = scope:crisis_scope_6
+	}
+}
+
+eqfm_generate_hakki_pasha_effect = {
+	# Kurt İsmail Hakkı Pasha, Commander of the Anatolian Army 1877-1878
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = eqfm_hakki_pasha_spawned
+			}
+		}
+		set_global_variable = eqfm_hakki_pasha_spawned
+		create_character = {
+			first_name = Kurt_Ismail
+			last_name = Hakki
+			historical = yes
+			age = 59 # age in 1877 at the start of the Russo-Turkish War
+			culture = cu:turkish
+			religion = rel:sunni
+			interest_group = ig_armed_forces
+			ideology = ideology_royalist
+			is_general = yes
+			traits = {
+				imposing
+				direct
+				expert_offensive_planner
+			}
+			on_created = {
+				set_variable = eqfm_is_hakki_pasha
+				set_variable = balkfm_pasha_var
+			}
+		}
+	}
+}
+
+eqfm_generate_osman_nuri_effect = {
+	# Osman Nuri Pasha, Ottoman field marshal and one of the most decorated Pashas ever
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = eqfm_osman_nuri_spawned
+			}
+		}
+		set_global_variable = eqfm_osman_nuri_spawned
+		create_character = {
+			first_name = Osman
+			last_name = Nuri
+			historical = yes
+			age = 59 # age in 1877 at the start of the Russo-Turkish War
+			culture = cu:turkish
+			religion = rel:sunni
+			interest_group = ig_armed_forces
+			ideology = ideology_royalist
+			is_general = yes
+			traits = {
+				persistent
+				engineer
+				expert_defensive_strategist
+			}
+			on_created = {
+				set_variable = eqfm_is_nuri_pasha
+				set_variable = balkfm_pasha_var
+			}
+		}
+	}
+}
+
+eqfm_clean_up_crisis_variables_effect = {
+	remove_variable = eqfm_crisis_rejected
+	remove_variable = eqfm_crisis_defender
+	remove_variable = eqfm_crisis_initiator
+	remove_variable = eqfm_crisis_attacker
+	remove_variable = eqfm_crisis_target
+	remove_variable = crisis_character_1
+	remove_variable = crisis_character_2
+	remove_variable = crisis_character_3
+	remove_variable = crisis_character_4
+	remove_variable = crisis_character_5
+	remove_variable = crisis_character_6
+	remove_variable = eqfm_crisis_offered
+	remove_variable = eqfm_crisis_technical
+}

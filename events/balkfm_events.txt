@@ -2,8 +2,9 @@
 # BALKANS FLAVOR EVENTS #
 #########################
 # Events contained here are for tags that don't have enough content to justify being separated into their own modules, but have more than technical events.
-# This mod is GREECE-FIRST, everything else second (yes, even Byzantium). Just because a tag is included in this mod does NOT mean that these tags will receive content at the level of Greece or Byzantium.
-# If you think that every country having issues with its constitution or with yeeting their monarchs is boring, take it up with them. The Balkans in the 1800s were borderline allergic to political stability (yes this continued into the 1900s -looking at you Bosnia-).
+# This mod is GREECE-FIRST, everything else second (yes, even Byzantium). Just because a tag is included in this mod does NOT mean that it will receive content at the level of fidelity Greece or Byzantium, although everyone will have content up to 1936 eventually.
+# If you think that every country having issues with its constitution or with yeeting their monarchs is boring, take it up with them. The Balkans in the 1800s were allergic to political stability (yes this continued into the 1900s -looking at you Bosnia-).
+# Certain events/effect fire from the TUR scope; this is for ease of scripting since the Ottoman State is THE constant for most Balkan crises. Proper Ottoman/Turkish flavor is out of scope for this mod.
 
 ####################
 
@@ -11,67 +12,66 @@ namespace = balkfm
 
 ####################
 
-####	TABLE OF CONTENTS	####	#TOC
+####  TABLE OF CONTENTS  ####  #TOC
 
 # You can use the #BALK_ comments to ctrl+F your way through the event list
 # The ## before an event indicates content not yet implemented; the >> indicates an event being moved in from another event module
 # [XXX] refers to events that occur only if other mods are present and detected
 
-##	#BALK0	GENERAL BALKANS EVENTS	Events 001-099	##
+##  #BALK0  NON-SPECIFIC & TECHNICAL EVENTS  Events 001-099  ##
 
-#001-009 - OPEN
-#	001 - OPEN
+#001-009 - Hidden Technical Events (Debug Country Spawns)
+#	001 - Absolute Balkanization
+#	002 - Turk-splosion
+#	003 - Creates/Releases MON
+#	004	- Creates/Releases SER
+#	005 - Creates/Releases BUL
+#	006 - Creates/Releases ROM
+#	007 - Creates/Releases BOS
+#	008 - Creates/Releases ALB
+#	009 - Creates/Releases TRIU
+
+#010-019 - Hidden Technical Events (Variable Cleanup)
+#	OPEN
+
+#020-029 - Hidden Technical Events (Variable Placement)
+#	020 - Places Yugoslav Secession Variable
+
+#030-039 - Hidden Technical Events (Rebel Pasha Spawns)
+#	030 - Creates Hersek with Smaïl-aga at the Helm
+#	031 - Creates Hersek with Ali Pasha at the Helm
+#	032 - Cleans up after balkfm.031
+
+#080-089 - Technical Events (Out-of-Scope Country Interactions)
+#	080 - Skirmishes with Montenegro
+#	081 - The Schemes of Ali Pasha
+#	082 - Ali Pasha Ascendant
+#	083 - ##The Romanian Declaration of Union
+#	084 - ##The South Bessarabian Retrocession
+
+#090-099 - Test Events
+#	098 - Test Event
+#	099 - Crisis Test Event
 
 
-##	#BALK1	GREAT EASTERN CRISIS / BALKAN WARS	Events 100-109	##
+##  #BALK1  OPEN  Events 100-109  ##
+##
 
-#100-109 - Great Eastern Crisis Events
-#	100 - Great Eastern Crisis Warmup
-#	101 - Recruit Local Power
-#	102 - Recruit Great Power
-#	103 - ## Recruit Ottoman Allies
-#	104 - Great Eastern Crisis Start (Initiator / Target)
-#	105 - Great Eastern Crisis Start (Attackers / Defenders)
-#	106 - The Treaty of San Stefano
-#	107 - The Porte Triumphant
-#	108 - *Creates GEC DP
-#	109 - *Assigns Tags and Preps event_window Scopes
+##  #BALK2  YUGOSLAVIA FLAVOR  Events 200-299  ##
 
-#110-119 - Congress of Berlin Events
-#	110 - The Congress of Berlin
-#	111 - The Issue of Bulgaria
-#	112 - The Issue of Bosnia
-#	113 - The Issue of Montenegro
-#	114 - The Issue of Serbia
-#	115 - ## The Issue of the Principalities
-#	116 - The Issue of the Caucasus
-#	117 - OPEN
-#	118 - The Greek Delegation
-#	119 - The Treaty of Berlin
-
-#120-129 - Great Eastern Crisis / Congress of Berlin Support Events
-#	120 - Bosnia Takes Up Arms!
-#	121 - Bulgaria Takes Up Arms!
-#	122 - Great Britain Attempts Deconfliction
-#	123 - The Convention of Cyprus
-#	124 - France Attempts Deconfliction
-#	125 - The Convention of Tunis
-#	126 - ## Greece Attempts Deconfliction
-#	127 - ## The Convention of Constantinople
-
-## Option to Switch to Bulgaria
-
-#130-139 - Balkan Wars Phase 1 Events
-
-#140-149 - Balkan Wars Phase 2 Events
-
-## #BALK2	YUGOSLAVISM FLAVOR	Events 200-299 ##
-
-#200-209 - The Birth of Yugoslavism
+#200-209 - Yugoslavian Unification Events
 #	200 - Illyrian Sentiment
+#	201 - Jugoslavism
+#	202 - "The Draft"
+#	203 - Yugoslav Breakaways Seek Union!
+#	204 - ##Yugoslav Uprising in X
+#	205 - Yugoslavist Agitation in Austria
+#	206 - Yugoslavist Agitation in Rumelia
+#	207 - Yugoslav Annexation
+#	208 - Yugoslavism Fizzles Out
+#	209 - The Birth of Yugoslavia
 
-
-## #BALK3	MONTENEGRO FLAVOR	Events 300-399 ##
+##  #BALK3  MONTENEGRO FLAVOR  Events  300-399 ##
 
 #300-309 - The Prince-Bishropic Era
 #	300 - A Feudal Relic
@@ -96,13 +96,18 @@ namespace = balkfm
 #	335 - Unintended Consequences
 #	336 - Duplicitous Diplomacy
 #	337 - The Arrogance of Samïl-aga
-#	338 - Ali Pasha's Demise
+#	338 - The Arrogance of Ali Pasha
+#	339 - Ali Pasha's Demise
 
 #340-349 - Ottoman-Montenegrin Wars
-#	340 - The Lands of Montenegro 
-#	341 - Osman Pasha Attacks!
-#	342 - International Indifference
-#	343 - Omer Pasha Invades!
+#	340 - ##Osman Pasha Attacks!
+#	341 - ##International Indifference
+#	342 - ##Omer Pasha Invades!
+#	343 - ##A Close Shave
+
+#380-389 - Montenegrin Nationalism
+#	380 - The Black Mountain
+#	381 - ##The Lands of Montenegro 
 
 #390-399 - Compatibility Events
 #	390 - The Writings of Saint Petar [MGR]
@@ -110,7 +115,7 @@ namespace = balkfm
 #	392 - Literary Work Completed [MGR]
 
 
-## #BALK4	SERBIA FLAVOR	Events 400-499 ##
+##  #BALK4  SERBIA FLAVOR  Events  400-499  ##
 
 #400-499 - Serbia Until the Great Eastern Crisis
 #	400 - Mileta's Rebellion
@@ -118,7 +123,11 @@ namespace = balkfm
 #	402 - An Inexperienced Ruler
 #	403 - Mandate Secured
 #	404 - Defenders of the Constitution
-#	405 - Disruptive Influence
+#	405 - A New Constitution
+#	406 - Absent Reform
+#	407 - Stately Foundation Established
+#	408 - Civil Code Implemented
+#	409 - Economic System Reformed
 
 #410-419 - Dynastic Rivalry Events
 #	410 - House Karađorđević Takes the Throne
@@ -127,14 +136,17 @@ namespace = balkfm
 #	413 - Abusive Garrison
 #	414 - Austria/Russia Requests Primacy
 #	415 - National Desires
+#	416 - ##The Blood Feud
 
-#420-429 - Serbia Until the Balkan Wars
+#470-479 - Diplomatic Events
+#	470 - Disruptive Influence
 
 #480-489 - Serbian Nationalism
-#	480 - "The Draft"
-#	
+#	480 - The Serbian Heartlands
+#	481 - Greater Serbia
+#	482 - The Serbian Empire
 
-## #BALK5	BULGARIA FLAVOR		Events 500-599 ##
+##  #BALK5  BULGARIA FLAVOR  Events 500-599  ##
 
 #500-509 - The Battenburg Monarchy
 #	500 - The Golden Lion Awakens
@@ -144,7 +156,7 @@ namespace = balkfm
 #	504 - Russia Demands Subservience
 #	505 - Disruptive Attitudes
 # 	506 - The Sobolev Regency
-#	507 - ##
+#	507 - OPEN
 #	508 - Mandate Secured
 #	509 - The August Coup
 	
@@ -186,66 +198,432 @@ namespace = balkfm
 #	587 - The Yugoslav Nation
 #	588 - The Queen of Cities
 
-
 #590-591 - Bulgaria Support Events
 #	598 - The Bulgarian State
-#	599 - ## The Golden Lion Awakens (Alternate)
+#	599 - The Golden Lion Awakens (Alternate)
 
-## #BALK6	MOLDOVA / WALLACHIA / ROMANIA FLAVOR	Events 600-699 ##
+##  #BALK6  MOLDOVA / WALLACHIA / ROMANIA FLAVOR  Events  600-699  ##
 
-#600-699 - OPEN
-#	600 - OPEN
+#600-609 - Moldavia-Specific Events
+#	600 - ##The Lands of Stephen the Great
+
+#610-619 - Wallachia-Specific Events
+#	610 - ##The Land Beyond the Snowy Mountains
+
+#620-629 - Regulamentul Organic Events
+#	620 - ##The Regulamentul Organic
+#	621 - ##Renewed Legal Standards
+#	622 - ##Modernized Economy
+#	623 - ##Social Equity
+#	624 - ##Electing a Hospodar
+#	625 - ##The Death of Feudalism
+
+#680-689 - Romanian Unification Events
+#	680 - ##Our Declaration of Union
+#	681 - ##Awaken Thee, Romanian!
+#	682 - ##The South Bessarabian Retrocession
+#	683 - ##Request for Retrocession Denied
 
 
-## #BALK7	BOSNIA FLAVOR		Events 700-799 ##
+##  #BALK7  BOSNIA FLAVOR  Events 700-799  ##
 
 #700-799 - OPEN
 #	700 - OPEN
 
 
-## #BALK8	ALBANIA FLAVOR		Events 800-899 ##
+##  #BALK8  ALBANIA FLAVOR  Events 800-899  ##
 
 #800-899 - OPEN
 #	800 - OPEN
 
 
-##	#BALK9	TECHNICAL EVENTS	Events 900-999	##
+##  #BALK9  SLOVENIA / CROATIA / TRIUNE KINGDOM EVENTS  Events  900-999  ##
 
-#900-909 - Hidden Technical Events (Country Spawns)
+#900-909 - OPEN
 #	900 - OPEN
-#	901 - Minor Turk-splosion
-#	902 - Major Turk-splosion
-#	903 - OPEN
-#	904	- OPEN
-#	905 - Creates BUL
 
-#910-919 - Hidden Technical Events (Variable Cleanup)
-#	910 - Cleans Up Crisis/Berlin Variables
+#980-989 - Triune Kingdom EVENTS
+#	980 - The Triune Dream
+#	981 - Restoration of the Triune Kingdom
 
 ############################
 
 
-######################################################
-##	#BALK0	GENERAL BALKANS EVENTS	Events 001-099	##
-######################################################
+#######################################################
+##  #BALK0  GENERAL BALKANS EVENTS  Events  001-099  ##
+#######################################################
 
+#### HIDDEN TECHNICAL EVENTS (COUNTRY SPAWNS) ####
 
-##################################################################
-##	#BALK1	GREAT EASTERN CRISIS / BALKAN WARS	Events 100-109	##
-##################################################################
+balkfm.001 = { # Absolute Balkanization
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
 
-#### GREAT EASTERN CRISIS EVENTS ####
+	immediate = {
+		balkfm_balkanize_effect = yes
+	}
+	
+	orphan = yes
+	
+}
 
-balkfm.100 = { # Great Eastern Crisis Warmup
+balkfm.002 = { # Turk-splosion
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+		balkfm_turkboom_effect = yes
+	}
+	
+	orphan = yes
+	
+}
+
+balkfm.003 = { # Releases MON
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+	}
+	
+	orphan = yes
+	
+}
+
+balkfm.004 = { # Releases SER
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+	}
+	
+	orphan = yes
+	
+}
+
+balkfm.005 = { # creates BUL when called
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+	}
+
+	immediate = {
+		balkfm_create_bulgaria_test = yes
+	}
+	
+	orphan = yes
+	
+}
+
+#### HIDDEN TECHNICAL EVENTS (VARIABLE CLEANUP) ####
+
+# OPEN
+
+#### HIDDEN TECHNICAL EVENTS (VARIABLE PLACEMENT) ####
+
+balkfm.020 = { # Places Yugoslav Secession Variable
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		is_secessionist = yes
+		balkfm_has_yugoslav_culture = yes
+		NOT = { has_variable = balkfm_breakaway_var }
+	}
+
+	immediate = {
+		set_variable = balkfm_breakaway_var
+	}
+	
+}
+
+#### HIDDEN TECHNICAL EVENTS (REBEL PASHA SPAWNS)
+
+balkfm.030 = { # Creates Hersek with Smaïl-aga at the Helm
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = { # this is evaluated from MON scope
+		NOT = { has_global_variable = balkfm_smail_aga_rebelled }
+		year < 1940
+		has_modifier = modifier_balkfm_tolerated_abuses
+		c:TUR ?= {
+			owns_entire_state_region = STATE_BOSNIA
+			has_journal_entry = je_sick_man_main # serves as a time limit
+		}
+	}
+
+	immediate = {
+		set_global_variable = balkfm_smail_aga_rebelled
+		create_country = { # Hersek with Bosnia
+			tag = HRSK
+			origin = c:TUR
+			state = s:STATE_BOSNIA.region_state:TUR
+		}
+		s:STATE_BOSNIA = {
+			random_scope_state = {
+				save_scope_as = bosnia_state_scope
+			}
+		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.337 # The Arrogance of Samïl-aga
+			}
+		}
+		c:MON = {
+			trigger_event = {
+				id = balkfm.337 # The Arrogance of Samïl-aga
+			}
+			remove_modifier = modifier_balkfm_tolerated_abuses
+		}
+	}
+	
+}
+
+balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = { # this is evaluated from MON scope
+		NOT = { has_global_variable = balkfm_ali_pasha_rebelled }
+		year < 1940
+		has_global_variable = balkfm_ali_pasha_greenlight
+		c:TUR ?= {
+			owns_entire_state_region = STATE_BOSNIA
+			has_journal_entry = je_sick_man_main # serves as a time limit
+		}
+	}
+
+	immediate = {
+		create_country = { # Hersek with Bosnia
+			tag = HRSK
+			origin = c:TUR
+			state = s:STATE_BOSNIA.region_state:TUR
+		}
+		c:HRSK = {
+			create_character = {
+				# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+				first_name = Ali
+				last_name = Rizvanbegovic
+				historical = yes
+				age = 53 # born 1783
+				dna = mr_bos_rizvanbegovic_ali_pasha
+				culture = cu:serb
+				religion = rel:sunni
+				interest_group = ig_landowners
+				ideology = ideology_moderate
+				ruler = yes
+				traits = {
+					pious
+					arrogant
+				}
+				on_created = {
+					set_variable = balkfm_is_ali_pasha
+				}
+			}
+		}
+		s:STATE_BOSNIA = {
+			random_scope_state = {
+				save_scope_as = bosnia_state_scope
+			}
+		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.338 # The Arrogance of Ali Pasha
+			}
+		}
+		c:MON = {
+			trigger_event = {
+				id = balkfm.338 # The Arrogance of Ali Pasha
+			}
+		}
+		remove_global_variable = balkfm_ali_pasha_greenlight
+		set_global_variable = balkfm_ali_pasha_rebelled
+		set_global_variable = balkfm_ali_pasha_var # this blocks balkfm.082
+	}
+	
+}
+
+balkfm.032 = { # Cleans up after balkfm.031
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = { # this is evaluated from MON scope
+		has_global_variable = balkfm_ali_pasha_rebelled
+		NOT = {
+			exists = c:HRSK
+		}
+	}
+	
+	immediate = {
+		c:MON = {
+			trigger_event = {
+				id = balkfm.339 # Ali Pasha's Demise
+			}
+		}
+		remove_global_variable = balkfm_ali_pasha_rebelled
+	}
+	
+}
+
+#### TECHNICAL EVENTS (TUR INTERACTIONS) ####
+
+balkfm.080 = { # Skirmishes with Montenegro
 	type = country_event
 	placement = root
 	
-	title = balkfm.100.t
-	desc = balkfm.100.d
-	flavor = balkfm.100.f
+	title = balkfm.080.t
+	desc = balkfm.080.d
+	flavor = balkfm.080.f
 	
 	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		s:STATE_BOSNIA = {
+			random_scope_state = {
+				save_scope_as = bosnia_state_scope
+			}
+		}
+		s:STATE_MONTENEGRO = {
+			random_scope_state = {
+				save_scope_as = montenegro_state_scope
+			}
+		}
+		s:STATE_ALBANIA = {
+			random_scope_state = {
+				save_scope_as = albania_state_scope
+			}
+		}
+		c:MON = {
+			save_scope_as = montenegro_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.080.a
+		default_option = yes
+	}
+
+}
+
+balkfm.081 = { # The Schemes of Ali Pasha
+	type = country_event
+	placement = root
+	
+	title = balkfm.081.t
+	desc = balkfm.081.d
+	flavor = balkfm.081.f
+	
+	event_image = {
+		video = "votp_conspiring"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		create_character = {
+			# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+			first_name = Ali
+			last_name = Rizvanbegovic
+			historical = yes
+			age = 53 # born 1783
+			dna = mr_bos_rizvanbegovic_ali_pasha
+			culture = cu:serb
+			religion = rel:sunni
+			interest_group = ig_landowners
+			ideology = ideology_moderate
+			traits = {
+				pious
+				arrogant
+			}
+			on_created = {
+				set_variable = balkfm_is_ali_pasha
+				place_character_in_void = 500
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_ali_pasha
+			}
+			save_scope_as = ali_pasha_scope
+		}
+	}
+	
+	option = { # Clip Him
+		name = balkfm.081.a
+		default_option = yes
+		custom_tooltip = balkfm.081.tt1
+		hidden_effect = {
+			c:MON = {
+				trigger_event = {
+					id = balkfm.339 # Ali Pasha's Demise
+				}
+			}
+		}
+	}
+	
+	option = { # Whats the worst that can happen?
+		name = balkfm.081.b
+		custom_tooltip = balkfm.081.tt2
+		set_global_variable = balkfm_ali_pasha_greenlight
+	}
+	
+}
+
+balkfm.082 = { # Ali Pasha Ascendant
+	type = country_event
+	placement = root
+	
+	title = balkfm.082.t
+	desc = balkfm.082.d
+	flavor = balkfm.082.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
@@ -257,458 +635,291 @@ balkfm.100 = { # Great Eastern Crisis Warmup
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_global_variable = balkfm_crisis_var }
-		NOT = { has_global_variable = balkfm_crisis_happened }
-		has_technology_researched = nationalism
-		NOT = { has_technology_researched = pan-nationalism }
-		is_subject = no
-		is_junior_in_customs_union = no
-		OR = {
-			country_rank = rank_value:great_power
-			country_rank = rank_value:major_power
-			country_rank = rank_value:unrecognized_major_power
-		}
-		OR = {
-			c:GRE ?= {
-				has_technology_researched = nationalism
-			}
-			c:SER ?= {
-				has_technology_researched = nationalism
-			}
-			c:MON ?= {
-				has_technology_researched = nationalism
-			}
+		NOT = { has_global_variable = balkfm_ali_pasha_waxed }
+		has_global_variable = balkfm_ali_pasha_rebelled
+		NOT = { has_global_variable = balkfm_ali_pasha_var }
+		c:HRSK ?= {
+			is_diplomatic_play_committed_participant = no
+			is_at_war = no
 		}
 	}
 	
 	immediate = {
-		c:RUS = {
-			save_scope_as = russia_scope
+		set_global_variable = balkfm_ali_pasha_waxed # yeah, he might win in this outcome, but I still need this variable
+		s:STATE_BOSNIA = {
+			random_scope_state = {
+				save_scope_as = bosnia_state_scope
+			}
 		}
-		set_global_variable = {
-			name = balkfm_crisis_var
-			value = 0
+		c:HRSK = {
+			save_scope_as = hersek_scope
 		}
-		set_variable = balkfm_crisis_target
-		set_variable = balkfm_crisis_offered
 	}
 	
 	option = {
-		name = balkfm.100.a
+		name = balkfm.082.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_great_eastern_crisis_main
-		}
-		every_scope_state = {
-			limit = {
-				state_region = {
-					NOT = {
-						is_homeland = cu:turkish
-					}
-				}
-				region = sr:region_balkans
-			}
-			add_radicals_in_state = {
-				value = large_radicals
-			}
-		}
 	}
 
 }
 
-balkfm.101 = { # Recruit Local Power
+balkfm.083 = { # The Romanian Declaration of Union; this event has been imported from vanilla; minor adjustments for balkfm variables
 	type = country_event
-	placement = root
-	
-	title = balkfm.101.t
-	desc = balkfm.101.d
-	flavor = balkfm.101.f
-	
+	placement = scope:romania_unifier_capital
+
+	title = balkfm.083.t
+	desc = balkfm.083.d
+	flavor = balkfm.083.f
+
 	event_image = {
 		video = "europenorthamerica_political_extremism"
 	}
-	
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
+
 	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {	
+
+	trigger = {
 	}
-	
+
 	immediate = {
-		set_variable = balkfm_crisis_offered	
-		set_variable = balkfm_crisis_technical
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		every_country = {
+		random_subject_or_below = {
 			limit = {
-				has_diplomatic_relevance = c:TUR
+				has_variable = ROM_united_principality # this is a vanilla variable; do not touch this unless you want to start messing with flags and country names
 			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_technical
-				}
-				save_scope_as = balkfm_offered_scope
+			save_scope_as = romania_unifier
+			capital = {
+				save_scope_as = romania_unifier_capital
+			}
+		}
+	}
+
+	option = { # Be Nice
+		name = balkfm.083.a
+		default_option = yes
+		ai_chance = {
+			base = 75
+		}
+		set_secret_goal = {
+			country = scope:romania_unifier
+			secret_goal = protect
+		}
+		change_relations = {
+			country = scope:romania_unifier
+			value = 20
+		}
+		scope:romania_unifier = {
+			change_relations = {
+				country = ROOT
+				value = 20
 			}
 		}
 	}
 	
-	option = { # rise up
-		name = balkfm.101.a
-		default_option = yes
-		custom_tooltip = {
-			text = balkfm_crisis_join_tt
-			hidden_effect = {
-				set_variable = balkfm_crisis_attacker
-			}
-		}
-		add_journal_entry = {
-			type = je_great_eastern_crisis_sub
-		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_technical
-				}
-				save_scope_as = balkfm_offered_scope
-			}
-			post_notification = notification_balkfm_crisis_joined
-		}
-		hidden_effect = {
-			create_truce = {
-				country = c:TUR
-				months = 12
-			}
-		}
+	option = { # Fuggem
+		name = balkfm.083.b
 		ai_chance = {
-			base = 10
+			base = 25
 		}
-	}
-
-	option = { # be docile
-		name = balkfm.101.b
-		custom_tooltip = {
-			text = balkfm_crisis_decline_tt
-			hidden_effect = {
-				set_variable = balkfm_weaksauce
+		set_secret_goal = {
+			country = scope:romania_unifier
+			secret_goal = antagonize
+		}
+		change_relations = {
+			country = scope:romania_unifier
+			value = -30
+		}
+		scope:romania_unifier = {
+			change_relations = {
+				country = ROOT
+				value = -30
 			}
 		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
+		every_scope_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+				culture = cu:romanian
 			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_technical
-				}
-				save_scope_as = balkfm_offered_scope
-			}
-			post_notification = notification_balkfm_crisis_declined
-		}
-		ai_chance = {
-			base = 0
 		}
 	}
-
-	after = {
-		remove_variable = balkfm_crisis_technical
-	}
-
 }
 
-balkfm.102 = { # Recruit Great Power
+balkfm.084 = { # The South Bessarabian Retrocession (romania.4 integrated into balkfm)
 	type = country_event
-	placement = root
-	
-	title = balkfm.102.t
-	desc = balkfm.102.d
-	flavor = balkfm.102.f
-	
+	placement = ROOT
+	title = balkfm.084.t
+	desc = balkfm.084.d
+	flavor =  balkfm.084.f
+
+	duration = 3
+
 	event_image = {
 		video = "southamerica_aristocrats"
 	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
 	trigger = {
+		# triggered by JE
 	}
-	
+
 	immediate = {
-		set_variable = balkfm_crisis_offered	
-		set_variable = balkfm_crisis_technical
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_technical
-				}
-				save_scope_as = balkfm_offered_scope
-			}
-		}
-	}	
-	
-	option = { # pile in
-		name = balkfm.102.a
+        random_scope_state = {
+        	limit = {
+				state_region = s:STATE_BESSARABIA
+        	}
+        	save_scope_as = south_bessarabia_cession
+        }
+        random_country = {
+        	limit = {
+				OR = {
+    				has_variable = ROM_united_principality
+    				AND = {
+    					is_subject = yes
+    					top_overlord ?= {
+    						has_variable = ROM_united_principality
+    					}
+    				}
+    			}
+        	}
+        	save_scope_as = romanian_bessarabia_receiver
+        }
+		set_variable = balkfm_bessarabia_owner
+	}
+
+	option = { 
+		name = balkfm.084.a
 		default_option = yes
-		custom_tooltip = {
-			text = balkfm_crisis_join_tt
-			hidden_effect = {
-				set_variable = balkfm_crisis_attacker
+		s:STATE_BESSARABIA = {
+			set_owner_of_provinces = {
+				country = scope:romanian_bessarabia_receiver
+				provinces = { xB0E0A0 x6BF7B8 x712161 }
 			}
 		}
-		add_journal_entry = {
-			type = je_great_eastern_crisis_sub
-		}
-		every_country = {
+		if = {
 			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			post_notification = notification_balkfm_crisis_joined
-		}
-		hidden_effect = {
-			create_truce = {
-				country = c:TUR
-				months = 12
-			}
-		}
-		ai_chance = {
-			base = 50
-			modifier = {
-				trigger = {
-					c:TUR ?= {
-						relations:root < relations_threshold:cordial
-					}
+				p:x50F5CB = {
+					owner = ROOT
 				}
-				add = 10
 			}
-			modifier = {
-				trigger = {
-					c:TUR ?= {
-						relations:root >= relations_threshold:cordial
-					}
+			s:STATE_DOBRUDJA = {
+				set_owner_of_provinces = {
+					country = scope:romanian_bessarabia_receiver
+					provinces = { x50F5CB }
 				}
-				add = -25
-			}
-			modifier = {
-				trigger = {
-					c:RUS ?= this # Russo-Turkish War vibes
-				}
-				add = 1000
-			}
-			modifier = {
-				trigger = {
-					c:AUS ?= this # Austria was promised the occupation of Bosnia-Herzegovina
-				}
-				add = 500
-			}
-			modifier = {
-				trigger = {
-					c:FRA ?= this # France had no real interests in the Balkans, her attention was more on Algeria/Tunisia
-				}
-				add = -50
 			}
 		}
-	}
-	
-	option = { # back the Porte
-		name = balkfm.102.b
-		custom_tooltip = {
-			text = balkfm_crisis_defend_tt
-			hidden_effect = {
-				set_variable = balkfm_crisis_defender
-			}
+		change_relations = {
+			country = scope:romanian_bessarabia_receiver
+			value = 25
 		}
-		add_journal_entry = {
-			type = je_great_eastern_crisis_sub
-		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
+		scope:romanian_bessarabia_receiver = {
+			change_relations = {
+				country = ROOT
+				value = 25
 			}
-			post_notification = notification_balkfm_crisis_defending
-		}
-		hidden_effect = {
-			create_truce = {
-				country = c:TUR
-				months = 12
+			trigger_event = {
+				id = balkfm.682 # Retrocession Granted
 			}
-		}
-		ai_chance = {
-			base = 0
-			modifier = {
-				trigger = {
-					c:TUR ?= {
-						relations:root > relations_threshold:cordial
-					}
-				}
-				add = 20
-			}
-			modifier = {
-				trigger = {
-					c:GBR = this # Great Britain should sometimes swing this way
-				}
-				add = 10
-			}
-		}
-	}
-
-	option = { # not my problem
-		name = balkfm.102.c
-		set_variable = balkfm_crisis_rejected
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			post_notification = notification_balkfm_crisis_declined
-		}
-		ai_chance = {
-			base = 5
-			modifier = {
-				trigger = {
-					c:TUR ?= {
-						relations:root > relations_threshold:neutral
-					}
-				}
-				add = -15
-			}
-			modifier = {
-				trigger = {
-					c:TUR ?= {
-						relations:root <= relations_threshold:neutral
-					}
-				}
-				add = 15
-			}
-			modifier = {
-				trigger = {
-					c:GBR = this # Great Britain should sometimes swing this way
-				}
-				add = 20
-			}
-		}
-	}
-	
-	after = {
-		remove_variable = balkfm_crisis_technical
-	}
-
-}
-
-balkfm.103 = { # Recruit Ottoman Ally
-	type = country_event
-	placement = root
-	
-	title = balkfm.103.t
-	desc = balkfm.103.d
-	flavor = balkfm.103.f
-	
-	event_image = {
-		video = "unspecific_politicians_arguing"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		set_variable = balkfm_crisis_offered	
-		set_variable = balkfm_crisis_technical
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_technical
-				}
-				save_scope_as = balkfm_offered_scope
-			}
-		}
-	}	
-	
-	option = { # Honor the Alliance
-		name = balkfm.103.a
-		default_option = yes
-		custom_tooltip = {
-			text = balkfm_crisis_defend_tt
-			hidden_effect = {
-				set_variable = balkfm_crisis_defender
-			}
-		}
-		add_journal_entry = {
-			type = je_great_eastern_crisis_sub
-		}
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
-			}
-			post_notification = notification_balkfm_crisis_joined
 		}
 		ai_chance = {
 			base = 100
 		}
 	}
 	
-	option = { # Hang the Porte out to dry
-		name = balkfm.103.b
+	option = { 
+		name = balkfm.084.b
 		change_relations = {
-			country = c:TUR
-			value = -50
+			country = scope:romanian_bessarabia_receiver
+			value = -25
 		}
-		set_variable = balkfm_crisis_rejected
-		every_country = {
-			limit = {
-				has_diplomatic_relevance = c:TUR
+		scope:romanian_bessarabia_receiver = {
+			change_relations = {
+				country = ROOT
+				value = -25
 			}
-			post_notification = notification_balkfm_crisis_declined
+			trigger_event = {
+				id = balkfm.683 # Retrocession Denied
+			}
+			
 		}
 		ai_chance = {
-			base = 0 # your AI allies should not abandon you
+			base = 0
+		}
+	}
+}
+
+#### TEST EVENTS####
+
+balkfm.098 = { # Test Event
+	type = country_event
+	placement = root
+	
+	title = balkfm.099.t
+	desc = balkfm.099.d
+	flavor = balkfm.099.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.099.a
+		default_option = yes
+		create_diplomatic_pact = {
+			country = c:RUS
+			type = humiliation
+		}
+		create_truce = {
+			country = c:RUS
+			months = 48
+		}
+	}
+	
+	option = {
+		name = balkfm.099.a
+		create_diplomatic_pact = {
+			country = c:RUS
+			type = war_reparations
+		}
+		create_truce = {
+			country = c:RUS
+			months = 48
 		}
 	}
 	
 	after = {
-		remove_variable = balkfm_crisis_technical
 	}
+	
+	orphan = yes
 
 }
 
-balkfm.104 = { # Great Eastern Crisis Start (Initiator / Target)
+balkfm.099 = { # Crisis Test Event
 	type = country_event
 	placement = root
 	
-	title = balkfm.104.t
-	desc = balkfm.104.d
-	flavor = balkfm.104.f
+	title = balkfm.099.t
+	desc = balkfm.099.d
+	flavor = balkfm.099.f
 	
 	gui_window = event_window_crisis
 	
@@ -716,7 +927,7 @@ balkfm.104 = { # Great Eastern Crisis Start (Initiator / Target)
 		video = "balkfm_balkan_crisis"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -724,42 +935,173 @@ balkfm.104 = { # Great Eastern Crisis Start (Initiator / Target)
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by balkfm_build_crisis effect
+	trigger = {
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				c:TUR ?= this
+		c:RUS = {
+			ruler = {
+				save_scope_as = crisis_scope_1
 			}
-			balkfm_generate_hakki_pasha = yes
-			balkfm_generate_osman_nuri = yes
 		}
-		balkfm_stage_crisis_characters = yes
+		set_variable = {
+			name = crisis_character_1
+			value = scope:crisis_scope_1
+		}
+		c:AUS = {
+			ruler = {
+				save_scope_as = crisis_scope_2
+			}
+		}
+		set_variable = {
+			name = crisis_character_2
+			value = scope:crisis_scope_2
+		}
+		c:GRE = {
+			ruler = {
+				save_scope_as = crisis_scope_3
+			}
+		}
+		set_variable = {
+			name = crisis_character_3
+			value = scope:crisis_scope_3
+		}
+		c:EGY = {
+			ruler = {
+				save_scope_as = crisis_scope_4
+			}
+		}
+		set_variable = {
+			name = crisis_character_4
+			value = scope:crisis_scope_4
+		}
+		c:TUR = {
+			ruler = {
+				save_scope_as = crisis_scope_5
+			}
+		}
+		set_variable = {
+			name = crisis_character_5
+			value = scope:crisis_scope_5
+		}
+		c:TUN = {
+			ruler = {
+				save_scope_as = crisis_scope_6
+			}
+		}
+		set_variable = {
+			name = crisis_character_6
+			value = scope:crisis_scope_6
+		}
 	}
 	
 	option = {
-		name = balkfm.104.a
+		name = balkfm.099.a
 		default_option = yes
+	}
+	
+	orphan = yes
+
+}
+
+
+####################################
+##  #BALK1  OPEN  Events 100-109  ##
+####################################
+
+
+
+#################################################
+## #BALK2	YUGOSLAVISM FLAVOR	Events 200-299 ##
+#################################################
+
+#### YUGOSLAVIAN UNIFICATION EVENTS ####
+
+balkfm.200 = { # Illyrian Sentiment (GENERIC)
+	type = country_event
+	placement = root
+	
+	title = balkfm.200.t
+	desc = balkfm.200.d
+	flavor = balkfm.200.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.200.a
+		default_option = yes
+		custom_tooltip = balkfm_yug_annex_tt
+	}
+	
+#	option = {
+#		name = balkfm.200.a
+#		default_option = yes
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
+#		balkfm_happy_yugoslavs = yes
+#	}
+	
+#	option = {
+#		name = balkfm.200.b
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
+#		balkfm_sad_yugoslavs = yes
+#	}
+	
+	after = {
+		if = {
+			limit = {
+				OR = {
+					country_has_primary_culture = cu:slovene
+					country_has_primary_culture = cu:croat
+				}
+			}
+			trigger_event = {
+				id = balkfm.980 # The Triune Dream
+				days = 60
+			}
+		}
 	}
 
 }
 
-balkfm.105 = { # Great Eastern Crisis Start (Attackers / Defenders)
+balkfm.201 = { # Jugoslavism (MON)
 	type = country_event
 	placement = root
 	
-	title = balkfm.105.t
-	desc = balkfm.105.d
-	flavor = balkfm.105.f
-	
-	gui_window = event_window_crisis
+	title = balkfm.201.t
+	desc = balkfm.201.d
+	flavor = balkfm.201.f
 	
 	event_image = {
-		video = "balkfm_balkan_crisis"
+		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -767,71 +1109,72 @@ balkfm.105 = { # Great Eastern Crisis Start (Attackers / Defenders)
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by balkfm_build_crisis effect
+	trigger = {
 	}
 	
 	immediate = {
-		random_diplomatic_play = {
-			limit = {
-				is_diplomatic_play_type = dp_balkfm_crisis
-			}
-			save_scope_as = balkfm_crisis_scope
-		}
-		if = {
-			limit = {
-				has_variable = balkfm_crisis_attacker
-			}
-			scope:balkfm_crisis_scope = {
-				add_initiator_backers = { root }
-				add_diplomatic_play_war_support  = {
-					target = root
-					value = 100
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_variable = balkfm_crisis_defender
-			}
-			scope:balkfm_crisis_scope = {
-				add_target_backers = { root }
-				add_diplomatic_play_war_support  = {
-					target = root
-					value = 100
-				}
-			}
-		}
-		balkfm_stage_crisis_characters = yes
+	}
+
+	option = {
+		name = balkfm.201.a
+		default_option = yes
+		custom_tooltip = balkfm_yug_annex_tt
 	}
 	
-	option = {
-		name = balkfm.105.a
-		default_option = yes
+#	option = {
+#		name = balkfm.201.a
+#		default_option = yes
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
+#		balkfm_happy_yugoslavs = yes
+#	}
+	
+#	option = {
+#		name = balkfm.201.b
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
+#		balkfm_sad_yugoslavs = yes
+#	}
+	
+	after = {
+		trigger_event = {
+			id = balkfm.380 # The Black Mountain
+			days = 60
+		}
 	}
 
 }
 
-balkfm.106 = { # The Treaty of San Stefano
+balkfm.202 = { # The Draft (SER)
 	type = country_event
 	placement = root
 	
-	title = balkfm.106.t
-	desc = balkfm.106.d
-	flavor = balkfm.106.f
+	title = balkfm.202.t
+	desc = balkfm.202.d
+	flavor = balkfm.202.f
 	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:garasanin_scope
 	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by balkfm_crisis_wargoal_enforced
+	trigger = {
 	}
 	
 	cancellation_trigger = { # Loop Prevention
@@ -842,67 +1185,112 @@ balkfm.106 = { # The Treaty of San Stefano
 	}	
 	
 	immediate = {
-		set_variable = eqfm_congress_offered # Loop Prevention
-		if = {
-			limit = {
-				c:BUL = this
+		# Ilija Garašanin, Prime Minister of Serbia 1861-1867, author of "The Draft"
+		create_character = {
+			first_name = Ilija
+			last_name = Garasanin
+			historical = yes
+			age = 30
+			culture = cu:serb
+			interest_group = ig_intelligentsia
+			traits = {
+				expert_political_operator
 			}
-			s:STATE_MACEDONIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:BUL
-				}
-			}
-			s:STATE_SKOPIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:BUL
-				}
+			on_created = {
+				set_variable = balkfm_is_garasanin
+				place_character_in_void = 10 # just for this event
 			}
 		}
-		if = {
+		random_character_in_void = {
 			limit = {
-				c:BOS = this
+				has_variable = balkfm_is_garasanin
 			}
-			c:TUR = {
-				create_diplomatic_pact = {
-					country = c:BOS
-					type = protectorate
-				}
-			}
+			save_scope_as = garasanin_scope
 		}
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
-		c:BUL = {
-			save_scope_as = bulgaria_scope
+	}
+	
+	option = { # give this man a job
+		name = balkfm.202.a
+		default_option = yes
+		scope:garasanin_scope = {
+			transfer_character = ROOT
+			set_as_interest_group_leader = yes
 		}
-		if = {
+		custom_tooltip = balkfm_yug_annex_tt
+#		custom_tooltip = {
+#			text = balkfm_support_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_supporting_yugoslavism
+#			}
+#		}
+		balkfm_happy_yugoslavs = yes
+	}
+	
+	option = { # I'm a poor boy
+		name = balkfm.202.b
+		custom_tooltip = balkfm_yug_annex_tt
+#		custom_tooltip = {
+#			text = balkfm_oppose_yugoslavism_tt
+#			hidden_effect = {
+#				set_variable = balkfm_opposing_yugoslavism
+#			}
+#		}
+		balkfm_sad_yugoslavs = yes
+	}
+
+	after = {
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.480 # Serbian Nationalism
+				days = 60
+			}
+		}
+	}
+
+}
+
+balkfm.203 = { # Yugoslav Breakaways Seek Union!
+	type = country_event
+	placement = root
+	
+	title = balkfm.203.t
+	desc = balkfm.203.d
+	flavor = balkfm.203.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_global_variable = balkfm_breakaway_technical }
+		has_technology_researched = pan-nationalism
+		any_country = {
+			has_variable = balkfm_breakaway_var
+			balkfm_is_annexation_candidate_trigger = yes
+		}
+	}
+	
+	immediate = {
+		set_global_variable = balkfm_breakaway_technical
+		random_primary_culture = {
+			save_scope_as = primary_culture_scope
+		}
+		random_country = {
 			limit = {
-				exists = c:GER
+				has_variable = balkfm_breakaway_var
 			}
-			c:GER = {
-				save_scope_as = germany_scope
-				capital = {
-					save_scope_as = germany_capital_scope
-				}
-			}
-		}
-		else = {
-			c:PRU = {
-				save_scope_as = germany_scope
-				capital = {
-					save_scope_as = germany_capital_scope
-				}
-			}
+			save_scope_as = balkfm_breakaway_scope
 		}
 		if = {
 			limit = {
@@ -915,30 +1303,52 @@ balkfm.106 = { # The Treaty of San Stefano
 		}
 	}
 	
-	option = {
-		name = balkfm.106.a
+	option = { # Annex Them
+		name = balkfm.203.a
 		default_option = yes
-		trigger_event = {
-			id = balkfm.110 # The Congress of Berlin
-			days = 90
+		create_incident = {
+			country = scope:balkfm_breakaway_scope
+			value = 10
 		}
+		annex = scope:balkfm_breakaway_scope
+	}
+	
+	option = { # Nope
+		name = balkfm.203.b
+		change_relations = {
+			country = scope:balkfm_breakaway_scope
+			value = 50
+		}
+		scope:balkfm_breakaway_scope = {
+			remove_variable = balkfm_breakaway_var
+		}
+	}
+	
+	after = {
+		remove_global_variable = balkfm_breakaway_technical
 	}
 
 }
 
-balkfm.107 = { # The Porte Triumphant
-	type = country_event
-	placement = root
+balkfm.204 = { # Yugoslav Uprising in X
+
+	orphan = yes
 	
-	title = balkfm.107.t
-	desc = balkfm.107.d
-	flavor = balkfm.107.f
+}
+
+balkfm.205 = { # Yugoslavist Agitation (Nacertanije)
+	type = country_event
+	placement = scope:balkfm_agitation_state_scope
+	
+	title = balkfm.205.t
+	desc = balkfm.205.d
+	flavor = balkfm.205.f
 	
 	event_image = {
-		video = "unspecific_military_parade"
+		video = "europenorthamerica_springtime_of_nations"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -946,270 +1356,53 @@ balkfm.107 = { # The Porte Triumphant
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by balkfm_crisis_wargoal_enforced
+	trigger = {
 	}
 	
 	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
+		random_state = {
+			limit = {
+				has_variable = balkfm_yugoslav_state_target
+			}
+			save_scope_as = balkfm_agitation_state_scope
+			owner = {
+				save_scope_as = balkfm_agitation_owner_scope
+			}
+		}
+		scope:balkfm_agitation_state_scope = {
+			remove_variable = balkfm_yugoslav_state_target
 		}
 	}
 	
 	option = {
-		name = balkfm.107.a
+		name = balkfm.205.a
 		default_option = yes
-		trigger = {
-			c:TUR ?= this
+		create_incident = {
+			country = scope:balkfm_agitation_owner_scope
+			value = 10
 		}
-		add_modifier = {
-			name = modifier_balkfm_porte_triumphant
-			months = long_modifier_time
-		}
-		if = {
-			limit = {
-				is_country_type = unrecognized
-			}
-			set_country_type = recognized
-		}
-		if = {
-			limit = {
-				c:MON ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:MON
-		}		
-		if = {
-			limit = {
-				c:SER ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:SER
-		}
-		if = {
-			limit = {
-				c:BUL ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:BUL
-		}
-		if = {
-			limit = {
-				c:WAL ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:WAL
-		}
-		if = {
-			limit = {
-				c:MOL ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:MOL
-		}
-		if = {
-			limit = {
-				c:BOS ?= {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			annex = c:BOS
-		}
-		if = {
-			limit = {
-				c:RUS ?= {
-					has_variable = balkfm_crisis_attacker
-					has_state_in_state_region = STATE_DOBRUDJA
-				}
-			}
-			s:STATE_DOBRUDJA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:RUS = this
-						}
-					}
-					set_state_owner = c:TUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				c:RUS ?= {
-					has_variable = balkfm_crisis_attacker
-					has_state_in_state_region = STATE_BESSARABIA
-				}
-			}
-			s:STATE_BESSARABIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:RUS = this
-						}
-					}
-					set_state_owner = c:TUR
-				}
-			}
-		}		
-		if = {
-			limit = {
-				c:AUS ?= {
-					has_variable = balkfm_crisis_attacker
-					has_state_in_state_region = STATE_MONTENEGRO
-				}
-			}
-			s:STATE_MONTENEGRO = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:AUS = this
-						}
-					}
-					set_state_owner = c:TUR
-				}
+		show_as_tooltip = {
+			scope:balkfm_agitation_state_scope = {
+				balkfm_rile_up_yugoslavs = yes
 			}
 		}
 	}
-	
-	option = {
-		name = balkfm.107.b
-		trigger = {
-			has_variable = balkfm_crisis_defender
-		}
-		add_modifier = {
-			name = modifier_balkfm_protected_balance
-			months = normal_modifier_time
-		}
-	}
-	
-	option = {
-		name = balkfm.107.c
-		trigger = {
-			has_variable = balkfm_crisis_attacker
-		}
-		add_modifier = {
-			name = modifier_balkfm_lost_crisis
-			months = normal_modifier_time
-		}
-	}
-	
-	option = {
-		name = balkfm.107.e
-		trigger = {
-			NOR = {
-				has_variable = balkfm_crisis_attacker
-				has_variable = balkfm_crisis_defender
-				has_variable = balkfm_crisis_target
-			}
-		}
-	}
-	
-	after = {
-		balkfm_clean_up_crisis_variables = yes
-	}
-	
+
 }
 
-balkfm.108 = { # Creates GEC DP and Fires balkfm.109
+balkfm.206 = { # Yugoslavist Agitation (AUS/TUR)
 	type = country_event
-	placement = root
-	hidden = yes
+	placement = scope:balkfm_agitation_state_scope
 	
-	trigger = {
-		NOT = { has_global_variable = balkfm_crisis_happened }
-		has_journal_entry = je_great_eastern_crisis_main
-		global_var:balkfm_crisis_var >= 150
-		is_diplomatic_play_committed_participant = no
-		is_at_war = no
-	}
-
-	immediate = {
-		set_global_variable = balkfm_crisis_happened
-		if = {
-			limit = {
-				c:RUS = {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-			c:RUS = {
-				set_variable = balkfm_crisis_starter
-				save_scope_as = balkfm_crisis_starter_scope
-			}
-		}
-		else = {			
-			random_country = {
-				limit = {
-					has_variable = balkfm_crisis_attacker
-					country_rank = rank_value:great_power
-					is_diplomatic_play_committed_participant = no
-				}
-				set_variable = balkfm_crisis_starter
-				save_scope_as = balkfm_crisis_starter_scope
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:balkfm_crisis_starter_scope
-			}
-			scope:balkfm_crisis_starter_scope = {
-				create_diplomatic_play = {
-					name = balkfm_great_eastern_crisis
-					target_country = c:TUR
-					type = dp_balkfm_crisis
-					war = yes
-				}
-				trigger_event = {
-					id = balkfm.104 # GEC Start (Initiator / Target)
-					popup = yes
-				}
-			}
-			trigger_event = {
-				id = balkfm.109 # Assigns Tags and preps scopes for the event_window
-				days = 1 # let it cook
-			}
-		}
-		else = {
-			remove_global_variable = balkfm_crisis_happened
-		}
-	}
-	
-}
-
-balkfm.109 = { # Assigns Tags and preps scopes for the event_window
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-		balkfm_build_crisis = yes
-	}
-	
-	# So what happened here is that the original script was trying to fire scripted effects from inside of other scripted effects. I've already done it before, so I don't know what broke to cause an unhandled exception. Separating the crisis effects into balkfm.104, 105, 108, and 109 and further into their own scripted_effects file seems to have corrected the issue.
-	
-}
-
-#### CONGRESS OF BERLIN EVENTS ####
-
-balkfm.110 = { # The Congress of Berlin
-	type = country_event
-	placement = root
-	
-	title = balkfm.110.t
-	desc = balkfm.110.d
-	flavor = balkfm.110.f
+	title = balkfm.206.t
+	desc = balkfm.206.d
+	flavor = balkfm.206.f
 	
 	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
+		video = "europenorthamerica_springtime_of_nations"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1228,863 +1421,43 @@ balkfm.110 = { # The Congress of Berlin
 	}
 	
 	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		if = {
+		random_state = {
 			limit = {
-				exists = c:GER
+				has_variable = balkfm_yugoslav_state_target
 			}
-			c:GER = {
-				save_scope_as = germany_scope
-				capital = {
-					save_scope_as = germany_capital_scope
-				}
-			}
+			save_scope_as = balkfm_agitation_state_scope
 		}
-		else = {
-			c:PRU = {
-				save_scope_as = germany_scope
+		random_country = {
+			limit = {
+				has_variable = balkfm_yugoslav_agitation_actor
 			}
+			save_scope_as = balkfm_yugoslav_agitator_scope
 		}
 	}
 	
 	option = {
-		name = balkfm.110.a
+		name = balkfm.206.a
 		default_option = yes
-		if = {
-			limit = {
-				c:TUR ?= this
-			}
-			add_journal_entry = {
-				type = je_balkfm_congress_of_berlin_main
-			}
-		}
-		else = {
-			add_journal_entry = {
-				type = je_balkfm_congress_of_berlin_sub
-			}
+		scope:balkfm_agitation_state_scope = {
+			balkfm_rile_up_yugoslavs = yes
 		}
 	}
 
 }
 
-balkfm.111 = { # The Issue of Bulgaria
+balkfm.207 = { # Yugoslav Annexation
 	type = country_event
-	placement = root
-	
-	title = balkfm.111.t
-	desc = balkfm.111.d
-	flavor = balkfm.111.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 4
-		exists = c:BUL
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.111
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = {
-					exists = c:ERUM
-				}
-				c:BUL ?= {
-					owns_entire_state_region = STATE_NORTHERN_THRACE
-				}
-			}
-			create_country = {
-				tag = ERUM
-				origin = this
-				state = s:STATE_NORTHERN_THRACE.region_state:BUL
-				on_created = {
-				}
-			}
-		}
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		c:AUS = {
-			save_scope_as = austria_scope
-		}
-		c:BUL = {
-			save_scope_as = bulgaria_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
-	option = { # option for BUL
-		name = balkfm.111.a
-		default_option = yes
-		trigger = {
-			c:BUL ?= this
-		}
-		if = {
-			limit = {
-				owns_entire_state_region = STATE_MACEDONIA
-			}
-			s:STATE_MACEDONIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:BUL = this
-						}
-					}
-					set_state_owner = c:TUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				owns_entire_state_region = STATE_SKOPIA
-			}
-			s:STATE_SKOPIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:BUL = this
-						}
-					}
-					set_state_owner = c:TUR
-				}
-			}
-		}
-		custom_tooltip = balkfm.111.tt1
-		custom_tooltip = balkfm.111.tt2	
-	}
-	
-	option = { # option for TUR
-		name = balkfm.111.b
-		trigger = {
-			c:TUR ?= this
-		}
-		create_diplomatic_pact = {
-			country = c:BUL
-			type = protectorate
-		}
-		if  = {
-			limit = {
-				exists = c:ERUM
-			}
-			create_diplomatic_pact = {
-				country = c:ERUM
-				type = puppet
-			}
-		}
-		custom_tooltip = balkfm.111.tt1
-	}
-	
-	option = { # option for everyone else
-		name = balkfm.111.c
-		trigger = {
-			NOR = {
-				c:BUL ?= this
-				c:TUR ?= this
-			}
-		}
-		custom_tooltip = balkfm.111.tt1
-		custom_tooltip = balkfm.111.tt2
-	}
-	
-}
-
-
-balkfm.112 = { # The Issue of Bosnia
-	type = country_event
-	placement = root
-	
-	title = balkfm.112.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.112.d1
-			trigger = {
-				c:AUS = {
-					has_variable = balkfm_crisis_attacker
-				}
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.112.d2
-			trigger = {
-				c:AUS = {
-					NOT = {
-						has_variable = balkfm_crisis_attacker
-					}
-				}
-			}
-		}
-	}
-	flavor = balkfm.112.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 6
-		exists = c:BOS
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR ?= this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.112
-				}
-			}
-		}
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		c:AUS = {
-			save_scope_as = austria_scope
-		}
-		c:BOS = {
-			save_scope_as = bosnia_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
-	option = { # for BOS, if Austria was lazy
-		name = balkfm.112.a1 
-		trigger = {
-			c:BOS ?= this
-			c:AUS ?= {
-				NOT = { has_variable = balkfm_crisis_attacker }
-			}
-		}
-		add_modifier = {
-			name = modifier_balkfm_national_awakening
-			months = long_modifier_time
-		}
-		add_treasury = 50000
-		custom_tooltip = balkfm.112.tt
-	}
-	
-	option = { # for BOS, if Austria piled in
-		name = balkfm.112.a2
-		trigger = {
-			c:BOS ?= this
-			c:AUS ?= { has_variable = balkfm_crisis_attacker }
-		}
-		show_as_tooltip = {
-			c:AUS = {
-				create_diplomatic_pact = {
-					country = c:BOS
-					type = protectorate
-				}
-			}
-		}
-	}
-	
-	option = { # for AUS, if they were lazy
-		name = balkfm.112.b1
-		default_option = yes
-		trigger = {
-			c:AUS ?= this
-			c:AUS ?= {
-				NOT = { has_variable = balkfm_crisis_attacker }
-			}
-		}
-		custom_tooltip = balkfm.112.tt
-	}
-	
-	option = { # for AUS, if they piled in
-		name = balkfm.112.b2
-		trigger = {
-			c:AUS ?= this
-			c:AUS ?= { has_variable = balkfm_crisis_attacker }
-		}
-		c:AUS = {
-			create_diplomatic_pact = {
-				country = c:BOS
-				type = protectorate
-			}
-		}
-	}
-
-	option = { # for everyone else, if AUS was lazy
-		name = balkfm.112.c1
-		default_option = yes
-		trigger = {
-			NOR = {
-				c:BOS ?= this
-				c:AUS ?= this
-				c:AUS ?= { has_variable = balkfm_crisis_attacker }
-			}
-		}
-		custom_tooltip = balkfm.112.tt
-	}
-	
-	option = { # for everyone else, if AUS piled in
-		name = balkfm.112.c2
-		trigger = {
-			c:AUS ?= { has_variable = balkfm_crisis_attacker }
-			c:BOS != this
-			c:AUS != this
-		}
-		show_as_tooltip = {
-			c:AUS = {
-				create_diplomatic_pact = {
-					country = c:BOS
-					type = protectorate
-				}
-			}
-		}
-	}
-
-}
-
-balkfm.113 = { # The Issue of Montenegro
-	type = country_event
-	placement = root
-	
-	title = balkfm.113.t
-	desc = balkfm.113.d
-	flavor = balkfm.113.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 12
-		c:MON ?= {
-			has_variable = balkfm_crisis_attacker
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.113
-				}
-			}
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		c:MON = {
-			save_scope_as = montenegro_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
-	option = {
-		name = balkfm.113.a
-		default_option = yes
-		trigger = {
-			c:MON != this
-		}
-	}
-	
-	option = {
-		name = balkfm.113.a
-		custom_tooltip = balkfm.113.tt
-		trigger = {
-			c:MON = this
-		}
-		if = {
-			limit = {
-				c:TUR = {
-					has_state_in_state_region = STATE_MONTENEGRO
-				}
-			}
-			s:STATE_MONTENEGRO = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:MON
-				}
-			}
-		}
-		else = {
-			add_modifier = {
-				name = modifier_balkfm_national_awakening
-				months = long_modifier_time
-			}
-			add_treasury = 100000
-		}
-	}
-	
-}
-
-balkfm.114 = { # The Issue of Serbia
-	type = country_event
-	placement = root
-	
-	title = balkfm.114.t
-	desc = balkfm.114.d
-	flavor = balkfm.114.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 14
-		c:SER ?= {
-			has_variable = balkfm_crisis_attacker
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.114
-				}
-			}
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		c:SER = {
-			save_scope_as = serbia_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
-	option = {
-		name = balkfm.114.a
-		trigger = {
-			c:SER != this
-		}
-	}
-	
-	option = {
-		name = balkfm.114.b
-		default_option = yes
-		trigger = {
-			c:SER ?= this
-		}
-		if = {
-			limit = {
-				c:TUR = {
-					owns_entire_state_region = STATE_SOUTHERN_SERBIA
-				}
-			}
-			s:STATE_SOUTHERN_SERBIA = {
-				set_owner_of_provinces = {
-					country = c:SER
-					provinces = {
-						x334B53
-						xAC083C
-						x18B761
-						x62A730
-						xD021E0
-					}
-				}
-			}
-		}
-		else = {
-			add_modifier = {
-				name = modifier_balkfm_national_awakening
-				months = long_modifier_time
-			}
-			add_treasury = 100000
-		}
-	}
-
-}
-
-balkfm.115 = { # The Issue of the Principalities
-	type = country_event
-	placement = root
-	
-	title = balkfm.115.t
-	desc = balkfm.115.d
-	flavor = balkfm.115.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 16
-		# TODO UPM&W Trigger
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.115
-				}
-			}
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}	
-	
-	option = {
-		name = balkfm.115.a
-		default_option = yes
-	}
-	
-}
-
-balkfm.116 = { # The Issue of the Caucasus
-	type = country_event
-	placement = root
-	
-	title = balkfm.116.t
-	desc = balkfm.116.d
-	flavor = balkfm.116.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 20
-		c:RUS = {
-			has_variable = balkfm_crisis_attacker
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.116
-				}
-			}
-		}
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}	
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}	
-	
-	option = {
-		name = balkfm.116.a
-		default_option = yes
-		trigger = {
-			c:RUS != this
-		}
-	}
-	
-	option = {
-		name = balkfm.116.b
-		trigger = {
-			c:RUS = this
-		}
-		if = {
-			limit = {
-				c:TUR = {
-					has_state_in_state_region = STATE_KARS
-				}
-			}
-			s:STATE_KARS = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:RUS
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_KARS
-				c:TUR = {
-					has_state_in_state_region = STATE_TRABZON
-				}
-			}
-			s:STATE_TRABZON = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:RUS
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_KARS
-				owns_entire_state_region = STATE_TRABZON
-				c:TUR = {
-					has_state_in_state_region = STATE_ERZURUM
-				}
-			}
-			s:STATE_ERZURUM = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:RUS
-				}
-			}
-		}
-		else = {
-			add_modifier = {
-				name = modifier_balkfm_caucasus_secured
-				months = long_modifier_time
-			}
-		}
-	}
-	
-}
-
-balkfm.117 = { # OPEN
-	orphan = yes
-}
-
-balkfm.118 = { # The Greek Delegation
-	type = country_event
-	placement = root
-	
-	title = balkfm.118.t
-	desc = balkfm.118.d
-	flavor = balkfm.118.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 22
-		c:GRE ?= {
-			has_variable = balkfm_crisis_attacker
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.118
-				}
-			}
-		}
-		c:GRE = {
-			save_scope_as = greece_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
-	option = {
-		name = balkfm.118.a
-		default_option = yes
-		trigger = {
-			c:GRE != this
-		}
-	}
-	
-	option = {
-		name = balkfm.118.b
-		trigger = {
-			c:GRE ?= this
-		}
-		if = {
-			limit = {
-				c:TUR = {
-					has_state_in_state_region = STATE_THESSALIA
-				}
-			}
-			s:STATE_THESSALIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:GRE
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				c:GRE = {
-					owns_entire_state_region = STATE_THESSALIA
-				}
-				c:TUR = {
-					has_state_in_state_region = STATE_MACEDONIA
-				}
-			}
-			s:STATE_MACEDONIA = {
-				every_scope_state = {
-					limit = {
-						owner = {
-							c:TUR = this
-						}
-					}
-					set_state_owner = c:GRE
-				}
-			}
-		}
-		else = {
-			add_treasury = 100000
-		}
-	}
-	
-}
-
-balkfm.119 = { # The Treaty of Berlin
-	type = country_event
-	placement = root
-	
-	title = balkfm.119.t
-	desc = balkfm.119.d
-	flavor = balkfm.119.f
+	placement = scope:balkfm_yugoslav_annex_scope
+	
+	title = balkfm.207.t
+	desc = balkfm.207.d
+	flavor = balkfm.207.f
 	
 	event_image = {
 		video = "unspecific_signed_contract"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -2093,290 +1466,58 @@ balkfm.119 = { # The Treaty of Berlin
 	dlc = dlc_grefm
 	
 	trigger = {
-	}
-	
-	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-	}
-	
-	option = {
-		name = balkfm.119.a
-		default_option = yes
-		if = {
-			limit = {
-				OR = {
-					has_variable = balkfm_crisis_attacker
-					has_variable = balkfm_crisis_starter
-				}
-				country_rank < rank_value:great_power
-			}
-			add_modifier = {
-				name = modifier_balkfm_won_crisis
-				months = normal_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					has_variable = balkfm_crisis_attacker
-					has_variable = balkfm_crisis_starter
-				}
-				country_rank >= rank_value:great_power
-			}
-			add_modifier = {
-				name = modifier_balkfm_protected_balance
-				months = normal_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					has_variable = balkfm_crisis_defender
-					has_variable = balkfm_crisis_target
-				}
-			}
-			add_modifier = {
-				name = modifier_balkfm_lost_crisis
-				months = normal_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				c:BUL ?= this
-			}
-			trigger_event = {
-				id = balkfm.500 # The Golden Lion Awakens
-				days = 30
-			}
-		}
-	}
-
-	after = {
-		balkfm_clean_up_crisis_variables = yes
-	}
-
-}
-
-#### GREAT EASTERN CRISIS / CONGRESS OF BERLIN SUPPORT EVENTS ####
-
-balkfm.120 = { # Herzegovina Uprising
-	type = country_event
-	placement = root
-	
-	title = balkfm.120.t
-	desc = balkfm.120.d
-	flavor = balkfm.120.f
-	
-	event_image = {
-		video = "balkfm_bosnia_intro"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by balkfm_build_crisis effect
-	}
-	
-	immediate = {
-		create_country = {
-			tag = BOS
-			origin = this
-			state = s:STATE_BOSNIA.region_state:TUR
-			on_created = {
-			}
-		}
-		c:BOS = {
-			save_scope_as = bosnia_scope
-			set_variable = balkfm_crisis_offered
-			set_variable = balkfm_crisis_attacker
-			add_journal_entry = {
-				type = je_great_eastern_crisis_sub
-			}
-			set_variable = {
-				name = balkfm_crisis_local_var
-				value = global_var:balkfm_crisis_var
-			}
-			create_character = {
-				# Bogdan Zimonjić, Serbian priest and commander participated in two major uprisings against the Ottomans in 1852 and 1875
-				first_name = Bogdan
-				last_name = Zimonjic
-				historical = yes
-				ruler = yes
-				age = 62 # age at the time of the Herzegovina uprising
-				culture = cu:serb
-				religion = rel:orthodox
-				interest_group = ig_devout # seriously what is it with Bosnian priests and leading uprisings, it's awesome
-				ideology = ideology_moderate
-				is_general = yes
-				traits = {
-					brave
-					persistent
-					expert_defensive_strategist # to buy Bosnia time for Austria to hopefully pile in
-				}
-				on_created = {
-					set_variable = balkfm_is_zimonjic
-				}
-			}
-		}
-		random_character = {
-			limit = {
-				has_variable = balkfm_is_zimonjic
-			}
-			save_scope_as = balkfm_zimonjic_scope
-		}
-		create_truce = {
-			country = c:BOS
-			months = 12
-		}
-	}
-	
-	option = {
-		name = balkfm.120.a
-		default_option = yes
-	}
-
-}
-
-balkfm.121 = { # April Uprising (Bulgaria)
-	type = country_event
-	placement = root
-	
-	title = balkfm.121.t
-	desc = balkfm.121.d
-	flavor = balkfm.121.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by balkfm_build_crisis effect
-	}
-	
-	immediate = {
-		balkfm_create_bulgaria = yes
-		c:BUL = {
-			save_scope_as = bulgaria_scope
-			set_variable = balkfm_crisis_offered
-			set_variable = balkfm_crisis_attacker
-			add_journal_entry = {
-				type = je_great_eastern_crisis_sub
-			}
-			set_variable = {
-				name = balkfm_crisis_local_var
-				value = global_var:balkfm_crisis_var
-			}
-			balkfm_set_bulgarian_laws = yes
-		}
-		create_truce = {
-			country = c:BUL
-			months = 12
-		}
-	}
-	
-	option = {
-		name = balkfm.121.a
-		default_option = yes
-	}
-
-}
-
-balkfm.122 = { # Great Britain Attempts Deconfliction
-	type = country_event
-	placement = root
-	
-	title = balkfm.122.t
-	desc = balkfm.122.d
-	flavor = balkfm.122.f
-	
-	event_image = {
-		video = "europenorthamerica_before_the_battle"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { has_global_variable = balkfm_crisis_gbr_deconfliction_var }
-		NOT = { has_global_variable = balkfm_crisis_happened }
-		has_journal_entry = je_great_eastern_crisis_main
-		owns_entire_state_region = STATE_CYPRUS
-		c:GBR = {
-			is_ai = yes
-			has_variable = balkfm_crisis_attacker
+		has_technology_researched = pan-nationalism
+		any_country = {
+			balkfm_has_yugoslav_culture = yes
+			balkfm_is_annexation_candidate_trigger = yes
+			relations:root >= relations_threshold:cordial
 		}
 	}
 	
 	immediate = {
-		set_global_variable = balkfm_crisis_gbr_deconfliction_var
-		c:GBR = {
-			save_scope_as = uk_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		s:STATE_CYPRUS = {
-			random_scope_state = {
-				save_scope_as = cyprus_state_scope
+		random_country = {
+			limit = {
+				balkfm_has_yugoslav_culture = yes
+				balkfm_is_annexation_candidate_trigger = yes
+				relations:root >= relations_threshold:cordial
 			}
+			save_scope_as =  balkfm_yugoslav_annex_scope
 		}
 	}
 	
-	option = {
-		name = balkfm.122.a
+	cooldown = {
+		years = 2 # putting the brakes on RNGesus
+	}
+	
+	option = { # Annex Them
+		name = balkfm.203.a
 		default_option = yes
-		custom_tooltip = {
-			text = balkfm.122.tt
-			hidden_effect = {
-				c:GBR = {
-					remove_variable = balkfm_crisis_attacker
-					set_variable = balkfm_cyprus_convention
-				}
-			}
-		}
+		annex = scope:balkfm_yugoslav_annex_scope
 	}
 	
-	option = {
-		name = balkfm.122.b
+	option = { # Nope
+		name = balkfm.203.b
 		change_relations = {
-			country = c:GBR
-			value = -10
+			country = scope:balkfm_yugoslav_annex_scope
+			value = 50
+		}
+		scope:balkfm_yugoslav_annex_scope = {
+			set_variable = balkfm_annexation_declined
 		}
 	}
 
 }
 
-balkfm.123 = { # The Convention of Cyprus
+balkfm.208 = { # Yugoslavism Fizzles Out
 	type = country_event
 	placement = root
 	
-	title = balkfm.123.t
-	desc = balkfm.123.d
-	flavor = balkfm.123.f
+	title = balkfm.208.t
+	desc = balkfm.208.d
+	flavor = balkfm.208.f
 	
 	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
+		video = "europenorthamerica_rich_and_poor"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -2388,250 +1529,99 @@ balkfm.123 = { # The Convention of Cyprus
 	dlc = dlc_grefm
 	
 	trigger = {
-		global_var:balkfm_berlin_congress_var = 16
-		c:GBR ?= {
-			OR = {
-				has_variable = balkfm_crisis_attacker
-				has_variable = balkfm_cyprus_convention
+		NOT = { has_global_variable = has_formed_yug }
+		NOT = { has_variable = balkfm_yug_failure_var }
+		has_global_variable = balkfm_yugoslavism_started
+		balkfm_has_yugoslav_culture = yes
+		NOT = {
+			any_country = {
+				OR = {
+					has_journal_entry = je_balkfm_nacertanije
+					has_journal_entry = je_balkfm_nacertanije_alternate
+				}
 			}
-		}
-		c:TUR ?= {
-			owns_entire_state_region = STATE_CYPRUS
 		}
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.123
-				}
-			}
-			create_country = {
-				tag = CYP
-				origin = this
-				state = s:STATE_CYPRUS.region_state:TUR
-				on_created = {
-				}
-			}
-			create_diplomatic_pact = {
-				country = c:CYP
-				type = protectorate
-			}
-		}
-		c:GBR = {
-			save_scope_as = uk_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
+		set_variable = balkfm_yug_failure_var
+		set_global_variable = balkfm_yugoslavism_failed
 	}
 	
 	option = {
-		name = balkfm.123.a
+		name = balkfm.208.a
 		default_option = yes
-		trigger = {
-			c:GBR != this
-		}
-		show_as_tooltip = {
-			c:GBR = {
-				create_diplomatic_pact = {
-					country = c:CYP
-					type = protectorate
-				}
-			}
-		}
+		balkfm_sad_yugoslavs = yes
 	}
-	
-	option = {
-		name = balkfm.123.a
-		trigger = {
-			c:GBR = this
-		}
-		create_diplomatic_pact = {
-			country = c:CYP
-			type = protectorate
-		}
-		remove_variable = balkfm_cyprus_convention
-	}
-	
+
 }
 
-balkfm.124 = { # France Attempts Deconfliction
+balkfm.209 = { # formation.9 event, retooled to function within balkfm
 	type = country_event
 	placement = root
-	
-	title = balkfm.124.t
-	desc = balkfm.124.d
-	flavor = balkfm.124.f
-	
+
+	title = balkfm.209.t
+	desc = balkfm.209.d
+	flavor = balkfm.209.f
+
 	event_image = {
-		video = "europenorthamerica_before_the_battle"
+		video = "unspecific_signed_contract"
 	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
+
 	duration = 3
 	
 	dlc = dlc_grefm
-	
+
 	trigger = {
-		NOT = { has_global_variable = balkfm_crisis_happened }
-		NOT = { has_global_variable = balkfm_crisis_fra_deconfliction_var }
-		has_journal_entry = je_great_eastern_crisis_main
-		owns_entire_state_region = STATE_CYPRUS
-		c:FRA = {
-			is_ai = yes
-			has_variable = balkfm_crisis_attacker
-		}
-		c:TUN ?= {
-			is_subject_of = c:TUR
-		}
-	}
-	
-	immediate = {
-		set_global_variable = balkfm_crisis_fra_deconfliction_var
-		c:FRA = {
-			save_scope_as = france_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		c:TUN ={
-			save_scope_as = tunis_scope
-		}
-	}
-	
-	option = {
-		name = balkfm.124.a
-		default_option = yes
-		custom_tooltip = {
-			text = balkfm.124.tt
-			hidden_effect = {
-				c:FRA = {
-					remove_variable = balkfm_crisis_attacker
-					set_variable = balkfm_tunis_convention
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = balkfm.124.b
-		change_relations = {
-			country = c:FRA
-			value = -10
-		}
 	}
 
-}
-
-balkfm.125 = { # The Convention of Tunis
-	type = country_event
-	placement = root
-	
-	title = balkfm.125.t
-	desc = balkfm.125.d
-	flavor = balkfm.125.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		global_var:balkfm_berlin_congress_var = 8
-		c:FRA ?= {
-			OR = {
-				has_variable = balkfm_crisis_attacker
-				has_variable = balkfm_tunis_convention
-			}
-		}
-		c:TUN ?= {
-			is_subject_of = c:TUR
-		}
-	}
-	
 	immediate = {
-		if = {
+		save_scope_as = formation_country
+		cu:bosniak = {
+			save_scope_as = unification_culture
+		}
+		cu:croat = {
+			save_scope_as = unification_culture_2
+		}
+		cu:serb = {
+			save_scope_as = unification_culture_3
+		}
+		cu:slovene = {
+			save_scope_as = unification_culture_4
+		}
+		every_country = {
 			limit = {
-				c:TUR = this
+				has_diplomatic_relevance = ROOT
 			}
-			every_country = {
-				limit = {
-					has_journal_entry = je_balkfm_congress_of_berlin_sub
-				}
-				trigger_event = {
-					id = balkfm.125
-				}
-			}
+			post_notification = unification_notification_four_culture
 		}
-		c:FRA = {
-			save_scope_as = france_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-		c:TUN ={
-			save_scope_as = tunis_scope
-		}
+		remove_variable = balkfm_yugoslav_leader_var
 	}
-	
-	cooldown = { # just to simplify trigger block
-		months = 1
-	}
-	
+
 	option = {
-		name = balkfm.125.a
+		name = balkfm.209.a
 		default_option = yes
-		trigger = {
-			c:FRA != this
+		add_modifier = {
+			name = unification_prestige
+			months = very_long_modifier_time
 		}
-		show_as_tooltip = {
-			c:FRA = {
-				create_diplomatic_pact = {
-					country = c:TUN
-					type = protectorate
+		every_state_region = {
+			limit = {
+				region = sr:region_balkans
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
 				}
 			}
-		}
-	}
-	
-	option = {
-		name = balkfm.125.a
-		trigger = {
-			c:FRA = this
-		}
-		create_diplomatic_pact = {
-			country = c:TUN
-			type = protectorate
+			add_claim = ROOT
 		}
 	}
 	
 }
-
-#################################################
-## #BALK2	YUGOSLAVISM FLAVOR	Events 200-299 ##
-#################################################
 
 
 #################################################
@@ -3037,6 +2027,13 @@ balkfm.331 = { # Negociations At Humac
 				expert_defensive_strategist
 			}
 		}
+		hidden_effect = {
+			c:TUR = {
+				trigger_event = {
+					id = balkfm.080 # Skirmishes with Montenegro
+				}
+			}
+		}
 		set_global_variable = balkfm_humac_happened
 		ai_chance = {
 			base = 100
@@ -3085,7 +2082,7 @@ balkfm.332 = { # Knives in the Dark
 	
 	trigger = {
 		has_journal_entry = je_balkfm_mon_ali_pasha
-		has_global_variable = balkfm_stabby_stabby # set by balkfm.405 (Disruptive Influence)
+		has_global_variable = balkfm_stabby_stabby # set by balkfm.470 (Disruptive Influence)
 	}
 	
 	immediate = {
@@ -3339,92 +2336,25 @@ balkfm.336 = { # Duplicitous Diplomacy
 			name = modifier_balkfm_display_of_poverty
 			months = short_modifier_time
 		}
-		set_variable = balkfm_ali_pasha_var
+		hidden_effect = {
+			c:TUR = {
+				trigger_event = {
+					id = balkfm.081 # The Schemes of Ali Pasha
+					days = 120
+				}
+			}
+		}
 	}
 
 }
 
-balkfm.337 = { # The Arrogance of Smail-aga
+balkfm.337 = { # The Arrogance of Smaïl-aga
 	type = country_event
 	placement = root
 	
 	title = balkfm.337.t
 	desc = balkfm.337.d
 	flavor = balkfm.337.f
-	
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		year = 1840
-		has_modifier = modifier_balkfm_tolerated_abuses
-	}
-	
-	immediate = {
-		balkfm_save_ali_pasha_scopes = yes
-		remove_modifier = modifier_balkfm_tolerated_abuses
-	}
-	
-	option = {
-		name = balkfm.337.a
-		default_option = yes
-	}
-	
-	orphan = yes
-
-}
-
-## OTTOMAN-MONTENEGRIN WARS ##
-
-balkfm.340 = { # The Lands of Montenegro (Warmup Event)
-	type = country_event
-	placement = root
-	
-	title = balkfm.340.t
-	desc = balkfm.340.d
-	flavor = balkfm.340.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.340.a
-		default_option = yes
-	}
-
-}
-
-balkfm.341 = { # Osman Pasha Attacks!
-	type = country_event
-	placement = root
-	
-	title = balkfm.341.t
-	desc = balkfm.341.d
-	flavor = balkfm.341.f
 	
 	event_image = {
 		video = "europenorthamerica_before_the_battle"
@@ -3439,33 +2369,272 @@ balkfm.341 = { # Osman Pasha Attacks!
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = balkfm_ali_pasha_var
-		NOT = { has_modifier = modifier_balkfm_display_of_poverty }
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = c:HRSK
+		}
+	}	
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:HRSK = {
+			save_scope_as = hersek_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.337.a # crush his ass
+		default_option = yes
+		trigger = {
+			this = c:TUR
+		}
+		create_diplomatic_play = {
+			name = balkfm_pasha_rebellion
+			target_country = c:HRSK
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:HRSK = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:TUR value = 100 }
+				add_diplomatic_play_war_support = { target = c:HRSK value = 100 }
+				add_war_goal = {
+					holder = c:TUR
+					type = conquer_state
+					target_state = scope:bosnia_state_scope
+				}
+			}
+		}
+		ai_chance = {
+			base = 99
+		}
+	}
+	
+	option = {
+		name = balkfm.337.b # let him go (lol wat)
+		trigger = {
+			this = c:TUR
+		}
+		add_modifier = {
+			name = modifier_balkfm_chickenshit
+			months = long_modifier_time
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	
+	option = {
+		name = balkfm.337.c
+		trigger = {
+			this = c:MON
+		}
+		show_as_tooltip = {
+			remove_modifier = modifier_balkfm_tolerated_abuses
+		}
+	}
+
+}
+
+balkfm.338 = { # The Arrogance of Ali Pasha
+	type = country_event
+	placement = root
+	
+	title = balkfm.338.t
+	desc = balkfm.338.d
+	flavor = balkfm.338.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = c:HRSK
+		}
+	}	
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:HRSK = {
+			save_scope_as = hersek_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.338.a
+		default_option = yes
+		trigger = {
+			this = c:TUR
+		}
+		create_diplomatic_play = {
+			name = balkfm_pasha_rebellion
+			target_country = c:HRSK
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:HRSK = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:TUR value = 100 }
+				add_diplomatic_play_war_support = { target = c:HRSK value = 100 }
+				add_war_goal = {
+					holder = c:TUR
+					type = conquer_state
+					target_state = scope:bosnia_state_scope
+				}
+			}
+		}
+		ai_chance = {
+			base = 99
+		}
+	}
+	
+	option = {
+		name = balkfm.338.b # let him go (lol wat)
+		trigger = {
+			this = c:TUR
+		}
+		add_modifier = {
+			name = modifier_balkfm_chickenshit
+			months = long_modifier_time
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	
+	option = {
+		name = balkfm.338.c
+		trigger = {
+			this = c:MON
+		}
+	}
+
+	after = {
+		remove_global_variable = balkfm_ali_pasha_var # unblocks balkfm.082
+	}
+
+}
+
+balkfm.339 = { # Ali Pasha's Demise
+	type = country_event
+	placement = root
+	
+	title = balkfm.339.t
+	desc = balkfm.339.d
+	flavor = balkfm.339.f
+	
+	event_image = {
+		video = "votp_hostile_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
 	}
 	
 	immediate = {
 		balkfm_save_ali_pasha_scopes = yes
-		remove_variable = balkfm_ali_pasha_var
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
-		name = balkfm.341.a
+		name = balkfm.339.a
+		default_option = yes
+		scope:ali_pasha_scope = {
+			kill_character = yes
+		}
+		set_global_variable = balkfm_ali_pasha_waxed
+	}
+
+}
+
+## OTTOMAN-MONTENEGRIN WARS ##
+
+balkfm.340 = { # Osman Pasha Attacks!
+	type = country_event
+	placement = root
+	
+	title = balkfm.340.t
+	desc = balkfm.340.d
+	flavor = balkfm.340.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		balkfm_save_ali_pasha_scopes = yes
+	}
+	
+	option = {
+		name = balkfm.340.a
 		default_option = yes
 		trigger_event = {
-			id = balkfm.342
+			id = balkfm.341
 			days = 90
 		}
 	}
 
 }
 
-balkfm.342 = { # International Indifference
+balkfm.341 = { # International Indifference
 	type = country_event
 	placement = root
 	
-	title = balkfm.342.t
-	desc = balkfm.342.d
-	flavor = balkfm.342.f
+	title = balkfm.341.t
+	desc = balkfm.341.d
+	flavor = balkfm.341.f
 	
 	event_image = {
 		video = "southamerica_aristocrats"
@@ -3487,7 +2656,7 @@ balkfm.342 = { # International Indifference
 	}
 	
 	option = { # take it on the chin
-		name = balkfm.342.a
+		name = balkfm.341.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_border_defense
@@ -3499,7 +2668,7 @@ balkfm.342 = { # International Indifference
 	}
 	
 	option = { # get clapped again
-		name = balkfm.342.b
+		name = balkfm.341.b
 		trigger = {
 			c:TUR ?= {
 				has_state_in_state_region = STATE_MONTENEGRO
@@ -3510,14 +2679,85 @@ balkfm.342 = { # International Indifference
                 type = dp_return_state
                 target_state = s:STATE_MONTENEGRO.region_state:TUR
 		}
-		custom_tooltip = balkfm.342.tt
+		custom_tooltip = balkfm.341.tt
 		ai_chance = {
 			base = 1
 		}
 	}
 
-	after = {
-		set_variable = balkfm_ali_pasha_completed
+}
+
+#### MONTENEGRIN NATIONALISM ####
+
+balkfm.380 = { # The Black Mountain
+	type = country_event
+	placement = root
+	
+	title = balkfm.380.t
+	desc = balkfm.380.d
+	flavor = balkfm.380.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.380.a
+		default_option = yes
+		s:STATE_MONTENEGRO = {
+			add_claim = root
+		}
+	}
+
+}
+
+balkfm.381 = { # The Lands of Montenegro
+	type = country_event
+	placement = root
+	
+	title = balkfm.381.t
+	desc = balkfm.381.d
+	flavor = balkfm.381.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.381.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_reclaimed_lovcen
+			months = long_modifier_time
+		}
 	}
 
 }
@@ -3741,6 +2981,13 @@ balkfm.400 = { # Mileta's Rebellion
 		balkfm_calculate_dynasty_support = yes
 		balkfm_define_leading_dynasty = yes		
 	}
+	
+	after = {
+		trigger_event = {
+			id = balkfm.404 # The Blood Feud
+			days = 90
+		}
+	}
 
 }
 
@@ -3816,6 +3063,9 @@ balkfm.401 = { # A Constitution Imposed
 			id = balkfm.402 # An Inexperienced Ruler
 			days = 30
 		}
+		call_election = {
+			months = 1
+		}
 		set_variable = balkfm_milos_bailed_out
 	}
 	
@@ -3889,59 +3139,13 @@ balkfm.402 = { # An Inexperienced Ruler
 
 }
 
-balkfm.403 = { # Mandate Secured
+balkfm.403 = { # In Defense of the Constitution
 	type = country_event
 	placement = root
 	
 	title = balkfm.403.t
 	desc = balkfm.403.d
 	flavor = balkfm.403.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = serbia_ruler_scope
-		}
-	}
-	
-	option = {
-		name = balkfm.403.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_mandate_secured_country
-			months = normal_modifier_time
-		}
-		scope:serbia_ruler_scope = {
-			add_modifier = {
-				name = modifier_balkfm_mandate_secured_leader
-				months = long_modifier_time
-			}
-		}
-	}
-
-}
-
-balkfm.404 = { # In Defense of the Constitution
-	type = country_event
-	placement = root
-	
-	title = balkfm.404.t
-	desc = balkfm.404.d
-	flavor = balkfm.404.f
 	
 	event_image = {
 		video = "europenorthamerica_political_extremism"
@@ -3996,16 +3200,22 @@ balkfm.404 = { # In Defense of the Constitution
 					set_variable = balkfm_karadordevic_tracker
 				}
 			}
+			random_scope_character = {
+				limit = {
+					has_variable = balkfm_karadordevic_tracker
+				}
+				save_scope_as = kaykay_scope
+			}			
 			set_variable = balkfm_kaykay_var
 		}
 		remove_variable = balkfm_milos_bailed_out
 	}	
 	
 	option = {
-		name = balkfm.404.a
+		name = balkfm.403.a
 		default_option = yes
 		custom_tooltip = {
-			text = balkfm.404.tt1
+			text = balkfm.403.tt1
 			hidden_effect = {
 				scope:mihailo_scope = {
 					place_character_in_void = 150 # characters will expire after 15 years
@@ -4026,13 +3236,25 @@ balkfm.404 = { # In Defense of the Constitution
 			}
 		}
 		custom_tooltip = {
-			text = balkfm.404.tt2
+			text = balkfm.403.tt2
 			hidden_effect = {
 				set_variable = {
 					name = karadordevic_support_var
 					value = 200
 				}
 			}
+		}
+		add_journal_entry = {
+			type = je_balkfm_ser_defenders
+		}
+		add_journal_entry = {
+			type = je_balkfm_ser_statism
+		}
+		add_journal_entry = {
+			type = je_balkfm_ser_civics
+		}
+		add_journal_entry = {
+			type = je_balkfm_ser_economics
 		}
 		remove_variable = obrenovic_crowned_var
 		set_variable = karadordevic_crowned_var
@@ -4044,19 +3266,19 @@ balkfm.404 = { # In Defense of the Constitution
 
 }
 
-balkfm.405 = { # Disruptive Influence
+balkfm.404 = { # The Blood Feud
 	type = country_event
 	placement = root
 	
-	title = balkfm.405.t
-	desc = balkfm.405.d
-	flavor = balkfm.405.f
+	title = balkfm.404.t
+	desc = balkfm.404.d
+	flavor = balkfm.404.f
 	
 	event_image = {
-		video = "southamerica_aristocrats"
+		video = "africa_leader_arguing"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -4065,60 +3287,223 @@ balkfm.405 = { # Disruptive Influence
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_global_variable = balkfm_humac_happened # set by balkfm.331 (Negociations at Humac)
-		exists = c:MON
 	}
 	
 	immediate = {
-		remove_global_variable = balkfm_humac_happened
-		balkfm_save_ali_pasha_scopes = yes
-		c:MON = {
-			save_scope_as = montenegro_scope
-			ruler = {
-				save_scope_as = montenegro_ruler_scope
-			}
-		}
-		s:STATE_NORTHERN_SERBIA = {
-			random_scope_state = {
-				save_scope_as = northern_serbia_state_scope
-			}
-		}
+	}	
+	
+	option = {
+		name = balkfm.404.a
+		default_option = yes
+		custom_tooltip = balkfm.404.tt
+	}
+
+}
+
+balkfm.405 = { # Serbia Reforged
+	type = country_event
+	placement = root
+	
+	title = balkfm.405.t
+	desc = balkfm.405.d
+	flavor = balkfm.405.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	option = { # stir the pot
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
 		name = balkfm.405.a
 		default_option = yes
-		change_relations = {
-			country = c:MON
-			value = 20
+		add_modifier = {
+			name = modifier_balkfm_responsive_regime
+			months = normal_modifier_time
 		}
-		set_global_variable = balkfm_stabby_stabby # triggers balkfm.332 (Knives in the Dark)
-		ai_chance = {
-			base = 10
-			modifier = {
-				trigger = {
-					c:MON ?= {
-						relations:root < relations_threshold:neutral
-					}
-				}
-				add = -10
-			}
+		add_loyalists = {
+			value = small_radicals
 		}
 	}
+
+}
+
+balkfm.406 = { # Absent Reform
+	type = country_event
+	placement = root
 	
-	option = { # do nothing
-		name = balkfm.405.b
-		ai_chance = {
-			base = 0
-			modifier = {
-				trigger = {
-					c:MON ?= {
-						relations:root < relations_threshold:neutral
-					}
-				}
-				add = 10
-			}
+	title = balkfm.406.t
+	desc = balkfm.406.d
+	flavor = balkfm.406.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.406.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_absent_reforms
+			months = normal_modifier_time
 		}
+		add_radicals = {
+			strata = middle
+			value = medium_radicals
+		}
+		add_radicals = {
+			strata = poor
+			value = medium_radicals
+		}
+	}
+
+}
+
+balkfm.407 = { # Stately Foundation Established
+	type = country_event
+	placement = root
+	
+	title = balkfm.407.t
+	desc = balkfm.407.d
+	flavor = balkfm.407.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.407.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_stately_foundation
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_statism_completed
+	}
+
+}
+
+balkfm.408 = { # Civil Code Implemented
+	type = country_event
+	placement = root
+	
+	title = balkfm.408.t
+	desc = balkfm.408.d
+	flavor = balkfm.408.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.408.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_civil_code_established
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_civics_completed
+	}
+
+}
+
+balkfm.409 = { # Economic System Reformed
+	type = country_event
+	placement = root
+	
+	title = balkfm.409.t
+	desc = balkfm.409.d
+	flavor = balkfm.409.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.409.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_modernized_economics
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+		set_variable = balkfm_economy_completed
 	}
 
 }
@@ -4231,6 +3616,7 @@ balkfm.411 = { # House Obrenović Takes the Throne
 	}
 	
 	after = {
+		balkfm_update_dynasty_variables = yes
 		balkfm_define_leading_dynasty = yes
 	}
 	
@@ -4326,6 +3712,7 @@ balkfm.412 = { # Plague Outbreak!
 	}
 	
 	after = {
+		balkfm_update_dynasty_variables = yes
 		balkfm_define_leading_dynasty = yes
 	}
 	
@@ -4407,6 +3794,7 @@ balkfm.413 = { # Abusive Garrison
 	}
 	
 	after = {
+		balkfm_update_dynasty_variables = yes
 		balkfm_define_leading_dynasty = yes
 	}
 
@@ -4525,7 +3913,6 @@ balkfm.414 = { # Austria/Russia Requests Primacy
 		}
 	}
 	
-	
 	option = { # Adopt New Order of Precedence
 		name = balkfm.414.b
 		add_modifier = {
@@ -4585,6 +3972,7 @@ balkfm.414 = { # Austria/Russia Requests Primacy
 	}
 	
 	after = {
+		balkfm_update_dynasty_variables = yes
 		balkfm_define_leading_dynasty = yes
 	}
 
@@ -4700,14 +4088,194 @@ balkfm.415 = { # National Desires
 	}
 	
 	after = {
+		balkfm_update_dynasty_variables = yes
 		balkfm_define_leading_dynasty = yes
 	}
 
 }
 
+balkfm.419 = { # Mandate Secured
+	type = country_event
+	placement = root
+	
+	title = balkfm.419.t
+	desc = balkfm.419.d
+	flavor = balkfm.419.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = { # triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = serbia_ruler_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.419.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_mandate_secured_country
+			months = normal_modifier_time
+		}
+		scope:serbia_ruler_scope = {
+			add_modifier = {
+				name = modifier_balkfm_mandate_secured_leader
+				months = long_modifier_time
+			}
+		}
+	}
+
+}
+
+#### HEREDITARY MONARCHY EVENTS ####
+
+balkfm.420 = { # Cementing the Monarchy
+	type = country_event
+	placement = root
+	
+	title = balkfm.420.t
+	desc = balkfm.420.d
+	flavor = balkfm.420.f
+	
+	event_image = {
+#		video = "unspecific_peasants_pouring_cement"
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+#	icon = "gfx/interface/icons/event_icons/pouring_cement.dds"
+	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+#		has_variable = In_need_of_new_driveway...
+	}
+	
+	immediate = {
+#		set_variable = ...anybody_know_a_good_cement_guy?
+	}	
+	
+	option = {
+		name = balkfm.420.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_ser_pouring_cement
+		}
+	}
+	
+#	option = {
+#		name = balkfm.420.cement
+#		set_variable = balkfm_new_driveway_var
+#	}
+#
+#	after = {
+#		balkfm_pass_me_the_hookah = yes
+#	}
+#
+}
+
+#### DIPLOMATIC EVENTS ####
+
+balkfm.470 = { # Disruptive Influence
+	type = country_event
+	placement = root
+	
+	title = balkfm.470.t
+	desc = balkfm.470.d
+	flavor = balkfm.470.f
+	
+	event_image = {
+		video = "southamerica_aristocrats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = balkfm_humac_happened # set by balkfm.331 (Negociations at Humac)
+		exists = c:MON
+	}
+	
+	immediate = {
+		remove_global_variable = balkfm_humac_happened
+		balkfm_save_ali_pasha_scopes = yes
+		c:MON = {
+			save_scope_as = montenegro_scope
+			ruler = {
+				save_scope_as = montenegro_ruler_scope
+			}
+		}
+		s:STATE_NORTHERN_SERBIA = {
+			random_scope_state = {
+				save_scope_as = northern_serbia_state_scope
+			}
+		}
+	}
+	
+	option = { # stir the pot
+		name = balkfm.470.a
+		default_option = yes
+		change_relations = {
+			country = c:MON
+			value = 20
+		}
+		set_global_variable = balkfm_stabby_stabby # triggers balkfm.332 (Knives in the Dark)
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					c:MON ?= {
+						relations:root < relations_threshold:neutral
+					}
+				}
+				add = -10
+			}
+		}
+	}
+	
+	option = { # do nothing
+		name = balkfm.470.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					c:MON ?= {
+						relations:root < relations_threshold:neutral
+					}
+				}
+				add = 10
+			}
+		}
+	}
+
+}
+
+
 #### SERBIAN NATIONALISM EVENTS ####
 
-balkfm.480 = { # The Draft
+balkfm.480 = { # The Serbian Heartlands
 	type = country_event
 	placement = root
 	
@@ -4715,14 +4283,13 @@ balkfm.480 = { # The Draft
 	desc = balkfm.480.d
 	flavor = balkfm.480.f
 	
-	gui_window = event_window_1char_tabloid
-
-	left_icon = scope:garasanin_scope
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
 	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
@@ -4732,52 +4299,117 @@ balkfm.480 = { # The Draft
 	}
 	
 	immediate = {
-		# Ilija Garašanin, Prime Minister of Serbia 1861-1867, author of "The Draft"
-		create_character = {
-			first_name = Ilija
-			last_name = Garasanin
-			historical = yes
-			age = 30
-			culture = cu:serb
-			interest_group = ig_intelligentsia
-			traits = {
-				expert_political_operator
-			}
-			on_created = {
-				set_variable = balkfm_is_garasanin
-				place_character_in_void = 10 # just for this event
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_is_garasanin
-			}
-			save_scope_as = garasanin_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
 	}
 	
-	option = { # give this man a job
+	option = {
 		name = balkfm.480.a
 		default_option = yes
-		scope:garasanin_scope = {
-			transfer_character = ROOT
-			set_as_interest_group_leader = yes
+		add_journal_entry = {
+			type = je_balkfm_ser_serbian_heartlands
+		}
+	}
+
+}
+
+balkfm.481 = { # Greater Serbia
+	type = country_event
+	placement = root
+	
+	title = balkfm.481.t
+	desc = balkfm.481.d
+	flavor = balkfm.481.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.481.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_ser_greater_serbia
+		}
+		s:STATE_MONTENEGRO = {
+			add_claim = root
+		}
+		s:STATE_BOSNIA = {
+			add_claim = root
+		}
+		s:STATE_DALMATIA = {
+			add_claim = root
+		}
+		s:STATE_SLAVONIA = {
+			add_claim = root
+		}
+		s:STATE_BANAT = {
+			add_claim = root
+		}
+		s:STATE_DELVIDEK = {
+			add_claim = root
+		}
+	}
+
+}
+
+balkfm.482 = { # The Serbian Empire
+	type = country_event
+	placement = root
+	
+	title = balkfm.482.t
+	desc = balkfm.482.d
+	flavor = balkfm.482.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.482.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_serbian_resurgence
+			months = very_long_modifier_time
+		}
+		every_state_region = {
+			limit = {
+				region = sr:region_balkans
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
+			}
+			add_claim = ROOT
 		}
 	}
 	
-	option = { # I'm a poor boy
-		name = balkfm.480.b
-		custom_tooltip = {
-			text = balkfm_weaksauce_ser
-			hidden_effect = {
-				set_variable = balkfm_weaksauce
-			}
-		}	
-	}
-
 }
 
 #################################################
@@ -6559,7 +6191,7 @@ balkfm.581 = { # The Unification of Bulgaria
 		}
 		else = {
 			custom_tooltip = {
-				text = romania.2.a.ttb
+				text = balkfm.680.a.ttb
 				create_diplomatic_pact = {
 					country = scope:rumelia_scope
 					type = puppet
@@ -6837,7 +6469,7 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 		default_option = yes
 		change_tag = TSAR
 		add_journal_entry = {
-			type = je_balkfm_bul_yugoslavia
+			type = je_balkfm_nacertanije_alternate
 		}
 		every_state_region = {
 			limit = {
@@ -6951,7 +6583,7 @@ balkfm.586 = { # The Bulgarian Empire
 		name = balkfm.586.a
 		default_option = yes
 		add_modifier = {
-			name = unification_prestige
+			name = modifier_balkfm_bulgarian_resurgence
 			months = very_long_modifier_time
 		}
 		every_state_region = {
@@ -6977,7 +6609,7 @@ balkfm.587 = { # The Slavic Balkans
 	flavor = balkfm.587.f
 	
 	event_image = {
-		video = "votp_monarch_holding_court"
+		video = "unspecific_signed_contract"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
@@ -6992,7 +6624,7 @@ balkfm.587 = { # The Slavic Balkans
 	}
 	
 	immediate = {
-		set_global_variable = has_formed_yug
+		add_primary_culture = cu:bulgarian
 		save_scope_as = formation_country
 		cu:bosniak = {
 			save_scope_as = unification_culture
@@ -7017,7 +6649,6 @@ balkfm.587 = { # The Slavic Balkans
 	option = {
 		name = balkfm.587.a
 		default_option = yes
-		change_tag = YUG
 		add_modifier = {
 			name = unification_prestige
 			months = very_long_modifier_time
@@ -7031,12 +6662,6 @@ balkfm.587 = { # The Slavic Balkans
 				}
 			}
 			add_claim = ROOT
-		}
-	}
-	
-	after = {
-		hidden_effect = {
-			add_primary_culture = cu:bulgarian
 		}
 	}
 
@@ -7105,7 +6730,7 @@ balkfm.598 = { # The Bulgarian State
 	
 	trigger = {
 		NOT = { has_global_variable = balkfm_bulgaria_tag_switch_accepted }
-		has_global_variable = balkfm_berlin_congress_completed
+		has_global_variable = eqfm_berlin_congress_completed
 		NOT = { has_global_variable = balkfm_bulgaria_tag_switch_technical }
 		NOT = { has_variable = balkfm_bulgaria_tag_switch_offered }
 		is_player = yes
@@ -7200,6 +6825,811 @@ balkfm.599 = { # The Golden Lion Awakens (Alternate)
 ## #BALK6	MOLDOVA / WALLACHIA / ROMANIA FLAVOR	Events 600-699 ##
 #####################################################################
 
+#### MOLDOVIA-SPECIFIC EVENTS ####
+
+balkfm.600 = { # The Lands of Stephen the Great
+	type = country_event
+	placement = root
+	
+	title = balkfm.600.t
+	desc = balkfm.600.d
+	flavor = balkfm.600.f
+	
+	event_image = {
+		video = "rp1_brazilian_city"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+		c:WAL = {
+			save_scope_as = wallachia_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.600.a
+		default_option = yes
+		trigger_event = {
+			id = balkfm.620 #The Regulamentul Organic
+			days = 30
+		}
+	}
+
+}
+
+#### WALLACHIA-SPECIFIC EVENTS ####
+
+balkfm.610 = { # The Land Beyond the Snowy Mountains
+	type = country_event
+	placement = root
+	
+	title = balkfm.610.t
+	desc = balkfm.610.d
+	flavor = balkfm.610.f
+	
+	event_image = {
+		video = "rp1_brazilian_city"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+		c:WAL = {
+			save_scope_as = wallachia_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.610.a
+		default_option = yes
+		trigger_event = {
+			id = balkfm.620 #The Regulamentul Organic
+			days = 30
+		}
+	}
+
+}
+
+#### REGULAMENTUL ORGANIC EVENTS ####
+
+balkfm.620 = { # The Regulamentul Organic
+	type = country_event
+	placement = root
+	
+	title = balkfm.620.t
+	desc = balkfm.620.d
+	flavor = balkfm.620.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+		c:WAL = {
+			save_scope_as = wallachia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.620.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_regulamentul_organic
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_legal_modernization
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_economic_modernization
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_social_modernization
+		}
+	}
+
+}
+
+balkfm.621 = { # Renewed Legal Standards
+	type = country_event
+	placement = root
+	
+	title = balkfm.621.t
+	desc = balkfm.621.d
+	flavor = balkfm.621.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.621.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_legal_reforms
+			months = long_modifier_time
+		}
+		set_variable = balkfm_regulamentul_legal
+	}
+
+}
+
+balkfm.622 = { # Modernized Economy
+	type = country_event
+	placement = root
+	
+	title = balkfm.622.t
+	desc = balkfm.622.d
+	flavor = balkfm.622.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.622.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_economic_reforms
+			months = long_modifier_time
+		}
+		set_variable = balkfm_regulamentul_economic
+	}
+
+}
+
+balkfm.623 = { # Social Equity
+	type = country_event
+	placement = root
+	
+	title = balkfm.623.t
+	desc = balkfm.623.d
+	flavor = balkfm.623.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.622.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_economic_reforms
+			months = long_modifier_time
+		}
+		set_variable = balkfm_regulamentul_social
+	}
+
+}
+
+balkfm.624 = { # Electing a Hospodar (MOL)
+	type = country_event
+	placement = root
+	
+	title = balkfm.624.t
+	desc = balkfm.624.d
+	flavor = balkfm.624.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:balkfm_regulamentul_var <= 0
+		c:MOL ?= this
+	}
+	
+	immediate = {
+		change_variable = {
+			name = balkfm_hospodar_election_counter
+			add = 1
+		}		
+		change_variable = {
+			name = balkfm_regulamentul_var
+			add = 7
+		}
+		balkfm_moldavian_election_effect = yes
+		ruler = {
+			save_scope_as = balkfm_hospodar_candidate_1
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_m1
+			}
+			save_scope_as = balkfm_hospodar_candidate_2
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_m2
+			}
+			save_scope_as = balkfm_hospodar_candidate_3
+		}
+	}
+	
+	option = { # keep current ruler
+		name = balkfm.624.a
+		default_option = yes
+		scope:balkfm_hospodar_candidate_1 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # historical successor
+		name = balkfm.624.b
+		scope:balkfm_hospodar_candidate_2 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # alternate successor
+		name = balkfm.624.c
+		scope:balkfm_hospodar_candidate_3 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	after = {
+		change_variable = {
+			name = balkfm_regulamentul_var
+			add = 7
+		}
+		ruler = {
+			remove_variable = balkfm_hospodar_m1
+			remove_variable = balkfm_hospodar_m2
+			remove_variable = balkfm_hospodar_w1
+			remove_variable = balkfm_hospodar_w2
+		}
+	}
+
+}
+
+balkfm.625 = { # Electing a Hospodar (WAL)
+	type = country_event
+	placement = root
+	
+	title = balkfm.625.t
+	desc = balkfm.625.d
+	flavor = balkfm.625.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:balkfm_regulamentul_var <= 0
+		c:WAL ?= this
+	}
+	
+	immediate = {
+		change_variable = {
+			name = balkfm_hospodar_election_counter
+			add = 1
+		}		
+		change_variable = {
+			name = balkfm_regulamentul_var
+			add = 7
+		}
+		balkfm_wallachian_election_effect = yes
+		ruler = {
+			save_scope_as = balkfm_hospodar_candidate_1
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_w1
+			}
+			save_scope_as = balkfm_hospodar_candidate_2
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_hospodar_w2
+			}
+			save_scope_as = balkfm_hospodar_candidate_3
+		}
+	}
+	
+	option = { # keep current ruler
+		name = balkfm.625.a
+		default_option = yes
+		scope:balkfm_hospodar_candidate_1 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # historical successor
+		name = balkfm.625.b
+		scope:balkfm_hospodar_candidate_2 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	option = { # alternate successor
+		name = balkfm.625.c
+		scope:balkfm_hospodar_candidate_3 = {
+			set_character_as_ruler = yes
+		}
+	}
+	
+	after = {
+
+		ruler = {
+			remove_variable = balkfm_hospodar_m1
+			remove_variable = balkfm_hospodar_m2
+			remove_variable = balkfm_hospodar_w1
+			remove_variable = balkfm_hospodar_w2
+		}
+	}
+
+}
+
+balkfm.626 = { # The Death of Feudalism
+	type = country_event
+	placement = root
+	
+	title = balkfm.626.t
+	desc = balkfm.626.d
+	flavor = balkfm.626.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		set_variable = balkfm_regulamentul_completed
+	}
+	
+	option = {
+		name = balkfm.626.a
+		default_option = yes
+		add_loyalists = {
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_balkfm_outgrew_feudalist_roots
+			months = long_modifier_time
+		}
+	}
+	
+}
+
+#### ROMANIAN UNIFICATION EVENTS ####
+
+balkfm.680 = { # Our Declaration of Union (romania.2, integrated into balkfm)
+	type = country_event
+
+	title = balkfm.680.t
+	desc = balkfm.680.d
+	flavor = balkfm.680.f
+
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+
+	duration = 3
+
+	trigger = {
+	}
+
+	immediate = {
+        random_country = {
+        	limit = {
+	        	NOT = { this = ROOT }
+	        	country_has_primary_culture = cu:romanian
+	            relations:root >= 25
+	            OR = {
+	            	AND = {
+	            		exists = top_overlord
+						is_subject = yes
+						top_overlord = {
+							THIS = root.top_overlord
+						}
+					}
+					is_subject = no
+	            }
+        	}
+        	save_scope_as = romania_lesser_partner
+        	set_variable = {
+        		name = romania_union_partner
+        	}
+        }
+		if = { # this goes in the immediate because of the simplified variables
+			limit = {
+				has_law = law_type:law_monarchy
+				scope:romania_lesser_partner = {
+					has_law = law_type:law_monarchy
+				}
+			}
+			custom_tooltip = {
+				text = balkfm.680.a.tta
+				create_diplomatic_pact = {
+					country = scope:romania_lesser_partner
+					type = personal_union
+				}
+			}
+		}
+		else = {
+			custom_tooltip = {
+				text = balkfm.680.a.ttb
+				create_diplomatic_pact = {
+					country = scope:romania_lesser_partner
+					type = puppet
+				}
+			}
+		}
+    }
+
+	option = { # je_all_for_one is out in order to bring the entire event chain under balkfm control; this should make this compatible with VTM since it knocks out all romania content
+		name = balkfm.680.a
+		default_option = yes
+		show_as_tooltip = {
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					scope:romania_lesser_partner = {
+						has_law = law_type:law_monarchy
+					}
+				}
+				custom_tooltip = {
+					text = balkfm.680.a.tta
+					create_diplomatic_pact = {
+						country = scope:romania_lesser_partner
+						type = personal_union
+					}
+				}
+			}
+			else = {
+				custom_tooltip = {
+					text = balkfm.680.a.ttb
+					create_diplomatic_pact = {
+						country = scope:romania_lesser_partner
+						type = puppet
+					}
+				}
+			}
+		}
+	}
+}
+
+balkfm.681 = { # Awaken Thee, Romanian! (romania.3, integrated into balkfm)
+	type = country_event
+	placement = ROOT
+	title = balkfm.681.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = balkfm.681.d2
+				trigger = {
+					exists = c:TRS
+					any_subject_or_below = {
+						c:TRS = this
+					}
+				}
+			}
+			triggered_desc = {
+				desc = balkfm.681.d
+				trigger = {
+					NOT = {
+						any_subject_or_below = {
+							c:TRS = this
+						}
+					}
+				}
+			}
+		}
+	}
+	flavor =  balkfm.681.f
+
+	duration = 3
+
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	trigger = {
+		# triggered by JE
+	}
+
+	immediate = {
+        random_neighbouring_state = {
+            limit = {
+                owner = {
+                    has_variable = romania_union_partner
+                }
+            }
+            owner = {
+                save_scope_as = romania_lesser_union_partner
+            }
+        }
+        if = {
+        	limit = {
+	        	exists = c:TRS
+	        	c:TRS = {
+	        		is_subject_of = ROOT
+	        	}
+	        }
+	        c:TRS = {
+	        	save_scope_as = transylvania_union_partner
+	        }
+        }
+	}
+
+	option = { # Unite Romania
+		name = balkfm.681.a
+		default_option = yes
+		if = {
+			limit = {
+				scope:romania_lesser_union_partner = {
+					is_subject_of = ROOT
+					is_player = no
+				}
+			}
+			annex = scope:romania_lesser_union_partner
+		}
+		if = {
+			limit = {
+				c:TRS ?= {
+					is_subject_of = ROOT
+					is_player = no
+				}
+			}
+			annex = c:TRS
+		}
+		change_tag = ROM
+	}
+
+}
+
+balkfm.682 = { # Retrocession Granted
+	type = country_event
+	placement = root
+	
+	title = balkfm.682.t
+	desc = balkfm.682.d
+	flavor = balkfm.682.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = balkfm_bessarabia_owner
+			}
+			save_scope_as = romanian_bessarabia_owner
+		}
+	}
+	
+	option = {
+		name = balkfm.682.a
+		default_option = yes
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:romanian_bessarabia_owner
+				value = 25
+			}
+			scope:romanian_bessarabia_owner = {
+				change_relations = {
+					country = ROOT
+					value = 25
+				}
+			}
+		}
+	}
+
+}
+
+balkfm.683 = { # Retrocession Denied
+	type = country_event
+	placement = root
+	
+	title = balkfm.683.t
+	desc = balkfm.683.d
+	flavor = balkfm.683.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = balkfm_bessarabia_owner
+			}
+			save_scope_as = romanian_bessarabia_owner
+		}
+	}
+	
+	option = {
+		name = balkfm.683.a
+		default_option = yes
+		show_as_tooltip = {
+			change_relations = {
+				country = scope:romanian_bessarabia_owner
+				value = -25
+			}
+			scope:romanian_bessarabia_owner = {
+				change_relations = {
+					country = ROOT
+					value = -25
+				}
+			}
+		}
+		remove_variable = balkfm_requested_retrocession
+	}
+
+}
+
 
 #################################################
 ## #BALK7	BOSNIA FLAVOR		Events 700-799 ##
@@ -7211,166 +7641,23 @@ balkfm.599 = { # The Golden Lion Awakens (Alternate)
 #################################################
 
 
-##################################################
-##	#BALK9	TECHNICAL EVENTS	Events 900-999	##
-##################################################
+##########################################################################
+##	#BALK9	SLOVENIA / CROATIA / TRIUNE KINGDOM EVENTS	Events 900-999	##
+##########################################################################
 
-#### HIDDEN TECHNICAL EFFECTS (COUNTRY SPAWNS) ####
-balkfm.900 = { # OPEN
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-	}
-	
-	orphan = yes
-	
-}
-
-balkfm.901 = { # Minor Turk-splosion
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-		balkfm_minor_turkboom = yes
-	}
-	
-	orphan = yes
-	
-}
-
-balkfm.902 = { # Major Turk-splosion
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-		balkfm_major_turkboom = yes
-	}
-	
-	orphan = yes
-	
-}
-
-balkfm.903 = { # OPEN
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-	}
-	
-	orphan = yes
-	
-}
-
-balkfm.904 = { # OPEN
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-	}
-	
-	orphan = yes
-	
-}
-
-balkfm.905 = { # creates BUL when called
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-		balkfm_create_bulgaria_test = yes
-	}
-	
-	orphan = yes
-	
-}
-
-#### HIDDEN TECHNICAL EFFECTS (VARIABLE CLEANUP) ####
-balkfm.910 = { # Cleans Up Global Crisis/Berlin Variables
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-		every_country = {
-			limit = {
-				balkfm_crisis_participant_trigger = yes
-			}
-			balkfm_clean_up_crisis_variables = yes
-		}
-		remove_global_variable = balkfm_crisis_var
-		remove_global_variable = balkfm_berlin_congress_var
-	}
-	
-	
-	orphan = yes
-	
-}
-
-balkfm.911 = { # Cleans Up Balkan Wars Variables
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-
-	immediate = {
-#		every_country = {
-#			limit = {
-#				balkfm_thunderdome_participant_trigger = yes
-#			}
-#			balkfm_clean_up_thunderdome_variables = yes
-#		}
-#		remove_global_variable = balkfm_thunderdome_var
-	}
-	
-	
-	orphan = yes
-	
-}
-
-#### TEST EVENT ####
-balkfm.998 = { # Test Event
+balkfm.980 = { # The Triune Dream
 	type = country_event
 	placement = root
 	
-	title = balkfm.999.t
-	desc = balkfm.999.d
-	flavor = balkfm.999.f
+	title = balkfm.980.t
+	desc = balkfm.980.d
+	flavor = balkfm.980.f
 	
 	event_image = {
-		video = "unspecific_signed_contract"
+		video = "europenorthamerica_political_extremism"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -7382,127 +7669,118 @@ balkfm.998 = { # Test Event
 	}
 	
 	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.999.a
-		default_option = yes
-		create_diplomatic_pact = {
-			country = c:RUS
-			type = humiliation
-		}
-		create_truce = {
-			country = c:RUS
-			months = 48
-		}
-	}
-	
-	option = {
-		name = balkfm.999.a
-		create_diplomatic_pact = {
-			country = c:RUS
-			type = war_reparations
-		}
-		create_truce = {
-			country = c:RUS
-			months = 48
-		}
-	}
-	
-	after = {
-	}
-	
-	orphan = yes
-
-}
-
-balkfm.999 = { # Crisis Test Event
-	type = country_event
-	placement = root
-	
-	title = balkfm.999.t
-	desc = balkfm.999.d
-	flavor = balkfm.999.f
-	
-	gui_window = event_window_crisis
-	
-	event_image = {
-		video = "balkfm_balkan_crisis"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		c:RUS = {
-			ruler = {
-				save_scope_as = crisis_scope_1
-			}
-		}
-		set_variable = {
-			name = balkfm_crisis_var_1
-			value = scope:crisis_scope_1
-		}
 		c:AUS = {
-			ruler = {
-				save_scope_as = crisis_scope_2
-			}
+			save_scope_as = austria_scope
 		}
-		set_variable = {
-			name = balkfm_crisis_var_2
-			value = scope:crisis_scope_2
-		}
-		c:GRE = {
-			ruler = {
-				save_scope_as = crisis_scope_3
-			}
-		}
-		set_variable = {
-			name = balkfm_crisis_var_3
-			value = scope:crisis_scope_3
-		}
-		c:EGY = {
-			ruler = {
-				save_scope_as = crisis_scope_4
-			}
-		}
-		set_variable = {
-			name = balkfm_crisis_var_4
-			value = scope:crisis_scope_4
-		}
-		c:TUR = {
-			ruler = {
-				save_scope_as = crisis_scope_5
-			}
-		}
-		set_variable = {
-			name = balkfm_crisis_var_5
-			value = scope:crisis_scope_5
-		}
-		c:TUN = {
-			ruler = {
-				save_scope_as = crisis_scope_6
-			}
-		}
-		set_variable = {
-			name = balkfm_crisis_var_6
-			value = scope:crisis_scope_6
+		c:SER = {
+			save_scope_as = serbia_scope
 		}
 	}
 	
 	option = {
-		name = balkfm.999.a
+		name = balkfm.980.a
 		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_triune_restoration
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SLOVENIA
+					owns_entire_state_region = STATE_SLOVENIA
+				}
+			}
+			s:STATE_SLOVENIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SLAVONIA
+					owns_entire_state_region = STATE_SLAVONIA
+				}
+			}
+			s:STATE_SLAVONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CROATIA
+					owns_entire_state_region = STATE_CROATIA
+				}
+			}
+			s:STATE_CROATIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_DALMATIA
+					owns_entire_state_region = STATE_DALMATIA
+				}
+			}
+			s:STATE_DALMATIA = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+}
+
+balkfm.981 = { # Restoration of the Triune Kingdom
+	type = country_event
+	placement = root
+	
+	title = balkfm.981.t
+	desc = balkfm.981.d
+	flavor = balkfm.981.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
 	}
 	
-	orphan = yes
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.981.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_triune_resurgence
+			months = long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:croat
+				}
+			}
+			add_primary_culture = cu:croat
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:slovene
+				}
+			}
+			add_primary_culture = cu:slovene
+		}
+		balkfm_happy_yugoslavs = yes
+	}
 
 }

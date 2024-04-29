@@ -1,4 +1,160 @@
-﻿# MONTENEGRO BUTTONS
+﻿# BALKAN WARS BUTTONS
+
+# YUGOSLAVIA BUTTONS
+balkfm_form_yugoslavia_button = {
+	name = "balkfm_form_yugoslavia"
+	desc = "balkfm_form_yugoslavia_desc"
+	
+	visible = {
+		NOR = {
+			has_global_variable = has_formed_yug
+			c:SRPS ?= this
+			c:TSAR ?= this
+			c:TRIU ?= this
+			c:BYZ ?= this
+		}
+	}
+	
+	possible = { 
+	# This are the vanilla requirements to form YUG, just retooled as a button
+	# BUL players: if this aligns poorly with previous Bulgarian conquests, remember: you're the one pulling a texas left into Yugoslavism
+		is_subject = no
+		custom_tooltip = {
+			text = balkfm_form_yug_tt
+			hidden_trigger = {
+				has_variable = balkfm_yugoslav_leader_var
+			}
+		}
+		calc_true_if = {
+			amount >= 8
+			owns_entire_state_region = STATE_NORTHERN_SERBIA
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			owns_entire_state_region = STATE_MONTENEGRO
+			owns_entire_state_region = STATE_BOSNIA
+			owns_entire_state_region = STATE_CROATIA
+			owns_entire_state_region = STATE_DALMATIA
+			owns_entire_state_region = STATE_SLAVONIA
+			owns_entire_state_region = STATE_SLOVENIA
+			owns_entire_state_region = STATE_ISTRIA
+			owns_entire_state_region = STATE_BANAT
+			owns_entire_state_region = STATE_DELVIDEK
+		}
+	}
+	
+	effect = {
+		change_tag = YUG
+		set_global_variable = has_formed_yug
+	}
+	
+}
+
+balkfm_austrian_agitation_button = {
+	name = "balkfm_austrian_agitation"
+	desc = "balkfm_austrian_agitation_desc"
+	
+	visible = {
+		c:AUS ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland = yes
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_agitation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:AUS ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
+			}
+		}
+		trigger_event = {
+			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
+		}
+		remove_variable = balkfm_yugoslav_agitation_actor
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:AUS
+					secret_goal = antagonize
+				}
+			}
+			add = 10
+		}
+	}
+}
+
+balkfm_ottoman_agitation_button = {
+	name = "balkfm_ottoman_agitation"
+	desc = "balkfm_ottoman_agitation_desc"
+	
+	visible = {
+		c:TUR ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland = yes
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_agitation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:TUR ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
+			}
+		}
+		trigger_event = {
+			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
+		}
+		remove_variable = balkfm_yugoslav_agitation_actor
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:TUR
+					secret_goal = antagonize
+				}
+			}
+			add = 10
+		}
+	}
+}
+
+# MONTENEGRO BUTTONS
 balkfm_compose_epic_button = {
 	name = "balkfm_compose_epic"
 	desc = "balkfm_compose_epic_desc"
@@ -29,8 +185,9 @@ balkfm_cement_monarchy_button = {
 	desc = "balkfm_cement_monarchy_desc"
 
 	visible = {
-		NOT = {
-			has_variable = balkfm_serbian_monarchy_resolved
+		NOR = {
+			has_variable = balkfm_pouring_cement_var
+			has_variable = balkfm_ser_cement_poured
 		}
 	}
 	
@@ -55,10 +212,51 @@ balkfm_cement_monarchy_button = {
 		custom_tooltip = {
 			text = balkfm_cement_monarchy_tt3
 			hidden_effect = {
-				set_variable = balkfm_serbian_monarchy_resolved
+				set_variable = {
+					name = balkfm_pouring_cement_var
+					value = 0
+				}
 			}
 		}
+		trigger_event = {
+			id = balkfm.420 # Cementing the Monarchy
+		}
 	}
+}
+
+balkfm_restore_serbia_button = {
+	name = "balkfm_restore_serbia"
+	desc = "balkfm_restore_serbia_desc"
+	
+	visible = {
+		NOT = { has_global_variable = has_formed_srps }
+		NOT = { c:YUG ?= this }
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_balkfm_ser_monarchism_tt
+			hidden_trigger = {
+				has_variable = balkfm_ser_cement_poured
+			}
+		}
+		is_subject = no
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_MONTENEGRO
+		owns_entire_state_region = STATE_BOSNIA
+		owns_entire_state_region = STATE_DALMATIA
+		owns_entire_state_region = STATE_SLAVONIA
+		owns_entire_state_region = STATE_BANAT
+		owns_entire_state_region = STATE_DELVIDEK
+	}
+	
+	effect = {
+		change_tag = SRPS
+		set_global_variable = has_formed_srps
+	}
+
 }
 
 # BULGARIA BUTTONS
@@ -110,7 +308,7 @@ balkfm_annex_rumelia_button = {
 	
 	possible = {
         custom_tooltip = {
-            text = je_unite_the_principalities_friend_with_all_great_powers_tt
+            text = balkfm_friend_with_all_great_powers_tt
 			hidden_trigger = {
 				any_country = {
 					country_rank >= rank_value:great_power
@@ -139,6 +337,11 @@ balkfm_annex_rumelia_button = {
 		custom_tooltip = balkfm_countercoup_reduce_1
 		set_variable = balkfm_annex_rumelia_taken
 	}
+	
+	ai_chance = {
+		base = 100
+	}
+	
 }
 
 balkfm_declare_tsardom_button = {
@@ -156,9 +359,7 @@ balkfm_declare_tsardom_button = {
 			has_journal_entry = je_balkfm_bul_battenburg_monarchy
 		}
 		owns_entire_state_region = STATE_BULGARIA
-		c:ERUM = {
-			is_subject_of = root
-		}
+		country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
 	}
 	
 	effect = {
@@ -167,5 +368,283 @@ balkfm_declare_tsardom_button = {
 		}
 		custom_tooltip = balkfm_declare_tsardom_tt
 		set_variable = balkfm_tsardom_declared
+	}
+}
+
+# Romania Buttons
+
+balkfm_unite_principalities_button = {
+	name = "balkfm_unite_principalities"
+	desc = "balkfm_unite_principalities_desc"
+	
+	visible = {
+		NOT = {
+			has_variable = ROM_united_principality
+		}
+	}
+	
+	possible = {
+        custom_tooltip = {
+            text = balkfm_friend_with_all_great_powers_tt
+			NOT = {
+		        any_country = {
+		            country_rank >= rank_value:great_power
+		            NOT = { has_war_with = ROOT }
+		            has_interest_marker_in_region = ROOT.capital.region
+		            relations:root < 0
+		        }
+	        }
+        }
+        custom_tooltip = {
+            text = balkfm_rom_amicable_or_better_relations_tt
+            NOR = { 
+            	has_variable = ROM_united_principality
+            }
+            OR = {
+				is_subject_type = subject_type_protectorate
+				is_subject_type = subject_type_dominion
+				is_subject_type = subject_type_tributary
+				is_subject = no
+			}
+	        any_country = {
+	        	NOT = { this = ROOT }
+	        	country_has_primary_culture = cu:romanian
+	            relations:root >= 25
+	            OR = {
+	            	AND = {
+	            		exists = top_overlord
+						OR = {
+							is_subject_type = subject_type_protectorate
+							is_subject_type = subject_type_dominion
+							is_subject_type = subject_type_tributary
+						}
+						top_overlord = {
+							THIS = root.top_overlord
+						}
+					}
+					is_subject = no
+	            }
+	        }
+        }
+	}
+
+	effect = {
+		set_variable = ROM_united_principality # this is placed here to reduce variable complexity; the vanilla variable is used for flag definition compatibility
+		if = {
+			limit = {
+				is_subject = yes
+				exists = top_overlord
+			}
+        	top_overlord = {
+        		trigger_event = { 
+	        		id = balkfm.083 # The Romanian Declaration of Union (should be from TUR scope)
+	        	}
+	        }
+	    }
+	    trigger_event = { 
+			id = balkfm.680 # Our Declaration of Union
+		}
+		set_variable = {
+			name = romanian_union_var
+			value = 0
+		}
+	}
+}
+
+balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
+	name = "balkfm_all_for_one"
+	desc = "balkfm_all_for_one_desc"
+	
+	visible = {
+		has_variable = ROM_united_principality
+		has_variable = balkfm_formed_ROM
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_all_for_one_goal
+			hidden_trigger = {
+				var:romanian_union_var >= 120
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.681 # Awaken Thee, Romanian!
+		}
+		show_as_tooltip = {
+			change_tag = ROM # this should serve as a warning that you'll lose access to the other two buttons if you unite too early
+		}
+		set_variable = balkfm_formed_ROM
+	}
+}
+
+balkfm_bessarabian_retrocession_button = { # vanilla button, integrated into balkfm
+	name = "balkfm_bessarabian_retrocession"
+	desc = "balkfm_bessarabian_retrocession_desc"
+
+	visible = { 
+		NOT = { has_variable = balkfm_requested_retrocession }
+		NOR = {
+			any_scope_state = {
+				state_region = s:STATE_BESSARABIA
+			}
+			any_subject_or_below = {
+				any_scope_state = {
+					state_region = s:STATE_BESSARABIA
+				}
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+
+	possible = {
+		custom_tooltip = {
+			text = je_south_bessarabian_retrocession_button_tt1
+
+	        any_country = {
+	            country_rank >= rank_value:great_power
+	            NOT = { 
+	            	has_war_with = ROOT 
+	            	any_scope_state = {
+	            		state_region = s:STATE_BESSARABIA
+	            	}
+	            }
+	            has_interest_marker_in_region = ROOT.capital.region
+	            relations:root > 25
+	        }
+	    }
+        custom_tooltip = {
+        	text = je_south_bessarabian_retrocession_button_tt2
+
+			OR = {
+				any_neighbouring_state = {
+					state_region = s:STATE_BESSARABIA
+					owner = {
+						NOT = { ROOT = this }
+						relations:root > 0
+						NOT = { has_war_with = ROOT }
+					}
+					is_split_state = no
+					is_capital = no
+				}
+				any_subject_or_below = {
+					any_neighbouring_state = {
+						state_region = s:STATE_BESSARABIA
+						owner = {
+							NOT = { ROOT = this }
+							relations:root > 0
+							NOT = { has_war_with = ROOT }
+						}
+						is_split_state = no
+						is_capital = no
+					}
+				}
+			}
+		}
+		hidden_trigger = {
+			NOT = {
+				has_variable = balkfm_requested_retrocession
+			}
+		}
+	}
+
+	effect = {
+		set_variable = balkfm_requested_retrocession
+		random_country = {
+			limit = {
+				NOT = { ROOT = this }
+				relations:root >= 25
+				NOT = { has_war_with = ROOT }
+				any_scope_state = {
+					state_region = s:STATE_BESSARABIA
+				}
+			}
+	   		trigger_event = { 
+				id = balkfm.084 # The South Bessarabian Retrocession
+			}
+		}
+	}
+}
+
+balkfm_marea_unire_button = { # vanilla button, integrated into balkfm
+	name = "balkfm_marea_unire"
+	desc = "balkfm_marea_unire_desc"
+
+	visible = { 
+		exists = c:TRS
+		NOR = { 
+			c:TRS ?= ROOT 
+			c:TRS ?= {
+				is_subject_of = ROOT
+			}
+		}
+		c:TRS ?= {
+			is_player = no
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+
+	possible = {
+		is_at_war = no
+
+		exists = c:TRS
+        c:TRS ?= {
+        	is_subject = no
+            relations:root >= 25
+            is_at_war = no
+        }
+    }
+
+	effect = { # this will become an event
+		if = {
+			limit = {
+				has_law = law_type:law_monarchy
+				c:TRS ?= {
+					has_law = law_type:law_monarchy
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:TRS
+				type = personal_union
+			}
+		}
+		else = {
+			create_diplomatic_pact = {
+				country = c:TRS
+				type = puppet
+			}
+		}
+	}
+}
+
+# Triune Buttons
+
+balkfm_proclaim_triune_button = {
+	name = "balkfm_proclaim_triune"
+	desc = "balkfm_proclaim_triune_desc"
+	
+	visible = {
+		NOT = { c:YUG ?= this }
+	}
+	
+	possible = {
+		is_subject = no
+		owns_entire_state_region = STATE_SLOVENIA
+		owns_entire_state_region = STATE_SLAVONIA
+		owns_entire_state_region = STATE_CROATIA
+		owns_entire_state_region = STATE_DALMATIA	
+	}
+	
+	effect = {
+		change_tag = TRIU
+		set_global_variable = has_formed_triu
 	}
 }
