@@ -986,7 +986,7 @@ grefm.009 = { # 1862 head of state referendum
 					}
 					on_created = {
 						set_character_as_ruler = yes
-						set_variable = grefm_is_glucksburg
+#						set_variable = grefm_is_glucksburg
 					}
 				}
 			}
@@ -1013,6 +1013,9 @@ grefm.009 = { # 1862 head of state referendum
 			has_diplomatic_pact = {
 				who = c:BEL
 				type = alliance
+			}
+			NOT = {
+				has_global_variable = grefm_the_belgian_option
 			}
 		}
 		custom_tooltip = {
@@ -1052,6 +1055,7 @@ grefm.009 = { # 1862 head of state referendum
 				}
 			}
 		}
+		set_global_variable = grefm_the_belgian_option # blocks this option on the balkfm side
 	}
 	
 	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
@@ -1095,7 +1099,7 @@ grefm.009 = { # 1862 head of state referendum
 				}
 			}
 		}
-		set_variable = grefm_dr_moneybags_in_the_house
+#		set_variable = grefm_dr_moneybags_in_the_house
 	}
 	
 	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
@@ -3785,6 +3789,8 @@ grefm.120 = { # olympics restarted
 		}
 		custom_tooltip = grefm.120.tt
 	}
+	
+	orphan = yes # Seriously, you people should be using Morgenröte
 	
 }
 
@@ -9037,8 +9043,6 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 	orphan = yes
 	
 	immediate = {
-		remove_variable = grefm_is_glucksburg
-		remove_variable = grefm_dr_moneybags_in_the_house
 		remove_global_variable = has_formed_tsar
 		remove_variable = romania_subject
 		set_variable = romania_unification_in_motion

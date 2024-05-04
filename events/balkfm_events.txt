@@ -472,7 +472,7 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 			}
 			save_scope_as = balkfm_ali_pasha_scope
 		}
-		create_country = { # Hersek with Bosnia
+		create_country = { # Hersek using Bosnia
 			tag = HRSK
 			origin = c:TUR
 			state = s:STATE_BOSNIA.region_state:TUR
@@ -480,9 +480,7 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 		c:HRSK = {
 			if = {
 				limit = {
-					exists = {
-						scope:balkfm_ali_pasha_scope
-					}
+					exists = scope:balkfm_ali_pasha_scope
 				}
 				scope:ali_pasha_scope = {
 					free_character_from_void = yes
@@ -7430,6 +7428,10 @@ balkfm.627 = { # Absolutist Aspirations
 			name = balkfm_dezvoltator_progress_var
 			value = 0
 		}
+		set_variable = {
+			name = balkfm_dezvoltator_var
+			value = 0
+		}
 	}
 	
 	option = { # Support Absolutism
@@ -7545,7 +7547,7 @@ balkfm.629 = { # A Monstrous Coalition
 						cautious
 					}
 					on_created = {
-						set_variable = balkfm_is_carol
+#						set_variable = balkfm_is_carol
 						set_character_as_ruler = yes
 					}
 				}
@@ -7563,6 +7565,9 @@ balkfm.629 = { # A Monstrous Coalition
 			has_diplomatic_pact = {
 				who = c:BEL
 				type = alliance
+			}
+			NOT = {
+				has_global_variable = grefm_the_belgian_option
 			}
 		}
 		custom_tooltip = {
@@ -7592,6 +7597,7 @@ balkfm.629 = { # A Monstrous Coalition
 			id = balkfm.630 # An Elected Domnitor
 			days = 30
 		}
+		set_global_variable = grefm_the_belgian_option # blocks this option on the grefm side
 
 	}
 	
@@ -7620,13 +7626,14 @@ balkfm.630 = { # An Elected Domnitor
 	desc = balkfm.630.d
 	flavor = balkfm.630.f
 	
-	event_image = {
-		video = "europenorthamerica_political_extremism"
-	}
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_ruler_scope
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
@@ -7636,7 +7643,10 @@ balkfm.630 = { # An Elected Domnitor
 	}	
 	
 	immediate = {
-		set_variable = balkfm_domnitor_election_held
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+#		set_variable = balkfm_domnitor_election_held
 	}
 	
 	option = {
