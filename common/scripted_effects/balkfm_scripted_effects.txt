@@ -743,7 +743,7 @@ balkfm_create_bulgarian_royals = {
 		}
 		on_created = {
 			set_variable = balkfm_is_ferdinand
-			place_character_in_void = 12
+			place_character_in_void = 720 # 60 year lease on life
 		}
 	}
 }
@@ -766,7 +766,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720
 			}
 		}
 		create_character = { # Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
@@ -780,7 +780,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720
 			}
 		}
 	}
@@ -800,7 +800,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		create_character = { # Manolache Costache Epureanu, 2x Prime Minister of Romania, participated in the ad hoc committee in Moldavia after the 1848 Revolution
@@ -814,7 +814,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -834,7 +834,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = { # Ioan Grigore Ghica, son of Grigore Ghica
@@ -848,7 +848,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -865,7 +865,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -876,7 +876,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -900,7 +900,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = { # Emanoil Băleanu, candidate in the 1842 election
@@ -914,7 +914,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -933,7 +933,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = { # Constantin Cantacuzino, boyar leader during the Regulamentul era
@@ -947,7 +947,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -966,7 +966,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -977,7 +977,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -994,7 +994,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -1006,11 +1006,42 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
 
+}
+
+balkfm_dezvoltator_variables_effect = {
+	set_variable = {
+		name = balkfm_armed_forces_approval_var
+		value = root.ig:ig_armed_forces.ig_approval
+	}
+	set_variable = {
+		name = balkfm_ig_intelligentsia_approval_var
+		value = root.ig:ig_intelligentsia.ig_approval
+	}
+	set_variable = {
+		name = balkfm_landowners_approval_var
+		value = root.ig:ig_landowners.ig_approval
+	}
+	set_variable = {
+		name = balkfm_dezvoltator_progress_var
+		value = balkfm_dezvoltator_progress_value
+	}
+}
+
+balkfm_dezvoltator_progress_effect = {
+	change_variable = {
+		name = balkfm_dezvoltator_var
+		add = var:balkfm_dezvoltator_progress_var
+	}
+	clamp_variable = {
+		name = balkfm_dezvoltator_var
+		max = 500
+		min = 0
+	}
 }
 
 ## TURK-SPLOSION EFFECTS ##

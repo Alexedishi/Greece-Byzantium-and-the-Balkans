@@ -433,7 +433,7 @@ eqfm.010 = { # Extortionate Taxation in State
 				limit = {
 					has_journal_entry = je_eqfm_sub
 				}
-				post_notification = notification_tension_taxation
+				post_notification = notification_eqfm_overtaxed
 			}
 		}
 	}
@@ -448,6 +448,14 @@ eqfm.010 = { # Extortionate Taxation in State
 			add_radicals_in_state = {
 				pop_type = aristocrats
 				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_tax_break
 			}
 		}
 	}
@@ -515,6 +523,14 @@ eqfm.011 = { # Plague Outbreak in State
 			}
 		}
 		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_plague
+			}
+		}
 	}
 	
 	option = { # Implement Quarantine
@@ -526,6 +542,14 @@ eqfm.011 = { # Plague Outbreak in State
 			add_modifier = {
 				name = modifier_eqfm_mitigated_plague
 				months = short_modifier_time
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_quarantine
 			}
 		}
 	}
@@ -583,6 +607,14 @@ eqfm.012 = { # Ecumenical Patriarch Demands Protections
 			}
 		}
 		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_faketriarch
+			}
+		}
 	}
 	
 	option = { # Help a Beggar Out
@@ -595,6 +627,14 @@ eqfm.012 = { # Ecumenical Patriarch Demands Protections
 			add_modifier = {
 				name = modifier_eqfm_granted_religious_firman
 				months = short_modifier_time
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_firman
 			}
 		}
 	}
@@ -657,6 +697,14 @@ eqfm.013 = { # Churches Burned in State
 			}
 		}
 		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_burninator
+			}
+		}
 	}
 	
 	option = { # Pay Them Back
@@ -677,6 +725,14 @@ eqfm.013 = { # Churches Burned in State
 			add_treasury = -20000
 		}
 		eqfm_add_small_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_reparations
+			}
+		}
 	}
 
 }
@@ -735,6 +791,14 @@ eqfm.014 = { # Popular Speaker Lynched in State
 			}
 		}
 		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_lynching
+			}
+		}
 	}
 	
 	option = { # Bring Them to Justice
@@ -747,6 +811,14 @@ eqfm.014 = { # Popular Speaker Lynched in State
 			name = modifier_eqfm_local_garrison_deployed
 			months = normal_modifier_time
 			is_decaying = yes
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_arrests
+			}
 		}
 	}
 
@@ -807,6 +879,15 @@ eqfm.015 = { # Brigandage in State
 				months = normal_modifier_time
 			}
 		}
+		eqfm_add_medium_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_brigandage
+			}
+		}
 	}
 	
 	option = { # Extend Assistance
@@ -815,6 +896,15 @@ eqfm.015 = { # Brigandage in State
 			add_modifier = {
 				name = modifier_eqfm_local_garrison_deployed
 				months = normal_modifier_time
+			}
+		}
+		eqfm_add_small_tension_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_sub
+				}
+				post_notification = notification_eqfm_patrols
 			}
 		}
 	}
@@ -848,7 +938,7 @@ eqfm.020 = { # Riots in State
 			has_global_variable = eqfm_riot_var 
 			has_global_variable = eqfm_tension_event_cooldown_var
 		}
-		global_var:eqfm_tension_var <= 500
+		global_var:eqfm_tension_var >= 500
 		any_scope_state = {
 			state_in_balkans = yes
 			is_split_state = no
@@ -1306,6 +1396,14 @@ eqfm.025 = { # Balkan Country Rebellion
 				set_global_variable = eqfm_deconfliction_var
 			}
 		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_crisis_sub
+				}
+				post_notification = notification_eqfm_deconfliction
+			}
+		}
 	}
 	
 	option = { # Let Them Go
@@ -1324,6 +1422,21 @@ eqfm.025 = { # Balkan Country Rebellion
 				set_global_variable = eqfm_deconfliction_var
 			}
 		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_eqfm_crisis_sub
+				}
+				post_notification = notification_eqfm_deconfliction
+			}
+		}
+	}
+	
+	after = {
+		scope:eqfm_rebellion_scope = {
+			remove_variable = eqfm_rebellion_tag_tracker
+		}
+		remove_global_variable = eqfm_riot_var
 	}
 
 }

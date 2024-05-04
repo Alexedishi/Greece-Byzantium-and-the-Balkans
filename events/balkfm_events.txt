@@ -205,24 +205,37 @@ namespace = balkfm
 ##  #BALK6  MOLDOVA / WALLACHIA / ROMANIA FLAVOR  Events  600-699  ##
 
 #600-609 - Moldavia-Specific Events
-#	600 - ##The Lands of Stephen the Great
+#	600 - The Lands of Stephen the Great
 
 #610-619 - Wallachia-Specific Events
-#	610 - ##The Land Beyond the Snowy Mountains
+#	610 - The Land Beyond the Snowy Mountains
 
-#620-629 - Regulamentul Organic Events
-#	620 - ##The Regulamentul Organic
-#	621 - ##Renewed Legal Standards
-#	622 - ##Modernized Economy
-#	623 - ##Social Equity
-#	624 - ##Electing a Hospodar
-#	625 - ##The Death of Feudalism
+#620-629 - Regulamentul Organic / Statutul Dezvoltator Events
+#	620 - The Regulamentul Organic
+#	621 - Renewed Legal Standards
+#	622 - Modernized Economy
+#	623 - Social Equity
+#	624 - Electing a Hospodar (MOL)
+#	625 - Electing a Hospodar (WAL)
+#	626 - The Death of Feudalism
+#	627 - ##Absolutist Aspirations
+#	628 - Mandate Secured
+#	629 - The Monstrous Coalition
+
+#630-639 - The Era of Carol I Events
+#	630 - An Elected Domnitor
 
 #680-689 - Romanian Unification Events
-#	680 - ##Our Declaration of Union
-#	681 - ##Awaken Thee, Romanian!
-#	682 - ##The South Bessarabian Retrocession
-#	683 - ##Request for Retrocession Denied
+#	680 - Our Declaration of Union
+#	681 - Awaken Thee, Romanian!
+#	682 - The South Bessarabian Retrocession
+#	683 - Request for Retrocession Denied
+#	684 - Union with Transylvania
+#	685 - TRS Annexation
+#	686 - Romanian Agitation in State (ROM)
+#	687 - Romanian Agitation in State (AUS)
+#	688 - The Greater Romanian Lands
+#	689 - The Reunification of Romania
 
 
 ##  #BALK7  BOSNIA FLAVOR  Events 700-799  ##
@@ -375,10 +388,47 @@ balkfm.030 = { # Creates Hersek with Smaïl-aga at the Helm
 
 	immediate = {
 		set_global_variable = balkfm_smail_aga_rebelled
+		random_character_in_void = {	
+			limit = {
+				has_variable = balkfm_is_smail_aga
+			}
+			save_scope_as = balkfm_smail_aga_scope
+		}
 		create_country = { # Hersek with Bosnia
 			tag = HRSK
 			origin = c:TUR
 			state = s:STATE_BOSNIA.region_state:TUR
+		}
+		c:HRSK = {
+			if = {
+				limit = {
+					exists = scope:balkfm_smail_aga_scope
+				}
+				scope:balkfm_smail_aga_scope = {
+					free_character_from_void = yes
+					set_character_as_ruler = yes
+				}
+			}
+			else = {
+				create_character = {
+					# Smaïl-aga Čengić, Ottoman lord in Bosnia, killed on the orders of the Bishop
+					first_name = Smail
+					last_name = Cengic
+					historical = yes
+					age = 56 # born 1780
+					culture = cu:serb
+					religion = rel:sunni
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						arrogant
+						war_criminal
+					}
+					on_created = {
+						set_variable = balkfm_is_smail_aga
+					}
+				}
+			}
 		}
 		s:STATE_BOSNIA = {
 			random_scope_state = {
@@ -416,30 +466,49 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 	}
 
 	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_ali_pasha
+			}
+			save_scope_as = balkfm_ali_pasha_scope
+		}
 		create_country = { # Hersek with Bosnia
 			tag = HRSK
 			origin = c:TUR
 			state = s:STATE_BOSNIA.region_state:TUR
 		}
 		c:HRSK = {
-			create_character = {
-				# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
-				first_name = Ali
-				last_name = Rizvanbegovic
-				historical = yes
-				age = 53 # born 1783
-				dna = mr_bos_rizvanbegovic_ali_pasha
-				culture = cu:serb
-				religion = rel:sunni
-				interest_group = ig_landowners
-				ideology = ideology_moderate
-				ruler = yes
-				traits = {
-					pious
-					arrogant
+			if = {
+				limit = {
+					exists = {
+						scope:balkfm_ali_pasha_scope
+					}
 				}
-				on_created = {
-					set_variable = balkfm_is_ali_pasha
+				scope:ali_pasha_scope = {
+					free_character_from_void = yes
+					set_character_as_ruler = yes
+				}
+			}
+			else = {
+				create_character = {
+					# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+					first_name = Ali
+					last_name = Rizvanbegovic
+					historical = yes
+					age = 53 # born 1783
+					dna = mr_bos_rizvanbegovic_ali_pasha
+					culture = cu:serb
+					religion = rel:sunni
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					ruler = yes
+					traits = {
+						pious
+						arrogant
+					}
+					on_created = {
+						set_variable = balkfm_is_ali_pasha
+					}
 				}
 			}
 		}
@@ -582,7 +651,7 @@ balkfm.081 = { # The Schemes of Ali Pasha
 			}
 			on_created = {
 				set_variable = balkfm_is_ali_pasha
-				place_character_in_void = 500
+				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		random_character_in_void = {
@@ -1191,7 +1260,7 @@ balkfm.202 = { # The Draft (SER)
 			}
 			on_created = {
 				set_variable = balkfm_is_garasanin
-				place_character_in_void = 10 # just for this event
+				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		random_character_in_void = {
@@ -1209,7 +1278,7 @@ balkfm.202 = { # The Draft (SER)
 		name = balkfm.202.a
 		default_option = yes
 		scope:garasanin_scope = {
-			transfer_character = ROOT
+			free_character_from_void = yes
 			set_as_interest_group_leader = yes
 		}
 		custom_tooltip = balkfm_yug_annex_tt
@@ -2138,7 +2207,7 @@ balkfm.333 = { # A Local Collaborator
 			}
 			on_created = {
 				set_variable = balkfm_is_cerovic
-				place_character_in_void = 100
+				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		random_character_in_void = {
@@ -3022,6 +3091,7 @@ balkfm.401 = { # A Constitution Imposed
 			}
 		}
 		scope:milan_scope = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes # this feels pedantic, but he was technically Prince for 26 days
 		}
 		activate_law = law_type:law_wealth_voting
@@ -3097,6 +3167,7 @@ balkfm.402 = { # An Inexperienced Ruler
 			kill_character = yes
 		}
 		scope:milhailo_scope = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 		custom_tooltip = {
@@ -3201,6 +3272,7 @@ balkfm.403 = { # In Defense of the Constitution
 			}
 		}
 		scope:kaykay_scope = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 		custom_tooltip = {
@@ -4967,7 +5039,7 @@ balkfm.508 = { # Mandate Secured
 		name = balkfm.508.a
 		default_option = yes
 		scope:balkfm_alex_scope = {
-			transfer_character = root
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 			add_modifier = {
 				name = modifier_balkfm_throne_secured
@@ -5028,7 +5100,7 @@ balkfm.509 = { # The August Coup
 		name = balkfm.509.a
 		default_option = yes
 		scope:balkfm_alex_scope = {
-			place_character_in_void = 12
+			place_character_in_void = 600
 		}
 		hidden_effect = {	
 			if = {
@@ -5690,7 +5762,7 @@ balkfm.520 = { # An Elected Prince
 		name = balkfm.520.a
 		default_option = yes
 		scope:balkfm_ferdinand_scope = {
-			transfer_character = root
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 #		set_variable = balkfm_ferdinand_era
@@ -7149,6 +7221,7 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 		name = balkfm.624.a
 		default_option = yes
 		scope:balkfm_hospodar_candidate_1 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7156,6 +7229,7 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 	option = { # historical successor
 		name = balkfm.624.b
 		scope:balkfm_hospodar_candidate_2 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7163,6 +7237,7 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 	option = { # alternate successor
 		name = balkfm.624.c
 		scope:balkfm_hospodar_candidate_3 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7238,6 +7313,7 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 		name = balkfm.625.a
 		default_option = yes
 		scope:balkfm_hospodar_candidate_1 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7245,6 +7321,7 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 	option = { # historical successor
 		name = balkfm.625.b
 		scope:balkfm_hospodar_candidate_2 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7252,6 +7329,7 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 	option = { # alternate successor
 		name = balkfm.625.c
 		scope:balkfm_hospodar_candidate_3 = {
+			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
 	}
@@ -7307,6 +7385,265 @@ balkfm.626 = { # The Death of Feudalism
 		}
 	}
 	
+}
+
+balkfm.627 = { # Absolutist Aspirations
+	type = country_event
+	placement = root
+	
+	title = balkfm.627.t
+	desc = balkfm.627.d
+	flavor = balkfm.627.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_variable = balkfm_dezvoltator_completed }
+		has_variable = balkfm_regulamentul_completed
+		c:ROM ?= this
+	}
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_armed_forces_approval_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_ig_intelligentsia_approval_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_landowners_approval_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_dezvoltator_progress_var
+			value = 0
+		}
+	}
+	
+	option = { # Support Absolutism
+		name = balkfm.627.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_statutul_dezvoltator
+		}
+		ruler = {
+			set_ideology = ideology:ideology_authoritarian
+		}
+		balkfm_dezvoltator_variables_effect = yes
+	}
+
+}
+
+balkfm.628 = { # Mandate Secured
+	type = country_event
+	placement = root
+	
+	title = balkfm.628.t
+	desc = balkfm.628.d
+	flavor = balkfm.628.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		set_variable = balkfm_dezvoltator_completed
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.628.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_based_domnitor
+			months = normal_modifier_time
+		}	
+		scope:balkfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_balkfm_popular_leader
+				months = very_long_modifier_time
+				is_decaying = yes
+			}
+		}
+	}
+
+}
+
+balkfm.629 = { # A Monstrous Coalition
+	type = country_event
+	placement = root
+	
+	title = balkfm.629.t
+	desc = balkfm.629.d
+	flavor = balkfm.629.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		set_variable = balkfm_dezvoltator_completed
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
+	}
+	
+	option = { # Carol I -  the historical option
+		name = balkfm.629.a
+		default_option = yes
+		custom_tooltip = {
+			text = balkfm.629.a.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Carol
+					last_name = Hohenzollern-Sigmaringen
+					noble = yes
+					age = 27 # age at ascent to the throne
+					culture = cu:south_german
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_reformer
+					traits = {
+						basic_political_operator
+						persistent
+						cautious
+					}
+					on_created = {
+						set_variable = balkfm_is_carol
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = balkfm.630 # An Elected Domnitor
+			days = 30
+		}
+	}
+	
+	option = { # Philippe de Flandre - the Belgian option; from grefm.009
+		name = balkfm.629.b
+		trigger = {
+			has_diplomatic_pact = {
+				who = c:BEL
+				type = alliance
+			}
+		}
+		custom_tooltip = {
+			text = balkfm.629.b.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Philippe
+					last_name = de_Flandre
+					noble = yes
+					historical = yes
+					age = 25
+					culture = cu:flemish
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_royalist
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = balkfm.630 # An Elected Domnitor
+			days = 30
+		}
+
+	}
+	
+	after = {
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:balkfm_heir_scope
+				}
+				scope:balkfm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+	}
+
+}
+
+#### THE ERA OF CAROL I EVENTS ####
+
+balkfm.630 = { # An Elected Domnitor
+	type = country_event
+	placement = root
+	
+	title = balkfm.630.t
+	desc = balkfm.630.d
+	flavor = balkfm.630.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		set_variable = balkfm_domnitor_election_held
+	}
+	
+	option = {
+		name = balkfm.630.a
+		default_option = yes
+	}
+
 }
 
 #### ROMANIAN UNIFICATION EVENTS ####
@@ -7607,6 +7944,354 @@ balkfm.683 = { # Retrocession Denied
 
 }
 
+balkfm.684 = { # Union with Transylvania
+	type = country_event
+	placement = root
+	
+	title = balkfm.684.t
+	desc = balkfm.684.d
+	flavor = balkfm.684.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_marea_unire_button
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.684.a
+		default_option = yes
+		if = {
+			limit = {
+				has_law = law_type:law_monarchy
+				c:TRS ?= {
+					has_law = law_type:law_monarchy
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:TRS
+				type = personal_union
+			}
+		}
+		else = {
+			create_diplomatic_pact = {
+				country = c:TRS
+				type = puppet
+			}
+		}
+		create_truce = {
+			country = c:TRS
+			months = 60
+		}
+	}
+
+}
+
+balkfm.685 = { # TRS Annexation
+	type = country_event
+	placement = scope:transylvania_capital_scope
+	
+	title = balkfm.685.t
+	desc = balkfm.685.d
+	flavor = balkfm.685.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+	}
+
+	immediate = {
+		c:TRS = {
+			save_scope_as = transylvania_scope
+			capital = {
+				save_scope_as = transylvania_capital_scope
+			}
+		}
+	}
+
+	option = {
+		name = balkfm.685.a
+		default_option = yes
+		annex = c:TRS
+		add_loyalists = {
+			culture = cu:romanian
+			value = small_radicals
+		}
+	}
+}
+
+balkfm.686 = { # Romanian Agitation in State (ROM)
+	type = country_event
+	placement = scope:balkfm_agitation_state_scope
+	
+	title = balkfm.686.t
+	desc = balkfm.686.d
+	flavor = balkfm.686.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_state = {
+			limit = {
+				has_variable = balkfm_romanian_state_target
+			}
+			save_scope_as = balkfm_agitation_state_scope
+			owner = {
+				save_scope_as = balkfm_agitation_owner_scope
+			}
+		}
+		scope:balkfm_agitation_state_scope = {
+			remove_variable = balkfm_romanian_state_target
+		}
+	}
+	
+	option = {
+		name = balkfm.686.a
+		default_option = yes
+		create_incident = {
+			country = scope:balkfm_agitation_owner_scope
+			value = 10
+		}
+		show_as_tooltip = {
+			scope:balkfm_agitation_state_scope = {
+				add_radicals_in_state = {
+					culture = cu:romanian
+					value = medium_radicals
+				}
+			}
+		}
+	}
+
+}
+
+balkfm.687 = { # Romanian Agitation in State (AUS)
+	type = country_event
+	placement = scope:balkfm_agitation_state_scope
+	
+	title = balkfm.687.t
+	desc = balkfm.687.d
+	flavor = balkfm.687.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_state = {
+			limit = {
+				has_variable = balkfm_romanian_state_target
+			}
+			save_scope_as = balkfm_agitation_state_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_romanian_agitation_actor
+			}
+			save_scope_as = balkfm_romanian_agitator_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.687.a
+		default_option = yes
+		scope:balkfm_agitation_state_scope = {
+			add_radicals_in_state = {
+				culture = cu:romanian
+				value = medium_radicals
+			}
+		}
+	}
+
+}
+
+balkfm.688 = { # The Greater Romanian Lands
+	type = country_event
+	placement = root
+	
+	title = balkfm.688.t
+	desc = balkfm.688.d
+	flavor = balkfm.688.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_greater_romania
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.688.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_BANAT }
+					has_claim = s:STATE_BANAT
+			}
+			s:STATE_BANAT = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_BESSARABIA }
+					has_claim = s:STATE_BESSARABIA
+			}
+			s:STATE_BESSARABIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_BEKES }
+					has_claim = s:STATE_BEKES
+			}
+			s:STATE_BEKES = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_MOLDAVIA }
+					has_claim = s:STATE_MOLDAVIA
+			}
+			s:STATE_MOLDAVIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA }
+					has_claim = s:STATE_NORTHERN_TRANSYLVANIA
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA }
+					has_claim = s:STATE_SOUTHERN_TRANSYLVANIA
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = 
+					{ owns_entire_state_region = STATE_WALLACHIA }
+					has_claim = s:STATE_WALLACHIA
+			}
+			s:STATE_WALLACHIA = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+}
+
+balkfm.689 = { # The Reunification of Romania
+	type = country_event
+	placement = root
+	
+	title = balkfm.689.t
+	desc = balkfm.689.d
+	flavor = balkfm.689.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_greater_romania
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.689.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_bulgarian_resurgence
+			months = very_long_modifier_time
+		}
+	}
+
+}
 
 #################################################
 ## #BALK7	BOSNIA FLAVOR		Events 700-799 ##

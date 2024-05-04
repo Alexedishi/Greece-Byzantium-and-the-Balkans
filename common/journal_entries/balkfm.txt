@@ -1774,6 +1774,79 @@ je_balkfm_rom_social_modernization = {
 	
 }
 
+je_balkfm_statutul_dezvoltator = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_dezvoltator_var
+			value = 0
+		}
+		balkfm_dezvoltator_variables_effect = yes
+		trigger_event = {
+			id = balkfm.627 # Absolutist Aspirations
+		}
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		OR = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+		}
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.628 # Mandate Secured
+		}
+	}
+	
+	timeout = 1825 # You have five years. Cuza had less.
+	
+	on_timeout = {
+		trigger_event = {
+			id = balkfm.629 # A Monstrous Coalition
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_dezvoltator_completed
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_dezvoltator_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			balkfm_dezvoltator_progress_effect = yes
+		}
+	}
+	
+	current_value = {
+		value = root.var:balkfm_dezvoltator_var
+	}
+
+	goal_add_value = {
+		value = 500
+	}
+
+	progressbar = yes
+	
+	weight = 1000
+	
+}
+
 je_balkfm_rom_united_principalities = { # this journal integrates all vanilla unification content into one journal entry
 	icon = "gfx/interface/icons/event_icons/event_romania.dds"
 	
@@ -1876,6 +1949,65 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	scripted_button = balkfm_marea_unire_button
 
     # timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
+
+    weight = 1000
+	
+}
+
+je_balkfm_rom_greater_romania = {
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+    is_shown_when_inactive = {
+		c:ROM ?= this
+		calc_true_if = {
+			amount >= 6
+			NOT = { owns_entire_state_region = STATE_BANAT }
+			NOT = { owns_entire_state_region = STATE_BESSARABIA }
+			NOT = { owns_entire_state_region = STATE_BEKES }
+			NOT = { owns_entire_state_region = STATE_MOLDAVIA }
+			NOT = { owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA }
+			NOT = { owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA }
+			NOT = { owns_entire_state_region = STATE_WALLACHIA }
+		}
+    }
+	
+    possible = {
+        has_technology_researched = pan-nationalism
+    }
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.688 # The Greater Romanian Lands
+		}
+	}
+	
+	complete = {
+		is_subject = no
+		calc_true_if = {
+			amount >= 6
+			owns_entire_state_region = STATE_BANAT
+			owns_entire_state_region = STATE_BESSARABIA
+			owns_entire_state_region = STATE_BEKES
+			owns_entire_state_region = STATE_MOLDAVIA
+			owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA
+			owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA
+			owns_entire_state_region = STATE_WALLACHIA
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.689 # The Reunification of Romania
+		}
+	}
+	
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
+	scripted_button = balkfm_romanian_agitation_button
 
     weight = 1000
 	

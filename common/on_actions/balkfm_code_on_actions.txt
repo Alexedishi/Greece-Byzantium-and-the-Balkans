@@ -23,16 +23,6 @@ on_monthly_pulse_country = {
 	}
 }
 
-on_wargoal_enforced = {
-	on_actions = {
-		eocfm_wargoal_enforced_1
-		eocfm_wargoal_enforced_2
-		eqfm_crisis_wargoal_enforced
-#		eqfm_thunderdome_wargoal_enforced
-	}
-}
-
-
 ############
 
 balkfm_monthly_pulse = { # These events are monitored from all scopes
@@ -345,6 +335,37 @@ balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
 
 ############
 
+on_secession_start = {
+	on_actions = {
+		eqfm_secession_start
+	}
+}
+
+eqfm_secession_start = {
+	effect = {
+		if = {
+			limit = {
+				has_journal_entry = je_eqfm_main
+				scope:target = {
+					balkfm_balkans_native_trigger = yes
+				}
+			}
+		}
+		eqfm_secession_start_effect = yes
+	}		
+}
+
+############
+
+on_wargoal_enforced = {
+	on_actions = {
+		eocfm_wargoal_enforced_1
+		eocfm_wargoal_enforced_2
+		eqfm_crisis_wargoal_enforced
+#		eqfm_thunderdome_wargoal_enforced
+	}
+}
+
 # These on_actions changes the Crusade target's state religion or penalize the Crusade initiator if they lose. The crusade variables are set by the Crusade DP. This is very janky, I agree.
 
 eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade success
@@ -388,9 +409,6 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 		}
 	}
 }
-	
-
-############
 
 # These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 
