@@ -1785,10 +1785,15 @@ je_balkfm_statutul_dezvoltator = {
 	}
 	
 	complete = {
+		# Technically, Cuza's goal was to establish authoritarian rule, but with broad voting rights for the peasantry. This is cannot be represented by Victoria 3's current systems, hence the strange completion requirements
 		has_law = law_type:law_monarchy
 		OR = {
 			has_law = law_type:law_autocracy
 			has_law = law_type:law_oligarchy
+		}
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
 		}
 		scope:journal_entry = { is_goal_complete = yes }
 	}
@@ -1830,7 +1835,7 @@ je_balkfm_statutul_dezvoltator = {
 	}
 
 	goal_add_value = {
-		value = 500
+		value = 2000
 	}
 
 	progressbar = yes

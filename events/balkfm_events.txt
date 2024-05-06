@@ -206,9 +206,11 @@ namespace = balkfm
 
 #600-609 - Moldavia-Specific Events
 #	600 - The Lands of Stephen the Great
+#	601 - ##The Petition-Proclamation
 
 #610-619 - Wallachia-Specific Events
 #	610 - The Land Beyond the Snowy Mountains
+#	611 - ##Proclamation of Islaz
 
 #620-629 - Regulamentul Organic / Statutul Dezvoltator Events
 #	620 - The Regulamentul Organic
@@ -218,7 +220,7 @@ namespace = balkfm
 #	624 - Electing a Hospodar (MOL)
 #	625 - Electing a Hospodar (WAL)
 #	626 - The Death of Feudalism
-#	627 - ##Absolutist Aspirations
+#	627 - Absolutist Aspirations
 #	628 - Mandate Secured
 #	629 - The Monstrous Coalition
 
@@ -6931,6 +6933,137 @@ balkfm.600 = { # The Lands of Stephen the Great
 
 }
 
+balkfm.601 = { # The Petition-Proclamation
+	type = country_event
+	placement = root
+	
+	title = balkfm.601.t
+	desc = balkfm.601.d
+	flavor = balkfm.601.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		c:MOL ?= this
+		NOT = { has_variable = balkfm_1848_happened }
+		has_global_variable = peoples_springtime_happening
+		NOT = { has_global_variable = peoples_springtime_happened }
+	}	
+	
+	immediate = {
+		set_variable = balkfm_1848_happened
+		create_character = {
+			# Vasile Alecsandri, Romanian nationalist and radical
+			first_name = "Vasile"
+			last_name = "Alecsandri"
+			historical = yes
+			age = 27 # age during the 1848 Unrest
+			interest_group = ig_intelligentsia
+			ideology = ideology_moderate
+			traits = {
+				cautious
+				romantic
+				literary
+			}
+			on_created = {
+				set_variable = balkfm_is_alecsandri
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		create_character = {
+			# Ion Isăcescu, Romanian statesman and argonomist
+			first_name = "Ion"
+			last_name = "Isacescu"
+			historical = yes
+			age = 0 # age during the 1848 unrest
+			interest_group = ig_rural_folk # to represent his ties to agriculture
+			ideology = ideology_land_reformer
+			traits = {
+				engineer
+				meticulous
+			}
+			on_created = {
+				set_variable = balkfm_is_isacescu
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_alecsandri
+			}
+			save_scope_as = balkfm_alecsandri_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_isacescu
+			}
+			save_scope_as = balkfm_isacescu_scope
+		}
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = balkfm_landowner_leader_scope
+			}
+		}
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+	}
+	
+	option = { # Resist the Proclamation
+		name = balkfm.601.a
+		default_option = yes
+		scope:balkfm_ruler_scope = {
+			set_ideology = ideology:ideology_humanitarian_royalist
+		}
+		scope:balkfm_alecsandri_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+			set_ideology = ideology:ideology_radical
+		}
+		scope:balkfm_isacescu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		add_radicals = {
+			pop_type = academics
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Accept the Proclamation
+		name = balkfm.601.b
+		scope:balkfm_ruler_scope = {
+			set_ideology = ideology:ideology_humanitarian_royalist
+		}
+		scope:balkfm_landowner_leader_scope = {
+			set_ideology = ideology:ideology_authoritarian
+		}
+		scope:balkfm_alecsandri_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+			set_ideology = ideology:ideology_social_democrat
+		}
+		scope:balkfm_isacescu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		add_radicals = {
+			pop_type = aristocrats
+			value = medium_radicals
+		}
+	}
+
+}
+
 #### WALLACHIA-SPECIFIC EVENTS ####
 
 balkfm.610 = { # The Land Beyond the Snowy Mountains
@@ -6986,6 +7119,47 @@ balkfm.610 = { # The Land Beyond the Snowy Mountains
 			id = balkfm.620 #The Regulamentul Organic
 			days = 30
 		}
+	}
+
+}
+
+balkfm.611 = { # Proclamation of Islaz
+	type = country_event
+	placement = root
+	
+	title = balkfm.611.t
+	desc = balkfm.611.d
+	flavor = balkfm.611.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		c:WAL ?= this
+		NOT = { has_variable = balkfm_1848_happened }
+		has_global_variable = peoples_springtime_happening
+		NOT = { has_global_variable = peoples_springtime_happened }
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.611.a
+		default_option = yes
+	}
+	
+	option = {
+		name = balkfm.611.b
 	}
 
 }
@@ -7408,6 +7582,13 @@ balkfm.627 = { # Absolutist Aspirations
 	trigger = {
 		NOT = { has_variable = balkfm_dezvoltator_completed }
 		has_variable = balkfm_regulamentul_completed
+		ruler = {
+			OR = {
+				has_ideology = ideology:ideology_authoritarian
+				has_ideology = ideology:ideology_royalist
+				has_ideology = ideology:ideology_jingoist
+			}
+		}
 		c:ROM ?= this
 	}
 	
@@ -7445,7 +7626,7 @@ balkfm.627 = { # Absolutist Aspirations
 		}
 		balkfm_dezvoltator_variables_effect = yes
 	}
-
+	
 }
 
 balkfm.628 = { # Mandate Secured
@@ -7540,7 +7721,7 @@ balkfm.629 = { # A Monstrous Coalition
 					culture = cu:south_german
 					religion = rel:catholic
 					interest_group = ig_landowners
-					ideology = ideology_reformer
+					ideology = ideology_humanitarian_royalist
 					traits = {
 						basic_political_operator
 						persistent
@@ -7582,7 +7763,7 @@ balkfm.629 = { # A Monstrous Coalition
 					culture = cu:flemish
 					religion = rel:catholic
 					interest_group = ig_landowners
-					ideology = ideology_royalist
+					ideology = ideology_humanitarian_royalist
 					traits = {
 						basic_political_operator
 						arrogant
@@ -7652,6 +7833,10 @@ balkfm.630 = { # An Elected Domnitor
 	option = {
 		name = balkfm.630.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_elected_domnitor
+			months = normal_modifier_time
+		}
 	}
 
 }
@@ -7979,6 +8164,9 @@ balkfm.684 = { # Union with Transylvania
 	}
 	
 	immediate = {
+		c:TRS ?= {
+			save_scope_as = transylvania_scope
+		}
 	}
 	
 	option = {
