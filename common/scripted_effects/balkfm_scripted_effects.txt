@@ -846,28 +846,54 @@ balkfm_moldavian_election_effect = {
 		limit = {
 			var:balkfm_hospodar_election_counter <= 1
 		}
-		create_character = { # Mihail Kogălniceanu, Romanian nationalist; inspired the 1848 Moldavian Revolution
-			first_name = Mihail
-			last_name = Kogalniceanu
-			culture = cu:romanian
-			religion = rel:orthodox
-			historical = yes
-			age = 45
-			ideology = ideology_kogalnitchanism
-			interest_group = ig_intelligentsia
-			on_created = {
-				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 720
+		if = {
+			limit = {
+				ruler = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+			}
+			create_character = {
+				# Costache Negri, Moldavian writer and revolutionary
+				first_name = Costache
+				last_name = Negri
+				culture = cu:romanian
+				religion = rel:orthodox
+				historical = yes
+				age = 45
+				ideology = ideology_reformer
+				interest_group = ig_intelligentsia
+				on_created = {
+					set_variable = balkfm_hospodar_m1
+					place_character_in_void = 720
+				}
 			}
 		}
-		create_character = { # Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
+		else = {
+			create_character = { 
+				# Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
+				first_name = Mihail
+				last_name = Kogalniceanu
+				culture = cu:romanian
+				religion = rel:orthodox
+				historical = yes
+				age = 45
+				ideology = ideology_kogalnitchanism
+				interest_group = ig_intelligentsia
+				on_created = {
+					set_variable = balkfm_hospodar_m1
+					place_character_in_void = 720
+				}
+			}
+		}
+		create_character = { 
+			# Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
 			first_name = Ion
 			last_name = Ghica
 			culture = cu:romanian
 			religion = rel:orthodox
 			historical = yes
 			age = 45
-			ideology = ideology_reformer
+			ideology = ideology_kogalnitchanism
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_m2
@@ -929,7 +955,7 @@ balkfm_moldavian_election_effect = {
 			}
 		}
 		create_character = { # Lascăr Catargiu, prominent boyar conservative
-			first_name = Lascăr
+			first_name = Lascar
 			last_name = Catargiu
 			culture = cu:romanian
 			religion = rel:orthodox
@@ -1104,18 +1130,85 @@ balkfm_wallachian_election_effect = {
 
 }
 
-balkfm_dezvoltator_variables_effect = {
-	set_variable = {
-		name = balkfm_armed_forces_approval_var
-		value = root.ig:ig_armed_forces.ig_approval
+balkfm_set_up_1848_variables_effect = {
+	change_variable = {
+		name = balkfm_1848_rom_var
+		add = 0
 	}
 	set_variable = {
-		name = balkfm_ig_intelligentsia_approval_var
+		name = balkfm_1848_ruler_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_intelligentsia_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_bourgeoisie_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_landowners_approval_var
+		value = 0
+	}
+}
+
+balkfm_1848_variables_effect = {
+	set_variable = {
+		name = balkfm_1848_ruler_popularity_var
+		value = root.ruler.popularity
+	}
+	set_variable = {
+		name = balkfm_1848_intelligentsia_approval_var
 		value = root.ig:ig_intelligentsia.ig_approval
 	}
 	set_variable = {
-		name = balkfm_landowners_approval_var
+		name = balkfm_1848_landowners_approval_var
 		value = root.ig:ig_landowners.ig_approval
+	}
+	set_variable = {
+		name = balkfm_1848_bourgeoisie_approval_var
+		value = root.ig:ig_petty_bourgeoisie.ig_approval
+	}
+	set_variable = {
+		name = balkfm_1848_progress_var
+		value = balkfm_1848_progress_value
+	}
+}
+	
+balkfm_1848_progress_effect = {
+	change_variable = {
+		name = balkfm_1848_rom_var
+		add = var:balkfm_1848_progress_var
+	}
+	clamp_variable = {
+		name = balkfm_1848_rom_var
+		max = 200
+		min = 0
+	}
+}
+
+balkfm_clean_up_1848_variables_effect = {
+	remove_variable = balkfm_1848_rom_var
+	remove_variable = balkfm_1848_ruler_popularity_var
+	remove_variable = balkfm_1848_intelligentsia_approval_var
+	remove_variable = balkfm_1848_landowners_approval_var
+	remove_variable = balkfm_1848_bourgeoisie_approval_var
+}
+
+
+balkfm_dezvoltator_variables_effect = {
+	set_variable = {
+		name = balkfm_armed_forces_support_var
+		value = balkfm_armed_forces_support_value
+	}
+	set_variable = {
+		name = balkfm_intelligentsia_support_var
+		value = balkfm_intelligentsia_support_value
+	}
+	set_variable = {
+		name = balkfm_landowners_support_var
+		value = balkfm_landowners_support_value
 	}
 	set_variable = {
 		name = balkfm_dezvoltator_progress_var
@@ -1133,9 +1226,6 @@ balkfm_dezvoltator_progress_effect = {
 		max = 200
 		min = 0
 	}
-}
-
-balkfm_create_romanian_characters_effect = {
 }
 
 ## TURK-SPLOSION EFFECTS ##

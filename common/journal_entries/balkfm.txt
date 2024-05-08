@@ -1633,6 +1633,7 @@ je_balkfm_rom_regulamentul_organic = {
 			if = {
 				limit = {
 					has_law = law_type:law_monarchy
+					NOT = { has_variable = balkfm_1848_rom_var }
 				}
 				change_variable = {
 					name = balkfm_regulamentul_var
@@ -1650,6 +1651,12 @@ je_balkfm_rom_regulamentul_organic = {
 	
 	status_desc = {
 		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt4
+				trigger = {
+					has_variable = balkfm_1848_rom_var
+				}
+			}
 			triggered_desc = {
 				desc = je_balkfm_rom_regulamentul_election_tt1
 				trigger = {
@@ -1687,7 +1694,7 @@ je_balkfm_rom_legal_modernization = {
 	
 	complete = {
 		NOT = { has_law = law_type:law_autocracy }
-		NOT = { has_law = law_type:law_state_religion }
+		NOT = { has_law = law_type:law_peasant_levies }
 		NOT = { has_law = law_type:law_hereditary_bureaucrats }
 	}
 	
@@ -1771,6 +1778,119 @@ je_balkfm_rom_social_modernization = {
 	}
 	
 	weight = 1000
+	
+}
+
+je_balkfm_rom_1848 = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+	}
+	
+	scripted_button = balkfm_mol_intervention_button
+	scripted_button = balkfm_wal_intervention_button
+	
+	complete = {
+		custom_tooltip = {
+			text = balkfm_1848_rom_success_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var >= 200
+			}
+		}
+	}
+	
+	on_complete = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.604 # The Convention of Balta Liman
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.614 # The Convention of Balta Liman
+			}
+		}
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = balkfm_1848_rom_fail_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var <= 0
+			}
+		}
+	}
+	
+	on_fail = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.603 # Kogălniceanu's Revolution
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.613 # The Sword of the Revolution
+			}
+		}
+	}
+	
+	timeout = 730
+	
+	on_timeout = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.605 # Constitutional Stalemate
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.615 # Constitutional Stalemate
+			}
+		}
+	}
+	
+	invalid = {
+		has_variable = balkfm_regulamentul_completed
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_1848_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			balkfm_1848_progress_effect = yes
+		}
+	}
+	
+	weight = 500
 	
 }
 

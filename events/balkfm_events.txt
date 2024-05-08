@@ -46,8 +46,8 @@ namespace = balkfm
 #	080 - Skirmishes with Montenegro
 #	081 - The Schemes of Ali Pasha
 #	082 - Ali Pasha Ascendant
-#	083 - ##The Romanian Declaration of Union
-#	084 - ##The South Bessarabian Retrocession
+#	083 - The Romanian Declaration of Union
+#	084 -#The South Bessarabian Retrocession
 
 #090-099 - Test Events
 #	098 - Test Event
@@ -206,11 +206,21 @@ namespace = balkfm
 
 #600-609 - Moldavia-Specific Events
 #	600 - The Lands of Stephen the Great
-#	601 - ##The Petition-Proclamation
+#	601 - The Petition-Proclamation
+#	602 - The Moldavian Revolutionary Committee
+#	603 - Kogălniceanu's Revolution
+#	604 - The Convention of Balta Liman
+#	605 - Constitutional Stalemate
+#	606 - Russian Troops Enter Moldavia
 
 #610-619 - Wallachia-Specific Events
 #	610 - The Land Beyond the Snowy Mountains
-#	611 - ##Proclamation of Islaz
+#	611 - Proclamation of Islaz
+#	612 - The Wallachian Provisional Government
+#	613 - The Sword of the Revolution
+#	614 - The Convention of Balta Liman
+#	615 - Constitutional Stalemate
+#	616 - Russian Troops Enter Wallachia
 
 #620-629 - Regulamentul Organic / Statutul Dezvoltator Events
 #	620 - The Regulamentul Organic
@@ -226,6 +236,9 @@ namespace = balkfm
 
 #630-639 - The Era of Carol I Events
 #	630 - An Elected Domnitor
+
+#670-679 - Transylvania-Specific Events
+#	670 - OPEN
 
 #680-689 - Romanian Unification Events
 #	680 - Our Declaration of Union
@@ -6942,7 +6955,7 @@ balkfm.601 = { # The Petition-Proclamation
 	flavor = balkfm.601.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "asia_politician_parliament_motion"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
@@ -6962,6 +6975,10 @@ balkfm.601 = { # The Petition-Proclamation
 	
 	immediate = {
 		set_variable = balkfm_1848_happened
+		set_variable = {
+			name = balkfm_1848_rom_var
+			value = 0
+		}
 		create_character = {
 			# Vasile Alecsandri, Romanian nationalist and radical
 			first_name = "Vasile"
@@ -6977,6 +6994,7 @@ balkfm.601 = { # The Petition-Proclamation
 			}
 			on_created = {
 				set_variable = balkfm_is_alecsandri
+				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
@@ -6994,6 +7012,8 @@ balkfm.601 = { # The Petition-Proclamation
 			}
 			on_created = {
 				set_variable = balkfm_is_isacescu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 12 # just for this event
 			}
 		}
 		random_character_in_void = {
@@ -7022,7 +7042,7 @@ balkfm.601 = { # The Petition-Proclamation
 		name = balkfm.601.a
 		default_option = yes
 		scope:balkfm_ruler_scope = {
-			set_ideology = ideology:ideology_humanitarian_royalist
+			set_ideology = ideology:ideology_royalist
 		}
 		scope:balkfm_alecsandri_scope = {
 			free_character_from_void = yes
@@ -7060,6 +7080,249 @@ balkfm.601 = { # The Petition-Proclamation
 			pop_type = aristocrats
 			value = medium_radicals
 		}
+	}
+	
+	after = {
+		trigger_event = {
+			id = balkfm.602 # The Moldavian Revolutionary Committee
+		}
+	}
+
+}
+
+balkfm.602 = { # The Moldavian Revolutionary Committee
+	type = country_event
+	placement = root
+	
+	title = balkfm.602.t
+	desc = balkfm.602.d
+	flavor = balkfm.602.f
+	
+	event_image = {
+		video = "asia_politician_parliament_motion"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.602.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_1848
+		}
+		change_variable = {
+			name = balkfm_1848_rom_var
+			add = 100
+		}
+	}
+
+}
+
+balkfm.603 = { # Kogălniceanu's Revolution
+	type = country_event
+	placement = root
+	
+	title = balkfm.603.t
+	desc = balkfm.603.d
+	flavor = balkfm.603.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
+			first_name = Mihail
+			last_name = Kogalniceanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_is_kogalniceanu
+				set_variable = balkfm_is_revolutionary
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_kogalniceanu
+			}
+			save_scope_as = balkfm_kogalniceanu_scope
+		}
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.603.a
+		default_option = yes
+		scope:balkfm_kogalniceanu_scope = {
+			set_as_interest_group_leader = yes # Vasile Alecsandri left Moldavia after the attempted revolution
+			set_character_as_ruler = yes
+		}
+		remove_variable = balkfm_1848_rom_var
+	}
+
+}
+
+balkfm.604 = { # The Convention of Balta Liman
+	type = country_event
+	placement = root
+	
+	title = balkfm.604.t
+	desc = balkfm.604.d
+	flavor = balkfm.604.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.604.a
+		default_option = yes
+		every_scope_character = {
+			limit = {
+				has_variable = balkfm_is_revolutionary
+			}
+			exile_character = yes
+		}
+	}
+
+}
+
+balkfm.605 = { # Constitutional Stalemate
+	type = country_event
+	placement = root
+	
+	title = balkfm.605.t
+	desc = balkfm.605.d
+	flavor = balkfm.605.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.605.a
+		default_option = yes
+		every_scope_character = {
+			limit = {
+				has_variable = balkfm_is_revolutionary
+			}
+			exile_character = yes
+		}
+	}
+
+}
+
+balkfm.606 = { # Russian Troops Enter Moldavia
+	type = country_event
+	placement = root
+	
+	title = balkfm.606.t
+	desc = balkfm.606.d
+	flavor = balkfm.606.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.606.a
+		default_option = yes
+		custom_tooltip = balkfm.606.tt
 	}
 
 }
@@ -7132,7 +7395,7 @@ balkfm.611 = { # Proclamation of Islaz
 	flavor = balkfm.611.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "asia_politician_parliament_motion"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -7151,15 +7414,351 @@ balkfm.611 = { # Proclamation of Islaz
 	}	
 	
 	immediate = {
+		create_character = {
+			# Nicolae Bălcescu, leader of the 1848 revolution
+			first_name = "Nicolae"
+			last_name = "Balcescu"
+			historical = yes
+			age = 29 # at time of the revolution
+			ideology = ideology_radical
+			interest_group = ig_intelligentsia
+			traits = {
+				firebrand
+				literary
+				charismatic
+			}
+			on_created = {
+				set_variable = balkfm_is_balcescu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 12 # just for this event
+			}
+		}	
+		create_character = {
+			# Alexandru G. Golescu, prominent boyar member of the brotherhood
+			first_name = "Alexandru"
+			last_name = "Golescu"
+			historical = yes
+			age = 29 # at the time of the revolution
+			ideology = ideology_social_democrat
+			interest_group = ig_landowners
+			traits = {
+				basic_political_operator
+				direct
+			}
+			on_created = {
+				set_variable = balkfm_is_golescu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		create_character = {
+			# Neofit Gianoglu, Metropolitan of Wallachia 1840-1849
+			first_name = "Neofit"
+			last_name = "Gianoglu"
+			historical = yes
+			age = 61 # at the time of the revolution
+			ideology = ideology_traditionalist
+			interest_group = ig_devout
+			traits = {
+				imperious
+				pious
+				imposing
+			}
+			on_created = {
+				set_variable = balkfm_is_gianoglu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		create_character = {
+			# Christian Tell, major general and member of the brotherhood
+			first_name = "Christian"
+			last_name = "Tell"
+			historical = yes
+			age = 40 # at the time of the revolution
+			ideology = ideology_reformer # supported the revolution, but butted heads with its more radical wing
+			interest_group = ig_armed_forces
+			traits = {
+				experienced_offensive_planner
+				honorable
+				basic_political_operator
+			}
+			on_created = {
+				set_variable = balkfm_is_tell
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_balcescu
+			}
+			save_scope_as = balkfm_balcescu_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_golescu
+			}
+			save_scope_as = balkfm_golsecu_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_gianoglu
+			}
+			save_scope_as = balkfm_gianoglu_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_is_tell
+			}
+			save_scope_as = balkfm_tell_scope
+		}
 	}
 	
-	option = {
+	option = { # Support the Rebels
 		name = balkfm.611.a
 		default_option = yes
+		ruler = {
+			add_modifier = {
+				name = modifier_balkfm_receptive_domnitor
+				months = very_long_modifier_time
+			}
+		}
+		scope:balkfm_balcescu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_golsecu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_gianoglu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_tell_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+	}
+	
+	option = { # Do Not
+		name = balkfm.611.b
+		ruler = {
+			add_modifier = {
+				name = modifier_balkfm_unreceptive_domnitor
+				months = very_long_modifier_time
+			}
+		}
+		scope:balkfm_balcescu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_golsecu_scope = {
+			set_ideology = ideology:ideology_radical
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_gianoglu_scope = {
+			set_ideology = ideology:ideology_authoritarian
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_tell_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+	}
+	
+	after = {
+		trigger_event = {
+			id = balkfm.612 # The Wallachian Provisional Government
+		}
+	}
+
+}
+
+balkfm.612 = { # The Wallachian Provisional Government
+	type = country_event
+	placement = root
+	
+	title = balkfm.612.t
+	desc = balkfm.612.d
+	flavor = balkfm.612.f
+	
+	event_image = {
+		video = "asia_politician_parliament_motion"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
 	}
 	
 	option = {
-		name = balkfm.611.b
+		name = balkfm.612.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_1848
+		}
+		change_variable = {
+			name = balkfm_1848_rom_var
+			add = 100
+		}
+	}
+
+}
+
+balkfm.613 = { # The Sword of the Revolution
+	type = country_event
+	placement = root
+	
+	title = balkfm.613.t
+	desc = balkfm.613.d
+	flavor = balkfm.613.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.613.a
+		default_option = yes
+	}
+
+}
+
+balkfm.614 = { # The Convention of Balta Liman
+	type = country_event
+	placement = root
+	
+	title = balkfm.614.t
+	desc = balkfm.614.d
+	flavor = balkfm.614.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.614.a
+		default_option = yes
+		every_scope_character = {
+			limit = {
+				has_variable = balkfm_is_revolutionary
+			}
+			exile_character = yes
+		}
+	}
+
+}
+
+balkfm.615 = { # Constitutional Stalemate
+	type = country_event
+	placement = root
+	
+	title = balkfm.615.t
+	desc = balkfm.615.d
+	flavor = balkfm.615.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.615.a
+		default_option = yes
+		every_scope_character = {
+			limit = {
+				has_variable = balkfm_is_revolutionary
+			}
+			exile_character = yes
+		}
+	}
+
+}
+
+balkfm.616 = { # Russian Troops Enter Wallachia
+	type = country_event
+	placement = root
+	
+	title = balkfm.616.t
+	desc = balkfm.616.d
+	flavor = balkfm.616.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.616.a
+		default_option = yes
+		custom_tooltip = balkfm.616.tt
 	}
 
 }
@@ -7360,6 +7959,7 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 	trigger = {
 		var:balkfm_regulamentul_var <= 0
 		c:MOL ?= this
+		NOT = { has_variable = balkfm_1848_rom_var }
 	}
 	
 	immediate = {
@@ -7367,9 +7967,9 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 			name = balkfm_hospodar_election_counter
 			add = 1
 		}		
-		change_variable = {
+		set_variable = {
 			name = balkfm_regulamentul_var
-			add = 7
+			value = 7
 		}
 		balkfm_moldavian_election_effect = yes
 		ruler = {
@@ -7393,8 +7993,9 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 		name = balkfm.624.a
 		default_option = yes
 		scope:balkfm_hospodar_candidate_1 = {
-			free_character_from_void = yes
-			set_character_as_ruler = yes
+			add_modifier = {
+				name = modifier_balkfm_tenure_extended
+			}
 		}
 	}
 	
@@ -7415,10 +8016,6 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 	}
 	
 	after = {
-		change_variable = {
-			name = balkfm_regulamentul_var
-			add = 7
-		}
 		ruler = {
 			remove_variable = balkfm_hospodar_m1
 			remove_variable = balkfm_hospodar_m2
@@ -7452,6 +8049,7 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 	trigger = {
 		var:balkfm_regulamentul_var <= 0
 		c:WAL ?= this
+		NOT = { has_variable = balkfm_1848_rom_var }
 	}
 	
 	immediate = {
@@ -7459,9 +8057,9 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 			name = balkfm_hospodar_election_counter
 			add = 1
 		}		
-		change_variable = {
+		set_variable = {
 			name = balkfm_regulamentul_var
-			add = 7
+			value = 7
 		}
 		balkfm_wallachian_election_effect = yes
 		ruler = {
@@ -7485,8 +8083,9 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 		name = balkfm.625.a
 		default_option = yes
 		scope:balkfm_hospodar_candidate_1 = {
-			free_character_from_void = yes
-			set_character_as_ruler = yes
+			add_modifier = {
+				name = modifier_balkfm_tenure_extended
+			}
 		}
 	}
 	
@@ -7507,7 +8106,6 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 	}
 	
 	after = {
-
 		ruler = {
 			remove_variable = balkfm_hospodar_m1
 			remove_variable = balkfm_hospodar_m2
@@ -7594,15 +8192,15 @@ balkfm.627 = { # Absolutist Aspirations
 	
 	immediate = {
 		set_variable = {
-			name = balkfm_armed_forces_approval_var
+			name = balkfm_armed_forces_support_var
 			value = 0
 		}
 		set_variable = {
-			name = balkfm_ig_intelligentsia_approval_var
+			name = balkfm_intelligentsia_support_var
 			value = 0
 		}
 		set_variable = {
-			name = balkfm_landowners_approval_var
+			name = balkfm_landowners_support_var
 			value = 0
 		}
 		set_variable = {

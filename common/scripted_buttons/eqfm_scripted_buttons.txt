@@ -197,7 +197,10 @@ eqfm_accelerate_button = {
 	visible = {
 		has_variable = eqfm_anti_turk_var
 		country_rank >= rank_value:great_power
-		c:TUR != this
+		NOR = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
 	}
 	
 	possible = {
@@ -260,6 +263,10 @@ eqfm_decelerate_button = {
 	visible = {
 		has_variable = eqfm_pro_turk_var
 		country_rank >= rank_value:great_power
+		NOR = {
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions
+		}
 	}
 	
 	possible = {

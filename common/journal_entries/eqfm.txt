@@ -201,9 +201,12 @@ je_eqfm_sub = {
 		}
 	}
 	
-	invalid = { # technical trigger for testing
+	invalid = {
 		hidden_trigger = {
-			has_global_variable = eqfm_cancel_struggle
+			OR = {
+				has_global_variable = eqfm_cancel_struggle # technical trigger for testing
+				c:TUR ?= this # leaky triggers safeguard
+			}
 		}
 	}
 	
@@ -247,6 +250,7 @@ je_eqfm_sub = {
 	scripted_button = eqfm_neutral_button
 	scripted_button = eqfm_accelerate_button
 	scripted_button = eqfm_decelerate_button
+	scripted_button = eqfm_clutch_button
 	
 	weight = 1000
 	

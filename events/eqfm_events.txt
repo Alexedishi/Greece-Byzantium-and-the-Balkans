@@ -171,8 +171,11 @@ eqfm.001 = { # The Eastern Question (TUR Intro)
 			}
 			every_country = {
 				limit = {
-					balkfm_balkans_native_trigger = yes
 					NOT = { c:TUR = this }
+					OR = {
+						balkfm_balkans_native_trigger = yes
+						is_subject_of = c:TUR
+					}
 				}
 				trigger_event = {
 					id = eqfm.003 # The Decline of the Porte
@@ -206,6 +209,10 @@ eqfm.002 = { # The Sick Man of Europe
 	
 	trigger = {
 		# triggered from GLOBAL
+	}
+	
+	cancellation_trigger = {
+		c:TUR ?= this # leaky triggers safeguard
 	}
 	
 	immediate = {
@@ -247,6 +254,10 @@ eqfm.003 = { # The Decline of the Porte
 	
 	trigger = {
 		# triggered from GLOBAL
+	}
+	
+	cancellation_trigger = {
+		c:TUR ?= this # leaky triggers safeguard
 	}
 	
 	immediate = {

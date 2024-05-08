@@ -373,6 +373,76 @@ balkfm_declare_tsardom_button = {
 
 # Romania Buttons
 
+balkfm_mol_intervention_button = {
+	name = "balkfm_mol_intervention"
+	desc = "balkfm_mol_intervention_desc"
+	
+	visible = {
+		c:MOL ?= this
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_russian_occupation
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.606 # Russian Troops Enter Moldavia
+			days = 30
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				var:balkfm_1848_rom_var < 20
+			}
+			add = 10
+		}
+	}
+}
+
+balkfm_wal_intervention_button = {
+	name = "balkfm_wal_intervention"
+	desc = "balkfm_wal_intervention_desc"
+	
+	visible = {
+		c:WAL ?= this
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_russian_occupation
+		}
+		custom_tooltip = {
+			text = balkfm_intervention_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var < 50
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.616 # Russian Troops Enter Wallachia
+			days = 30
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				var:balkfm_1848_rom_var < 20
+			}
+			add = 10
+		}
+	}
+}
+
 balkfm_unite_principalities_button = {
 	name = "balkfm_unite_principalities"
 	desc = "balkfm_unite_principalities_desc"
