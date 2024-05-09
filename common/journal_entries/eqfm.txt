@@ -82,15 +82,18 @@ je_eqfm_main = {
 	}
 	
 	fail = {
-		custom_tooltip = {
-			text = je_eqfm_fail_tt
-			hidden_trigger = {
-				NOT = {
-					any_scope_state = {
-						region = sr:region_anatolia
+		OR = {
+			custom_tooltip = {
+				text = je_eqfm_fail_tt
+				hidden_trigger = {
+					NOT = {
+						any_scope_state = {
+							region = sr:region_anatolia
+						}
 					}
 				}
 			}
+			is_subject = yes
 		}
 	}
 	
@@ -201,12 +204,25 @@ je_eqfm_sub = {
 		}
 	}
 	
+	on_complete = {
+		hidden_effect = {
+			eqfm_clean_up_eqfm_modifiers_effect = yes
+		}
+	}
+	
 	invalid = {
 		hidden_trigger = {
 			OR = {
+				NOT = { exists = c:TUR }
 				has_global_variable = eqfm_cancel_struggle # technical trigger for testing
 				c:TUR ?= this # leaky triggers safeguard
 			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			eqfm_clean_up_eqfm_modifiers_effect = yes
 		}
 	}
 	

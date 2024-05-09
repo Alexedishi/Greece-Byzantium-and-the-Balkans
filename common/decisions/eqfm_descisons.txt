@@ -1,0 +1,24 @@
+﻿eqfm_fallback_decision = {
+	is_shown = {
+		NOT = { has_journal_entry = je_eqfm_sub }
+		OR = {
+			has_modifier = modifier_eqfm_influencing_balkans
+			has_modifier = modifier_eqfm_accelerating_tensions
+			has_modifier = modifier_eqfm_decelerating_tensions	
+		}
+	}
+	
+	possible = {
+		always = yes
+	}
+	
+	when_taken = {
+		remove_modifier = modifier_eqfm_influencing_balkans
+		remove_modifier = modifier_eqfm_accelerating_tensions
+		remove_modifier = modifier_eqfm_decelerating_tensions
+	}
+
+	ai_chance = {
+		base = 1000
+	}
+}
