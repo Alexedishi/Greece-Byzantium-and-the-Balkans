@@ -373,6 +373,90 @@ balkfm_declare_tsardom_button = {
 
 # Romania Buttons
 
+balkfm_mol_intervention_button = {
+	name = "balkfm_mol_intervention"
+	desc = "balkfm_mol_intervention_desc"
+	
+	visible = {
+		c:MOL ?= this
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_requested_interference
+		}
+		custom_tooltip = {
+			text = balkfm_intervention_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var < 50
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.606 # Russian Troops Enter Moldavia
+			days = 30
+		}
+		add_modifier = {
+			name = modifier_balkfm_requested_interference
+			months = normal_modifier_time
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				var:balkfm_1848_rom_var < 20
+			}
+			add = 10
+		}
+	}
+}
+
+balkfm_wal_intervention_button = {
+	name = "balkfm_wal_intervention"
+	desc = "balkfm_wal_intervention_desc"
+	
+	visible = {
+		c:WAL ?= this
+	}
+	
+	possible = {
+		NOT = {
+			has_modifier = modifier_balkfm_requested_interference
+		}
+		custom_tooltip = {
+			text = balkfm_intervention_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var < 50
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.616 # Russian Troops Enter Wallachia
+			days = 30
+		}
+		add_modifier = {
+			name = modifier_balkfm_requested_interference
+			months = normal_modifier_time
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				var:balkfm_1848_rom_var < 20
+			}
+			add = 10
+		}
+	}
+}
+
 balkfm_unite_principalities_button = {
 	name = "balkfm_unite_principalities"
 	desc = "balkfm_unite_principalities_desc"
@@ -457,7 +541,7 @@ balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
 	
 	visible = {
 		has_variable = ROM_united_principality
-		has_variable = balkfm_formed_ROM
+		NOT = { has_variable = balkfm_formed_ROM }
 	}
 	
 	possible = {
@@ -485,6 +569,7 @@ balkfm_bessarabian_retrocession_button = { # vanilla button, integrated into bal
 	desc = "balkfm_bessarabian_retrocession_desc"
 
 	visible = { 
+		has_variable = ROM_united_principality
 		NOT = { has_variable = balkfm_requested_retrocession }
 		NOR = {
 			any_scope_state = {
@@ -576,14 +661,8 @@ balkfm_marea_unire_button = { # vanilla button, integrated into balkfm
 	desc = "balkfm_marea_unire_desc"
 
 	visible = { 
-		exists = c:TRS
-		NOR = { 
-			c:TRS ?= ROOT 
-			c:TRS ?= {
-				is_subject_of = ROOT
-			}
-		}
 		c:TRS ?= {
+			NOT = { is_subject_of = ROOT }
 			is_player = no
 		}
 	}
@@ -603,24 +682,97 @@ balkfm_marea_unire_button = { # vanilla button, integrated into balkfm
         }
     }
 
-	effect = { # this will become an event
-		if = {
-			limit = {
-				has_law = law_type:law_monarchy
-				c:TRS ?= {
-					has_law = law_type:law_monarchy
+	effect = {
+		trigger_event = {
+			id = balkfm.684 # Union with Transylvania
+		}
+	}
+}
+
+balkfm_annex_transylvania_button = {
+	name = "balkfm_annex_transylvania"
+	desc = "balkfm_annex_transylvania_desc"
+	
+	visible = {
+		c:TRS ?= {
+			is_player = no
+		}
+	}
+	
+	possible = {
+		is_at_war = no
+		is_subject = no
+		c:TRS = {
+			is_subject_of = ROOT
+			NOT = { has_truce_with = ROOT }
+			relations:root >= relations_threshold:cordial
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.685 # TRS Annexation
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+balkfm_romanian_agitation_button = {
+	name = "balkfm_romanian_agitation"
+	desc = "balkfm_romanian_agitation_desc"
+	
+	visible = {
+		c:AUS ?= {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:romanian
 				}
 			}
-			create_diplomatic_pact = {
-				country = c:TRS
-				type = personal_union
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+	}
+	
+	effect = {
+		set_variable = balkfm_romanian_agitation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:AUS ?= {
+			random_scope_state = {
+				limit = {
+					state_region = {
+						is_homeland = cu:romanian
+					}
+				}
+				set_variable = balkfm_romanian_state_target
+			}
+			trigger_event = {
+				id = balkfm.687 # Romanian Agitation in State (AUS)
 			}
 		}
-		else = {
-			create_diplomatic_pact = {
-				country = c:TRS
-				type = puppet
+		trigger_event = {
+			id = balkfm.686 # Romanian Agitation in State (ROM)
+		}
+		remove_variable = balkfm_romanian_agitation_actor
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:AUS
+					secret_goal = antagonize
+				}
 			}
+			add = 10
 		}
 	}
 }

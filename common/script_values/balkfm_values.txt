@@ -1,5 +1,5 @@
 ﻿## SERBIA VALUES ###
-obrenovic_progress_value = {
+obrenovic_power_value = {
 	value = 0
 	if = {
 		limit = {
@@ -20,7 +20,10 @@ obrenovic_progress_value = {
 	else = {
 		subtract = 3 # because the obrenovics were famously autocractic
 	}
-	
+}
+
+obrenovic_bureacracy_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_hereditary_bureaucrats
@@ -36,14 +39,20 @@ obrenovic_progress_value = {
 	else = {
 		add = 1 # base progress for either side
 	}
-	
+}
+
+obrenovic_security_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_secret_police
 		}
 		add = 2
 	}
-	
+}
+
+obrenovic_land_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_serfdom
@@ -59,7 +68,10 @@ obrenovic_progress_value = {
 	else = {
 		subtract = 2
 	}
-	
+}
+
+obrenovic_austria_value = {
+	value = 0
 	if = {
 		limit = {
 			c:AUS ?= {
@@ -92,10 +104,19 @@ obrenovic_progress_value = {
 		}
 		subtract = 2
 	}
-	
 }
 
-karadordevic_progress_value = {
+
+obrenovic_progress_value = {
+	value = 0
+	add = var:obrenovic_power_var
+	add = var:obrenovic_bureacracy_var
+	add = var:obrenovic_security_var
+	add = var:obrenovic_land_var
+	add = var:obrenovic_austria_var
+}
+
+karadordevic_power_value = {
 	value = 0
 	if = {
 		limit = {
@@ -118,7 +139,10 @@ karadordevic_progress_value = {
 	else = {
 		subtract = 2
 	}
-	
+}
+
+karadordevic_bureaucracy_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_hereditary_bureaucrats
@@ -134,14 +158,20 @@ karadordevic_progress_value = {
 	else = {
 		add = 2
 	}
-	
+}
+
+karadordevic_security_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_guaranteed_liberties
 		}
 		add = 2
 	}
-	
+}
+
+karadordevic_land_value = {
+	value = 0
 	if = {
 		limit = {
 			has_law = law_type:law_serfdom
@@ -157,7 +187,10 @@ karadordevic_progress_value = {
 	else = {
 		add = 2
 	}
-	
+}
+
+karadordevic_russia_value = {
+	value = 0
 	if = {
 		limit = {
 			c:RUS ?= {
@@ -190,7 +223,10 @@ karadordevic_progress_value = {
 		}
 		subtract = 2
 	}
-	
+}
+
+karadordevic_conquest_value = {
+	value = 0
 	if = {
 		limit = {
 			NOT = {
@@ -207,6 +243,16 @@ karadordevic_progress_value = {
 		}
 		add = 2
 	}
+}
+
+karadordevic_progress_value = {
+	value = 0
+	add = var:karadordevic_power_var
+	add = var:karadordevic_bureaucracy_var
+	add = var:karadordevic_security_var
+	add = var:karadordevic_land_var
+	add = var:karadordevic_russia_var
+	add = var:karadordevic_conquest_var
 }
 
 ## BULGARIA VALUES ##
@@ -339,4 +385,120 @@ balkfm_battenburg_support_value = {
 		add = 1
 	}
 	
+}
+
+## ROMANIA VALUES ##
+
+# 1848 Variables
+balkfm_1848_ruler_popularity_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 10
+}
+
+balkfm_1848_intelligentsia_approval_value = {
+	value = 0
+	add = root.ig:ig_intelligentsia.ig_approval
+	divide = 10
+}
+
+balkfm_1848_landowners_approval_value = {
+	value = 0
+	add = root.ig:ig_landowners.ig_approval
+	divide = 10
+}
+
+balkfm_1848_bourgeoisie_approval_value = {
+	value = 0
+	add = root.ig:ig_petty_bourgeoisie.ig_approval
+	divide = 10
+}
+
+balkfm_1848_occupation_value = {
+	value = 0
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_russian_occupation
+		}
+		add = 20
+	}
+}
+
+balkfm_1848_progress_value = {
+	value = 0
+	add = var:balkfm_1848_ruler_popularity_var
+	add = var:balkfm_1848_intelligentsia_approval_var
+	add = var:balkfm_1848_landowners_approval_var
+	add = var:balkfm_1848_bourgeoisie_approval_var
+	add = var:balkfm_1848_occupation_var
+}
+
+# Dezvoltator Values
+
+balkfm_landowners_support_value = {
+	value = 0
+	add = root.ig:ig_landowners.ig_approval
+	multiply = root.ig:ig_landowners.ig_clout
+}
+
+balkfm_devout_support_value = {
+	value = 0
+	add = root.ig:ig_devout.ig_approval
+	multiply = root.ig:ig_landowners.ig_clout
+}
+
+balkfm_armed_forces_support_value = {
+	value = 0
+	add = root.ig:ig_armed_forces.ig_approval
+	multiply = root.ig:ig_armed_forces.ig_clout
+}
+
+balkfm_intelligentsia_support_value = {
+	value = 0
+	add = root.ig:ig_intelligentsia.ig_approval
+	multiply = root.ig:ig_intelligentsia.ig_clout
+}
+
+balkfm_industrialists_support_value = {
+	value = 0
+	add = root.ig:ig_industrialists.ig_approval
+	multiply = root.ig:ig_industrialists.ig_clout
+}
+
+balkfm_bourgeoisie_support_value = {
+	value = 0
+	add = root.ig:ig_petty_bourgeoisie.ig_approval
+	multiply = root.ig:ig_petty_bourgeoisie.ig_clout
+}
+
+balkfm_rural_folk_support_value = {
+	value = 0
+	add = root.ig:ig_rural_folk.ig_approval
+	multiply = root.ig:ig_rural_folk.ig_clout
+}
+
+balkfm_trade_unions_support_value = {
+	value = 0
+	add = root.ig:ig_trade_unions.ig_approval
+	multiply = root.ig:ig_trade_unions.ig_clout
+}
+
+balkfm_dezvoltator_progress_value = {
+	value = 0
+	add = var:balkfm_landowners_support_var
+	add = var:balkfm_devout_support_var
+	add = var:balkfm_armed_forces_support_var
+	add = var:balkfm_intelligentsia_support_var
+	add = var:balkfm_industrialists_support_var
+	add = var:balkfm_bourgeoisie_support_var
+	add = var:balkfm_rural_folk_support_var
+	add = var:balkfm_trade_unions_support_var
+	if = {
+		limit = {
+			NOT = {
+				has_law = law_type:law_autocracy
+			}
+		}
+		multiply = 0.5
+	}
 }

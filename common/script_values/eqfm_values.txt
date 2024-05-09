@@ -3,7 +3,7 @@ eqfm_tension_progress_value = {
 	value = 0
 	add = global_var:eqfm_nationalism_var
 	add = global_var:eqfm_accelerate_var
-	subtract = global_var:eqfm_decelerate_var
+	add = global_var:eqfm_decelerate_var
 	add = global_var:eqfm_culture_var
 	add = global_var:eqfm_religion_var
 	add = global_var:eqfm_greek_radicals_var
@@ -11,11 +11,11 @@ eqfm_tension_progress_value = {
 	add = global_var:eqfm_bulgarian_radicals_var
 	add = global_var:eqfm_bosniak_radicals_var
 	add = global_var:eqfm_croat_radicals_var
-	subtract = global_var:eqfm_greek_loyalists_var
-	subtract = global_var:eqfm_serb_loyalists_var
-	subtract = global_var:eqfm_bulgarian_loyalists_var
-	subtract = global_var:eqfm_bosniak_loyalists_var
-	subtract = global_var:eqfm_croat_loyalists_var
+	add = global_var:eqfm_greek_loyalists_var
+	add = global_var:eqfm_serb_loyalists_var
+	add = global_var:eqfm_bulgarian_loyalists_var
+	add = global_var:eqfm_bosniak_loyalists_var
+	add = global_var:eqfm_croat_loyalists_var
 	round = 0.01
 	if = {
 		limit = {
@@ -53,7 +53,7 @@ eqfm_decelerate_value = {
 		limit = {
 			has_modifier = modifier_eqfm_decelerating_tensions
 		}
-		add = 1
+		subtract = 1
 	}
 }
 
@@ -206,7 +206,7 @@ eqfm_greek_loyalists_value = {
 			limit = {
 				has_pop_culture = greek
 			}
-			add = pop_loyalist_fraction
+			subtract = pop_loyalist_fraction
 		}
 	}
 	divide = 100
@@ -223,7 +223,7 @@ eqfm_serb_loyalists_value = {
 			limit = {
 				has_pop_culture = serb
 			}
-			add = pop_loyalist_fraction
+			subtract = pop_loyalist_fraction
 		}
 	}
 	divide = 100
@@ -240,7 +240,7 @@ eqfm_bulgarian_loyalists_value = {
 			limit = {
 				has_pop_culture = bulgarian
 			}
-			add = pop_loyalist_fraction
+			subtract = pop_loyalist_fraction
 		}
 	}
 	divide = 100
@@ -257,7 +257,7 @@ eqfm_bosniak_loyalists_value = {
 			limit = {
 				has_pop_culture = bosniak
 			}
-			add = pop_loyalist_fraction
+			subtract = pop_loyalist_fraction
 		}
 	}
 	divide = 100
@@ -274,7 +274,7 @@ eqfm_croat_loyalists_value = {
 			limit = {
 				has_pop_culture = croat
 			}
-			add = pop_loyalist_fraction
+			subtract = pop_loyalist_fraction
 		}
 	}
 	divide = 100

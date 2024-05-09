@@ -6,32 +6,21 @@ on_monthly_pulse_country = {
 	on_actions = {
 		grefm_monthly_pulse
 		byfzm_monthly_pulse
-		
+#		turkfm_monthly_pulse
 		balkfm_monthly_pulse
 #		yug_flavor_pulse
 		mon_flavor_pulse
 		ser_flavor_pulse
 		bul_flavor_pulse
-		rom_flavor_pulse
+#		rom_flavor_pulse
 #		bos_flavor_pulse
 #		alb_flavor_pulse
 #		triu_flavor_pulse
 		eocfm_monthly_pulse
-		
 		byzfm_chariot_pulse_1
 		byzfm_chariot_pulse_2	
 	}
 }
-
-on_wargoal_enforced = {
-	on_actions = {
-		eocfm_wargoal_enforced_1
-		eocfm_wargoal_enforced_2
-		eqfm_crisis_wargoal_enforced
-#		eqfm_thunderdome_wargoal_enforced
-	}
-}
-
 
 ############
 
@@ -69,7 +58,7 @@ grefm_monthly_pulse = {
 		grefm.110 # decline of the heptanese school
 		grefm.111 # lake kopais
 		grefm.114 # Merchantile Rivalry
-		grefm.120 # olympics restarted
+#		grefm.120 # olympics restarted
 		grefm.121 # university of athens
 		grefm.131 # the corinth canal
 		grefm.132 # the royal palace
@@ -179,20 +168,21 @@ bul_flavor_pulse = {
 	}
 }
 
-rom_flavor_pulse = {
-	trigger = {
-		OR = {
-			c:WAL ?= this
-			c:MOL ?= this
-			c:ROM ?= this
-		}
-	}
-	events = {
-	}
-	random_events = {
-		100 = 0
-	}
-}
+#rom_flavor_pulse = {
+#	trigger = {
+#		OR = {
+#			c:WAL ?= this
+#			c:MOL ?= this
+#			c:TRS ?= this
+#			c:ROM ?= this
+#		}
+#	}
+#	events = {
+#	}
+#	random_events = {
+#		100 = 0
+#	}
+#}
 
 eocfm_monthly_pulse = {
 	trigger = {
@@ -345,6 +335,37 @@ balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
 
 ############
 
+on_secession_start = {
+	on_actions = {
+		eqfm_secession_start
+	}
+}
+
+eqfm_secession_start = {
+	effect = {
+		if = {
+			limit = {
+				has_journal_entry = je_eqfm_main
+				scope:target = {
+					balkfm_balkans_native_trigger = yes
+				}
+			}
+		}
+		eqfm_secession_start_effect = yes
+	}		
+}
+
+############
+
+on_wargoal_enforced = {
+	on_actions = {
+		eocfm_wargoal_enforced_1
+		eocfm_wargoal_enforced_2
+		eqfm_crisis_wargoal_enforced
+#		eqfm_thunderdome_wargoal_enforced
+	}
+}
+
 # These on_actions changes the Crusade target's state religion or penalize the Crusade initiator if they lose. The crusade variables are set by the Crusade DP. This is very janky, I agree.
 
 eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade success
@@ -388,9 +409,6 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 		}
 	}
 }
-	
-
-############
 
 # These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 

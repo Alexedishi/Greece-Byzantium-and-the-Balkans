@@ -82,15 +82,18 @@ je_eqfm_main = {
 	}
 	
 	fail = {
-		custom_tooltip = {
-			text = je_eqfm_fail_tt
-			hidden_trigger = {
-				NOT = {
-					any_scope_state = {
-						region = sr:region_anatolia
+		OR = {
+			custom_tooltip = {
+				text = je_eqfm_fail_tt
+				hidden_trigger = {
+					NOT = {
+						any_scope_state = {
+							region = sr:region_anatolia
+						}
 					}
 				}
 			}
+			is_subject = yes
 		}
 	}
 	
@@ -121,6 +124,7 @@ je_eqfm_main = {
 		events = {
 			balkfm.082 # Ali Pasha Ascendant
 			eqfm.110 # Sets GEC Variables and Starts Warmup Chain
+			eqfm.020 # Riots in State
 		}
 		random_events = {
 			400 = 0
@@ -130,7 +134,6 @@ je_eqfm_main = {
 			5 = eqfm.013 # Church Burned in State
 			5 = eqfm.014 # Popular Speaker Lynched in State
 			5 = eqfm.015 # Brigandage in State
-			5 = eqfm.020 # Riots in State
 		}
 		effect = {
 			eqfm_push_tension_effect = yes
@@ -201,9 +204,25 @@ je_eqfm_sub = {
 		}
 	}
 	
-	invalid = { # technical trigger for testing
+	on_complete = {
+		hidden_effect = {
+			eqfm_clean_up_eqfm_modifiers_effect = yes
+		}
+	}
+	
+	invalid = {
 		hidden_trigger = {
-			has_global_variable = eqfm_cancel_struggle
+			OR = {
+				NOT = { exists = c:TUR }
+				has_global_variable = eqfm_cancel_struggle # technical trigger for testing
+				c:TUR ?= this # leaky triggers safeguard
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			eqfm_clean_up_eqfm_modifiers_effect = yes
 		}
 	}
 	
@@ -247,6 +266,7 @@ je_eqfm_sub = {
 	scripted_button = eqfm_neutral_button
 	scripted_button = eqfm_accelerate_button
 	scripted_button = eqfm_decelerate_button
+	scripted_button = eqfm_clutch_button
 	
 	weight = 1000
 	

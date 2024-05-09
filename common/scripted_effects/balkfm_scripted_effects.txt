@@ -280,7 +280,51 @@ balkfm_set_monarchism_variables = {
 		value = 0
 	}
 	set_variable = {
+		name = obrenovic_power_var
+		value = 0
+	}
+	set_variable = {
+		name = obrenovic_bureacracy_var
+		value = 0
+	}
+	set_variable = {
+		name = obrenovic_security_var
+		value = 0
+	}
+	set_variable = {
+		name = obrenovic_land_var
+		value = 0
+	}
+	set_variable = {
+		name = obrenovic_austria_var
+		value = 0
+	}
+	set_variable = {
 		name = obrenovic_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_power_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_bureaucracy_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_security_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_land_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_russia_var
+		value = 0
+	}
+	set_variable = {
+		name = karadordevic_conquest_var
 		value = 0
 	}
 	set_variable = {
@@ -294,11 +338,57 @@ balkfm_set_monarchism_variables = {
 	set_variable = obrenovic_crowned_var
 	set_variable = balkfm_russia_consul_var
 }
+
 	
 balkfm_calculate_dynasty_support = {
 	set_variable = {
+		name = obrenovic_power_var
+		value = obrenovic_power_value
+	}
+	set_variable = {
+		name = obrenovic_bureacracy_var
+		value = obrenovic_bureacracy_value
+	}
+	set_variable = {
+		name = obrenovic_security_var
+		value = obrenovic_security_value
+	}
+	set_variable = {
+		name = obrenovic_land_var
+		value = obrenovic_land_value
+	}
+	set_variable = {
+		name = obrenovic_austria_var
+		value = obrenovic_austria_value
+	}
+	set_variable = {
 		name = obrenovic_progress_var
 		value = obrenovic_progress_value
+	}
+	
+	set_variable = {
+		name = karadordevic_power_var
+		value = karadordevic_power_value
+	}
+	set_variable = {
+		name = karadordevic_bureaucracy_var
+		value = karadordevic_bureaucracy_value
+	}
+	set_variable = {
+		name = karadordevic_security_var
+		value = karadordevic_security_value
+	}
+	set_variable = {
+		name = karadordevic_land_var
+		value = karadordevic_land_value
+	}
+	set_variable = {
+		name = karadordevic_russia_var
+		value = karadordevic_russia_value
+	}
+	set_variable = {
+		name = karadordevic_conquest_var
+		value = karadordevic_conquest_value
 	}
 	set_variable = {
 		name = karadordevic_progress_var
@@ -326,6 +416,7 @@ balkfm_update_dynasty_variables = {
 		min = 0
 	}
 }
+
 
 balkfm_define_leading_dynasty = {
 	if = {
@@ -743,7 +834,7 @@ balkfm_create_bulgarian_royals = {
 		}
 		on_created = {
 			set_variable = balkfm_is_ferdinand
-			place_character_in_void = 12
+			place_character_in_void = 720 # 60 year lease on life
 		}
 	}
 }
@@ -755,9 +846,50 @@ balkfm_moldavian_election_effect = {
 		limit = {
 			var:balkfm_hospodar_election_counter <= 1
 		}
-		create_character = { # Mihail Kogălniceanu, Romanian nationalist; inspired the 1848 Moldavian Revolution
-			first_name = Mihail
-			last_name = Kogalniceanu
+		if = {
+			limit = {
+				ruler = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+			}
+			create_character = {
+				# Costache Negri, Moldavian writer and revolutionary
+				first_name = Costache
+				last_name = Negri
+				culture = cu:romanian
+				religion = rel:orthodox
+				historical = yes
+				age = 45
+				ideology = ideology_reformer
+				interest_group = ig_intelligentsia
+				on_created = {
+					set_variable = balkfm_hospodar_m1
+					place_character_in_void = 720
+				}
+			}
+		}
+		else = {
+			create_character = { 
+				# Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
+				first_name = Mihail
+				last_name = Kogalniceanu
+				culture = cu:romanian
+				religion = rel:orthodox
+				historical = yes
+				age = 45
+				ideology = ideology_kogalnitchanism
+				interest_group = ig_intelligentsia
+				on_created = {
+					set_variable = balkfm_is_kogalniceanu
+					set_variable = balkfm_hospodar_m1
+					place_character_in_void = 720
+				}
+			}
+		}
+		create_character = { 
+			# Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
+			first_name = Ion
+			last_name = Ghica
 			culture = cu:romanian
 			religion = rel:orthodox
 			historical = yes
@@ -765,22 +897,8 @@ balkfm_moldavian_election_effect = {
 			ideology = ideology_kogalnitchanism
 			interest_group = ig_intelligentsia
 			on_created = {
-				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
-			}
-		}
-		create_character = { # Ion Ghica, Romanian statesman and scholar; participated in the 1848 Revolts
-			first_name = Ion
-			last_name = Ghica
-			culture = cu:romanian
-			religion = rel:orthodox
-			historical = yes
-			age = 45
-			ideology = ideology_reformer
-			interest_group = ig_intelligentsia
-			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720
 			}
 		}
 	}
@@ -800,7 +918,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		create_character = { # Manolache Costache Epureanu, 2x Prime Minister of Romania, participated in the ad hoc committee in Moldavia after the 1848 Revolution
@@ -814,7 +932,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -834,21 +952,21 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
-		create_character = { # Ioan Grigore Ghica, son of Grigore Ghica
-			first_name = Ioan
-			last_name = Ghica
+		create_character = { # Lascăr Catargiu, prominent boyar conservative
+			first_name = Lascar
+			last_name = Catargiu
 			culture = cu:romanian
 			religion = rel:orthodox
 			historical = yes
 			age = 29 # if election is held in 1859
-			ideology = ideology_jingoist_leader
+			ideology = ideology_royalist
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -865,7 +983,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_m1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -876,7 +994,7 @@ balkfm_moldavian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_m2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -900,7 +1018,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = { # Emanoil Băleanu, candidate in the 1842 election
@@ -914,7 +1032,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -933,7 +1051,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = { # Constantin Cantacuzino, boyar leader during the Regulamentul era
@@ -947,7 +1065,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -966,7 +1084,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -977,7 +1095,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
@@ -994,7 +1112,7 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_intelligentsia
 			on_created = {
 				set_variable = balkfm_hospodar_w1
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 		create_character = {
@@ -1006,11 +1124,248 @@ balkfm_wallachian_election_effect = {
 			interest_group = ig_landowners
 			on_created = {
 				set_variable = balkfm_hospodar_w2
-				place_character_in_void = 6
+				place_character_in_void = 720 
 			}
 		}
 	}
 
+}
+
+balkfm_set_up_1848_variables_effect = {
+	change_variable = {
+		name = balkfm_1848_rom_var
+		add = 0
+	}
+	set_variable = {
+		name = balkfm_1848_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_ruler_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_intelligentsia_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_bourgeoisie_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_landowners_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_occupation_var
+		value = 0
+	}
+}
+
+balkfm_1848_variables_effect = {
+	set_variable = {
+		name = balkfm_1848_ruler_popularity_var
+		value = balkfm_1848_ruler_popularity_value
+	}
+	set_variable = {
+		name = balkfm_1848_intelligentsia_approval_var
+		value = balkfm_1848_intelligentsia_approval_value
+	}
+	set_variable = {
+		name = balkfm_1848_landowners_approval_var
+		value = balkfm_1848_landowners_approval_value
+	}
+	set_variable = {
+		name = balkfm_1848_bourgeoisie_approval_var
+		value = balkfm_1848_bourgeoisie_approval_value
+	}
+	set_variable = {
+		name = balkfm_1848_occupation_var
+		value = balkfm_1848_occupation_value
+	}
+	set_variable = {
+		name = balkfm_1848_progress_var
+		value = balkfm_1848_progress_value
+	}
+}
+	
+balkfm_1848_progress_effect = {
+	change_variable = {
+		name = balkfm_1848_rom_var
+		add = var:balkfm_1848_progress_var
+	}
+	clamp_variable = {
+		name = balkfm_1848_rom_var
+		max = 200
+		min = 0
+	}
+}
+
+balkfm_clean_up_1848_variables_effect = {
+	remove_variable = balkfm_1848_rom_var
+	remove_variable = balkfm_1848_progress_var
+	remove_variable = balkfm_1848_ruler_popularity_var
+	remove_variable = balkfm_1848_intelligentsia_approval_var
+	remove_variable = balkfm_1848_landowners_approval_var
+	remove_variable = balkfm_1848_bourgeoisie_approval_var
+}
+
+balkfm_initialize_dezvoltator_variables_effect = {
+	# Little did you know this was actually a Variables Flavor Mod
+	set_variable = {
+		name = balkfm_dezvoltator_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dezvoltator_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_landowners_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_devout_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_armed_forces_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_intelligentsia_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_industrialists_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_bourgeoisie_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_rural_folk_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_trade_unions_support_var
+		value = 0
+	}
+}
+
+balkfm_update_dezvoltator_variables_effect = {
+	set_variable = {
+		name = balkfm_landowners_support_var
+		value = balkfm_landowners_support_value
+	}
+	set_variable = {
+		name = balkfm_devout_support_var
+		value = balkfm_devout_support_value
+	}
+	set_variable = {
+		name = balkfm_armed_forces_support_var
+		value = balkfm_armed_forces_support_value
+	}
+	set_variable = {
+		name = balkfm_intelligentsia_support_var
+		value = balkfm_intelligentsia_support_value
+	}
+	set_variable = {
+		name = balkfm_industrialists_support_var
+		value = balkfm_industrialists_support_value
+	}
+	set_variable = {
+		name = balkfm_bourgeoisie_support_var
+		value = balkfm_bourgeoisie_support_value
+	}
+	set_variable = {
+		name = balkfm_rural_folk_support_var
+		value = balkfm_rural_folk_support_value
+	}
+	set_variable = {
+		name = balkfm_trade_unions_support_var
+		value = balkfm_trade_unions_support_value
+	}
+	set_variable = {
+		name = balkfm_dezvoltator_progress_var
+		value = balkfm_dezvoltator_progress_value
+	}
+}
+
+balkfm_push_dezvoltator_progress_effect = {
+	change_variable = {
+		name = balkfm_dezvoltator_var
+		add = var:balkfm_dezvoltator_progress_var
+	}
+	clamp_variable = {
+		name = balkfm_dezvoltator_var
+		max = 200
+		min = 0
+	}
+}
+
+balkfm_clean_up_dezvoltator_variables_effect = {
+	remove_variable = balkfm_dezvoltator_var
+	remove_variable = balkfm_dezvoltator_progress_var
+	remove_variable = balkfm_landowners_support_var
+	remove_variable = balkfm_devout_support_var
+	remove_variable = balkfm_armed_forces_support_var
+	remove_variable = balkfm_intelligentsia_support_var
+	remove_variable = balkfm_industrialists_support_var
+	remove_variable = balkfm_bourgeoisie_support_var
+	remove_variable = balkfm_rural_folk_support_var
+	remove_variable = balkfm_trade_unions_support_var
+}
+
+balkfm_find_kogalniceanu_effect = {
+	# Please don't look too hard, I am NOT proud of this
+	if = {
+		limit = {
+			NOR = {
+				any_scope_character = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+				any_character_in_void = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+			}
+		}
+		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
+			first_name = Mihail
+			last_name = Kogalniceanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_is_kogalniceanu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 100
+			}
+		}
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_kogalniceanu
+		}
+		save_scope_as = balkfm_kogalniceanu_scope
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:balkfm_kogalniceanu_scope
+			}
+		}
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_kogalniceanu
+			}
+			save_scope_as = balkfm_kogalniceanu_scope
+		}
+	}
 }
 
 ## TURK-SPLOSION EFFECTS ##

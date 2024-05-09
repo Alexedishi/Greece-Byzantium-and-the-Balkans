@@ -1,6 +1,17 @@
 ﻿########################
 # GREECE FLAVOR EVENTS #
 ########################
+# Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality.
+# The Greek Empires are split between grefm, byzfm, and eocfm. This decision was made to limit the size of this file back when this mod's scope was much smaller. balkfm has since eclipsed this module in scope, but I won't be merging them back together. That would just be a lot of work for no gains.
+
+####################
+
+# For Greece content, see the "grefm" module
+# For Byzantium content, see the "byzfm" module
+# For Balkan Nations content, see the "balkfm" module
+# For Ottoman/Turkish content, see the "turkfm" module
+# For Orthodox Church content, see the "eocfm" module
+# For Eastern Question content, see the "eqfm" module
 
 ####################
 
@@ -235,7 +246,7 @@ namespace = grefm
 #900-909 - Hidden Events
 #	900 - Re-adds Turkish Culture if lost through tag switch
 #	901 - Adds Mainland Greece claims to non-GRE Greek nations
-#	902 - Collection of unused variables
+#	902 - OPEN
 #	903 - Removes crete revolt variable
 #	904 - Preempts revolts if a tag is freed somehow
 	
@@ -536,20 +547,19 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 	}
 	
 	immediate = {
+		set_variable = grefm_1843_revolution_happened
 		ruler = {
 			save_scope_as = king_otto_scope
 		}
-		set_variable = grefm_1843_revolution_happened
-		
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 0
+		}
 	}
 	
 	option = {
 		name = grefm.004.a
 		default_option = yes
-		set_variable = {
-			name = grefm_tyranny_var
-			value = 0
-		}
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -986,7 +996,7 @@ grefm.009 = { # 1862 head of state referendum
 					}
 					on_created = {
 						set_character_as_ruler = yes
-						set_variable = grefm_is_glucksburg
+#						set_variable = grefm_is_glucksburg
 					}
 				}
 			}
@@ -1013,6 +1023,9 @@ grefm.009 = { # 1862 head of state referendum
 			has_diplomatic_pact = {
 				who = c:BEL
 				type = alliance
+			}
+			NOT = {
+				has_global_variable = grefm_the_belgian_option
 			}
 		}
 		custom_tooltip = {
@@ -1052,6 +1065,7 @@ grefm.009 = { # 1862 head of state referendum
 				}
 			}
 		}
+		set_global_variable = grefm_the_belgian_option # blocks this option on the balkfm side
 	}
 	
 	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
@@ -1095,7 +1109,7 @@ grefm.009 = { # 1862 head of state referendum
 				}
 			}
 		}
-		set_variable = grefm_dr_moneybags_in_the_house
+#		set_variable = grefm_dr_moneybags_in_the_house
 	}
 	
 	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
@@ -3785,6 +3799,8 @@ grefm.120 = { # olympics restarted
 		}
 		custom_tooltip = grefm.120.tt
 	}
+	
+	orphan = yes # Seriously, you people should be using Morgenröte
 	
 }
 
@@ -8965,6 +8981,14 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	hidden = yes
 	
 	trigger = {
+		NOR = {
+			exists = c:GRE
+			exists = c:BYZ
+			exists = c:ERE
+			exists = c:SPQR
+			exists = c:HEMP
+			exists = c:ODXY
+		}
 		NOT = { has_variable = grefm_mainland_claims_added }
 		country_has_primary_culture = cu:greek
 		is_subject = no
@@ -9021,7 +9045,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	
 }
 
-grefm.902 = { # collection of unused variables so the error log will shut up
+grefm.902 = { # OPEN
 	type = country_event
 	placement = root
 	hidden = yes
@@ -9029,18 +9053,6 @@ grefm.902 = { # collection of unused variables so the error log will shut up
 	orphan = yes
 	
 	immediate = {
-		remove_variable = grefm_is_glucksburg
-		remove_variable = grefm_dr_moneybags_in_the_house
-		remove_global_variable = has_formed_tsar
-		remove_variable = romania_subject
-		set_variable = romania_unification_in_motion
-		set_variable = eocfm_crusade_attacker
-		set_variable = eocfm_crusade_defender
-		set_global_variable = eqfm_cancel_struggle
-		
-		set_variable = lepsius_local_artifact_minor
-		set_variable = lepsius_aegean_artifact_minor
-		set_variable = lepsius_first_excavation_team
 	}
 	
 }

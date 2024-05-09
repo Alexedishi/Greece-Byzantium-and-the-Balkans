@@ -1606,23 +1606,71 @@ je_balkfm_rom_regulamentul_organic = {
 		trigger_event = {
 			id = balkfm.626 # The Death of Feudalism
 		}
+		if = {
+			limit = {
+				ruler = {
+					NOR = {
+						has_ideology = ideology:ideology_radical
+						has_ideology = ideology:ideology_social_democrat
+						has_ideology = ideology:ideology_kogalnitchanism
+					}
+				}
+				NOT = { has_variable = balkfm_1848_succeeded }
+			}
+			trigger_event = {
+				id = balkfm.627 # Absolutist Aspirations
+				days = 120
+			}
+		}
 	}
 	
-	invalid = {
+	fail = {
 		custom_tooltip = {
 			text = je_rom_regulamentul_organic_tt4
 			hidden_trigger = {
 				c:ROM ?= this
 			}
 		}
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt5
+			hidden_trigger = {
+				NOT = {
+					is_subject_of = c:TUR
+				}
+			}
+		}
 	}
 	
-	on_invalid = {
+	on_fail = {
+		if = {
+			limit = {
+				ruler = {
+					NOR = {
+						has_ideology = ideology:ideology_radical
+						has_ideology = ideology:ideology_social_democrat
+						has_ideology = ideology:ideology_kogalnitchanism
+					}
+				}
+				NOT = { has_variable = balkfm_1848_succeeded }
+			}
+			trigger_event = {
+				id = balkfm.627 # Absolutist Aspirations
+				days = 120
+			}
+		}
 		set_variable = balkfm_regulamentul_completed
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable =  balkfm_regulamentul_completed
+		}
 	}
 	
 	on_monthly_pulse = {
 		events = {
+			balkfm.601 # The Petition-Proclamation
+			balkfm.611 # Proclamation of Islaz
 			balkfm.624 # Electing a Hospodar (MOL)
 			balkfm.625 # Electing a Hospodar (WAL)
 		}
@@ -1633,6 +1681,7 @@ je_balkfm_rom_regulamentul_organic = {
 			if = {
 				limit = {
 					has_law = law_type:law_monarchy
+					NOT = { has_variable = balkfm_1848_rom_var }
 				}
 				change_variable = {
 					name = balkfm_regulamentul_var
@@ -1650,6 +1699,12 @@ je_balkfm_rom_regulamentul_organic = {
 	
 	status_desc = {
 		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_regulamentul_election_tt4
+				trigger = {
+					has_variable = balkfm_1848_rom_var
+				}
+			}
 			triggered_desc = {
 				desc = je_balkfm_rom_regulamentul_election_tt1
 				trigger = {
@@ -1687,7 +1742,7 @@ je_balkfm_rom_legal_modernization = {
 	
 	complete = {
 		NOT = { has_law = law_type:law_autocracy }
-		NOT = { has_law = law_type:law_state_religion }
+		NOT = { has_law = law_type:law_peasant_levies }
 		NOT = { has_law = law_type:law_hereditary_bureaucrats }
 	}
 	
@@ -1769,6 +1824,211 @@ je_balkfm_rom_social_modernization = {
 			has_variable = balkfm_regulamentul_completed
 		}
 	}
+	
+	weight = 1000
+	
+}
+
+je_balkfm_rom_1848 = {
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+	}
+	
+	scripted_button = balkfm_mol_intervention_button
+	scripted_button = balkfm_wal_intervention_button
+	
+	complete = {
+		custom_tooltip = {
+			text = balkfm_1848_rom_success_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var >= 200
+			}
+		}
+	}
+	
+	on_complete = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.604 # The Convention of Balta Liman
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.614 # The Convention of Balta Liman
+			}
+		}
+		balkfm_clean_up_1848_variables_effect = yes
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = balkfm_1848_rom_fail_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var <= 0
+			}
+		}
+	}
+	
+	on_fail = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.603 # Kogălniceanu's Revolution
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.613 # The Sword of the Revolution
+			}
+		}
+		balkfm_clean_up_1848_variables_effect = yes
+	}
+	
+	timeout = 730
+	
+	on_timeout = {
+		if = {
+			limit = {
+				c:MOL ?= this
+			}
+			trigger_event = {
+				id = balkfm.605 # Constitutional Stalemate
+			}
+		}
+		if = {
+			limit = {
+				c:WAL ?= this
+			}
+			trigger_event = {
+				id = balkfm.615 # Constitutional Stalemate
+			}
+		}
+		balkfm_clean_up_1848_variables_effect = yes
+	}
+	
+	invalid = {
+		has_variable = balkfm_regulamentul_completed
+	}
+	
+	on_invalid = {
+		balkfm_clean_up_1848_variables_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_1848_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			balkfm_1848_progress_effect = yes
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_rom_1848_status
+			trigger = {
+				always = yes
+			}
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_rom_statutul_dezvoltator = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		# Technically, Cuza's goal was to establish authoritarian rule, but with broad voting rights for the peasantry. This is cannot be represented by Victoria 3's current systems, hence the strange completion requirements
+		has_law = law_type:law_monarchy
+		OR = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+		}
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
+		}
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.628 # Mandate Secured
+		}
+		balkfm_clean_up_dezvoltator_variables_effect = yes
+	}
+	
+	timeout = 1825 # You have five years. Cuza had less.
+	
+	on_timeout = {
+		trigger_event = {
+			id = balkfm.629 # A Monstrous Coalition
+		}
+		balkfm_clean_up_dezvoltator_variables_effect = yes
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_dezvoltator_completed
+		}
+	}
+	
+	on_invalid = {
+		balkfm_clean_up_dezvoltator_variables_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_update_dezvoltator_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			balkfm_push_dezvoltator_progress_effect = yes
+		}
+	}
+	
+	current_value = {
+		value = root.var:balkfm_dezvoltator_var
+	}
+
+	goal_add_value = {
+		value = 200
+	}
+
+	progressbar = yes
 	
 	weight = 1000
 	
@@ -1876,6 +2136,66 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	scripted_button = balkfm_marea_unire_button
 
     # timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
+
+    weight = 1000
+	
+}
+
+je_balkfm_rom_greater_romania = {
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+    is_shown_when_inactive = {
+		c:ROM ?= this
+		calc_true_if = {
+			amount >= 6
+			NOT = { owns_entire_state_region = STATE_BANAT }
+			NOT = { owns_entire_state_region = STATE_BESSARABIA }
+			NOT = { owns_entire_state_region = STATE_BEKES }
+			NOT = { owns_entire_state_region = STATE_MOLDAVIA }
+			NOT = { owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA }
+			NOT = { owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA }
+			NOT = { owns_entire_state_region = STATE_WALLACHIA }
+		}
+    }
+	
+    possible = {
+        has_technology_researched = nationalism
+		is_subject = no
+    }
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.688 # The Greater Romanian Lands
+		}
+	}
+	
+	complete = {
+		is_subject = no
+		calc_true_if = {
+			amount >= 6
+			owns_entire_state_region = STATE_BANAT
+			owns_entire_state_region = STATE_BESSARABIA
+			owns_entire_state_region = STATE_BEKES
+			owns_entire_state_region = STATE_MOLDAVIA
+			owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA
+			owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA
+			owns_entire_state_region = STATE_WALLACHIA
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.689 # The Reunification of Romania
+		}
+	}
+	
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
+	scripted_button = balkfm_romanian_agitation_button
 
     weight = 1000
 	
