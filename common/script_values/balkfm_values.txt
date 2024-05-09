@@ -389,6 +389,7 @@ balkfm_battenburg_support_value = {
 
 ## ROMANIA VALUES ##
 
+# 1848 Variables
 balkfm_1848_ruler_popularity_value = {
 	value = 0
 	add = root.ruler.popularity
@@ -431,6 +432,21 @@ balkfm_1848_progress_value = {
 	add = var:balkfm_1848_bourgeoisie_approval_var
 	add = var:balkfm_1848_occupation_var
 }
+
+# Dezvoltator Values
+
+balkfm_landowners_support_value = {
+	value = 0
+	add = root.ig:ig_landowners.ig_approval
+	multiply = root.ig:ig_landowners.ig_clout
+}
+
+balkfm_devout_support_value = {
+	value = 0
+	add = root.ig:ig_devout.ig_approval
+	multiply = root.ig:ig_landowners.ig_clout
+}
+
 balkfm_armed_forces_support_value = {
 	value = 0
 	add = root.ig:ig_armed_forces.ig_approval
@@ -443,15 +459,46 @@ balkfm_intelligentsia_support_value = {
 	multiply = root.ig:ig_intelligentsia.ig_clout
 }
 
-balkfm_landowners_support_value = {
+balkfm_industrialists_support_value = {
 	value = 0
-	add = root.ig:ig_landowners.ig_approval
-	multiply = root.ig:ig_landowners.ig_clout
+	add = root.ig:ig_industrialists.ig_approval
+	multiply = root.ig:ig_industrialists.ig_clout
+}
+
+balkfm_bourgeoisie_support_value = {
+	value = 0
+	add = root.ig:ig_petty_bourgeoisie.ig_approval
+	multiply = root.ig:ig_petty_bourgeoisie.ig_clout
+}
+
+balkfm_rural_folk_support_value = {
+	value = 0
+	add = root.ig:ig_rural_folk.ig_approval
+	multiply = root.ig:ig_rural_folk.ig_clout
+}
+
+balkfm_trade_unions_support_value = {
+	value = 0
+	add = root.ig:ig_trade_unions.ig_approval
+	multiply = root.ig:ig_trade_unions.ig_clout
 }
 
 balkfm_dezvoltator_progress_value = {
 	value = 0
+	add = var:balkfm_landowners_support_var
+	add = var:balkfm_devout_support_var
 	add = var:balkfm_armed_forces_support_var
 	add = var:balkfm_intelligentsia_support_var
-	add = var:balkfm_landowners_support_var
+	add = var:balkfm_industrialists_support_var
+	add = var:balkfm_bourgeoisie_support_var
+	add = var:balkfm_rural_folk_support_var
+	add = var:balkfm_trade_unions_support_var
+	if = {
+		limit = {
+			NOT = {
+				has_law = law_type:law_autocracy
+			}
+		}
+		multiply = 0.5
+	}
 }

@@ -1615,7 +1615,7 @@ je_balkfm_rom_regulamentul_organic = {
 						has_ideology = ideology:ideology_kogalnitchanism
 					}
 				}
-				has_variable = balkfm_1848_failed
+				NOT = { has_variable = balkfm_1848_succeeded }
 			}
 			trigger_event = {
 				id = balkfm.627 # Absolutist Aspirations
@@ -1645,12 +1645,13 @@ je_balkfm_rom_regulamentul_organic = {
 		if = {
 			limit = {
 				ruler = {
-					OR = {
-						has_ideology = ideology:ideology_authoritarian
-						has_ideology = ideology:ideology_royalist
-						has_ideology = ideology:ideology_jingoist
+					NOR = {
+						has_ideology = ideology:ideology_radical
+						has_ideology = ideology:ideology_social_democrat
+						has_ideology = ideology:ideology_kogalnitchanism
 					}
 				}
+				NOT = { has_variable = balkfm_1848_succeeded }
 			}
 			trigger_event = {
 				id = balkfm.627 # Absolutist Aspirations
@@ -1870,7 +1871,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.614 # The Convention of Balta Liman
 			}
 		}
-		remove_variable = balkfm_1848_rom_var
+		balkfm_clean_up_1848_variables_effect = yes
 	}
 	
 	fail = {
@@ -1899,7 +1900,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.613 # The Sword of the Revolution
 			}
 		}
-		remove_variable = balkfm_1848_rom_var
+		balkfm_clean_up_1848_variables_effect = yes
 	}
 	
 	timeout = 730
@@ -1921,7 +1922,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.615 # Constitutional Stalemate
 			}
 		}
-		remove_variable = balkfm_1848_rom_var
+		balkfm_clean_up_1848_variables_effect = yes
 	}
 	
 	invalid = {
@@ -1929,7 +1930,7 @@ je_balkfm_rom_1848 = {
 	}
 	
 	on_invalid = {
-		remove_variable = balkfm_1848_rom_var
+		balkfm_clean_up_1848_variables_effect = yes
 	}
 	
 	on_weekly_pulse = {
@@ -1985,6 +1986,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 		trigger_event = {
 			id = balkfm.628 # Mandate Secured
 		}
+		balkfm_clean_up_dezvoltator_variables_effect = yes
 	}
 	
 	timeout = 1825 # You have five years. Cuza had less.
@@ -1993,6 +1995,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 		trigger_event = {
 			id = balkfm.629 # A Monstrous Coalition
 		}
+		balkfm_clean_up_dezvoltator_variables_effect = yes
 	}
 	
 	invalid = {
@@ -2001,15 +2004,19 @@ je_balkfm_rom_statutul_dezvoltator = {
 		}
 	}
 	
+	on_invalid = {
+		balkfm_clean_up_dezvoltator_variables_effect = yes
+	}
+	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_dezvoltator_variables_effect = yes
+			balkfm_update_dezvoltator_variables_effect = yes
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			balkfm_dezvoltator_progress_effect = yes
+			balkfm_push_dezvoltator_progress_effect = yes
 		}
 	}
 	
@@ -2018,7 +2025,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 	}
 
 	goal_add_value = {
-		value = 2000
+		value = 200
 	}
 
 	progressbar = yes

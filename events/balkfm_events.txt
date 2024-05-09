@@ -41,7 +41,7 @@ namespace = balkfm
 #	009 - Creates/Releases TRIU
 
 #010-019 - Hidden Technical Events (Variable Cleanup)
-#	OPEN
+#	010 - The Unused Variable Dumpster Fire
 
 #020-029 - Hidden Technical Events (Variable Placement)
 #	020 - Places Yugoslav Secession Variable
@@ -56,7 +56,7 @@ namespace = balkfm
 #	081 - The Schemes of Ali Pasha
 #	082 - Ali Pasha Ascendant
 #	083 - The Romanian Declaration of Union
-#	084 -#The South Bessarabian Retrocession
+#	084 - The South Bessarabian Retrocession
 
 #090-099 - Test Events
 #	098 - Test Event
@@ -145,7 +145,7 @@ namespace = balkfm
 #	413 - Abusive Garrison
 #	414 - Austria/Russia Requests Primacy
 #	415 - National Desires
-#	416 - ##The Blood Feud
+#	416 - The Blood Feud
 
 #470-479 - Diplomatic Events
 #	470 - Disruptive Influence
@@ -193,8 +193,8 @@ namespace = balkfm
 #	571 - Scions of the Empire
 #	572 - Nova Roma Constantinopolitana
 #573-579 - Imperial Ambitions --yes, this is a split block
-#	573 - ## Memories of the Steppe
-#	574 - ## Old Great Bulgaria
+#	573 - ##Memories of the Steppe
+#	574 - ##Old Great Bulgaria
 
 #580-589 - The Liberation of Bulgaria
 #	580 - Dreams of the Tsardom
@@ -372,7 +372,32 @@ balkfm.005 = { # creates BUL when called
 
 #### HIDDEN TECHNICAL EVENTS (VARIABLE CLEANUP) ####
 
-# OPEN
+balkfm.010 = { # The Unused Variable Dumpster Fire
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		# DO NOT CALL THIS EVENT. This is here to shut up the error log.
+	}
+
+	immediate = {
+		remove_global_variable = has_formed_tsar
+		remove_variable = romania_subject
+		set_variable = romania_unification_in_motion
+		set_variable = eocfm_crusade_attacker
+		set_variable = eocfm_crusade_defender
+		set_global_variable = eqfm_cancel_struggle
+		remove_variable = balkfm_1848_failed
+		
+		set_variable = lepsius_local_artifact_minor
+		set_variable = lepsius_aegean_artifact_minor
+		set_variable = lepsius_first_excavation_team
+	}
+	
+	orphan = yes
+	
+}
 
 #### HIDDEN TECHNICAL EVENTS (VARIABLE PLACEMENT) ####
 
@@ -7234,6 +7259,7 @@ balkfm.603 = { # Kogălniceanu's Revolution
 				kill_character = yes
 			}
 		}
+		set_variable = balkfm_1848_succeeded
 	}
 
 }
@@ -7748,6 +7774,7 @@ balkfm.613 = { # The Sword of the Revolution
 				kill_character = yes
 			}
 		}
+		set_variable = balkfm_1848_succeeded
 	}
 
 }
@@ -8323,26 +8350,7 @@ balkfm.627 = { # Absolutist Aspirations
 	}
 	
 	immediate = {
-		set_variable = {
-			name = balkfm_armed_forces_support_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_intelligentsia_support_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_landowners_support_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_dezvoltator_progress_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_dezvoltator_var
-			value = 0
-		}
+		balkfm_initialize_dezvoltator_variables_effect = yes
 	}
 	
 	option = { # Support Absolutism
@@ -8354,7 +8362,7 @@ balkfm.627 = { # Absolutist Aspirations
 		ruler = {
 			set_ideology = ideology:ideology_authoritarian
 		}
-		balkfm_dezvoltator_variables_effect = yes
+		balkfm_update_dezvoltator_variables_effect = yes
 	}
 	
 }
@@ -8473,9 +8481,11 @@ balkfm.629 = { # A Monstrous Coalition
 	option = { # Philippe de Flandre - the Belgian option; from grefm.009
 		name = balkfm.629.b
 		trigger = {
-			has_diplomatic_pact = {
-				who = c:BEL
-				type = alliance
+			c:BEL ?= {
+				has_diplomatic_pact = {
+					who = root
+					type = alliance
+				}
 			}
 			NOT = {
 				has_global_variable = grefm_the_belgian_option

@@ -1203,14 +1203,66 @@ balkfm_1848_progress_effect = {
 
 balkfm_clean_up_1848_variables_effect = {
 	remove_variable = balkfm_1848_rom_var
+	remove_variable = balkfm_1848_progress_var
 	remove_variable = balkfm_1848_ruler_popularity_var
 	remove_variable = balkfm_1848_intelligentsia_approval_var
 	remove_variable = balkfm_1848_landowners_approval_var
 	remove_variable = balkfm_1848_bourgeoisie_approval_var
 }
 
+balkfm_initialize_dezvoltator_variables_effect = {
+	# Little did you know this was actually a Variables Flavor Mod
+	set_variable = {
+		name = balkfm_dezvoltator_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dezvoltator_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_landowners_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_devout_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_armed_forces_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_intelligentsia_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_industrialists_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_bourgeoisie_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_rural_folk_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_trade_unions_support_var
+		value = 0
+	}
+}
 
-balkfm_dezvoltator_variables_effect = {
+balkfm_update_dezvoltator_variables_effect = {
+	set_variable = {
+		name = balkfm_landowners_support_var
+		value = balkfm_landowners_support_value
+	}
+	set_variable = {
+		name = balkfm_devout_support_var
+		value = balkfm_devout_support_value
+	}
 	set_variable = {
 		name = balkfm_armed_forces_support_var
 		value = balkfm_armed_forces_support_value
@@ -1220,8 +1272,20 @@ balkfm_dezvoltator_variables_effect = {
 		value = balkfm_intelligentsia_support_value
 	}
 	set_variable = {
-		name = balkfm_landowners_support_var
-		value = balkfm_landowners_support_value
+		name = balkfm_industrialists_support_var
+		value = balkfm_industrialists_support_value
+	}
+	set_variable = {
+		name = balkfm_bourgeoisie_support_var
+		value = balkfm_bourgeoisie_support_value
+	}
+	set_variable = {
+		name = balkfm_rural_folk_support_var
+		value = balkfm_rural_folk_support_value
+	}
+	set_variable = {
+		name = balkfm_trade_unions_support_var
+		value = balkfm_trade_unions_support_value
 	}
 	set_variable = {
 		name = balkfm_dezvoltator_progress_var
@@ -1229,7 +1293,7 @@ balkfm_dezvoltator_variables_effect = {
 	}
 }
 
-balkfm_dezvoltator_progress_effect = {
+balkfm_push_dezvoltator_progress_effect = {
 	change_variable = {
 		name = balkfm_dezvoltator_var
 		add = var:balkfm_dezvoltator_progress_var
@@ -1241,7 +1305,21 @@ balkfm_dezvoltator_progress_effect = {
 	}
 }
 
+balkfm_clean_up_dezvoltator_variables_effect = {
+	remove_variable = balkfm_dezvoltator_var
+	remove_variable = balkfm_dezvoltator_progress_var
+	remove_variable = balkfm_landowners_support_var
+	remove_variable = balkfm_devout_support_var
+	remove_variable = balkfm_armed_forces_support_var
+	remove_variable = balkfm_intelligentsia_support_var
+	remove_variable = balkfm_industrialists_support_var
+	remove_variable = balkfm_bourgeoisie_support_var
+	remove_variable = balkfm_rural_folk_support_var
+	remove_variable = balkfm_trade_unions_support_var
+}
+
 balkfm_find_kogalniceanu_effect = {
+	# Please don't look too hard, I am NOT proud of this
 	if = {
 		limit = {
 			NOR = {
