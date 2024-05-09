@@ -1606,23 +1606,70 @@ je_balkfm_rom_regulamentul_organic = {
 		trigger_event = {
 			id = balkfm.626 # The Death of Feudalism
 		}
+		if = {
+			limit = {
+				ruler = {
+					NOR = {
+						has_ideology = ideology:ideology_radical
+						has_ideology = ideology:ideology_social_democrat
+						has_ideology = ideology:ideology_kogalnitchanism
+					}
+				}
+				has_variable = balkfm_1848_failed
+			}
+			trigger_event = {
+				id = balkfm.627 # Absolutist Aspirations
+				days = 120
+			}
+		}
 	}
 	
-	invalid = {
+	fail = {
 		custom_tooltip = {
 			text = je_rom_regulamentul_organic_tt4
 			hidden_trigger = {
 				c:ROM ?= this
 			}
 		}
+		custom_tooltip = {
+			text = je_rom_regulamentul_organic_tt5
+			hidden_trigger = {
+				NOT = {
+					is_subject_of = c:TUR
+				}
+			}
+		}
 	}
 	
-	on_invalid = {
+	on_fail = {
+		if = {
+			limit = {
+				ruler = {
+					OR = {
+						has_ideology = ideology:ideology_authoritarian
+						has_ideology = ideology:ideology_royalist
+						has_ideology = ideology:ideology_jingoist
+					}
+				}
+			}
+			trigger_event = {
+				id = balkfm.627 # Absolutist Aspirations
+				days = 120
+			}
+		}
 		set_variable = balkfm_regulamentul_completed
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable =  balkfm_regulamentul_completed
+		}
 	}
 	
 	on_monthly_pulse = {
 		events = {
+			balkfm.601 # The Petition-Proclamation
+			balkfm.611 # Proclamation of Islaz
 			balkfm.624 # Electing a Hospodar (MOL)
 			balkfm.625 # Electing a Hospodar (WAL)
 		}
@@ -1782,7 +1829,7 @@ je_balkfm_rom_social_modernization = {
 }
 
 je_balkfm_rom_1848 = {
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
 	
 	group = je_group_balkfm_romania
 	
@@ -1823,6 +1870,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.614 # The Convention of Balta Liman
 			}
 		}
+		remove_variable = balkfm_1848_rom_var
 	}
 	
 	fail = {
@@ -1851,6 +1899,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.613 # The Sword of the Revolution
 			}
 		}
+		remove_variable = balkfm_1848_rom_var
 	}
 	
 	timeout = 730
@@ -1872,10 +1921,15 @@ je_balkfm_rom_1848 = {
 				id = balkfm.615 # Constitutional Stalemate
 			}
 		}
+		remove_variable = balkfm_1848_rom_var
 	}
 	
 	invalid = {
 		has_variable = balkfm_regulamentul_completed
+	}
+	
+	on_invalid = {
+		remove_variable = balkfm_1848_rom_var
 	}
 	
 	on_weekly_pulse = {
@@ -1887,6 +1941,15 @@ je_balkfm_rom_1848 = {
 	on_monthly_pulse = {
 		effect = {
 			balkfm_1848_progress_effect = yes
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_rom_1848_status
+			trigger = {
+				always = yes
+			}
 		}
 	}
 	
@@ -2093,7 +2156,8 @@ je_balkfm_rom_greater_romania = {
     }
 	
     possible = {
-        has_technology_researched = pan-nationalism
+        has_technology_researched = nationalism
+		is_subject = no
     }
 	
 	immediate = {

@@ -880,6 +880,7 @@ balkfm_moldavian_election_effect = {
 				ideology = ideology_kogalnitchanism
 				interest_group = ig_intelligentsia
 				on_created = {
+					set_variable = balkfm_is_kogalniceanu
 					set_variable = balkfm_hospodar_m1
 					place_character_in_void = 720
 				}
@@ -1136,6 +1137,10 @@ balkfm_set_up_1848_variables_effect = {
 		add = 0
 	}
 	set_variable = {
+		name = balkfm_1848_progress_var
+		value = 0
+	}
+	set_variable = {
 		name = balkfm_1848_ruler_popularity_var
 		value = 0
 	}
@@ -1149,6 +1154,10 @@ balkfm_set_up_1848_variables_effect = {
 	}
 	set_variable = {
 		name = balkfm_1848_landowners_approval_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1848_occupation_var
 		value = 0
 	}
 }
@@ -1156,19 +1165,23 @@ balkfm_set_up_1848_variables_effect = {
 balkfm_1848_variables_effect = {
 	set_variable = {
 		name = balkfm_1848_ruler_popularity_var
-		value = root.ruler.popularity
+		value = balkfm_1848_ruler_popularity_value
 	}
 	set_variable = {
 		name = balkfm_1848_intelligentsia_approval_var
-		value = root.ig:ig_intelligentsia.ig_approval
+		value = balkfm_1848_intelligentsia_approval_value
 	}
 	set_variable = {
 		name = balkfm_1848_landowners_approval_var
-		value = root.ig:ig_landowners.ig_approval
+		value = balkfm_1848_landowners_approval_value
 	}
 	set_variable = {
 		name = balkfm_1848_bourgeoisie_approval_var
-		value = root.ig:ig_petty_bourgeoisie.ig_approval
+		value = balkfm_1848_bourgeoisie_approval_value
+	}
+	set_variable = {
+		name = balkfm_1848_occupation_var
+		value = balkfm_1848_occupation_value
 	}
 	set_variable = {
 		name = balkfm_1848_progress_var
@@ -1225,6 +1238,55 @@ balkfm_dezvoltator_progress_effect = {
 		name = balkfm_dezvoltator_var
 		max = 200
 		min = 0
+	}
+}
+
+balkfm_find_kogalniceanu_effect = {
+	if = {
+		limit = {
+			NOR = {
+				any_scope_character = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+				any_character_in_void = {
+					has_variable = balkfm_is_kogalniceanu
+				}
+			}
+		}
+		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
+			first_name = Mihail
+			last_name = Kogalniceanu
+			culture = cu:romanian
+			religion = rel:orthodox
+			historical = yes
+			age = 45
+			ideology = ideology_kogalnitchanism
+			interest_group = ig_intelligentsia
+			on_created = {
+				set_variable = balkfm_is_kogalniceanu
+				set_variable = balkfm_is_revolutionary
+				place_character_in_void = 100
+			}
+		}
+	}
+	random_character_in_void = {
+		limit = {
+			has_variable = balkfm_is_kogalniceanu
+		}
+		save_scope_as = balkfm_kogalniceanu_scope
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:balkfm_kogalniceanu_scope
+			}
+		}
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_kogalniceanu
+			}
+			save_scope_as = balkfm_kogalniceanu_scope
+		}
 	}
 }
 

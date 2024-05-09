@@ -383,7 +383,13 @@ balkfm_mol_intervention_button = {
 	
 	possible = {
 		NOT = {
-			has_modifier = modifier_balkfm_russian_occupation
+			has_modifier = modifier_balkfm_requested_interference
+		}
+		custom_tooltip = {
+			text = balkfm_intervention_tt
+			hidden_trigger = {
+				var:balkfm_1848_rom_var < 50
+			}
 		}
 	}
 	
@@ -391,6 +397,10 @@ balkfm_mol_intervention_button = {
 		trigger_event = {
 			id = balkfm.606 # Russian Troops Enter Moldavia
 			days = 30
+		}
+		add_modifier = {
+			name = modifier_balkfm_requested_interference
+			months = normal_modifier_time
 		}
 	}
 	
@@ -415,7 +425,7 @@ balkfm_wal_intervention_button = {
 	
 	possible = {
 		NOT = {
-			has_modifier = modifier_balkfm_russian_occupation
+			has_modifier = modifier_balkfm_requested_interference
 		}
 		custom_tooltip = {
 			text = balkfm_intervention_tt
@@ -429,6 +439,10 @@ balkfm_wal_intervention_button = {
 		trigger_event = {
 			id = balkfm.616 # Russian Troops Enter Wallachia
 			days = 30
+		}
+		add_modifier = {
+			name = modifier_balkfm_requested_interference
+			months = normal_modifier_time
 		}
 	}
 	
@@ -527,7 +541,7 @@ balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
 	
 	visible = {
 		has_variable = ROM_united_principality
-		has_variable = balkfm_formed_ROM
+		NOT = { has_variable = balkfm_formed_ROM }
 	}
 	
 	possible = {
@@ -555,6 +569,7 @@ balkfm_bessarabian_retrocession_button = { # vanilla button, integrated into bal
 	desc = "balkfm_bessarabian_retrocession_desc"
 
 	visible = { 
+		has_variable = ROM_united_principality
 		NOT = { has_variable = balkfm_requested_retrocession }
 		NOR = {
 			any_scope_state = {

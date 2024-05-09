@@ -470,6 +470,12 @@ balkfm.030 = { # Creates Hersek with Smaïl-aga at the Helm
 			}
 			remove_modifier = modifier_balkfm_tolerated_abuses
 		}
+		every_country = {
+			limit = {
+				has_journal_entry = je_eqfm_sub
+			}
+			post_notification = notification_balkfm_hersek_smail
+		}
 	}
 	
 }
@@ -506,7 +512,7 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 				limit = {
 					exists = scope:balkfm_ali_pasha_scope
 				}
-				scope:ali_pasha_scope = {
+				scope:balkfm_ali_pasha_scope = {
 					free_character_from_void = yes
 					set_character_as_ruler = yes
 				}
@@ -530,8 +536,15 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 					}
 					on_created = {
 						set_variable = balkfm_is_ali_pasha
+						set_variable = balkfm_pasha_var
 					}
 				}
+			}
+			random_scope_character = {
+				limit = {
+					has_variable = balkfm_is_ali_pasha
+				}
+				save_scope_as = balkfm_ali_pasha_scope
 			}
 		}
 		s:STATE_BOSNIA = {
@@ -552,6 +565,12 @@ balkfm.031 = { # Creates Hersek with Ali Pasha at the Helm
 		remove_global_variable = balkfm_ali_pasha_greenlight
 		set_global_variable = balkfm_ali_pasha_rebelled
 		set_global_variable = balkfm_ali_pasha_var # this blocks balkfm.082
+		every_country = {
+			limit = {
+				has_journal_entry = je_eqfm_sub
+			}
+			post_notification = notification_balkfm_hersek_ali
+		}
 	}
 	
 }
@@ -656,24 +675,34 @@ balkfm.081 = { # The Schemes of Ali Pasha
 	}
 	
 	immediate = {
-		create_character = {
-			# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
-			first_name = Ali
-			last_name = Rizvanbegovic
-			historical = yes
-			age = 53 # born 1783
-			dna = mr_bos_rizvanbegovic_ali_pasha
-			culture = cu:serb
-			religion = rel:sunni
-			interest_group = ig_landowners
-			ideology = ideology_moderate
-			traits = {
-				pious
-				arrogant
+		if = {
+			limit = {
+				any_character_in_void = {
+					NOT = {
+						has_variable = balkfm_is_ali_pasha
+					}
+				}
 			}
-			on_created = {
-				set_variable = balkfm_is_ali_pasha
-				place_character_in_void = 720 # 60 year lease on life
+			create_character = {
+				# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
+				first_name = Ali
+				last_name = Rizvanbegovic
+				historical = yes
+				age = 53 # born 1783
+				dna = mr_bos_rizvanbegovic_ali_pasha
+				culture = cu:serb
+				religion = rel:sunni
+				interest_group = ig_landowners
+				ideology = ideology_moderate
+				traits = {
+					pious
+					arrogant
+				}
+				on_created = {
+					set_variable = balkfm_is_ali_pasha
+					set_variable = balkfm_pasha_var
+					place_character_in_void = 720 # 60 year lease on life
+				}
 			}
 		}
 		random_character_in_void = {
@@ -2570,7 +2599,7 @@ balkfm.338 = { # The Arrogance of Ali Pasha
 					c:TUR = {
 						is_diplomatic_play_initiator = yes
 					}
-					c:HRSK = {
+					c:HRSK = { 
 						is_diplomatic_play_target = yes
 					}
 				}
@@ -6964,7 +6993,7 @@ balkfm.601 = { # The Petition-Proclamation
 	flavor = balkfm.601.f
 	
 	event_image = {
-		video = "asia_politician_parliament_motion"
+		video = "africa_leader_arguing"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
@@ -7012,7 +7041,7 @@ balkfm.601 = { # The Petition-Proclamation
 			first_name = "Ion"
 			last_name = "Isacescu"
 			historical = yes
-			age = 0 # age during the 1848 unrest
+			age = 29 # age during the 1848 unrest
 			interest_group = ig_rural_folk # to represent his ties to agriculture
 			ideology = ideology_land_reformer
 			traits = {
@@ -7094,6 +7123,7 @@ balkfm.601 = { # The Petition-Proclamation
 	after = {
 		trigger_event = {
 			id = balkfm.602 # The Moldavian Revolutionary Committee
+			days = 30
 		}
 	}
 
@@ -7108,7 +7138,7 @@ balkfm.602 = { # The Moldavian Revolutionary Committee
 	flavor = balkfm.602.f
 	
 	event_image = {
-		video = "asia_politician_parliament_motion"
+		video = "africa_leader_arguing"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
@@ -7123,6 +7153,7 @@ balkfm.602 = { # The Moldavian Revolutionary Committee
 	}	
 	
 	immediate = {
+		balkfm_find_kogalniceanu_effect = yes
 	}
 	
 	option = {
@@ -7163,26 +7194,7 @@ balkfm.603 = { # Kogălniceanu's Revolution
 	}	
 	
 	immediate = {
-		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
-			first_name = Mihail
-			last_name = Kogalniceanu
-			culture = cu:romanian
-			religion = rel:orthodox
-			historical = yes
-			age = 45
-			ideology = ideology_kogalnitchanism
-			interest_group = ig_intelligentsia
-			on_created = {
-				set_variable = balkfm_is_kogalniceanu
-				set_variable = balkfm_is_revolutionary
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_variable = balkfm_is_kogalniceanu
-			}
-			save_scope_as = balkfm_kogalniceanu_scope
-		}
+		balkfm_find_kogalniceanu_effect = yes
 		c:RUS = {
 			save_scope_as = russia_scope
 		}
@@ -7192,16 +7204,36 @@ balkfm.603 = { # Kogălniceanu's Revolution
 		c:MOL = {
 			save_scope_as = moldavia_scope
 		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.603.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_liberal_vanguard
+			months = normal_modifier_time
+		}		
 		scope:balkfm_kogalniceanu_scope = {
 			set_as_interest_group_leader = yes # Vasile Alecsandri left Moldavia after the attempted revolution
 			set_character_as_ruler = yes
 		}
-		remove_variable = balkfm_1848_rom_var
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+				}
+			}
+			activate_law = law_type:law_landed_voting
+		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
+		}
 	}
 
 }
@@ -7244,12 +7276,17 @@ balkfm.604 = { # The Convention of Balta Liman
 	option = {
 		name = balkfm.604.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_liberalism_crushed 
+			months = normal_modifier_time
+		}
 		every_scope_character = {
 			limit = {
 				has_variable = balkfm_is_revolutionary
 			}
 			exile_character = yes
 		}
+		set_variable = balkfm_1848_failed
 	}
 
 }
@@ -7278,6 +7315,7 @@ balkfm.605 = { # Constitutional Stalemate
 	}
 	
 	immediate = {
+		balkfm_find_kogalniceanu_effect = yes
 		c:RUS = {
 			save_scope_as = russia_scope
 		}
@@ -7292,12 +7330,14 @@ balkfm.605 = { # Constitutional Stalemate
 	option = {
 		name = balkfm.605.a
 		default_option = yes
-		every_scope_character = {
-			limit = {
-				has_variable = balkfm_is_revolutionary
-			}
-			exile_character = yes
+		add_modifier = {
+			name = modifier_balkfm_political_disorder
+			months = normal_modifier_time
 		}
+		scope:balkfm_kogalniceanu_scope = {
+			set_as_interest_group_leader = yes # Vasile Alecsandri left Moldavia after the attempted revolution
+		}
+		set_variable = balkfm_1848_failed
 	}
 
 }
@@ -7326,12 +7366,22 @@ balkfm.606 = { # Russian Troops Enter Moldavia
 	}
 	
 	immediate = {
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:MOL = {
+			save_scope_as = wallachia_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.606.a
 		default_option = yes
 		custom_tooltip = balkfm.606.tt
+		add_modifier = {
+			name = modifier_balkfm_russian_occupation
+			months = short_modifier_time
+		}
 	}
 
 }
@@ -7404,7 +7454,7 @@ balkfm.611 = { # Proclamation of Islaz
 	flavor = balkfm.611.f
 	
 	event_image = {
-		video = "asia_politician_parliament_motion"
+		video = "africa_leader_arguing"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -7423,6 +7473,11 @@ balkfm.611 = { # Proclamation of Islaz
 	}	
 	
 	immediate = {
+		set_variable = balkfm_1848_happened
+		set_variable = {
+			name = balkfm_1848_rom_var
+			value = 0
+		}
 		create_character = {
 			# Nicolae Bălcescu, leader of the 1848 revolution
 			first_name = "Nicolae"
@@ -7581,13 +7636,14 @@ balkfm.611 = { # Proclamation of Islaz
 	
 	after = {
 		trigger_event = {
-			id = balkfm.612 # The Wallachian Provisional Government
+			id = balkfm.612 # The Wallachian Brotherhood
+			days = 30
 		}
 	}
 
 }
 
-balkfm.612 = { # The Wallachian Provisional Government
+balkfm.612 = { # The Wallachian Brotherhood
 	type = country_event
 	placement = root
 	
@@ -7596,7 +7652,7 @@ balkfm.612 = { # The Wallachian Provisional Government
 	flavor = balkfm.612.f
 	
 	event_image = {
-		video = "asia_politician_parliament_motion"
+		video = "africa_leader_arguing"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
@@ -7611,6 +7667,21 @@ balkfm.612 = { # The Wallachian Provisional Government
 	}
 	
 	immediate = {
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_balcescu
+			}
+			save_scope_as = balkfm_balcescu_scope
+		}
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_gianoglu
+			}
+			save_scope_as = balkfm_gianoglu_scope
+		}
+		c:MOL = {
+			save_scope_as = moldavia_scope
+		}
 	}
 	
 	option = {
@@ -7651,11 +7722,32 @@ balkfm.613 = { # The Sword of the Revolution
 	}	
 	
 	immediate = {
+		random_scope_character = {
+			limit = {
+				has_variable = balkfm_is_balcescu
+			}
+			save_scope_as = balkfm_balcescu_scope
+		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.613.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_liberal_vanguard
+			months = normal_modifier_time
+		}
+		scope:balkfm_balcescu_scope = {
+			set_character_as_ruler = yes
+		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
+		}
 	}
 
 }
@@ -7689,12 +7781,17 @@ balkfm.614 = { # The Convention of Balta Liman
 	option = {
 		name = balkfm.614.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_liberalism_crushed 
+			months = normal_modifier_time
+		}
 		every_scope_character = {
 			limit = {
 				has_variable = balkfm_is_revolutionary
 			}
 			exile_character = yes
 		}
+		set_variable = balkfm_1848_failed
 	}
 
 }
@@ -7728,12 +7825,11 @@ balkfm.615 = { # Constitutional Stalemate
 	option = {
 		name = balkfm.615.a
 		default_option = yes
-		every_scope_character = {
-			limit = {
-				has_variable = balkfm_is_revolutionary
-			}
-			exile_character = yes
+		add_modifier = {
+			name = modifier_balkfm_political_disorder
+			months = normal_modifier_time
 		}
+		set_variable = balkfm_1848_failed
 	}
 
 }
@@ -7762,12 +7858,22 @@ balkfm.616 = { # Russian Troops Enter Wallachia
 	}
 	
 	immediate = {
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+		c:WAL = {
+			save_scope_as = wallachia_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.616.a
 		default_option = yes
 		custom_tooltip = balkfm.616.tt
+		add_modifier = {
+			name = modifier_balkfm_russian_occupation
+			months = short_modifier_time
+		}
 	}
 
 }
@@ -7996,6 +8102,9 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 			}
 			save_scope_as = balkfm_hospodar_candidate_3
 		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
 	}
 	
 	option = { # keep current ruler
@@ -8014,6 +8123,11 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
+		}
 	}
 	
 	option = { # alternate successor
@@ -8021,6 +8135,11 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 		scope:balkfm_hospodar_candidate_3 = {
 			free_character_from_void = yes
 			set_character_as_ruler = yes
+		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
 		}
 	}
 	
@@ -8086,6 +8205,9 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 			}
 			save_scope_as = balkfm_hospodar_candidate_3
 		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
 	}
 	
 	option = { # keep current ruler
@@ -8104,6 +8226,11 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
+		}
 	}
 	
 	option = { # alternate successor
@@ -8111,6 +8238,11 @@ balkfm.625 = { # Electing a Hospodar (WAL)
 		scope:balkfm_hospodar_candidate_3 = {
 			free_character_from_void = yes
 			set_character_as_ruler = yes
+		}
+		hidden_effect = {
+			scope:balkfm_heir_scope ?= {
+				kill_character = yes
+			}
 		}
 	}
 	
@@ -8187,16 +8319,7 @@ balkfm.627 = { # Absolutist Aspirations
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_variable = balkfm_dezvoltator_completed }
-		has_variable = balkfm_regulamentul_completed
-		ruler = {
-			OR = {
-				has_ideology = ideology:ideology_authoritarian
-				has_ideology = ideology:ideology_royalist
-				has_ideology = ideology:ideology_jingoist
-			}
-		}
-		c:ROM ?= this
+		# triggered by je_balkfm_rom_regulamentul_organic
 	}
 	
 	immediate = {

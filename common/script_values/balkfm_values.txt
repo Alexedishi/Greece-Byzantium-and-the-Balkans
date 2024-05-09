@@ -389,14 +389,48 @@ balkfm_battenburg_support_value = {
 
 ## ROMANIA VALUES ##
 
+balkfm_1848_ruler_popularity_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 10
+}
+
+balkfm_1848_intelligentsia_approval_value = {
+	value = 0
+	add = root.ig:ig_intelligentsia.ig_approval
+	divide = 10
+}
+
+balkfm_1848_landowners_approval_value = {
+	value = 0
+	add = root.ig:ig_landowners.ig_approval
+	divide = 10
+}
+
+balkfm_1848_bourgeoisie_approval_value = {
+	value = 0
+	add = root.ig:ig_petty_bourgeoisie.ig_approval
+	divide = 10
+}
+
+balkfm_1848_occupation_value = {
+	value = 0
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_russian_occupation
+		}
+		add = 20
+	}
+}
+
 balkfm_1848_progress_value = {
 	value = 0
 	add = var:balkfm_1848_ruler_popularity_var
 	add = var:balkfm_1848_intelligentsia_approval_var
 	add = var:balkfm_1848_landowners_approval_var
 	add = var:balkfm_1848_bourgeoisie_approval_var
+	add = var:balkfm_1848_occupation_var
 }
-
 balkfm_armed_forces_support_value = {
 	value = 0
 	add = root.ig:ig_armed_forces.ig_approval
