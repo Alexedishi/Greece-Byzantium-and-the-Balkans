@@ -243,10 +243,20 @@ namespace = balkfm
 #	628 - Mandate Secured
 #	629 - The Monstrous Coalition
 
-#630-639 - The Era of Carol I Events
-#	630 - An Elected Domnitor
+#630-639 - Transylvania-Specific Events
+#	630 - OPEN
 
-#670-679 - Transylvania-Specific Events
+#640-649 - The Era of Carol I Events
+#	640 - An Elected Domnitor
+
+#650-659 - The Era of Ferdinand I Events
+#	650 - OPEN
+
+#660-669 - Miscellaneous Historical Events
+#	660 - ##The Academy of Romania
+#	661 - ##A Royal Estate
+
+#670-679 - Dacianism Events
 #	670 - OPEN
 
 #680-689 - Romanian Unification Events
@@ -260,7 +270,6 @@ namespace = balkfm
 #	687 - Romanian Agitation in State (AUS)
 #	688 - The Greater Romanian Lands
 #	689 - The Reunification of Romania
-
 
 ##  #BALK7  BOSNIA FLAVOR  Events 700-799  ##
 
@@ -8473,7 +8482,7 @@ balkfm.629 = { # A Monstrous Coalition
 			}
 		}
 		trigger_event = {
-			id = balkfm.630 # An Elected Domnitor
+			id = balkfm.640 # An Elected Domnitor
 			days = 30
 		}
 	}
@@ -8515,7 +8524,7 @@ balkfm.629 = { # A Monstrous Coalition
 			}
 		}
 		trigger_event = {
-			id = balkfm.630 # An Elected Domnitor
+			id = balkfm.640 # An Elected Domnitor
 			days = 30
 		}
 		set_global_variable = grefm_the_belgian_option # blocks this option on the grefm side
@@ -8539,13 +8548,13 @@ balkfm.629 = { # A Monstrous Coalition
 
 #### THE ERA OF CAROL I EVENTS ####
 
-balkfm.630 = { # An Elected Domnitor
+balkfm.640 = { # An Elected Domnitor
 	type = country_event
 	placement = root
 	
-	title = balkfm.630.t
-	desc = balkfm.630.d
-	flavor = balkfm.630.f
+	title = balkfm.640.t
+	desc = balkfm.640.d
+	flavor = balkfm.640.f
 	
 	gui_window = event_window_1char_tabloid
 
@@ -8571,7 +8580,7 @@ balkfm.630 = { # An Elected Domnitor
 	}
 	
 	option = {
-		name = balkfm.630.a
+		name = balkfm.640.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_elected_domnitor
@@ -8580,6 +8589,121 @@ balkfm.630 = { # An Elected Domnitor
 	}
 
 }
+
+#### MISCELLANEOUS HISTORICAL EVENTS ####
+
+balkfm.660 = { # The Academy of Romania
+	type = country_event
+	placement = root
+	
+	title = balkfm.661.t
+	desc = balkfm.661.d
+	flavor = balkfm.661.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_ruler_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		morgenrote_is_active = no
+		c:ROM ?= this
+		NOT = { has_variable = balkfm_considered_national_academy }
+		has_technology_researched = academia
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = university_benefactor
+		}
+		capital = {
+			save_scope_as = university_state
+		}
+		set_variable = balkfm_considered_national_academy
+	}
+	
+	option = {
+		name = balkfm.660.a
+		default_option = yes
+		scope:university_state = {
+			create_building = {
+ 				building = "building_university"
+ 			}
+		}
+		add_modifier = {
+			name = modifier_balkfm_funding_national_university
+			months = normal_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+	}
+	
+	option = {
+		name = balkfm.660.b
+		scope:university_benefactor = {
+			add_modifier = {
+				name = modifier_balkfm_blocked_building_university
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+balkfm.661 = { # A Royal Estate
+	type = country_event
+	placement = root
+	
+	title = balkfm.661.t
+	desc = balkfm.661.d
+	flavor = balkfm.661.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		s:STATE_WALLACHIA = {
+			random_scope_state = {
+				save_scope_as = wallachia_state_scope
+			}
+		}
+	}
+	
+	option = {
+		name = balkfm.661.a
+		default_option = yes
+		scope:wallachia_state_scope = {
+			create_building = {
+				building = "building_castelul_peles"
+			}
+		}
+		hidden_effect = {
+			balkfm_clean_up_construction_effect = yes
+		}
+	}
+
+}
+
+
 
 #### ROMANIAN UNIFICATION EVENTS ####
 

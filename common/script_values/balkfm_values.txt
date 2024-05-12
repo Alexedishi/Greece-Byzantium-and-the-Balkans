@@ -1,4 +1,43 @@
-﻿## SERBIA VALUES ###
+﻿## GENERAL VALUES ##
+balkfm_construction_progress_value = {
+	value = 0
+	if = {
+		limit = {
+			NOR = {
+				has_modifier = modifier_balkfm_construction_1
+				has_modifier = modifier_balkfm_construction_2
+				has_modifier = modifier_balkfm_construction_3
+			}
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_1
+		}
+		add = 5
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_2
+		}
+		add = 10
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_3
+		}
+		add = 15
+	}
+}
+
+balkfm_construction_points_value = { # Ripped from LRoAI
+    value = 0
+	add = modifier:country_construction_add
+    min = 10
+}
+
+## SERBIA VALUES ###
 obrenovic_power_value = {
 	value = 0
 	if = {

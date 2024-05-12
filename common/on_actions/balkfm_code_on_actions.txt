@@ -12,7 +12,7 @@ on_monthly_pulse_country = {
 		mon_flavor_pulse
 		ser_flavor_pulse
 		bul_flavor_pulse
-#		rom_flavor_pulse
+		rom_flavor_pulse
 #		bos_flavor_pulse
 #		alb_flavor_pulse
 #		triu_flavor_pulse
@@ -168,21 +168,22 @@ bul_flavor_pulse = {
 	}
 }
 
-#rom_flavor_pulse = {
-#	trigger = {
-#		OR = {
-#			c:WAL ?= this
-#			c:MOL ?= this
-#			c:TRS ?= this
-#			c:ROM ?= this
-#		}
-#	}
-#	events = {
-#	}
-#	random_events = {
-#		100 = 0
-#	}
-#}
+rom_flavor_pulse = {
+	trigger = {
+		OR = {
+			c:WAL ?= this
+			c:MOL ?= this
+			c:TRS ?= this
+			c:ROM ?= this
+		}
+	}
+	events = {
+		balkfm.660 # The Academy of Romania
+	}
+	random_events = {
+		100 = 0
+	}
+}
 
 eocfm_monthly_pulse = {
 	trigger = {

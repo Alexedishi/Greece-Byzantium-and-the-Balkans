@@ -2201,6 +2201,110 @@ je_balkfm_rom_greater_romania = {
 	
 }
 
+je_balkfm_peles_castle = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+		balkfm_calculate_construction_effect = yes
+	}
+	
+	scripted_button = balkfm_construction_0_button
+	scripted_button = balkfm_construction_1_button
+	scripted_button = balkfm_construction_2_button
+	scripted_button = balkfm_construction_3_button
+	
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.661 # A Royal Estate
+		}
+	}
+	
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_WALLACHIA
+		}
+	}
+
+	on_fail = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_construction_effect = yes
+			balkfm_push_construction_effect = yes
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_construction_4
+				trigger = {
+					scope:journal_entry = { 
+						is_goal_complete = yes 
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_0
+				trigger = {
+					NOR = {
+						has_modifier = modifier_balkfm_construction_1
+						has_modifier = modifier_balkfm_construction_2
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_3
+				trigger = {
+					NOT = {
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_2
+				trigger = {
+					NOT = {
+						has_modifier = modifier_balkfm_construction_2
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_1
+				trigger = {
+					NOT = {
+						has_modifier = modifier_balkfm_construction_1
+					}
+				}
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:balkfm_construction_var
+	}
+
+	goal_add_value = {
+		value = 10400 # Construction took 41 years from 1873-1914. Rounded to 40 and multiplied by 5 assuming investment level 1.
+	}
+
+	progressbar = yes
+
+	weight = 100
+	
+}	
+
 #################
 # BOSNIA FLAVOR #
 #################
