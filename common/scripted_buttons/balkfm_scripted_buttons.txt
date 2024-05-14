@@ -910,6 +910,54 @@ balkfm_romanian_agitation_button = {
 	}
 }
 
+balkfm_support_junimism_button = {
+	name = "balkfm_support_junimism"
+	desc = "balkfm_support_junimism_desc"
+	
+	visible = {
+		has_variable = balkfm_romanian_nationalism_started
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = support_junimism_tt
+			hidden_trigger = {
+				NOT = { has_variable = balkfm_supporting_junimism }
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_supporting_junimism
+		remove_variable = balkfm_supporting_dacianism
+	}
+
+}
+
+balkfm_support_dacianism_button = {
+	name = "balkfm_support_dacianism"
+	desc = "balkfm_support_dacianism_desc"
+	
+	visible = {
+		has_variable = balkfm_romanian_nationalism_started
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = support_dacianism_tt
+			hidden_trigger = {
+				NOT = { has_variable = balkfm_supporting_dacianism }
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_supporting_dacianism
+		remove_variable = balkfm_supporting_junimism
+	}
+
+}
+
 # Triune Buttons
 
 balkfm_proclaim_triune_button = {

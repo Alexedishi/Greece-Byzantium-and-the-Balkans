@@ -2034,6 +2034,103 @@ je_balkfm_rom_statutul_dezvoltator = {
 	
 }
 
+je_balkfm_rom_nationalism = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		NOT = { has_variable = balkfm_romanian_nationalism_started }
+		c:ROM ?= this
+	}
+	
+	possible = {
+		has_technology_researched = pan-nationalism
+		has_technology_researched = philosophical_pragmatism
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.670 # Forms Without Substance
+		}
+		balkfm_initialize_protochronism_effect = yes
+	}
+	
+	scripted_button = balkfm_support_junimism_button
+	scripted_button = balkfm_support_dacianism_button
+	
+	complete = {
+		OR = {
+			has_law = law_type:law_public_schools
+			has_law = law_type:law_private_schools
+		}
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 4
+		}
+		literacy_rate >= 0.50
+		custom_tooltip = {
+			text = je_balkfm_rom_nationalism_tt1
+			hidden_trigger = {
+				var:balkfm_junimism_var != var:balkfm_dacianism_var
+				OR = {
+					var:balkfm_junimism_var >= 50
+					var:balkfm_dacianism_var >= 50
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.679 # A Romanian Identity
+		}
+		balkfm_clean_up_protochronism_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_protochronism_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+		}
+		effect = {
+			balkfm_push_protochronism_effect = yes
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_nationalism_tt2
+				trigger = {
+					var:balkfm_junimism_var > var:balkfm_dacianism_var
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_nationalism_tt3
+				trigger = {
+					var:balkfm_junimism_var < var:balkfm_dacianism_var
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_nationalism_tt4
+				trigger = {
+					var:balkfm_junimism_var = var:balkfm_dacianism_var
+				}
+			}
+		}
+	}
+
+	weight = 500
+	
+}
+
 je_balkfm_rom_united_principalities = { # this journal integrates all vanilla unification content into one journal entry
 	icon = "gfx/interface/icons/event_icons/event_romania.dds"
 	
@@ -2228,8 +2325,9 @@ je_balkfm_peles_castle = {
 	}
 	
 	fail = {
-		NOT = {
+		NOR = {
 			owns_entire_state_region = STATE_WALLACHIA
+			has_law = law_type:law_monarchy
 		}
 	}
 
@@ -2267,25 +2365,19 @@ je_balkfm_peles_castle = {
 			triggered_desc = {
 				desc = je_balkfm_construction_3
 				trigger = {
-					NOT = {
-						has_modifier = modifier_balkfm_construction_3
-					}
+					has_modifier = modifier_balkfm_construction_3
 				}
 			}
 			triggered_desc = {
 				desc = je_balkfm_construction_2
 				trigger = {
-					NOT = {
-						has_modifier = modifier_balkfm_construction_2
-					}
+					has_modifier = modifier_balkfm_construction_2
 				}
 			}
 			triggered_desc = {
 				desc = je_balkfm_construction_1
 				trigger = {
-					NOT = {
-						has_modifier = modifier_balkfm_construction_1
-					}
+					has_modifier = modifier_balkfm_construction_1
 				}
 			}
 		}
@@ -2296,7 +2388,7 @@ je_balkfm_peles_castle = {
 	}
 
 	goal_add_value = {
-		value = 10400 # Construction took 41 years from 1873-1914. Rounded to 40 and multiplied by 5 assuming investment level 1.
+		value = 2500 # Monument construction cost
 	}
 
 	progressbar = yes

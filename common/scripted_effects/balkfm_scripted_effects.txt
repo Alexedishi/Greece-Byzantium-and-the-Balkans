@@ -1414,6 +1414,170 @@ balkfm_find_kogalniceanu_effect = {
 	}
 }
 
+balkfm_initialize_protochronism_effect = {
+	# Infinite Variable Works Continues...
+	set_variable = {
+		name = balkfm_junimism_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_landowners_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_intelligentsia_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_protochronism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_var
+		value = 0
+	}
+}
+
+balkfm_calculate_protochronism_effect = {
+	set_variable = {
+		name = balkfm_junimism_popularity_var
+		value = balkfm_junimism_popularity_value
+	}
+	set_variable = {
+		name = balkfm_junimism_landowners_var
+		value = root.ig:ig_landowners.ig_clout
+	}
+	set_variable = {
+		name = balkfm_junimism_support_var
+		value = balkfm_junimism_support_value
+	}
+	set_variable = {
+		name = balkfm_junimism_progress_var
+		value = balkfm_junimism_progress_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_popularity_var
+		value = balkfm_dacianism_popularity_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_intelligentsia_var
+		value = root.ig:ig_intelligentsia.ig_clout
+	}
+	set_variable = {
+		name = balkfm_dacianism_support_var
+		value = balkfm_dacianism_support_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_progress_var
+		value = balkfm_dacianism_progress_value
+	}
+	
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = balkfm_junimism_lead_value
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = balkfm_dacianism_lead_value
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var = var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = 0
+		}
+	}
+}
+
+balkfm_push_protochronism_effect = {
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			add = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			add = var:balkfm_protochronism_progress_var
+		}
+	}
+	clamp_variable = {
+		name = balkfm_junimism_var
+		max = 100
+		min = 0
+	}
+	clamp_variable = {
+		name = balkfm_dacianism_var
+		max = 100
+		min = 0
+	}
+}
+
+balkfm_clean_up_protochronism_effect = {
+	remove_variable = balkfm_junimism_popularity_var
+	remove_variable = balkfm_junimism_landowners_var
+	remove_variable = balkfm_junimism_support_var
+	remove_variable = balkfm_junimism_progress_var
+	remove_variable = balkfm_dacianism_popularity_var
+	remove_variable = balkfm_dacianism_intelligentsia_var
+	remove_variable = balkfm_dacianism_support_var
+	remove_variable = balkfm_dacianism_progress_var
+	remove_variable = balkfm_protochronism_progress_var
+	remove_variable = balkfm_junimism_var
+	remove_variable = balkfm_dacianism_var
+}
+
 ## TURK-SPLOSION EFFECTS ##
 balkfm_balkanize_effect = {
 	c:TUR ?= {

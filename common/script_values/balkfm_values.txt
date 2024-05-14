@@ -541,3 +541,90 @@ balkfm_dezvoltator_progress_value = {
 		multiply = 0.5
 	}
 }
+
+# Nationalism Values
+
+balkfm_junimism_popularity_value = {
+	value = 0
+	every_scope_character = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_traditionalism
+					value > neutral
+				}
+				law_stance = {
+					law = law_type:law_agrarianism
+					value > neutral
+				}
+			}
+		}
+		add = popularity
+	}
+	divide = 10
+}
+
+balkfm_junimism_support_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = balkfm_supporting_junimism
+		}
+		add = 1
+	}
+}
+
+balkfm_junimism_progress_value = {
+	value = 0
+	add = var:balkfm_junimism_popularity_var
+	add = var:balkfm_junimism_landowners_var
+	add = var:balkfm_junimism_support_var
+}
+
+balkfm_dacianism_popularity_value = {
+	every_scope_character = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_traditionalism
+					value < neutral
+				}
+				law_stance = {
+					law = law_type:law_agrarianism
+					value < neutral
+				}
+			}
+		}
+		add = popularity
+	}
+	divide = 10
+}
+
+balkfm_dacianism_support_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = balkfm_supporting_dacianism
+		}
+		add = 1
+	}
+}
+
+balkfm_dacianism_progress_value = {
+	value = 0
+	add = var:balkfm_dacianism_popularity_var
+	add = var:balkfm_dacianism_intelligentsia_var
+	add = var:balkfm_dacianism_support_var
+}
+
+balkfm_junimism_lead_value = {
+	value = 0
+	add = var:balkfm_junimism_progress_var
+	subtract = var:balkfm_dacianism_progress_var
+}
+
+balkfm_dacianism_lead_value = {
+	value = 0
+	add = var:balkfm_dacianism_progress_var
+	subtract = var:balkfm_junimism_progress_var
+}

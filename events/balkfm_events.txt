@@ -244,7 +244,7 @@ namespace = balkfm
 #	629 - The Monstrous Coalition
 
 #630-639 - Transylvania-Specific Events
-#	630 - OPEN
+#	630 - ##The Lands Beyond the Forest
 
 #640-649 - The Era of Carol I Events
 #	640 - An Elected Domnitor
@@ -253,11 +253,16 @@ namespace = balkfm
 #	650 - OPEN
 
 #660-669 - Miscellaneous Historical Events
-#	660 - ##The Academy of Romania
+#	660 - The Romanian Academy
 #	661 - ##A Royal Estate
 
-#670-679 - Dacianism Events
-#	670 - OPEN
+#670-679 - Romanian Nationalism Events
+#	670 - ##Forms Without Substance (Teoria Formelor Fără Fond)
+#	671 - ##Etymologicum Magnum Romaniae
+#	672 - ##
+#	673 - ##
+#	674 - ##
+#	679 - ##A Romanian Identity
 
 #680-689 - Romanian Unification Events
 #	680 - Our Declaration of Union
@@ -2179,9 +2184,9 @@ balkfm.331 = { # Negociations At Humac
 			}
 		}
         create_diplomatic_play = {
-                name = dp_petars_last_stand
-                type = dp_return_state
-                target_state = s:STATE_MONTENEGRO.region_state:TUR
+			name = dp_petars_last_stand
+			type = dp_return_state
+			target_state = s:STATE_MONTENEGRO.region_state:TUR
 		}
 		custom_tooltip = balkfm.331.tt
 		ai_chance = {
@@ -8592,17 +8597,17 @@ balkfm.640 = { # An Elected Domnitor
 
 #### MISCELLANEOUS HISTORICAL EVENTS ####
 
-balkfm.660 = { # The Academy of Romania
+balkfm.660 = { # The Romanian Academy
 	type = country_event
 	placement = root
 	
-	title = balkfm.661.t
-	desc = balkfm.661.d
-	flavor = balkfm.661.f
+	title = balkfm.660.t
+	desc = balkfm.660.d
+	flavor = balkfm.660.f
 	
 	gui_window = event_window_1char_tabloid
 
-	left_icon = scope:balkfm_ruler_scope
+	left_icon = scope:university_benefactor
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
@@ -8630,7 +8635,7 @@ balkfm.660 = { # The Academy of Romania
 		set_variable = balkfm_considered_national_academy
 	}
 	
-	option = {
+	option = { # Build the University
 		name = balkfm.660.a
 		default_option = yes
 		scope:university_state = {
@@ -8645,7 +8650,7 @@ balkfm.660 = { # The Academy of Romania
 		}
 	}
 	
-	option = {
+	option = { # Do Not
 		name = balkfm.660.b
 		scope:university_benefactor = {
 			add_modifier = {
@@ -8703,7 +8708,116 @@ balkfm.661 = { # A Royal Estate
 
 }
 
+#### ROMANIAN NATIONALISM EVENTS ####
 
+balkfm.670 = { # Forms Without Substance
+	type = country_event
+	placement = root
+	
+	title = balkfm.670.t
+	desc = balkfm.670.d
+	flavor = balkfm.670.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_nationalism
+	}
+	
+	immediate = {
+		set_variable = balkfm_romanian_nationalism_started
+		balkfm_calculate_protochronism_effect = yes
+	}
+	
+	option = {
+		name = balkfm.670.a
+		default_option = yes
+		trigger_event = {
+			id = balkfm.671 # Etymologicum Magnum Romaniae
+			days = 30
+		}
+		balkfm_calculate_protochronism_effect = yes
+	}
+
+}
+
+balkfm.671 = { # Etymologicum Magnum Romaniae
+	type = country_event
+	placement = root
+	
+	title = balkfm.671.t
+	desc = balkfm.671.d
+	flavor = balkfm.671.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.670
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.671.a
+		default_option = yes
+	}
+
+}
+
+
+balkfm.679 = { # A Romanian Identity
+	type = country_event
+	placement = root
+	
+	title = balkfm.679.t
+	desc = balkfm.679.d
+	flavor = balkfm.679.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.679.a
+		default_option = yes
+	}
+	
+}
 
 #### ROMANIAN UNIFICATION EVENTS ####
 
