@@ -628,3 +628,37 @@ balkfm_dacianism_lead_value = {
 	add = var:balkfm_dacianism_progress_var
 	subtract = var:balkfm_junimism_progress_var
 }
+
+# 1866 Values
+
+balkfm_1866_ruler_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 10
+}
+
+balkfm_1866_support_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_oligarchy
+					value < neutral
+				}
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+		}
+		add = ig_clout
+	}
+}
+
+balkfm_1866_progress_value = {
+	value = 0
+	add = var:balkfm_1866_ruler_var
+	add = var:balkfm_1866_support_var
+	subtract = var:balkfm_1866_radicals_var
+}

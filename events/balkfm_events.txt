@@ -248,21 +248,34 @@ namespace = balkfm
 
 #640-649 - The Era of Carol I Events
 #	640 - An Elected Domnitor
+#	641 - ##Liberalist Demands
+#	642 - ##A Conspiracy in Ploiești
+#	643 - ##Ploiești Revolt Suppressed
+#	644 - ##Ploieștian Radicalism Spreads
+#	645 - ##The Candiano Republic
+#	646 - ##Monarchism Secured
+#	647 - ##The Republic of Romania
+
 
 #650-659 - The Era of Ferdinand I Events
 #	650 - OPEN
 
 #660-669 - Miscellaneous Historical Events
 #	660 - The Romanian Academy
-#	661 - ##A Royal Estate
+#	661 - A Royal Estate
 
-#670-679 - Romanian Nationalism Events
+#670-673 - Romanian Nationalism Events
 #	670 - ##Forms Without Substance (Teoria Formelor Fără Fond)
 #	671 - ##Etymologicum Magnum Romaniae
-#	672 - ##
-#	673 - ##
-#	674 - ##
-#	679 - ##A Romanian Identity
+#	672 - ##A Romanian Identity
+#673-679 - Byzantine Empire Restoration Events
+#	673 - ##The Imperial Standard
+#	674 - ##The Queen of Cities
+#	675 - ##The Golden Eagle Soars
+#	676 - ##Scions of the Empire
+#	677 - ##Nova Roma Constantinopolitana
+#	678 - ##Into the Holy Land
+#	679 - ##Imperiul României
 
 #680-689 - Romanian Unification Events
 #	680 - Our Declaration of Union
@@ -7058,50 +7071,29 @@ balkfm.601 = { # The Petition-Proclamation
 		}
 		create_character = {
 			# Vasile Alecsandri, Romanian nationalist and radical
-			first_name = "Vasile"
-			last_name = "Alecsandri"
-			historical = yes
-			age = 27 # age during the 1848 Unrest
-			interest_group = ig_intelligentsia
-			ideology = ideology_moderate
-			traits = {
-				cautious
-				romantic
-				literary
-			}
+			template = template_balkfm_alecsandri_vasile
 			on_created = {
-				set_variable = balkfm_is_alecsandri
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
 		create_character = {
 			# Ion Isăcescu, Romanian statesman and argonomist
-			first_name = "Ion"
-			last_name = "Isacescu"
-			historical = yes
-			age = 29 # age during the 1848 unrest
-			interest_group = ig_rural_folk # to represent his ties to agriculture
-			ideology = ideology_land_reformer
-			traits = {
-				engineer
-				meticulous
-			}
+			template = template_balkfm_isacescu_ion
 			on_created = {
-				set_variable = balkfm_is_isacescu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_alecsandri
+				has_template = template_balkfm_alecsandri_vasile
 			}
 			save_scope_as = balkfm_alecsandri_scope
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_isacescu
+				has_template = template_balkfm_isacescu_ion
 			}
 			save_scope_as = balkfm_isacescu_scope
 		}
@@ -7520,100 +7512,57 @@ balkfm.611 = { # Proclamation of Islaz
 		}
 		create_character = {
 			# Nicolae Bălcescu, leader of the 1848 revolution
-			first_name = "Nicolae"
-			last_name = "Balcescu"
-			historical = yes
-			age = 29 # at time of the revolution
-			ideology = ideology_radical
-			interest_group = ig_intelligentsia
-			traits = {
-				firebrand
-				literary
-				charismatic
-			}
+			template = template_balkfm_balcescu_nicolae
 			on_created = {
-				set_variable = balkfm_is_balcescu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
-		}	
+		}
 		create_character = {
 			# Alexandru G. Golescu, prominent boyar member of the brotherhood
-			first_name = "Alexandru"
-			last_name = "Golescu"
-			historical = yes
-			age = 29 # at the time of the revolution
-			ideology = ideology_social_democrat
-			interest_group = ig_landowners
-			traits = {
-				basic_political_operator
-				direct
-			}
+			template = template_balkfm_golescu_alexandru
 			on_created = {
-				set_variable = balkfm_is_golescu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
 		create_character = {
 			# Neofit Gianoglu, Metropolitan of Wallachia 1840-1849
-			first_name = "Neofit"
-			last_name = "Gianoglu"
-			historical = yes
-			age = 61 # at the time of the revolution
-			ideology = ideology_traditionalist
-			interest_group = ig_devout
-			traits = {
-				imperious
-				pious
-				imposing
-			}
+			template = template_balkfm_gianoglu_neofit
 			on_created = {
-				set_variable = balkfm_is_gianoglu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
 		create_character = {
 			# Christian Tell, major general and member of the brotherhood
-			first_name = "Christian"
-			last_name = "Tell"
-			historical = yes
-			age = 40 # at the time of the revolution
-			ideology = ideology_reformer # supported the revolution, but butted heads with its more radical wing
-			interest_group = ig_armed_forces
-			traits = {
-				experienced_offensive_planner
-				honorable
-				basic_political_operator
-			}
+			template = template_balkfm_tell_christian
 			on_created = {
-				set_variable = balkfm_is_tell
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 12 # just for this event
 			}
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_balcescu
+				has_template = template_balkfm_balcescu_nicolae
 			}
 			save_scope_as = balkfm_balcescu_scope
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_golescu
+				has_template = template_balkfm_golescu_alexandru
 			}
 			save_scope_as = balkfm_golsecu_scope
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_gianoglu
+				has_template = template_balkfm_gianoglu_neofit
 			}
 			save_scope_as = balkfm_gianoglu_scope
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_tell
+				has_template = template_balkfm_tell_christian
 			}
 			save_scope_as = balkfm_tell_scope
 		}
@@ -7709,13 +7658,13 @@ balkfm.612 = { # The Wallachian Brotherhood
 	immediate = {
 		random_scope_character = {
 			limit = {
-				has_variable = balkfm_is_balcescu
+				has_template = template_balkfm_balcescu_nicolae
 			}
 			save_scope_as = balkfm_balcescu_scope
 		}
 		random_scope_character = {
 			limit = {
-				has_variable = balkfm_is_gianoglu
+				has_template = template_balkfm_gianoglu_neofit
 			}
 			save_scope_as = balkfm_gianoglu_scope
 		}
@@ -7764,7 +7713,7 @@ balkfm.613 = { # The Sword of the Revolution
 	immediate = {
 		random_scope_character = {
 			limit = {
-				has_variable = balkfm_is_balcescu
+				has_template = template_balkfm_balcescu_nicolae
 			}
 			save_scope_as = balkfm_balcescu_scope
 		}
@@ -8466,21 +8415,8 @@ balkfm.629 = { # A Monstrous Coalition
 			text = balkfm.629.a.tt
 			hidden_effect = {
 				create_character = {
-					first_name = Carol
-					last_name = Hohenzollern-Sigmaringen
-					noble = yes
-					age = 27 # age at ascent to the throne
-					culture = cu:south_german
-					religion = rel:catholic
-					interest_group = ig_landowners
-					ideology = ideology_humanitarian_royalist
-					traits = {
-						basic_political_operator
-						persistent
-						cautious
-					}
+					template = template_balkfm_karl_hohenzollern
 					on_created = {
-#						set_variable = balkfm_is_carol
 						set_character_as_ruler = yes
 					}
 				}
@@ -8509,19 +8445,7 @@ balkfm.629 = { # A Monstrous Coalition
 			text = balkfm.629.b.tt
 			hidden_effect = {
 				create_character = {
-					first_name = Philippe
-					last_name = de_Flandre
-					noble = yes
-					historical = yes
-					age = 25
-					culture = cu:flemish
-					religion = rel:catholic
-					interest_group = ig_landowners
-					ideology = ideology_humanitarian_royalist
-					traits = {
-						basic_political_operator
-						arrogant
-					}
+					template = template_grefm_deflandre_philippe
 					on_created = {
 						set_character_as_ruler = yes
 					}
@@ -8590,6 +8514,496 @@ balkfm.640 = { # An Elected Domnitor
 		add_modifier = {
 			name = modifier_balkfm_elected_domnitor
 			months = normal_modifier_time
+		}
+		if = {
+			limit = {
+				ig:ig_intelligentsia = {
+					is_marginal = no
+				}
+			}
+			trigger_event = {
+				id = balkfm.641 # Liberalist Demands
+				days = 30
+			}
+		}
+	}
+
+}
+
+balkfm.641 = { # Liberalist Demands
+	type = country_event
+	placement = root
+	
+	title = balkfm.641.t
+	desc = balkfm.641.d
+	flavor = balkfm.641.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.641
+	}	
+	
+	immediate = {
+		set_variable = balkfm_1866_technical
+	}
+	
+	option = { # Accept the Constitution
+		name = balkfm.641.a
+		default_option = yes
+	}
+	
+	option = { # How About Nope-stitution
+		name = balkfm.641.b
+		balkfm_initialize_1866_variables_effect = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_1866
+		}
+	}
+	
+	after = {
+		if = {
+			limit = {
+				has_variable = balkfm_1866_var
+			}
+			change_variable = {
+				name = balkfm_1866_var
+				add = 100
+			}
+		}
+		remove_variable = balkfm_1866_technical
+	}
+
+}
+
+balkfm.642 = { # A Conspiracy in Ploiești
+	type = country_event
+	placement = root
+	
+	title = balkfm.642.t
+	desc = balkfm.642.d
+	flavor = balkfm.642.f
+	
+	event_image = {
+		video = "votp_conspiring"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { has_variable = balkfm_ploiesti_happened }
+		var:balkfm_1866_var < 75
+	}
+	
+	immediate = {
+		set_variable = balkfm_ploiesti_happened
+		create_character = {
+			template = template_balkfm_candiano_alexandru
+			on_created = {
+				place_character_in_void = 700
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_candiano_alexandru
+			}
+			save_scope_as = balkfm_candiano_scope
+		}
+	}
+	
+	option = { # Arrest These Idiots
+		name = balkfm.642.a
+		default_option = yes
+		scope:balkfm_candiano_scope = {
+			free_character_from_void = yes
+			exile_character = yes
+		}
+		custom_tooltip = {
+			text = balkfm.642.tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_1866_var
+					subtract = 20
+				}
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				50 = {
+					trigger_event = {
+						id = balkfm.643 # Ploiești Revolt Suppressed
+					}
+				}
+				50 = {
+					trigger_event = {
+						id = balkfm.644 # Ploieștian Radicalism Spreads
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Cave to Their Demands
+		name = balkfm.642.b
+		scope:balkfm_candiano_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+		add_modifier = {
+			name = modifier_balkfm_ploiesti_succeeded
+			months = long_modifier_time
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+					has_law = law_type:law_landed_voting
+					has_law = law_type:law_wealth_voting
+					has_law = law_type:law_census_voting
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_serfdom
+					has_law = law_type:law_tenant_farmers
+				}
+			}
+			activate_law = law_type:law_homesteading
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_consumption_based_taxation
+					has_law = law_type:law_land_based_taxation
+				}
+			}
+			activate_law = law_type:law_per_capita_based_taxation 
+		}
+	}
+	
+	option = { # Give This Moron a Job
+		name = balkfm.642.c
+		scope:balkfm_candiano_scope = {
+			free_character_from_void = yes
+			transfer_character = root
+			add_character_role = general
+			set_ideology = ideology:ideology_reformer
+		}
+		hidden_effect = {
+			random_list = {
+				80 = {
+					trigger_event = {
+						id = balkfm.643 # Ploiești Revolt Suppressed
+						popup = yes
+					}
+				}
+				20 = {
+					trigger_event = {
+						id = balkfm.644 # Ploieștian Radicalism Spreads
+						days = 30
+					}
+				}
+			}
+		}
+	}
+}
+
+balkfm.643 = { # Ploiești Revolt Suppressed
+	type = country_event
+	placement = root
+	
+	title = balkfm.643.t
+	desc = balkfm.643.d
+	flavor = balkfm.643.f
+	
+	event_image = {
+		video = "votp_cops_march"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.642
+	}
+	
+	cancellation_trigger = {
+		NOT = { has_variable = balkfm_1866_var }
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.643.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_secured_order
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			pop_type = academics
+			value = large_radicals
+		}
+		add_radicals = {
+			strata = poor
+			value = small_radicals
+		}		
+		custom_tooltip = {
+			text = balkfm.643.tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_1866_var
+					add = 20
+				}
+			}
+		}
+	}
+
+}
+
+balkfm.644 = { # Ploieștian Radicalism Spreads
+	type = country_event
+	placement = root
+	
+	title = balkfm.644.t
+	desc = balkfm.644.d
+	flavor = balkfm.644.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.642
+	}
+	
+	cancellation_trigger = {
+		NOT = { has_variable = balkfm_1866_var }
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.644.a
+		default_option = yes
+		ig:ig_armed_forces = {
+			leader = {
+				if = {
+					limit = {
+						NOR = {
+							has_ideology = ideology:ideology_radical
+							has_ideology = ideology:ideology_republican
+						}
+					}
+					set_ideology = ideology:ideology_republican
+				}
+			}
+		}
+		ig:ig_intelligentsia = {
+			leader = {
+				if = {
+					limit = {
+						NOT = {
+							has_ideology = ideology:ideology_radical
+						}
+					}
+					set_ideology = ideology:ideology_radical
+				}
+			}
+		}
+		ig:ig_rural_folk = {
+			leader = {
+				if = {
+					limit = {
+						NOR = {
+							has_ideology = ideology:ideology_radical
+							has_ideology = ideology:ideology_republican
+							has_ideology = ideology:ideology_reformer
+						}
+					}
+					set_ideology = ideology:ideology_reformer
+				}
+			}
+		}
+		custom_tooltip = {
+			text = balkfm.644.tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_1866_var
+					subtract = 20
+				}
+			}
+		}
+	}
+
+}
+
+balkfm.645 = { # The Candiano Republic
+	type = country_event
+	placement = root
+	
+	title = balkfm.645.t
+	desc = balkfm.645.d
+	flavor = balkfm.645.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_1866
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_candiano_alexandru
+			}
+			save_scope_as = balkfm_candiano_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.645.a
+		default_option = yes
+		activate_law = law_type:law_parlimentary_republic
+		activate_law = law_type:law_universal_suffrage
+		activate_law = law_type:law_elected_bureaucrats
+		scope:balkfm_candiano_scope = {
+			free_character_from_void = yes
+			set_character_as_ruler = yes
+		}
+		call_election = {
+			months = 3
+		}
+	}
+
+}
+
+balkfm.646 = { # Monarchism Secured
+	type = country_event
+	placement = root
+	
+	title = balkfm.646.t
+	desc = balkfm.646.d
+	flavor = balkfm.646.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_1866
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.646.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_monarchism_secured
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+balkfm.647 = { # The Candiano Republic
+	type = country_event
+	placement = root
+	
+	title = balkfm.647.t
+	desc = balkfm.647.d
+	flavor = balkfm.647.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_rom_1866
+	}
+	
+	immediate = {
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = balkfm_candiano_scope
+			}
+		}
+	}
+	
+	option = {
+		name = balkfm.647.a
+		default_option = yes
+		activate_law = law_type:law_parlimentary_republic
+		activate_law = law_type:law_universal_suffrage
+		activate_law = law_type:law_elected_bureaucrats
+		scope:balkfm_candiano_scope = {
+			set_character_as_ruler = yes
+		}
+		call_election = {
+			months = 3
 		}
 	}
 
@@ -8718,13 +9132,14 @@ balkfm.670 = { # Forms Without Substance
 	desc = balkfm.670.d
 	flavor = balkfm.670.f
 	
-	event_image = {
-		video = "unspecific_politicians_arguing"
-	}
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_mairoescu_scope
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
@@ -8737,16 +9152,40 @@ balkfm.670 = { # Forms Without Substance
 	immediate = {
 		set_variable = balkfm_romanian_nationalism_started
 		balkfm_calculate_protochronism_effect = yes
+		create_character = {
+			# Titu Maiorescu, de facto leader of the Junimea society
+			template = template_balkfm_mairoescu_titu
+			on_created = {
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_mairoescu_titu
+			}
+			save_scope_as = balkfm_mairoescu_scope
+		}
 	}
 	
-	option = {
+	option = { # Endorse the Junimea Society
 		name = balkfm.670.a
 		default_option = yes
+		scope:balkfm_mairoescu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+	}
+	
+	option = { # Meh
+		name = balkfm.670.b
+	}
+	
+	after = {
+		balkfm_calculate_protochronism_effect = yes
 		trigger_event = {
 			id = balkfm.671 # Etymologicum Magnum Romaniae
-			days = 30
+			days = 90
 		}
-		balkfm_calculate_protochronism_effect = yes
 	}
 
 }
@@ -8776,17 +9215,37 @@ balkfm.671 = { # Etymologicum Magnum Romaniae
 	}
 	
 	immediate = {
+		create_character = {
+			template = template_balkfm_hasdeu_bogdan
+			on_created = {
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_hasdeu_bogdan
+			}
+			save_scope_as = balkfm_hasdeu_scope
+		}
 	}
 	
-	option = {
+	option = { # Endorse the Dacian Movement
 		name = balkfm.671.a
 		default_option = yes
+		scope:balkfm_hasdeu_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
 	}
 
+	option = { # Meh
+		name = balkfm.671.b
+	}
+		
 }
 
 
-balkfm.679 = { # A Romanian Identity
+balkfm.672 = { # A Romanian Identity
 	type = country_event
 	placement = root
 	
@@ -8813,7 +9272,7 @@ balkfm.679 = { # A Romanian Identity
 	}
 	
 	option = {
-		name = balkfm.679.a
+		name = balkfm.672.a
 		default_option = yes
 	}
 	

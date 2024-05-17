@@ -1970,6 +1970,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 	
 	complete = {
 		# Technically, Cuza's goal was to establish authoritarian rule, but with broad voting rights for the peasantry. This is cannot be represented by Victoria 3's current systems, hence the strange completion requirements
+		# TODO I've actually done more research here... this is really more complicated than I made it sound. Unfortunately, research in non-English language sources is slower than I would like; this has been tagged for a rework in the docket once I have more sources
 		has_law = law_type:law_monarchy
 		OR = {
 			has_law = law_type:law_autocracy
@@ -2034,6 +2035,119 @@ je_balkfm_rom_statutul_dezvoltator = {
 	
 }
 
+je_balkfm_rom_1866 = {
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_absolutist_intent
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_balkfm_rom_1866_fail
+			hidden_trigger = {
+				var:balkfm_1866_var <= 0
+			}
+		}
+		hidden_trigger = {
+			NOT = { has_variable = balkfm_1866_technical }
+		}
+	}
+	
+	on_fail = {
+		if = {
+			any_scope_character = {
+				has_template = template_balkfm_candiano_alexandru
+			}
+			trigger_event = {
+				id = balkfm.647 # The Republic of Romania
+			}
+		}
+		else = {
+			trigger_event = {
+				id = balkfm.645 # The Candiano Republic
+			}
+		}
+	}
+	
+	timeout = 1780 # You just gotta make it five years
+	
+	on_timeout = {
+		trigger_event = {
+			id = balkfm.646 # Monarchism Secured
+		}
+	}
+	
+	invalid = {
+		OR = {
+			NOT = { has_law = law_type:law_monarchy }
+			has_modifier = modifier_balkfm_ploiesti_succeeded
+		}
+	}
+	
+	on_invalid = {
+		balkfm_cleanup_1866_variables_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_1866_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.642 # A Conspiracy in Ploiești
+		}
+		effect = {
+			balkfm_push_1866_variables_effect = yes
+		}
+	}
+	
+	current_value = {
+		value = var:balkfm_1866_var
+	}
+
+	goal_add_value = {
+		value = 100
+	}
+
+	progressbar = yes
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_constitution_1
+				trigger = {
+					var:balkfm_1866_var >= 60
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_constitution_2
+				trigger = {
+					var:balkfm_1866_var >= 30
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_rom_constitution_3
+				trigger = {
+					var:balkfm_1866_var < 30
+				}
+			}
+		}
+	}
+
+	weight = 100
+	
+}
+
 je_balkfm_rom_nationalism = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
@@ -2085,7 +2199,7 @@ je_balkfm_rom_nationalism = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.679 # A Romanian Identity
+			id = balkfm.672 # A Romanian Identity
 		}
 		balkfm_clean_up_protochronism_effect = yes
 	}
