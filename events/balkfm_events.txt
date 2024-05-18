@@ -248,7 +248,7 @@ namespace = balkfm
 
 #640-649 - The Era of Carol I Events
 #	640 - An Elected Domnitor
-#	641 - ##Liberalist Demands
+#	641 - Liberalist Demands
 #	642 - ##A Conspiracy in Ploiești
 #	643 - ##Ploiești Revolt Suppressed
 #	644 - ##Ploieștian Radicalism Spreads
@@ -8904,6 +8904,9 @@ balkfm.645 = { # The Candiano Republic
 			}
 			save_scope_as = balkfm_candiano_scope
 		}
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
 	}
 	
 	option = {
@@ -8990,6 +8993,9 @@ balkfm.647 = { # The Candiano Republic
 			leader = {
 				save_scope_as = balkfm_candiano_scope
 			}
+		}
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
 		}
 	}
 	
@@ -9167,17 +9173,13 @@ balkfm.670 = { # Forms Without Substance
 		}
 	}
 	
-	option = { # Endorse the Junimea Society
+	option = {
 		name = balkfm.670.a
 		default_option = yes
 		scope:balkfm_mairoescu_scope = {
 			free_character_from_void = yes
 			set_as_interest_group_leader = yes
 		}
-	}
-	
-	option = { # Meh
-		name = balkfm.670.b
 	}
 	
 	after = {
@@ -9229,7 +9231,7 @@ balkfm.671 = { # Etymologicum Magnum Romaniae
 		}
 	}
 	
-	option = { # Endorse the Dacian Movement
+	option = {
 		name = balkfm.671.a
 		default_option = yes
 		scope:balkfm_hasdeu_scope = {
@@ -9237,21 +9239,42 @@ balkfm.671 = { # Etymologicum Magnum Romaniae
 			set_as_interest_group_leader = yes
 		}
 	}
-
-	option = { # Meh
-		name = balkfm.671.b
-	}
 		
 }
-
 
 balkfm.672 = { # A Romanian Identity
 	type = country_event
 	placement = root
 	
-	title = balkfm.679.t
-	desc = balkfm.679.d
-	flavor = balkfm.679.f
+	title = balkfm.672.t
+	desc = {
+		triggered_desc = {
+			desc = balkfm.672.d1
+			trigger = {
+				var:balkfm_junimism_var > var:balkfm_dacianism_var
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.672.d2
+			trigger = {
+				var:balkfm_junimism_var < var:balkfm_dacianism_var
+			}
+		}
+	}
+	flavor = {
+		triggered_desc = {
+			desc = balkfm.672.f1
+			trigger = {
+				var:balkfm_junimism_var > var:balkfm_dacianism_var
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.672.f2
+			trigger = {
+				var:balkfm_junimism_var < var:balkfm_dacianism_var
+			}
+		}
+	}
 	
 	event_image = {
 		video = "unspecific_world_fair"
@@ -9274,6 +9297,36 @@ balkfm.672 = { # A Romanian Identity
 	option = {
 		name = balkfm.672.a
 		default_option = yes
+		trigger = {
+			var:balkfm_junimism_var > var:balkfm_dacianism_var
+		}
+		add_modifier = {
+			name = modifier_balkfm_junimist_society
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			pop_type = aristocrats
+			value = large_radicals
+		}
+	}
+	
+	option = {
+		name = balkfm.672.b
+		trigger = {
+			var:balkfm_junimism_var < var:balkfm_dacianism_var
+		}
+		add_modifier = {
+			name = modifier_balkfm_dacianist_society
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			pop_type = academics
+			value = large_radicals
+		}
+	}
+	
+	after = {
+		balkfm_clean_up_protochronism_effect = yes
 	}
 	
 }
