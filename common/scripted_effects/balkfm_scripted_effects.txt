@@ -857,6 +857,21 @@ balkfm_create_bulgarian_regency_characters = {
 			direct
 		}
 	}	
+	create_character = {
+		# Evlogi Georgiev, older brother of Hristo Georgiev; funded the University of Sofia
+		first_name = Evlogi
+		last_name = Georgiev
+		historical = yes
+		age = 67
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		ideology = ideology_reformer
+		traits = {
+			direct
+			romantic
+		}
+	}
 }
 
 balkfm_create_bulgarian_royals = {
@@ -1370,24 +1385,16 @@ balkfm_find_kogalniceanu_effect = {
 		limit = {
 			NOR = {
 				any_scope_character = {
-					has_variable = balkfm_is_kogalniceanu
+					has_template = template_balkfm_kogalniceanu_mihail
 				}
 				any_character_in_void = {
-					has_variable = balkfm_is_kogalniceanu
+					has_template = template_balkfm_kogalniceanu_mihail
 				}
 			}
 		}
 		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
-			first_name = Mihail
-			last_name = Kogalniceanu
-			culture = cu:romanian
-			religion = rel:orthodox
-			historical = yes
-			age = 45
-			ideology = ideology_kogalnitchanism
-			interest_group = ig_intelligentsia
+			template = template_balkfm_kogalniceanu_mihail
 			on_created = {
-				set_variable = balkfm_is_kogalniceanu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 100
 			}
@@ -1395,7 +1402,7 @@ balkfm_find_kogalniceanu_effect = {
 	}
 	random_character_in_void = {
 		limit = {
-			has_variable = balkfm_is_kogalniceanu
+			has_template = template_balkfm_kogalniceanu_mihail
 		}
 		save_scope_as = balkfm_kogalniceanu_scope
 	}
@@ -1407,7 +1414,7 @@ balkfm_find_kogalniceanu_effect = {
 		}
 		random_scope_character = {
 			limit = {
-				has_variable = balkfm_is_kogalniceanu
+				has_template = template_balkfm_kogalniceanu_mihail
 			}
 			save_scope_as = balkfm_kogalniceanu_scope
 		}
@@ -1454,7 +1461,7 @@ balkfm_initialize_protochronism_effect = {
 	}
 	set_variable = {
 		name = balkfm_junimism_var
-		value = 0
+		value = 1 # this is so the push effect can actually do something
 	}
 	set_variable = {
 		name = balkfm_dacianism_var
@@ -1527,15 +1534,32 @@ balkfm_calculate_protochronism_effect = {
 
 balkfm_push_protochronism_effect = {
 	# These variables are intentionally tuned to aggressively swing support from one camp to another if either side has a negative progress variable
-	change_variable = {
-		name = balkfm_junimism_var
-		add = var:balkfm_junimism_progress_var
-		subtract = var:balkfm_dacianism_progress_var
+	
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			add = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
 	}
-	change_variable = {
-		name = balkfm_dacianism_var
-		add = var:balkfm_dacianism_progress_var
-		subtract = var:balkfm_junimism_progress_var
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			add = var:balkfm_protochronism_progress_var
+		}
 	}
 	clamp_variable = {
 		name = balkfm_junimism_var

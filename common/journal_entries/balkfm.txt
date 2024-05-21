@@ -1438,16 +1438,24 @@ je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	should_be_pinned_by_default = yes
 	
 	complete = {
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_ALBANIA
+		is_subject = no
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		owns_entire_state_region = STATE_THESSALIA
-		owns_entire_state_region = STATE_HUDAVENDIGAR
-		owns_entire_state_region = STATE_AYDIN		
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
 	}
 	
 	on_complete = {
@@ -2153,7 +2161,7 @@ je_balkfm_rom_1866 = {
 je_balkfm_rom_nationalism = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_balkfm_romania
+	group = je_group_balkfm_romanian_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -2163,8 +2171,8 @@ je_balkfm_rom_nationalism = {
 	}
 	
 	possible = {
-		has_technology_researched = pan-nationalism
-		has_technology_researched = philosophical_pragmatism
+		has_technology_researched = nationalism
+		has_technology_researched = egalitarianism
 	}
 	
 	immediate = {
@@ -2184,7 +2192,7 @@ je_balkfm_rom_nationalism = {
 		}
 		institution_investment_level = {
 			institution = institution_schools
-			value >= 4
+			value >= 3
 		}
 		literacy_rate >= 0.50
 		custom_tooltip = {
@@ -2212,8 +2220,6 @@ je_balkfm_rom_nationalism = {
 	}
 	
 	on_monthly_pulse = {
-		random_events = {
-		}
 		effect = {
 			balkfm_push_protochronism_effect = yes
 		}
@@ -2221,6 +2227,14 @@ je_balkfm_rom_nationalism = {
 	
 	status_desc = {
 		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rom_nationalism_tt5
+				trigger = {
+					NOT = {
+						 has_journal_entry = je_balkfm_rom_nationalism
+					}
+				}
+			}
 			triggered_desc = {
 				desc = je_balkfm_rom_nationalism_tt2
 				trigger = {
@@ -2249,7 +2263,7 @@ je_balkfm_rom_nationalism = {
 je_balkfm_rom_united_principalities = { # this journal integrates all vanilla unification content into one journal entry
 	icon = "gfx/interface/icons/event_icons/event_romania.dds"
 	
-	group = je_group_balkfm_romania
+	group = je_group_balkfm_romanian_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -2281,10 +2295,10 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	on_complete = {
 	}
 	
-    fail = {
-        OR = {
-            custom_tooltip = {
-                text = balkfm_no_other_romanians_tt
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = balkfm_no_other_romanians_tt
 				hidden_trigger = {
 					NOT = {
 						any_country = {
@@ -2294,15 +2308,15 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 					}
 				}
             }
-            custom_tooltip = {
-                text = balkfm_rom_formed_tt
+			custom_tooltip = {
+				text = balkfm_rom_formed_tt
 				hidden_trigger = {
 					AND = {
 						exists = c:ROM
 						NOT = { c:ROM ?= this }
 					}
 				}
-            }
+			}
 			custom_tooltip = {
 				text = balkfm_rom_lost_union_tt
 				hidden_trigger = {
@@ -2318,13 +2332,13 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
     }
 	
     on_fail = {
-        hidden_effect = {
-            remove_variable = ROM_united_principality
-        }
+		hidden_effect = {
+			remove_variable = ROM_united_principality
+		}
     }
 	
-    on_monthly_pulse = {
-        effect = {
+	on_monthly_pulse = {
+		effect = {
 			if = {
 				limit = {
 					has_variable = romanian_union_var
@@ -2347,16 +2361,16 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	scripted_button = balkfm_bessarabian_retrocession_button
 	scripted_button = balkfm_marea_unire_button
 
-    # timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
+	# timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
 
-    weight = 1000
+	weight = 1000
 	
 }
 
 je_balkfm_rom_greater_romania = {
 	icon = "gfx/interface/icons/event_icons/event_romania.dds"
 	
-	group = je_group_balkfm_romania
+	group = je_group_balkfm_romanian_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -2413,8 +2427,187 @@ je_balkfm_rom_greater_romania = {
 	
 }
 
+je_balkfm_rom_megali_idea = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_balkfm_romanian_nationalism
+	
+	should_be_pinned_by_default = yes
+
+	immediate = {
+	}
+
+	complete = {
+		is_subject = no
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = balkfm.674 # The Queen of Cities
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = byzfm_weaksauce
+				has_variable = balkfm_weaksauce
+			}
+		}
+	}
+	
+	weight = 1000
+
+}
+
+je_balkfm_rom_restoration = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_byzfm_imperial_aspiriations
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt1
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 9
+					country_or_subject_owns_entire_state_region = STATE_ALBANIA
+					country_or_subject_owns_entire_state_region = STATE_BOSNIA
+					country_or_subject_owns_entire_state_region = STATE_BULGARIA
+					country_or_subject_owns_entire_state_region = STATE_CRETE
+					country_or_subject_owns_entire_state_region = STATE_CROATIA
+					country_or_subject_owns_entire_state_region = STATE_DALMATIA
+					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
+					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
+					country_or_subject_owns_entire_state_region = STATE_SKOPIA
+					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
+					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_THESSALIA
+					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_byzfm_restoration_tt2
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 8
+					country_or_subject_owns_entire_state_region = STATE_ADANA
+					country_or_subject_owns_entire_state_region = STATE_ANKARA
+					country_or_subject_owns_entire_state_region = STATE_AYDIN
+					country_or_subject_owns_entire_state_region = STATE_CYPRUS
+					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_ERZURUM
+					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
+					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
+					country_or_subject_owns_entire_state_region = STATE_KONYA
+					country_or_subject_owns_entire_state_region = STATE_TRABZON
+				}
+			}
+		}
+	}
+		
+	on_complete = {
+		trigger_event = {
+			id = balkfm.677 # Nova Roma Constantinopolitana
+		}
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+
+	weight = 10000
+}
+
+je_balkfm_rome_of_the_east = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_restoration
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_byzfm_imperial_aspiriations
+	}
+
+	complete = {
+		country_rank >= rank_value:great_power
+		any_scope_state = {
+			has_building = building_mega_palation
+		}
+		country_or_subject_owns_entire_state_region = STATE_ALEPPO
+		country_or_subject_owns_entire_state_region = STATE_LEBANON
+		country_or_subject_owns_entire_state_region = STATE_SYRIA
+		country_or_subject_owns_entire_state_region = STATE_PALESTINE
+		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
+		country_or_subject_owns_entire_state_region = STATE_SINAI
+		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MATRUH
+		country_or_subject_owns_entire_state_region = STATE_LIBYA
+	}
+	
+	invalid = {
+		has_variable = byzfm_weaksauce
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.679 # Imperiul României
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_rome_of_the_east_status
+			}
+		}
+	}	
+
+	weight = 10000
+	
+}
+
 je_balkfm_peles_castle = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
 	group = je_group_balkfm_romania
 	

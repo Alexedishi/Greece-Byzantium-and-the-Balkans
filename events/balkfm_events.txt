@@ -183,10 +183,20 @@ namespace = balkfm
 	
 #520-529 - The Reign of Ferdinand I
 #	520 - An Elected Prince
+#	521 - ##A Foreigner in Sofia
+#	522 - ##Military Conciliation
+#	523 - ##Military Insufficiency
+#	524 - ##Legitimizing the King
+#	525 - ##The Death of Prince Battenburg
+#	526 - ##Royal Roots
+#	527 - ##OPEN
+#	528 - ##OPEN
+#	529 - ##The Romanian Academy
 
 #560-569 - Bulgarian Orthodox Church Events
 #	560 - Threats of Schism
 #	561 - Royal Wedding (balkfm Variant)
+#	562 - ##Ecclesiatic Hostility
 
 #570-572 - Byzantine Empire Restoration Events
 #	570 - The Golden Lion Roars (Path Event)
@@ -208,6 +218,9 @@ namespace = balkfm
 #	588 - The Queen of Cities
 
 #590-591 - Bulgaria Support Events
+#	590 - ##The Macedonian Question
+#	591 - ##Bulgarian Agitation in Macedonia
+#	592 - ##The Macedonian Revolt
 #	598 - The Bulgarian State
 #	599 - The Golden Lion Awakens (Alternate)
 
@@ -249,12 +262,12 @@ namespace = balkfm
 #640-649 - The Era of Carol I Events
 #	640 - An Elected Domnitor
 #	641 - Liberalist Demands
-#	642 - ##A Conspiracy in Ploiești
-#	643 - ##Ploiești Revolt Suppressed
-#	644 - ##Ploieștian Radicalism Spreads
-#	645 - ##The Candiano Republic
-#	646 - ##Monarchism Secured
-#	647 - ##The Republic of Romania
+#	642 - A Conspiracy in Ploiești
+#	643 - Ploiești Revolt Suppressed
+#	644 - Ploieștian Radicalism Spreads
+#	645 - The Candiano Republic
+#	646 - Monarchism Secured
+#	647 - The Republic of Romania
 
 
 #650-659 - The Era of Ferdinand I Events
@@ -265,17 +278,17 @@ namespace = balkfm
 #	661 - A Royal Estate
 
 #670-673 - Romanian Nationalism Events
-#	670 - ##Forms Without Substance (Teoria Formelor Fără Fond)
-#	671 - ##Etymologicum Magnum Romaniae
-#	672 - ##A Romanian Identity
+#	670 - Forms Without Substance (Teoria Formelor Fără Fond)
+#	671 - Etymologicum Magnum Romaniae
+#	672 - A Romanian Identity
 #673-679 - Byzantine Empire Restoration Events
-#	673 - ##The Imperial Standard
-#	674 - ##The Queen of Cities
-#	675 - ##The Golden Eagle Soars
-#	676 - ##Scions of the Empire
-#	677 - ##Nova Roma Constantinopolitana
-#	678 - ##Into the Holy Land
-#	679 - ##Imperiul României
+#	673 - The Imperial Standard
+#	674 - The Queen of Cities
+#	675 - The Golden Eagle Soars
+#	676 - Scions of the Empire
+#	677 - Nova Roma Constantinopolitana
+#	678 - Rome of the East
+#	679 - Imperiul României
 
 #680-689 - Romanian Unification Events
 #	680 - Our Declaration of Union
@@ -9200,13 +9213,14 @@ balkfm.671 = { # Etymologicum Magnum Romaniae
 	desc = balkfm.671.d
 	flavor = balkfm.671.f
 	
-	event_image = {
-		video = "unspecific_politicians_arguing"
-	}
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_hasdeu_scope
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
@@ -9292,6 +9306,7 @@ balkfm.672 = { # A Romanian Identity
 	}	
 	
 	immediate = {
+		set_variable = balkfm_rom_nationalism_complete
 	}
 	
 	option = {
@@ -9329,6 +9344,675 @@ balkfm.672 = { # A Romanian Identity
 		balkfm_clean_up_protochronism_effect = yes
 	}
 	
+}
+
+#### ROMANIAN IMPERIALISM EVENTS #### (Split Block)
+
+balkfm.673 = { # Echoes of the Empire
+	type = country_event
+	placement = root
+	
+	title = balkfm.673.t
+	desc = balkfm.673.d
+	flavor = balkfm.673.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = balkfm_rom_nationalism_complete
+		has_variable = balkfm_rom_unification_completed
+		has_technology_researched = pan-nationalism
+		is_subject = no
+	}
+	
+	immediate = {
+		remove_variable = balkfm_rom_unification_completed
+	}
+	
+	option = {
+		name = balkfm.673.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_megali_idea
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_EASTERN_THRACE
+					owns_entire_state_region = STATE_EASTERN_THRACE
+				}
+			}
+			s:STATE_EASTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_ATTICA
+					owns_entire_state_region = STATE_ATTICA
+				}
+			}
+			s:STATE_ATTICA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_THESSALIA
+					owns_entire_state_region = STATE_THESSALIA
+				}
+			}
+			s:STATE_THESSALIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_MACEDONIA
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SKOPIA
+					owns_entire_state_region = STATE_SKOPIA
+				}
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_WESTERN_THRACE
+					owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_NORTHERN_THRACE
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_HUDAVENDIGAR
+					owns_entire_state_region = STATE_HUDAVENDIGAR
+				}
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_AYDIN
+					owns_entire_state_region = STATE_AYDIN
+				}
+			}
+			s:STATE_AYDIN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_WEST_AEGEAN_ISLANDS
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_EAST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_ALBANIA
+					owns_entire_state_region = STATE_ALBANIA
+				}
+			}
+			s:STATE_ALBANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CRETE
+					owns_entire_state_region = STATE_CRETE
+				}
+			}
+			s:STATE_CRETE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_IONIAN_ISLANDS
+					owns_entire_state_region = STATE_IONIAN_ISLANDS
+				}
+			}
+			s:STATE_IONIAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		c:GRE ?= {
+			post_notification = notification_balkfm_megali_idea
+		}
+	}
+	
+	option = {
+		name = balkfm.673.b
+		custom_tooltip = {
+			text = balkfm_weaksauce_tt
+			hidden_effect = {
+				set_variable = balkfm_weaksauce
+			}
+		}
+	}
+
+}
+
+balkfm.674 = { # The Queen of Cities
+	type = country_event
+	placement = root
+	
+	title = balkfm.674.t
+	desc = balkfm.674.d
+	flavor = balkfm.674.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = { # LET'S GO
+		name = balkfm.588.a
+		default_option = yes
+		change_tag = BYZ
+		trigger_event = {
+			id = balkfm.675 # The Golden Eagle Soars
+			days = 1 # lets the names update
+			popup = yes
+		}
+		set_variable = byzfm_byzantium_formed
+	}
+
+}
+
+balkfm.675 = { # The Golden Eagle Soars
+	type = country_event
+	placement = root
+	
+	title = balkfm.675.t
+	desc = balkfm.675.d
+	flavor = balkfm.675.f
+	
+	gui_window = event_window_fullscreen
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_scope_building = {
+			limit = {
+				is_building_type = building_hagia_sophia
+			}
+			save_scope_as = hagia_sofia_scope
+		}
+		save_scope_as = formation_country
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = ROOT
+			}
+			post_notification = unification_notification_byz
+		}
+		set_global_variable = has_formed_byz
+		set_variable = byzfm_byzantium_formed
+	}
+	
+	option = {
+		name = balkfm.675.a
+		default_option = yes
+		trigger_event = {
+			id = balkfm.676 # Scions of the Empire
+			days = 30
+		}
+		add_modifier = {
+			name = modifier_byzfm_rebirth
+			months = very_long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			add_primary_culture = cu:greek
+		}
+	}
+
+}
+
+balkfm.676 = { # Scions of the Empire
+	type = country_event
+	placement = root
+	
+	title = balkfm.676.t
+	desc = balkfm.676.d
+	flavor = balkfm.676.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				is_capital = yes
+			}
+			save_scope_as = byzantium_capital_state
+		}
+	}
+	
+	option = {
+		name = balkfm.676.a
+		default_option = yes
+		set_capital = STATE_EASTERN_THRACE
+		add_journal_entry = {
+			type = je_balkfm_rom_restoration
+		}
+		every_state_region = {
+			limit = {
+				OR = {
+					region = sr:region_anatolia
+					region = sr:region_balkans
+				}
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
+			}
+			add_claim = ROOT
+		}
+	}
+	
+	option = {
+		name = balkfm.676.b
+		every_state_region = {
+			limit = {
+				region = sr:region_anatolia
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
+			}
+			add_claim = ROOT
+		}
+		change_infamy = -10
+		custom_tooltip = {
+			text = byzfm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+	}
+	
+	option = {
+		name = balkfm.676.c
+		every_state_region = {
+			limit = {
+				region = sr:region_balkans
+				any_scope_state = {
+					NOT = { owner = ROOT }
+					NOT = { has_claim_by = ROOT }
+				}
+			}
+			add_claim = ROOT
+		}
+		change_infamy = -10
+		custom_tooltip = {
+			text = byzfm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+	}
+
+}
+
+balkfm.677 = { # Nova Roma Constantinopolitana
+	type = country_event
+	
+	title = balkfm.677.t
+	desc = balkfm.677.d
+	flavor = balkfm.677.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# Triggered by JE
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = byzantium_emperor
+		}
+	}
+	
+	option = {
+		name = balkfm.677.a
+		default_option = yes
+		scope:byzantium_emperor = {
+			add_modifier = {
+				name = modifier_byzfm_popular_emperor
+			}
+		}
+		add_modifier = {
+			name = modifier_byzfm_legitmacy_boost
+			months = normal_modifier_time
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.678 # The Rome of the East
+				days = 20
+			}
+		}
+	}
+}
+
+balkfm.678 = { # The Rome of the East
+	type = country_event
+	
+	title = balkfm.678.t
+	desc = balkfm.678.d
+	flavor = balkfm.678.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+	}
+	
+	immediate = {
+		capital = {
+			save_scope_as = byzantium_capital
+		}
+	}
+	
+	option = { # reclaim the east
+		name = balkfm.678.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rome_of_the_east
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_ALEPPO }
+			}
+			s:STATE_ALEPPO = {
+				add_claim = ROOT
+			}
+		}		
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_SYRIA }
+			}
+			s:STATE_SYRIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_LEBANON }
+			}
+			s:STATE_LEBANON = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_TRANSJORDAN }
+			}
+			s:STATE_TRANSJORDAN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_PALESTINE }
+			}
+			s:STATE_PALESTINE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_SINAI }
+			}
+			s:STATE_SINAI = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_LOWER_EGYPT }
+			}
+			s:STATE_LOWER_EGYPT = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_MIDDLE_EGYPT }
+			}
+			s:STATE_MIDDLE_EGYPT = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_UPPER_EGYPT }
+			}
+			s:STATE_UPPER_EGYPT = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_MATRUH }
+			}
+			s:STATE_MATRUH = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_LIBYA }
+			}
+			s:STATE_LIBYA = {
+				add_claim = ROOT
+			}
+		}
+		default_option = yes
+	}
+	
+	option = { # nah bro, shits for the birds
+		name = balkfm.678.b
+		change_infamy = -20
+		scope:byzantium_capital = {
+			add_modifier = {
+				name = modifier_byzfm_capital_assimiliation_boost
+				months = normal_modifier_time
+			}
+			add_modifier = {
+				name = modifier_byzfm_heartland_reclaimed
+				months = normal_modifier_time
+			}
+		}
+		custom_tooltip = {
+			text = byzfm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+			}
+		}
+	}
+
+}
+
+balkfm.679 = { # Imperiul României
+	## copied in from byzfm.304, properly leaps over to the byzfm side
+	type = country_event
+	
+	title = balkfm.679.t
+	desc = balkfm.679.d
+	flavor = balkfm.679.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {	# Triggered by JE
+	}
+	
+	immediate = {
+		set_variable = byzfm_byzantium_restored
+	}
+
+	option = { # we finna spank the Pope
+		name = balkfm.679.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_byzfm_restored
+			months = very_long_modifier_time
+		}				
+		trigger_event = {
+			id = byzfm.305 # The Purple Pheonix
+			days = 30
+		}
+	}
+
+	option = { # whimpy whimpy whimpy
+		name = balkfm.679.b
+		add_modifier = {
+			name = modifier_byzfm_restored
+			months = very_long_modifier_time
+		}
+		change_infamy = -25
+		custom_tooltip = {
+			text = byzfm_weaksauce_tt
+			hidden_effect = {
+				set_variable = byzfm_weaksauce
+				remove_variable = byzfm_purple_phoenix
+			}
+		}
+	}
 }
 
 #### ROMANIAN UNIFICATION EVENTS ####
@@ -9498,6 +10182,14 @@ balkfm.681 = { # Awaken Thee, Romanian! (romania.3, integrated into balkfm)
 	        	save_scope_as = transylvania_union_partner
 	        }
         }
+		set_variable = {
+			name = balkfm_junimism_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_dacianism_var
+			value = 0
+		}
 	}
 
 	option = { # Unite Romania
@@ -9968,6 +10660,7 @@ balkfm.689 = { # The Reunification of Romania
 	}
 	
 	immediate = {
+		set_variable = balkfm_rom_unification_completed
 	}
 	
 	option = {
