@@ -980,28 +980,6 @@ eqfm.020 = { # Riots in State
 					state_region = s:STATE_DALMATIA
 					state_region = s:STATE_EASTERN_THRACE
 				}
-				OR = {
-					radical_fraction = {
-						value = 0.50
-						culture = cu:greek
-					}
-					radical_fraction = {
-						value = 0.50
-						culture = cu:serb
-					}
-					radical_fraction = {
-						value = 0.50
-						culture = cu:bulgarian
-					}
-					radical_fraction = {
-						value = 0.50
-						culture = cu:bosniak
-					}
-					radical_fraction = {
-						value = 0.50
-						culture = cu:croat
-					}
-				}
 			}
 			save_scope_as = eqfm_riot_state_scope
 			set_variable = eqfm_riot_state_var
@@ -1327,7 +1305,7 @@ eqfm.024 = { # Creates a Revolter Tag
 
 eqfm.025 = { # Balkan Country Rebellion
 	type = country_event
-	placement = root
+	placement = scope:eqfm_rebellion_scope
 	
 	title = eqfm.025.t
 	desc = eqfm.025.d
@@ -1362,8 +1340,8 @@ eqfm.025 = { # Balkan Country Rebellion
 		name = eqfm.025.a
 		default_option = yes
 		create_diplomatic_play = {
-			name = grefm_macedonia_rebellion
-			target_country = c:MAC
+			name = eqfm_balkan_rebellion
+			target_country = scope:eqfm_rebellion_scope
 			type = dp_secession
 		}
 		hidden_effect = {

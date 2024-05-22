@@ -218,9 +218,6 @@ namespace = balkfm
 #	588 - The Queen of Cities
 
 #590-591 - Bulgaria Support Events
-#	590 - ##The Macedonian Question
-#	591 - ##Bulgarian Agitation in Macedonia
-#	592 - ##The Macedonian Revolt
 #	598 - The Bulgarian State
 #	599 - The Golden Lion Awakens (Alternate)
 
@@ -269,7 +266,6 @@ namespace = balkfm
 #	646 - Monarchism Secured
 #	647 - The Republic of Romania
 
-
 #650-659 - The Era of Ferdinand I Events
 #	650 - OPEN
 
@@ -301,6 +297,7 @@ namespace = balkfm
 #	687 - Romanian Agitation in State (AUS)
 #	688 - The Greater Romanian Lands
 #	689 - The Reunification of Romania
+
 
 ##  #BALK7  BOSNIA FLAVOR  Events 700-799  ##
 
@@ -8574,13 +8571,16 @@ balkfm.641 = { # Liberalist Demands
 	option = { # Accept the Constitution
 		name = balkfm.641.a
 		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_rom_1866_1
+		}
 	}
 	
 	option = { # How About Nope-stitution
 		name = balkfm.641.b
 		balkfm_initialize_1866_variables_effect = yes
 		add_journal_entry = {
-			type = je_balkfm_rom_1866
+			type = je_balkfm_rom_1866_2
 		}
 	}
 	

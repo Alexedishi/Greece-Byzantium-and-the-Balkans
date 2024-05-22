@@ -1984,6 +1984,10 @@ je_balkfm_rom_statutul_dezvoltator = {
 			has_law = law_type:law_autocracy
 			has_law = law_type:law_oligarchy
 		}
+		OR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_agrarianism
+		}
 		NOR = {
 			has_law = law_type:law_serfdom
 			has_law = law_type:law_tenant_farmers
@@ -2043,7 +2047,65 @@ je_balkfm_rom_statutul_dezvoltator = {
 	
 }
 
-je_balkfm_rom_1866 = {
+je_balkfm_rom_1866_1 = {
+	icon = "gfx/interface/icons/event_icons/event_romania.dds"
+	
+	group = je_group_balkfm_romania
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_democratic_intent
+	}
+	
+	complete = {
+		OR = {
+			has_law = law_type:law_wealth_voting
+			has_law = law_type:law_census_voting
+			has_law = law_type:law_universal_suffrage
+		}
+		OR = {
+			has_law = law_type:law_freedom_of_conscience
+			has_law = law_type:law_total_separation
+		}
+		OR = {
+			has_law = law_type:law_right_of_assembly
+			has_law = law_type:law_protected_speech
+		}
+		OR = {
+			has_law = law_type:law_commercialized_agriculture
+			has_law = law_type:law_homesteading
+		}
+	}
+	
+	on_complete = {
+		add_modifier = {
+			name = modifier_balkfm_democratic_constitution
+			months = long_modifier_time
+		}
+	}
+	
+	timeout = 3560 # you have 10 years
+	
+	on_timeout = {
+		add_modifier = {
+			name = modifier_balkfm_absent_reforms
+			months = long_modifier_time
+		}
+	}
+	
+	invalid = {
+		NOT = { has_law = law_type:law_monarchy }
+	}
+	
+	weight = 100
+	
+}
+
+je_balkfm_rom_1866_2 = {
 	icon = "gfx/interface/icons/event_icons/event_romania.dds"
 	
 	group = je_group_balkfm_romania
@@ -2223,6 +2285,14 @@ je_balkfm_rom_nationalism = {
 		effect = {
 			balkfm_push_protochronism_effect = yes
 		}
+	}
+	
+	invalid = {
+		has_variable = balkfm_rom_nationalism_complete
+	}
+	
+	on_invalid = {
+		balkfm_clean_up_protochronism_effect = yes
 	}
 	
 	status_desc = {
