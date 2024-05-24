@@ -8571,8 +8571,37 @@ balkfm.641 = { # Liberalist Demands
 	option = { # Accept the Constitution
 		name = balkfm.641.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_rom_1866_1
+		if = { # It doesn't make sense to add the journal if it's completion conditions are met
+			limit = {
+				AND = {
+					OR = {
+						has_law = law_type:law_wealth_voting
+						has_law = law_type:law_census_voting
+						has_law = law_type:law_universal_suffrage
+					}
+					OR = {
+						has_law = law_type:law_freedom_of_conscience
+						has_law = law_type:law_total_separation
+					}
+					OR = {
+						has_law = law_type:law_right_of_assembly
+						has_law = law_type:law_protected_speech
+					}
+					OR = {
+						has_law = law_type:law_commercialized_agriculture
+						has_law = law_type:law_homesteading
+					}
+				}
+			}
+			add_modifier = {
+				name = modifier_balkfm_democratic_constitution
+				months = long_modifier_time
+			}
+		}
+		else = {
+			add_journal_entry = {
+				type = je_balkfm_rom_1866_1
+			}
 		}
 	}
 	
@@ -8681,6 +8710,12 @@ balkfm.642 = { # A Conspiracy in Ploiești
 		add_modifier = {
 			name = modifier_balkfm_ploiesti_succeeded
 			months = long_modifier_time
+		}
+		ruler = {
+			add_modifier = {
+				name = modifier_balkfm_impotent_ruler
+				months = long_modifier_time
+			}
 		}
 		if = {
 			limit = {
