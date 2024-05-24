@@ -1,4 +1,50 @@
-﻿##YUGOSLAVIA EFFECTS ##
+﻿## GENERAL EFFECTS ##
+
+balkfm_initialize_construction_effect = {
+	set_variable = {
+		name = balkfm_construction_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_construction_points_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_construction_progress_var
+		value = 0
+	}
+}
+
+balkfm_calculate_construction_effect = {
+	set_variable = {
+		name = balkfm_construction_points_var
+		value = balkfm_construction_points_value
+	}
+	set_variable = {
+		name = balkfm_construction_progress_var
+		value = balkfm_construction_progress_value
+	}
+}
+
+balkfm_push_construction_effect = {
+	change_variable = {
+		name = balkfm_construction_var
+		add = var:balkfm_construction_progress_var
+	}
+}
+
+balkfm_clean_up_construction_effect = {
+	hidden_effect = {
+		remove_variable = balkfm_construction_points_var
+		remove_variable = balkfm_construction_progress_var
+		remove_variable = balkfm_construction_var
+		remove_modifier = modifier_balkfm_construction_1
+		remove_modifier = modifier_balkfm_construction_2
+		remove_modifier = modifier_balkfm_construction_3
+	}
+}
+
+##YUGOSLAVIA EFFECTS ##
 balkfm_determine_yugoslav_leader = {
 	if = {
 		limit = {
@@ -811,6 +857,21 @@ balkfm_create_bulgarian_regency_characters = {
 			direct
 		}
 	}	
+	create_character = {
+		# Evlogi Georgiev, older brother of Hristo Georgiev; funded the University of Sofia
+		first_name = Evlogi
+		last_name = Georgiev
+		historical = yes
+		age = 67
+		culture = cu:bulgarian
+		religion = rel:orthodox
+		ig_leader = yes
+		ideology = ideology_reformer
+		traits = {
+			direct
+			romantic
+		}
+	}
 }
 
 balkfm_create_bulgarian_royals = {
@@ -1324,24 +1385,16 @@ balkfm_find_kogalniceanu_effect = {
 		limit = {
 			NOR = {
 				any_scope_character = {
-					has_variable = balkfm_is_kogalniceanu
+					has_template = template_balkfm_kogalniceanu_mihail
 				}
 				any_character_in_void = {
-					has_variable = balkfm_is_kogalniceanu
+					has_template = template_balkfm_kogalniceanu_mihail
 				}
 			}
 		}
 		create_character = { # Mihail Kogălniceanu, Romanian nationalist; leader in the 1848 revolution
-			first_name = Mihail
-			last_name = Kogalniceanu
-			culture = cu:romanian
-			religion = rel:orthodox
-			historical = yes
-			age = 45
-			ideology = ideology_kogalnitchanism
-			interest_group = ig_intelligentsia
+			template = template_balkfm_kogalniceanu_mihail
 			on_created = {
-				set_variable = balkfm_is_kogalniceanu
 				set_variable = balkfm_is_revolutionary
 				place_character_in_void = 100
 			}
@@ -1349,7 +1402,7 @@ balkfm_find_kogalniceanu_effect = {
 	}
 	random_character_in_void = {
 		limit = {
-			has_variable = balkfm_is_kogalniceanu
+			has_template = template_balkfm_kogalniceanu_mihail
 		}
 		save_scope_as = balkfm_kogalniceanu_scope
 	}
@@ -1361,11 +1414,235 @@ balkfm_find_kogalniceanu_effect = {
 		}
 		random_scope_character = {
 			limit = {
-				has_variable = balkfm_is_kogalniceanu
+				has_template = template_balkfm_kogalniceanu_mihail
 			}
 			save_scope_as = balkfm_kogalniceanu_scope
 		}
 	}
+}
+
+balkfm_initialize_protochronism_effect = {
+	# Infinite Variable Works Continues...
+	set_variable = {
+		name = balkfm_junimism_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_landowners_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_popularity_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_intelligentsia_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_dacianism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_protochronism_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_junimism_var
+		value = 1 # this is so the push effect can actually do something
+	}
+	set_variable = {
+		name = balkfm_dacianism_var
+		value = 0
+	}
+}
+
+balkfm_calculate_protochronism_effect = {
+	set_variable = {
+		name = balkfm_junimism_popularity_var
+		value = balkfm_junimism_popularity_value
+	}
+	set_variable = {
+		name = balkfm_junimism_landowners_var
+		value = root.ig:ig_landowners.ig_clout
+	}
+	set_variable = {
+		name = balkfm_junimism_support_var
+		value = balkfm_junimism_support_value
+	}
+	set_variable = {
+		name = balkfm_junimism_progress_var
+		value = balkfm_junimism_progress_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_popularity_var
+		value = balkfm_dacianism_popularity_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_intelligentsia_var
+		value = root.ig:ig_intelligentsia.ig_clout
+	}
+	set_variable = {
+		name = balkfm_dacianism_support_var
+		value = balkfm_dacianism_support_value
+	}
+	set_variable = {
+		name = balkfm_dacianism_progress_var
+		value = balkfm_dacianism_progress_value
+	}
+	
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = balkfm_junimism_lead_value
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = balkfm_dacianism_lead_value
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var = var:balkfm_dacianism_progress_var
+		}
+		set_variable = {
+			name = balkfm_protochronism_progress_var
+			value = 0
+		}
+	}
+}
+
+balkfm_push_protochronism_effect = {
+	# These variables are intentionally tuned to aggressively swing support from one camp to another if either side has a negative progress variable
+	
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			add = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		change_variable = {
+			name = balkfm_junimism_var
+			subtract = var:balkfm_protochronism_progress_var
+		}
+		change_variable = {
+			name = balkfm_dacianism_var
+			add = var:balkfm_protochronism_progress_var
+		}
+	}
+	clamp_variable = {
+		name = balkfm_junimism_var
+		max = 100
+		min = 0
+	}
+	clamp_variable = {
+		name = balkfm_dacianism_var
+		max = 100
+		min = 0
+	}
+}
+
+balkfm_clean_up_protochronism_effect = {
+	remove_variable = balkfm_junimism_popularity_var
+	remove_variable = balkfm_junimism_landowners_var
+	remove_variable = balkfm_junimism_support_var
+	remove_variable = balkfm_junimism_progress_var
+	remove_variable = balkfm_dacianism_popularity_var
+	remove_variable = balkfm_dacianism_intelligentsia_var
+	remove_variable = balkfm_dacianism_support_var
+	remove_variable = balkfm_dacianism_progress_var
+	remove_variable = balkfm_protochronism_progress_var
+	remove_variable = balkfm_junimism_var
+	remove_variable = balkfm_dacianism_var
+}
+
+balkfm_initialize_1866_variables_effect = {
+	set_variable = {
+		name = balkfm_1866_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1866_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1866_ruler_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1866_support_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_1866_radicals_var
+		value = 0
+	}
+}
+
+balkfm_calculate_1866_variables_effect = {
+	set_variable = {
+		name = balkfm_1866_ruler_var
+		value = balkfm_1866_ruler_value
+	}
+	set_variable = {
+		name = balkfm_1866_support_var
+		value = balkfm_1866_support_value
+	}
+	set_variable = {
+		name = balkfm_1866_radicals_var
+		value = root.radical_fraction
+	}
+	set_variable = {
+		name = balkfm_1866_progress_var
+		value = balkfm_1866_progress_value
+	}
+}
+
+balkfm_push_1866_variables_effect = {
+	change_variable = {
+		name = balkfm_1866_var
+		add = var:balkfm_1866_progress_var
+	}
+	clamp_variable = {
+		name = balkfm_1866_var
+		max = 100
+		min = 0
+	}
+}
+
+balkfm_cleanup_1866_variables_effect = {
+
 }
 
 ## TURK-SPLOSION EFFECTS ##

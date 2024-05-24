@@ -1655,7 +1655,7 @@ grefm.019 = { # nikitas released from jail
 		name = grefm.019.a
 		default_option = yes
 		create_character = {
-			template = grefm_nikitas_chracter_template
+			template = template_grefm_nikitaras
 		}
 		add_modifier = {
 			name = modifier_grefm_nikitas_released
@@ -1907,9 +1907,15 @@ grefm.030 = { # the king of the hellenes
 			}
 			save_scope_as = grefm_capital_scope
 		}
+		create_character = {
+			template = template_grefm_trikoupis_charilaos
+			on_created = {
+				place_character_in_void = 12 # just for this event
+			}
+		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_trikoupis
+				has_template = template_grefm_trikoupis_charilaos
 			}
 			save_scope_as = grefm_trikoupis_scope
 		}
@@ -1923,8 +1929,9 @@ grefm.030 = { # the king of the hellenes
 			has_variable = grefm_1862_election_held
 			NOT = { has_variable = byzfm_byzantium_formed }
 		}
-		create_character = {
-			template = grefm_trikoupis_character_template
+		scope:grefm_trikoupis_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
 		}
 	}
 	
@@ -2277,11 +2284,11 @@ grefm.045 = { # a cretan champion
 	
 	immediate = {
 		create_character = {
-			template = grefm_venizelos_character_template
+			template = template_grefm_venizelos_eleftherios
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_venizelos
+				has_template = template_grefm_venizelos_eleftherios
 			}
 			save_scope_as = grefm_venizelos_scope
 		}
@@ -2504,11 +2511,11 @@ grefm.047 = { # A Cretan Champion Alternate
 	
 	immediate = {
 		create_character = {
-			template = grefm_venizelos_character_template
+			template = template_grefm_venizelos_eleftherios
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_venizelos
+				has_template = template_grefm_venizelos_eleftherios
 			}
 			save_scope_as = grefm_venizelos_scope
 		}
@@ -2617,11 +2624,11 @@ grefm.048 = { # venizelos has landed
 			}
 		}
 		create_character = {
-			template = grefm_metaxas_character_template
+			template = template_grefm_metaxas_ioannis
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_ioannis_metaxas
+				has_template = template_grefm_metaxas_ioannis
 			}
 			save_scope_as = ioannis_metaxas_scope
 		}
@@ -2707,11 +2714,11 @@ grefm.049 = { #  Rise of the Ethnarch (Alternate)
 			save_scope_as = capital_scope
 		}
 		create_character = {
-			template = grefm_metaxas_character_template
+			template = template_grefm_metaxas_ioannis
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_ioannis_metaxas
+				has_template = template_grefm_metaxas_ioannis
 			}
 			save_scope_as = ioannis_metaxas_scope
 		}
@@ -3850,9 +3857,7 @@ grefm.121 = { # The University of Athens
 		default_option = yes
 		scope:university_state = {
 			create_building = {
- 				building="building_university"
- 				level=1
- 				reserves=1
+ 				building = "building_university"
  			}
 		}
 		add_modifier = {
@@ -6897,11 +6902,14 @@ grefm.230 = { #  The Defence of Jonas King
 	immediate = {
 		set_global_variable = jonas_king_started
 		create_character = {
-			template = grefm_jonas_king_character_template
+			template = template_grefm_king_jonas
+			on_created = {
+				place_character_in_void = 300
+			}
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_jonas_king
+				has_template = template_grefm_king_jonas
 			}
 			save_scope_as = grefm_jonas_scope
 		}
@@ -6966,7 +6974,7 @@ grefm.231 = { # Speech before the Areopagus
 	immediate = {
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_jonas_king
+				has_template = template_grefm_king_jonas
 			}
 			save_scope_as = grefm_jonas_scope
 		}
@@ -7019,7 +7027,7 @@ grefm.232 = { # Jonas King Returns
 		has_variable = grefm_jonas_yeeted
 		NOT = { has_modifier = modifier_grefm_ejected_jonas }
 		any_character_in_void = {
-			has_variable = grefm_is_jonas_king
+			has_template = template_grefm_king_jonas
 		}
 	}
 	
@@ -7027,7 +7035,7 @@ grefm.232 = { # Jonas King Returns
 		remove_variable = grefm_jonas_yeeted
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_jonas_king
+				has_template = template_grefm_king_jonas
 			}
 			save_scope_as = grefm_jonas_scope
 		}
@@ -7095,7 +7103,7 @@ grefm.233 = { # Foreign Intercession for Jonas King
 	immediate = {
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_jonas_king
+				has_template = template_grefm_king_jonas
 			}
 			save_scope_as = grefm_jonas_scope
 		}

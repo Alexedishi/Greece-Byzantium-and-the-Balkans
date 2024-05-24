@@ -1,4 +1,137 @@
-﻿# BALKAN WARS BUTTONS
+﻿# GENERAL USE BUTTONS
+balkfm_construction_0_button = {
+	name = "balkfm_construction_0"
+	desc = "balkfm_construction_0_desc"
+	
+	visible = {
+		has_modifier = modifier_balkfm_construction_1
+		NOR = {
+			has_modifier = modifier_balkfm_construction_2
+			has_modifier = modifier_balkfm_construction_3
+		}
+	}
+	
+	possible = {
+		always = yes # TODO construction trigger
+	}
+	
+	effect = {
+		remove_modifier = modifier_balkfm_construction_1
+		set_variable = {
+			name = balkfm_construction_progress_var
+			value = balkfm_construction_progress_value
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
+
+balkfm_construction_1_button = {
+	name = "balkfm_construction_1"
+	desc = "balkfm_construction_1_desc"
+	
+	visible = {
+		OR = {
+			has_modifier = modifier_balkfm_construction_2
+			NOR = {
+				has_modifier = modifier_balkfm_construction_1
+				has_modifier = modifier_balkfm_construction_2
+				has_modifier = modifier_balkfm_construction_3
+			}
+		}
+	}
+	
+	possible = {
+		always = yes # TODO construction trigger
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_construction_2
+			}
+			remove_modifier = modifier_balkfm_construction_2
+			add_modifier = modifier_balkfm_construction_1
+		}
+		else = {
+			add_modifier = modifier_balkfm_construction_1
+		}
+		set_variable = {
+			name = balkfm_construction_progress_var
+			value = balkfm_construction_progress_value
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
+
+balkfm_construction_2_button = {
+	name = "balkfm_construction_2"
+	desc = "balkfm_construction_2_desc"
+	
+	visible = {
+		OR = {
+			has_modifier = modifier_balkfm_construction_1
+			has_modifier = modifier_balkfm_construction_3
+		}
+	}
+	
+	possible = {
+		always = yes # TODO construction trigger
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_construction_1
+			}
+			remove_modifier = modifier_balkfm_construction_1
+			add_modifier = modifier_balkfm_construction_2
+		}
+		else = {
+			remove_modifier = modifier_balkfm_construction_3
+			add_modifier = modifier_balkfm_construction_2
+		}
+		set_variable = {
+			name = balkfm_construction_progress_var
+			value = balkfm_construction_progress_value
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
+
+balkfm_construction_3_button = {
+	name = "balkfm_construction_3"
+	desc = "balkfm_construction_3_desc"
+	
+	visible = {
+		has_modifier = modifier_balkfm_construction_2
+	}
+	
+	possible = {
+		always = yes # TODO construction trigger
+	}
+	
+	effect = {
+		remove_modifier = modifier_balkfm_construction_2
+		add_modifier = modifier_balkfm_construction_3
+		set_variable = {
+			name = balkfm_construction_progress_var
+			value = balkfm_construction_progress_value
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
 
 # YUGOSLAVIA BUTTONS
 balkfm_form_yugoslavia_button = {
@@ -548,6 +681,7 @@ balkfm_all_for_one_button = { # this is je_all_for_one reduced into a button
 		custom_tooltip = {
 			text = je_all_for_one_goal
 			hidden_trigger = {
+				has_variable = romanian_union_var
 				var:romanian_union_var >= 120
 			}
 		}
@@ -775,6 +909,54 @@ balkfm_romanian_agitation_button = {
 			add = 10
 		}
 	}
+}
+
+balkfm_support_junimism_button = {
+	name = "balkfm_support_junimism"
+	desc = "balkfm_support_junimism_desc"
+	
+	visible = {
+		has_variable = balkfm_romanian_nationalism_started
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = support_junimism_tt
+			hidden_trigger = {
+				NOT = { has_variable = balkfm_supporting_junimism }
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_supporting_junimism
+		remove_variable = balkfm_supporting_dacianism
+	}
+
+}
+
+balkfm_support_dacianism_button = {
+	name = "balkfm_support_dacianism"
+	desc = "balkfm_support_dacianism_desc"
+	
+	visible = {
+		has_variable = balkfm_romanian_nationalism_started
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = support_dacianism_tt
+			hidden_trigger = {
+				NOT = { has_variable = balkfm_supporting_dacianism }
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_supporting_dacianism
+		remove_variable = balkfm_supporting_junimism
+	}
+
 }
 
 # Triune Buttons

@@ -1,0 +1,31 @@
+﻿balkfm_peles_castle_decision = {
+	is_shown = {
+		c:ROM ?= this
+		owns_entire_state_region = STATE_WALLACHIA
+		any_scope_building = {
+			NOT = {
+				is_building_type = building_castelul_peles
+			}
+		}
+		NOT = {
+			has_journal_entry = je_balkfm_peles_castle
+		}		
+	}
+	
+	possible = {	
+		has_technology_researched = reinforced_concrete
+		has_technology_researched = pan-nationalism
+	}
+	
+	when_taken = {
+		balkfm_initialize_construction_effect = yes
+		add_modifier = modifier_balkfm_construction_1
+		add_journal_entry = {
+			type = je_balkfm_peles_castle
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}

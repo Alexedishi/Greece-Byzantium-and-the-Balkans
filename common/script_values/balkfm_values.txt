@@ -1,4 +1,43 @@
-﻿## SERBIA VALUES ###
+﻿## GENERAL VALUES ##
+balkfm_construction_progress_value = {
+	value = 0
+	if = {
+		limit = {
+			NOR = {
+				has_modifier = modifier_balkfm_construction_1
+				has_modifier = modifier_balkfm_construction_2
+				has_modifier = modifier_balkfm_construction_3
+			}
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_1
+		}
+		add = 5
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_2
+		}
+		add = 10
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_construction_3
+		}
+		add = 15
+	}
+}
+
+balkfm_construction_points_value = { # Ripped from LRoAI
+    value = 0
+	add = modifier:country_construction_add
+    min = 10
+}
+
+## SERBIA VALUES ###
 obrenovic_power_value = {
 	value = 0
 	if = {
@@ -502,3 +541,126 @@ balkfm_dezvoltator_progress_value = {
 		multiply = 0.5
 	}
 }
+
+# 1866 Values
+
+balkfm_1866_ruler_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 10
+}
+
+balkfm_1866_support_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_oligarchy
+					value < neutral
+				}
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+		}
+		add = ig_clout
+	}
+}
+
+balkfm_1866_progress_value = {
+	value = 0
+	add = var:balkfm_1866_ruler_var
+	add = var:balkfm_1866_support_var
+	subtract = var:balkfm_1866_radicals_var
+	round = 0.01
+}
+
+# Nationalism Values
+
+balkfm_junimism_popularity_value = {
+	value = 0
+	every_scope_character = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_traditionalism
+					value > neutral
+				}
+				law_stance = {
+					law = law_type:law_agrarianism
+					value > neutral
+				}
+			}
+		}
+		add = popularity
+	}
+	divide = 10
+}
+
+balkfm_junimism_support_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = balkfm_supporting_junimism
+		}
+		add = 1
+	}
+}
+
+balkfm_junimism_progress_value = {
+	value = 0
+	add = var:balkfm_junimism_popularity_var
+	add = var:balkfm_junimism_landowners_var
+	add = var:balkfm_junimism_support_var
+}
+
+balkfm_dacianism_popularity_value = {
+	every_scope_character = {
+		limit = {
+			OR = {
+				law_stance = {
+					law = law_type:law_traditionalism
+					value < neutral
+				}
+				law_stance = {
+					law = law_type:law_agrarianism
+					value < neutral
+				}
+			}
+		}
+		add = popularity
+	}
+	divide = 10
+}
+
+balkfm_dacianism_support_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = balkfm_supporting_dacianism
+		}
+		add = 1
+	}
+}
+
+balkfm_dacianism_progress_value = {
+	value = 0
+	add = var:balkfm_dacianism_popularity_var
+	add = var:balkfm_dacianism_intelligentsia_var
+	add = var:balkfm_dacianism_support_var
+}
+
+balkfm_junimism_lead_value = {
+	value = 0
+	add = var:balkfm_junimism_progress_var
+	subtract = var:balkfm_dacianism_progress_var
+}
+
+balkfm_dacianism_lead_value = {
+	value = 0
+	add = var:balkfm_dacianism_progress_var
+	subtract = var:balkfm_junimism_progress_var
+}
+
