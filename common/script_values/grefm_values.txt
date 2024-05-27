@@ -1,4 +1,6 @@
-﻿grefm_artifact_value = {
+﻿## Greek Artifact Values ##
+
+grefm_artifact_value = {
 	value = 0
 	if = {
 		limit = {
@@ -62,11 +64,145 @@
 	}
 }
 
+## Greek Separatism Values ##
+grefm_epirus_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_ALBANIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	every_state = {
+		limit = {
+			state_region = s:STATE_THESSALIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_macedonia_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_MACEDONIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_skopia_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_SKOPIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_smyrna_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_AYDIN
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_cyprus_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_CYPRUS
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
 grefm_crete_radicals_value = {
 	value = 0
 	every_state = {
 		limit = {
 			state_region = s:STATE_CRETE
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
 		}
 		every_scope_pop = {
 			limit = {
@@ -82,7 +218,7 @@ grefm_crete_accelerate_value = {
 	value = 0
 	every_country = {
 		limit = {
-			has_modifier = modifier_grefm_funding_crete
+			has_modifier = modifier_grefm_supporting_crete
 		}
 		add = 1
 	}

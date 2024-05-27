@@ -1240,31 +1240,6 @@ je_grefm_megali_idea = {
 		set_variable = grefm_tzatzikisauce
 	}
 
-	scripted_button = grefm_epirus_agitate_button
-	scripted_button = grefm_epirus_provoke_button
-	scripted_button = grefm_cyprus_agitate_button
-	scripted_button = grefm_cyprus_provoke_button
-	scripted_button = grefm_macedonia_agitate_button
-	scripted_button = grefm_macedonia_provoke_button
-	scripted_button = grefm_crete_agitate_button
-		
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt1
-				trigger = {
-					has_global_variable = grefm_crete_revolt_var
-				}
-			}
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt2
-				trigger = {
-					owns_entire_state_region = STATE_CRETE
-				}
-			}
-		}
-	}
-
 	weight = 4000 # second up to je_grefm_bavarocracy_main
 
 }
@@ -1332,7 +1307,135 @@ je_grefm_greater_greece = {
 	weight = 2000 # will fall in behind je_grefm_greek_nationalism
 	
 }
+
+je_grefm_greek_separatism_main = {
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	scripted_button = grefm_epirus_support_button
+	scripted_button = grefm_epirus_cease_button
+	scripted_button = grefm_epirus_provoke_button
+	
+	scripted_button = grefm_macedonia_support_button
+	scripted_button = grefm_macedonia_cease_button
+	scripted_button = grefm_macedonia_provoke_button
+	
+	scripted_button = grefm_skopia_support_button
+	scripted_button = grefm_skopia_cease_button
+	scripted_button = grefm_skopia_provoke_button
+	
+	scripted_button = grefm_smyrna_support_button
+	scripted_button = grefm_smyrna_cease_button
+	scripted_button = grefm_smyrna_provoke_button	
+	
+	scripted_button = grefm_cyprus_support_button
+	scripted_button = grefm_cyprus_cease_button
+	scripted_button = grefm_cyprus_provoke_button
+	
+	scripted_button = grefm_crete_support_button
+	scripted_button = grefm_crete_cease_button
+	scripted_button = grefm_crete_provoke_button
+	
+	complete = {
+		owns_entire_state_region = STATE_ALBANIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_AYDIN
+		owns_entire_state_region = STATE_CRETE
+		owns_entire_state_region = STATE_CYPRUS
+	}
+	
+	on_complete = {
+		hidden_effect = {
+			grefm_clean_up_separatism_effect = yes
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_weaksauce
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			grefm_clean_up_separatism_effect = yes
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			grefm_calculate_separatism_variables_effect = yes
+			grefm_check_separatism_modifiers_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			grefm_monthly_greek_separatism_effect = yes
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_grefm_greek_separatism_crete_tt
+			trigger = {
+				NOT = {
+					owns_entire_state_region = STATE_CRETE
+				}
+			}
+		}
+	}
+	
+	weight = 2000 # will fall in behind je_grefm_greek_nationalism
+	
+}
+
+je_grefm_greek_separatism_sub = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	group = je_group_grefm_nationalism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_multicultural
+		
+	}
+	
+	fail = {
+		NOR = {
+			has_state_in_state_region = STATE_ALBANIA
+			has_state_in_state_region = STATE_MACEDONIA
+			has_state_in_state_region = STATE_SKOPIA
+			has_state_in_state_region = STATE_AYDIN
+			has_state_in_state_region = STATE_CRETE
+			has_state_in_state_region = STATE_CYPRUS
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_grefm_greek_separatism_crete_tt
+			trigger = {
+				has_state_in_state_region  = STATE_CRETE
+			}
+		}
+	}
+	
+	weight = 2000 # will fall in behind je_grefm_greek_nationalism
+	
+}
+
 #####################
 # GREEK NATIONALISM #
 #####################
@@ -2002,133 +2105,6 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	}
 
 	weight = 1000
-
-}
-
-je_grefm_the_cretan_revolts = {
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	group = je_group_grefm_nationalism
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = { # Initializes these variables
-		set_variable = {
-			name = grefm_crete_radicals_var
-			value = 0
-		}
-		set_variable = {
-			name = grefm_crete_accelerate_var
-			value = 0
-		}
-		set_variable = {
-			name = grefm_crete_progress_var
-			value = 0
-		}
-	}
-	
-	complete = {
-		has_law = law_type:law_multicultural
-	}
-	
-	invalid = {
-		NOT = { owns_entire_state_region = STATE_CRETE }
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			grefm_calculate_crete_variables_effect = yes
-		}
-	}
-	
-	on_monthly_pulse = {
-		events = {
-			grefm.914 # crete revolts again
-		}
-		random_events = {
-			400 = 0
-			5 = grefm.250 # Priest Martyred in Crete
-			5 = grefm.251 # Wali of Crete Oversteps Authority
-		}
-		effect = {
-			if = {
-				limit = {
-					NOT = {
-						exists = c:CRE
-					}
-				}
-				grefm_push_crete_variables_effect = yes
-			}
-		}
-	}
-	
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt1
-				trigger = {
-					has_global_variable = grefm_crete_revolt_var
-				}
-			}
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt2
-				trigger = {
-					any_country = {
-						country_has_primary_culture = cu:greek
-						owns_entire_state_region = STATE_CRETE
-					}
-				}
-			}
-		}
-	}
-
-	weight = 100
-	
-}
-	
-je_grefm_the_cretan_revolts_fallback = { # in case je_grefm_megali_idea is closed
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	group = je_group_grefm_nationalism
-	
-	should_be_pinned_by_default = yes 
-	
-	is_shown_when_inactive = {
-		has_global_variable = grefm_megali_idea_completed
-		has_global_variable = grefm_crete_revolt_var
-		country_has_primary_culture = cu:greek
-	}
-	
-	possible = {
-		NOT = {
-			owns_entire_state_region = STATE_CRETE
-		}
-	}
-	
-	complete = {
-		owns_entire_state_region = STATE_CRETE
-	}
-	
-	scripted_button = grefm_crete_agitate_button
-		
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt1
-				trigger = {
-					has_global_variable = grefm_crete_revolt_var
-				}
-			}
-			triggered_desc = {
-				desc = je_grefm_megali_idea_crete_tt2
-				trigger = {
-					owns_entire_state_region = STATE_CRETE
-				}
-			}
-		}
-	}
-
-	weight = 100
 
 }
 

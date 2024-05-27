@@ -106,6 +106,7 @@ namespace = grefm
 #	112 - Lake Kopais Drained
 #	113 - A Citadel Emerges
 #	114 - Merchantile Rivalries
+#	119 - >>Land Reclaimed in Kopaida
 
 #120-129 - Cultural Events
 #	120 - The Rebirth of the Olympics
@@ -152,13 +153,13 @@ namespace = grefm
 	
 #200-209 - The Megali Idea
 #	200 - The Greek State
-#	201 - The Megali Idea
+#	201 - =/=The Megali Idea
 #	202 - The Future of Greece
 #	203 - The Lands of Thessaly
 #	204 - Greater Greece
 #	205 - A Greek Dominion
 
-#210-219 - Revolt Events
+#210-219 - Greek Separatism Events
 #	210 - Greek Nationalism in Epirus
 #	211 - The Epirote Revolt (GRE)
 #	212 - Greek Nationalism in Cyprus
@@ -168,12 +169,25 @@ namespace = grefm
 #	216 - Greek Nationalism in Crete
 #	217 - Crete Revolts Again (GRE)
 
+#//BLOCK 21 REWORK - DO NOT MOVE UNTIL EVENTS HAVE BEEN REBUILT
+#	210 - ##Greek Separatism
+#	211 - ##Greek Provocations in State (GRE)
+#	212 - ##Greek Uprising in State (GRE)
+#	213 - OPEN
+#	214 - OPEN
+#   215 - >>The Epirote Revolt (TUR/EGY)
+#	216 - >>The Cypriot Revolt (TUR/EGY)
+#	217 - >>The Macedonian Revolt (TUR/EGY)
+#	218 - ##The Smyrna Revolt (TUR/EGY)
+#	219 - ##Reassigns the Separatism JE [TECH]
+
 #220-229 - Annexation Events
 #	220 - ION Annexation
 #	221 - EPI Annexation
 #	222 - CYP Annexation
 #	223 - CRE Annexation
 #	224 - MAC Annexation
+#	225 - ##TRB Annexation
 
 #230-239 - Greek Church Events
 #	230 - The Defence of Jonas King
@@ -193,7 +207,8 @@ namespace = grefm
 #	250 - Priest Martyred in Crete
 #	251 - Wali of Crete Oversteps Authority
 #	252 - Greek Agitation in Crete
-#	253 - ## Language Bans in Crete <--1890
+#	253 - ##Language Bans in Crete <--1890
+#	259 - >>Crete Revolts Again
 
 #260-269 - Homeland Events
 #	260 - The Fate of the Turks
@@ -201,7 +216,6 @@ namespace = grefm
 #	262 - Greek Expansion in X
 #	263 - The Greek Capital
 #	264 - Greco-Roman Relations
-
 
 ##	#GRE3	REVENGE OF THE GREEKS	Events 300-399	##
 
@@ -246,21 +260,7 @@ namespace = grefm
 #900-909 - Hidden Events
 #	900 - Re-adds Turkish Culture if lost through tag switch
 #	901 - Adds Mainland Greece claims to non-GRE Greek nations
-#	902 - OPEN
-#	903 - Removes crete revolt variable
-#	904 - Preempts revolts if a tag is freed somehow
-	
-#910-919 - Technical Events Needing a Popup
-#	910 - Epirus Customs Union
-#   911 - The Epirote Revolt (TUR)
-#	912 - The Cypriot Revolt (TUR/EGY)
-#	913 - The Macedonian Revolt (TUR)
-#	914 - Crete Revolts Again (TUR/EGY)
-#	915 - Greek Nationalism in Crete
-#	915 - Land Reclaimed in Kopaida
-
-#920-929 - Events Triggered for Other Countries
-#
+#	902 - Reassigns Revolt Journals
 
 ############################
 
@@ -3758,6 +3758,53 @@ grefm.114 = { # Merchantile Rivalries
 
 }
 
+grefm.119 = { # Land Reclaimed in Kopaida
+	type = country_event
+	placement = scope:grefm_reclamation_state
+	
+	title = grefm.119.t
+	desc = grefm.119.d
+	flavor = grefm.119.f
+	
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = grefm_reclamation_state
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.119.a
+		default_option = yes
+		scope:grefm_reclamation_state = {
+			state_region = {
+				add_arable_land = 1
+			}
+		}
+		change_global_variable = {
+			name = grefm_lake_kopais_var
+			add = 1
+		}		
+	}
+
+}
+
 #### CULTURAL EVENTS ####
 # events in this group center on Greek ethnogenesis
 
@@ -6091,7 +6138,7 @@ grefm.205 = { # a greek domain
 
 #### REVOLT EVENTS ####
 
-grefm.210 = { # enables Epirote agitation
+grefm.210 = { # Greek Separatism
 	type = country_event
 	placement = root
 	
@@ -6102,85 +6149,35 @@ grefm.210 = { # enables Epirote agitation
 	event_image = {
 		video = "votp_agitator_speaking"
 	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
 	trigger = {
-		c:GRE ?= this
-		has_technology_researched = nationalism
-		owns_entire_state_region = STATE_THESSALIA
-		s:STATE_ALBANIA = {
-			any_scope_state = {
-				owner = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-					}
-				}
-			}
-		}
-		NOT = { has_global_variable = grefm_epirus_revolt_considered }
-		NOT = { has_variable = byzfm_weaksauce }
+		# triggered by grefm.200
 	}
 	
 	immediate = {
-		set_global_variable = grefm_epirus_revolt_considered
-		s:STATE_ALBANIA = {
-			random_scope_state = {
-				owner = {
-					save_scope_as = albania_owner_scope
-				}
-			}
-		}
 	}
 	
-	option = { # enables agitation button
+	option = {
 		name = grefm.210.a
 		default_option = yes
-		trigger = {
-			NOT = {
-				owns_entire_state_region = STATE_ALBANIA
-			}
-		}
-		custom_tooltip = {
-			text = grefm.210.a.tt
-			hidden_effect = {
-				scope:albania_owner_scope = {
-					trigger_event = {
-						id = grefm.210
-					}
-				}
-			}
+		add_journal_entry = {
+			type = je_grefm_greek_separatism
 		}
 	}
-	
-	option = { # same event with option b
-		name = grefm.210.b
-		trigger = {
-			owns_entire_state_region = STATE_ALBANIA
-		}
-		custom_tooltip = {
-			text = grefm.210.b.tt
-		}
-	}
-	
-	cancellation_trigger = {
-		c:GRE ?= {
-			owns_entire_state_region = STATE_ALBANIA
-		}
-	}
-	
+
 }
 
-grefm.211 = { # notification of epirus revolt with option to join
+grefm.211 = { # Greek Provocations in State (GRE)
 	type = country_event
-	placement = scope:albania_scope
+	placement = scope:grefm_provocation_state_scope
 	
 	title = grefm.211.t
 	desc = grefm.211.d
@@ -6189,298 +6186,139 @@ grefm.211 = { # notification of epirus revolt with option to join
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
 	duration = 3
 	
 	dlc = dlc_grefm
-
-	trigger = { # triggered by grefm.911
+	
+	trigger = {
+		# triggered by je_grefm_greek_separatism
 	}
-
+	
 	immediate = {
-		s:STATE_ALBANIA = {
-			random_scope_state = {
-				save_scope_as = albania_scope
+		random_state = {
+			limit = {
+				has_variable = grefm_provocation_state_target
 			}
+			save_scope_as = grefm_provocation_state_scope
+			owner = {
+				save_scope_as = grefm_provocation_owner_scope
+			}
+			grefm_revolt_provokation_effect = yes
 		}
 	}
 	
 	option = {
 		name = grefm.211.a
 		default_option = yes
-		trigger = {
-			has_truce_with = scope:albania_owner_scope
-		}
-		end_truce = {
-			country = scope:albania_owner_scope
-		}
 		create_incident = {
-			country = scope:albania_owner_scope
-			value = 15
+			country = scope:grefm_provocation_owner_scope
+			value = 5
 		}
-		add_modifier = {
-			name = modifier_grefm_repudiated_truce
-			months = normal_modifier_time
-		}
-		change_relations = {
-			country = c:EPI
-			value = 50
+		scope:grefm_provocation_state_scope = {
+			remove_variable = grefm_provocation_state_target
 		}
 	}
 	
-	option = {
-		name = grefm.211.b
-	}
-
 }
 
-grefm.212 = { # enables Cypriot agitation
+grefm.212 = { # Greek Uprising in State (GRE)
 	type = country_event
-	placement = root
+	placement = scope:grefm_revolt_scope
 	
 	title = grefm.212.t
 	desc = grefm.212.d
 	flavor = grefm.212.f
 	
-	placement = root
-	
-	event_image = {
-		video = "votp_agitator_speaking"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		c:GRE ?= this
-		NOT = { has_global_variable = grefm_cyprus_revolt_considered }
-		has_technology_researched = pan-nationalism
-		OR = {
-			has_journal_entry = je_grefm_megali_idea
-			has_global_variable = grefm_megali_idea_completed
-		}
-		s:STATE_CYPRUS = {
-			any_scope_state = {
-				owner = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-					}
-				}
-			}
-		}
-	}
-	
-	immediate = {
-		set_global_variable = grefm_cyprus_revolt_considered
-		s:STATE_CYPRUS = {
-			random_scope_state = {
-				owner = {
-					save_scope_as = cyprus_owner_scope
-				}
-			}
-		}
-	}
-	
-	option = { # enables agitation button
-		name = grefm.212.a
-		default_option = yes
-		trigger = {
-			NOT = {
-				owns_entire_state_region = STATE_CYPRUS
-			}
-		}
-		custom_tooltip = {
-			text = grefm.212.a.tt
-			hidden_effect = {
-				scope:cyprus_owner_scope = {
-					trigger_event = {
-						id = grefm.212
-					}
-				}
-			}
-		}
-	}
-	
-	option = { # same event with option b
-		name = grefm.212.b
-		trigger = {
-			owns_entire_state_region = STATE_CYPRUS
-		}
-		custom_tooltip = {
-			text = grefm.212.b.tt
-		}
-	}
-	
-	cancellation_trigger = {
-		c:GRE ?= {
-			owns_entire_state_region = STATE_CYPRUS
-		}
-	}
-
-}
-
-grefm.213 = { # notification of cypriot revolt with option to join
-	type = country_event
-	placement = scope:cyprus_state_scope
-	
-	title = grefm.213.t
-	desc = grefm.213.d
-	flavor = grefm.213.f
-	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
 	
-	dlc = dlc_grefm
-
-	trigger = { # triggered by grefm.912
-	}
-
-	immediate = {
-		s:STATE_CYPRUS = {
-			random_scope_state = {
-				save_scope_as = cyprus_state_scope
-			}
-		}
-	}
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
-	option = {
-		name = grefm.213.a
-		default_option = yes
-		trigger = {
-			has_truce_with = scope:cyprus_owner_scope
-		}
-		end_truce = {
-			country = scope:cyprus_owner_scope
-		}
-		create_incident = {
-			country = scope:cyprus_owner_scope
-			value = 15
-		}
-		add_modifier = {
-			name = modifier_grefm_repudiated_truce
-			months = normal_modifier_time
-		}
-		change_relations = {
-			country = c:EPI
-			value = 50
-		}
-	}
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
-	option = {
-		name = grefm.213.b
-	}
-
-}
-
-grefm.214 = { # Greek Nationalism in Macedonia
-	type = country_event
-	placement = root
-	
-	title = grefm.214.t
-	desc = grefm.214.d
-	flavor = grefm.214.f
-	
-	placement = root
-	
-	event_image = {
-		video = "votp_agitator_speaking"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
 	duration = 3
 	
 	dlc = dlc_grefm
 	
 	trigger = {
-		c:GRE ?= this
-		has_technology_researched = nationalism
-		owns_entire_state_region = STATE_THESSALIA
-		s:STATE_MACEDONIA = {
-			any_scope_state = {
-				owner = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-					}
-				}
-			}
-		}
-		NOT = { has_global_variable = grefm_macedonia_revolt_considered }
-		NOT = { has_variable = byzfm_weaksauce }
+		# triggered by grefm.215/216/217/259
 	}
 	
 	immediate = {
-		set_global_variable = grefm_macedonia_revolt_considered
-		s:STATE_MACEDONIA = {
-			random_scope_state = {
-				owner = {
-					save_scope_as = macedonia_owner_scope
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = grefm_owner_tracker
+			}
+			save_scope_as = grefm_owner_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = grefm_revolt_tracker
+			}
+			save_scope_as = grefm_revolt_scope
+		}
+		random_diplomatic_play = {
+			limit = {
+				scope:grefm_owner_scope = {
+					is_diplomatic_play_initiator = yes
+				}
+				scope:grefm_revolt_scope = {
+					is_diplomatic_play_target = yes
 				}
 			}
+			save_scope_as = grefm_greek_revolt_play_scope
 		}
 	}
 	
-	option = { # enables macedonia agitation button
-		name = grefm.214.a
+	option = { # Send Thoughts and Prayers
+		name = grefm.212.a
 		default_option = yes
+	}
+	
+	option = { # Jump in to Help
+		name = grefm.212.b
 		trigger = {
-			NOT = {
-				owns_entire_state_region = STATE_MACEDONIA
-			}
+			exists = scope:grefm_greek_revolt_play_scope
 		}
-		custom_tooltip = {
-			text = grefm.214.a.tt
-			hidden_effect = {
-				scope:macedonia_owner_scope = {
-					trigger_event = {
-						id = grefm.214
-					}
-				}
+		if = {
+			limit = {
+				has_truce_with = scope:grefm_owner_scope
 			}
+			end_truce = scope:grefm_owner_scope
+		}
+		scope:grefm_greek_revolt_play_scope = {
+			add_target_backers = root
 		}
 	}
 	
-	option = { # same event with option b
-		name = grefm.210.b
-		trigger = {
-			owns_entire_state_region = STATE_MACEDONIA
-		}
-		custom_tooltip = {
-			text = grefm.214.b.tt
-		}
-	}
-	
-	cancellation_trigger = {
-		c:GRE ?= {
-			owns_entire_state_region = STATE_ALBANIA
+	after = {
+		scope:grefm_revolt_scope = {
+			remove_variable = grefm_revolt_tracker
 		}
 	}
 
 }
 
-grefm.215 = { # notification of macedonia revolt with option to join
+grefm.213 = { # OPEN
+	orphan = yes
+}
+
+grefm.214 = { # OPEN
+	orphan = yes
+}
+
+grefm.215 = { # The Epirote Revolt (TUR/EGY)
 	type = country_event
-	placement = scope:macedonia_state_scope
+	placement = scope:albania_state_scope
 	
 	title = grefm.215.t
 	desc = grefm.215.d
@@ -6498,55 +6336,390 @@ grefm.215 = { # notification of macedonia revolt with option to join
 	
 	dlc = dlc_grefm
 
-	trigger = { # triggered by grefm.913
+	trigger = {
+		any_country = { has_modifier = modifier_grefm_supporting_epirus }
+		NOT = { has_global_variable = grefm_revolt_cooldown }
+		AND = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+		}
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+		OR = {
+			AND = {
+				s:STATE_ALBANIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.40
+							culture = cu:greek
+						}
+					}
+				}
+				s:STATE_THESSALIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.40
+							culture = cu:greek
+						}
+					}
+				}		
+			}
+			AND = {
+				s:STATE_ALBANIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				s:STATE_THESSALIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				is_at_war = yes
+			}
+		}
 	}
 
 	immediate = {
-		s:STATE_MACEDONIA = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_ALBANIA = {
 			random_scope_state = {
-				save_scope_as = macedonia_state_scope
+				save_scope_as = albania_state_scope
+				owner = {
+					save_scope_as = albania_owner_scope
+				}
+			}
+		}
+		if = {
+			limit = {
+				scope:albania_owner_scope = {
+					owns_entire_state_region = STATE_THESSALIA
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+					}
+				}
+			}
+			create_country = { # EPI with all provinces
+				tag = EPI
+				origin = this
+				province = p:xC42EC6
+				province = p:x7BE071
+				province = p:x18C9AD
+				province = p:x01D0E0
+				province = p:x8050E0
+				on_created = {
+				}
+			}
+		}
+		else = {	
+			create_country = { # EPI with Albanian provinces only
+				tag = EPI
+				origin = this
+				province = p:xC42EC6
+				province = p:x7BE071
+				on_created = {
+				}
+			}
+		}
+		c:EPI = {
+			save_scope_as = epirus_scope
+			create_epirus_characters = yes
+			set_variable = grefm_revolt_tracker
+		}
+		scope:albania_owner_scope = {
+			create_diplomatic_play = {
+				name = grefm_epirus_rebellion
+				target_country = c:EPI
+				type = dp_secession
+			}
+		}
+		random_diplomatic_play = {
+			limit = {
+				scope:albania_owner_scope = {
+					is_diplomatic_play_initiator = yes
+				}
+				c:EPI = {
+					is_diplomatic_play_target = yes
+				}
+			}
+			add_diplomatic_play_war_support = { target = c:EPI value = 100 }
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
 			}
 		}
 	}
 	
-	option = {
+	option = { # Get the Whip
 		name = grefm.215.a
 		default_option = yes
-		trigger = {
-			has_truce_with = scope:macedonia_owner_scope
-		}
-		end_truce = {
-			country = scope:macedonia_owner_scope
-		}
-		create_incident = {
-			country = scope:macedonia_owner_scope
-			value = 15
-		}
-		add_modifier = {
-			name = modifier_grefm_repudiated_truce
-			months = normal_modifier_time
-		}
-		change_relations = {
-			country = c:MAC
-			value = 50
-		}
 	}
 	
-	option = {
+	option = { # Give them Autonomy
 		name = grefm.215.b
 	}
-
+	
 }
 
-grefm.216 = { # greek nationalism in crete
+grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 	type = country_event
-	placement = root
+	placement = scope:cyprus_state_scope
 	
 	title = grefm.216.t
 	desc = grefm.216.d
 	flavor = grefm.216.f
 	
-	placement = root
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		any_country = { has_modifier = modifier_grefm_supporting_cyprus }
+		NOT = { has_global_variable = grefm_revolt_cooldown }
+		owns_entire_state_region = STATE_CYPRUS
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+		OR = {
+			s:STATE_CYPRUS = {
+				any_scope_state = {
+					radical_fraction = {
+						value >= 0.40
+						culture = cu:greek
+					}
+				}
+			}
+			AND = {
+				s:STATE_CYPRUS = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				is_at_war = yes
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_CYPRUS = {
+			random_scope_state = {
+				save_scope_as = cyprus_state_scope
+				owner = {
+					save_scope_as = cyprus_owner_scope
+				}
+			}
+		}
+		create_country = {
+			tag = CYP
+			origin = this
+			state = s:STATE_CYPRUS.region_state:root
+			on_created = {
+			}
+		}
+		c:CYP = {
+			save_scope_as = cyprus_scope
+			create_cyprus_characters = yes
+		}
+		scope:cyprus_owner_scope = {
+			create_diplomatic_play = {
+				name = grefm_cyprus_rebellion
+				target_country = c:CYP
+				type = dp_secession
+			}
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					scope:cyprus_owner_scope = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:CYP = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:CYP value = 100 }
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					country_has_primary_culture = cu:greek
+				}
+				trigger_event = {
+					id = grefm.212 # Greek Uprising in State (GRE)
+				}
+			}
+		}
+	}
+	
+	option = { # Get the Whip
+		name = grefm.216.a
+		default_option = yes
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.216.b
+	}
+	
+}
+
+grefm.217 = { # The Macedonian Revolt (TUR/EGY)
+	type = country_event
+	placement = scope:macedonia_state_scope
+	
+	title = grefm.217.t
+	desc = grefm.217.d
+	flavor = grefm.217.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		any_country = { has_modifier = modifier_grefm_supporting_macedonia }
+		NOT = { has_global_variable = grefm_revolt_cooldown }
+		owns_entire_state_region = STATE_MACEDONIA
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+		OR = {
+			s:STATE_MACEDONIA = {
+				any_scope_state = {
+					radical_fraction = {
+						value >= 0.40
+						culture = cu:greek
+					}
+				}
+			}
+			AND = {
+				s:STATE_MACEDONIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				is_at_war = yes
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = grefm_macedonia_revolt_happened
+		s:STATE_MACEDONIA = {
+			random_scope_state = {
+				save_scope_as = macedonia_state_scope
+				owner = {
+					save_scope_as = macedonia_owner_scope
+				}
+			}
+		}
+		create_country = {
+			tag = MAC
+			origin = this
+			state = s:STATE_MACEDONIA.region_state:root
+			on_created = {
+			}
+		}
+		c:MAC = {
+			save_scope_as = macedonia_scope
+		}
+		scope:macedonia_owner_scope = {
+			create_diplomatic_play = {
+				name = grefm_macedonia_rebellion
+				target_country = c:MAC
+				type = dp_secession
+			}
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					scope:macedonia_owner_scope = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:MAC = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = c:MAC value = 100 }
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					country_has_primary_culture = cu:greek
+				}
+				trigger_event = {
+					id = grefm.212 # Greek Uprising in State (GRE)
+				}
+			}
+		}
+	}
+	
+	option = { # Get the Whip
+		name = grefm.217.a
+		default_option = yes
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.217.b
+	}
+	
+}
+
+grefm.218 = { # The Smyrna Revolt (TUR/EGY)
+	orphan = yes
+}
+
+grefm.219 = { # Reassigns the Revolt Journals
+	type = country_event
+	placement = scope:crete_state_scope
+	
+	title = grefm.219.t
+	desc = grefm.219.d
+	flavor = grefm.219.f
 	
 	event_image = {
 		video = "votp_agitator_speaking"
@@ -6561,92 +6734,36 @@ grefm.216 = { # greek nationalism in crete
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_global_variable = grefm_crete_revolt_greenlight }
-		year >= 1837
-		c:GRE ?= this
-		NOT = { owns_entire_state_region = STATE_CRETE }
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}		
+		NOT = { has_law = law_type:law_multicultural }
+		NOT = { has_journal_entry = je_grefm_greek_separatism_sub }
+		OR = {
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_CYPRUS
+		}
 	}
 	
 	immediate = {
-		s:STATE_CRETE = {
-			random_scope_state = {
-				owner = {
-					save_scope_as = crete_owner_scope
-				}
-			}
-		}
-		set_global_variable = grefm_crete_revolt_greenlight
 	}
-	
-	option = { # GRE option
-		name = grefm.216.a
-		default_option = yes
-		custom_tooltip = grefm.216.tt
+
+	option = {
+		name = grefm.219.a
+		add_journal_entry = {
+			type = je_grefm_greek_separatism_sub
+		}
+		custom_tooltip = grefm.219.tt
 	}
 
 }
 
-grefm.217 = { # crete revolts again
-	type = country_event
-	placement = scope:crete_scope
-	
-	title = grefm.217.t
-	desc = grefm.217.d
-	flavor = grefm.217.f
-	
-	placement = root
-	
-	event_image = {
-		video = "votp_agitator_speaking"
-	}
 
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by grefm.914
-	}
-	
-	immediate = {
-		s:STATE_CRETE = {
-			random_scope_state = {
-				save_scope_as = crete_scope
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.217.a
-		default_option = yes
-		trigger = {
-			has_truce_with = scope:crete_owner_scope
-		}
-		end_truce = {
-			country = scope:crete_owner_scope
-		}
-		create_incident = {
-			country = scope:crete_owner_scope
-			value = 15
-		}
-		add_modifier = {
-			name = modifier_grefm_repudiated_truce
-			months = normal_modifier_time
-		}
-		change_relations = {
-			country = c:CRE
-			value = 50
-		}
-	}
-	
-	option = {
-		name = grefm.217.b
-	}
-
-}
 
 #### ANNEXATION EVENTS ####
 
@@ -7796,6 +7913,207 @@ grefm.252 = { # Greek Agitation in Crete
 		}
 	}
 
+}
+
+grefm.253 = { # Language Bans in Crete
+	orphan = yes
+}
+
+grefm.258 = { # Crete Revolts Again (GRE)
+	type = country_event
+	placement = root
+	
+	title = grefm.258.t
+	desc = grefm.258.d
+	flavor = grefm.258.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.259
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = grefm_crete_owner_tracker
+			}
+			save_scope_as = crete_owner_scope
+		}
+		random_diplomatic_play = {
+			limit = {
+				scope:crete_owner_scope = {
+					is_diplomatic_play_initiator = yes
+				}
+				c:CRE = {
+					is_diplomatic_play_target = yes
+				}
+			}
+			save_scope_as = cretan_revolt_play_scope
+		}
+	}
+	
+	option = { # OK, Cool
+		name = grefm.258.a
+		default_option = yes
+	}
+	
+	option = { # Pile In
+		name = grefm.258.b
+		trigger = {
+			exists = scope:cretan_revolt_play_scope
+		}
+		if = {
+			limit = {
+				has_truce_with = scope:crete_owner_scope
+			}
+			end_truce = scope:crete_owner_scope
+		}
+		scope:cretan_revolt_play_scope = {
+			add_target_backers = root
+		}
+	}
+
+}
+
+grefm.259 = { # Crete Revolts Again (TUR/EGY)
+	type = country_event
+	placement = root
+	
+	title = grefm.259.t
+	desc = grefm.259.d
+	flavor = grefm.259.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:grefm_crete_revolt_var >= 200
+		owns_entire_state_region = STATE_CRETE
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = grefm_crete_revolt_var
+			value = 0
+		}
+		s:STATE_CRETE = {
+			random_scope_state = {
+				save_scope_as = crete_state_scope
+				owner = {
+					save_scope_as = crete_owner_scope
+				}
+			}
+		}
+		create_country = {
+			tag = CRE
+			origin = this
+			state = s:STATE_CRETE.region_state:root
+			on_created = {
+			}
+		}
+		c:CRE = {
+			save_scope_as = crete_scope
+		}
+		create_diplomatic_pact = {
+			country = c:CRE
+			type = protectorate
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
+			}
+			post_notification = notification_grefm_greek_revolt
+		}
+		set_variable = grefm_crete_owner_tracker
+	}
+	
+	option = { # Drop the Hammer
+		name = grefm.259.a
+		create_diplomatic_play = {
+			name = grefm_crete_rebellion
+			target_country = c:CRE
+			type = dp_return_state
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					scope:crete_owner_scope = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:CRE = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = scope:crete_owner_scope
+					type = return_state
+					target_state = s:STATE_CRETE.region_state:CRE
+				}
+				add_war_goal = {
+					holder = c:CRE
+					type = independence
+				}
+				add_diplomatic_play_war_support = { 
+					target = c:CRE 
+					value = 100
+				}
+			}
+			change_infamy = -5
+		}
+	}
+	
+	option = { # Everything is Fine
+		name = grefm.259.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		show_as_tooltip = {
+			create_diplomatic_pact = {
+				country = c:CRE
+				type = protectorate
+			}
+		}
+	}
+	
+	after = {
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.258 # Crete Revolts Again (GRE)
+			}
+		}
+		remove_variable = grefm_crete_owner_tracker
+	}
 }
 
 #### HOMELAND EVENTS ####
@@ -9053,86 +9371,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	
 }
 
-grefm.902 = { # OPEN
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	orphan = yes
-	
-	immediate = {
-	}
-	
-}
-
-grefm.903 = { # removes crete revolt variable
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-		c:GRE ?= {
-			owns_entire_state_region = STATE_CRETE
-		}
-	}
-	
-	immediate = {
-		remove_global_variable = grefm_crete_revolt_var
-	}
-	
-}
-
-grefm.904 = { # preempts revolts if a tag is freed somehow
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				exists = c:EPI
-				NOT = { has_global_variable = grefm_epirus_revolt_considered }
-			}
-			AND = {
-				exists = c:CYP
-				NOT = { has_global_variable = grefm_epirus_revolt_considered }
-			}
-			AND = {
-				exists = c:MAC
-				NOT = { has_global_variable = grefm_epirus_revolt_considered }
-			}
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				exists = c:EPI
-			}
-			set_global_variable = grefm_epirus_revolt_considered
-			set_global_variable = grefm_epirus_revolt_greenlight
-			set_global_variable = grefm_epirus_revolt_happened
-		}
-		if = {
-			limit = {
-				exists = c:CYP
-			}
-			set_global_variable = grefm_cyprus_revolt_considered
-			set_global_variable = grefm_cyprus_revolt_greenlight
-			set_global_variable = grefm_cyprus_revolt_happened
-		}
-		if = {
-			limit = {
-				exists = c:MAC
-			}
-			set_global_variable = grefm_macedonia_revolt_considered
-			set_global_variable = grefm_macedonia_revolt_greenlight
-			set_global_variable = grefm_macedonia_revolt_happened
-		}
-	}
-}
-
-grefm.905 = { # hidden event triggering the Don Pacifico Affair
+grefm.902 = { # hidden event triggering the Don Pacifico Affair
 	type = country_event
 	placement = root
 	hidden = yes
@@ -9152,514 +9391,4 @@ grefm.905 = { # hidden event triggering the Don Pacifico Affair
 		remove_variable = grefm_don_pacifico_var
 	}
 	
-}
-
-#### NOTIFICATION EVENTS ####
-
-grefm.910 = { # Was Customs Union event with EPI, now OPEN due to incoming changes in SoI
-	
-	orphan = yes
-	
-}
-
-grefm.911 = { # Epirus revolt
-	type = country_event
-	placement = scope:albania_scope
-	
-	title = grefm.911.t
-	desc = grefm.911.d
-	flavor = grefm.911.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		NOT = { has_global_variable = grefm_epirus_revolt_happened }
-		owns_entire_state_region = STATE_ALBANIA	
-		has_global_variable = grefm_epirus_revolt_greenlight
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-		OR = {
-			is_at_war = yes
-			has_global_variable = grefm_epirus_revolt_forced
-		}
-	}
-
-	immediate = {
-		set_global_variable = grefm_epirus_revolt_happened
-		s:STATE_ALBANIA = {
-			random_scope_state = {
-				save_scope_as = albania_scope
-				owner = {
-					save_scope_as = albania_owner_scope
-				}
-			}
-		}
-		if = {
-			limit = {
-				scope:albania_owner_scope = {
-					owns_entire_state_region = STATE_THESSALIA
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-					}
-				}
-			}
-			create_country = { # EPI with all provinces
-				tag = EPI
-				origin = this
-				province = p:xC42EC6
-				province = p:x7BE071
-				province = p:x18C9AD
-				province = p:x01D0E0
-				province = p:x8050E0
-				on_created = {
-				}
-			}
-		}
-		else = {	
-			create_country = { # EPI with Albanian provinces only
-				tag = EPI
-				origin = this
-				province = p:xC42EC6
-				province = p:x7BE071
-				on_created = {
-				}
-			}
-		}
-		c:EPI = {
-			save_scope_as = epirus_scope
-			create_epirus_characters = yes
-		}
-	}
-	
-	option = {
-		name = grefm.911.a
-		default_option = yes
-		scope:albania_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_epirus_rebellion
-				target_country = c:EPI
-				type = dp_secession
-			}
-		}
-		hidden_effect = {
-			random_diplomatic_play = {
-				limit = {
-					scope:albania_owner_scope = {
-						is_diplomatic_play_initiator = yes
-					}
-					c:EPI = {
-						is_diplomatic_play_target = yes
-					}
-				}
-				add_diplomatic_play_war_support = { target = c:EPI value = 100 }
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					country_has_primary_culture = cu:greek
-				}
-				trigger_event = {
-					id = grefm.211 # notifies GRE
-				}
-			}
-		}
-	}
-	
-}
-
-grefm.912 = { # cypriot revolt
-	type = country_event
-	placement = scope:cyprus_state_scope
-	
-	title = grefm.912.t
-	desc = grefm.912.d
-	flavor = grefm.912.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		NOT = { has_global_variable = grefm_cyprus_revolt_happened }
-		owns_entire_state_region = STATE_CYPRUS	
-		has_global_variable = grefm_cyprus_revolt_greenlight
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-		OR = {
-			is_at_war = yes
-			has_global_variable = grefm_cyprus_revolt_forced
-		}
-	}
-
-	immediate = {
-		set_global_variable = grefm_cyprus_revolt_happened
-		s:STATE_CYPRUS = {
-			random_scope_state = {
-				save_scope_as = cyprus_state_scope
-				owner = {
-					save_scope_as = cyprus_owner_scope
-				}
-			}
-		}
-		create_country = {
-			tag = CYP
-			origin = this
-			state = s:STATE_CYPRUS.region_state:TUR
-			on_created = {
-			}
-		}
-		c:CYP = {
-			save_scope_as = cyprus_scope
-			create_cyprus_characters = yes
-		}
-	}
-	
-	option = {
-		name = grefm.912.a
-		default_option = yes
-		scope:cyprus_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_cyprus_rebellion
-				target_country = c:CYP
-				type = dp_secession
-			}
-		}
-		hidden_effect = {
-			random_diplomatic_play = {
-				limit = {
-					scope:cyprus_owner_scope = {
-						is_diplomatic_play_initiator = yes
-					}
-					c:CYP = {
-						is_diplomatic_play_target = yes
-					}
-				}
-				add_diplomatic_play_war_support = { target = c:CYP value = 100 }
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					country_has_primary_culture = cu:greek
-				}
-				trigger_event = {
-					id = grefm.213 # notifies GRE
-				}
-			}
-		}
-	}
-	
-}
-
-grefm.913 = { # macedonian revolt
-	type = country_event
-	placement = scope:macedonia_state_scope
-	
-	title = grefm.913.t
-	desc = grefm.913.d
-	flavor = grefm.913.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		NOT = { has_global_variable = grefm_macedonia_revolt_happened }
-		owns_entire_state_region = STATE_MACEDONIA	
-		has_global_variable = grefm_macedonia_revolt_greenlight
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-		OR = {
-			is_at_war = yes
-			has_global_variable = grefm_macedonia_revolt_forced
-		}
-	}
-
-	immediate = {
-		set_global_variable = grefm_macedonia_revolt_happened
-		s:STATE_MACEDONIA = {
-			random_scope_state = {
-				save_scope_as = macedonia_state_scope
-				owner = {
-					save_scope_as = macedonia_owner_scope
-				}
-			}
-		}
-		create_country = {
-			tag = MAC
-			origin = this
-			state = s:STATE_MACEDONIA.region_state:TUR
-			on_created = {
-			}
-		}
-		c:MAC = {
-			save_scope_as = macedonia_scope
-		}
-	}
-	
-	option = {
-		name = grefm.913.a
-		default_option = yes
-		scope:macedonia_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_macedonia_rebellion
-				target_country = c:MAC
-				type = dp_secession
-			}
-		}
-		hidden_effect = {
-			random_diplomatic_play = {
-				limit = {
-					scope:macedonia_owner_scope = {
-						is_diplomatic_play_initiator = yes
-					}
-					c:MAC = {
-						is_diplomatic_play_target = yes
-					}
-				}
-				add_diplomatic_play_war_support = { target = c:MAC value = 100 }
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					country_has_primary_culture = cu:greek
-				}
-				trigger_event = {
-					id = grefm.215 # notifies GRE
-				}
-			}
-		}
-	}
-	
-}
-
-grefm.914 = { # crete revolts again
-	type = country_event
-	placement = scope:crete_state_scope
-	
-	title = grefm.914.t
-	desc = grefm.914.d
-	flavor = grefm.914.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		global_var:grefm_crete_revolt_var >= 200
-		NOT = { exists = c:CRE }
-	}
-
-	immediate = {
-		set_global_variable = {
-			name = grefm_crete_revolt_var
-			value = 0
-		}
-		s:STATE_CRETE = {
-			random_scope_state = {
-				save_scope_as = crete_state_scope
-				owner = {
-					save_scope_as = crete_owner_scope
-				}
-			}
-		}
-		create_country = {
-			tag = CRE
-			origin = this
-			state = s:STATE_CRETE.region_state:EGY
-			on_created = {
-			}
-		}
-		c:CRE = {
-			save_scope_as = crete_scope
-		}
-	}
-
-	option = {
-		name = grefm.914.a
-		default_option = yes
-		scope:crete_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_crete_rebellion
-				target_country = c:CRE
-				type = dp_secession
-			}
-		}
-		hidden_effect = {
-			random_diplomatic_play = {
-				limit = {
-					scope:crete_owner_scope = {
-						is_diplomatic_play_initiator = yes
-					}
-					c:CRE = {
-						is_diplomatic_play_target = yes
-					}
-				}
-				add_diplomatic_play_war_support = { target = c:CRE value = 100 }
-				add_war_goal = {
-					holder = scope:crete_owner_scope
-					type = conquer_state
-					target_state = scope:crete_state_scope
-				}
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					country_has_primary_culture = cu:greek
-				}
-				trigger_event = {
-					id = grefm.217 # notifies GRE
-				}
-			}
-		}
-	}
-	
-}
-
-grefm.915 = { # assigns the revolt JE
-	type = country_event
-	placement = scope:crete_state_scope
-	
-	title = grefm.915.t
-	desc = grefm.915.d
-	flavor = grefm.915.f
-	
-	event_image = {
-		video = "votp_agitator_speaking"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		has_global_variable = grefm_crete_revolt_greenlight
-		has_global_variable = grefm_crete_revolt_var
-		owns_entire_state_region = STATE_CRETE
-		NOT = { has_journal_entry = je_grefm_the_cretan_revolts }
-		NOT = { has_law = law_type:law_multicultural }
-		OR = {
-			country_has_state_religion = rel:sunni
-			country_has_state_religion = rel:shiite
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = { has_global_variable = grefm_crete_revolt_greenlight }
-			}
-			set_global_variable = grefm_crete_revolt_greenlight
-		}
-		s:STATE_CRETE = {
-			random_scope_state = {
-				save_scope_as = crete_state_scope
-			}
-		}
-		grefm_calculate_crete_variables_effect = yes
-	}
-
-	option = {
-		name = grefm.915.a
-		add_journal_entry = {
-			type = je_grefm_the_cretan_revolts
-		}
-		custom_tooltip = grefm.216.tt
-	}
-	
-}
-
-grefm.916 = { # Land Reclaimed in Kopaida
-	type = country_event
-	placement = scope:grefm_reclamation_state
-	
-	title = grefm.916.t
-	desc = grefm.916.d
-	flavor = grefm.916.f
-	
-	event_image = {
-		video = "europenorthamerica_russian_serfs"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {	# triggered by JE
-	}
-	
-	immediate = {
-		s:STATE_ATTICA = {
-			random_scope_state = {
-				save_scope_as = grefm_reclamation_state
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.916.a
-		default_option = yes
-		scope:grefm_reclamation_state = {
-			state_region = {
-				add_arable_land = 1
-			}
-		}
-		change_global_variable = {
-			name = grefm_lake_kopais_var
-			add = 1
-		}		
-	}
-
 }

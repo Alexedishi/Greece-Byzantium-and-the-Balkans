@@ -1,139 +1,148 @@
 ﻿# REVOLT BUTTONS #
-grefm_epirus_agitate_button = {
-	name = "grefm_epirus_agitate_button"
-	desc = "grefm_epirus_agitate_button_desc"
+grefm_epirus_support_button = {
+	name = "grefm_epirus_support_button"
+	desc = "grefm_epirus_support_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_ALBANIA }
-		has_global_variable = grefm_epirus_revolt_considered
-		NOT = { has_global_variable = grefm_epirus_revolt_greenlight }
+		NOR = {
+			has_modifier = modifier_grefm_supporting_epirus
+			has_state_in_state_region = s:STATE_ALBANIA
+			has_state_in_state_region = s:STATE_THESSALIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
-		
+	
 	possible = {
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		NOT = { has_modifier = modifier_grefm_supporting_epirus }
 	}
 	
 	effect = {
-		add_modifier = {
-			name = modifier_grefm_funding_insurrection
-			multiplier = money_amount_multiplier_medium
-			months = short_modifier_time
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = short_modifier_time
-		}
-		set_global_variable = grefm_epirus_revolt_greenlight
+		custom_tooltip = grefm_epirus_support_tt
+		add_modifier = modifier_grefm_supporting_epirus
 	}
 }
 
-
+grefm_epirus_cease_button = {
+	name = "grefm_epirus_cease_button"
+	desc = "grefm_epirus_cease_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_supporting_epirus
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_epirus
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_supporting_epirus
+	}
+}
 
 grefm_epirus_provoke_button = {
 	name = "grefm_epirus_provoke_button"
 	desc = "grefm_epirus_provoke_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_ALBANIA }
-		NOT = { has_global_variable = grefm_epirus_revolt_forced }
-		NOT = { has_global_variable = grefm_epirus_revolt_happened }
-		has_global_variable = grefm_epirus_revolt_greenlight
+		NOR = {
+			has_state_in_state_region = s:STATE_ALBANIA
+			has_state_in_state_region = s:STATE_THESSALIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
 	
 	possible = {
-		is_at_war = no
+		has_modifier = modifier_grefm_supporting_epirus
 		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_ALBANIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
+		}
+		s:STATE_THESSALIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
+		}
 	}
 	
 	effect = {
 		custom_tooltip = {
 			text = grefm_epirus_provoke_tt
 			hidden_effect = {
-				set_global_variable = grefm_epirus_revolt_forced
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_ALBANIA
+						owns_entire_state_region = STATE_THESSALIA
+					}
+					trigger_event = {
+						id = grefm.215 # The Epirote Revolt (TUR/EGY)
+					}
+				}
 			}
-		}
-	}
-}
-
-grefm_cyprus_agitate_button = {
-	name = "grefm_cyprus_agitate_button"
-	desc = "grefm_cyprus_agitate_button_desc"
-	
-	visible = {
-		NOT = { owns_entire_state_region = STATE_CYPRUS }
-		has_global_variable = grefm_cyprus_revolt_considered
-		NOT = { has_global_variable = grefm_cyprus_revolt_greenlight }
-	}
-		
-	possible = {
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-	}
-	
-	effect = {
-		add_modifier = {
-			name = modifier_grefm_funding_insurrection
-			multiplier = money_amount_multiplier_medium
-			months = short_modifier_time
 		}
 		add_modifier = {
 			name = modifier_grefm_nationalist_agitation
-			months = short_modifier_time
+			months = normal_modifier_time
 		}
-		set_global_variable = grefm_cyprus_revolt_greenlight
+		change_infamy = 5
 	}
 }
-
-grefm_cyprus_provoke_button = {
-	name = "grefm_cyprus_provoke_button"
-	desc = "grefm_cyprus_provoke_button_desc"
+	
+grefm_macedonia_support_button = {
+	name = "grefm_macedonia_support_button"
+	desc = "grefm_macedonia_support_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_CYPRUS }
-		NOT = { has_global_variable = grefm_cyprus_revolt_forced }
-		NOT = { has_global_variable = grefm_cyprus_revolt_happened }
-		has_global_variable = grefm_cyprus_revolt_greenlight
+		owns_entire_state_region = STATE_THESSALIA
+		NOR = { 
+			has_modifier = modifier_grefm_supporting_macedonia
+			has_state_in_state_region = s:STATE_MACEDONIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_MACEDONIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
 	
 	possible = {
-		is_at_war = no
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		NOT = { has_modifier = modifier_grefm_supporting_macedonia }
 	}
 	
 	effect = {
-		custom_tooltip = {
-			text = grefm_cyprus_provoke_tt
-			hidden_effect = {
-				set_global_variable = grefm_cyprus_revolt_forced
-			}
-		}
+		custom_tooltip = grefm_macedonia_support_tt
+		add_modifier = modifier_grefm_supporting_macedonia
 	}
 }
 
-grefm_macedonia_agitate_button = {
-	name = "grefm_macedonia_agitate_button"
-	desc = "grefm_macedonia_agitate_button_desc"
+grefm_macedonia_cease_button = {
+	name = "grefm_macedonia_cease_button"
+	desc = "grefm_macedonia_cease_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_MACEDONIA }
-		has_global_variable = grefm_macedonia_revolt_considered
-		NOT = { has_global_variable = grefm_macedonia_revolt_greenlight }
+		has_modifier = modifier_grefm_supporting_macedonia
 	}
-		
+	
 	possible = {
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		has_modifier = modifier_grefm_supporting_macedonia
 	}
 	
 	effect = {
-		add_modifier = {
-			name = modifier_grefm_funding_insurrection
-			multiplier = money_amount_multiplier_medium
-			months = short_modifier_time
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = short_modifier_time
-		}
-		set_global_variable = grefm_macedonia_revolt_greenlight
+		remove_modifier = modifier_grefm_supporting_macedonia
 	}
 }
 
@@ -142,66 +151,426 @@ grefm_macedonia_provoke_button = {
 	desc = "grefm_macedonia_provoke_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_MACEDONIA }
-		NOT = { has_global_variable = grefm_macedonia_revolt_forced }
-		NOT = { has_global_variable = grefm_macedonia_revolt_happened }
-		has_global_variable = grefm_macedonia_revolt_greenlight
+		owns_entire_state_region = STATE_THESSALIA
+		NOT = {
+			has_state_in_state_region = s:STATE_MACEDONIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_MACEDONIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
 	
 	possible = {
-		is_at_war = no
+		has_modifier = modifier_grefm_supporting_macedonia
 		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_MACEDONIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
+		}
 	}
 	
 	effect = {
 		custom_tooltip = {
 			text = grefm_macedonia_provoke_tt
 			hidden_effect = {
-				set_global_variable = grefm_macedonia_revolt_forced
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_MACEDONIA
+					}
+					trigger_event = {
+						id = grefm.217 # The Macedonian Revolt (TUR/EGY)
+					}
+				}
 			}
 		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
 	}
 }
-
-grefm_crete_agitate_button = {
-	name = "grefm_crete_agitate_button"
-	desc = "grefm_crete_agitate_button_desc"
+	
+grefm_skopia_support_button = {
+	name = "grefm_skopia_support_button"
+	desc = "grefm_skopia_support_button_desc"
 	
 	visible = {
-		NOT = { owns_entire_state_region = STATE_CRETE }
-		has_technology_researched = nationalism
-		NOT = { exists = c:CRE }
+		owns_entire_state_region = STATE_MACEDONIA
+		NOR = { 
+			has_modifier = modifier_grefm_supporting_skopia
+			has_state_in_state_region = s:STATE_SKOPIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_SKOPIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
 	
 	possible = {
-		NOR = { 
-			has_modifier = modifier_grefm_nationalist_agitation 
-			has_modifier = modifier_grefm_funding_crete
+		NOT = { has_modifier = modifier_grefm_supporting_skopia }
+	}
+	
+	effect = {
+		custom_tooltip = grefm_skopia_support_tt
+		add_modifier = modifier_grefm_supporting_skopia
+	}
+}
+
+grefm_skopia_cease_button = {
+	name = "grefm_skopia_cease_button"
+	desc = "grefm_skopia_cease_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_supporting_skopia
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_skopia
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_supporting_skopia
+	}
+}
+
+grefm_skopia_provoke_button = {
+	name = "grefm_skopia_provoke_button"
+	desc = "grefm_skopia_provoke_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_MACEDONIA
+		NOT = {
+			has_state_in_state_region = s:STATE_SKOPIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_SKOPIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_skopia
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_SKOPIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
 		}
 	}
 	
 	effect = {
-		trigger_event = {
-			id = grefm.252 # Greek Agitation in Crete
-			days = 30
+		custom_tooltip = {
+			text = grefm_skopia_provoke_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_SKOPIA
+					}
+					trigger_event = {
+						id = grefm.217 # The Macedonian Revolt (TUR/EGY)
+					}
+				}
+			}
 		}
 		add_modifier = {
 			name = modifier_grefm_nationalist_agitation
-			months = short_modifier_time
-		}
-		add_modifier = {
-			name = modifier_grefm_funding_crete
 			months = normal_modifier_time
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
+		change_infamy = 5
+	}
+}
+	
+grefm_smyrna_support_button = {
+	name = "grefm_symrna_support_button"
+	desc = "grefm_symrna_support_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+		NOR = { 
+			has_modifier = modifier_grefm_supporting_smyrna
+			has_state_in_state_region = s:STATE_AYDIN
+		}
+		any_country = {
+			owns_entire_state_region = STATE_AYDIN
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_grefm_supporting_smyrna }
+	}
+	
+	effect = {
+		custom_tooltip = grefm_smyrna_support_tt
+		add_modifier = modifier_grefm_supporting_smyrna
+	}
+}
+
+grefm_smyrna_cease_button = {
+	name = "grefm_symrna_cease_button"
+	desc = "grefm_symrna_cease_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_supporting_smyrna
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_smyrna
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_supporting_smyrna
+	}
+}
+
+grefm_smyrna_provoke_button = {
+	name = "grefm_symrna_provoke_button"
+	desc = "grefm_symrna_provoke_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+		NOT = {
+			has_state_in_state_region = s:STATE_AYDIN
+		}
+		any_country = {
+			owns_entire_state_region = STATE_AYDIN
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_smyrna
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_AYDIN = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
 				}
 			}
-			post_notification = notification_grefm_crete_accelerated
 		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_smyrna_provoke_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_AYDIN
+					}
+					trigger_event = {
+						id = grefm.218 # The Smyrna Revolt (TUR/EGY)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+}
+	
+grefm_cyprus_support_button = {
+	name = "grefm_symrna_support_button"
+	desc = "grefm_symrna_support_button_desc"
+	
+	visible = {
+		NOR = {
+			has_modifier = modifier_grefm_supporting_cyprus
+			has_state_in_state_region = s:STATE_CYPRUS
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CYPRUS
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_grefm_supporting_cyprus }
+		has_technology_researched = pan-nationalism
+	}
+	
+	effect = {
+		custom_tooltip = grefm_cyprus_support_tt
+		add_modifier = modifier_grefm_supporting_cyprus
+	}
+}
+
+grefm_cyprus_cease_button = {
+	name = "grefm_symrna_cease_button"
+	desc = "grefm_symrna_cease_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_supporting_cyprus
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_cyprus
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_supporting_cyprus
+	}
+}
+
+grefm_cyprus_provoke_button = {
+	name = "grefm_symrna_provoke_button"
+	desc = "grefm_symrna_provoke_button_desc"
+	
+	visible = {
+		NOT = {
+			has_state_in_state_region = s:STATE_CYPRUS
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CYPRUS
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_technology_researched = pan-nationalism
+		has_modifier = modifier_grefm_supporting_cyprus
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_CYPRUS = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_cyprus_provoke_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_CYPRUS
+					}
+					trigger_event = {
+						id = grefm.216 # The Cypriot Revolt (TUR/EGY)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+}
+	
+grefm_crete_support_button = {
+	name = "grefm_crete_support_button"
+	desc = "grefm_crete_support_button_desc"
+	
+	visible = {
+		NOR = {
+			has_modifier = modifier_grefm_supporting_crete
+			has_state_in_state_region = s:STATE_CRETE
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CRETE
+			grefm_is_muslim_trigger = yes
+		}	
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_grefm_supporting_crete }
+	}
+	
+	effect = {
+		custom_tooltip = grefm_crete_support_tt
+		add_modifier = modifier_grefm_supporting_crete
+	}
+}
+
+grefm_crete_cease_button = {
+	name = "grefm_crete_cease_button"
+	desc = "grefm_crete_cease_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_supporting_crete
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_crete
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_supporting_crete
+	}
+}
+
+grefm_crete_provoke_button = {
+	name = "grefm_crete_provoke_button"
+	desc = "grefm_crete_provoke_button_desc"
+	
+	visible = {
+		NOR = {
+			has_state_in_state_region = s:STATE_CRETE
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CRETE
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_crete
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		custom_tooltip = {
+			text = grefm_crete_provoke_tt1
+			hidden_trigger = {
+				global_var:grefm_crete_revolt_var >= 150
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_crete_provoke_tt2
+			hidden_effect = {
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_CRETE
+					}
+					trigger_event = {
+						id = grefm.259 # Crete Revolts Again
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
 	}
 }
 

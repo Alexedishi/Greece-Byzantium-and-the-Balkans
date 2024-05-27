@@ -1,4 +1,5 @@
-﻿clean_up_bavarocracy_modifiers = {
+﻿## Bavarocracy Effects ##
+clean_up_bavarocracy_modifiers = {
 	every_interest_group = {
 		if = {
 			limit = {
@@ -13,6 +14,42 @@
 				has_modifier = modifier_grefm_constitution_enforced
 			}
 			remove_modifier = modifier_grefm_constitution_enforced
+		}
+	}
+}
+
+## Character Effects ##
+grefm_create_feminism_characters = {
+	create_character = {
+		first_name = Kalliroi
+		last_name = Parren
+		culture = cu:greek
+		religion = rel:orthodox
+		female = yes
+		historical = yes
+		age = 24
+		ideology = ideology_feminist
+		interest_group = ig_intelligentsia
+		save_scope_as = kalliroi_scope
+		on_created = {
+			set_variable = grefm_is_kalliroi
+			place_character_in_void = 600
+		}
+	}
+	create_character = {
+		first_name = Avra
+		last_name = Theodoropoulou
+		culture = cu:greek
+		religion = rel:orthodox
+		female = yes
+		historical = yes
+		age = 14
+		ideology = ideology_feminist
+		interest_group = ig_intelligentsia
+		save_scope_as = theodoropoulou_scope
+		on_created = {
+			set_variable = grefm_is_theodoropoulou
+			place_character_in_void = 600
 		}
 	}
 }
@@ -80,62 +117,7 @@ create_epirus_characters = {
 	}
 }
 
-purge_turkish_homelands = {
-	every_scope_state = {
-		limit = {
-			AND = {
-				NOT = { has_variable = grefm_turkish_reserve }
-				state_region = {
-					is_homeland = cu:turkish
-				}
-			}
-		}
-		add_radicals_in_state = {
-			culture = cu:turkish
-			value = small_radicals
-		}
-		state_region = {
-			remove_homeland = cu:turkish
-		}
-	}
-}
-
-#######
-grefm_create_feminism_characters = {
-	create_character = {
-		first_name = Kalliroi
-		last_name = Parren
-		culture = cu:greek
-		religion = rel:orthodox
-		female = yes
-		historical = yes
-		age = 24
-		ideology = ideology_feminist
-		interest_group = ig_intelligentsia
-		save_scope_as = kalliroi_scope
-		on_created = {
-			set_variable = grefm_is_kalliroi
-			place_character_in_void = 600
-		}
-	}
-	create_character = {
-		first_name = Avra
-		last_name = Theodoropoulou
-		culture = cu:greek
-		religion = rel:orthodox
-		female = yes
-		historical = yes
-		age = 14
-		ideology = ideology_feminist
-		interest_group = ig_intelligentsia
-		save_scope_as = theodoropoulou_scope
-		on_created = {
-			set_variable = grefm_is_theodoropoulou
-			place_character_in_void = 600
-		}
-	}
-}
-
+## EXCAVATION EFFECTS ##
 grefm_excavation_complete = {
 	set_variable = {
 		name = grefm_excavation_var
@@ -232,9 +214,181 @@ grefm_artifact_modifier_effect = {
 	}
 }
 
-########
+## SEPARATISM EFFECTS ##
+grefm_intialize_separatism_variables_effect = {
+	set_global_variable = {
+		name = grefm_epirus_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_macedonia_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_skopia_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_smyrna_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_cyprus_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_accelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_nationalism_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_progress_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_revolt_var
+		value = 0
+	}
+}
 
-grefm_calculate_crete_variables_effect = {
+grefm_check_separatism_modifiers_effect = {
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_epirus
+			has_state_in_state_region = STATE_ALBANIA
+		}
+		remove_modifier = modifier_grefm_supporting_epirus
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_macedonia
+			OR = {
+				owns_entire_state_region = STATE_MACEDONIA
+				NOT = {
+					any_state = {
+						state_region = s:STATE_MACEDONIA
+						owner = {
+							OR = {
+								country_has_state_religion = rel:sunni
+								country_has_state_religion = rel:shiite
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_macedonia
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_skopia
+			OR = {
+				owns_entire_state_region = STATE_SKOPIA
+				NOT = {
+					any_state = {
+						state_region = s:STATE_SKOPIA
+						owner = {
+							OR = {
+								country_has_state_religion = rel:sunni
+								country_has_state_religion = rel:shiite
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_skopia
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_smyrna
+			OR = {
+				owns_entire_state_region = STATE_AYDIN
+				NOT = {
+					any_state = {
+						state_region = s:STATE_AYDIN
+						owner = {
+							OR = {
+								country_has_state_religion = rel:sunni
+								country_has_state_religion = rel:shiite
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_smyrna
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_cyprus
+			OR = {
+				owns_entire_state_region = STATE_CYPRUS
+				NOT = {
+					any_state = {
+						state_region = s:STATE_CYPRUS
+						owner = {
+							OR = {
+								country_has_state_religion = rel:sunni
+								country_has_state_religion = rel:shiite
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_cyprus
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_crete
+			OR = {
+				owns_entire_state_region = STATE_CRETE
+				NOT = {
+					any_state = {
+						state_region = s:STATE_CRETE
+						owner = {
+							OR = {
+								country_has_state_religion = rel:sunni
+								country_has_state_religion = rel:shiite
+							}
+						}
+					}
+				}
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_crete
+	}
+}
+
+grefm_calculate_separatism_variables_effect = {
+	set_global_variable = {
+		name = grefm_epirus_radicals_var
+		value = grefm_epirus_radicals_value
+	}
+	set_global_variable = {
+		name = grefm_macedonia_radicals_var
+		value = grefm_macedonia_radicals_value
+	}
+	set_global_variable = {
+		name = grefm_skopia_radicals_var
+		value = grefm_skopia_radicals_value
+	}
+	set_global_variable = {
+		name = grefm_smyrna_radicals_var
+		value = grefm_smyrna_radicals_value
+	}
+	set_global_variable = {
+		name = grefm_cyprus_radicals_var
+		value = grefm_cyprus_radicals_value
+	}
 	set_global_variable = {
 		name = grefm_crete_radicals_var
 		value = grefm_crete_radicals_value
@@ -253,7 +407,133 @@ grefm_calculate_crete_variables_effect = {
 	}
 }
 
-grefm_push_crete_variables_effect = {
+grefm_monthly_greek_separatism_effect = {
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_epirus
+		}
+		s:STATE_ALBANIA = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_macedonia
+		}
+		s:STATE_MACEDONIA = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_skopia
+		}
+		s:STATE_SKOPIA = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_smyrna
+		}
+		s:STATE_AYDIN = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_cyprus
+		}
+		s:STATE_CYPRUS = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_supporting_crete
+		}
+		s:STATE_CRETE = {
+			every_scope_state = {
+				limit = {
+					owner = {
+						OR = {
+							country_has_state_religion = rel:sunni
+							country_has_state_religion = rel:shiite
+						}
+					}
+				}
+				add_radicals_in_state = {
+					culture = cu:greek
+					value = 0.01
+				}
+			}
+		}
+	}
 	change_global_variable = {
 		name = grefm_crete_revolt_var
 		add = global_var:grefm_crete_progress_var
@@ -262,5 +542,49 @@ grefm_push_crete_variables_effect = {
 		name = grefm_crete_revolt_var
 		max = 200
 		min = 0
+	}
+}
+
+grefm_clean_up_separatism_effect = {
+	remove_global_variable = grefm_epirus_radicals_var
+	remove_global_variable = grefm_macedonia_radicals_var
+	remove_global_variable = grefm_skopia_radicals_var
+	remove_global_variable = grefm_smyrna_radicals_var
+	remove_global_variable = grefm_cyprus_radicals_var
+	remove_global_variable = grefm_crete_radicals_var
+	remove_global_variable = grefm_crete_accelerate_var
+	remove_global_variable = grefm_crete_nationalism_var
+	remove_global_variable = grefm_crete_progress_var
+	remove_global_variable = grefm_crete_revolt_var
+	remove_modifier = modifier_grefm_supporting_epirus
+	remove_modifier = modifier_grefm_supporting_macedonia
+	remove_modifier = modifier_grefm_supporting_skopia
+	remove_modifier = modifier_grefm_supporting_smyrna
+	remove_modifier = modifier_grefm_supporting_cyprus
+	remove_modifier = modifier_grefm_supporting_crete
+}
+
+grefm_revolt_provokation_effect = {
+
+}
+
+## MISCELLANEOUS EFFECTS ##
+grefm_purge_turkish_homelands_effect = {
+	every_scope_state = {
+		limit = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					is_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:turkish
+			value = small_radicals
+		}
+		state_region = {
+			remove_homeland = cu:turkish
+		}
 	}
 }
