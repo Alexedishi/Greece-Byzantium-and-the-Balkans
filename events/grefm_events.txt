@@ -35,7 +35,7 @@ namespace = grefm
 #	006 - The October Revolution
 #	007 - Mandate Secured
 #	008 - The Overthrow of the Bavarocracy
-#	009 - An Elected Monarch --end of 1.0 content
+#	009 - ##A Disgraced Tyrant
 
 #010-019 - Government Reform Events
 #	010 - Constitutional Promises
@@ -56,11 +56,11 @@ namespace = grefm
 #	023 - The Monarchy Abolished
 
 #030-039 - Constitutional Monarchy Events
-# 	030 - The King of the Hellenes
-#	031 - "Who is to Blame?"
-#	032 - A Harmonious State
-#	033 - "Unfortunately, We are Bankrupt" event
-#	034 - OPEN
+#	030 - >>An Elected Monarch --end of 1.0 content
+# 	031 - The King of the Hellenes
+#	032 - "Who is to Blame?"
+#	033 - A Harmonious State
+#	034 - "Unfortunately, We are Bankrupt" event
 #	035 - OPEN
 #	036 - OPEN
 #	037 - ## The Bulgarian Détente (students visit Athens)
@@ -172,14 +172,14 @@ namespace = grefm
 #//BLOCK 21 REWORK - DO NOT MOVE UNTIL EVENTS HAVE BEEN REBUILT
 #	210 - ##Greek Separatism
 #	211 - ##Greek Provocations in State (GRE)
-#	212 - ##Greek Uprising in State (GRE)
+#	212 - Greek Uprising in State (GRE)
 #	213 - OPEN
-#	214 - OPEN
-#   215 - >>The Epirote Revolt (TUR/EGY)
-#	216 - >>The Cypriot Revolt (TUR/EGY)
-#	217 - >>The Macedonian Revolt (TUR/EGY)
-#	218 - ##The Smyrna Revolt (TUR/EGY)
-#	219 - ##Reassigns the Separatism JE [TECH]
+#	214 - The Makedonijan Revolt (TUR/EGY)
+#   215 - The Epirote Revolt (TUR/EGY)
+#	216 - The Cypriot Revolt (TUR/EGY)
+#	217 - The Macedonian Revolt (TUR/EGY)
+#	218 - The Smyrna Revolt (TUR/EGY)
+#	219 - Reassigns the Separatism JE [TECH]
 
 #220-229 - Annexation Events
 #	220 - ION Annexation
@@ -208,7 +208,7 @@ namespace = grefm
 #	251 - Wali of Crete Oversteps Authority
 #	252 - Greek Agitation in Crete
 #	253 - ##Language Bans in Crete <--1890
-#	259 - >>Crete Revolts Again
+#	259 - >>Crete Revolts Again (TUR/EGY)
 
 #260-269 - Homeland Events
 #	260 - The Fate of the Turks
@@ -310,6 +310,7 @@ grefm.001 = { # Bavarocracy notification
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
+		grefm_initialize_bavarocracy_variables_effect = yes
 	}
 	
 	option = { 
@@ -344,6 +345,13 @@ grefm.001 = { # Bavarocracy notification
 			}
 		}
 		set_variable = grefm_bavarocracy
+	}
+	
+	after = {
+		set_variable = {
+			name = grefm_bavarocracy_var
+			value = 8000
+		}
 	}
 
 }
@@ -635,7 +643,7 @@ grefm.005 = { # error 404 monarch not found
 	option = {
 		name = grefm.005.a
 		default_option = yes
-		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_effect = yes
 		change_relations = {
 			country = c:FRA
 			value = -30
@@ -765,9 +773,9 @@ grefm.006 = { # revolution of 1862
 		add_loyalists = {
 			value = 0.1
 		}
-		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_effect = yes
 		trigger_event = {
-			id = grefm.009
+			id = grefm.030
 			days = 30
 		}
 	}
@@ -807,7 +815,7 @@ grefm.007 = { # mandate secured
 	option = {
 		name = grefm.007.a
 		default_option = yes
-		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_effect = yes
 		scope:king_otto_scope = {
 			remove_trait = arrogant
 			remove_trait = romantic
@@ -815,14 +823,14 @@ grefm.007 = { # mandate secured
 			add_trait = demagogue
 		}
 		trigger_event = {
-			id = grefm.030 # the king of the hellenes
+			id = grefm.031 # the king of the hellenes
 			days = 30
 		}
 	}
 	
 }
 
-grefm.008 = { # revolution of 1862, but more spicy
+grefm.008 = { # The Overthrow of the Bavarocracy
 	type = country_event
 	placement = root
 	
@@ -919,16 +927,16 @@ grefm.008 = { # revolution of 1862, but more spicy
 			}
 			exile_character = yes
 		}
-		clean_up_bavarocracy_modifiers = yes
+		clean_up_bavarocracy_effect = yes
 		trigger_event = {
-			id = grefm.009
+			id = grefm.030
 			days = 30
 		}
 	}
 	
 }
 
-grefm.009 = { # 1862 head of state referendum
+grefm.009 = { # A Disgraced Tyrant
 	type = country_event
 	placement = root
 	
@@ -937,10 +945,10 @@ grefm.009 = { # 1862 head of state referendum
 	flavor = grefm.009.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "europenorthamerica_political_extremism"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -948,293 +956,28 @@ grefm.009 = { # 1862 head of state referendum
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by JE
-	}
+	trigger = {
+		# triggered by je_grefm_the_tyranny_of_house_wittelsbach
+	}	
 	
 	immediate = {
-		random_scope_character = {
-			limit = {
-				has_template = garibaldi_character_template
+		ig:ig_armed_forces = {
+			leader = {
+				save_scope_as = armed_forces_leader_scope
 			}
-			save_scope_as = grefm_garibaldi_scope
 		}
-		if = {
-			limit = {
-				NOT = { has_variable = grefm_bavarocracy_completed }
-			}
-			set_variable = grefm_bavarocracy_completed
-		}
-		heir = {
-			save_scope_as = grefm_heir_scope
-		}
-		remove_variable = grefm_bavarocracy
 	}
 	
-	option = { # William of Denmark - the historical option
-		name = grefm.009.1
+	option = {
+		name = grefm.009.a
 		default_option = yes
-		trigger = { # always available
-		}
-		custom_tooltip = {
-			text = grefm.009.1.tt
-			hidden_effect = {
-				create_character = {
-					first_name = George
-					last_name = Glucksburg
-					noble = yes
-					historical = yes
-					age = 17
-					dna = mr_gre_george_i
-					culture = cu:danish
-					religion = rel:catholic
-					interest_group = ig_landowners
-					ideology = ideology_royalist
-					traits = {
-						direct
-						charismatic
-						basic_diplomat
-					}
-					on_created = {
-						set_character_as_ruler = yes
-#						set_variable = grefm_is_glucksburg
-					}
-				}
-			}
-		}
-		trigger_event = {
-			id = grefm.030 # the king of the hellenes
-			days = 30
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
 	}
 	
-	option = { # Philippe de Flandre - the Belgian option
-		name = grefm.009.2
-		trigger = {
-			has_diplomatic_pact = {
-				who = c:BEL
-				type = alliance
-			}
-			NOT = {
-				has_global_variable = grefm_the_belgian_option
-			}
-		}
-		custom_tooltip = {
-			text = grefm.009.2.tt
-			hidden_effect = {
-				create_character = {
-					first_name = Philippe
-					last_name = de_Flandre
-					noble = yes
-					historical = yes
-					age = 25
-					culture = cu:flemish
-					religion = rel:catholic
-					interest_group = ig_landowners
-					ideology = ideology_royalist
-					traits = {
-						basic_political_operator
-						arrogant
-					}
-					on_created = {
-						set_character_as_ruler = yes
-					}
-				}
-			}
-		}
-		trigger_event = {
-			id = grefm.030 # the king of the hellenes
-			days = 30
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
-		set_global_variable = grefm_the_belgian_option # blocks this option on the balkfm side
-	}
-	
-	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
-		name = grefm.009.3
-		trigger = {
-			has_technology_researched = mutual_funds
-		}
-		custom_tooltip = {
-			text = grefm.009.3.tt
-			hidden_effect = {
-				create_character = {
-					first_name = Jean_Gabriel
-					last_name = Eynard
-					historical = yes
-					age = 87
-					culture = cu:alemannic
-					religion = rel:catholic
-					interest_group = ig_petty_bourgeoisie
-					ideology = ideology_moderate
-					traits = {
-						basic_political_operator
-						arrogant
-					}
-					on_created = {
-						set_character_as_ruler = yes
-					}
-				}
-			}
-		}
-		trigger_event = {
-			id = grefm.030 # the king of the hellenes
-			days = 30
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
-#		set_variable = grefm_dr_moneybags_in_the_house
-	}
-	
-	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
-		name = grefm.009.4
-		trigger = {
-			has_law = law_type:law_hereditary_bureaucrats
-		}
-		custom_tooltip = {
-			text = grefm.009.4.tt
-			hidden_effect = {
-				create_character = {
-					last_name = Ypsilantis
-					noble = yes
-					age = 30
-					culture = cu:greek
-					religion = rel:orthodox
-					interest_group = ig_landowners
-					ideology = ideology_moderate
-					traits = {
-						basic_political_operator
-						arrogant
-					}
-					on_created = {
-#						set_variable = grefm_phanariot
-						set_character_as_ruler = yes
-					}
-				}
-			}
-		}
-		trigger_event = {
-			id = grefm.030 # the king of the hellenes
-			days = 30
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
-	}
-	
-	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
-		name = grefm.009.5
-		trigger = {
-			exists = scope:grefm_garibaldi_scope
-		}
-		scope:grefm_garibaldi_scope = {
-			set_character_as_ruler = yes
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
-	}
-
-	option = { # Make it a republic - unsurprisingly some voters just wrote this option in
-		name = grefm.009.6
-		trigger = {
-			has_technology_researched = egalitarianism
-		}
-		activate_law = law_type:law_presidential_republic
-		trigger_event = {
-			id = grefm.005 # convenient for cleanup, flavor, and damaging relations
-			popup = yes
-		}
-	}
-	
-	option = { # Dredge up a Palaiologos descendant
-		name = grefm.009.7
-		trigger = {
-			has_variable = byzfm_byzantium_formed
-		}
-		custom_tooltip = {
-			text = grefm.009.7.tt
-			hidden_effect = {
-				create_character = {
-					last_name = Palaiologos
-					noble = yes
-					age = 30
-					culture = cu:greek
-					religion = rel:orthodox
-					interest_group = ig_landowners
-					ideology = ideology_moderate
-					traits = {
-						trait_byzfm_porphyrogenitus
-						ambitious
-						charismatic
-						basic_political_operator
-					}
-					on_created = {
-						set_variable = grefm_phanariot
-						set_character_as_ruler = yes
-					}
-				}
-			}
-		}
-		trigger_event = {	
-			id = byzfm.310 # The Basileus Basileōn
-			days = 10
-		}
-		hidden_effect = {
-			if = {
-				limit = {
-					exists = scope:grefm_heir_scope
-				}
-				scope:grefm_heir_scope = {
-					kill_character = yes
-				}
-			}
-		}
-		set_variable = byzfm_took_the_purple
+	option = {
+		name = grefm.009.b
 	}
 	
 	after = {
-		set_variable = grefm_1862_election_held
 	}
 
 }
@@ -1606,7 +1349,6 @@ grefm.018 = { # Bavarian Auxiliaries Dismissed
 	option = {
 		name = grefm.018.a
 		default_option = yes
-		remove_modifier = modifier_grefm_bavarian_auxiliaries
 		add_modifier = {
 			name = modifier_grefm_dismissed_bavarians
 			months = normal_modifier_time
@@ -1860,26 +1602,337 @@ grefm.023 = { # The Monarchy Abolished
 
 #### CONSTITUTIONAL MONARCHY EVENTS ####
 
-grefm.030 = { # the king of the hellenes
+grefm.030 = { # 1862 head of state referendum
 	type = country_event
 	placement = root
 	
 	title = grefm.030.t
+	desc = grefm.030.d
+	flavor = grefm.030.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {	# triggered by JE
+	}
+	
+	immediate = {
+		random_scope_character = {
+			limit = {
+				has_template = garibaldi_character_template
+			}
+			save_scope_as = grefm_garibaldi_scope
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = grefm_bavarocracy_completed }
+			}
+			set_variable = grefm_bavarocracy_completed
+		}
+		heir = {
+			save_scope_as = grefm_heir_scope
+		}
+		remove_variable = grefm_bavarocracy
+	}
+	
+	option = { # William of Denmark - the historical option
+		name = grefm.030.1
+		default_option = yes
+		trigger = { # always available
+		}
+		custom_tooltip = {
+			text = grefm.030.1.tt
+			hidden_effect = {
+				create_character = {
+					first_name = George
+					last_name = Glucksburg
+					noble = yes
+					historical = yes
+					age = 17
+					dna = mr_gre_george_i
+					culture = cu:danish
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_royalist
+					traits = {
+						direct
+						charismatic
+						basic_diplomat
+					}
+					on_created = {
+						set_character_as_ruler = yes
+#						set_variable = grefm_is_glucksburg
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = grefm.031 # the king of the hellenes
+			days = 30
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+	}
+	
+	option = { # Philippe de Flandre - the Belgian option
+		name = grefm.030.2
+		trigger = {
+			has_diplomatic_pact = {
+				who = c:BEL
+				type = alliance
+			}
+			NOT = {
+				has_global_variable = grefm_the_belgian_option
+			}
+		}
+		custom_tooltip = {
+			text = grefm.030.2.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Philippe
+					last_name = de_Flandre
+					noble = yes
+					historical = yes
+					age = 25
+					culture = cu:flemish
+					religion = rel:catholic
+					interest_group = ig_landowners
+					ideology = ideology_royalist
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = grefm.031 # the king of the hellenes
+			days = 30
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_global_variable = grefm_the_belgian_option # blocks this option on the balkfm side
+	}
+	
+	option = { # Eynard the Philhellene - got a few votes and was a major financier in the Greek War of Independence
+		name = grefm.030.3
+		trigger = {
+			has_technology_researched = mutual_funds
+		}
+		custom_tooltip = {
+			text = grefm.030.3.tt
+			hidden_effect = {
+				create_character = {
+					first_name = Jean_Gabriel
+					last_name = Eynard
+					historical = yes
+					age = 87
+					culture = cu:alemannic
+					religion = rel:catholic
+					interest_group = ig_petty_bourgeoisie
+					ideology = ideology_moderate
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = grefm.031 # the king of the hellenes
+			days = 30
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+#		set_variable = grefm_dr_moneybags_in_the_house
+	}
+	
+	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
+		name = grefm.030.4
+		trigger = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		custom_tooltip = {
+			text = grefm.030.4.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Ypsilantis
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						basic_political_operator
+						arrogant
+					}
+					on_created = {
+#						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = grefm.031 # the king of the hellenes
+			days = 30
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+	}
+	
+	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
+		name = grefm.030.5
+		trigger = {
+			exists = scope:grefm_garibaldi_scope
+		}
+		scope:grefm_garibaldi_scope = {
+			set_character_as_ruler = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+	}
+
+	option = { # Make it a republic - unsurprisingly some voters just wrote this option in
+		name = grefm.030.6
+		trigger = {
+			has_technology_researched = egalitarianism
+		}
+		activate_law = law_type:law_presidential_republic
+		trigger_event = {
+			id = grefm.005 # convenient for cleanup, flavor, and damaging relations
+			popup = yes
+		}
+	}
+	
+	option = { # Dredge up a Palaiologos descendant
+		name = grefm.030.7
+		trigger = {
+			has_variable = byzfm_byzantium_formed
+		}
+		custom_tooltip = {
+			text = grefm.030.7.tt
+			hidden_effect = {
+				create_character = {
+					last_name = Palaiologos
+					noble = yes
+					age = 30
+					culture = cu:greek
+					religion = rel:orthodox
+					interest_group = ig_landowners
+					ideology = ideology_moderate
+					traits = {
+						trait_byzfm_porphyrogenitus
+						ambitious
+						charismatic
+						basic_political_operator
+					}
+					on_created = {
+						set_variable = grefm_phanariot
+						set_character_as_ruler = yes
+					}
+				}
+			}
+		}
+		trigger_event = {	
+			id = byzfm.310 # The Basileus Basileōn
+			days = 10
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:grefm_heir_scope
+				}
+				scope:grefm_heir_scope = {
+					kill_character = yes
+				}
+			}
+		}
+		set_variable = byzfm_took_the_purple
+	}
+	
+	after = {
+		set_variable = grefm_1862_election_held
+	}
+
+}
+
+grefm.031 = { # the king of the hellenes
+	type = country_event
+	placement = root
+	
+	title = grefm.031.t
 	desc = {
 		triggered_desc = {
-			desc = grefm.030.d1
+			desc = grefm.031.d1
 			trigger = {
 				has_variable = grefm_1862_election_held
 			}
 		}
 		triggered_desc = {
-			desc = grefm.030.d2
+			desc = grefm.031.d2
 			trigger = {
 				has_variable = grefm_bavarocracy_secured
 			}
 		}
 	}
-	flavor = grefm.030.f
+	flavor = grefm.031.f
 	
 	duration = 3
 	
@@ -1894,7 +1947,7 @@ grefm.030 = { # the king of the hellenes
 	
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	trigger = { # triggered by grefm.007 or grefm.009
+	trigger = { # triggered by grefm.007 or grefm.030
 	}
 	
 	immediate = {
@@ -1923,7 +1976,7 @@ grefm.030 = { # the king of the hellenes
 	}
 	
 	option = { # standard option if you crowned George I
-		name = grefm.030.a
+		name = grefm.031.a
 		default_option = yes
 		trigger = {
 			has_variable = grefm_1862_election_held
@@ -1936,7 +1989,7 @@ grefm.030 = { # the king of the hellenes
 	}
 	
 	option = { # alternate if you got here via je_grefm_the_tyranny_of_house_wittelsbach
-		name = grefm.030.a
+		name = grefm.031.a
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
 			NOT = { has_variable = byzfm_byzantium_formed }
@@ -1948,13 +2001,13 @@ grefm.030 = { # the king of the hellenes
 	
 }
 
-grefm.031 = { # who is to blame
+grefm.032 = { # who is to blame
 	type = country_event
 	placement = root
 	
-	title = grefm.031.t
-	desc = grefm.031.d
-	flavor = grefm.031.f
+	title = grefm.032.t
+	desc = grefm.032.d
+	flavor = grefm.032.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -1985,7 +2038,7 @@ grefm.031 = { # who is to blame
 	}
 	
 	option = {
-		name = grefm.031.a
+		name = grefm.032.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_the_dedilomeni_principle
@@ -1994,13 +2047,13 @@ grefm.031 = { # who is to blame
 
 }
 
-grefm.032 = { # a harmonious state
+grefm.033 = { # a harmonious state
 	type = country_event
 	placement = root
 	
-	title = grefm.032.t
-	desc = grefm.032.d
-	flavor = grefm.032.f
+	title = grefm.033.t
+	desc = grefm.033.d
+	flavor = grefm.033.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -2021,7 +2074,7 @@ grefm.032 = { # a harmonious state
 	}	
 	
 	option = {
-		name = grefm.032.a
+		name = grefm.033.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_harmonious_state
@@ -2035,13 +2088,13 @@ grefm.032 = { # a harmonious state
 
 }
 
-grefm.033 = { # unfortunately we are bankrupt
+grefm.034 = { # unfortunately we are bankrupt
 	type = country_event
 	placement = root
 	
-	title = grefm.033.t
-	desc = grefm.033.d
-	flavor = grefm.033.f
+	title = grefm.034.t
+	desc = grefm.034.d
+	flavor = grefm.034.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -2066,7 +2119,7 @@ grefm.033 = { # unfortunately we are bankrupt
 	}
 	
 	option = { # repudiate foreign loans
-		name = grefm.033.a
+		name = grefm.034.a
 		default_option = yes
 		remove_modifier = declared_bankruptcy
 		add_modifier = {
@@ -2079,7 +2132,7 @@ grefm.033 = { # unfortunately we are bankrupt
 	}
 	
 	option = { # reorganize our finances
-		name = grefm.033.b
+		name = grefm.034.b
 		remove_modifier = declared_bankruptcy
 		add_modifier = {
 			name = modifier_grefm_reorganized_finances
@@ -6159,17 +6212,40 @@ grefm.210 = { # Greek Separatism
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by grefm.200
+		# triggered by grefm.200 / grefm.219
 	}
 	
 	immediate = {
+		random_country = {
+			limit = {
+				has_journal_entry = je_grefm_greek_separatism_main
+			}
+			save_scope_as = grefm_greece_scope
+		}
 	}
 	
 	option = {
 		name = grefm.210.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_greek_separatism
+		if = {	
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			add_journal_entry = {
+				type = je_grefm_greek_separatism_main
+			}
+			custom_tooltip = grefm.210.tt1
+			custom_tooltip = grefm.210.tt2
+		}
+		else_if = {
+			limit = {
+				grefm_is_muslim_trigger = yes
+			}
+			add_journal_entry = {
+				type = je_grefm_greek_separatism_sub
+			}
+			custom_tooltip = grefm.210.tt2
+			custom_tooltip = grefm.210.tt3
 		}
 	}
 
@@ -6196,7 +6272,7 @@ grefm.211 = { # Greek Provocations in State (GRE)
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_grefm_greek_separatism
+		# triggered by je_grefm_greek_separatism_main
 	}
 	
 	immediate = {
@@ -6312,8 +6388,155 @@ grefm.213 = { # OPEN
 	orphan = yes
 }
 
-grefm.214 = { # OPEN
-	orphan = yes
+grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
+	type = country_event
+	placement = scope:skopia_state_scope
+	
+	title = grefm.214.t
+	desc = grefm.214.d
+	flavor = grefm.214.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		owns_entire_state_region = STATE_SKOPIA
+		any_country = { has_modifier = modifier_grefm_supporting_skopia }
+		NOT = { has_global_variable = grefm_revolt_cooldown }
+		OR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+		OR = {
+			s:STATE_SKOPIA = {
+				any_scope_state = {
+					radical_fraction = {
+						value >= 0.40
+						culture = cu:greek
+					}
+				}
+			}
+			AND = {
+				s:STATE_SKOPIA = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				is_at_war = yes
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_SKOPIA = {
+			random_scope_state = {
+				save_scope_as = skopia_state_scope
+			}
+		}
+		create_country = {
+			tag = NMAC
+			origin = this
+			state = s:STATE_SKOPIA.region_state:root
+			on_created = {
+			}
+		}
+		c:NMAC = {
+			save_scope_as = makedonija_scope
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:NMAC
+			type = dominion
+		}
+		create_truce = {
+			country = c:NMAC
+			months = 60
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
+			}
+			post_notification = notification_grefm_greek_revolt
+		}
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.214.a
+		default_option = yes		
+		end_truce = c:NMAC
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:NMAC
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:NMAC = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_SKOPIA.region_state:NMAC
+				}
+				add_war_goal = {
+					holder = c:NMAC
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:NMAC
+					value = 100
+				}
+				change_infamy = -5
+			}
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.214.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		create_diplomatic_pact = {
+			country = c:NMAC
+			type = protectorate
+		}
+	}
+	
 }
 
 grefm.215 = { # The Epirote Revolt (TUR/EGY)
@@ -6337,12 +6560,10 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 	dlc = dlc_grefm
 
 	trigger = {
+		owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
 		any_country = { has_modifier = modifier_grefm_supporting_epirus }
 		NOT = { has_global_variable = grefm_revolt_cooldown }
-		AND = {
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_THESSALIA
-		}
 		OR = {
 			country_has_state_religion = rel:sunni
 			country_has_state_religion = rel:shiite
@@ -6396,41 +6617,17 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 		s:STATE_ALBANIA = {
 			random_scope_state = {
 				save_scope_as = albania_state_scope
-				owner = {
-					save_scope_as = albania_owner_scope
-				}
 			}
 		}
-		if = {
-			limit = {
-				scope:albania_owner_scope = {
-					owns_entire_state_region = STATE_THESSALIA
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-					}
-				}
-			}
-			create_country = { # EPI with all provinces
-				tag = EPI
-				origin = this
-				province = p:xC42EC6
-				province = p:x7BE071
-				province = p:x18C9AD
-				province = p:x01D0E0
-				province = p:x8050E0
-				on_created = {
-				}
-			}
-		}
-		else = {	
-			create_country = { # EPI with Albanian provinces only
-				tag = EPI
-				origin = this
-				province = p:xC42EC6
-				province = p:x7BE071
-				on_created = {
-				}
+		create_country = {
+			tag = EPI
+			origin = this
+			province = p:xC42EC6
+			province = p:x7BE071
+			province = p:x18C9AD
+			province = p:x01D0E0
+			province = p:x8050E0
+			on_created = {
 			}
 		}
 		c:EPI = {
@@ -6438,23 +6635,66 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 			create_epirus_characters = yes
 			set_variable = grefm_revolt_tracker
 		}
-		scope:albania_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_epirus_rebellion
-				target_country = c:EPI
-				type = dp_secession
-			}
+		create_diplomatic_pact = {
+			country = c:EPI
+			type = dominion
 		}
-		random_diplomatic_play = {
+		create_truce = {
+			country = c:EPI
+			months = 60
+		}
+		every_country = {
 			limit = {
-				scope:albania_owner_scope = {
-					is_diplomatic_play_initiator = yes
-				}
-				c:EPI = {
-					is_diplomatic_play_target = yes
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
 				}
 			}
-			add_diplomatic_play_war_support = { target = c:EPI value = 100 }
+			post_notification = notification_grefm_greek_revolt
+		}
+		grefm_epirus_pop_transfer_effect = yes
+		set_variable = grefm_owner_tracker
+	}
+	
+	option = { # Get the Whip
+		name = grefm.215.a
+		default_option = yes
+		end_truce = c:EPI
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:EPI
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:EPI = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_ALBANIA.region_state:EPI
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_THESSALIA.region_state:EPI
+				}
+				add_war_goal = {
+					holder = c:EPI
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:EPI
+					value = 100
+				}
+				change_infamy = -10
+			}
 		}
 		every_country = {
 			limit = {
@@ -6466,13 +6706,16 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 		}
 	}
 	
-	option = { # Get the Whip
-		name = grefm.215.a
-		default_option = yes
-	}
-	
 	option = { # Give them Autonomy
 		name = grefm.215.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		create_diplomatic_pact = {
+			country = c:EPI
+			type = protectorate
+		}
 	}
 	
 }
@@ -6498,9 +6741,9 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 	dlc = dlc_grefm
 
 	trigger = {
+		owns_entire_state_region = STATE_CYPRUS
 		any_country = { has_modifier = modifier_grefm_supporting_cyprus }
 		NOT = { has_global_variable = grefm_revolt_cooldown }
-		owns_entire_state_region = STATE_CYPRUS
 		OR = {
 			country_has_state_religion = rel:sunni
 			country_has_state_religion = rel:shiite
@@ -6536,9 +6779,6 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		s:STATE_CYPRUS = {
 			random_scope_state = {
 				save_scope_as = cyprus_state_scope
-				owner = {
-					save_scope_as = cyprus_owner_scope
-				}
 			}
 		}
 		create_country = {
@@ -6551,25 +6791,61 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		c:CYP = {
 			save_scope_as = cyprus_scope
 			create_cyprus_characters = yes
+			set_variable = grefm_revolt_tracker
 		}
-		scope:cyprus_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_cyprus_rebellion
-				target_country = c:CYP
-				type = dp_secession
+		create_diplomatic_pact = {
+			country = c:CYP
+			type = dominion
+		}
+		create_truce = {
+			country = c:CYP
+			months = 60
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
 			}
+			post_notification = notification_grefm_greek_revolt
+		}
+		set_variable = grefm_owner_tracker		
+	}	
+		
+	option = { # Get the Whip
+		name = grefm.216.a
+		default_option = yes		
+		end_truce = c:CYP
+		create_diplomatic_play = {
+			name = grefm_cyprus_rebellion
+			target_country = c:CYP
+			type = dp_secession
 		}
 		hidden_effect = {
 			random_diplomatic_play = {
 				limit = {
-					scope:cyprus_owner_scope = {
+					ROOT = {
 						is_diplomatic_play_initiator = yes
 					}
 					c:CYP = {
 						is_diplomatic_play_target = yes
 					}
 				}
-				add_diplomatic_play_war_support = { target = c:CYP value = 100 }
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_CYPRUS.region_state:CYP
+				}
+				add_war_goal = {
+					holder = c:CYP
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:CYP
+					value = 100
+				}
+				change_infamy = -5
 			}
 		}
 		hidden_effect = {
@@ -6584,13 +6860,16 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		}
 	}
 	
-	option = { # Get the Whip
-		name = grefm.216.a
-		default_option = yes
-	}
-	
 	option = { # Give them Autonomy
 		name = grefm.216.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		create_diplomatic_pact = {
+			country = c:CYP
+			type = protectorate
+		}
 	}
 	
 }
@@ -6616,9 +6895,9 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 	dlc = dlc_grefm
 
 	trigger = {
+		owns_entire_state_region = STATE_MACEDONIA
 		any_country = { has_modifier = modifier_grefm_supporting_macedonia }
 		NOT = { has_global_variable = grefm_revolt_cooldown }
-		owns_entire_state_region = STATE_MACEDONIA
 		OR = {
 			country_has_state_religion = rel:sunni
 			country_has_state_religion = rel:shiite
@@ -6647,13 +6926,13 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 	}
 
 	immediate = {
-		set_global_variable = grefm_macedonia_revolt_happened
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
 		s:STATE_MACEDONIA = {
 			random_scope_state = {
 				save_scope_as = macedonia_state_scope
-				owner = {
-					save_scope_as = macedonia_owner_scope
-				}
 			}
 		}
 		create_country = {
@@ -6665,64 +6944,97 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 		}
 		c:MAC = {
 			save_scope_as = macedonia_scope
+			set_variable = grefm_revolt_tracker
 		}
-		scope:macedonia_owner_scope = {
-			create_diplomatic_play = {
-				name = grefm_macedonia_rebellion
-				target_country = c:MAC
-				type = dp_secession
+		create_diplomatic_pact = {
+			country = c:MAC
+			type = dominion
+		}
+		create_truce = {
+			country = c:MAC
+			months = 60
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
 			}
+			post_notification = notification_grefm_greek_revolt
+		}
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.217.a
+		default_option = yes		
+		end_truce = c:MAC
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:MAC
+			type = dp_secession
 		}
 		hidden_effect = {
 			random_diplomatic_play = {
 				limit = {
-					scope:macedonia_owner_scope = {
+					ROOT = {
 						is_diplomatic_play_initiator = yes
 					}
 					c:MAC = {
 						is_diplomatic_play_target = yes
 					}
 				}
-				add_diplomatic_play_war_support = { target = c:MAC value = 100 }
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_MACEDONIA.region_state:MAC
+				}
+				add_war_goal = {
+					holder = c:MAC
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:MAC
+					value = 100
+				}
+				change_infamy = -5
 			}
 		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					country_has_primary_culture = cu:greek
-				}
-				trigger_event = {
-					id = grefm.212 # Greek Uprising in State (GRE)
-				}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
 			}
 		}
-	}
-	
-	option = { # Get the Whip
-		name = grefm.217.a
-		default_option = yes
 	}
 	
 	option = { # Give them Autonomy
 		name = grefm.217.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		create_diplomatic_pact = {
+			country = c:MAC
+			type = protectorate
+		}
 	}
 	
 }
 
 grefm.218 = { # The Smyrna Revolt (TUR/EGY)
-	orphan = yes
-}
-
-grefm.219 = { # Reassigns the Revolt Journals
 	type = country_event
-	placement = scope:crete_state_scope
+	placement = scope:aydin_state_scope
 	
-	title = grefm.219.t
-	desc = grefm.219.d
-	flavor = grefm.219.f
+	title = grefm.218.t
+	desc = grefm.218.d
+	flavor = grefm.218.f
 	
 	event_image = {
-		video = "votp_agitator_speaking"
+		video = "europenorthamerica_springtime_of_nations"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -6732,14 +7044,152 @@ grefm.219 = { # Reassigns the Revolt Journals
 	duration = 3
 	
 	dlc = dlc_grefm
-	
+
 	trigger = {
+		owns_entire_state_region = STATE_AYDIN
+		any_country = { has_modifier = modifier_grefm_supporting_smyrna }
+		NOT = { has_global_variable = grefm_revolt_cooldown }
 		OR = {
 			country_has_state_religion = rel:sunni
 			country_has_state_religion = rel:shiite
-		}		
-		NOT = { has_law = law_type:law_multicultural }
-		NOT = { has_journal_entry = je_grefm_greek_separatism_sub }
+		}
+		OR = {
+			s:STATE_AYDIN = {
+				any_scope_state = {
+					radical_fraction = {
+						value >= 0.40
+						culture = cu:greek
+					}
+				}
+			}
+			AND = {
+				s:STATE_AYDIN = {
+					any_scope_state = {
+						radical_fraction = {
+							value >= 0.33
+							culture = cu:greek
+						}
+					}
+				}
+				is_at_war = yes
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_AYDIN = {
+			random_scope_state = {
+				save_scope_as = aydin_state_scope
+			}
+		}
+		create_country = {
+			tag = SMYR
+			origin = this
+			state = s:STATE_AYDIN.region_state:root
+			on_created = {
+			}
+		}
+		c:SMYR = {
+			save_scope_as = smyrna_scope
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:SMYR
+			type = dominion
+		}
+		create_truce = {
+			country = c:SMYR
+			months = 60
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_journal_entry = je_eqfm_main
+					has_journal_entry = je_eqfm_sub
+				}
+			}
+			post_notification = notification_grefm_greek_revolt
+		}
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.218.a
+		default_option = yes		
+		end_truce = c:SMYR
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:SMYR
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:SMYR = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_AYDIN.region_state:SMYR
+				}
+				add_war_goal = {
+					holder = c:SMYR
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:SMYR
+					value = 100
+				}
+				change_infamy = -5
+			}
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.218.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+		}
+		create_diplomatic_pact = {
+			country = c:SMYR
+			type = protectorate
+		}
+	}
+	
+}
+
+grefm.219 = { # Reassigns the Revolt Journals
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		grefm_is_muslim_trigger = yes
+		NOR = { 
+			has_journal_entry = je_grefm_greek_separatism_sub 
+			has_law = law_type:law_multicultural
+		}
+		any_country = {
+			has_journal_entry = je_grefm_greek_separatism_main
+		}
 		OR = {
 			owns_entire_state_region = STATE_MACEDONIA
 			owns_entire_state_region = STATE_SKOPIA
@@ -6751,19 +7201,26 @@ grefm.219 = { # Reassigns the Revolt Journals
 	}
 	
 	immediate = {
-	}
-
-	option = {
-		name = grefm.219.a
-		add_journal_entry = {
-			type = je_grefm_greek_separatism_sub
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_separatism_received
+				}
+			}
+			trigger_event = {
+				id = grefm.210 # Greek Separatism
+			}
+			set_variable = grefm_separatism_received
 		}
-		custom_tooltip = grefm.219.tt
+		else = {
+			add_journal_entry = {
+				type = je_grefm_greek_separatism_sub
+			}
+			post_notification = notitification_grefm_separatism_received
+		}
 	}
 
 }
-
-
 
 #### ANNEXATION EVENTS ####
 
@@ -8037,10 +8494,11 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 		}
 		c:CRE = {
 			save_scope_as = crete_scope
+			set_variable = grefm_revolt_tracker
 		}
 		create_diplomatic_pact = {
 			country = c:CRE
-			type = protectorate
+			type = dominion
 		}
 		every_country = {
 			limit = {
@@ -8051,7 +8509,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 			}
 			post_notification = notification_grefm_greek_revolt
 		}
-		set_variable = grefm_crete_owner_tracker
+		set_variable = grefm_owner_tracker
 	}
 	
 	option = { # Drop the Hammer
@@ -8072,7 +8530,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 					}
 				}
 				add_war_goal = {
-					holder = scope:crete_owner_scope
+					holder = root
 					type = return_state
 					target_state = s:STATE_CRETE.region_state:CRE
 				}
@@ -8109,10 +8567,10 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 				country_has_primary_culture = cu:greek
 			}
 			trigger_event = {
-				id = grefm.258 # Crete Revolts Again (GRE)
+				id = grefm.212 # Greek Uprising in State (GRE)
 			}
 		}
-		remove_variable = grefm_crete_owner_tracker
+		remove_variable = grefm_owner_tracker
 	}
 }
 

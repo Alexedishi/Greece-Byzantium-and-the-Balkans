@@ -1,21 +1,36 @@
 ﻿## Bavarocracy Effects ##
-clean_up_bavarocracy_modifiers = {
-	every_interest_group = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_constitution_refused
-			}
+grefm_initialize_bavarocracy_variables_effect = {
+	set_variable = {
+		name = grefm_bavarocracy_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_bavarocracy_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_tyranny_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_tyranny_progress_var
+		value = 0
+	}
+}
+
+clean_up_bavarocracy_effect = {
+	hidden_effect = {
+		every_interest_group = {
 			remove_modifier = modifier_grefm_constitution_refused
 		}
-	}
-	every_interest_group = {
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_constitution_enforced
-			}
+		every_interest_group = {
 			remove_modifier = modifier_grefm_constitution_enforced
 		}
 	}
+	remove_variable = grefm_bavarocracy_var
+	remove_variable = grefm_bavarocracy_progress_var
+	remove_variable = grefm_tyranny_var
+	remove_variable = grefm_tyranny_progress_var
 }
 
 ## Character Effects ##
@@ -424,7 +439,7 @@ grefm_monthly_greek_separatism_effect = {
 				}
 				add_radicals_in_state = {
 					culture = cu:greek
-					value = 0.01
+					value = 0.05
 				}
 			}
 		}
@@ -445,7 +460,7 @@ grefm_monthly_greek_separatism_effect = {
 				}
 				add_radicals_in_state = {
 					culture = cu:greek
-					value = 0.01
+					value = 0.05
 				}
 			}
 		}
@@ -466,7 +481,7 @@ grefm_monthly_greek_separatism_effect = {
 				}
 				add_radicals_in_state = {
 					culture = cu:greek
-					value = 0.01
+					value = 0.05
 				}
 			}
 		}
@@ -487,7 +502,7 @@ grefm_monthly_greek_separatism_effect = {
 				}
 				add_radicals_in_state = {
 					culture = cu:greek
-					value = 0.01
+					value = 0.05
 				}
 			}
 		}
@@ -508,28 +523,7 @@ grefm_monthly_greek_separatism_effect = {
 				}
 				add_radicals_in_state = {
 					culture = cu:greek
-					value = 0.01
-				}
-			}
-		}
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_grefm_supporting_crete
-		}
-		s:STATE_CRETE = {
-			every_scope_state = {
-				limit = {
-					owner = {
-						OR = {
-							country_has_state_religion = rel:sunni
-							country_has_state_religion = rel:shiite
-						}
-					}
-				}
-				add_radicals_in_state = {
-					culture = cu:greek
-					value = 0.01
+					value = 0.05
 				}
 			}
 		}

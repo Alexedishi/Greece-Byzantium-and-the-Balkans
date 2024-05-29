@@ -6,7 +6,21 @@ je_grefm_bavarocracy_main = { # main entry
 	
 	group = je_group_grefm_monarchism
 	
-	should_be_pinned_by_default = yes	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = grefm_bavarocracy_progress_var
+			value = grefm_bavarocracy_progress_var
+		}
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_bavarocracy
+	}
+	
+	scripted_button = grefm_dismiss_auxilliaries_button
+	scripted_button = grefm_release_nikitaras_button
 	
 	complete = {
 		has_law = law_type:law_monarchy
@@ -43,35 +57,87 @@ je_grefm_bavarocracy_main = { # main entry
 		set_variable = grefm_bavarocracy_secured
 	}
 		
-	fail = {
-		NOT = {
-			has_law = law_type:law_monarchy 
-		}
-	}
-	
-	on_fail = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.005 # 404 monarch not found
+	fail = { # Without any interaction, this will fire in October 1863. You got hella time... irl, Otto got to shit the bed for a while anyways
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_fail_tt
+			hidden_trigger = {
+				var:grefm_bavarocracy_var <= 0
 			}
 		}
 	}
 	
+	on_fail = {
+		if = {
+			limit = {
+				has_variable = grefm_tyranny_var
+			}
+			trigger_event = {
+				id = grefm.008 # The Overthrow of the Bavarocracy
+			}
+		}
+		trigger_event = {
+			id = grefm.006 # The October Revolution
+			popup = yes
+		}
+	}
+	
 	invalid = {
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_completed_tt
-			hidden_trigger = {
-				has_variable = grefm_bavarocracy_completed
+		OR = {
+			NOT = {
+				has_law = law_type:law_monarchy 
+			}
+			custom_tooltip = {
+				text = je_grefm_bavarocracy_completed_tt
+				hidden_trigger = {
+					has_variable = grefm_bavarocracy_completed
+				}
 			}
 		}
 	}
 	
 	on_invalid = {
+		if = {
+			limit = {
+				NOT = {
+					has_law = law_type:law_monarchy
+				}
+			}
+			trigger_event = {
+				id = grefm.005 # 404 monarch not found
+			}
+		}
 		hidden_effect = {
-			clean_up_bavarocracy_modifiers = yes
+			clean_up_bavarocracy_effect = yes
 		}
 	}
 	
+	on_weekly_pulse = {
+		effect = {
+			set_variable = {
+				name = grefm_bavarocracy_progress_var
+				value = grefm_bavarocracy_progress_value
+			}
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = grefm_bavarocracy_var
+				add = grefm_bavarocracy_progress_var
+			}
+		}
+	}
+
+	current_value = {
+		value = var:grefm_bavarocracy_var
+	}
+
+	goal_add_value = {
+		value = 8000
+	}
+
+	progressbar = yes
 
 	status_desc = {
 		first_valid = {
@@ -79,19 +145,6 @@ je_grefm_bavarocracy_main = { # main entry
 				desc = je_grefm_bavarocracy_main_status
 			}
 		}
-	}
-
-	timeout = 10151 # should cause a revolution in October 1863, still, you got hella time... irl, Otto got to shit the bed for a while anyways
-	
-	on_timeout = { 
-		trigger_event = {
-			id = grefm.006 # revolution of 1862
-			popup = yes
-		}
-	}
-
-	modifiers_while_active = {
-		modifier_grefm_bavarocracy
 	}
 
 	weight = 5000 # this gets top billing, its the heart of grefm after all
@@ -358,7 +411,7 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 	
 	on_timeout = { 
 		trigger_event = {
-			id = grefm.008 # revolution of 1862, but more spicy
+			id = grefm.009 # A Disgraced Tyrant
 		}
 	}
 	
@@ -1393,7 +1446,7 @@ je_grefm_greek_separatism_main = {
 		}
 	}
 	
-	weight = 2000 # will fall in behind je_grefm_greek_nationalism
+	weight = 1000 # will fall in behind je_grefm_greater_greece
 	
 }
 
@@ -1409,7 +1462,6 @@ je_grefm_greek_separatism_sub = {
 	
 	complete = {
 		has_law = law_type:law_multicultural
-		
 	}
 	
 	fail = {
@@ -1423,6 +1475,17 @@ je_grefm_greek_separatism_sub = {
 		}
 	}
 	
+	on_monthly_pulse = {
+		events = {
+			grefm.214 # The Makedonijan Revolt (TUR/EGY)
+			grefm.215 # The Epirote Revolt (TUR/EGY)
+			grefm.216 # The Cypriot Revolt (TUR/EGY)
+			grefm.217 # The Macedonian Revolt (TUR/EGY)
+			grefm.218 # The Smyrna Revolt (TUR/EGY)
+			grefm.259 # Crete Revolts Again (TUR/EGY)
+		}
+	}
+	
 	status_desc = {
 		triggered_desc = {
 			desc = je_grefm_greek_separatism_crete_tt
@@ -1432,7 +1495,7 @@ je_grefm_greek_separatism_sub = {
 		}
 	}
 	
-	weight = 2000 # will fall in behind je_grefm_greek_nationalism
+	weight = 100
 	
 }
 
@@ -2201,62 +2264,4 @@ je_grefm_intro = {
 	
 	weight = 1
 	
-}
-
-je_grefm_venizelism = { # this is here to avoid breaking saves; this will disappear in the future
-	icon = "gfx/interface/icons/event_icons/event_venizelos.dds"
-	
-	group = je_group_grefm_venizelos
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-		custom_tooltip = {
-			text = je_grefm_venizelism_tt1x
-			hidden_trigger = {
-				has_variable = grefm_megali_idea_3
-			}
-		}
-		custom_tooltip = {
-			text = je_grefm_venizelism_tt2x
-			hidden_trigger = {
-				has_variable = grefm_greek_nationalism_completed
-			}
-		}
-		has_law = law_type:law_universal_suffrage
-		has_law = law_type:law_state_religion
-		NOT = { has_law = law_type:law_hereditary_bureaucrats }
-		OR = {
-			has_law = law_type:law_commercialized_agriculture
-			has_law = law_type:law_homesteading
-		}
-		OR = {
-			has_law = law_type:law_dedicated_police
-			has_law = law_type:law_militarized_police
-		}
-		has_law = law_type:law_public_schools
-		has_law = law_type:law_compulsory_primary_school
-	}
-	
-	on_complete = {
-		custom_tooltip = grefm_future_update_tt
-	}
-	
-	fail = {
-		OR = {
-			has_law = law_type:law_council_republic
-			has_law = law_type:law_presidential_republic
-			has_law = law_type:law_anarchy
-		}
-	}
-	
-	on_fail = {
-	}
-	
-	modifiers_while_active = {
-		modifier_grefm_venizelist_tilt
-	}
-	
-	weight = 2000
-
 }

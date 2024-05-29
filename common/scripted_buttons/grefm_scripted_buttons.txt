@@ -1,4 +1,56 @@
-﻿# REVOLT BUTTONS #
+﻿# BAVAROCRACY BUTTONS #
+grefm_dismiss_auxilliaries_button = {
+	name = "grefm_dismiss_auxilliaries_button"
+	desc = "grefm_dismiss_auxilliaries_button_desc"
+	
+	visible = {
+		has_modifier = modifier_grefm_bavarian_auxiliaries	
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_bavarian_auxiliaries
+	}
+	
+	effect = {
+		remove_modifier = modifier_grefm_bavarian_auxiliaries
+		remove_modifier = modifier_grefm_funding_bavarian_auxiliaries
+		trigger_event = {
+			id = grefm.018 # Bavarian Auxiliaries Dismissed
+			popup = yes
+		}
+	}
+	
+	ai_chance = {
+		base = 10
+	}
+}
+
+grefm_release_nikitaras_button = {
+	name = "grefm_release_nikitaras_button"
+	desc = "grefm_release_nikitaras_button_desc"
+	
+	visible = {
+		NOT = { has_variable = grefm_turkeater_released }
+		year <= 1849
+	}
+	
+	possible = {
+		year <= 1849
+	}
+	
+	effect = {
+		trigger_event = {
+			id = grefm.019 # nikitas released from jail
+		}
+		set_variable = grefm_turkeater_released
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
+
+# REVOLT BUTTONS #
 grefm_epirus_support_button = {
 	name = "grefm_epirus_support_button"
 	desc = "grefm_epirus_support_button_desc"

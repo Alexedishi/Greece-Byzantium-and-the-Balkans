@@ -1,5 +1,54 @@
-﻿## Greek Artifact Values ##
+﻿## Bavarocracy Values ##
+grefm_bavarocracy_progress_value = {
+	value = 0
+	subtract = 1
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_constitution_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_land_reform_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_brigandage_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_civic_tradition_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_bavarian_auxiliaries
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_nikitas_released
+		}
+		add = 1
+	}
+}
 
+## Greek Artifact Values ##
 grefm_artifact_value = {
 	value = 0
 	if = {

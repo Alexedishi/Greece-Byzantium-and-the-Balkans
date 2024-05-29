@@ -62,41 +62,6 @@
 	}
 }
 
-grefm_dismiss_bavarians_decision = {
-	is_shown = {
-		NOT = { has_variable = grefm_dismissed_daddys_boys }
-		has_modifier = modifier_grefm_bavarian_auxiliaries
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_bavarian_auxiliaries
-	}
-	
-	when_taken = {
-		show_as_tooltip = {
-			remove_modifier = modifier_grefm_bavarian_auxiliaries
-			remove_modifier = modifier_grefm_funding_bavarian_auxiliaries
-			add_modifier = {
-				name = modifier_grefm_dismissed_bavarians
-				months = normal_modifier_time
-				is_decaying = yes
-			}
-		}
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.018 # Bavarian Auxiliaries Dismissed
-				popup = yes
-			}
-		}
-		set_variable = grefm_dismissed_daddys_boys
-	}
-	
-	ai_chance = {
-		base = 1000 # AI Greece just dies with so many expenses
-	}
-	
-}
-
 grefm_lake_kopais_decision = {
 	is_shown = {
 		has_variable = grefm_lake_kopais_option
@@ -303,39 +268,6 @@ grefm_annex_crete_decision = {
 
 	ai_chance = {
 		base = 10
-	}
-	
-}
-
-####
-
-grefm_release_turkophagos_decision = {
-	is_shown = {
-		NOT = { has_variable = grefm_turkeater_released }
-		has_journal_entry = je_grefm_bavarocracy_main
-		year <= 1849
-	}
-
-	possible = {
-		year <= 1849
-	}
-
-	when_taken = {
-		trigger_event = {
-			id = grefm.019 # nikitas released from jail
-		}
-		show_as_tooltip = {
-			add_modifier = {
-				name = modifier_grefm_nikitas_released
-				months = normal_modifier_time
-				is_decaying = yes
-			}
-		}
-		set_variable = grefm_turkeater_released
-	}
-
-	ai_chance = {
-		base = 0
 	}
 	
 }
