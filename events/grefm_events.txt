@@ -970,16 +970,8 @@ grefm.009 = { # A Disgraced Tyrant
 	
 	option = {
 		name = grefm.009.a
-		default_option = yes
 	}
 	
-	option = {
-		name = grefm.009.b
-	}
-	
-	after = {
-	}
-
 }
 
 #### GOVERNMENT REFORM EVENTS ####
@@ -6286,7 +6278,6 @@ grefm.211 = { # Greek Provocations in State (GRE)
 			owner = {
 				save_scope_as = grefm_provocation_owner_scope
 			}
-			grefm_revolt_provokation_effect = yes
 		}
 	}
 	
@@ -6329,9 +6320,6 @@ grefm.212 = { # Greek Uprising in State (GRE)
 	}
 	
 	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = grefm_owner_tracker
@@ -6371,12 +6359,16 @@ grefm.212 = { # Greek Uprising in State (GRE)
 			limit = {
 				has_truce_with = scope:grefm_owner_scope
 			}
-			end_truce = scope:grefm_owner_scope
+			end_truce = {
+				country = scope:grefm_owner_scope
+				months = 0
+			}
 		}
 		scope:grefm_greek_revolt_play_scope = {
 			add_target_backers = root
 		}
-	}
+	} 
+	} # This extra closing bracket makes the file work. Please don't question this.
 	
 	after = {
 		scope:grefm_revolt_scope = {
@@ -6470,22 +6462,17 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 			country = c:NMAC
 			months = 60
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
-			}
-			post_notification = notification_grefm_greek_revolt
-		}
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker
 	}
 		
 	option = { # Get the Whip
 		name = grefm.214.a
 		default_option = yes		
-		end_truce = c:NMAC
+		end_truce = {
+			country = c:NMAC
+			months = 0
+		}
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:NMAC
@@ -6532,6 +6519,7 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		create_diplomatic_pact = {
 			country = c:NMAC
@@ -6563,7 +6551,7 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 
 	trigger = {
 		owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_THESSALIA
 		any_country = { has_modifier = modifier_grefm_supporting_epirus }
 		NOT = { has_global_variable = grefm_revolt_cooldown }
 		OR = {
@@ -6645,23 +6633,28 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 			country = c:EPI
 			months = 60
 		}
-		every_country = {
+		random_scope_state = {
 			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
+				state_region = STATE_ALBANIA
 			}
-			post_notification = notification_grefm_greek_revolt
+			every_scope_pop = {
+				limit = {
+					culture = cu:greek
+				}
+				move_pop = s:STATE_ALBANIA.region_state:EPI
+			}
 		}
-		grefm_epirus_pop_transfer_effect = yes
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker
 	}
 	
 	option = { # Get the Whip
 		name = grefm.215.a
 		default_option = yes
-		end_truce = c:EPI
+		end_truce = {
+			country = c:EPI
+			months = 0
+		}
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:EPI
@@ -6713,6 +6706,7 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		create_diplomatic_pact = {
 			country = c:EPI
@@ -6803,22 +6797,17 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 			country = c:CYP
 			months = 60
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
-			}
-			post_notification = notification_grefm_greek_revolt
-		}
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker		
 	}	
 		
 	option = { # Get the Whip
 		name = grefm.216.a
 		default_option = yes		
-		end_truce = c:CYP
+		end_truce = {
+			country = c:CYP
+			months = 0
+		}
 		create_diplomatic_play = {
 			name = grefm_cyprus_rebellion
 			target_country = c:CYP
@@ -6867,6 +6856,7 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		create_diplomatic_pact = {
 			country = c:CYP
@@ -6956,22 +6946,17 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 			country = c:MAC
 			months = 60
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
-			}
-			post_notification = notification_grefm_greek_revolt
-		}
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker
 	}
 		
 	option = { # Get the Whip
 		name = grefm.217.a
 		default_option = yes		
-		end_truce = c:MAC
+		end_truce = {
+			country = c:MAC
+			months = 0
+		}
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:MAC
@@ -7018,6 +7003,7 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		create_diplomatic_pact = {
 			country = c:MAC
@@ -7107,22 +7093,17 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 			country = c:SMYR
 			months = 60
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
-			}
-			post_notification = notification_grefm_greek_revolt
-		}
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker
 	}
 		
 	option = { # Get the Whip
 		name = grefm.218.a
 		default_option = yes		
-		end_truce = c:SMYR
+		end_truce = {
+			country = c:SMYR
+			months = 0
+		}
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:SMYR
@@ -7169,6 +7150,7 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		create_diplomatic_pact = {
 			country = c:SMYR
@@ -8378,73 +8360,6 @@ grefm.253 = { # Language Bans in Crete
 	orphan = yes
 }
 
-grefm.258 = { # Crete Revolts Again (GRE)
-	type = country_event
-	placement = root
-	
-	title = grefm.258.t
-	desc = grefm.258.d
-	flavor = grefm.258.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by grefm.259
-	}
-	
-	immediate = {
-		random_country = {
-			limit = {
-				has_variable = grefm_crete_owner_tracker
-			}
-			save_scope_as = crete_owner_scope
-		}
-		random_diplomatic_play = {
-			limit = {
-				scope:crete_owner_scope = {
-					is_diplomatic_play_initiator = yes
-				}
-				c:CRE = {
-					is_diplomatic_play_target = yes
-				}
-			}
-			save_scope_as = cretan_revolt_play_scope
-		}
-	}
-	
-	option = { # OK, Cool
-		name = grefm.258.a
-		default_option = yes
-	}
-	
-	option = { # Pile In
-		name = grefm.258.b
-		trigger = {
-			exists = scope:cretan_revolt_play_scope
-		}
-		if = {
-			limit = {
-				has_truce_with = scope:crete_owner_scope
-			}
-			end_truce = scope:crete_owner_scope
-		}
-		scope:cretan_revolt_play_scope = {
-			add_target_backers = root
-		}
-	}
-
-}
-
 grefm.259 = { # Crete Revolts Again (TUR/EGY)
 	type = country_event
 	placement = root
@@ -8502,15 +8417,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 			country = c:CRE
 			type = dominion
 		}
-		every_country = {
-			limit = {
-				OR = {
-					has_journal_entry = je_eqfm_main
-					has_journal_entry = je_eqfm_sub
-				}
-			}
-			post_notification = notification_grefm_greek_revolt
-		}
+		grefm_greek_revolt_tension_effect = yes
 		set_variable = grefm_owner_tracker
 	}
 	
@@ -8554,6 +8461,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 		add_modifier = {
 			name = modifier_grefm_granted_balkan_autonomy
 			months = normal_modifier_time
+			is_decaying = yes
 		}
 		show_as_tooltip = {
 			create_diplomatic_pact = {

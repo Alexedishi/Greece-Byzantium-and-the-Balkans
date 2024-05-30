@@ -558,8 +558,20 @@ grefm_clean_up_separatism_effect = {
 	remove_modifier = modifier_grefm_supporting_crete
 }
 
-grefm_revolt_provokation_effect = {
-
+grefm_greek_revolt_tension_effect = {
+	every_country = {
+		limit = {
+			OR = {
+				has_journal_entry = je_eqfm_main
+				has_journal_entry = je_eqfm_sub
+			}
+		}
+		post_notification = notification_grefm_greek_revolt
+	}
+	change_global_variable = {
+		name = eqfm_tension_var
+		add = 25
+	}
 }
 
 ## MISCELLANEOUS EFFECTS ##

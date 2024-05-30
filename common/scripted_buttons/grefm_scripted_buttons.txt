@@ -58,8 +58,8 @@ grefm_epirus_support_button = {
 	visible = {
 		NOR = {
 			has_modifier = modifier_grefm_supporting_epirus
-			has_state_in_state_region = s:STATE_ALBANIA
-			has_state_in_state_region = s:STATE_THESSALIA
+			has_state_in_state_region = STATE_ALBANIA
+			has_state_in_state_region = STATE_THESSALIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_ALBANIA
@@ -101,8 +101,8 @@ grefm_epirus_provoke_button = {
 	
 	visible = {
 		NOR = {
-			has_state_in_state_region = s:STATE_ALBANIA
-			has_state_in_state_region = s:STATE_THESSALIA
+			has_state_in_state_region = STATE_ALBANIA
+			has_state_in_state_region = STATE_THESSALIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_ALBANIA
@@ -136,6 +136,15 @@ grefm_epirus_provoke_button = {
 		custom_tooltip = {
 			text = grefm_epirus_provoke_tt
 			hidden_effect = {
+				s:STATE_ALBANIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_ALBANIA
@@ -163,7 +172,7 @@ grefm_macedonia_support_button = {
 		owns_entire_state_region = STATE_THESSALIA
 		NOR = { 
 			has_modifier = modifier_grefm_supporting_macedonia
-			has_state_in_state_region = s:STATE_MACEDONIA
+			has_state_in_state_region = STATE_MACEDONIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_MACEDONIA
@@ -205,7 +214,7 @@ grefm_macedonia_provoke_button = {
 	visible = {
 		owns_entire_state_region = STATE_THESSALIA
 		NOT = {
-			has_state_in_state_region = s:STATE_MACEDONIA
+			has_state_in_state_region = STATE_MACEDONIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_MACEDONIA
@@ -230,6 +239,15 @@ grefm_macedonia_provoke_button = {
 		custom_tooltip = {
 			text = grefm_macedonia_provoke_tt
 			hidden_effect = {
+				s:STATE_MACEDONIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_MACEDONIA
@@ -256,7 +274,7 @@ grefm_skopia_support_button = {
 		owns_entire_state_region = STATE_MACEDONIA
 		NOR = { 
 			has_modifier = modifier_grefm_supporting_skopia
-			has_state_in_state_region = s:STATE_SKOPIA
+			has_state_in_state_region = STATE_SKOPIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_SKOPIA
@@ -298,7 +316,7 @@ grefm_skopia_provoke_button = {
 	visible = {
 		owns_entire_state_region = STATE_MACEDONIA
 		NOT = {
-			has_state_in_state_region = s:STATE_SKOPIA
+			has_state_in_state_region = STATE_SKOPIA
 		}
 		any_country = {
 			owns_entire_state_region = STATE_SKOPIA
@@ -323,6 +341,15 @@ grefm_skopia_provoke_button = {
 		custom_tooltip = {
 			text = grefm_skopia_provoke_tt
 			hidden_effect = {
+				s:STATE_SKOPIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_SKOPIA
@@ -342,8 +369,8 @@ grefm_skopia_provoke_button = {
 }
 	
 grefm_smyrna_support_button = {
-	name = "grefm_symrna_support_button"
-	desc = "grefm_symrna_support_button_desc"
+	name = "grefm_smyrna_support_button"
+	desc = "grefm_smyrna_support_button_desc"
 	
 	visible = {
 		owns_entire_state_region = STATE_ATTICA
@@ -354,7 +381,7 @@ grefm_smyrna_support_button = {
 		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
 		NOR = { 
 			has_modifier = modifier_grefm_supporting_smyrna
-			has_state_in_state_region = s:STATE_AYDIN
+			has_state_in_state_region = STATE_AYDIN
 		}
 		any_country = {
 			owns_entire_state_region = STATE_AYDIN
@@ -373,8 +400,8 @@ grefm_smyrna_support_button = {
 }
 
 grefm_smyrna_cease_button = {
-	name = "grefm_symrna_cease_button"
-	desc = "grefm_symrna_cease_button_desc"
+	name = "grefm_smyrna_cease_button"
+	desc = "grefm_smyrna_cease_button_desc"
 	
 	visible = {
 		has_modifier = modifier_grefm_supporting_smyrna
@@ -390,8 +417,8 @@ grefm_smyrna_cease_button = {
 }
 
 grefm_smyrna_provoke_button = {
-	name = "grefm_symrna_provoke_button"
-	desc = "grefm_symrna_provoke_button_desc"
+	name = "grefm_smyrna_provoke_button"
+	desc = "grefm_smyrna_provoke_button_desc"
 	
 	visible = {
 		owns_entire_state_region = STATE_ATTICA
@@ -401,7 +428,7 @@ grefm_smyrna_provoke_button = {
 		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
 		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
 		NOT = {
-			has_state_in_state_region = s:STATE_AYDIN
+			has_state_in_state_region = STATE_AYDIN
 		}
 		any_country = {
 			owns_entire_state_region = STATE_AYDIN
@@ -426,6 +453,15 @@ grefm_smyrna_provoke_button = {
 		custom_tooltip = {
 			text = grefm_smyrna_provoke_tt
 			hidden_effect = {
+				s:STATE_AYDIN = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_AYDIN
@@ -445,13 +481,13 @@ grefm_smyrna_provoke_button = {
 }
 	
 grefm_cyprus_support_button = {
-	name = "grefm_symrna_support_button"
-	desc = "grefm_symrna_support_button_desc"
+	name = "grefm_cyprus_support_button"
+	desc = "grefm_cyprus_support_button_desc"
 	
 	visible = {
 		NOR = {
 			has_modifier = modifier_grefm_supporting_cyprus
-			has_state_in_state_region = s:STATE_CYPRUS
+			has_state_in_state_region = STATE_CYPRUS
 		}
 		any_country = {
 			owns_entire_state_region = STATE_CYPRUS
@@ -471,8 +507,8 @@ grefm_cyprus_support_button = {
 }
 
 grefm_cyprus_cease_button = {
-	name = "grefm_symrna_cease_button"
-	desc = "grefm_symrna_cease_button_desc"
+	name = "grefm_cyprus_cease_button"
+	desc = "grefm_cyprus_cease_button_desc"
 	
 	visible = {
 		has_modifier = modifier_grefm_supporting_cyprus
@@ -488,12 +524,12 @@ grefm_cyprus_cease_button = {
 }
 
 grefm_cyprus_provoke_button = {
-	name = "grefm_symrna_provoke_button"
-	desc = "grefm_symrna_provoke_button_desc"
+	name = "grefm_cyprus_provoke_button"
+	desc = "grefm_cyprus_provoke_button_desc"
 	
 	visible = {
 		NOT = {
-			has_state_in_state_region = s:STATE_CYPRUS
+			has_state_in_state_region = STATE_CYPRUS
 		}
 		any_country = {
 			owns_entire_state_region = STATE_CYPRUS
@@ -519,6 +555,15 @@ grefm_cyprus_provoke_button = {
 		custom_tooltip = {
 			text = grefm_cyprus_provoke_tt
 			hidden_effect = {
+				s:STATE_CYPRUS = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_CYPRUS
@@ -527,6 +572,7 @@ grefm_cyprus_provoke_button = {
 						id = grefm.216 # The Cypriot Revolt (TUR/EGY)
 					}
 				}
+				
 			}
 		}
 		add_modifier = {
@@ -544,7 +590,7 @@ grefm_crete_support_button = {
 	visible = {
 		NOR = {
 			has_modifier = modifier_grefm_supporting_crete
-			has_state_in_state_region = s:STATE_CRETE
+			has_state_in_state_region = STATE_CRETE
 		}
 		any_country = {
 			owns_entire_state_region = STATE_CRETE
@@ -585,7 +631,7 @@ grefm_crete_provoke_button = {
 	
 	visible = {
 		NOR = {
-			has_state_in_state_region = s:STATE_CRETE
+			has_state_in_state_region = STATE_CRETE
 		}
 		any_country = {
 			owns_entire_state_region = STATE_CRETE
@@ -608,6 +654,15 @@ grefm_crete_provoke_button = {
 		custom_tooltip = {
 			text = grefm_crete_provoke_tt2
 			hidden_effect = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.211 # Greek Provocations in State (GRE)
+					popup = yes
+				}
 				random_country = {
 					limit = {
 						owns_entire_state_region = STATE_CRETE
