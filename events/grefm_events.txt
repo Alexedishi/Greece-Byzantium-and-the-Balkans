@@ -35,7 +35,7 @@ namespace = grefm
 #	006 - The October Revolution
 #	007 - Mandate Secured
 #	008 - The Overthrow of the Bavarocracy
-#	009 - ##A Disgraced Tyrant
+#	009 - A Disgraced Tyrant
 
 #010-019 - Government Reform Events
 #	010 - Constitutional Promises
@@ -53,19 +53,18 @@ namespace = grefm
 #	020 - The Brigands Raid Again
 #	021 - A Perennial Problem
 #	022 - Absolutism in Greece
-#	023 - The Monarchy Abolished
 
 #030-039 - Constitutional Monarchy Events
-#	030 - >>An Elected Monarch --end of 1.0 content
+#	030 - An Elected Monarch --end of 1.0 content
 # 	031 - The King of the Hellenes
 #	032 - "Who is to Blame?"
 #	033 - A Harmonious State
 #	034 - "Unfortunately, We are Bankrupt" event
 #	035 - OPEN
 #	036 - OPEN
-#	037 - ## The Bulgarian Détente (students visit Athens)
-#	038 - ## A King of Valour (Assassination Attempt)
-#	039 - ## Silver Jubilee
+#	037 - ##The Bulgarian Détente (students visit Athens)
+#	038 - ##A King of Valour (Assassination Attempt)
+#	039 - ##Silver Jubilee
 
 #040-049 - Rise of Venizelos Events
 #	040 - Nationalist Fervor
@@ -89,7 +88,7 @@ namespace = grefm
 #	059 - The Greek State Resurgent
 
 #060-069 - The National Schism
-#	060 - ## The Great Division
+#	060 - ##The Great Division
 
 
 ##	#GRE1	HISTORY/CULTURAL EVENTS		Events 100-199	##
@@ -116,13 +115,13 @@ namespace = grefm
 #	124 - National Council of Greek Women
 
 #130-139 - Monument Events
-#	130 - The Corinth Canal
-#	131 - The Corinth Canal Completed
-#	132 - The Royal Palace
+#	130 - Corinth Canal Surveyed
+#	131 - Corinth Canal Completed
+#	132 - The Royal Palace of Athens
 
 #140-149 - Archeaology Events
 #	140 - Archaeological Society of Athens
-#	141 - Excavation Team Departs
+#	141 - OPEN
 #	142 - Gla Complete
 #	143 - Parthenon I Complete
 #	144 - Parthenon II Complete
@@ -141,6 +140,8 @@ namespace = grefm
 #	155 - Popular Interest in Excavation
 #	156 - Palace Uncovered
 #	157 - The Mask of Agammemnon
+#	158 - ##Politician Offers Funding
+#	159 - ##Reconstruction Garners Criticism
 
 #160-169 - Minor International Events
 #	160 - A Bulgarian Visitor
@@ -152,12 +153,11 @@ namespace = grefm
 ##	#GRE2	GREEK NATIONALISM	Events 200-299	##
 	
 #200-209 - The Megali Idea
-#	200 - The Greek State
-#	201 - =/=The Megali Idea
+#	200 - The Lands of Thessaly
+#	201 - The Megali Idea
 #	202 - The Future of Greece
-#	203 - The Lands of Thessaly
-#	204 - Greater Greece
-#	205 - A Greek Dominion
+#	203 - Greater Greece
+#	204 - A Greek Dominion
 
 #210-219 - Greek Separatism Events
 #	210 - Greek Nationalism in Epirus
@@ -170,8 +170,8 @@ namespace = grefm
 #	217 - Crete Revolts Again (GRE)
 
 #//BLOCK 21 REWORK - DO NOT MOVE UNTIL EVENTS HAVE BEEN REBUILT
-#	210 - ##Greek Separatism
-#	211 - ##Greek Provocations in State (GRE)
+#	210 - Greek Separatism
+#	211 - Greek Provocations in State (GRE)
 #	212 - Greek Uprising in State (GRE)
 #	213 - OPEN
 #	214 - The Makedonijan Revolt (TUR/EGY)
@@ -1512,7 +1512,7 @@ grefm.021 = { # a perennial problem
 
 }
 
-grefm.022 = { # dedilomeni absolutism outcome 
+grefm.022 = { # Absolutism in Greece
 	type = country_event
 	placement = root
 	
@@ -1532,7 +1532,8 @@ grefm.022 = { # dedilomeni absolutism outcome
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by je_grefm_bavarian_greece
 	}
 	
 	immediate = {
@@ -1550,43 +1551,6 @@ grefm.022 = { # dedilomeni absolutism outcome
 		add_loyalists = {
 			strata = rich
 			value = medium_radicals
-		}
-	}
-
-}
-
-grefm.023 = { # The Monarchy Abolished
-	type = country_event
-	placement = root
-	
-	title = grefm.023.t
-	desc = grefm.023.d
-	flavor = grefm.023.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = grefm.023.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_embraced_republicanism
-			months = normal_modifier_time
 		}
 	}
 
@@ -1987,7 +1951,7 @@ grefm.031 = { # the king of the hellenes
 			NOT = { has_variable = byzfm_byzantium_formed }
 		}
 		add_journal_entry = {
-			type = je_grefm_the_dedilomeni_principle_otto_alternate
+			type = je_grefm_bavarian_greece
 		}
 	}
 	
@@ -4180,7 +4144,7 @@ grefm.124 = { # national council of greek women
 #### MONUMENT EVENTS ####
 # events in this group will allow certain monuments to be constructed
 
-grefm.130 = { # canal survey finished
+grefm.130 = { # Corinth Canal Surveyed
 	type = country_event
 	placement = scope:corinth_canal_site
 	
@@ -4201,7 +4165,7 @@ grefm.130 = { # canal survey finished
 	dlc = dlc_grefm
 
 	trigger = {
-		# triggered by je_byzfm_mega_palation_survey
+		# triggered by je_grefm_corinth_canal_survey
 	}
 	
 	immediate = {
@@ -4215,22 +4179,18 @@ grefm.130 = { # canal survey finished
 				save_scope_as = ig_intelligentsia_scope
 			}
 		}
+		set_variable = grefm_corinth_survey_complete
 	}
 	
 	option = {
 		name = grefm.130.a
 		default_option = yes
-		remove_modifier = modifier_grefm_corinth_canal_survey	
-		scope:corinth_canal_site = {
-			add_modifier = {
-				name = modifier_grefm_corinth_canal_site
-			}
-		}
+		custom_tooltip = grefm.130.tt
 	}
 	
 }
 
-grefm.131 = { # canal completed
+grefm.131 = { # Corinth Canal Completed
 	type = country_event
 	placement = scope:corinth_canal_site
 	
@@ -4251,13 +4211,7 @@ grefm.131 = { # canal completed
 	dlc = dlc_grefm
 
 	trigger = {
-		any_scope_building = {
-			is_building_type = building_corinth_canal
-			occupancy >= 0.9
-		}
-		NOT = {
-			has_variable = grefm_canal_completed
-		}
+		# triggered by je_grefm_corinth_canal
 	}
 
 	immediate = {
@@ -4272,14 +4226,16 @@ grefm.131 = { # canal completed
 		name = grefm.131.a
 		default_option = yes
 		scope:corinth_canal_site = {
-			remove_modifier = modifier_grefm_corinth_canal_site
+			create_building = {
+				building = "building_corinth_canal"
+			}
 		}
-		set_variable = grefm_canal_completed
+		remove_variable = balkfm_construction_var
 	}
 
 }
 
-grefm.132 = { # option to build the royal palace
+grefm.132 = { # The Royal Palace of Athens
 	type = country_event
 	placement = scope:palaia_anaktora_site
 	
@@ -4300,12 +4256,7 @@ grefm.132 = { # option to build the royal palace
 	dlc = dlc_grefm
 
 	trigger = {
-		owns_entire_state_region = STATE_ATTICA
-		has_law = law_type:law_monarchy
-		has_variable = byzfm_weaksauce
-		has_variable = grefm_1843_revolution_happened
-		NOT = { has_variable = byzfm_byzantium_formed }
-		NOT = { has_variable = grefm_royal_residence_considered }
+		# triggered by je_grefm_palaia_anaktora
 	}
 
 	immediate = {
@@ -4314,43 +4265,26 @@ grefm.132 = { # option to build the royal palace
 				save_scope_as = palaia_anaktora_site
 			}
 		}
-		set_variable = grefm_royal_residence_considered
 	}
 	
-	option = { # hell yeah
+	option = { # 
 		name = grefm.132.a
-		scope:palaia_anaktora_site = {
-			custom_tooltip = {
-				text = grefm_palaia_site_tt
-				hidden_effect = {
-					set_variable = grefm_palaia_site
-				}
-			}
-			add_radicals_in_state = {
-  				value = small_radicals
-  			}
-		}
-		change_relations = {
-			country = c:BAV
-			value = 25
-		}
-	}
-
-	option = { # hell no
 		default_option = yes
-		name = grefm.132.b
-		every_interest_group = {
-			limit = {
-				law_stance = {
-					law = law_type:law_monarchy
-					value > neutral
-				}
-			}
-			add_modifier = {
-				name = modifier_ig_disapprove_of_no_palace
-				months = normal_modifier_time
+		scope:palaia_anaktora_site = {
+			create_building = {
+				building = "building_palaia_anaktora"
 			}
 		}
+		if = {
+			limit = {
+				exists = c:BAV
+			}
+			change_relations = {
+				country = c:BAV
+				value = 25
+			}
+		}
+		remove_variable = balkfm_construction_var
 	}
 
 }
@@ -4381,22 +4315,15 @@ grefm.140 = { # Archaeological Society of Athens
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = { has_variable = grefm_archeaology_var }
-			}
-			set_variable = {
-				name = grefm_archeaology_var
-				value = 0
-			}
-			limit = {
-				NOT = { has_variable = grefm_excavation_var }
-			}
-			set_variable = {
-				name = grefm_excavation_var
-				value = 0
-			}
+		set_variable = {
+			name = grefm_archeaology_var
+			value = 0
 		}
+		set_variable = {
+			name = grefm_excavation_var
+			value = 0
+		}
+
 	}
 	
 	option = {
@@ -4444,7 +4371,8 @@ grefm.141 = { # Excavation Team Departs
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by scripted_buttons
 	}
 	
 	immediate = {
@@ -4462,18 +4390,17 @@ grefm.141 = { # Excavation Team Departs
 		add_journal_entry = {
 			type = je_grefm_active_excavation
 		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
 	}
 	
 	option = {
 		name = grefm.141.b
-		remove_modifier = modifier_grefm_active_excavation
-		add_modifier = {
-			name = modifier_grefm_canceled_survey
-			months = short_modifier_time
-		}
 		scope:grefm_excavation_site = {
 			remove_variable = grefm_excavation_target
 		}
+		grefm_clear_artifact_variables = yes
 	}
 
 }
@@ -4853,41 +4780,17 @@ grefm.149 = { # rhodes complete
 grefm.150 = { # Excavation Positive Progress
 	type = country_event
 	placement = root
-	
-	title = grefm.150.t
-	desc = grefm.150.d
-	flavor = grefm.150.f
-	
-	event_image = {
-		video = "southamerica_aristocrats"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
+	hidden = yes
 	
 	trigger = {
 		has_variable = grefm_excavation_var
 	}
 	
 	immediate = {
-	}
-	
-	option = {
-		name = grefm.150.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm.150.tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_excavation_var
-					add = 4
-				}
-			}
+		post_notification = notification_grefm_progress
+		change_variable = {
+			name = grefm_excavation_var
+			add = 4
 		}
 	}
 
@@ -4914,10 +4817,15 @@ grefm.151 = { # Excavation Heavy Equipment Needed
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 6
 		NOT = {
 			has_modifier = modifier_grefm_provided_heavy_equipment
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -4937,7 +4845,7 @@ grefm.151 = { # Excavation Heavy Equipment Needed
 			hidden_effect = {
 				change_variable = {
 					name = grefm_excavation_var
-					add = 2
+					add = 6
 				}
 			}
 		}
@@ -4979,10 +4887,15 @@ grefm.152 = { # Excavation Tomb Uncovered
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 6
 		NOT = {
 			has_modifier = modifier_grefm_discovered_ancient_palace
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -5024,42 +4937,17 @@ grefm.152 = { # Excavation Tomb Uncovered
 grefm.153 = { # Excavation Minor Collapse
 	type = country_event
 	placement = root
-	
-	title = grefm.153.t
-	desc = grefm.153.d
-	flavor = grefm.153.f
-	
-	event_image = {
-		video = "unspecific_sick_in_hospital"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
+	hidden = yes
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 4
 	}
 	
 	immediate = {
-	}
-	
-	option = { # ouch
-		name = grefm.153.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm.153.a.tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_excavation_var
-					subtract = 4
-				}
-			}
+		post_notification = notification_grefm_minor_collapse
+		change_variable = {
+			name = grefm_excavation_var
+			subtract = 4
 		}
 	}
 
@@ -5068,44 +4956,19 @@ grefm.153 = { # Excavation Minor Collapse
 grefm.154 = { # Excavation Major Collapse
 	type = country_event
 	placement = root
-	
-	title = grefm.154.t
-	desc = grefm.154.d
-	flavor = grefm.154.f
-	
-	event_image = {
-		video = "unspecific_sick_in_hospital"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
+	hidden = yes
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 12
 		NOT = { has_variable = grefm_collapse_lessons_learned }
 	}
 	
 	immediate = {
 		set_variable = grefm_collapse_lessons_learned
-	}
-	
-	option = { # bigger ouch
-		name = grefm.154.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm.154.a.tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_excavation_var
-					subtract = 12
-				}
-			}
+		post_notification = notification_grefm_major_collapse
+		change_variable = {
+			name = grefm_excavation_var
+			subtract = 12
 		}
 	}
 
@@ -5114,25 +4977,9 @@ grefm.154 = { # Excavation Major Collapse
 grefm.155 = { # Excavation Popular Interest
 	type = country_event
 	placement = root
-	
-	title = grefm.155.t
-	desc = grefm.155.d
-	flavor = grefm.155.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
+	hidden = yes
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 4
 		NOT = {
 			has_modifier = modifier_grefm_popular_excavation_project
@@ -5146,11 +4993,7 @@ grefm.155 = { # Excavation Popular Interest
 			}
 			save_scope_as = grefm_excavation_site
 		}
-	}
-	
-	option = {
-		name = grefm.155.a
-		default_option = yes
+		post_notification = notification_grefm_popular_interest
 		scope:grefm_excavation_site = {
 			add_modifier = {
 				name = modifier_grefm_popular_excavation_project
@@ -5182,7 +5025,6 @@ grefm.156 = { # Excavation Palace Uncovered
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = grefm_excavation_var
 		var:grefm_excavation_var > 12
 		NOT = {
 			has_modifier = modifier_grefm_discovered_ancient_palace
@@ -5190,11 +5032,7 @@ grefm.156 = { # Excavation Palace Uncovered
 	}
 	
 	immediate = {
-	}
-	
-	option = { # take your time
-		name = grefm.156.a
-		default_option = yes
+		post_notification = notification_grefm_palace_discovered
 		add_modifier = {
 			name = modifier_grefm_discovered_ancient_palace
 			months = normal_modifier_time
@@ -5252,6 +5090,139 @@ grefm.157 = { # The Mask of Agammemnon
 				value = medium_radicals
 			}
 		}	
+	}
+
+}
+
+grefm.158 = { # Politician Offers Funding
+	type = country_event
+	placement = root
+	
+	title = grefm.158.t
+	desc = grefm.158.d
+	flavor = grefm.158.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:grefm_benefactor_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			any_interest_group = {
+				has_modifier = modifier_grefm_funding_excavation
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
+		}
+	}
+	
+	immediate = {
+		random_interest_group = {
+			limit = {
+				law_stance = {
+					law = law_type:law_no_schools # should favor some type of education
+					value > neutral
+				}
+				is_marginal = no # because where will the money come from
+			}
+			save_scope_as = grefm_benefactor_scope
+		}
+	}
+	
+	option = {
+		name = grefm.158.a
+		default_option = yes
+		scope:grefm_benefactor_scope = {
+			add_modifier = {
+				name = modifier_grefm_supported_excavation
+				months = normal_modifier_time
+			}
+		}
+		custom_tooltip = {
+			text = grefm.158.tt
+			hidden_effect = {
+				change_variable = {
+					name = grefm_excavation_var
+					add = 6
+				}
+			}
+		}
+			
+	}
+	
+	option = {
+		name = grefm.158.b
+		scope:grefm_benefactor_scope = {
+			add_modifier = {
+				name = modifier_grefm_support_rejected
+				months = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			pop_type = academics
+			value = small_radicals
+		}
+	}
+
+}
+
+grefm.159 = { # Reconstruction Garners Criticism
+	type = country_event
+	placement = root
+	
+	title = grefm.159.t
+	desc = grefm.159.d
+	flavor = grefm.159.f
+	
+	event_image = {
+		video = "europenorthamerica_art_gallery"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:grefm_excavation_var > 12
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
+		}
+	}
+	
+	cooldown = {
+		years = 10
+	}	
+	
+	immediate = {
+	}
+	
+	option = { # Meh, it's good enough
+		name = grefm.159.a
+		default_option = yes
+	}
+	
+	option = { # Rebuilt it right, or don't rebuild it at all
+		name = grefm.159.b
 	}
 
 }
@@ -5562,124 +5533,62 @@ grefm.161 = { # The Don Pacifico Affair
 
 #### THE MEGALI IDEA ####
 
-grefm.200 = { # megali idea 1
+grefm.200 = { # The Lands of Thessaly
 	type = country_event
 	placement = root
-
+	
 	title = grefm.200.t
 	desc = grefm.200.d
 	flavor = grefm.200.f
-
+	
 	event_image = {
-		video = "unspecific_signed_contract"
+		video = "europenorthamerica_capitalists_meeting"
 	}
-
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
+	
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
 	duration = 3
 	
 	dlc = dlc_grefm
-
-	trigger = { # triggered by je_megali_idea
+	
+	trigger = {
+		NOT = { has_global_variable = grefm_thessaly_reminded }
+		c:GRE ?= this
+		NOT = { has_truce_with = c:TUR }
+		NOT = { owns_entire_state_region = STATE_THESSALIA }
 	}
-
+	
 	immediate = {
-		random_primary_culture = {
-			save_scope_as = greek_culture_scope
+		set_global_variable = grefm_thessaly_reminded
+		s:STATE_THESSALIA = {
+			random_scope_state = {
+				save_scope_as = grefm_thessaly_scope
+			}
 		}
-		set_variable = grefm_megali_idea_1
-	}
-
+	}	
+	
 	option = {
 		name = grefm.200.a
 		default_option = yes
 		if = {
 			limit = {
 				NOR = {
-					has_claim = s:STATE_NORTHERN_THRACE
-					owns_entire_state_region = STATE_NORTHERN_THRACE
+					has_claim = s:STATE_THESSALIA
+					owns_entire_state_region = STATE_THESSALIA
 				}
 			}
-			s:STATE_NORTHERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = {
-					has_claim = s:STATE_MACEDONIA
-					owns_entire_state_region = STATE_MACEDONIA 
-				}
-			}
-			s:STATE_MACEDONIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_WESTERN_THRACE
-					has_claim = s:STATE_WESTERN_THRACE
-				}
-			}
-			s:STATE_WESTERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
-				}
-			}
-			s:STATE_EAST_AEGEAN_ISLANDS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_CRETE
-					has_claim = s:STATE_CRETE
-				}
-			}
-			s:STATE_CRETE = {
+			s:STATE_THESSALIA = {
 				add_claim = ROOT
 			}
 		}
 	}
-	
-	option = {
-		name = grefm.200.b
-		trigger = {
-			exists = c:TUR
-			c:TUR = {
-				OR = {
-					owns_entire_state_region = STATE_MACEDONIA
-					owns_entire_state_region = STATE_WESTERN_THRACE
-					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-					owns_entire_state_region = STATE_CRETE
-					owns_entire_state_region = STATE_NORTHERN_THRACE
-				}
-			}
-		}
-		change_relations = {
-			country = c:TUR
-			value = 20
-		}
-		custom_tooltip = {
-			text = grefm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}
+
 }
 
-grefm.201 = { # megali idea phase 2
+
+grefm.201 = { # The Megali Idea
 	type = country_event
 	placement = root
 
@@ -5699,66 +5608,22 @@ grefm.201 = { # megali idea phase 2
 	
 	dlc = dlc_grefm
 
-	trigger = {
-		NOT = { has_variable = byzfm_byzantium_formed }
-		NOT = { has_variable = grefm_megali_idea_2 }
-		has_variable = grefm_megali_idea_1
-		owns_entire_state_region = STATE_THESSALIA
-		owns_entire_state_region = STATE_ATTICA
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_MACEDONIA
+	trigger = { 
+		# triggered by je_megali_idea
 	}
 
 	immediate = {
-		if = {
-			limit = {
-				s:STATE_EASTERN_THRACE = {
-					any_scope_state = {
-						NOT = {
-							owner = ROOT
-						}
-					}
-				}
-			}
-			s:STATE_EASTERN_THRACE = {
-				random_scope_state = {
-					limit = {
-						NOT = {
-							owner = ROOT
-						}
-					}
-					owner = {
-						save_scope_as = thrace_owner
-					}
-				}
-			}
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = thrace_scope
-			}
-		}
-		s:STATE_AYDIN = {
-			random_scope_state = {
-				save_scope_as = aydin_scope
-			}
-		}
-		random_scope_state = {
-			limit = {
-				is_capital = yes
-			}
-			save_scope_as = grefm_capital_state
-		}
-		set_variable = grefm_megali_idea_2
 	}
 
-	option = { # vanilla option 1
+	option = { # Vanilla Claims Option, merged into one event
 		name = grefm.201.a
 		default_option = yes
 		if = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
+				NOR = { 
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_claim = s:STATE_EASTERN_THRACE
+				}
 			}
 			s:STATE_EASTERN_THRACE = {
 				add_claim = ROOT
@@ -5766,7 +5631,65 @@ grefm.201 = { # megali idea phase 2
 		}
 		if = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_AYDIN }
+				NOR = {
+					owns_entire_state_region = STATE_MACEDONIA
+					has_claim = s:STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_SKOPIA
+					has_claim = s:STATE_SKOPIA
+				}
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					has_claim = s:STATE_WESTERN_THRACE
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+					has_claim = s:STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_HUDAVENDIGAR
+					has_claim = s:STATE_HUDAVENDIGAR
+				}
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_AYDIN
+					has_claim = s:STATE_AYDIN
+				}
 			}
 			s:STATE_AYDIN = {
 				add_claim = ROOT
@@ -5774,9 +5697,23 @@ grefm.201 = { # megali idea phase 2
 		}
 		if = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
+				NOR = { 
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					has_claim = s:STATE_WEST_AEGEAN_ISLANDS
+				}
 			}
-			s:STATE_HUDAVENDIGAR = {
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_EAST_AEGEAN_ISLANDS = {
 				add_claim = ROOT
 			}
 		}
@@ -5790,110 +5727,38 @@ grefm.201 = { # megali idea phase 2
 		}
 		if = {
 			limit = {
-				NOT = { owns_entire_state_region = STATE_SKOPIA }
+				NOR = { 
+					owns_entire_state_region = STATE_CRETE
+					has_claim = s:STATE_CRETE
+				}
 			}
-			s:STATE_SKOPIA = {
+			s:STATE_CRETE = {
 				add_claim = ROOT
 			}
+		}
+		trigger_event = {
+			id = grefm.210 # Greek Separatism
+			days = 30
 		}
 	}
 	
 	option = { # vanilla option 2
 		name = grefm.201.b
-		add_modifier = {
-			name = modifier_grefm_greek_resurgence
-			months = long_modifier_time
-		}
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
 			}
-		}
-	}
-	
-	option = { # vanilla option 3
-		name = grefm.201.c
-		trigger = {
-			OR = {
-				NOT = { owns_entire_state_region = STATE_AYDIN }
-				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
-				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
-				NOT = { owns_entire_state_region = STATE_TRABZON }
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_AYDIN }
-			}
-			s:STATE_AYDIN = {
-				remove_homeland = cu:greek
-				custom_tooltip = {
-					text = move_greeks_tt
-					every_scope_state = {
-						every_scope_pop = {
-							limit = {
-								culture = cu:greek
-							}
-							move_pop = root.capital
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_EASTERN_THRACE }
-			}
-			s:STATE_EASTERN_THRACE = {
-				remove_homeland = cu:greek
-				custom_tooltip = {
-					text = move_greeks_tt
-					every_scope_state = {
-						every_scope_pop = {
-							limit = {
-								culture = cu:greek
-							}
-							move_pop = root.capital
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_HUDAVENDIGAR }
-			}
-			s:STATE_HUDAVENDIGAR = {
-				remove_homeland = cu:greek
-				custom_tooltip = {
-					text = move_greeks_tt
-					every_scope_state = {
-						every_scope_pop = {
-							limit = {
-								culture = cu:greek
-							}
-							move_pop = root.capital
-						}
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			text = grefm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-		custom_tooltip = {
-			text = grefm.201.c.tt
 		}
 	}
 	
 }
 
-grefm.202 = { # megali idea complete
-	## Pre-2.0 BYZ path branching occurred in byzfm.006, this event now provides branches into byzfm.300, eocfm.300, grefm.300, or grefm.204; BUL uses balkfm.570 via balkfm.587
+grefm.202 = { # The Future of Greece
+	## Pre-2.0 BYZ path branching occurred in byzfm.006 (byzantium.6 in the old structure)
+	## This event now provides branches into byzfm.300, eocfm.300, grefm.300, or grefm.203
+	## BUL uses balkfm.570 via balkfm.587
+	## ROM uses balkfm.673 and pivots to byzfm.305 via balkfm.679
 	type = country_event
 	placement = root
 	
@@ -5917,7 +5782,7 @@ grefm.202 = { # megali idea complete
 	}
 	
 	immediate = {
-		set_variable = grefm_megali_idea_3 # enables post-MI events (sorry, cath lab's OOS)
+		set_variable = grefm_megali_idea_var
 		set_global_variable = grefm_megali_idea_completed
 	}
 	
@@ -5979,7 +5844,7 @@ grefm.202 = { # megali idea complete
 		}
 		change_tag = BYZ
 		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_texas_left
+		set_variable = byzfm_texas_left # this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
 	}
 
 	option = { # whimpy whimpy whimpy
@@ -5995,7 +5860,7 @@ grefm.202 = { # megali idea complete
 			text = grefm_tzatzikisauce_tt
 			hidden_effect = {
 				trigger_event = {
-					id = grefm.204 # Greater Greece
+					id = grefm.203 # Greater Greece
 					days = 30
 				}
 			}
@@ -6003,66 +5868,13 @@ grefm.202 = { # megali idea complete
 	}
 }
 
-grefm.203 = { # The Lands of Thessaly
+grefm.203 = { # Greater Greece
 	type = country_event
 	placement = root
 	
 	title = grefm.203.t
 	desc = grefm.203.d
 	flavor = grefm.203.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { has_global_variable = grefm_thessaly_reminded }
-		c:GRE ?= this
-		NOT = { has_truce_with = c:TUR }	
-	}
-	
-	immediate = {
-		set_global_variable = grefm_thessaly_reminded
-		s:STATE_THESSALIA = {
-			random_scope_state = {
-				save_scope_as = grefm_thessaly_scope
-			}
-		}
-	}	
-	
-	option = {
-		name = grefm.203.a
-		default_option = yes
-		if = {
-			limit = {
-				NOR = {
-					has_claim = s:STATE_THESSALIA
-					owns_entire_state_region = STATE_THESSALIA
-				}
-			}
-			s:STATE_THESSALIA = {
-				add_claim = ROOT
-			}
-		}
-	}
-
-}
-
-grefm.204 = { # greater greece
-	type = country_event
-	placement = root
-	
-	title = grefm.204.t
-	desc = grefm.204.d
-	flavor = grefm.204.f
 	
 	event_image = {
 		video = "southamerica_aristocrats"
@@ -6077,13 +5889,14 @@ grefm.204 = { # greater greece
 	dlc = dlc_grefm
 	
 	trigger = {
+		#	triggered by grefm.202
 	}
 	
 	immediate = {
 	}
 	
 	option = {
-		name = grefm.204.a
+		name = grefm.203.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_greater_greece
@@ -6131,7 +5944,7 @@ grefm.204 = { # greater greece
 	}
 	
 	option = {
-		name = grefm.204.b
+		name = grefm.203.b
 		add_modifier = {
 			name = modifier_grefm_rebirth
 			months = very_long_modifier_time
@@ -6146,13 +5959,13 @@ grefm.204 = { # greater greece
 
 }
 
-grefm.205 = { # a greek domain
+grefm.204 = { # A Greek Domain
 	type = country_event
 	placement = root
 	
-	title = grefm.205.t
-	desc = grefm.205.d
-	flavor = grefm.205.f
+	title = grefm.204.t
+	desc = grefm.204.d
+	flavor = grefm.204.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -6173,7 +5986,7 @@ grefm.205 = { # a greek domain
 	}
 	
 	option = {
-		name = grefm.205.a
+		name = grefm.204.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_greek_resurgence
@@ -6206,7 +6019,7 @@ grefm.210 = { # Greek Separatism
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by grefm.200 / grefm.219
+		# triggered by grefm.201 / grefm.219
 	}
 	
 	immediate = {

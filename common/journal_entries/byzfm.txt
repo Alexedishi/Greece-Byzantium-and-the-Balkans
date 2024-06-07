@@ -334,22 +334,96 @@ je_byzfm_the_purple_phoenix_central_italy = {
 
 }
 
-#################
-# MISCELLANEOUS #
-#################
+#######################
+# IMPERIAL AMIBITIONS #
+#######################
 
-je_byzfm_mega_palation = {
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
+## AMBITION JOURNALS ##
+
+je_byzfm_constantinople = { # 14 Regions of Constantinople
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
-	group = je_group_byzfm_restoration
-
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_byzfm_constantinople_tt
+			has_variable = byzfm_byzantium_restored
+		}
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = STATE_EASTERN_THRACE
+		}	
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = byzfm.100 # The 14 Regions of Constantinople
+		}
+	}
+	
+	complete = {
+		AND = { # Region 1
+			any_scope_state = {
+				has_building = building_mega_palation
+			}
+			any_scope_state = {
+				has_building = building_hippodrome
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.104 # Notitia Urbis Constantinopolitanae
+		}
+	}
+	
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	status_desc = {
+	}
+
+	weight = 100
+	
+}
+
+## MONUMENT CONSTRUCTIONS ##
+
+je_byzfm_mega_palation_survey = {
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_byzfm_content
+
+	modifiers_while_active = {
+		modifier_byzfm_site_survey
 	}
 
 	complete = {
-		any_scope_state = {
-			has_building = building_mega_palation
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = byzfm.101 # Imperial Palace Ruins Identified
 		}
+		remove_variable = byzfm_imperial_palace_var
 	}
 
 	fail = {
@@ -358,24 +432,20 @@ je_byzfm_mega_palation = {
 		}
 	}
 
-	on_complete = {
-		trigger_event = { 
-			id = byzfm.102 # Great Palace of Constantinople (palace rebuilt)
+	on_fail = {
+		remove_variable = byzfm_imperial_palace_var
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = byzfm_mega_palation_surveyed
 		}
 	}
 	
-	scripted_button = byzfm_archeaology_mega_palation_button
-
-	weight = 500
+	on_invalid = {
+		remove_variable = byzfm_imperial_palace_var
+	}
 	
-}
-
-
-je_byzfm_mega_palation_survey = {
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	group = je_group_byzfm_content
-
 	on_monthly_pulse = {
 		effect = {
 			change_variable = {
@@ -383,30 +453,6 @@ je_byzfm_mega_palation_survey = {
 				add = 1
 			}
 		}
-	}
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-
-	on_complete = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_imperial_palace_var
-		set_variable = byzfm_mega_palation_complete
-		trigger_event = {
-			id = byzfm.101 # Imperial Palace Ruins Identified
-		}
-	}
-
-	invalid = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_invalid = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_imperial_palace_var
 	}
 
 	current_value = {
@@ -425,93 +471,198 @@ je_byzfm_mega_palation_survey = {
 	
 }
 
-je_byzfm_hippodrome_reopening = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+je_byzfm_mega_palation = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
 	group = je_group_byzfm_content
 
 	immediate = {
+		balkfm_calculate_construction_effect = yes
 	}
-
-	complete = {
-		any_scope_state = {
-			has_building = building_hippodrome
-		}
-	}
-
-	on_complete = {
-		trigger_event = { 
-			id = byzfm.104 # hippodrome rebuilt
-		}
-	}
-
-	weight = 1000
 	
-}
-
-je_byzfm_hippodrome_survey = {
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	group = je_group_byzfm_content
-
-	immediate = {
-		set_variable = {
-			name = byzfm_hippodrome_var
-			value = 0
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
+	scripted_button = balkfm_construction_0_button
+	scripted_button = balkfm_construction_1_button
+	scripted_button = balkfm_construction_2_button
+	scripted_button = balkfm_construction_3_button
 
 	complete = {
 		scope:journal_entry = { is_goal_complete = yes }
 	}
-
+	
 	on_complete = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_hippodrome_var
-		set_variable = byzfm_hippodrome_complete
-		trigger_event = {
-			id = byzfm.103 # hippodrome survey complete
+		set_variable = byzfm_mega_palation_complete
+		trigger_event = { 
+			id = byzfm.102 # Great Palace of Constantinople
 		}
+		balkfm_clean_up_construction_effect = yes
 	}
 
-	invalid = {
+	fail = {
 		NOT = {
 			owns_entire_state_region = STATE_EASTERN_THRACE
 		}
 	}
 
-	on_invalid = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_hippodrome_var
-		remove_variable = byzfm_hippodrome_fallback
+	on_fail = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_construction_effect = yes
+			balkfm_push_construction_effect = yes
+		}
 	}
 
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_construction_4
+				trigger = {
+					scope:journal_entry = { 
+						is_goal_complete = yes 
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_0
+				trigger = {
+					NOR = {
+						has_modifier = modifier_balkfm_construction_1
+						has_modifier = modifier_balkfm_construction_2
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_3
+				trigger = {
+					has_modifier = modifier_balkfm_construction_3
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_2
+				trigger = {
+					has_modifier = modifier_balkfm_construction_2
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_1
+				trigger = {
+					has_modifier = modifier_balkfm_construction_1
+				}
+			}
+		}
+	}
+	
 	current_value = {
-		value = root.var:byzfm_hippodrome_var
+		value = var:balkfm_construction_var
 	}
 
 	goal_add_value = {
-		value = 24
-	}
-
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = byzfm_hippodrome_var
-				add = 1
-			}
-		}
+		value = 2500 # Monument construction cost
 	}
 
 	progressbar = yes
 
-	weight = 10
+	weight = 100
+	
+}
 
-	should_be_pinned_by_default = yes
+je_byzfm_hippodrome = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_byzfm_content
+
+	immediate = {
+		balkfm_calculate_construction_effect = yes
+	}
+	
+	scripted_button = balkfm_construction_0_button
+	scripted_button = balkfm_construction_1_button
+	scripted_button = balkfm_construction_2_button
+	scripted_button = balkfm_construction_3_button
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		set_variable = byzfm_hippodrome_complete
+		trigger_event = { 
+			id = byzfm.103 # The Hippodrome of Constantinople
+		}
+		balkfm_clean_up_construction_effect = yes
+	}
+
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+
+	on_fail = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_construction_effect = yes
+			balkfm_push_construction_effect = yes
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_construction_4
+				trigger = {
+					scope:journal_entry = { 
+						is_goal_complete = yes 
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_0
+				trigger = {
+					NOR = {
+						has_modifier = modifier_balkfm_construction_1
+						has_modifier = modifier_balkfm_construction_2
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_3
+				trigger = {
+					has_modifier = modifier_balkfm_construction_3
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_2
+				trigger = {
+					has_modifier = modifier_balkfm_construction_2
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_1
+				trigger = {
+					has_modifier = modifier_balkfm_construction_1
+				}
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:balkfm_construction_var
+	}
+
+	goal_add_value = {
+		value = 2500 # Monument construction cost
+	}
+
+	progressbar = yes
+
+	weight = 100
 	
 }

@@ -30,11 +30,11 @@ namespace = byzfm
 ##	#BYZ1	HISTORY/CULTURAL EVENTS		Events 100-199	##
 
 #100-109 - Monument Events
-#	100 - The Méga Palátion
+#	100 - ##The 14 Regions of Constantinople
 #	101 - Imperial Palace Ruins Identified
-#	102 - Great Palace of Constantinople
-#	103 - The Hippodrome
-#	104 - The Hippodrome Reopened
+#	102 - The Great Palace of Constantinople
+#	103 - The Hippodrome of Constantinople
+#	104 - ##Notitia Urbis Constantinopolitanae
 
 #110-119 - Chariot Racing Events
 #	110 - A Day at the Races (Reds)
@@ -52,10 +52,6 @@ namespace = byzfm
 #	121 - Chariot Racing Re-established
 #	122 - Chariot Racing Expanded
 #	123 - Drag Racing Event
-
-#130-139 - Development Events
-#	130 - ##Notitia Urbis Constantinopolitanae
-#	131 - ##The 12 Regions of Constantinople
 
 
 ##	#BYZ2	OPEN	Events 200-299	##
@@ -106,7 +102,7 @@ namespace = byzfm
 
 #### MONUMENT EVENTS ####
 
-byzfm.100 = { # Enables Imperial Palace excavation
+byzfm.100 = { # The 14 Regions of Constantinople
 	type = country_event
 	
 	title = byzfm.100.t
@@ -126,34 +122,30 @@ byzfm.100 = { # Enables Imperial Palace excavation
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_variable = byzfm_palace_restoration }
-		has_variable = byzfm_byzantium_formed
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		is_subject = no
+		# triggered by je_byzfm_constantinople
 	}
 	
 	immediate = {
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
-				save_scope_as = mega_palation_site
+				save_scope_as = eastern_thrace_state_scope
 			}
 		}
-		set_variable = byzfm_palace_restoration
 	}
 	
 	option = {
 		name = byzfm.100.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_mega_palation
-		}
-		custom_tooltip = {
-			text = je_byzfm_mega_palation_tt
+		scope:eastern_thrace_state_scope = {
+			add_modifier = {
+				name = modifier_byzfm_imperial_industry
+				months = long_modifier_time
+			}
 		}
 	}
 }
 
-byzfm.101 = { # palace site ready
+byzfm.101 = { # Imperial Palace Ruins Identified
 	type = country_event
 	
 	title = byzfm.101.t
@@ -180,7 +172,7 @@ byzfm.101 = { # palace site ready
 	immediate = {
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
-				save_scope_as = mega_palation_site
+				save_scope_as = eastern_thrace_state_scope
 			}
 		}
 	}
@@ -188,16 +180,17 @@ byzfm.101 = { # palace site ready
 	option = {
 		name = byzfm.101.a
 		default_option = yes
-		scope:mega_palation_site = {
-			add_modifier = {
-				name = modifier_byzfm_palace_site
+		scope:eastern_thrace_state_scope = {
+			add_loyalists_in_state = {
+				culture = cu:greek
+				value = medium_radicals
 			}
-		}		
+		}
 	}
 
 }
 
-byzfm.102 = { # palace rebuilt
+byzfm.102 = { # Great Palace of Constantinople
 	type = country_event
 	
 	title = byzfm.102.t
@@ -224,16 +217,19 @@ byzfm.102 = { # palace rebuilt
 	immediate = {
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
-				save_scope_as = mega_palation_site
+				save_scope_as = eastern_thrace_state_scope
 			}
 		}
+		set_variable = byzfm_mega_palation_surveyed
 	}
 	
 	option = {
 		name = byzfm.102.a
 		default_option = yes
-		scope:mega_palation_site = {
-			remove_modifier = modifier_byzfm_palace_site
+		scope:eastern_thrace_state_scope = {
+			create_building = {
+ 				building = "building_mega_palation"
+ 			}
 		}
 		if = {
 			limit = {
@@ -246,10 +242,11 @@ byzfm.102 = { # palace rebuilt
 				}
 			}
 		}
+		remove_variable = balkfm_construction_var
 	}
 }
 
-byzfm.103 = { # hippodrome survey complete
+byzfm.103 = { # The Hippodrome of Constantinople
 	type = country_event
 	
 	title = byzfm.103.t
@@ -276,7 +273,7 @@ byzfm.103 = { # hippodrome survey complete
 	immediate = {
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
-				save_scope_as = byzantium_capital_state
+				save_scope_as = eastern_thrace_state_scope
 			}
 		}
 	}
@@ -284,26 +281,35 @@ byzfm.103 = { # hippodrome survey complete
 	option = {
 		name = byzfm.103.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_byzfm_hippodrome_reopening
+		scope:eastern_thrace_state_scope = {
+			create_building = {
+ 				building = "building_hippodrome"
+ 			}
 		}
-		scope:byzantium_capital_state = {
-			add_modifier = {
-				name = modifier_byzfm_hippodrome_site
+		if = {
+			limit = {
+				morgenrote_is_active = no
+			}
+			custom_tooltip = {
+				text = byzfm.102.tt
+				hidden_effect = {
+					grefm_artifact_modifier_effect = yes
+				}
 			}
 		}
+		remove_variable = balkfm_construction_var
 	}
 	
 }
 
-byzfm.104 = { # hippodrome rebuilt
+byzfm.104 = { # Notitia Urbis Constantinopolitanae
 	type = country_event
 	
 	title = byzfm.104.t
 	desc = byzfm.104.d
 	flavor = byzfm.104.f
 	
-	placement = scope:byzantium_capital_state
+	placement = scope:eastern_thrace_state_scope
 	
 	event_image = {
 		video = "byzfm_chariot_race"
@@ -323,7 +329,7 @@ byzfm.104 = { # hippodrome rebuilt
 	immediate = {
 		s:STATE_EASTERN_THRACE = {
 			random_scope_state = {
-				save_scope_as = byzantium_capital_state
+				save_scope_as = eastern_thrace_state_scope
 			}
 		}
 	}
@@ -331,20 +337,6 @@ byzfm.104 = { # hippodrome rebuilt
 	option = {
 		name = byzfm.104.a
 		default_option = yes
-		if = {
-			limit = {
-				morgenrote_is_active = no
-			}
-			custom_tooltip = {
-				text = byzfm.104.tt
-				hidden_effect = {
-					grefm_artifact_modifier_effect = yes
-				}
-			}
-		}
-		scope:byzantium_capital_state = {
-			remove_modifier = modifier_byzfm_hippodrome_site
-		}
 	}
 
 }

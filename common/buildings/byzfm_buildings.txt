@@ -3,6 +3,7 @@
 	texture = "gfx/interface/icons/building_icons/building_mega_palation.dds"
 	
 	expandable = no
+	buildable = no
 	downsizeable = no
 	unique = yes
 	
@@ -14,25 +15,17 @@
 
 	can_build_government = {
 		error_check = {
-			severity = fail
-			custom_tooltip = {
-				text = mega_palation_can_construct_tt
-				has_modifier = modifier_byzfm_palace_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_EASTERN_THRACE
-			}
+			severity = potential
+			always = no
 		}
 	}
+	
 	can_build_private = {
 		error_check = {
 			severity = potential
 			always = no
 		}
-	}	
+	}
 
 	ai_value = 1000
 
@@ -43,6 +36,7 @@ building_hippodrome = {
 	texture = "gfx/interface/icons/building_icons/building_hippodrome.dds"
 	
 	expandable = no
+	buildable = no
 	downsizeable = no
 	unique = yes
 	
@@ -54,25 +48,17 @@ building_hippodrome = {
 
 	can_build_government = {
 		error_check = {
-			severity = fail
-			custom_tooltip = {
-				text = hippodrome_can_construct_tt
-				has_modifier = modifier_byzfm_hippodrome_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_EASTERN_THRACE
-			}
+			severity = potential
+			always = no
 		}
 	}
+	
 	can_build_private = {
 		error_check = {
 			severity = potential
 			always = no
 		}
-	}	
+	}
 
 	ai_value = 1000
 
@@ -105,7 +91,7 @@ building_masjid_al_haram = {
 			severity = potential
 			always = no
 		}
-	}	
+	}
 
 	ai_value = 1000
 

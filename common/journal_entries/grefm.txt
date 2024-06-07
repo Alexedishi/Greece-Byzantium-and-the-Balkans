@@ -380,7 +380,7 @@ je_grefm_civic_tradition = {
 	transferable = no
 }
 
-je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
+je_grefm_the_tyranny_of_house_wittelsbach = {
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
 	group = je_group_grefm_monarchism
@@ -391,12 +391,23 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 		scope:journal_entry = {
 			is_goal_complete = yes
 		}
-		has_revolution = no
 		has_law = law_type:law_monarchy
-		has_law = law_type:law_hereditary_bureaucrats
 		has_law = law_type:law_autocracy
-		has_law = law_type:law_state_religion		
-		has_law = law_type:law_tenant_farmers
+		has_law = law_type:law_state_religion
+		OR = {
+			has_law = law_type:law_hereditary_bureaucrats
+			has_law = law_type:law_appointed_bureaucrats
+		}
+		OR = {
+			has_law = law_type:law_serfdom	
+			has_law = law_type:law_tenant_farmers
+		}
+		NOT = {
+			any_civil_war = {
+				civil_war_progress > 0.5
+				is_civil_war_type = revolution
+			}
+		}
 	}
 	
 	on_complete = {
@@ -405,37 +416,33 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 		}
 		set_variable = grefm_bavarocracy_secured
 	}
-
 	
-	timeout = 2800 # this isn't supposed to be easier
+	fail = {
+		var:grefm_tyranny_var <= 0
+	}
 	
-	on_timeout = { 
+	on_fail = {
 		trigger_event = {
 			id = grefm.009 # A Disgraced Tyrant
 		}
 	}
-	
-	fail = {
-		NOT = {
-			has_law = law_type:law_monarchy 
-		}
-	}
-	
-	on_fail = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.005 # 404 monarch not found
-			}
-		}
-	}
 
 	invalid = {
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_completed_tt
-			hidden_trigger = {
-				has_variable = grefm_bavarocracy_completed
+		OR = {
+			NOT = {
+				has_law = law_type:law_monarchy 
+			}
+			custom_tooltip = {
+				text = je_grefm_bavarocracy_completed_tt
+				hidden_trigger = {
+					has_variable = grefm_bavarocracy_completed
+				}
 			}
 		}
+	}
+	
+	on_invalid = {
+		remove_variable = grefm_tyranny_var
 	}
 
 	modifiers_while_active {
@@ -444,19 +451,9 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 	
 	on_monthly_pulse = {
 		effect = {
-			if = {
-				limit = {
-					has_law = law_type:law_monarchy
-					has_law = law_type:law_hereditary_bureaucrats
-					has_law = law_type:law_autocracy
-					has_law = law_type:law_state_religion		
-					has_law = law_type:law_tenant_farmers
-					has_revolution = no
-				}
-				change_variable = {
-					name = grefm_tyranny_var
-					add = 1
-				}
+			change_variable = {
+				name = grefm_tyranny_var
+				add = var:grefm_tyranny_progress_var
 			}
 		}
 	}
@@ -466,7 +463,7 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 	}
 
 	goal_add_value = {
-		add = 60
+		add = 100
 	}
 	
 	progressbar = yes
@@ -474,6 +471,105 @@ je_grefm_the_tyranny_of_house_wittelsbach = { # some alt history nonsense
 	weight = 4999
 	
 	transferable = no	
+}
+
+je_grefm_bavarian_greece = {
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	group = je_group_grefm_monarchism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		has_law = law_type:law_autocracy
+		NOT = {
+			any_civil_war = {
+				civil_war_progress > 0.5
+				is_civil_war_type = revolution
+			}
+		}
+		NOT = {
+			any_interest_group = {
+				law_stance = {
+					law = law_type:law_monarchy
+					value < neutral
+				}
+				is_powerful = yes
+			}
+		}
+		NOT = {
+			any_interest_group = {
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+				is_powerful = yes
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.022 # Absolutism in Greece
+		}
+		remove_variable = grefm_absolutism_var
+	}
+	
+	current_value = {
+		value = root.var:grefm_absolutism_var
+	}
+
+	goal_add_value = {
+		value = 60
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_autocracy
+					NOT = {
+						any_civil_war = {
+							civil_war_progress > 0.5
+							is_civil_war_type = revolution
+						}
+					}
+					NOT = {
+						any_interest_group = {
+							law_stance = {
+								law = law_type:law_monarchy
+								value < neutral
+							}
+							is_powerful = yes
+						}
+					}
+					NOT = {
+						any_interest_group = {
+							law_stance = {
+								law = law_type:law_autocracy
+								value < neutral
+							}
+							is_powerful = yes
+						}
+					}
+				}
+				change_variable = {
+					name = grefm_absolutism_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	progressbar = yes
+
+	weight = 500
+	
 }
 
 ###############################
@@ -558,131 +654,6 @@ je_grefm_the_dedilomeni_principle = {
 	
 	weight = 5000
 
-}
-
-je_grefm_the_dedilomeni_principle_otto_alternate = {
-	icon = "gfx/interface/icons/event_icons/event_otto.dds"
-	
-	group = je_group_grefm_monarchism
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = grefm_absolutism_var
-				}
-			}
-			set_variable = {
-				name = grefm_absolutism_var
-				value = 0
-			}
-		}
-	}
-	
-	complete = {
-		OR = {
-			AND = {
-				has_law = law_type:law_monarchy
-				has_law = law_type:law_universal_suffrage
-				has_law = law_type:law_appointed_bureaucrats
-				NOT = { has_law = law_type:law_serfdom }
-				NOT = { has_law = law_type:law_consumption_based_taxation }
-			}
-			AND = {
-				custom_tooltip = {
-					text = je_grefm_absolutism_tt
-					hidden_trigger = { scope:journal_entry = { is_goal_complete = yes } }
-				}
-				has_law = law_type:law_monarchy
-				has_law = law_type:law_autocracy
-				has_law = law_type:law_hereditary_bureaucrats
-				has_law = law_type:law_serfdom
-				has_law = law_type:law_outlawed_dissent
-			}
-		}
-	}
-	
-	on_complete = {
-		custom_tooltip = {
-			text = je_grefm_the_dedilomeni_principle_otto_alternate_tt
-			hidden_effect = {
-				if = {
-					limit = {
-						has_law = law_type:law_universal_suffrage
-					}
-					trigger_event = {
-						id = grefm.032 # a harmonious state
-					}
-				}
-				else = {
-					trigger_event = {
-						id = grefm.022 # dedilomeni absolutist outcome
-					}
-				}
-			}
-		}
-		remove_variable = grefm_absolutism_var
-	}
-	
-	current_value = {
-		value = root.var:grefm_absolutism_var
-	}
-
-	goal_add_value = {
-		value = 60
-	}
-	
-	on_monthly_pulse = {
-		effect = {
-			if = {
-				limit = {
-					AND = {
-						has_law = law_type:law_monarchy
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_hereditary_bureaucrats
-						has_law = law_type:law_serfdom
-						has_law = law_type:law_outlawed_dissent
-					}
-				}
-				change_variable = {
-					name = grefm_absolutism_var
-					add = 1
-				}
-			}
-			else = {
-				change_variable = {
-					name = grefm_absolutism_var
-					subtract = 1
-				}
-			}
-			clamp_variable = {
-				name = grefm_absolutism_var
-				max = 60
-				min = 0
-			}
-		}
-	}
-	
-	fail = {
-		NOT = {
-			has_law = law_type:law_monarchy 
-		}
-	}
-	
-	on_fail = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.005 # 404 monarch not found
-			}
-		}
-	}
-
-	progressbar = yes
-
-	weight = 500
-	
 }
 
 je_grefm_the_military_league = { # this is a modified vanilla coup JE
@@ -1251,7 +1222,7 @@ je_grefm_megali_idea = {
 
 	immediate = {
 		trigger_event = {
-			id = grefm.200 # the megali idea
+			id = grefm.201 # The Megali Idea
 		}
 	}
 
@@ -1635,8 +1606,6 @@ je_grefm_archaeology = {
 	scripted_button = grefm_archeaology_delos_button
 	scripted_button = grefm_archeaology_larissa_button
 	scripted_button = grefm_archeaology_rhodes_button
-	scripted_button = grefm_archeaology_mega_palation_button
-	scripted_button = grefm_archeaology_hippodrome_button
 	
 	weight = 2999
 }
@@ -1648,6 +1617,12 @@ je_grefm_active_excavation = {
 	
 	should_be_pinned_by_default = yes
 	
+	modifiers_while_active = {
+		modifier_grefm_active_excavation
+	}
+	
+	scripted_button = grefm_archeaology_cancel_button
+	
 	complete = {
 		scope:journal_entry = { is_goal_complete = yes }
 	}
@@ -1657,11 +1632,7 @@ je_grefm_active_excavation = {
 	}
 	
 	invalid = {
-		hidden_trigger = {
-			NOT = { 
-				has_modifier = modifier_grefm_active_excavation
-			}
-		}
+		grefm_artifact_variable_trigger = no
 	}
 	
 	on_invalid = {
@@ -1688,13 +1659,15 @@ je_grefm_active_excavation = {
 		}
 		random_events = {
 			500 = 0 # these events should barely fire if at all
-			20 = grefm.150 # positive progress
-			20 = grefm.151 # heavy equipment needed
-			20 = grefm.152 # burial site uncovered
-			10 = grefm.153 # minor collapse
-			 5 = grefm.154 # major collapse
-			20 = grefm.155 # popular interest
-			10 = grefm.156 # palace uncovered
+			15 = grefm.150 # Excavation Proceeding Smoothly
+			 5 = grefm.151 # Industrial Equipment Requested
+			10 = grefm.152 # Ancient Tomb Uncovered
+			 5 = grefm.153 # Mudslide at the Excavation Site
+			 1 = grefm.154 # Disaster at the Excavation Site
+			15 = grefm.155 # Popular Interest in Excavation
+			 5 = grefm.156 # Palace Uncovered
+			10 = grefm.158 # IG Offers Funding
+			10 = grefm.159 # Reconstruction Garners Criticism
 		}
 	}
 
@@ -2061,22 +2034,21 @@ je_grefm_corinth_canal_survey = {
 	
 	should_be_pinned_by_default = yes
 
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = grefm_corinth_canal_var
-				add = 1
-			}
-		}
+	modifiers_while_active = {
+		modifier_grefm_corinth_canal_survey
 	}
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		scope:journal_entry = { 
+			is_goal_complete = yes
+		}
 	}
 
 	on_complete = {
 		remove_modifier = modifier_grefm_corinth_canal_survey
-		trigger_event = { id = grefm.130 } # survey complete
+		trigger_event = {
+			id = grefm.130 # Corinth Canal Surveyed
+		}
 	}
 
 	invalid = {
@@ -2086,8 +2058,16 @@ je_grefm_corinth_canal_survey = {
 	}
 
 	on_invalid = {
-		remove_modifier = modifier_grefm_corinth_canal_survey
 		remove_variable = grefm_corinth_canal_var
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = grefm_corinth_canal_var
+				add = 1
+			}
+		}
 	}
 
 	current_value = {
@@ -2101,6 +2081,200 @@ je_grefm_corinth_canal_survey = {
 	progressbar = yes
 
 	weight = 1000
+	
+}
+
+je_grefm_corinth_canal = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_grefm_content
+
+	immediate = {
+		balkfm_calculate_construction_effect = yes
+	}
+	
+	scripted_button = balkfm_construction_0_button
+	scripted_button = balkfm_construction_1_button
+	scripted_button = balkfm_construction_2_button
+	scripted_button = balkfm_construction_3_button
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = { 
+			id = grefm.131 # Corinth Canal Completed
+		}
+		balkfm_clean_up_construction_effect = yes
+	}
+
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_PELOPONNESE
+		}
+	}
+
+	on_fail = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_construction_effect = yes
+			balkfm_push_construction_effect = yes
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_construction_4
+				trigger = {
+					scope:journal_entry = { 
+						is_goal_complete = yes 
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_0
+				trigger = {
+					NOR = {
+						has_modifier = modifier_balkfm_construction_1
+						has_modifier = modifier_balkfm_construction_2
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_3
+				trigger = {
+					has_modifier = modifier_balkfm_construction_3
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_2
+				trigger = {
+					has_modifier = modifier_balkfm_construction_2
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_1
+				trigger = {
+					has_modifier = modifier_balkfm_construction_1
+				}
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:balkfm_construction_var
+	}
+
+	goal_add_value = {
+		value = 2500 # Monument construction cost
+	}
+
+	progressbar = yes
+
+	weight = 100
+	
+}
+
+je_grefm_palaia_anaktora = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_grefm_content
+
+	immediate = {
+		balkfm_calculate_construction_effect = yes
+	}
+	
+	scripted_button = balkfm_construction_0_button
+	scripted_button = balkfm_construction_1_button
+	scripted_button = balkfm_construction_2_button
+	scripted_button = balkfm_construction_3_button
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = { 
+			id = grefm.132 # The Royal Palace of Athens
+		}
+		balkfm_clean_up_construction_effect = yes
+	}
+
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_ATTICA
+		}
+	}
+
+	on_fail = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_calculate_construction_effect = yes
+			balkfm_push_construction_effect = yes
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_construction_4
+				trigger = {
+					scope:journal_entry = { 
+						is_goal_complete = yes 
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_0
+				trigger = {
+					NOR = {
+						has_modifier = modifier_balkfm_construction_1
+						has_modifier = modifier_balkfm_construction_2
+						has_modifier = modifier_balkfm_construction_3
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_3
+				trigger = {
+					has_modifier = modifier_balkfm_construction_3
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_2
+				trigger = {
+					has_modifier = modifier_balkfm_construction_2
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_construction_1
+				trigger = {
+					has_modifier = modifier_balkfm_construction_1
+				}
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:balkfm_construction_var
+	}
+
+	goal_add_value = {
+		value = 2500 # Monument construction cost
+	}
+
+	progressbar = yes
+
+	weight = 100
 	
 }
 
