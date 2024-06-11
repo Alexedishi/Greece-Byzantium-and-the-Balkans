@@ -10,20 +10,25 @@
 		pmg_base_building_corinth_canal
 	}
 
-	required_construction = construction_cost_monument	
+	required_construction = construction_cost_monument
+	
+	possible = {
+		error_check = {
+			severity = fail
+			this = {
+				state_region = s:STATE_PELOPONNESE
+			}
+		}
+	}
 	
 	can_build_government = {
 		error_check = {
 			severity = fail
 			custom_tooltip = {
 				text = corinth_canal_can_construct_tt
-				has_modifier = modifier_grefm_corinth_canal_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_PELOPONNESE
+				owner = {
+					has_variable = grefm_corinth_survey_complete
+				}
 			}
 		}
 	}
@@ -50,20 +55,25 @@ building_palaia_anaktora = {
 		pmg_base_building_palaia_anaktora
 	}
 
-	required_construction = construction_cost_medium	
+	required_construction = construction_cost_monument	
+	
+	possible = {
+		error_check = {
+			severity = fail
+			this = {
+				state_region = s:STATE_ATTICA
+			}
+		}
+	}
 	
 	can_build_government = {
 		error_check = {
 			severity = fail
 			custom_tooltip = {
 				text = palaia_anaktora_can_construct_tt
-				has_variable = grefm_palaia_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_ATTICA
+				owner = {
+					has_variable = grefm_palace_authorized
+				}
 			}
 		}
 	}

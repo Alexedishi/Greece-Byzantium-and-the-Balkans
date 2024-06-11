@@ -154,39 +154,3 @@ byzfm_change_name_decision = {
 		base = 0
 	}
 }
-
-byzfm_hippodrome_survey_decision = { # fallback in case the archeology journal is closed
-	is_shown = {
-		NOT = { has_variable = byzfm_hippodrome_complete }
-		NOT = { has_variable = byzfm_hippodrome_fallback }
-		has_variable = byzfm_mega_palation_complete
-		NOT = { has_journal_entry = je_grefm_archaeology }
-	}
-		
-	possible = {
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		NOT = { has_modifier = modifier_grefm_active_excavation }
-		any_scope_state = {
-			has_building = building_mega_palation
-		}
-	}
-		
-	when_taken = {
-		set_variable = { 
-			name = byzfm_hippodrome_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_byzfm_hippodrome_survey
-		}
-		add_modifier = {
-			name = modifier_grefm_active_excavation
-		}
-		set_variable = byzfm_hippodrome_fallback
-	}
-	
-	ai_chance = {
-		base = 0
-	}
-
-}

@@ -13,10 +13,25 @@
 
 	required_construction = construction_cost_monument
 
+	possible = {
+		error_check = {
+			severity = fail
+			this = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+	
+
 	can_build_government = {
 		error_check = {
 			severity = potential
-			always = no
+			custom_tooltip = {
+				text = mega_palation_can_construct_tt
+				owner = {
+					has_variable = byzfm_mega_palation_surveyed
+				}
+			}
 		}
 	}
 	
@@ -45,6 +60,13 @@ building_hippodrome = {
 	}
 
 	required_construction = construction_cost_monument
+	
+	possible = {
+		error_check = {
+			severity = fail
+			has_building = building_mega_palation
+		}
+	}
 
 	can_build_government = {
 		error_check = {

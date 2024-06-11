@@ -140,8 +140,8 @@ namespace = grefm
 #	155 - Popular Interest in Excavation
 #	156 - Palace Uncovered
 #	157 - The Mask of Agammemnon
-#	158 - ##Politician Offers Funding
-#	159 - ##Reconstruction Garners Criticism
+#	158 - Politician Offers Funding
+#	159 - Reconstruction Garners Criticism
 
 #160-169 - Minor International Events
 #	160 - A Bulgarian Visitor
@@ -970,6 +970,68 @@ grefm.009 = { # A Disgraced Tyrant
 	
 	option = {
 		name = grefm.009.a
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_hereditary_bureaucrats
+				}
+			}
+			activate_law = law_type:law_appointed_bureaucrats
+		}
+		if = {
+			limit = {
+				AND = {
+					OR = {
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_landed_voting
+						has_law = law_type:law_wealth_voting
+						has_law = law_type:law_census_voting
+					}
+					has_technology_researched = egalitarianism
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		else = {
+			activate_law = law_type:law_census_voting
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value > neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+		add_radicals = {
+			strata = rich
+			value = medium_radicals
+		}
+		add_loyalists = {
+			strata = middle
+			value = small_radicals
+		}
+		add_loyalists = {
+			strata = poor
+			value = small_radicals
+		}
+		call_election = {
+			months = 3
+		}
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_crash
+			change_variable = {
+				name = grefm_bavarocracy_var
+				add = -2000
+			}
+		}
+		set_variable = grefm_constitution_completed
 	}
 	
 }
@@ -1485,7 +1547,7 @@ grefm.021 = { # a perennial problem
 		}
 		OR = {
 			has_journal_entry = je_grefm_the_dedilomeni_principle
-			has_journal_entry = je_grefm_the_dedilomeni_principle_otto_alternate
+			has_journal_entry = je_grefm_bavarian_greece
 		}
 		institution_investment_level = {
 			institution = institution_police
@@ -1949,6 +2011,10 @@ grefm.031 = { # the king of the hellenes
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
 			NOT = { has_variable = byzfm_byzantium_formed }
+		}
+		set_variable = {
+			name = grefm_absolutism_var
+			value = 0
 		}
 		add_journal_entry = {
 			type = je_grefm_bavarian_greece
@@ -4211,7 +4277,10 @@ grefm.131 = { # Corinth Canal Completed
 	dlc = dlc_grefm
 
 	trigger = {
-		# triggered by je_grefm_corinth_canal
+		NOT = { has_global_variable = grefm_corinth_canal_built }
+		s:STATE_PELOPONNESE = {
+			has_building = building_corinth_canal
+		}
 	}
 
 	immediate = {
@@ -4220,17 +4289,16 @@ grefm.131 = { # Corinth Canal Completed
 				save_scope_as = corinth_canal_site
 			}
 		}
+		set_global_variable = grefm_corinth_canal_built
 	}
 
 	option = {
 		name = grefm.131.a
 		default_option = yes
-		scope:corinth_canal_site = {
-			create_building = {
-				building = "building_corinth_canal"
-			}
+		add_loyalists = {
+			culture = cu:greek
+			value = medium_radicals
 		}
-		remove_variable = balkfm_construction_var
 	}
 
 }
@@ -4256,7 +4324,10 @@ grefm.132 = { # The Royal Palace of Athens
 	dlc = dlc_grefm
 
 	trigger = {
-		# triggered by je_grefm_palaia_anaktora
+		NOT = { has_global_variable = grefm_palaia_built }
+		s:STATE_ATTICA = {
+			has_building = building_palaia_anaktora
+		}
 	}
 
 	immediate = {
@@ -4265,16 +4336,12 @@ grefm.132 = { # The Royal Palace of Athens
 				save_scope_as = palaia_anaktora_site
 			}
 		}
+		set_global_variable = grefm_palaia_built
 	}
 	
 	option = { # 
 		name = grefm.132.a
 		default_option = yes
-		scope:palaia_anaktora_site = {
-			create_building = {
-				building = "building_palaia_anaktora"
-			}
-		}
 		if = {
 			limit = {
 				exists = c:BAV
@@ -4284,7 +4351,6 @@ grefm.132 = { # The Royal Palace of Athens
 				value = 25
 			}
 		}
-		remove_variable = balkfm_construction_var
 	}
 
 }
@@ -4787,7 +4853,7 @@ grefm.150 = { # Excavation Positive Progress
 	}
 	
 	immediate = {
-		post_notification = notification_grefm_progress
+		post_notification = notification_grefm_steady_progress
 		change_variable = {
 			name = grefm_excavation_var
 			add = 4
@@ -5118,7 +5184,7 @@ grefm.158 = { # Politician Offers Funding
 	trigger = {
 		NOT = {
 			any_interest_group = {
-				has_modifier = modifier_grefm_funding_excavation
+				has_modifier = modifier_grefm_supported_excavation
 			}
 		}
 	}
@@ -5214,6 +5280,65 @@ grefm.159 = { # Reconstruction Garners Criticism
 	}	
 	
 	immediate = {
+		switch = {
+			trigger = has_variable
+			grefm_parthenon_1_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_parthenon_2_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_mycenae_1_excavation = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_mycenae_2_excavation = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_gla_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_delos_excavation = {
+				s:STATE_WEST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_larissa_excavation = {
+				s:STATE_THESSALIA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_rhodes_excavation = {
+				s:STATE_EAST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+		}
 	}
 	
 	option = { # Meh, it's good enough
@@ -5782,8 +5907,7 @@ grefm.202 = { # The Future of Greece
 	}
 	
 	immediate = {
-		set_variable = grefm_megali_idea_var
-		set_global_variable = grefm_megali_idea_completed
+		set_variable = grefm_megali_idea_complete
 	}
 	
 	option = { # The Purple Pheonix
@@ -6314,8 +6438,8 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 					target = c:NMAC
 					value = 100
 				}
-				change_infamy = -5
 			}
+			change_infamy = -5
 		}
 		every_country = {
 			limit = {
@@ -6448,7 +6572,7 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 		}
 		random_scope_state = {
 			limit = {
-				state_region = STATE_ALBANIA
+				state_region = s:STATE_ALBANIA
 			}
 			every_scope_pop = {
 				limit = {
@@ -6501,8 +6625,8 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 					target = c:EPI
 					value = 100
 				}
-				change_infamy = -10
 			}
+			change_infamy = -10
 		}
 		every_country = {
 			limit = {
@@ -6649,8 +6773,8 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 					target = c:CYP
 					value = 100
 				}
-				change_infamy = -5
 			}
+			change_infamy = -5
 		}
 		hidden_effect = {
 			every_country = {
@@ -6798,8 +6922,8 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 					target = c:MAC
 					value = 100
 				}
-				change_infamy = -5
 			}
+			change_infamy = -5
 		}
 		every_country = {
 			limit = {
@@ -6945,8 +7069,8 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 					target = c:SMYR
 					value = 100
 				}
-				change_infamy = -5
 			}
+			change_infamy = -5
 		}
 		every_country = {
 			limit = {
@@ -8236,6 +8360,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 	
 	option = { # Drop the Hammer
 		name = grefm.259.a
+		default_option = yes
 		create_diplomatic_play = {
 			name = grefm_crete_rebellion
 			target_country = c:CRE
@@ -8320,7 +8445,7 @@ grefm.260 = { # the fate of the turks
 	dlc = dlc_grefm
 
 	trigger = {
-		has_variable = grefm_megali_idea_3
+		has_variable = grefm_megali_idea_completed
 		has_technology_researched = civilizing_mission
 		NOT = {	has_variable = grefm_greek_homelands_event }
 	}
@@ -8363,7 +8488,7 @@ grefm.260 = { # the fate of the turks
 		else = {
 			change_infamy = 5
 		}
-		set_variable = grefm_megali_idea_4 # enables turkish homelands event
+		set_variable = grefm_rejected_grecoturkism # enables turkish homelands event
 	}
 
 }
@@ -8389,7 +8514,7 @@ grefm.261 = { # turkish homelands event
 	dlc = dlc_grefm
 	
 	trigger = { # will trigger for any state that shares Greek and Turkish homelands
-		has_variable = grefm_megali_idea_4
+		has_variable = grefm_rejected_grecoturkism
 		any_scope_state = {
 			AND = {
 				NOT = { has_variable = grefm_turkish_reserve }
@@ -8536,7 +8661,7 @@ grefm.262 = { # greek homeland expansion
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = grefm_megali_idea_3 # homelands will expand regardless of turkish homeland outcome
+		has_variable = grefm_megali_idea_complete # homelands will expand regardless of turkish homeland outcome
 		any_scope_state = {
 			AND = {
 				is_incorporated = yes

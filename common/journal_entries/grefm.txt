@@ -21,6 +21,7 @@ je_grefm_bavarocracy_main = { # main entry
 	
 	scripted_button = grefm_dismiss_auxilliaries_button
 	scripted_button = grefm_release_nikitaras_button
+	scripted_button = grefm_authorize_palace_button
 	
 	complete = {
 		has_law = law_type:law_monarchy
@@ -481,9 +482,17 @@ je_grefm_bavarian_greece = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = grefm_absolutism_var
+			value = 0
+		}
 	}
 	
 	complete = {
+		custom_tooltip = {
+			text = je_grefm_bavarian_greece_tt
+			scope:journal_entry = { is_goal_complete = yes }
+		}
 		has_law = law_type:law_monarchy
 		has_law = law_type:law_autocracy
 		NOT = {
@@ -1157,24 +1166,6 @@ je_grefm_venizelism_constitution = {
 	}
 	
 	on_complete = {
-		if = {
-			limit = {
-				NOT = { has_variable = grefm_bavarocracy }
-			}
-			trigger_event = {
-				id = grefm.023 # The Monarchy Abolished
-			}
-		}
-		else_if = {
-			limit = {
-				has_variable = grefm_bavarocracy
-			}
-			show_as_tooltip = {
-				trigger_event = {
-					id = grefm.005 # This is for looks, it triggers from the monthly pulse
-				}
-			}
-		}
 	}
 	
 	invalid = {
@@ -1201,9 +1192,7 @@ je_grefm_megali_idea = {
 
 	is_shown_when_inactive = {
 		country_has_primary_culture = cu:greek
-		NOT = { has_variable = byzfm_byzantium_formed }
-		NOT = { has_variable = grefm_megali_idea_1 }
-		NOT = { has_variable = grefm_megali_idea_2 }
+		NOT = { has_global_variable = has_formed_byz }
 	}
 
 	possible = {
@@ -1256,6 +1245,7 @@ je_grefm_megali_idea = {
 			OR = {
 				has_variable = grefm_weaksauce
 				has_variable = byzfm_weaksauce
+				has_global_variable = has_formed_byz
 			}
 		}
 	}
@@ -1318,7 +1308,7 @@ je_grefm_greater_greece = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.205 # a greek dominion
+			id = grefm.204 # A Greek Dominion
 		}
 	}
 	
@@ -1563,30 +1553,15 @@ je_grefm_archaeology = {
 		custom_tooltip = {
 			text = grefm_archeaology_tt
 			hidden_trigger = {
-				OR = {
-					AND = {
-						has_variable = grefm_parthenon_1_complete
-						has_variable = grefm_parthenon_2_complete
-						has_variable = grefm_knossos_1_complete
-						has_variable = grefm_knossos_2_complete
-						has_variable = grefm_gla_complete
-						has_variable = grefm_delos_complete
-						has_variable = grefm_larissa_complete
-						has_variable = grefm_rhodes_complete
-					}
-					AND = {
-						has_variable = byzfm_byzantium_formed
-						has_variable = grefm_parthenon_1_complete
-						has_variable = grefm_parthenon_2_complete
-						has_variable = grefm_knossos_1_complete
-						has_variable = grefm_knossos_2_complete
-						has_variable = grefm_gla_complete
-						has_variable = grefm_delos_complete
-						has_variable = grefm_larissa_complete
-						has_variable = grefm_rhodes_complete
-						has_variable = byzfm_mega_palation_complete
-						has_variable = byzfm_hippodrome_complete
-					}
+				AND = {
+					has_variable = grefm_parthenon_1_complete
+					has_variable = grefm_parthenon_2_complete
+					has_variable = grefm_knossos_1_complete
+					has_variable = grefm_knossos_2_complete
+					has_variable = grefm_gla_complete
+					has_variable = grefm_delos_complete
+					has_variable = grefm_larissa_complete
+					has_variable = grefm_rhodes_complete
 				}
 			}
 		}
@@ -1632,7 +1607,7 @@ je_grefm_active_excavation = {
 	}
 	
 	invalid = {
-		grefm_artifact_variable_trigger = no
+		grefm_active_excavation_trigger = no
 	}
 	
 	on_invalid = {
@@ -1658,16 +1633,16 @@ je_grefm_active_excavation = {
 			}
 		}
 		random_events = {
-			500 = 0 # these events should barely fire if at all
-			15 = grefm.150 # Excavation Proceeding Smoothly
+			400 = 0
+			10 = grefm.150 # Excavation Proceeding Smoothly
 			 5 = grefm.151 # Industrial Equipment Requested
-			10 = grefm.152 # Ancient Tomb Uncovered
+			 1 = grefm.152 # Ancient Tomb Uncovered
 			 5 = grefm.153 # Mudslide at the Excavation Site
 			 1 = grefm.154 # Disaster at the Excavation Site
-			15 = grefm.155 # Popular Interest in Excavation
-			 5 = grefm.156 # Palace Uncovered
-			10 = grefm.158 # IG Offers Funding
-			10 = grefm.159 # Reconstruction Garners Criticism
+			10 = grefm.155 # Popular Interest in Excavation
+			 1 = grefm.156 # Palace Uncovered
+			 5 = grefm.158 # IG Offers Funding
+			 5 = grefm.159 # Reconstruction Garners Criticism
 		}
 	}
 
@@ -2081,200 +2056,6 @@ je_grefm_corinth_canal_survey = {
 	progressbar = yes
 
 	weight = 1000
-	
-}
-
-je_grefm_corinth_canal = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_grefm_content
-
-	immediate = {
-		balkfm_calculate_construction_effect = yes
-	}
-	
-	scripted_button = balkfm_construction_0_button
-	scripted_button = balkfm_construction_1_button
-	scripted_button = balkfm_construction_2_button
-	scripted_button = balkfm_construction_3_button
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-	
-	on_complete = {
-		trigger_event = { 
-			id = grefm.131 # Corinth Canal Completed
-		}
-		balkfm_clean_up_construction_effect = yes
-	}
-
-	fail = {
-		NOT = {
-			owns_entire_state_region = STATE_PELOPONNESE
-		}
-	}
-
-	on_fail = {
-		balkfm_clean_up_construction_effect = yes
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			balkfm_calculate_construction_effect = yes
-			balkfm_push_construction_effect = yes
-		}
-	}
-
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_construction_4
-				trigger = {
-					scope:journal_entry = { 
-						is_goal_complete = yes 
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_0
-				trigger = {
-					NOR = {
-						has_modifier = modifier_balkfm_construction_1
-						has_modifier = modifier_balkfm_construction_2
-						has_modifier = modifier_balkfm_construction_3
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_3
-				trigger = {
-					has_modifier = modifier_balkfm_construction_3
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_2
-				trigger = {
-					has_modifier = modifier_balkfm_construction_2
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_1
-				trigger = {
-					has_modifier = modifier_balkfm_construction_1
-				}
-			}
-		}
-	}
-	
-	current_value = {
-		value = var:balkfm_construction_var
-	}
-
-	goal_add_value = {
-		value = 2500 # Monument construction cost
-	}
-
-	progressbar = yes
-
-	weight = 100
-	
-}
-
-je_grefm_palaia_anaktora = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_grefm_content
-
-	immediate = {
-		balkfm_calculate_construction_effect = yes
-	}
-	
-	scripted_button = balkfm_construction_0_button
-	scripted_button = balkfm_construction_1_button
-	scripted_button = balkfm_construction_2_button
-	scripted_button = balkfm_construction_3_button
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-	
-	on_complete = {
-		trigger_event = { 
-			id = grefm.132 # The Royal Palace of Athens
-		}
-		balkfm_clean_up_construction_effect = yes
-	}
-
-	fail = {
-		NOT = {
-			owns_entire_state_region = STATE_ATTICA
-		}
-	}
-
-	on_fail = {
-		balkfm_clean_up_construction_effect = yes
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			balkfm_calculate_construction_effect = yes
-			balkfm_push_construction_effect = yes
-		}
-	}
-
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_construction_4
-				trigger = {
-					scope:journal_entry = { 
-						is_goal_complete = yes 
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_0
-				trigger = {
-					NOR = {
-						has_modifier = modifier_balkfm_construction_1
-						has_modifier = modifier_balkfm_construction_2
-						has_modifier = modifier_balkfm_construction_3
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_3
-				trigger = {
-					has_modifier = modifier_balkfm_construction_3
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_2
-				trigger = {
-					has_modifier = modifier_balkfm_construction_2
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_1
-				trigger = {
-					has_modifier = modifier_balkfm_construction_1
-				}
-			}
-		}
-	}
-	
-	current_value = {
-		value = var:balkfm_construction_var
-	}
-
-	goal_add_value = {
-		value = 2500 # Monument construction cost
-	}
-
-	progressbar = yes
-
-	weight = 100
 	
 }
 

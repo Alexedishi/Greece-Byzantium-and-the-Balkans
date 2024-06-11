@@ -50,6 +50,32 @@ grefm_release_nikitaras_button = {
 	}
 }
 
+grefm_authorize_palace_button = {
+	name = "grefm_authorize_palace_button"
+	desc = "grefm_authorize_palace_button_desc"
+	
+	visible = {
+		NOT = { has_variable = grefm_palace_authorized }
+	}
+	
+	possible = {
+		has_law = law_type:law_monarchy
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = palaia_anaktora_enable_tt
+			hidden_effect = {
+				set_variable = grefm_palace_authorized
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_palace_authorized
+			months = long_modifier_time
+		}
+	}
+}
+
 # REVOLT BUTTONS #
 grefm_epirus_support_button = {
 	name = "grefm_epirus_support_button"
@@ -695,11 +721,8 @@ grefm_archeaology_parthenon_button_1 = {
 	
 	possible = {
 		owns_entire_state_region = STATE_ATTICA
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -715,7 +738,7 @@ grefm_archeaology_parthenon_button_1 = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_parthenon_1_excavation
@@ -739,11 +762,8 @@ grefm_archeaology_parthenon_button_2 = {
 	
 	possible = {
 		owns_entire_state_region = STATE_ATTICA
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 		custom_tooltip = {
 			text = grefm_parthenon_1_complete_tt
@@ -766,7 +786,7 @@ grefm_archeaology_parthenon_button_2 = {
 			}
 		
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_parthenon_2_excavation
@@ -790,11 +810,8 @@ grefm_archeaology_mycenae_button_1 = {
 	
 	possible = {
 		owns_entire_state_region = STATE_CRETE
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -810,7 +827,7 @@ grefm_archeaology_mycenae_button_1 = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_mycenae_1_excavation
@@ -834,11 +851,8 @@ grefm_archeaology_mycenae_button_2 = {
 	
 	possible = {
 		owns_entire_state_region = STATE_CRETE
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 		custom_tooltip = {
 			text = grefm_knossos_1_complete_tt
@@ -860,7 +874,7 @@ grefm_archeaology_mycenae_button_2 = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_mycenae_2_excavation
@@ -890,11 +904,8 @@ grefm_archeaology_gla_button = {
 				has_global_variable = grefm_gla_exposed
 			}
 		}
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -911,7 +922,7 @@ grefm_archeaology_gla_button = {
 				}			
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_gla_excavation
@@ -935,11 +946,8 @@ grefm_archeaology_delos_button = {
 	
 	possible = {
 		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -955,7 +963,7 @@ grefm_archeaology_delos_button = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_delos_excavation
@@ -979,11 +987,8 @@ grefm_archeaology_larissa_button = {
 	
 	possible = {
 		owns_entire_state_region = STATE_THESSALIA
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -999,7 +1004,7 @@ grefm_archeaology_larissa_button = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_larissa_excavation
@@ -1023,11 +1028,8 @@ grefm_archeaology_rhodes_button = {
 	
 	possible = {
 		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-		custom_tooltip = {
-			text = grefm_archeaology_possible_tt
-			hidden_trigger = {
-				grefm_active_excavation_trigger = no
-			}
+		NOT = {
+			has_journal_entry = je_grefm_active_excavation
 		}
 	}
 	
@@ -1043,7 +1045,7 @@ grefm_archeaology_rhodes_button = {
 				}
 			}
 		}
-		show_as_toopltip = {
+		show_as_tooltip = {
 			add_modifier = modifier_grefm_active_excavation
 		}
 		set_variable = grefm_rhodes_excavation
@@ -1060,7 +1062,7 @@ grefm_archeaology_cancel_button = {
 	desc = "grefm_cancel_button_desc"
 	
 	visible = {
-		grefm_artifact_variable_trigger = yes
+		always = yes
 	}
 	
 	possible = {

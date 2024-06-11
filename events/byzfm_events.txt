@@ -166,7 +166,8 @@ byzfm.101 = { # Imperial Palace Ruins Identified
 	
 	dlc = dlc_grefm
 
-	trigger = { # triggered by je_byzfm_mega_palation_survey
+	trigger = { 
+		# triggered by je_byzfm_mega_palation_survey
 	}
 	
 	immediate = {
@@ -186,6 +187,7 @@ byzfm.101 = { # Imperial Palace Ruins Identified
 				value = medium_radicals
 			}
 		}
+		set_variable = byzfm_mega_palation_surveyed
 	}
 
 }
@@ -211,7 +213,11 @@ byzfm.102 = { # Great Palace of Constantinople
 	
 	dlc = dlc_grefm
 
-	trigger = { # triggered by je_mega_palation
+	trigger = {
+		NOT = { has_variable = byzfm_mega_palation_complete }
+		s:STATE_EASTERN_THRACE = {
+			has_building = building_mega_palation
+		}
 	}
 	
 	immediate = {
@@ -220,17 +226,11 @@ byzfm.102 = { # Great Palace of Constantinople
 				save_scope_as = eastern_thrace_state_scope
 			}
 		}
-		set_variable = byzfm_mega_palation_surveyed
 	}
 	
 	option = {
 		name = byzfm.102.a
 		default_option = yes
-		scope:eastern_thrace_state_scope = {
-			create_building = {
- 				building = "building_mega_palation"
- 			}
-		}
 		if = {
 			limit = {
 				morgenrote_is_active = no
@@ -242,7 +242,7 @@ byzfm.102 = { # Great Palace of Constantinople
 				}
 			}
 		}
-		remove_variable = balkfm_construction_var
+		set_variable = byzfm_mega_palation_complete
 	}
 }
 
@@ -268,6 +268,10 @@ byzfm.103 = { # The Hippodrome of Constantinople
 	dlc = dlc_grefm
 
 	trigger = {
+		NOT = { has_variable = byzfm_hippodrome_complete }
+		s:STATE_EASTERN_THRACE = {
+			has_building = building_hippodrome
+		}
 	}
 	
 	immediate = {
@@ -281,23 +285,16 @@ byzfm.103 = { # The Hippodrome of Constantinople
 	option = {
 		name = byzfm.103.a
 		default_option = yes
-		scope:eastern_thrace_state_scope = {
-			create_building = {
- 				building = "building_hippodrome"
- 			}
-		}
 		if = {
 			limit = {
 				morgenrote_is_active = no
 			}
-			custom_tooltip = {
-				text = byzfm.102.tt
-				hidden_effect = {
-					grefm_artifact_modifier_effect = yes
-				}
+			hidden_effect = {
+				grefm_artifact_modifier_effect = yes
 			}
 		}
-		remove_variable = balkfm_construction_var
+		custom_tooltip = byzfm.103.tt
+		set_variable = byzfm_hippodrome_complete
 	}
 	
 }

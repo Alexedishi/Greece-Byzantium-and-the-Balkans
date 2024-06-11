@@ -9,7 +9,7 @@
  je_group_grefm_ambition: "Greek Imperial Ambitions"
  
  je_grefm_bavarocracy_main: "The Bavarocracy"
- je_grefm_bavarocracy_main_reason: "The court of Otto Wittelsbach has conspired to rule Greece by means of absolute power. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation."
+ je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support. This is expected to change by #bold # variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
  je_grefm_bavarocracy_main_status: "Guide the people of [ROOT.GetCountry.GetName] into Liberty or Autocracy."
  je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•#red #bold -1#!#! as a base.[SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_constitution_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_land_reform_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_brigandage_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_civic_tradition_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_nikitas_released_type')]"
  je_grefm_greek_constitution: "Bavarocracy: Promulgate Constitutional Law"
@@ -25,6 +25,8 @@
  je_grefm_the_tyranny_of_house_wittelsbach_goal: "Maintain these laws for 5 years without being in a civil war."
  je_grefm_bavarian_greece: "A Bavarian Greece"
  je_grefm_bavarian_greece_reason: "After a generation of resistance against the monarchy, the spirit of reform is widespread in Greece. Reformers have demanded that the King be mandated to appoint a government leader with a majority of political power, rather than the leader being chosen by their favor with the King. Meanwhile, monarchists declare that the only way forward is with strong leadership from the crown."
+ je_grefm_bavarian_greece_goal: "Maintain these conditions for five years."
+ je_grefm_bavarian_greece_tt: "Maintain these conditions for five years."
  
  je_grefm_the_dedilomeni_principle: "The Dedilomeni Principle"
  je_grefm_the_dedilomeni_principle_reason: "After two revolts against the monarchy, the spirit of reform is widespread in Greece. Reformers have demanded that the King be mandated to appoint a government leader with a majority of political power, rather than the leader being chosen by their favor with the King."
@@ -101,8 +103,9 @@
  custom_grefm_bavarocracy_land_reform: "•#red #bold -1#!#! from not #bold Reforming Land Policy#!."
  custom_grefm_bavarocracy_brigandage: "•#red #bold -1#!#! from not #bold Controlling Brigandage#!."
  custom_grefm_bavarocracy_civic_tradition: "•#red #bold -1#!#! from not #bold Establishing a Civil Service#!."
- custom_grefm_bavarocracy_bavarian_auxiliaries: "•#red #bold -1#!#! from not #bold Hosting the Bavarian Auxiliaries#!."
+ custom_grefm_bavarocracy_bavarian_auxiliaries: "•#red #bold -1#!#! from #bold Hosting the Bavarian Auxiliaries#!."
  custom_grefm_bavarocracy_nikitas_released: "•#green #bold +1#!#! from #bold Releasing Nikitaras#!."
+ custom_grefm_bavarocracy_royal_palace: "•#green #bold +1#!#! from #bold Building a Royal Residence#!."
  
  custom_grefm_epirus_revolt: "\n•#variable [GetGlobalVariable('grefm_epirus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Epirus#! are radical."
  custom_grefm_macedonia_revolt: "\n•#variable [GetGlobalVariable('grefm_macedonia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Coastal Macedonia#! are radical."
@@ -134,7 +137,7 @@
  je_grefm_greek_constitution_tt: "•If Greece has taken the more conservative route, triggers the event #bold Long Live the Constitution!#!.\n\n•If Greece has taken the more liberal route, triggers the event #bold A Crisis Averted!#!."
  je_grefm_bavarocracy_fail_tt: "Support for the King is at #bold zero#!."
  je_grefm_bavarocracy_boost: "Support for the King will increase by #green #bold +200#!#!."
- je_grefm_bavarocracy_crash: "Support for the King will decrease by #red #bold -1000#!#!."
+ je_grefm_bavarocracy_crash: "Support for the King will decrease by #red #bold -2000#!#!."
  
  je_grefm_greater_greece_tt: "Control the Greek homelands."
  je_grefm_greek_nationalism_tt1: "Establish our Greek roots."
@@ -162,9 +165,9 @@
  grefm_crete_momentum_plus_5: "#red 5#! momentum will be added to the Cretan Revolt."
  
  grefm_byzantium_formed_tt: "[ROOT.GetCountry.GetName] have embraced and completed the Megali Idea"
- corinth_canal_can_construct_tt: "This can only be built across the Peloponnese."
- grefm_palaia_site_tt: "Enables construction of the #bold Palaiá Anáktora#! in this state."
- palaia_anaktora_can_construct_tt: "Nope."
+ palaia_anaktora_enable_tt: "Enables construction of the #bold Palaiá Anáktora#! in #yellow Attica#!."
+ palaia_anaktora_can_construct_tt: "We must authorize the construction of the Royal Palace."
+ corinth_canal_can_construct_tt: "We must first survey the #yellow Isthimus of Corinth#!."
  treaty_of_eprius_event_tt: "Epirus will be annexed."
  treaty_of_cyprus_event_tt: "Cyprus will be annexed."
  treaty_of_macedonia_event_tt: "Macedonia will be annexed."
@@ -211,6 +214,8 @@
  grefm_dismiss_auxilliaries_button_desc: "Bavarian soldiers and officers dominate the Greek army, causing discord between them and local recruits. Reformers have called for the expulsion of these units from the Greek armed forces." 
  grefm_release_nikitaras_button: "Release Nikitaras from Prison"
  grefm_release_nikitaras_button_desc: "Nikitas Stamatelopoulos is a national hero for his bravery during the Greek War of Independence. However, he was imprisoned during the years of the Regency Council for his strong oppossition to the Bavarocracy. To this day, he has ardent supporters that pine for his release."
+ grefm_authorize_palace_button: "Fund Royal Palace"
+ grefm_authorize_palace_button_desc: ""
  
  grefm_epirus_support_button: "Support Rebels in Epirus"
  grefm_epirus_support_button_desc: "We can supply the growing rebellion in Epirus directly. If we do so, they will be able to take up arms against the Ottoman Empire."
@@ -535,6 +540,9 @@
  grefm_larissa_button_desc: "Larissa, one of the largest cities in [ROOT.GetCountry.GetName], is built atop several ruins from pre-modern Greece with some in continued use. Local scholars and engineers have reported uncovering numerous sites as the city begins to expand."
  grefm_rhodes_button: "Survey the ruins on Rhodes"
  grefm_rhodes_button_desc: "Located at the eastern edge of the Greek Islands, Rhodes was once a powerhouse in both political and maritime influence. Academics have long known of the wealth of cultural history strewn across the island."
+ 
+ grefm_cancel_button: "Cancel Current Expedition"
+ grefm_cancel_button_desc: ""
  
  grefm_parthenon_1_tt: "This will begin an expedition to survey the #bold Acropolis of Athens#!."
  grefm_parthenon_2_tt: "This will being an expedition to excavate the #bold Parthenon#!."

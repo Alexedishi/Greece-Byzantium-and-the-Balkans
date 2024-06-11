@@ -361,7 +361,7 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 		}
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		capital = {
-			state_region = STATE_EASTERN_THRACE
+			state_region = s:STATE_EASTERN_THRACE
 		}	
 	}
 	
@@ -370,6 +370,8 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 			id = byzfm.100 # The 14 Regions of Constantinople
 		}
 	}
+	
+	scripted_button = byzfm_mega_palation_survey_button
 	
 	complete = {
 		AND = { # Region 1
@@ -395,6 +397,13 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 	}
 	
 	on_fail = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			byzfm.102 # The Great Palace of Constantinople
+			byzfm.103 # The Hippodrome of Constantinople
+		}
 	}
 	
 	status_desc = {
@@ -468,201 +477,5 @@ je_byzfm_mega_palation_survey = {
 	weight = 100
 
 	should_be_pinned_by_default = yes
-	
-}
-
-je_byzfm_mega_palation = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_byzfm_content
-
-	immediate = {
-		balkfm_calculate_construction_effect = yes
-	}
-	
-	scripted_button = balkfm_construction_0_button
-	scripted_button = balkfm_construction_1_button
-	scripted_button = balkfm_construction_2_button
-	scripted_button = balkfm_construction_3_button
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-	
-	on_complete = {
-		set_variable = byzfm_mega_palation_complete
-		trigger_event = { 
-			id = byzfm.102 # Great Palace of Constantinople
-		}
-		balkfm_clean_up_construction_effect = yes
-	}
-
-	fail = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_fail = {
-		balkfm_clean_up_construction_effect = yes
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			balkfm_calculate_construction_effect = yes
-			balkfm_push_construction_effect = yes
-		}
-	}
-
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_construction_4
-				trigger = {
-					scope:journal_entry = { 
-						is_goal_complete = yes 
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_0
-				trigger = {
-					NOR = {
-						has_modifier = modifier_balkfm_construction_1
-						has_modifier = modifier_balkfm_construction_2
-						has_modifier = modifier_balkfm_construction_3
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_3
-				trigger = {
-					has_modifier = modifier_balkfm_construction_3
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_2
-				trigger = {
-					has_modifier = modifier_balkfm_construction_2
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_1
-				trigger = {
-					has_modifier = modifier_balkfm_construction_1
-				}
-			}
-		}
-	}
-	
-	current_value = {
-		value = var:balkfm_construction_var
-	}
-
-	goal_add_value = {
-		value = 2500 # Monument construction cost
-	}
-
-	progressbar = yes
-
-	weight = 100
-	
-}
-
-je_byzfm_hippodrome = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_byzfm_content
-
-	immediate = {
-		balkfm_calculate_construction_effect = yes
-	}
-	
-	scripted_button = balkfm_construction_0_button
-	scripted_button = balkfm_construction_1_button
-	scripted_button = balkfm_construction_2_button
-	scripted_button = balkfm_construction_3_button
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-	
-	on_complete = {
-		set_variable = byzfm_hippodrome_complete
-		trigger_event = { 
-			id = byzfm.103 # The Hippodrome of Constantinople
-		}
-		balkfm_clean_up_construction_effect = yes
-	}
-
-	fail = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_fail = {
-		balkfm_clean_up_construction_effect = yes
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			balkfm_calculate_construction_effect = yes
-			balkfm_push_construction_effect = yes
-		}
-	}
-
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_construction_4
-				trigger = {
-					scope:journal_entry = { 
-						is_goal_complete = yes 
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_0
-				trigger = {
-					NOR = {
-						has_modifier = modifier_balkfm_construction_1
-						has_modifier = modifier_balkfm_construction_2
-						has_modifier = modifier_balkfm_construction_3
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_3
-				trigger = {
-					has_modifier = modifier_balkfm_construction_3
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_2
-				trigger = {
-					has_modifier = modifier_balkfm_construction_2
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_construction_1
-				trigger = {
-					has_modifier = modifier_balkfm_construction_1
-				}
-			}
-		}
-	}
-	
-	current_value = {
-		value = var:balkfm_construction_var
-	}
-
-	goal_add_value = {
-		value = 2500 # Monument construction cost
-	}
-
-	progressbar = yes
-
-	weight = 100
 	
 }
