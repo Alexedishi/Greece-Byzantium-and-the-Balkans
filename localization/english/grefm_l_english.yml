@@ -11,7 +11,8 @@
  je_grefm_bavarocracy_main: "The Bavarocracy"
  je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support. This is expected to change by #bold # variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
  je_grefm_bavarocracy_main_status: "Guide the people of [ROOT.GetCountry.GetName] into Liberty or Autocracy."
- je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•#red #bold -1#!#! as a base.[SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_constitution_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_land_reform_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_brigandage_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_civic_tradition_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_nikitas_released_type')]"
+ je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•#red #bold -1#!#! as a base.[Country.GetCustom('grefm_bavarocracy_constitution_type')][Country.GetCustom('grefm_bavarocracy_land_reform_type')][Country.GetCustom('grefm_bavarocracy_brigandage_type')][Country.GetCustom('grefm_bavarocracy_civic_tradition_type')][Country.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][Country.GetCustom('custom_grefm_bavarocracy_heir_faith')][Country.GetCustom('grefm_bavarocracy_nikitas_released_type')][Country.GetCustom('grefm_bavarocracy_royal_palace_type')]"
+ je_grefm_bavarocracy_main_complete_tt: "Triggers the event #bold The October Revolution#!."
  je_grefm_greek_constitution: "Bavarocracy: Promulgate Constitutional Law"
  je_grefm_greek_constitution_reason: "When the regency council took custody of the nation for the young King Otto, promises were made to produce a constitution that would limit the power of the King and provide good governance to the people. However, since taking the throne, the King has retained power in his court and has refused to call any form of national assembly. Politicians and citizens alike demand the King make good on his word."
  je_grefm_land_reform: "Bavarocracy: Reform Ottoman Land Practices"
@@ -99,13 +100,14 @@
  je_grefm_the_graveyard_of_empires_reason: "Just over two millennia ago, Alexander the Great's armies thundered across Eurasia, bringing lands past the Hindu Kush into the Greek sphere. For centuries after, Greek kingdoms rose and fell, ensuring Greek influence as far as the Indus River. Even later, the followers of Nestorius brought their heretical teachings to these lands. Now, the Empire will see these lands prosper under the Greek state."
  
  # custom localization
- custom_grefm_bavarocracy_constitution: "•#red #bold -1#!#! from not #bold Enacting a Constitution#!."
- custom_grefm_bavarocracy_land_reform: "•#red #bold -1#!#! from not #bold Reforming Land Policy#!."
- custom_grefm_bavarocracy_brigandage: "•#red #bold -1#!#! from not #bold Controlling Brigandage#!."
- custom_grefm_bavarocracy_civic_tradition: "•#red #bold -1#!#! from not #bold Establishing a Civil Service#!."
- custom_grefm_bavarocracy_bavarian_auxiliaries: "•#red #bold -1#!#! from #bold Hosting the Bavarian Auxiliaries#!."
- custom_grefm_bavarocracy_nikitas_released: "•#green #bold +1#!#! from #bold Releasing Nikitaras#!."
- custom_grefm_bavarocracy_royal_palace: "•#green #bold +1#!#! from #bold Building a Royal Residence#!."
+ custom_grefm_bavarocracy_constitution: "\n•#red #bold -1#!#! from not #bold Enacting a Constitution#!."
+ custom_grefm_bavarocracy_land_reform: "\n•#red #bold -1#!#! from not #bold Reforming Land Policy#!."
+ custom_grefm_bavarocracy_brigandage: "\n•#red #bold -1#!#! from not #bold Controlling Brigandage#!."
+ custom_grefm_bavarocracy_civic_tradition: "\n•#red #bold -1#!#! from not #bold Establishing a Civil Service#!."
+ custom_grefm_bavarocracy_bavarian_auxiliaries: "\n•#red #bold -1#!#! from #bold Hosting the Bavarian Auxiliaries#!."
+ custom_grefm_bavarocracy_heir_faith: "\n•#red #bold -1#!#! from not having #bold Heir of the [GetReligion('orthodox').GetName] Faith#!."
+ custom_grefm_bavarocracy_nikitas_released: "\n•#green #bold +1#!#! from #bold Releasing Nikitaras#!."
+ custom_grefm_bavarocracy_royal_palace: "\n•#green #bold +1#!#! from #bold Building a Royal Residence#!."
  
  custom_grefm_epirus_revolt: "\n•#variable [GetGlobalVariable('grefm_epirus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Epirus#! are radical."
  custom_grefm_macedonia_revolt: "\n•#variable [GetGlobalVariable('grefm_macedonia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Coastal Macedonia#! are radical."
@@ -136,8 +138,11 @@
  je_grefm_bavarocracy_completed_tt: "This entry will close on completing the Bavarocracy event chain."
  je_grefm_greek_constitution_tt: "•If Greece has taken the more conservative route, triggers the event #bold Long Live the Constitution!#!.\n\n•If Greece has taken the more liberal route, triggers the event #bold A Crisis Averted!#!."
  je_grefm_bavarocracy_fail_tt: "Support for the King is at #bold zero#!."
- je_grefm_bavarocracy_boost: "Support for the King will increase by #green #bold +200#!#!."
- je_grefm_bavarocracy_crash: "Support for the King will decrease by #red #bold -2000#!#!."
+ je_grefm_bavarocracy_plus_200: "Support for the King will change by #green #bold +200#!#!."
+ je_grefm_bavarocracy_plus_500: "Support for the King will change by #green #bold +500#!#!."
+ je_grefm_bavarocracy_minus_200: "Support for the King will change by #red #bold -200#!#!."
+ je_grefm_bavarocracy_minus_500: "Support for the King will change by #red #bold -500#!#!."
+ je_grefm_bavarocracy_minus_2000: "Support for the King will change by #red #bold -2000#!#!."
  
  je_grefm_greater_greece_tt: "Control the Greek homelands."
  je_grefm_greek_nationalism_tt1: "Establish our Greek roots."
@@ -175,7 +180,6 @@
  grefm_weaksauce_tt: "#red This option will abandon the#! #greece Megali Idea#!!"
  grefm_tzatzikisauce_tt: "#greece Conversely, you can explore your future as Greece#!."
  grefm_turkish_homelands_tt: "All other Greek homeland states will lose their Turkish homeland status."
- je_grefm_absolutism_tt: "Keep these laws in place for 5 years."
  
  grefm_future_update_tt: "This content will be added in the next update."
  
@@ -193,10 +197,13 @@
  notification_notification_don_pacifico_gre1_desc: "The Greek state has accepted our offer to settle the dispute with Don Pacifico. Our mutual relations have improved."
  notification_notification_don_pacifico_gre2_name: "[SCOPE.sCountry('greece_scope').GetName] rejects our compromise."
  notification_notification_don_pacifico_gre2_desc: "The Greek state has refused to cooperate with our attempts to settle the dispute with Don Pacifico. Our mutual relations have declined."
+ 
  notification_notification_grefm_crete_accelerated_name: "Cretan Separatists Receive Funding"
  notification_notification_grefm_crete_accelerated_desc: "[GetCulture('greek').GetName] benefactors have begun directing funds to separatist movements in #yellow Crete#!. This is expected to increase monthly revolt momentum change by #bold #red 1#!#!."
  notification_grefm_greek_revolt_name: "Greek Separatists Revolt!"
  notification_grefm_greek_revolt_desc: "Greek Separatists in the Balkans have broken away from their overlords and now seek union with the Greek state. This has raised #o #tooltip:[GetRawTextTooltipTag('eqfm_tension_tt')] Separatist Tensions#!#! by #red #bold 25#!#!."
+ notification_notitification_grefm_separatism_received_name: "Greek Separatism"
+ notification_notitification_grefm_separatism_received_desc: "[GetCulture('greek').GetName] Separatists are active in one of our states. If we do not manage radicalism, we may soon have a revolt on our hands."
  
  notification_notification_grefm_steady_progress_name: "Excavation Proceeding Smoothly"
  notification_notification_grefm_steady_progress_desc: "Lead engineers have reported that the ongoing excavation project had proceeded more quickly than expected. The supervising Ephor has indicated that the project is now slated to finish #bold #green 2 months#!#! earlier than expected."
@@ -443,6 +450,16 @@
  modifier_grefm_supporting_crete_desc: "Supporting Crete"
  modifier_grefm_granted_balkan_autonomy: "Granted Balkan Autonomy"
  modifier_grefm_granted_balkan_autonomy_desc: "Granted Balkan Autonomy"
+ modifier_grefm_supported_excavation: "Supported Excavation"
+ modifier_grefm_supported_excavation_desc: "Supported Excavation"
+ modifier_grefm_support_rejected: "Support Rejected"
+ modifier_grefm_support_rejected_desc: "Support Rejected"
+ modifier_grefm_palace_authorized: "Royal Palace Approved"
+ modifier_grefm_palace_authorized_desc: "Royal Palace Approved"
+ modifier_grefm_philhellenic_loans: "Philhellenic Loans"
+ modifier_grefm_philhellenic_loans_desc: "Philhellenic Loans"
+ modifier_grefm_westernized_thought: "Westernized Thought"
+ modifier_grefm_westernized_thought_desc: "Westernized Thought"
  
  # names
  Glucksburg: "Glücksburg"
@@ -471,11 +488,14 @@
  
  # ideologies
  ideology_bavarocrat: "Bavarocrat"
- ideology_bavarocrat_desc: "#lore Empowered by their favor with the Wittelsbach court, this character seeks to retain their influence over the state through Monarchism.#!"
+ ideology_bavarocrat_desc: "#lore Empowered by their favor with the Wittelsbach court, this character seeks to retain their influence over the state through absolutist Monarchism.#!"
+ ideology_grefm_constiutionalist: "Constitutionalist"
+ ideology_grefm_constiutionalist_desc: "#lore Inspired by Western thought, this character aims to bring Constitutional rule to the nation."
+ 
  ideology_venizelos: "Venizelist"
  ideology_venizelos_desc: "#lore Driven by the Cretan struggle, this character strives to reform Greek society for an industrial future and to bring the dream of the Megali Idea into reality.#!"
  ideology_venizelist: "Venizelist"
- ideology_venizelist_desc: "#lore Inspired by the Ethnarch, his adherents strive to reform Greek society for an industrial future and to bring the dream of the Megali Idea into reality.#!"
+ ideology_venizelist_desc: "#lore Inspired by the Ethnarch, this character strives to reform Greek society for an industrial future and to bring the dream of the Megali Idea into reality.#!"
  
  # diplomatic plays
  grefm_epirus_rebellion: "The Epirote Revolt"

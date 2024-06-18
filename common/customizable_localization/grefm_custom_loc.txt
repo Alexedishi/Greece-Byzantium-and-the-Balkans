@@ -74,6 +74,36 @@ grefm_bavarocracy_nikitas_released_type = {
 	}
 }
 
+grefm_bavarocracy_royal_palace_type = {
+	type = country
+	
+	text = {
+		trigger = {
+			owns_entire_state_region = STATE_ATTICA
+			s:STATE_ATTICA = {
+				has_building = building_palaia_anaktora
+			}
+		}
+		localization_key = custom_grefm_bavarocracy_royal_palace
+	}
+}
+
+grefm_bavarocracy_heir_faith_type = {
+	type = country
+	
+	text = {
+		trigger = {
+			NOR = {
+				exists = heir
+				heir ?= {
+					has_religion = rel:orthodox
+				}
+			}
+		}
+		localization_key = custom_grefm_bavarocracy_heir_faith
+	}
+}
+
 ## Greek Separatism Custom Loc ##
 
 grefm_epirus_revolt_type = {

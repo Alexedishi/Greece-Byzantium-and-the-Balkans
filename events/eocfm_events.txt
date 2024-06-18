@@ -517,17 +517,19 @@ eocfm.006 = { # A Heretical Ruler
 		NOT = {
 			has_variable = eocfm_ruler_conversion_considered
 		}
-		any_scope_character = {
-			is_ruler = yes
+		has_law = law_type:law_monarchy
+		ruler = {
 			NOT = {
 				has_religion = orthodox
 			}
 		}
-		any_scope_character = {
-			is_heir = yes
+		heir ?= {
 			NOT = {
 				has_religion = orthodox
 			}
+		}
+		ig:ig_devout = {
+			ig_approval <= 5
 		}
 	}
 	

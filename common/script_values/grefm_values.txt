@@ -42,7 +42,28 @@ grefm_bavarocracy_progress_value = {
 	}
 	if = {
 		limit = {
+			NOR = {
+				exists = heir
+				heir ?= {
+					has_religion = rel:orthodox
+				}
+			}
+		}
+		subtract = 1
+	}
+	
+	if = {
+		limit = {
 			has_modifier = modifier_grefm_nikitas_released
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			owns_entire_state_region = STATE_ATTICA
+			s:STATE_ATTICA = {
+				has_building = building_palaia_anaktora
+			}
 		}
 		add = 1
 	}

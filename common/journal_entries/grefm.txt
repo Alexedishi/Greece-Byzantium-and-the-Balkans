@@ -1,7 +1,32 @@
 ﻿###################
 # THE BAVAROCRACY #
 ###################
-je_grefm_bavarocracy_main = { # main entry
+je_grefm_regency_council = {
+	icon = "gfx/interface/icons/event_icons/event_armansperg.dds"
+	
+	group = je_group_grefm_monarchism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_armansperg_regency
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_regency_council_tt
+			has_variable = grefm_regency_completed
+		}
+	}
+
+	weight = 1000
+	
+}
+
+je_grefm_bavarocracy_main = {
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
 	group = je_group_grefm_monarchism
@@ -17,11 +42,13 @@ je_grefm_bavarocracy_main = { # main entry
 	
 	modifiers_while_active = {
 		modifier_grefm_bavarocracy
+		modifier_grefm_westernized_thought
 	}
 	
 	scripted_button = grefm_dismiss_auxilliaries_button
 	scripted_button = grefm_release_nikitaras_button
 	scripted_button = grefm_authorize_palace_button
+	scripted_button = grefm_philhellenic_loan_button
 	
 	complete = {
 		has_law = law_type:law_monarchy
@@ -58,7 +85,7 @@ je_grefm_bavarocracy_main = { # main entry
 		set_variable = grefm_bavarocracy_secured
 	}
 		
-	fail = { # Without any interaction, this will fire in October 1863. You got hella time... irl, Otto got to shit the bed for a while anyways
+	fail = { # Without any interaction, this will fire in the 1860s. You have hella time... irl, Otto got to shit the bed for a while anyways
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_fail_tt
 			hidden_trigger = {
@@ -68,17 +95,22 @@ je_grefm_bavarocracy_main = { # main entry
 	}
 	
 	on_fail = {
-		if = {
-			limit = {
-				has_variable = grefm_tyranny_var
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_main_complete_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_variable = grefm_tyranny_var
+					}
+					trigger_event = {
+						id = grefm.008 # The Overthrow of the Bavarocracy
+					}
+				}
+				trigger_event = {
+					id = grefm.006 # The October Revolution
+					popup = yes
+				}
 			}
-			trigger_event = {
-				id = grefm.008 # The Overthrow of the Bavarocracy
-			}
-		}
-		trigger_event = {
-			id = grefm.006 # The October Revolution
-			popup = yes
 		}
 	}
 	
@@ -135,7 +167,7 @@ je_grefm_bavarocracy_main = { # main entry
 	}
 
 	goal_add_value = {
-		value = 8000
+		value = 10000
 	}
 
 	progressbar = yes
@@ -175,7 +207,6 @@ je_grefm_greek_constitution = {
 			}
 			AND = {
 				has_law = law_type:law_monarchy
-				has_law = law_type:law_hereditary_bureaucrats
 				has_law = law_type:law_autocracy
 			}
 		}
@@ -210,7 +241,7 @@ je_grefm_greek_constitution = {
 	}
 			
 	
-	timeout = 2801 # haha, this is totally not enough time, but not like Otto was even trying IRL
+	timeout = 2801 # This comes at you quickly and that is intentional; there were several attempts to convince Otto to pass *any* constitution and he refused
 	
 	on_timeout = {
 		hidden_effect = {
@@ -523,9 +554,19 @@ je_grefm_bavarian_greece = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.022 # Absolutism in Greece
+			id = grefm.029 # Absolutism in Greece
 		}
 		remove_variable = grefm_absolutism_var
+	}
+	
+	fail = {
+		NAND = {
+			has_law = law_type:law_monarchy
+			has_law = law_type:law_autocracy
+		}
+	}
+	
+	on_fail = {
 	}
 	
 	current_value = {

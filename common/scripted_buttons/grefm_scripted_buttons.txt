@@ -76,6 +76,28 @@ grefm_authorize_palace_button = {
 	}
 }
 
+grefm_philhellenic_loan_button = {
+	name = "grefm_philhellenic_loan_button"
+	desc = "grefm_philhellenic_loan_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_grefm_philhellenic_loans }
+	}
+	
+	effect = {
+		add_treasury = 100000
+		add_modifier = {
+			name = modifier_grefm_philhellenic_loans
+			months = 120
+		}
+	}
+	
+}
+
 # REVOLT BUTTONS #
 grefm_epirus_support_button = {
 	name = "grefm_epirus_support_button"
