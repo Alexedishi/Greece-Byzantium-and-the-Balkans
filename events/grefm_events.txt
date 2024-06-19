@@ -303,22 +303,6 @@ grefm.001 = { # Bavarocracy notification
 	}
 	
 	immediate = {
-		ruler = {
-			save_scope_as = king_otto_scope
-			set_variable = spouse_seeker # Blocks marriage for grefm.024
-		}
-		c:FRA = {
-			save_scope_as = france_scope
-		}
-		c:GBR = {
-			save_scope_as = uk_scope
-		}
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
 		grefm_initialize_bavarocracy_variables_effect = yes
 	}
 	
@@ -1611,7 +1595,7 @@ grefm.021 = { # King Ludwig Visits Greece
 	immediate = {
 		c:BAV = {
 			save_scope_as = bavaria_scope
-			captial = {
+			capital = {
 				save_scope_as = bavaria_state_scope
 			}
 			ruler = {
@@ -1663,7 +1647,7 @@ grefm.022 = { # Otto Leaves for Bavaria
 	immediate = {
 		c:BAV = {
 			save_scope_as = bavaria_scope
-			captial = {
+			capital = {
 				save_scope_as = bavaria_state_scope
 			}
 			ruler = {
@@ -1709,7 +1693,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 		# triggered from GLOBAL
 	}
 	
-	immediate = { # wedding.2 effects, with extra scripting for Queen Amalia
+	immediate = { # wedding.2 effects, with extra scripting for Queen Amalia and Oldenburg
 		create_character = {
 			template = template_grefm_oldenburg_amalia
 			on_created = {
@@ -1733,6 +1717,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 		random_country = {
 			limit = {
 				NOT = { THIS = ROOT }
+				NOT = { THIS ?= c:OLD }
 				has_law = law_type:law_monarchy
 				religion = scope:actor.religion
 				ruler = {
@@ -1752,6 +1737,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 				exists = scope:marriage_country_1
 				any_country = {
 					NOT = { THIS = ROOT }
+					NOT = { THIS ?= c:OLD }
 					NOT = { THIS = scope:marriage_country_1 }
 					has_law = law_type:law_monarchy
 					religion = scope:actor.religion
@@ -1764,6 +1750,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 			random_country = {
 				limit = {
 					NOT = { THIS = ROOT }
+					NOT = { THIS ?= c:OLD }
 					NOT = { THIS = scope:marriage_country_1 }
 					has_law = law_type:law_monarchy
 					religion = scope:actor.religion
@@ -1784,6 +1771,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 					exists = scope:marriage_country_2
 					any_country = {
 						NOT = { THIS = ROOT }
+						NOT = { THIS ?= c:OLD }
 						NOT = { THIS = scope:marriage_country_1 }
 						NOT = { THIS = scope:marriage_country_2 }
 						has_law = law_type:law_monarchy
@@ -1797,6 +1785,7 @@ grefm.023 = { # A Consort Fit for a Bavarian
 				random_country = {
 					limit = {
 						NOT = { THIS = ROOT }
+						NOT = { THIS ?= c:OLD }
 						NOT = { THIS = scope:marriage_country_1 }
 						NOT = { THIS = scope:marriage_country_2 }
 						relations:root >= 0
@@ -1815,6 +1804,9 @@ grefm.023 = { # A Consort Fit for a Bavarian
 					}
 				}
 			}
+		}
+		c:OLD = {
+			save_scope_as = oldenburg_scope
 		}
 	}
 	
@@ -1934,6 +1926,11 @@ grefm.024 = { # Otto's Intellect Challenged
 		ruler = {
 			save_scope_as = king_otto_scope
 		}
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = armansperg_scope
+			}
+		}
 	}
 	
 	option = {
@@ -2008,6 +2005,9 @@ grefm.025 = { # Discharging the Regency
 			remove_modifier = modifier_grefm_feebleminded
 		}
 		scope:armansperg_scope = {
+			hidden_effect = {
+				disinherit_character = yes
+			}
 			exile_character = yes
 		}
 		scope:grefm_rudhart_scope = {
@@ -2021,6 +2021,11 @@ grefm.025 = { # Discharging the Regency
 		add_modifier = {
 			name = modifier_grefm_impotent_monarch
 			months = long_modifier_time
+		}
+		scope:armansperg_scope = {
+			hidden_effect = {
+				disinherit_character = yes
+			}
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_minus_200
@@ -2055,6 +2060,7 @@ grefm.025 = { # Discharging the Regency
 			}
 		}
 		set_variable = grefm_bavarocracy
+		remove_variable = eocfm_ruler_conversion_considered
 	}
 	
 }
@@ -2103,6 +2109,9 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 		}
 		heir = {
 			save_scope_as = eocfm_heir_scope
+		}
+		ig:ig_devout = {
+			save_scope_as = devout_scope
 		}
 	}	
 	
@@ -7055,9 +7064,7 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 		create_country = {
 			tag = NMAC
 			origin = this
-			state = s:STATE_SKOPIA.region_state:root
-			on_created = {
-			}
+			state = scope:skopia_state_scope
 		}
 		c:NMAC = {
 			save_scope_as = makedonija_scope
@@ -7389,9 +7396,7 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		create_country = {
 			tag = CYP
 			origin = this
-			state = s:STATE_CYPRUS.region_state:root
-			on_created = {
-			}
+			state = scope:cyprus_state_scope
 		}
 		c:CYP = {
 			save_scope_as = cyprus_scope
@@ -7539,9 +7544,7 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 		create_country = {
 			tag = MAC
 			origin = this
-			state = s:STATE_MACEDONIA.region_state:root
-			on_created = {
-			}
+			state = scope:macedonia_state_scope
 		}
 		c:MAC = {
 			save_scope_as = macedonia_scope
@@ -7686,9 +7689,7 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 		create_country = {
 			tag = SMYR
 			origin = this
-			state = s:STATE_AYDIN.region_state:root
-			on_created = {
-			}
+			state = scope:aydin_state_scope
 		}
 		c:SMYR = {
 			save_scope_as = smyrna_scope
@@ -9014,9 +9015,7 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 		create_country = {
 			tag = CRE
 			origin = this
-			state = s:STATE_CRETE.region_state:root
-			on_created = {
-			}
+			state = scope:crete_state_scope
 		}
 		c:CRE = {
 			save_scope_as = crete_scope

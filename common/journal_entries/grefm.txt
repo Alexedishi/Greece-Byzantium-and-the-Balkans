@@ -21,6 +21,10 @@ je_grefm_regency_council = {
 			has_variable = grefm_regency_completed
 		}
 	}
+	
+	on_complete = {
+		custom_tooltip = je_grefm_regency_council_complete_tt
+	}
 
 	weight = 1000
 	
@@ -37,6 +41,10 @@ je_grefm_bavarocracy_main = {
 		set_variable = {
 			name = grefm_bavarocracy_progress_var
 			value = grefm_bavarocracy_progress_value
+		}
+		set_variable = {
+			name = grefm_ruler_popularity_var
+			value = grefm_ruler_popularity_value
 		}
 	}
 	
@@ -154,7 +162,14 @@ je_grefm_bavarocracy_main = {
 	}
 	
 	on_monthly_pulse = {
+		events = {
+			grefm.026 # The Philorthodox Conspiracy
+		}
 		effect = {
+			set_variable = {
+				name = grefm_ruler_popularity_var
+				value = grefm_ruler_popularity_value
+			}
 			change_variable = {
 				name = grefm_bavarocracy_var
 				add = var:grefm_bavarocracy_progress_var
@@ -241,7 +256,7 @@ je_grefm_greek_constitution = {
 	}
 			
 	
-	timeout = 2801 # This comes at you quickly and that is intentional; there were several attempts to convince Otto to pass *any* constitution and he refused
+	timeout = 2406 # This comes at you quickly and that is intentional; there were several attempts to convince Otto to pass *any* constitution and he refused; was set to 2801 but has been reduced to accomodate the new Regency event chain
 	
 	on_timeout = {
 		hidden_effect = {

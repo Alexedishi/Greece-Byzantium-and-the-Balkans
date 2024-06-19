@@ -1,7 +1,7 @@
 ﻿## Bavarocracy Values ##
 grefm_bavarocracy_progress_value = {
 	value = 0
-	subtract = 1
+	add = var:grefm_ruler_popularity_var
 	if = {
 		limit = {
 			NOT = {
@@ -42,10 +42,9 @@ grefm_bavarocracy_progress_value = {
 	}
 	if = {
 		limit = {
-			NOR = {
-				exists = heir
-				heir ?= {
-					has_religion = rel:orthodox
+			heir ?= {
+				NOT = {
+					has_religion = orthodox
 				}
 			}
 		}
@@ -67,6 +66,12 @@ grefm_bavarocracy_progress_value = {
 		}
 		add = 1
 	}
+}
+
+grefm_ruler_popularity_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 100
 }
 
 grefm_tyranny_support_value = {

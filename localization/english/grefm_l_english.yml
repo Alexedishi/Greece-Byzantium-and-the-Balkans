@@ -8,11 +8,16 @@
  je_group_grefm_empire: "The Revenge of the Greeks"
  je_group_grefm_ambition: "Greek Imperial Ambitions"
  
+ je_grefm_regency_council: "The Regency Council"
+ je_grefm_regency_council_reason: "King [ROOT.GetCountry.GetRuler.GetFullName] was still a minor when the Great Powers agreed that he was a satisfactory candidate to rule the reconstituted Greek state. While the young monarchy completed his education and began aclimating to his future position, day-to-day administration was delegated to a three-man regency council staffed and funded primarily by Bavarian aristocrats. Following the advice of #yellow King Ludwig I of Bavaria#!, the regents have balked at introducing constitutional governance to the young nation.\n\nAs [ROOT.GetCountry.GetRuler.GetFirstName] prepares to ascend to the throne in his own right, the prominent regent, [GetInterestGroupVariant('ig_landowners',GetPlayer).GetLeader.GetFullName] has centralized the power of the state around himself in a ploy to install himself and his descendants as the rulers of [ROOT.GetCountry.GetName]. Since taking control of the regency, he has vicously played the fledgling political parties and his fellow ministers against each other, paralyzing all state functions."
+ je_grefm_regency_council_tt: "Otto has discharged the Regency Council."
+ je_grefm_regency_council_complete_tt: "Triggers the Event #white #bold Discharging the Regency Council#!#!"
+ 
  je_grefm_bavarocracy_main: "The Bavarocracy"
- je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support. This is expected to change by #bold # variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
+ je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support.\nThis is expected to change by #bold #variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
  je_grefm_bavarocracy_main_status: "Guide the people of [ROOT.GetCountry.GetName] into Liberty or Autocracy."
- je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•#red #bold -1#!#! as a base.[Country.GetCustom('grefm_bavarocracy_constitution_type')][Country.GetCustom('grefm_bavarocracy_land_reform_type')][Country.GetCustom('grefm_bavarocracy_brigandage_type')][Country.GetCustom('grefm_bavarocracy_civic_tradition_type')][Country.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][Country.GetCustom('custom_grefm_bavarocracy_heir_faith')][Country.GetCustom('grefm_bavarocracy_nikitas_released_type')][Country.GetCustom('grefm_bavarocracy_royal_palace_type')]"
- je_grefm_bavarocracy_main_complete_tt: "Triggers the event #bold The October Revolution#!."
+ je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•[GetPlayer.MakeScope.Var('grefm_ruler_popularity_var').GetValue|+=] from the King's popularity.[Country.GetCustom('grefm_bavarocracy_constitution_type')][Country.GetCustom('grefm_bavarocracy_land_reform_type')][Country.GetCustom('grefm_bavarocracy_brigandage_type')][Country.GetCustom('grefm_bavarocracy_civic_tradition_type')][Country.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][Country.GetCustom('grefm_bavarocracy_heir_faith_type')][Country.GetCustom('grefm_bavarocracy_nikitas_released_type')][Country.GetCustom('grefm_bavarocracy_royal_palace_type')]"
+ je_grefm_bavarocracy_main_complete_tt: "Triggers the Event #white #bold The October Revolution#!#!"
  je_grefm_greek_constitution: "Bavarocracy: Promulgate Constitutional Law"
  je_grefm_greek_constitution_reason: "When the regency council took custody of the nation for the young King Otto, promises were made to produce a constitution that would limit the power of the King and provide good governance to the people. However, since taking the throne, the King has retained power in his court and has refused to call any form of national assembly. Politicians and citizens alike demand the King make good on his word."
  je_grefm_land_reform: "Bavarocracy: Reform Ottoman Land Practices"
@@ -100,14 +105,14 @@
  je_grefm_the_graveyard_of_empires_reason: "Just over two millennia ago, Alexander the Great's armies thundered across Eurasia, bringing lands past the Hindu Kush into the Greek sphere. For centuries after, Greek kingdoms rose and fell, ensuring Greek influence as far as the Indus River. Even later, the followers of Nestorius brought their heretical teachings to these lands. Now, the Empire will see these lands prosper under the Greek state."
  
  # custom localization
- custom_grefm_bavarocracy_constitution: "\n•#red #bold -1#!#! from not #bold Enacting a Constitution#!."
- custom_grefm_bavarocracy_land_reform: "\n•#red #bold -1#!#! from not #bold Reforming Land Policy#!."
- custom_grefm_bavarocracy_brigandage: "\n•#red #bold -1#!#! from not #bold Controlling Brigandage#!."
- custom_grefm_bavarocracy_civic_tradition: "\n•#red #bold -1#!#! from not #bold Establishing a Civil Service#!."
- custom_grefm_bavarocracy_bavarian_auxiliaries: "\n•#red #bold -1#!#! from #bold Hosting the Bavarian Auxiliaries#!."
- custom_grefm_bavarocracy_heir_faith: "\n•#red #bold -1#!#! from not having #bold Heir of the [GetReligion('orthodox').GetName] Faith#!."
- custom_grefm_bavarocracy_nikitas_released: "\n•#green #bold +1#!#! from #bold Releasing Nikitaras#!."
- custom_grefm_bavarocracy_royal_palace: "\n•#green #bold +1#!#! from #bold Building a Royal Residence#!."
+ custom_grefm_bavarocracy_constitution: "\n•#red #bold -1.00#!#! from not #bold Enacting a Constitution#!."
+ custom_grefm_bavarocracy_land_reform: "\n•#red #bold -1.00#!#! from not #bold Reforming Land Policy#!."
+ custom_grefm_bavarocracy_brigandage: "\n•#red #bold -1.00#!#! from not #bold Controlling Brigandage#!."
+ custom_grefm_bavarocracy_civic_tradition: "\n•#red #bold -1.00#!#! from not #bold Establishing a Civil Service#!."
+ custom_grefm_bavarocracy_bavarian_auxiliaries: "\n•#red #bold -1.00#!#! from #bold Hosting the Bavarian Auxiliaries#!."
+ custom_grefm_bavarocracy_heir_faith: "\n•#red #bold -1.00#!#! from not having #bold Heir of the [GetReligion('orthodox').GetName] Faith#!."
+ custom_grefm_bavarocracy_nikitas_released: "\n•#green #bold +1.00#!#! from #bold Releasing Nikitaras#!."
+ custom_grefm_bavarocracy_royal_palace: "\n•#green #bold +1.00#!#! from #bold Building a Royal Residence#!."
  
  custom_grefm_epirus_revolt: "\n•#variable [GetGlobalVariable('grefm_epirus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Epirus#! are radical."
  custom_grefm_macedonia_revolt: "\n•#variable [GetGlobalVariable('grefm_macedonia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Coastal Macedonia#! are radical."
@@ -223,6 +228,8 @@
  grefm_release_nikitaras_button_desc: "Nikitas Stamatelopoulos is a national hero for his bravery during the Greek War of Independence. However, he was imprisoned during the years of the Regency Council for his strong oppossition to the Bavarocracy. To this day, he has ardent supporters that pine for his release."
  grefm_authorize_palace_button: "Fund Royal Palace"
  grefm_authorize_palace_button_desc: ""
+ grefm_philhellenic_loan_button: "Seek Philhellene Loan"
+ grefm_philhellenic_loan_button_desc: ""
  
  grefm_epirus_support_button: "Support Rebels in Epirus"
  grefm_epirus_support_button_desc: "We can supply the growing rebellion in Epirus directly. If we do so, they will be able to take up arms against the Ottoman Empire."
@@ -460,6 +467,20 @@
  modifier_grefm_philhellenic_loans_desc: "Philhellenic Loans"
  modifier_grefm_westernized_thought: "Westernized Thought"
  modifier_grefm_westernized_thought_desc: "Westernized Thought"
+ modifier_grefm_armansperg_regency: "Armansperg Regency"
+ modifier_grefm_armansperg_regency_desc: "Armansperg Regency"
+ modifier_grefm_bavarian_tour: "Bavarian Tour"
+ modifier_grefm_bavarian_tour_desc: "Bavarian Tour"
+ modifier_grefm_absent_monarch: "Absent Monarch"
+ modifier_grefm_absent_monarch_desc: "Absent Monarch"
+ modifier_grefm_feebleminded: "Deranged Monarch"
+ modifier_grefm_feebleminded_desc: "Deranged Monarch"
+ modifier_grefm_impotent_monarch: "Impotent Monarch"
+ modifier_grefm_impotent_monarch_desc: "Impotent Monarch"
+ 
+ 
+ 
+ 
  
  # names
  Glucksburg: "Glücksburg"
@@ -477,6 +498,8 @@
  Nikitas: "Nikitas"
  Stamatelopoulos: "Stamatelopoulos"
  Kanellos: "Kanellos"
+ Oldenburg: "Oldenburg"
+ von_Rudhart: "von Rudhart"
  
  # traits
  trait_grefm_bavarocrat: "Bavarocrat"
