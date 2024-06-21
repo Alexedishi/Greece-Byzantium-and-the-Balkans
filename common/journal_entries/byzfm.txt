@@ -355,14 +355,14 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 	}
 	
 	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
+		}
 		custom_tooltip = {
 			text = je_byzfm_constantinople_tt
 			has_variable = byzfm_byzantium_restored
 		}
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
-		}	
 	}
 	
 	immediate = {
@@ -374,13 +374,9 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 	scripted_button = byzfm_mega_palation_survey_button
 	
 	complete = {
-		AND = { # Region 1
-			any_scope_state = {
-				has_building = building_mega_palation
-			}
-			any_scope_state = {
-				has_building = building_hippodrome
-			}
+		s:STATE_EASTERN_THRACE = {
+			has_building = building_hippodrome
+			has_building = building_mega_palation
 		}
 	}
 	
@@ -392,7 +388,7 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 	
 	fail = {
 		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
+			has_state_in_state_region = STATE_EASTERN_THRACE
 		}
 	}
 	
@@ -405,15 +401,10 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 			byzfm.103 # The Hippodrome of Constantinople
 		}
 	}
-	
-	status_desc = {
-	}
 
-	weight = 100
+	weight = 400
 	
 }
-
-## MONUMENT CONSTRUCTIONS ##
 
 je_byzfm_mega_palation_survey = {
 	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
