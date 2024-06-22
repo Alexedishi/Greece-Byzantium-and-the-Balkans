@@ -906,19 +906,9 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 		heir = {
 			save_scope_as = otto_heir_scope
 		}
-		if = {
-			limit = {
-				any_scope_character = {
-					has_variable = grefm_is_voulgaris
-				}
-			}
-			save_scope_as = voulgaris_scope
-		}
-		else = {
-			ig:ig_intelligentsia = {
-				leader = {
-					save_scope_as = voulgaris_scope # close enough
-				}
+		ig:ig_intelligentsia = {
+			leader = {
+				save_scope_as = intelligentsia_leader_scope
 			}
 		}
 		set_variable = grefm_bavarocracy_completed
@@ -940,8 +930,8 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 				}
 			}
 		}
-		scope:voulgaris_scope = {
-				set_character_as_ruler = yes
+		scope:intelligentsia_leader_scope = {
+			set_character_as_ruler = yes
 		}
 		if = {
 			limit = { 
@@ -2142,7 +2132,7 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 		NOT = {
 			has_variable = eocfm_ruler_conversion_considered
 		}
-		var:grefm_bavarocracy_var <= 8000
+		var:grefm_bavarocracy_var <= 1500
 		ruler = {
 			NOT = {
 				has_religion = orthodox
@@ -2164,7 +2154,9 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 			save_scope_as = eocfm_heir_scope
 		}
 		ig:ig_devout = {
-			save_scope_as = devout_scope
+			leader = {
+				save_scope_as = devout_leader_scope
+			}
 		}
 	}	
 	
@@ -2336,7 +2328,7 @@ grefm.030 = { # 1862 head of state referendum
 			}
 			set_variable = grefm_bavarocracy_completed
 		}
-		heir = {
+		heir ?= {
 			save_scope_as = grefm_heir_scope
 		}
 		remove_variable = grefm_bavarocracy
@@ -2629,6 +2621,15 @@ grefm.031 = { # the king of the hellenes
 				has_variable = grefm_bavarocracy_secured
 			}
 		}
+		triggered_desc = {
+			desc = grefm.031.d3
+			trigger = {
+				NOR = {
+					has_variable = grefm_1862_election_held
+					has_variable = grefm_bavarocracy_secured
+				}
+			}
+		}
 	}
 	flavor = grefm.031.f
 	
@@ -2673,7 +2674,7 @@ grefm.031 = { # the king of the hellenes
 		set_variable = grefm_glucksburg_era
 	}
 	
-	option = { # standard option if you crowned George I
+	option = { # standard option if you got here via grefm.030
 		name = grefm.031.a
 		default_option = yes
 		trigger = {
@@ -2698,6 +2699,21 @@ grefm.031 = { # the king of the hellenes
 		}
 		add_journal_entry = {
 			type = je_grefm_bavarian_greece
+		}
+	}
+	
+	option = { # alternate if you got here via je_grefm_bavarocracy_main
+		name = grefm.031.a
+		default_option = yes
+		trigger = {
+			NOR = {
+				has_variable = grefm_1862_election_held
+				has_variable = grefm_bavarocracy_secured
+			}
+		}
+		scope:grefm_trikoupis_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
 		}
 	}
 	

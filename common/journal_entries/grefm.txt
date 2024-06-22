@@ -90,7 +90,6 @@ je_grefm_bavarocracy_main = {
 		trigger_event = {
 			id = grefm.007 # mandate secured
 		}
-		set_variable = grefm_bavarocracy_secured
 	}
 		
 	fail = { # Without any interaction, this will fire in the 1860s. You have hella time... irl, Otto got to shit the bed for a while anyways
@@ -114,9 +113,10 @@ je_grefm_bavarocracy_main = {
 						id = grefm.008 # The Overthrow of the Bavarocracy
 					}
 				}
-				trigger_event = {
-					id = grefm.006 # The October Revolution
-					popup = yes
+				else = {
+					trigger_event = {
+						id = grefm.006 # The October Revolution
+					}
 				}
 			}
 		}
