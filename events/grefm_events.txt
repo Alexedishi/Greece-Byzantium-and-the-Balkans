@@ -309,6 +309,10 @@ grefm.001 = { # Bavarocracy notification
 			days = 40 # Mid-February
 		}
 		trigger_event = {
+			id = grefm.017 # bavarian auxiliary corps
+			days = 90
+		}
+		trigger_event = {
 			id = grefm.022 # Otto Leaves for Bavaria
 			days = 130 # Mid-May
 		}
@@ -346,7 +350,7 @@ grefm.001 = { # Bavarocracy notification
 	after = {
 		set_variable = {
 			name = grefm_bavarocracy_var
-			value = 10000
+			value = 2000
 		}
 	}
 
@@ -389,10 +393,10 @@ grefm.002 = { # Revolution averted, Otto remains in power
 		name = grefm.002.a
 		default_option = yes
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 		set_variable = grefm_constitution_completed
@@ -501,10 +505,10 @@ grefm.003 = { # 3 September 1843 Revolution
 			months = 1
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 		set_variable = grefm_constitution_completed
@@ -512,6 +516,7 @@ grefm.003 = { # 3 September 1843 Revolution
 	
 	option = { # Othonian Absolutism Time
 		name = grefm.003.b
+		grefm_initialize_tyranny_variables_effect = yes
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -540,15 +545,24 @@ grefm.003 = { # 3 September 1843 Revolution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Otto discharged von Rudhart in 1837 to directly chair his privy council; this is represented here for gameplay reasons
 		}
-		set_variable = {
-			name = grefm_tyranny_var
-			value = 0
-		}
 		add_journal_entry = {
 			type = je_grefm_the_tyranny_of_house_wittelsbach
 		}
+		if = {
+			limit = {
+				has_law = law_type:law_oligarchy
+			}
+			activate_law = law_type:law_autocracy
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_law = law_type:law_oligarchy
+				}
+			}
+			activate_law = law_type:law_autocracy
+		}
 	}
-		
 	
 }
 
@@ -561,7 +575,7 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 	flavor = grefm.004.f
 	
 	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
+		video = "unspecific_politicians_arguing"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_otto.dds"
@@ -589,6 +603,7 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 	option = {
 		name = grefm.004.a
 		default_option = yes
+		grefm_initialize_tyranny_variables_effect = yes
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -628,14 +643,18 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Othonian Absolutism Moment
 		}
-		set_variable = {
-			name = grefm_tyranny_var
-			value = 0
-		}
 		add_journal_entry = {
 			type = je_grefm_the_tyranny_of_house_wittelsbach
 		}
 	}
+	
+	after = {
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 100
+		}
+	}
+	
 }
 
 grefm.005 = { # error 404 monarch not found
@@ -993,6 +1012,7 @@ grefm.009 = { # A Disgraced Tyrant
 				save_scope_as = armed_forces_leader_scope
 			}
 		}
+		set_variable = grefm_tyranny_busted
 	}
 	
 	option = {
@@ -1052,10 +1072,10 @@ grefm.009 = { # A Disgraced Tyrant
 			months = 3
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_2000
+			text = je_grefm_bavarocracy_minus_400
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = -2000
+				add = -400
 			}
 		}
 		set_variable = grefm_constitution_completed
@@ -1177,10 +1197,10 @@ grefm.012 = { # land reformation complete
 			months = normal_modifier_time
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 	}
@@ -1279,10 +1299,10 @@ grefm.014 = { # brigands suppressed
 			remove_modifier = modifier_grefm_brigandage
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 	}
@@ -1365,10 +1385,10 @@ grefm.016 = { # civic reform complete
 			months = normal_modifier_time
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 	}
@@ -1464,10 +1484,10 @@ grefm.018 = { # Bavarian Auxiliaries Dismissed
 			}
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_200
+			text = je_grefm_bavarocracy_plus_20
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 200
+				add = 20
 			}
 		}
 	}
@@ -1512,10 +1532,10 @@ grefm.019 = { # nikitas released from jail
 			is_decaying = yes
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_200
+			text = je_grefm_bavarocracy_plus_20
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 200
+				add = 20
 			}
 		}
 	}
@@ -1578,10 +1598,10 @@ grefm.020 = { # the brigands raid again
 			}
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_200
+			text = je_grefm_bavarocracy_minus_50
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = -200
+				add = -50
 			}
 		}
 	}
@@ -1731,15 +1751,14 @@ grefm.023 = { # A Consort Fit for a Bavarian
 				has_variable = spouse_seeker
 			}
 			save_scope_as = royal_marriage_character
-			set_variable = is_married
-			remove_variable = spouse_seeker
 		}
 		random_country = {
 			limit = {
 				NOT = { THIS = ROOT }
 				NOT = { THIS ?= c:OLD }
 				has_law = law_type:law_monarchy
-				religion = scope:actor.religion
+				country_has_state_religion = rel:catholic
+				is_country_type = recognized
 				ruler = {
 					age > 36
 					NOT = {
@@ -1760,7 +1779,8 @@ grefm.023 = { # A Consort Fit for a Bavarian
 					NOT = { THIS ?= c:OLD }
 					NOT = { THIS = scope:marriage_country_1 }
 					has_law = law_type:law_monarchy
-					religion = scope:actor.religion
+					country_has_state_religion = rel:catholic
+					is_country_type = recognized
 					ruler = {
 						age > 36
 						NOT = { has_variable = marriage_target }
@@ -1773,7 +1793,8 @@ grefm.023 = { # A Consort Fit for a Bavarian
 					NOT = { THIS ?= c:OLD }
 					NOT = { THIS = scope:marriage_country_1 }
 					has_law = law_type:law_monarchy
-					religion = scope:actor.religion
+					country_has_state_religion = rel:catholic
+					is_country_type = recognized
 					ruler = {
 						age > 36
 						NOT = {
@@ -1795,7 +1816,8 @@ grefm.023 = { # A Consort Fit for a Bavarian
 						NOT = { THIS = scope:marriage_country_1 }
 						NOT = { THIS = scope:marriage_country_2 }
 						has_law = law_type:law_monarchy
-						religion = scope:actor.religion
+						country_has_state_religion = rel:catholic
+						is_country_type = recognized
 						ruler = {
 							age > 36
 							NOT = { has_variable = marriage_target }
@@ -1810,7 +1832,8 @@ grefm.023 = { # A Consort Fit for a Bavarian
 						NOT = { THIS = scope:marriage_country_2 }
 						relations:root >= 0
 						has_law = law_type:law_monarchy
-						religion = scope:actor.religion
+						country_has_state_religion = rel:catholic
+						is_country_type = recognized
 						ruler = {
 							age > 36
 							NOT = {
@@ -1856,6 +1879,9 @@ grefm.023 = { # A Consort Fit for a Bavarian
 	
 	option = { # Vanilla Noble 1
 		name = wedding.2.a
+		trigger = {
+			exists = scope:marriage_country_1
+		}
 		scope:marriage_country_1 = {
 			ruler = {
 				set_variable = marriage_target
@@ -1916,6 +1942,12 @@ grefm.023 = { # A Consort Fit for a Bavarian
 		}
 	}
 
+	after = {
+		ruler = {
+			set_variable = is_married
+			remove_variable = spouse_seeker
+		}
+	}
 }
 
 grefm.024 = { # Otto's Intellect Challenged
@@ -1951,6 +1983,11 @@ grefm.024 = { # Otto's Intellect Challenged
 				save_scope_as = armansperg_scope
 			}
 		}
+		c:BAV = {
+			ruler = {
+				save_scope_as = ludwig_scope
+			}
+		}
 	}
 	
 	option = {
@@ -1960,10 +1997,10 @@ grefm.024 = { # Otto's Intellect Challenged
 			add_modifier = modifier_grefm_feebleminded
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_500
+			text = je_grefm_bavarocracy_minus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = -500
+				add = -100
 			}
 		}
 	}
@@ -2071,12 +2108,8 @@ grefm.025 = { # Discharging the Regency
 				days = 90
 			}
 			trigger_event = {
-				id = grefm.017 # bavarian auxiliary corps
-				days = 120
-			}
-			trigger_event = {
 				id = grefm.015 # je_grefm_civic_tradition
-				days = 150
+				days = 120
 			}
 		}
 		set_variable = grefm_bavarocracy
@@ -2155,10 +2188,10 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_500
+			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 500
+				add = 100
 			}
 		}
 	}
@@ -2180,10 +2213,10 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 			value = small_radicals
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_200
+			text = je_grefm_bavarocracy_plus_50
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 200
+				add = 50
 			}
 		}
 	}
@@ -2211,10 +2244,10 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_200
+			text = je_grefm_bavarocracy_minus_50
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = -200
+				add = -50
 			}
 		}
 	}

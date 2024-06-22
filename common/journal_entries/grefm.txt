@@ -39,12 +39,12 @@ je_grefm_bavarocracy_main = {
 	
 	immediate = {
 		set_variable = {
-			name = grefm_bavarocracy_progress_var
-			value = grefm_bavarocracy_progress_value
-		}
-		set_variable = {
 			name = grefm_ruler_popularity_var
 			value = grefm_ruler_popularity_value
+		}		
+		set_variable = {
+			name = grefm_bavarocracy_progress_var
+			value = grefm_bavarocracy_progress_value
 		}
 	}
 	
@@ -108,7 +108,7 @@ je_grefm_bavarocracy_main = {
 			hidden_effect = {
 				if = {
 					limit = {
-						has_variable = grefm_tyranny_var
+						has_variable = grefm_tyranny_busted
 					}
 					trigger_event = {
 						id = grefm.008 # The Overthrow of the Bavarocracy
@@ -228,33 +228,31 @@ je_grefm_greek_constitution = {
 	}
 	
 	on_complete = {
-		custom_tooltip = {
-			text = je_grefm_greek_constitution_tt
-			hidden_effect = {
-				if = {
-					limit = {
-						has_law = law_type:law_autocracy
-					}
-					trigger_event = {
-						id = grefm.004 # lol you really thought that INCREASING autocracy was the solution?
+		custom_tooltip = je_grefm_greek_constitution_tt1
+		custom_tooltip = je_grefm_greek_constitution_tt2
+		hidden_effect = {
+			if = {
+				limit = {
+					has_law = law_type:law_autocracy
+				}
+				trigger_event = {
+					id = grefm.004 # lol you really thought that INCREASING autocracy was the solution?
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_census_voting
+						has_law = law_type:law_universal_suffrage
 					}
 				}
-				else_if = {
-					limit = {
-						OR = {
-							has_law = law_type:law_census_voting
-							has_law = law_type:law_universal_suffrage
-						}
-					}
-					trigger_event= {
-						id =  grefm.002 # nice, the revolution was averted
-					}
+				trigger_event= {
+					id =  grefm.002 # nice, the revolution was averted
 				}
 			}
 		}
 		set_variable = grefm_don_pacifico_var
 	}
-			
 	
 	timeout = 2406 # This comes at you quickly and that is intentional; there were several attempts to convince Otto to pass *any* constitution and he refused; was set to 2801 but has been reduced to accomodate the new Regency event chain
 	
@@ -262,7 +260,6 @@ je_grefm_greek_constitution = {
 		hidden_effect = {
 			trigger_event = {
 				id = grefm.003 # its constitution time
-				popup = yes
 			}
 		}
 		set_variable = grefm_don_pacifico_var
@@ -434,13 +431,27 @@ je_grefm_the_tyranny_of_house_wittelsbach = {
 	
 	should_be_pinned_by_default = yes	
 
+	immediate = {
+		grefm_calculate_tyranny_variables_effect = yes
+	}
+
 	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+		custom_tooltip = {
+			text = je_grefm_the_tyranny_of_house_wittelsbach_goal
+			hidden_trigger = {
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
+				NOT = {
+					any_civil_war = {
+						civil_war_progress > 0.5
+						is_civil_war_type = revolution
+					}
+				}
+			}
 		}
 		has_law = law_type:law_monarchy
 		has_law = law_type:law_autocracy
-		has_law = law_type:law_state_religion
 		OR = {
 			has_law = law_type:law_hereditary_bureaucrats
 			has_law = law_type:law_appointed_bureaucrats
@@ -448,12 +459,6 @@ je_grefm_the_tyranny_of_house_wittelsbach = {
 		OR = {
 			has_law = law_type:law_serfdom	
 			has_law = law_type:law_tenant_farmers
-		}
-		NOT = {
-			any_civil_war = {
-				civil_war_progress > 0.5
-				is_civil_war_type = revolution
-			}
 		}
 	}
 	
@@ -465,7 +470,18 @@ je_grefm_the_tyranny_of_house_wittelsbach = {
 	}
 	
 	fail = {
-		var:grefm_tyranny_var <= 0
+		OR = {
+			custom_tooltip = {
+				text = je_grefm_tyranny_tt
+				hidden_trigger = {
+					var:grefm_tyranny_var <= 0
+				}
+			}
+			NOR = {
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
+			}
+		}
 	}
 	
 	on_fail = {
@@ -490,10 +506,17 @@ je_grefm_the_tyranny_of_house_wittelsbach = {
 	
 	on_invalid = {
 		remove_variable = grefm_tyranny_var
+		remove_variable = grefm_otto_points
 	}
 
 	modifiers_while_active {
 		modifier_grefm_tyrannical_ruler
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			grefm_calculate_tyranny_variables_effect = yes
+		}
 	}
 	
 	on_monthly_pulse = {
@@ -502,18 +525,58 @@ je_grefm_the_tyranny_of_house_wittelsbach = {
 				name = grefm_tyranny_var
 				add = var:grefm_tyranny_progress_var
 			}
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_state_religion
+					OR = {
+						has_law = law_type:law_hereditary_bureaucrats
+						has_law = law_type:law_appointed_bureaucrats
+					}
+					OR = {
+						has_law = law_type:law_serfdom	
+						has_law = law_type:law_tenant_farmers
+					}
+					NOT = {
+						any_civil_war = {
+							civil_war_progress > 0.5
+							is_civil_war_type = revolution
+						}
+					}
+				}
+				change_variable = {
+					name = grefm_otto_points
+					add = 1
+				}
+			}
+			else = {
+				change_variable = {
+					name = grefm_otto_points
+					subtract = 1
+				}
+			}
 		}
 	}
 	
 	current_value = {
-		value = root.var:grefm_tyranny_var
+		value = root.var:grefm_otto_points
 	}
 
 	goal_add_value = {
-		add = 100
+		add = 60
 	}
 	
 	progressbar = yes
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_grefm_the_tyranny_of_house_wittelsbach_status
+			trigger = {
+				always = yes
+			}
+		}
+	}
 
 	weight = 4999
 	
