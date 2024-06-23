@@ -1448,7 +1448,29 @@ je_grefm_greek_separatism_main = {
 	
 	should_be_pinned_by_default = yes
 	
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:greek
+		NOT = {
+			has_journal_entry = je_grefm_regency_council
+		}
+	}
+	
+	possible = {
+		is_subject = no
+	}
+	
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_separatism_received
+				}
+			}
+			trigger_event = {
+				id = grefm.210 # Greek Separatism
+			}
+		}
+		set_variable = grefm_separatism_received
 	}
 	
 	scripted_button = grefm_epirus_support_button
@@ -1538,6 +1560,17 @@ je_grefm_greek_separatism_sub = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_separatism_received
+				}
+			}
+			trigger_event = {
+				id = grefm.210 # Greek Separatism
+			}
+		}
+		set_variable = grefm_separatism_received
 	}
 	
 	complete = {
@@ -1546,12 +1579,12 @@ je_grefm_greek_separatism_sub = {
 	
 	fail = {
 		NOR = {
-			has_state_in_state_region = STATE_ALBANIA
-			has_state_in_state_region = STATE_MACEDONIA
-			has_state_in_state_region = STATE_SKOPIA
-			has_state_in_state_region = STATE_AYDIN
-			has_state_in_state_region = STATE_CRETE
-			has_state_in_state_region = STATE_CYPRUS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_CYPRUS
 		}
 	}
 	
@@ -1570,7 +1603,7 @@ je_grefm_greek_separatism_sub = {
 		triggered_desc = {
 			desc = je_grefm_greek_separatism_crete_tt
 			trigger = {
-				has_state_in_state_region  = STATE_CRETE
+				has_state_in_state_region = STATE_CRETE
 			}
 		}
 	}

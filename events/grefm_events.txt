@@ -5823,22 +5823,7 @@ grefm.155 = { # Excavation Popular Interest
 grefm.156 = { # Excavation Palace Uncovered
 	type = country_event
 	placement = root
-	
-	title = grefm.156.t
-	desc = grefm.156.d
-	flavor = grefm.156.f
-	
-	event_image = {
-		video = "unspecific_world_fair"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
+	hidden = yes
 	
 	trigger = {
 		var:grefm_excavation_var > 12
@@ -5934,8 +5919,15 @@ grefm.158 = { # Politician Offers Funding
 	trigger = {
 		NOT = {
 			any_interest_group = {
-				has_modifier = modifier_grefm_supported_excavation
+				has_modifier = modifier_grefm_supported_excavation  # can't already be supporting a dig
 			}
+		}	
+		any_interest_group = {
+			law_stance = {
+				law = law_type:law_no_schools # should favor some type of education
+				value > neutral
+			}
+			is_marginal = no # because where will the money come from
 		}
 	}
 	
@@ -5946,13 +5938,75 @@ grefm.158 = { # Politician Offers Funding
 	}
 	
 	immediate = {
+		switch = {
+			trigger = has_variable
+			grefm_parthenon_1_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_parthenon_2_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_mycenae_1_excavation = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_mycenae_2_excavation = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_gla_excavation = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_delos_excavation = {
+				s:STATE_WEST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_larissa_excavation = {
+				s:STATE_THESSALIA = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+			grefm_rhodes_excavation = {
+				s:STATE_EAST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						save_scope_as = grefm_excavation_target
+					}
+				}
+			}
+		}		
 		random_interest_group = {
 			limit = {
 				law_stance = {
-					law = law_type:law_no_schools # should favor some type of education
+					law = law_type:law_no_schools
 					value > neutral
 				}
-				is_marginal = no # because where will the money come from
+				NOT = {
+					has_modifier = modifier_grefm_supported_excavation
+				}
+				is_marginal = no
 			}
 			save_scope_as = grefm_benefactor_scope
 		}
@@ -6094,10 +6148,31 @@ grefm.159 = { # Reconstruction Garners Criticism
 	option = { # Meh, it's good enough
 		name = grefm.159.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_bad_reconstruction
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			pop_type = academics
+			value = small_radicals
+		}
 	}
 	
 	option = { # Rebuilt it right, or don't rebuild it at all
 		name = grefm.159.b
+		custom_tooltip = {
+			text = grefm.159.b.tt
+			hidden_effect = {
+				change_variable = {
+					name = grefm_excavation_var
+					subtract = 6
+				}
+			}
+		}
+		add_loyalists = {
+			pop_type = academics
+			value = medium_radicals
+		}
 	}
 
 }
@@ -6908,9 +6983,14 @@ grefm.210 = { # Greek Separatism
 	option = {
 		name = grefm.210.a
 		default_option = yes
+		trigger = {
+			country_has_primary_culture = cu:greek
+		}
 		if = {	
 			limit = {
-				country_has_primary_culture = cu:greek
+				NOT = {
+					has_journal_entry = je_grefm_greek_separatism_main
+				}
 			}
 			add_journal_entry = {
 				type = je_grefm_greek_separatism_main
@@ -6918,18 +6998,20 @@ grefm.210 = { # Greek Separatism
 			custom_tooltip = grefm.210.tt1
 			custom_tooltip = grefm.210.tt2
 		}
-		else_if = {
-			limit = {
-				grefm_is_muslim_trigger = yes
-			}
-			add_journal_entry = {
-				type = je_grefm_greek_separatism_sub
-			}
-			custom_tooltip = grefm.210.tt2
-			custom_tooltip = grefm.210.tt3
-		}
 	}
 
+	option = {
+		name = grefm.210.b
+		trigger = {
+			grefm_is_muslim_trigger = yes
+		}
+		add_journal_entry = {
+			type = je_grefm_greek_separatism_sub
+		}
+		custom_tooltip = grefm.210.tt2
+		custom_tooltip = grefm.210.tt3
+	}
+	
 }
 
 grefm.211 = { # Greek Provocations in State (GRE)
@@ -7847,7 +7929,7 @@ grefm.219 = { # Reassigns the Revolt Journals
 	trigger = {
 		grefm_is_muslim_trigger = yes
 		NOR = { 
-			has_journal_entry = je_grefm_greek_separatism_sub 
+			has_journal_entry = je_grefm_greek_separatism_sub
 			has_law = law_type:law_multicultural
 		}
 		any_country = {

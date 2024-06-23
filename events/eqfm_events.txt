@@ -949,9 +949,9 @@ eqfm.020 = { # Riots in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOR = { 
-			has_global_variable = eqfm_riot_var 
-			has_global_variable = eqfm_tension_event_cooldown_var
+		NOR = {
+			has_global_variable = eqfm_riot_var
+			has_global_variable = eqfm_deconfliction_var
 		}
 		global_var:eqfm_tension_var >= 500
 		any_scope_state = {
@@ -1281,6 +1281,21 @@ eqfm.023 = { # State Rebellion Suppressed
 			}
 			remove_variable = eqfm_riot_state_var
 		}
+		custom_tooltip = {
+			text = eqfm_tension_minus_200
+			hidden_effect = {
+				change_global_variable = {
+					name = eqfm_tension_var
+					subtract = 200
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_journal_entry = je_eqfm_sub
+			}
+			post_notification = notification_eqfm_riot_suppressed
+		}
 		remove_global_variable = eqfm_riot_var
 	}
 
@@ -1410,6 +1425,39 @@ eqfm.025 = { # Balkan Country Rebellion
 		remove_global_variable = eqfm_riot_var
 	}
 
+}
+
+eqfm.026 = { # Riots in State Technical
+# This event provides randomness to the state riots
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOT = { 
+			has_global_variable = eqfm_riot_var
+			has_global_variable = eqfm_deconfliction_var
+		}
+		global_var:eqfm_tension_var >= 400
+		any_scope_state = {
+			state_in_balkans = yes
+			is_split_state = no
+			NOR = { # temporary exclusion
+				state_region = s:STATE_SLOVENIA
+				state_region = s:STATE_CROATIA
+				state_region = s:STATE_SLAVONIA
+				state_region = s:STATE_DALMATIA
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = eqfm.020 # Riots in State
+		}
+	}
+	
 }
 
 ########################################################
