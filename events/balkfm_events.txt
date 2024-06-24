@@ -725,7 +725,7 @@ balkfm.081 = { # The Schemes of Ali Pasha
 	flavor = balkfm.081.f
 	
 	event_image = {
-		video = "votp_conspiring"
+		video = "ep1_clandestine_meeting"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_skull.dds"
@@ -1073,7 +1073,7 @@ balkfm.098 = { # Test Event
 			country = c:RUS
 			type = humiliation
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:RUS
 			months = 48
 		}
@@ -1085,7 +1085,7 @@ balkfm.098 = { # Test Event
 			country = c:RUS
 			type = war_reparations
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:RUS
 			months = 48
 		}
@@ -4745,7 +4745,7 @@ balkfm.502 = { # Dissident Publishings
 	flavor = balkfm.502.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "ep1_printing_press"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
@@ -6414,7 +6414,7 @@ balkfm.582 = { # An Independent Bulgaria
 		}
 		annex = c:ERUM
 		make_independent = yes
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:TUR
 			months = 60
 		}
@@ -7261,6 +7261,7 @@ balkfm.603 = { # Kogălniceanu's Revolution
 			months = normal_modifier_time
 		}		
 		scope:balkfm_kogalniceanu_scope = {
+			free_character_from_void = yes
 			set_as_interest_group_leader = yes # Vasile Alecsandri left Moldavia after the attempted revolution
 			set_character_as_ruler = yes
 		}
@@ -7380,6 +7381,7 @@ balkfm.605 = { # Constitutional Stalemate
 			months = normal_modifier_time
 		}
 		scope:balkfm_kogalniceanu_scope = {
+			free_character_from_void = yes
 			set_as_interest_group_leader = yes # Vasile Alecsandri left Moldavia after the attempted revolution
 		}
 		set_variable = balkfm_1848_failed
@@ -9112,6 +9114,7 @@ balkfm.660 = { # The Romanian Academy
 		scope:university_state = {
 			create_building = {
  				building = "building_university"
+				level = 1
  			}
 		}
 		add_modifier = {
@@ -9170,11 +9173,10 @@ balkfm.661 = { # A Royal Estate
 		scope:wallachia_state_scope = {
 			create_building = {
 				building = "building_castelul_peles"
+				level = 1
 			}
 		}
-		hidden_effect = {
-			balkfm_clean_up_construction_effect = yes
-		}
+		remove_variable = balkfm_construction_var
 	}
 
 }
@@ -10410,7 +10412,7 @@ balkfm.684 = { # Union with Transylvania
 				type = puppet
 			}
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:TRS
 			months = 60
 		}

@@ -1,4 +1,153 @@
-﻿grefm_artifact_value = {
+﻿## Bavarocracy Values ##
+grefm_bavarocracy_progress_value = {
+	value = 0
+	add = var:grefm_ruler_popularity_var
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_constitution_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_land_reform_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_brigandage_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = grefm_civic_tradition_completed
+			}
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_bavarian_auxiliaries
+		}
+		subtract = 1
+	}
+	if = {
+		limit = {
+			heir ?= {
+				NOT = {
+					has_religion = orthodox
+				}
+			}
+		}
+		subtract = 1
+	}
+	
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_nikitas_released
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			owns_entire_state_region = STATE_ATTICA
+			s:STATE_ATTICA = {
+				has_building = building_palaia_anaktora
+			}
+		}
+		add = 1
+	}
+	round_to = 0.01
+}
+
+grefm_ruler_popularity_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 100
+}
+
+grefm_tyranny_support_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_autocracy
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	multiply = 10
+}
+
+grefm_tyranny_opposition_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_autocracy
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+	multiply = 10
+}
+
+grefm_tyranny_laws_value = {
+	value = 0
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_hereditary_bureaucrats
+				has_law = law_type:law_appointed_bureaucrats
+			}
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_serfdom	
+				has_law = law_type:law_tenant_farmers
+			}
+		}
+		add = 1
+	}
+}
+
+grefm_tyranny_popularity_value = {
+	value = 0
+	add = root.ruler.popularity
+	divide = 10
+}
+
+grefm_tyranny_progress_value = {
+	value = 0
+	add = var:grefm_tyranny_support_var
+	add = var:grefm_tyranny_opposition_var
+	add = var:grefm_tyranny_laws_var
+	add = var:grefm_tyranny_popularity_var
+	round_to = 0.01
+}
+
+## Greek Artifact Values ##
+grefm_artifact_value = {
 	value = 0
 	if = {
 		limit = {
@@ -62,11 +211,145 @@
 	}
 }
 
+## Greek Separatism Values ##
+grefm_epirus_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_ALBANIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	every_state = {
+		limit = {
+			state_region = s:STATE_THESSALIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_macedonia_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_MACEDONIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_skopia_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_SKOPIA
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_smyrna_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_AYDIN
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
+grefm_cyprus_radicals_value = {
+	value = 0
+	every_state = {
+		limit = {
+			state_region = s:STATE_CYPRUS
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	round_to = 0.01
+}
+
 grefm_crete_radicals_value = {
 	value = 0
 	every_state = {
 		limit = {
 			state_region = s:STATE_CRETE
+			owner = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+			}
 		}
 		every_scope_pop = {
 			limit = {
@@ -82,7 +365,7 @@ grefm_crete_accelerate_value = {
 	value = 0
 	every_country = {
 		limit = {
-			has_modifier = modifier_grefm_funding_crete
+			has_modifier = modifier_grefm_supporting_crete
 		}
 		add = 1
 	}

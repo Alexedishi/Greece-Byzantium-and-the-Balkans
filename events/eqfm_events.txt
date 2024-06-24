@@ -1,7 +1,7 @@
 ﻿###############################
 # THE EASTERN QUESTION EVENTS #
 ###############################
-# Events contained here pertain to the Eastern Question and its associated crises; this has been split from balkfm due to the increase in scope for the Eastern Question content and to keep the balkfm module focused on flavor.
+# Events contained here pertain to the Eastern Question and its associated crises; this has been split from balkfm due to the increase in scope for the Eastern Question content and to keep the balkfm module focused on nation-specific flavor.
 # je_eqm_main is assigned to and handled by TUR; this is for ease of scripting since the Ottoman State is THE constant for most Balkan crises.
 
 ####################
@@ -54,6 +54,8 @@ namespace = eqfm
 #	024 - [TECH] Creates a Revolter Tag
 #	025 - Balkan Country Rebellion
 
+#030-039 - The Macedonian Struggle
+#	030 - The Macedonian Question
 
 ##  #EQFM1  THE GREAT EASTERN CRISIS  Events 100-109  ##
 
@@ -733,7 +735,9 @@ eqfm.013 = { # Churches Burned in State
 				name = modifier_eqfm_rebuilding_churches
 				months = normal_modifier_time
 			}
-			add_treasury = -20000
+			owner = {
+				add_treasury = -20000
+			}
 		}
 		eqfm_add_small_tension_effect = yes
 		hidden_effect = {
@@ -945,9 +949,9 @@ eqfm.020 = { # Riots in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOR = { 
-			has_global_variable = eqfm_riot_var 
-			has_global_variable = eqfm_tension_event_cooldown_var
+		NOR = {
+			has_global_variable = eqfm_riot_var
+			has_global_variable = eqfm_deconfliction_var
 		}
 		global_var:eqfm_tension_var >= 500
 		any_scope_state = {
@@ -1277,6 +1281,21 @@ eqfm.023 = { # State Rebellion Suppressed
 			}
 			remove_variable = eqfm_riot_state_var
 		}
+		custom_tooltip = {
+			text = eqfm_tension_minus_200
+			hidden_effect = {
+				change_global_variable = {
+					name = eqfm_tension_var
+					subtract = 200
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_journal_entry = je_eqfm_sub
+			}
+			post_notification = notification_eqfm_riot_suppressed
+		}
 		remove_global_variable = eqfm_riot_var
 	}
 
@@ -1339,6 +1358,9 @@ eqfm.025 = { # Balkan Country Rebellion
 	option = { # Assert Our Dominion
 		name = eqfm.025.a
 		default_option = yes
+		scope:eqfm_rebellion_scope = {
+			make_independent = yes
+		}
 		create_diplomatic_play = {
 			name = eqfm_balkan_rebellion
 			target_country = scope:eqfm_rebellion_scope
@@ -1375,6 +1397,14 @@ eqfm.025 = { # Balkan Country Rebellion
 	
 	option = { # Let Them Go
 		name = eqfm.025.b
+		create_diplomatic_pact = {
+			country = scope:eqfm_rebellion_scope
+			type = protectorate
+		}
+		create_bidirectional_truce = {
+			country = scope:eqfm_rebellion_scope
+			months = 60
+		}
 		add_radicals = {
 			culture = cu:turkish
 			value = medium_radicals
@@ -1406,6 +1436,38 @@ eqfm.025 = { # Balkan Country Rebellion
 		remove_global_variable = eqfm_riot_var
 	}
 
+}
+
+eqfm.026 = { # Riots in State Technical
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOT = { 
+			has_global_variable = eqfm_riot_var
+			has_global_variable = eqfm_deconfliction_var
+		}
+		global_var:eqfm_tension_var >= 400
+		any_scope_state = {
+			state_in_balkans = yes
+			is_split_state = no
+			NOR = { # temporary exclusion
+				state_region = s:STATE_SLOVENIA
+				state_region = s:STATE_CROATIA
+				state_region = s:STATE_SLAVONIA
+				state_region = s:STATE_DALMATIA
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = eqfm.020 # Riots in State
+		}
+	}
+	
 }
 
 ########################################################
@@ -1588,7 +1650,7 @@ eqfm.101 = { # A Crisis in Rumelia (Recruit Local Power)
 			post_notification = notification_eqfm_crisis_joined
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -1692,7 +1754,7 @@ eqfm.102 = { # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
 			post_notification = notification_eqfm_crisis_joined
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -1754,7 +1816,7 @@ eqfm.102 = { # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
 			post_notification = notification_eqfm_crisis_defending
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -2128,7 +2190,7 @@ eqfm.107 = { # Herzegovina Uprising
 			}
 			save_scope_as = balkfm_zimonjic_scope
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:BOS
 			months = 12
 		}
@@ -2180,7 +2242,7 @@ eqfm.108 = { # April Uprising (Bulgaria)
 			}
 			balkfm_set_bulgarian_laws = yes
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:BUL
 			months = 12
 		}
@@ -2399,9 +2461,7 @@ eqfm.112 = { # Assigns Tags, preps scopes for the event_window, and triggers cou
 				eqfm_crisis_participant_trigger = yes
 				has_truce_with = c:TUR
 			}
-			end_truce = {
-				country = c:TUR
-			}
+			end_truce = c:TUR
 		}
 		random_country = {
 			limit = {

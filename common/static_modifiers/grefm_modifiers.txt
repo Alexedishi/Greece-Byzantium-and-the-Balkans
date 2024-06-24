@@ -2,16 +2,19 @@
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_negative.dds
 	country_legitimacy_base_add = -10
 	country_prestige_mult = -0.05
+	interest_group_ig_landowners_pol_str_mult = 0.25
 }
 
 modifier_grefm_constitution_enforced = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_positive.dds
 	interest_group_approval_add = -5
+	interest_group_pol_str_mult = -0.25
 }
 
 modifier_grefm_constitution_refused = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_negative.dds
 	interest_group_approval_add = -5
+	interest_group_pol_str_mult = -0.10
 }
 
 modifier_grefm_tyrannical_ruler = {
@@ -78,17 +81,19 @@ modifier_grefm_development_focus = {
 modifier_grefm_timar = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_negative.dds
 	state_radicals_from_sol_change_mult = 0.1
+	state_poor_standard_of_living_add = -1
 }
 
 modifier_grefm_poor_administration = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_negative.dds
-	state_tax_waste_add = 0.05
+	country_bureaucracy_mult = -0.10
+	building_group_bg_agriculture_tax_mult = -0.25
 }
 
 modifier_grefm_land_tax_reformed = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_positive.dds
-	state_radicals_from_sol_change_mult = -0.1
-	state_loyalists_from_sol_change_mult = 0.1
+	state_radicals_from_sol_change_mult = -0.15
+	state_loyalists_from_sol_change_mult = 0.15
 }
 
 modifier_grefm_just_ruler = {
@@ -285,7 +290,7 @@ modifier_grefm_harmonious_state = {
 modifier_grefm_absolutist_rule = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_positive.dds
 	country_bureaucracy_investment_cost_factor_mult = -0.02
-	country_decree_cost_mult = -0.05
+	state_decree_cost_mult = -0.05
 	unit_recovery_rate_add = 0.02
 }
 
@@ -374,14 +379,14 @@ modifier_grefm_competent_bureaucracy = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_positive.dds
 	interest_group_ig_intelligentsia_approval_add = 5
 	country_bureaucracy_investment_cost_factor_mult = -0.05
-	country_decree_cost_mult = -0.10
+	state_decree_cost_mult = -0.10
 }
 
 modifier_grefm_military_reorganized = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_trumpet_positive.dds
 	interest_group_ig_armed_forces_approval_add = 5
 	building_training_rate_mult = 0.10
-	unit_mobilization_speed_mult = 0.25
+	military_formation_mobilization_speed_mult = 0.25
 	unit_recovery_rate_add = 0.10
 }
 
@@ -407,11 +412,6 @@ modifier_grefm_venizelist_triumph = {
 	state_radicals_from_sol_change_mult  = -0.10
 }
 
-modifier_grefm_embraced_republicanism = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_democracy_positive.dds
-	country_legitimacy_base_add = 5
-}
-
 modifier_grefm_abandoned_don_pacifico = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_influence_negative.dds
 	country_influence_mult = -0.05
@@ -431,7 +431,98 @@ modifier_grefm_rejected_compromise = {
 	country_infamy_generation_mult = 0.10
 }
 
-modifier_grefm_funding_crete = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_fire_negative.dds
+#### 2.1.4
+modifier_grefm_supporting_epirus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
 	country_expenses_add = 5000
+}
+
+modifier_grefm_supporting_macedonia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 5000
+}
+
+modifier_grefm_supporting_skopia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 5000
+}
+
+modifier_grefm_supporting_smyrna = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 5000
+}
+
+modifier_grefm_supporting_cyprus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 5000
+}
+
+modifier_grefm_supporting_crete = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 5000
+}
+
+modifier_grefm_granted_balkan_autonomy = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitulate_negative.dds
+	country_authority_mult = -0.25
+	state_radicals_from_discrimination_mult = 0.50
+}
+
+modifier_grefm_supported_excavation = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
+	interest_group_pop_attraction_mult = 0.10
+	interest_group_approval_add = 5
+}
+
+modifier_grefm_support_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
+	interest_group_approval_add = -2
+}
+
+modifier_grefm_palace_authorized = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 2000
+}
+
+modifier_grefm_philhellenic_loans = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1000
+}
+
+modifier_grefm_westernized_thought = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
+	interest_group_ig_intelligentsia_pol_str_mult = 0.25
+	country_society_tech_spread_mult = 0.10
+}
+
+modifier_grefm_armansperg_regency = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_negative.dds
+	country_authority_mult = -0.25
+	country_disallow_agitator_invites_bool = yes
+	country_law_enactment_time_mult = 1.00
+}
+
+modifier_grefm_bavarian_tour = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_prestige_mult = 0.05
+}
+
+modifier_grefm_absent_monarch = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_negative.dds
+	country_legitimacy_base_add = -10
+}
+
+modifier_grefm_feebleminded = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_lightbulb_negative.dds
+	character_popularity_add = -25
+}
+
+modifier_grefm_impotent_monarch = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_negative.dds
+	country_authority_mult = -0.10
+}
+
+modifier_grefm_bad_reconstruction = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	country_prestige_mult = -0.01
 }

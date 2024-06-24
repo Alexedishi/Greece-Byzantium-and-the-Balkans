@@ -132,11 +132,17 @@ eocfm_commission_icon_button = {
 			text = eocfm_commission_icon_tt
 			hidden_trigger = {
 				eocfm_has_icon_trigger = no
+				NOR = {
+					has_variable = icon_page_1
+					has_variable = icon_page_2
+					has_variable = icon_page_3
+				}
 			}
 		}
 	}
 	
 	effect = {
+		set_variable = icon_page_1
 		trigger_event = {
 			id = eocfm.020 # Commissioning an Icon
 			popup = yes
@@ -290,12 +296,6 @@ eocfm_stop_subsidies_button = {
 	
 	visible = {
 		has_modifier = modifier_eocfm_subsidizing_church
-		custom_tooltip = {
-			text = eocfm_need_100_tt
-			hidden_trigger = {
-				var:eocfm_patriarch_authority_var >= 100
-			}
-		}
 	}
 	
 	possible = {
@@ -303,6 +303,12 @@ eocfm_stop_subsidies_button = {
 			NOR = {
 				is_powerful = yes
 				is_in_government = yes
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_need_100_tt
+			hidden_trigger = {
+				var:eocfm_patriarch_authority_var >= 100
 			}
 		}
 	}

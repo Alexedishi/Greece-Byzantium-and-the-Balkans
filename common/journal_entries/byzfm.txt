@@ -334,22 +334,133 @@ je_byzfm_the_purple_phoenix_central_italy = {
 
 }
 
-#################
-# MISCELLANEOUS #
-#################
+#######################
+# IMPERIAL AMIBITIONS #
+#######################
 
-je_byzfm_mega_palation = {
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
+## AMBITION JOURNALS ##
+
+je_byzfm_constantinople = { # 14 Regions of Constantinople
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
-	group = je_group_byzfm_restoration
-
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
+		}
+		custom_tooltip = {
+			text = je_byzfm_constantinople_tt
+			has_variable = byzfm_byzantium_restored
+		}
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = byzfm.100 # The 14 Regions of Constantinople
+		}
+	}
+	
+	scripted_button = byzfm_mega_palation_survey_button
+	
+	complete = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
+			has_building = building_hippodrome
+			has_building = building_mega_palation
+			total_urbanization >= 2000
+			any_scope_building = {
+				is_building_type = building_government_administration
+				OR = {
+					has_active_production_method = pm_vertical_filing_cabinets
+					has_active_production_method = pm_switch_boards
+				}
+				level >= 10
+			}
+			any_scope_building = {
+				is_building_type = building_shipyards
+				OR = {
+					has_active_production_method = pm_metal_shipbuilding
+					has_active_production_method = pm_arc_welding_shipbuilding
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_military_shipyards
+				OR = {
+					has_active_production_method = pm_military_shipbuilding_steam
+					has_active_production_method = pm_military_shipbuilding_steam_2
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_silk_plantation
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 20
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.104 # Notitia Urbis Constantinopolitanae
+		}
+	}
+	
+	fail = {
+		NOT = {
+			has_state_in_state_region = STATE_EASTERN_THRACE
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			byzfm.102 # The Great Palace of Constantinople
+			byzfm.103 # The Hippodrome of Constantinople
+		}
+	}
+
+	weight = 400
+	
+}
+
+je_byzfm_mega_palation_survey = {
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_byzfm_content
+
+	modifiers_while_active = {
+		modifier_byzfm_site_survey
 	}
 
 	complete = {
-		any_scope_state = {
-			has_building = building_mega_palation
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = byzfm.101 # Imperial Palace Ruins Identified
 		}
+		remove_variable = byzfm_imperial_palace_var
 	}
 
 	fail = {
@@ -358,24 +469,20 @@ je_byzfm_mega_palation = {
 		}
 	}
 
-	on_complete = {
-		trigger_event = { 
-			id = byzfm.102 # Great Palace of Constantinople (palace rebuilt)
+	on_fail = {
+		remove_variable = byzfm_imperial_palace_var
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = byzfm_mega_palation_surveyed
 		}
 	}
 	
-	scripted_button = byzfm_archeaology_mega_palation_button
-
-	weight = 500
+	on_invalid = {
+		remove_variable = byzfm_imperial_palace_var
+	}
 	
-}
-
-
-je_byzfm_mega_palation_survey = {
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	group = je_group_byzfm_content
-
 	on_monthly_pulse = {
 		effect = {
 			change_variable = {
@@ -383,30 +490,6 @@ je_byzfm_mega_palation_survey = {
 				add = 1
 			}
 		}
-	}
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-
-	on_complete = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_imperial_palace_var
-		set_variable = byzfm_mega_palation_complete
-		trigger_event = {
-			id = byzfm.101 # Imperial Palace Ruins Identified
-		}
-	}
-
-	invalid = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_invalid = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_imperial_palace_var
 	}
 
 	current_value = {
@@ -420,97 +503,6 @@ je_byzfm_mega_palation_survey = {
 	progressbar = yes
 
 	weight = 100
-
-	should_be_pinned_by_default = yes
-	
-}
-
-je_byzfm_hippodrome_reopening = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	group = je_group_byzfm_content
-
-	immediate = {
-	}
-
-	complete = {
-		any_scope_state = {
-			has_building = building_hippodrome
-		}
-	}
-
-	on_complete = {
-		trigger_event = { 
-			id = byzfm.104 # hippodrome rebuilt
-		}
-	}
-
-	weight = 1000
-	
-}
-
-je_byzfm_hippodrome_survey = {
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	group = je_group_byzfm_content
-
-	immediate = {
-		set_variable = {
-			name = byzfm_hippodrome_var
-			value = 0
-		}
-		s:STATE_EASTERN_THRACE = {
-			random_scope_state = {
-				save_scope_as = byzantium_capital_state
-			}
-		}
-	}
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-
-	on_complete = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_hippodrome_var
-		set_variable = byzfm_hippodrome_complete
-		trigger_event = {
-			id = byzfm.103 # hippodrome survey complete
-		}
-	}
-
-	invalid = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_invalid = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = byzfm_hippodrome_var
-		remove_variable = byzfm_hippodrome_fallback
-	}
-
-	current_value = {
-		value = root.var:byzfm_hippodrome_var
-	}
-
-	goal_add_value = {
-		value = 24
-	}
-
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = byzfm_hippodrome_var
-				add = 1
-			}
-		}
-	}
-
-	progressbar = yes
-
-	weight = 10
 
 	should_be_pinned_by_default = yes
 	

@@ -1,4 +1,10 @@
-﻿ideology_bavarocrat = {
+﻿# Important point to make here is that the "Russian," "French," and "English" parties were not political parties as we would envision them today. Their origin lies in the patron-client style politics that dominated Greece in the Kapodastrian era.
+# Each one takes their name from the Great Power that they seeked to align the Greek state with. This was dominant over their royalist or liberalist tilt.
+# These parties congealed into more tangible forms after the coronation of Otto I and the dismissal of Armansperg. However, these were still political groupings heavily dominated by individual strongmen as opposed to true parties.
+# As such, the two ideologies "Bavarocrat" and "Constitutionalist" seek to portray their attitudes towards statecraft, while their diplomatic attitudes are handled by lobby scripting.
+
+ideology_bavarocrat = {
+	# yes, this should be called "Napist" but this has better theming
 	icon = "gfx/interface/icons/ideology_icons/ideology_leader/unused/ideology_leader_caudillismo.dds"
 	
 	character_ideology = yes
@@ -9,7 +15,7 @@
 		law_parliamentary_republic = disapprove
 		law_theocracy = disapprove
 		law_council_republic = strongly_disapprove
-	}	
+	}
 	
 	lawgroup_distribution_of_power = {
 		law_single_party_state = disapprove
@@ -21,10 +27,10 @@
 		law_census_voting = strongly_disapprove
 		law_wealth_voting = strongly_disapprove
 		law_landed_voting = neutral				
-	}	
+	}
 	
 	lawgroup_church_and_state = {
-		law_state_religion = approve
+		law_state_religion = strongly_approve
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
 		law_state_atheism = strongly_disapprove
@@ -35,6 +41,21 @@
 		law_dedicated_police = neutral
 		law_militarized_police = approve
 		law_no_police = approve
+	}
+	
+	lawgroup_army_model = {
+		law_mass_conscription = approve
+		law_professional_army = approve
+		law_national_militia = disapprove
+		law_peasant_levies = neutral
+	}
+	
+	lawgroup_taxation = {
+		law_land_based_taxation = approve
+		law_consumption_based_taxation = approve
+		law_per_capita_based_taxation = disapprove
+		law_proportional_taxation = strongly_disapprove
+		law_graduated_taxation = strongly_disapprove
 	}
 	
 	possible = {
@@ -76,13 +97,122 @@
 		if = {
 			limit = {
 				owner = {
-					NOT = { has_law = law_type:law_monarchy }
+					NOR = { 
+						has_law = law_type:law_monarchy 
+						has_variable = grefm_bavarocracy
+					}
 				}
 			}
 			multiply = 0 # will not manifest if Bavarocracy was abolished
 		}
 	}
-}	
+}
+
+ideology_grefm_constitutionalist = {
+	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ideology_leader_social_democrat.dds"
+	
+	character_ideology = yes
+
+	lawgroup_distribution_of_power = {
+		law_universal_suffrage = strongly_approve
+		law_census_voting = approve
+		law_wealth_voting = neutral
+		law_landed_voting = disapprove
+		law_anarchy = disapprove
+		law_technocracy = disapprove
+		law_oligarchy = strongly_disapprove
+		law_autocracy = strongly_disapprove
+		law_single_party_state = strongly_disapprove	
+	}
+	
+	lawgroup_bureaucracy = {
+		law_elected_bureaucrats = approve
+		law_appointed_bureaucrats = approve
+		law_hereditary_bureaucrats = disapprove
+	}
+	
+	lawgroup_taxation = {
+		law_land_based_taxation = strongly_disapprove
+		law_consumption_based_taxation = disapprove
+		law_per_capita_based_taxation = neutral
+		law_proportional_taxation = approve
+		law_graduated_taxation = strongly_approve
+	}
+
+	lawgroup_land_reform = {
+		law_serfdom = strongly_disapprove
+		law_tenant_farmers = neutral
+		law_commercialized_agriculture = approve
+		law_homesteading = approve
+		law_collectivized_agriculture = strongly_disapprove
+	}
+
+	lawgroup_welfare = {
+		law_poor_laws = strongly_disapprove
+		law_no_social_security = strongly_disapprove
+		law_wage_subsidies = approve
+		law_old_age_pension = strongly_approve
+	}
+
+	possible = {
+		owner = { has_journal_entry = je_grefm_bavarocracy_main }
+		scope:interest_group = {
+			OR = {
+				is_interest_group_type = ig_rural_folk
+				is_interest_group_type = ig_petty_bourgeoisie
+				is_interest_group_type = ig_intelligentsia
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_armed_forces
+			}
+		}
+		scope:interest_group = {
+			NOR = {
+				has_variable = communist_ig_var
+				has_variable = chose_vanguardism
+				has_variable = chose_fascism
+				has_variable = chose_conservatism
+				has_variable = chose_ethno_nationalism
+			}
+		}
+	}
+	
+	leader_weight = {
+		value = 50
+		if = {
+			limit = {
+				scope:interest_group = {
+					NOR	= {
+						is_interest_group_type = ig_devout
+						is_interest_group_type = ig_landowners
+					}
+					ig_approval <= -5
+				}
+			}
+			add = 50
+		}
+		if = {
+			limit = {
+				owner = {
+					OR = {
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_tenant_farmers
+						has_law = law_type:law_serfdom
+					}
+				}
+			}
+			add = 100
+		}
+		if = {
+			limit = {
+				owner = {
+					has_journal_entry = je_grefm_the_tyranny_of_house_wittelsbach
+				}
+			}
+			add = 400 # should be frequent if encountered during the Tyranny JE
+		}
+	}
+}
 
 ideology_venizelos = { 
 	# This is unique to Venizelos. He personally varied between pro-Monarchy and ambivalence towards the Monarchy. His followers were ardent anti-monarchists on the other hand.

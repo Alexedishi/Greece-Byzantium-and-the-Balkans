@@ -12,29 +12,27 @@
 
 	required_construction = construction_cost_monument
 
+	possible = {
+		state_region = s:STATE_EASTERN_THRACE
+	}
+	
+
 	can_build_government = {
-		error_check = {
-			severity = fail
-			custom_tooltip = {
-				text = mega_palation_can_construct_tt
-				has_modifier = modifier_byzfm_palace_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_EASTERN_THRACE
+		custom_tooltip = {
+			text = mega_palation_can_construct_tt
+			owner = {
+				has_variable = byzfm_mega_palation_surveyed
 			}
 		}
 	}
+	
 	can_build_private = {
-		error_check = {
-			severity = potential
-			always = no
-		}
-	}	
+		always = no
+	}
 
 	ai_value = 1000
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
 
 }
 
@@ -51,30 +49,22 @@ building_hippodrome = {
 	}
 
 	required_construction = construction_cost_monument
+	
+	possible = {
+		state_region = s:STATE_EASTERN_THRACE
+	}
 
 	can_build_government = {
-		error_check = {
-			severity = fail
-			custom_tooltip = {
-				text = hippodrome_can_construct_tt
-				has_modifier = modifier_byzfm_hippodrome_site
-			}
-		}
-		error_check = {
-			severity = invalid
-			this = {
-				state_region = s:STATE_EASTERN_THRACE
-			}
-		}
+		has_building = building_mega_palation
 	}
+	
 	can_build_private = {
-		error_check = {
-			severity = potential
-			always = no
-		}
-	}	
+		always = no
+	}
 
 	ai_value = 1000
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
 
 }
 
@@ -94,19 +84,15 @@ building_masjid_al_haram = {
 	required_construction = construction_cost_monument
 
 	can_build_government = {
-		error_check = {
-			severity = potential
-			always = no
-		}
+		always = no
 	}
 	
 	can_build_private = {
-		error_check = {
-			severity = potential
-			always = no
-		}
-	}	
+		always = no
+	}
 
-	ai_value = 1000
+	ai_value = 0
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
 
 }
