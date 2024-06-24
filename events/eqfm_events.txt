@@ -1358,6 +1358,9 @@ eqfm.025 = { # Balkan Country Rebellion
 	option = { # Assert Our Dominion
 		name = eqfm.025.a
 		default_option = yes
+		scope:eqfm_rebellion_scope = {
+			make_independent = yes
+		}
 		create_diplomatic_play = {
 			name = eqfm_balkan_rebellion
 			target_country = scope:eqfm_rebellion_scope
@@ -1398,7 +1401,7 @@ eqfm.025 = { # Balkan Country Rebellion
 			country = scope:eqfm_rebellion_scope
 			type = protectorate
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = scope:eqfm_rebellion_scope
 			months = 60
 		}
@@ -1647,7 +1650,7 @@ eqfm.101 = { # A Crisis in Rumelia (Recruit Local Power)
 			post_notification = notification_eqfm_crisis_joined
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -1751,7 +1754,7 @@ eqfm.102 = { # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
 			post_notification = notification_eqfm_crisis_joined
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -1813,7 +1816,7 @@ eqfm.102 = { # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
 			post_notification = notification_eqfm_crisis_defending
 		}
 		hidden_effect = {
-			create_truce = {
+			create_bidirectional_truce = {
 				country = c:TUR
 				months = 12
 			}
@@ -2187,7 +2190,7 @@ eqfm.107 = { # Herzegovina Uprising
 			}
 			save_scope_as = balkfm_zimonjic_scope
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:BOS
 			months = 12
 		}
@@ -2239,7 +2242,7 @@ eqfm.108 = { # April Uprising (Bulgaria)
 			}
 			balkfm_set_bulgarian_laws = yes
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:BUL
 			months = 12
 		}
@@ -2458,9 +2461,7 @@ eqfm.112 = { # Assigns Tags, preps scopes for the event_window, and triggers cou
 				eqfm_crisis_participant_trigger = yes
 				has_truce_with = c:TUR
 			}
-			end_truce = {
-				country = c:TUR
-			}
+			end_truce = c:TUR
 		}
 		random_country = {
 			limit = {

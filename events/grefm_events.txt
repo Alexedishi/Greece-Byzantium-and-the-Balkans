@@ -1426,7 +1426,7 @@ grefm.018 = { # Bavarian Auxiliaries Dismissed
 	flavor = grefm.018.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "ep1_transfer_of_authority"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -1533,7 +1533,7 @@ grefm.020 = { # the brigands raid again
 	flavor = grefm.020.f
 
 	event_image = {
-		video = "votp_cops_march"
+		video = "rp1_social_banditry"
 	}
 
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
@@ -1681,7 +1681,7 @@ grefm.022 = { # Otto Leaves for Bavaria
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_absent_monarch
-			months = normal_modifier_time
+			months = 12
 		}
 	}
 
@@ -1939,7 +1939,7 @@ grefm.024 = { # Otto's Intellect Challenged
 	flavor = grefm.024.f
 	
 	event_image = {
-		video = "votp_conspiring"
+		video = "ep1_clandestine_meeting"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -2107,7 +2107,7 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 	flavor = grefm.026.f
 	
 	event_image = {
-		video = "votp_conspiring"
+		video = "ep1_clandestine_meeting"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
@@ -2984,7 +2984,7 @@ grefm.041 = { # the military league
 	flavor = grefm.041.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "ep1_clandestine_meeting"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
@@ -4722,6 +4722,7 @@ grefm.121 = { # The University of Athens
 		scope:university_state = {
 			create_building = {
  				building = "building_university"
+				level = 1
  			}
 		}
 		add_modifier = {
@@ -6985,9 +6986,9 @@ grefm.210 = { # Greek Separatism
 			add_journal_entry = {
 				type = je_grefm_greek_separatism_main
 			}
-			custom_tooltip = grefm.210.tt1
-			custom_tooltip = grefm.210.tt2
 		}
+		custom_tooltip = grefm.210.tt1
+		custom_tooltip = grefm.210.tt2
 	}
 
 	option = {
@@ -7118,10 +7119,7 @@ grefm.212 = { # Greek Uprising in State (GRE)
 			limit = {
 				has_truce_with = scope:grefm_owner_scope
 			}
-			end_truce = {
-				country = scope:grefm_owner_scope
-				months = 0
-			}
+			end_truce = scope:grefm_owner_scope
 		}
 		scope:grefm_greek_revolt_play_scope = {
 			add_target_backers = root
@@ -7215,7 +7213,7 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 			country = c:NMAC
 			type = dominion
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:NMAC
 			months = 60
 		}
@@ -7225,11 +7223,11 @@ grefm.214 = { # The Makedonijan Revolt (TUR/EGY)
 		
 	option = { # Get the Whip
 		name = grefm.214.a
-		default_option = yes		
-		end_truce = {
-			country = c:NMAC
-			months = 0
+		default_option = yes
+		c:NMAC = {
+			make_independent = yes
 		}
+		end_truce = c:NMAC
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:NMAC
@@ -7386,7 +7384,7 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 			country = c:EPI
 			type = dominion
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:EPI
 			months = 60
 		}
@@ -7408,10 +7406,10 @@ grefm.215 = { # The Epirote Revolt (TUR/EGY)
 	option = { # Get the Whip
 		name = grefm.215.a
 		default_option = yes
-		end_truce = {
-			country = c:EPI
-			months = 0
+		c:EPI = {
+			make_independent = yes
 		}
+		end_truce = c:EPI
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:EPI
@@ -7548,7 +7546,7 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 			country = c:CYP
 			type = dominion
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:CYP
 			months = 60
 		}
@@ -7558,11 +7556,11 @@ grefm.216 = { # The Cypriot Revolt (TUR/EGY)
 		
 	option = { # Get the Whip
 		name = grefm.216.a
-		default_option = yes		
-		end_truce = {
-			country = c:CYP
-			months = 0
+		default_option = yes
+		c:CYP = {
+			make_independent = yes
 		}
+		end_truce = c:CYP
 		create_diplomatic_play = {
 			name = grefm_cyprus_rebellion
 			target_country = c:CYP
@@ -7695,7 +7693,7 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 			country = c:MAC
 			type = dominion
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:MAC
 			months = 60
 		}
@@ -7705,11 +7703,11 @@ grefm.217 = { # The Macedonian Revolt (TUR/EGY)
 		
 	option = { # Get the Whip
 		name = grefm.217.a
-		default_option = yes		
-		end_truce = {
-			country = c:MAC
-			months = 0
+		default_option = yes
+		c:MAC = {
+			make_independent = yes
 		}
+		end_truce = c:MAC
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:MAC
@@ -7840,7 +7838,7 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 			country = c:SMYR
 			type = dominion
 		}
-		create_truce = {
+		create_bidirectional_truce = {
 			country = c:SMYR
 			months = 60
 		}
@@ -7850,11 +7848,11 @@ grefm.218 = { # The Smyrna Revolt (TUR/EGY)
 		
 	option = { # Get the Whip
 		name = grefm.218.a
-		default_option = yes		
-		end_truce = {
-			country = c:SMYR
-			months = 0
+		default_option = yes
+		c:SMYR = {
+			make_independent = yes
 		}
+		end_truce = c:SMYR
 		create_diplomatic_play = {
 			name = grefm_epirus_rebellion
 			target_country = c:SMYR
@@ -8462,7 +8460,7 @@ grefm.240 = { # what is a greek
 	flavor = grefm.240.f
 	
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "ep1_printing_press"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
@@ -9173,6 +9171,9 @@ grefm.259 = { # Crete Revolts Again (TUR/EGY)
 	option = { # Drop the Hammer
 		name = grefm.259.a
 		default_option = yes
+		c:CRE = {
+			make_independent = yes
+		}
 		create_diplomatic_play = {
 			name = grefm_crete_rebellion
 			target_country = c:CRE
@@ -10168,7 +10169,7 @@ grefm.305 = { # The Lands of Arianōn
 	flavor = grefm.305.f
 	
 	event_image = {
-		video = "europenorthamerica_before_the_battle"
+		video = "ep1_persian_court"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
@@ -10215,7 +10216,7 @@ grefm.306 = { # The Graveyard of Empires
 	flavor = grefm.306.f
 	
 	event_image = {
-		video = "europenorthamerica_before_the_battle"
+		video = "ep1_ca_mountain_pass_military"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"

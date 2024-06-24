@@ -767,7 +767,19 @@ eocfm.020 = { # Commissioning an Icon
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = { 
+		# triggered by eocfm_commission_icon_button
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			eocfm_has_icon_trigger = yes
+			NOR = {
+				has_variable = icon_page_1
+				has_variable = icon_page_2
+				has_variable = icon_page_3
+			}
+		}
 	}
 	
 	immediate = {
@@ -779,10 +791,7 @@ eocfm.020 = { # Commissioning an Icon
 	option = {
 		name = eocfm.020.1
 		trigger = {
-			NOR = {
-				has_variable = icon_page_2
-				has_variable = icon_page_3
-			}
+			has_variable = icon_page_1
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_christ_pantocrator
@@ -793,10 +802,7 @@ eocfm.020 = { # Commissioning an Icon
 	option = {
 		name = eocfm.020.2
 		trigger = {
-			NOR = {
-				has_variable = icon_page_2
-				has_variable = icon_page_3
-			}
+			has_variable = icon_page_1
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_eleusa
@@ -807,10 +813,7 @@ eocfm.020 = { # Commissioning an Icon
 	option = {
 		name = eocfm.020.3
 		trigger = {
-			NOR = {
-				has_variable = icon_page_2
-				has_variable = icon_page_3
-			}
+			has_variable = icon_page_1
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_john_climacus
@@ -822,9 +825,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.4
 		trigger = {
 			has_variable = icon_page_2
-			NOR = {
-				has_variable = icon_page_3
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_michael_archistrategos
@@ -837,9 +837,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.5
 		trigger = {
 			has_variable = icon_page_2
-			NOR = {
-				has_variable = icon_page_3
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_nikolaos_wonderworker
@@ -852,9 +849,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.6
 		trigger = {
 			has_variable = icon_page_2
-			NOR = {
-				has_variable = icon_page_3
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_gregory_nazianzus
@@ -867,9 +861,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.7
 		trigger = {
 			has_variable = icon_page_3
-			NOR = {
-				has_variable = icon_page_2
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_paul_of_thebes
@@ -882,9 +873,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.8
 		trigger = {
 			has_variable = icon_page_3
-			NOR = {
-				has_variable = icon_page_2
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_issac_the_syrian
@@ -898,9 +886,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.9
 		trigger = {
 			has_variable = icon_page_3
-			NOR = {
-				has_variable = icon_page_2
-			}
 		}
 		add_modifier = {
 			name = modifier_eocfm_icon_basil_megas
@@ -913,12 +898,10 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.a
 		trigger = {
 			has_variable = icon_page_3
-			NOR = {
-				has_variable = icon_page_2
-			}
 		}
 		custom_tooltip = eocfm.020.tt
 		remove_variable = icon_page_3
+		set_variable = icon_page_1
 		hidden_effect = {
 			trigger_event = {
 				id = eocfm.020
@@ -930,12 +913,10 @@ eocfm.020 = { # Commissioning an Icon
 	option = { # Show Page 2
 		name = eocfm.020.a
 		trigger = {
-			NOR = {
-				has_variable = icon_page_2
-				has_variable = icon_page_3
-			}
+			has_variable = icon_page_1
 		}
 		custom_tooltip = eocfm.020.tt
+		remove_variable = icon_page_1
 		set_variable = icon_page_2
 		hidden_effect = {
 			trigger_event = {
@@ -949,9 +930,6 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.a
 		trigger = {
 			has_variable = icon_page_2
-			NOR = {
-				has_variable = icon_page_3
-			}
 		}
 		custom_tooltip = eocfm.020.tt
 		remove_variable = icon_page_2
@@ -967,6 +945,7 @@ eocfm.020 = { # Commissioning an Icon
 	option = {
 		name = eocfm.020.b
 		default_option = yes
+		remove_variable = icon_page_1
 		remove_variable = icon_page_2
 		remove_variable = icon_page_3		
 	}
@@ -2309,7 +2288,7 @@ eocfm.060 = { # Crusade Warmup
 	flavor = eocfm.060.f
 	
 	event_image = {
-		video = "southamerica_christianity"
+		video = "ep1_redcoats"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
@@ -2381,7 +2360,7 @@ eocfm.061 = { # Victorious Crusade
 	flavor = eocfm.061.f
 	
 	event_image = {
-		video = "unspecific_signed_contract"
+		video = "unspecific_military_parade"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
@@ -2441,7 +2420,7 @@ eocfm.061 = { # Victorious Crusade
 
 }
 
-eocfm.062 = { # Victorious Crusade
+eocfm.062 = { # Failed Crusade
 	type = country_event
 	placement = root
 	
@@ -2476,7 +2455,7 @@ eocfm.062 = { # Victorious Crusade
 	flavor = eocfm.062.f
 	
 	event_image = {
-		video = "unspecific_signed_contract"
+		video = "middleeast_battlefield_trenches"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
@@ -3016,7 +2995,7 @@ eocfm.306 = { # the old "Texas Left" event, its back! (Across the Hospitable Sea
 	placement = scope:russia_capital_scope
 	
 	event_image = {
-		video = "votp_gunboat_diplomacy"
+		video = "ep1_cossacks"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
