@@ -374,9 +374,46 @@ je_byzfm_constantinople = { # 14 Regions of Constantinople
 	scripted_button = byzfm_mega_palation_survey_button
 	
 	complete = {
-		s:STATE_EASTERN_THRACE = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
 			has_building = building_hippodrome
 			has_building = building_mega_palation
+			total_urbanization >= 20
+			any_scope_building = {
+				is_building_type = building_government_administration
+				OR = {
+					has_active_production_method = pm_vertical_filing_cabinets
+					has_active_production_method = pm_switch_boards
+				}
+				level >= 10
+			}
+			any_scope_building = {
+				is_building_type = building_shipyards
+				OR = {
+					has_active_production_method = pm_metal_shipbuilding
+					has_active_production_method = pm_arc_welding_shipbuilding
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_military_shipyards
+				OR = {
+					has_active_production_method = pm_military_shipbuilding_steam
+					has_active_production_method = pm_military_shipbuilding_steam_2
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_silk_plantation
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 20
+			}
 		}
 	}
 	

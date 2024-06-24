@@ -3,7 +3,6 @@
 	texture = "gfx/interface/icons/building_icons/building_mega_palation.dds"
 	
 	expandable = no
-	buildable = no
 	downsizeable = no
 	unique = yes
 	
@@ -51,7 +50,6 @@ building_hippodrome = {
 	texture = "gfx/interface/icons/building_icons/building_hippodrome.dds"
 	
 	expandable = no
-	buildable = no
 	downsizeable = no
 	unique = yes
 	
@@ -64,14 +62,16 @@ building_hippodrome = {
 	possible = {
 		error_check = {
 			severity = fail
-			has_building = building_mega_palation
+			this = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
 		}
 	}
 
 	can_build_government = {
 		error_check = {
 			severity = potential
-			always = no
+			has_building = building_mega_palation
 		}
 	}
 	
