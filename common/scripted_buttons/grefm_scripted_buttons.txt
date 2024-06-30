@@ -157,6 +157,42 @@ grefm_epirus_support_button = {
 		custom_tooltip = grefm_epirus_support_tt
 		add_modifier = modifier_grefm_supporting_epirus
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_epirus_cease_button = {
@@ -174,6 +210,34 @@ grefm_epirus_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_epirus
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_epirus_provoke_button = {
@@ -211,6 +275,11 @@ grefm_epirus_provoke_button = {
 				}
 			}
 		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
 	}
 	
 	effect = {
@@ -230,9 +299,10 @@ grefm_epirus_provoke_button = {
 					limit = {
 						owns_entire_state_region = STATE_ALBANIA
 						owns_entire_state_region = STATE_THESSALIA
+						grefm_is_muslim_trigger = yes
 					}
 					trigger_event = {
-						id = grefm.215 # The Epirote Revolt (TUR/EGY)
+						id = grefm.911 # The Epirote Revolt (No Triggers)
 					}
 				}
 			}
@@ -242,6 +312,18 @@ grefm_epirus_provoke_button = {
 			months = normal_modifier_time
 		}
 		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
 	}
 }
 	
@@ -270,6 +352,42 @@ grefm_macedonia_support_button = {
 		custom_tooltip = grefm_macedonia_support_tt
 		add_modifier = modifier_grefm_supporting_macedonia
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_macedonia_cease_button = {
@@ -287,6 +405,34 @@ grefm_macedonia_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_macedonia
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_macedonia_provoke_button = {
@@ -335,7 +481,7 @@ grefm_macedonia_provoke_button = {
 						owns_entire_state_region = STATE_MACEDONIA
 					}
 					trigger_event = {
-						id = grefm.217 # The Macedonian Revolt (TUR/EGY)
+						id = grefm.913 # The Macedonian Revolt (No Triggers)
 					}
 				}
 			}
@@ -346,6 +492,19 @@ grefm_macedonia_provoke_button = {
 		}
 		change_infamy = 5
 	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
 }
 	
 grefm_skopia_support_button = {
@@ -373,6 +532,42 @@ grefm_skopia_support_button = {
 		custom_tooltip = grefm_skopia_support_tt
 		add_modifier = modifier_grefm_supporting_skopia
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_skopia_cease_button = {
@@ -390,6 +585,34 @@ grefm_skopia_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_skopia
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_skopia_provoke_button = {
@@ -438,7 +661,7 @@ grefm_skopia_provoke_button = {
 						owns_entire_state_region = STATE_SKOPIA
 					}
 					trigger_event = {
-						id = grefm.214 # The Makedonijan Revolt (TUR/EGY)
+						id = grefm.910 # The Makedonijan Revolt (No Triggers)
 					}
 				}
 			}
@@ -449,6 +672,19 @@ grefm_skopia_provoke_button = {
 		}
 		change_infamy = 5
 	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
 }
 	
 grefm_smyrna_support_button = {
@@ -481,6 +717,42 @@ grefm_smyrna_support_button = {
 		custom_tooltip = grefm_smyrna_support_tt
 		add_modifier = modifier_grefm_supporting_smyrna
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_smyrna_cease_button = {
@@ -498,6 +770,34 @@ grefm_smyrna_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_smyrna
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_smyrna_provoke_button = {
@@ -551,7 +851,7 @@ grefm_smyrna_provoke_button = {
 						owns_entire_state_region = STATE_AYDIN
 					}
 					trigger_event = {
-						id = grefm.218 # The Smyrna Revolt (TUR/EGY)
+						id = grefm.914 # The Smyrnite Revolt (No Triggers)
 					}
 				}
 			}
@@ -562,6 +862,19 @@ grefm_smyrna_provoke_button = {
 		}
 		change_infamy = 5
 	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
 }
 	
 grefm_cyprus_support_button = {
@@ -588,6 +901,42 @@ grefm_cyprus_support_button = {
 		custom_tooltip = grefm_cyprus_support_tt
 		add_modifier = modifier_grefm_supporting_cyprus
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_cyprus_cease_button = {
@@ -605,6 +954,34 @@ grefm_cyprus_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_cyprus
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_cyprus_provoke_button = {
@@ -653,7 +1030,7 @@ grefm_cyprus_provoke_button = {
 						owns_entire_state_region = STATE_CYPRUS
 					}
 					trigger_event = {
-						id = grefm.216 # The Cypriot Revolt (TUR/EGY)
+						id = grefm.912 # The Cypriot Revolt (No Triggers)
 					}
 				}
 				
@@ -665,6 +1042,19 @@ grefm_cyprus_provoke_button = {
 		}
 		change_infamy = 5
 	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
 }
 	
 grefm_crete_support_button = {
@@ -691,6 +1081,42 @@ grefm_crete_support_button = {
 		custom_tooltip = grefm_crete_support_tt
 		add_modifier = modifier_grefm_supporting_crete
 	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+	}
+	
 }
 
 grefm_crete_cease_button = {
@@ -708,6 +1134,34 @@ grefm_crete_cease_button = {
 	effect = {
 		remove_modifier = modifier_grefm_supporting_crete
 	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 grefm_crete_provoke_button = {
@@ -764,6 +1218,19 @@ grefm_crete_provoke_button = {
 		}
 		change_infamy = 5
 	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
 }
 
 # ARCHEAOLOGY

@@ -45,13 +45,16 @@
 
 grefm_lake_kopais_decision = {
 	is_shown = {
-		has_variable = grefm_lake_kopais_option
 		NOT = { has_variable = grefm_lake_kopais_option_taken }
 		owns_entire_state_region = STATE_ATTICA
 	}
 	
 	possible = {	
 		owns_entire_state_region = STATE_ATTICA
+		has_technology_researched = hydraulic_cranes
+		hidden_trigger = {
+			has_variable = grefm_lake_kopais_option
+		}
 	}
 	
 	when_taken = {
