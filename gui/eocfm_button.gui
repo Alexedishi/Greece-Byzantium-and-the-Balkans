@@ -1,0 +1,43 @@
+# Derived from Advanced Cheat Mod; credit to mrtats
+
+widget = {
+    layer = top
+    
+    name = eocfm_button
+    position = { 0 900}
+    size = { 40 40 }
+    using = Animation_ShowHide_Quick
+    
+
+    sidepanel_button_small = {
+        name = "advcm_shortcut_button"
+        size = { 42 40 }
+        alpha = 0.7
+
+        onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
+		onclick = "[GetScriptedGui('eocfm_setup_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+        tooltip = EOCFM_MAIN_BUTTON
+        
+        blockoverride "icon" {
+            texture = "gfx/interface/icons/event_icons/event_orthodox.dds"
+        }
+        
+        blockoverride "icon_size" {
+            size = { 25 25 }
+        }
+        
+        state = {
+            name = _mouse_enter
+            alpha = 1
+            duration = 0.7
+            using = Animation_Curve_Default
+        }
+
+        state = {
+            name = _mouse_leave
+            alpha = 0.7
+            duration = 0.2
+            using = Animation_Curve_Default
+        }
+    }
+}

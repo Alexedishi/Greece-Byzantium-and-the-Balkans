@@ -22,6 +22,11 @@ on_monthly_pulse_country = {
 	}
 }
 
+#on_yearly_pulse_country = {
+#	on_actions = {
+#	}
+#}
+
 ############
 
 balkfm_monthly_pulse = { # These events are monitored from all scopes
@@ -179,12 +184,47 @@ eocfm_monthly_pulse = {
 	}
 	events = {
 		eocfm.001 # Bishops of the East
+		eocfm.107 # Autocephaly Completion Technical Event
+		eocfm.111 # Constantinopole Usurped by Country
+		eocfm.113 # Antioch Usurped by Country
+		eocfm.115 # Jerusalem Usurped by Country
+		eocfm.117 # Alexandria Usurped by Country
+		eocfm.119 # Moscow Usurped by Country
+		eocfm.130 # The X Crusade
 		eocfm.310 # The Ancient Partiarchates
 		eocfm.312 # The Capture of the Great Mosque
-		eocfm.901 # Restores JE
 	}
 	random_events = {
-		100 = 0
+		400 = 0
+		5 = eocfm.010 # Ecumenical Reforms
+		5 = eocfm.011 # Bible Translation Published
+		5 = eocfm.012 # A Heretical Ruler
+		5 = eocfm.030 # Dissolution of the Monasteries
+		5 = eocfm.031 # Church-State Relations
+		5 = eocfm.040 # Priestly Excesses	
+		5 = eocfm.141 # Seat Integration Disputed
+	}
+	effect = {
+		eocfm_update_authority = yes
+		eocfm_update_seat_bonuses = yes
+		if = {
+			limit = {
+				has_variable = eocfm_schism_var
+			}
+			change_variable = {
+				name = eocfm_schism_var
+				add = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = eocfm_integration_var
+			}
+			change_variable = {
+				name = eocfm_integration_var
+				add = 1
+			}
+		}
 	}
 }
 
@@ -371,7 +411,7 @@ eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade succes
 				eocfm_crusade_participant_trigger = yes
 			}
 			trigger_event = {
-				id = eocfm.061 # Victorious Crusade
+				id = eocfm.131 # Victorious Crusade
 			}
 			eocfm_crusade_cleanup = yes
 		}
@@ -392,7 +432,7 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 				eocfm_crusade_participant_trigger = yes
 			}
 			trigger_event = {
-				id = eocfm.062 # Failed Crusade
+				id = eocfm.132 # Failed Crusade
 			}
 			eocfm_crusade_cleanup = yes
 		}

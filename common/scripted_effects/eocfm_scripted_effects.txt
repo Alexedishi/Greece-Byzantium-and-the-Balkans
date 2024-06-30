@@ -1,91 +1,248 @@
-﻿eocfm_update_authority = {
+﻿eocfm_update_authority_effect = {
 	set_variable = {
-		name = eocfm_patriarch_authority_var
-		value = patriarch_authority_capacity
+		name = caesaropapism_capacity_var
+		value = caesaropapism_capacity_value
 	}
 }
 
-eocfm_update_bonus_malus = {
+eocfm_update_patriarch_variables_effect = {
+	# Constantinople
 	if = {
 		limit = {
-			var:eocfm_patriarch_authority_var >= 800
-			NOT = { has_modifier = modifier_eocfm_bonus }
+			any_character_in_void = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
 		}
-		add_modifier = modifier_eocfm_bonus
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 	}
+	else_if = {
+		limit = {
+			any_country = {
+				has_variable = eocfm_controls_constantinople
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_constantinople
+				country_has_state_religion = rel:orthodox
+			}
+			create_character = {
+				template = template_eocfm_constantinople_patriarch
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+			random_character_in_void = {
+				limit = {
+					has_template = template_eocfm_constantinople_patriarch
+				}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
+	}
+	else = {
+		create_character = {
+			template = template_eocfm_constantinople_patriarch
+			culture = cu:greek
+			on_created = {
+				place_character_in_void = 180 # 15 year shelf life
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
+	}
+	set_global_variable = {
+		name = eocfm_constantinople_patriarch_var
+		value = scope:eocfm_constantinople_patriarch_scope
+	}
+}
+
+eocfm_update_seat_controllers_effect = {
+	#Constantinople
 	if = {
 		limit = {
-			var:eocfm_patriarch_authority_var < 0
-			NOT = { has_modifier = modifier_eocfm_malus }
+			any_country = {
+				has_variable = eocfm_controls_constantinople
+			}
 		}
-		add_modifier = modifier_eocfm_malus
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_constantinople
+			}
+			save_scope_as = eocfm_constantinople_controller_scope
+		}
+		set_global_variable = {
+			name = eocfm_constantinople_controller_var
+			value = scope:eocfm_constantinople_controller_scope
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eocfm_constantinople_controller_var
+			value = 0
+		}
+	}
+	
+	#Antioch
+	if = {
+		limit = {
+			any_country = {
+				has_variable = eocfm_controls_antioch
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_antioch
+			}
+			save_scope_as = eocfm_antioch_controller_scope
+		}
+		set_global_variable = {
+			name = eocfm_antioch_controller_var
+			value = scope:eocfm_antioch_controller_scope
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eocfm_antioch_controller_var
+			value = 0
+		}
+	}
+	
+	#Jerusalem
+	if = {
+		limit = {
+			any_country = {
+				has_variable = eocfm_controls_jerusalem
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_jerusalem
+			}
+			save_scope_as = eocfm_jerusalem_controller_scope
+		}
+		set_global_variable = {
+			name = eocfm_jerusalem_controller_var
+			value = scope:eocfm_jerusalem_controller_scope
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eocfm_jerusalem_controller_var
+			value = 0
+		}
+	}
+	
+	#Alexandria
+	if = {
+		limit = {
+			any_country = {
+				has_variable = eocfm_controls_alexandria
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_alexandria
+			}
+			save_scope_as = eocfm_alexandria_controller_scope
+		}
+		set_global_variable = {
+			name = eocfm_alexandria_controller_var
+			value = scope:eocfm_alexandria_controller_scope
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = eocfm_alexandria_controller_var
+			value = 0
+		}
 	}	
+	
+	#Moscow
 	if = {
 		limit = {
-			var:eocfm_patriarch_authority_var >= 0
-			has_modifier = modifier_eocfm_malus
+			any_country = {
+				has_variable = eocfm_controls_moscow
+			}
 		}
-		remove_modifier = modifier_eocfm_malus
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_moscow
+			}
+			save_scope_as = eocfm_moscow_controller_scope
+		}
+		set_global_variable = {
+			name = eocfm_amoscow_controller_var
+			value = scope:eocfm_moscow_controller_scope
+		}
 	}
-	if = {
+	else = {
+		set_global_variable = {
+			name = eocfm_moscow_controller_var
+			value = 0
+		}
+	}	
+	
+}
+
+eocfm_save_patriarch_scopes_effect = {
+	random_character_in_void = {
 		limit = {
-			var:eocfm_patriarch_authority_var < 0
-			has_modifier = modifier_eocfm_bonus
+			has_template = template_eocfm_constantinople_patriarch
 		}
-		remove_modifier = modifier_eocfm_bonus
+		save_scope_as = eocfm_constantinople_patriarch_scope
 	}
-}	
 
-eocfm_clean_up_modifiers = {
-	remove_modifier = modifier_eocfm_hosting_council
-	remove_modifier = modifier_eocfm_integrating_seat
-	remove_modifier = modifier_eocfm_supported_synod
-	remove_modifier = modifier_eocfm_rejected_synod
-	remove_modifier = modifier_eocfm_caesaropapism
-	remove_modifier = modifier_eocfm_revoked_caesaropapism
-	remove_modifier = modifier_eocfm_asserted_caesaropapism
-	remove_modifier = modifier_eocfm_subsidizing_church
-	remove_modifier = modifier_eocfm_receiving_subsidies
-	remove_modifier = modifier_eocfm_sunday_schools
-	remove_modifier = modifier_eocfm_disbanded_sunday_schools
-	remove_modifier = modifier_eocfm_dissolved_monasteries
 }
 
-eocfm_remove_icon_modifiers = {
-	remove_modifier = modifier_eocfm_icon_christ_pantocrator
-	remove_modifier = modifier_eocfm_icon_eleusa
-	remove_modifier = modifier_eocfm_icon_john_climacus
-	remove_modifier = modifier_eocfm_icon_michael_archistrategos
-	remove_modifier = modifier_eocfm_icon_nikolaos_wonderworker
-	remove_modifier = modifier_eocfm_icon_gregory_nazianzus
-	remove_modifier = modifier_eocfm_icon_paul_of_thebes
-	remove_modifier = modifier_eocfm_icon_issac_the_syrian
-	remove_modifier = modifier_eocfm_icon_basil_megas
+eocfm_save_seat_controller_scopes_effect = {
+#	random_country = {
+#		limit = {
+#			has_variable = eocfm_controls_rome
+#		}
+#		save_scope_as = eocfm_rome_controller
+#	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_constantinople
+		}
+		save_scope_as = eocfm_constantinople_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_antioch
+		}
+		save_scope_as = eocfm_antioch_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_alexandria
+		}
+		save_scope_as = eocfm_alexandria_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_jerusalem
+		}
+		save_scope_as = eocfm_jerusalem_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_moscow
+		}
+		save_scope_as = eocfm_moscow_controller
+	}
 }
 
-eocfm_remove_intregration_variables = {
-	remove_variable = eocfm_integration_var
-	remove_variable = eocfm_integrating_rome
-	remove_variable = eocfm_integrating_constantinople
-	remove_variable = eocfm_integrating_antioch
-	remove_variable = eocfm_integrating_alexandria
-	remove_variable = eocfm_integrating_jerusalem
-	remove_variable = eocfm_integrating_moscow
-	remove_variable = eocfm_seat_dispute_var
-	remove_variable = eocfm_seat_endorsed
-	remove_variable = eocfm_seat_opposed
-}
-
-eocfm_remove_seat_modifiers = {
-	remove_modifier = modifier_eocfm_controls_rome
-	remove_modifier = modifier_eocfm_controls_constantinople
-	remove_modifier = modifier_eocfm_controls_antioch
-	remove_modifier = modifier_eocfm_controls_alexandria
-	remove_modifier = modifier_eocfm_controls_jerusalem
-	remove_modifier = modifier_eocfm_controls_moscow
-}
-
-eocfm_update_seat_ownership = {
+eocfm_update_seat_bonus_effect = {
 	hidden_effect = {
 		remove_modifier = modifier_eocfm_controls_rome
 		remove_modifier = modifier_eocfm_controls_constantinople
@@ -94,12 +251,12 @@ eocfm_update_seat_ownership = {
 		remove_modifier = modifier_eocfm_controls_jerusalem
 		remove_modifier = modifier_eocfm_controls_moscow
 	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_rome
-			owns_entire_state_region = STATE_LAZIO
-		}
-		add_modifier = modifier_eocfm_controls_rome
+#	if = {
+#		limit = {
+#			has_variable = eocfm_controls_rome
+#			owns_entire_state_region = STATE_LAZIO
+#		}
+#		add_modifier = modifier_eocfm_controls_rome
 	}
 	if = {
 		limit = {
@@ -138,43 +295,53 @@ eocfm_update_seat_ownership = {
 	}
 }
 
-eocfm_save_seat_controllers = {
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_rome
-		}
-		save_scope_as = eocfm_rome_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_constantinople
-		}
-		save_scope_as = eocfm_constantinople_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_antioch
-		}
-		save_scope_as = eocfm_antioch_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_alexandria
-		}
-		save_scope_as = eocfm_alexandria_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_jerusalem
-		}
-		save_scope_as = eocfm_jerusalem_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_moscow
-		}
-		save_scope_as = eocfm_moscow_controller
-	}
+eocfm_remove_all__modifiers_effect = {
+	remove_modifier = modifier_eocfm_hosting_council
+	remove_modifier = modifier_eocfm_integrating_seat
+	remove_modifier = modifier_eocfm_supported_synod
+	remove_modifier = modifier_eocfm_rejected_synod
+	remove_modifier = modifier_eocfm_caesaropapism
+	remove_modifier = modifier_eocfm_revoked_caesaropapism
+	remove_modifier = modifier_eocfm_asserted_caesaropapism
+	remove_modifier = modifier_eocfm_subsidizing_church
+	remove_modifier = modifier_eocfm_receiving_subsidies
+	remove_modifier = modifier_eocfm_sunday_schools
+	remove_modifier = modifier_eocfm_disbanded_sunday_schools
+	remove_modifier = modifier_eocfm_dissolved_monasteries
+}
+
+eocfm_remove_icon_modifiers_effect = {
+	remove_modifier = modifier_eocfm_icon_christ_pantocrator
+	remove_modifier = modifier_eocfm_icon_eleusa
+	remove_modifier = modifier_eocfm_icon_john_climacus
+	remove_modifier = modifier_eocfm_icon_michael_archistrategos
+	remove_modifier = modifier_eocfm_icon_nikolaos_wonderworker
+	remove_modifier = modifier_eocfm_icon_gregory_nazianzus
+	remove_modifier = modifier_eocfm_icon_paul_of_thebes
+	remove_modifier = modifier_eocfm_icon_issac_the_syrian
+	remove_modifier = modifier_eocfm_icon_basil_megas
+}
+
+eocfm_remove_intregration_variables_effect = {
+	remove_variable = eocfm_integration_var
+#	remove_variable = eocfm_integrating_rome
+	remove_variable = eocfm_integrating_constantinople
+	remove_variable = eocfm_integrating_antioch
+	remove_variable = eocfm_integrating_alexandria
+	remove_variable = eocfm_integrating_jerusalem
+	remove_variable = eocfm_integrating_moscow
+	remove_variable = eocfm_seat_dispute_var
+	remove_variable = eocfm_seat_endorsed
+	remove_variable = eocfm_seat_opposed
+}
+
+eocfm_remove_seat_modifiers_effect = {
+	remove_modifier = modifier_eocfm_controls_rome
+	remove_modifier = modifier_eocfm_controls_constantinople
+	remove_modifier = modifier_eocfm_controls_antioch
+	remove_modifier = modifier_eocfm_controls_alexandria
+	remove_modifier = modifier_eocfm_controls_jerusalem
+	remove_modifier = modifier_eocfm_controls_moscow
 }
 
 eocfm_council_cleanup_effect = {
@@ -190,7 +357,7 @@ eocfm_council_cleanup_effect = {
 	}
 }
 
-eocfm_crusade_cleanup = {
+eocfm_crusade_cleanup_effect = {
 	remove_variable = eocfm_crusade_initiator
 	remove_variable = eocfm_crusade_target
 	remove_variable = eocfm_crusade_attacker

@@ -1,0 +1,669 @@
+# Derived from Morgenrote Academy GUI and Advanced Cheat Mod; credit to mrtats, Lord R, and Dementive
+
+window = {
+	name = "eocfm_main_window"
+
+	parentanchor = top|hcenter
+	size { 80% 90% }
+	position = { -8% 8% }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	using = Window_Background
+	using = Window_Decoration
+	
+	visible = "[GetVariableSystem.Exists('eocfm_main_visible')]"
+	
+    datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		start_sound = {
+			soundeffect = "event:/SFX/UI/SideBar/culture"
+		}
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+		start_sound = {
+			soundeffect = "event:/SFX/UI/SideBar/culture_stop"
+		}
+	}
+	
+	vbox = {
+		size = { 95% 95% }
+		position = { 0 0 }
+		restrictparent_min = yes
+		using = Window_Margins
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "EOCFM_MAIN_TITLE"
+				using = header_font_fancy
+				using = header_font_fancy_size
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
+			}
+		}
+		
+		vbox = {
+			layoutpolicy_vertical = expanding
+			spacing = 15
+			
+			# Patriarch Authority Status HBOX
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 15
+				
+				# National Church Status Container
+				widget = {
+					size = { 1400 250 }
+					background = {
+						using = entry_bg_simple
+					}
+					textbox = {
+						text = "EOCFM_NATIONAL_CHURCH_NAME"
+						position = { 0 25 }
+						parentanchor = top|hcenter
+						autoresize = yes
+						using = fontsize_mega
+					}
+					textbox = {
+						text = "EOCFM_AUTHORITY_FLAVOR"
+						position = { 0 75 }
+						parentanchor = top|center
+						autoresize = yes
+						using = fontsize_large
+					}
+					green_progressbar_horizontal = {
+						position = { 0 150 }
+						parentanchor = top|center
+						size = { 840 35 }
+						blockoverride "values" {
+							min = 0
+							max = 1000
+							value = "[FixedPointToFloat(GetPlayer.MakeScope.Var('caesaropapism_capacity_var').GetValue)]"
+						}
+						tooltip = "EOCFM_AUTHORITY_BAR_TT"
+					}
+					textbox = {
+						text = "EOCFM_AUTHORITY_AMOUNT"
+						position = { 0 150 }
+						parentanchor = top|center
+						autoresize = yes
+						using = fontsize_xl
+					}
+					textbox = {
+						text = "EOCFM_AUTOCEPHALY_STATUS"
+						position = { 0 200 }
+						parentanchor = top|center
+						autoresize = yes
+						using = fontsize_xl
+					}
+				}
+				
+			}
+			
+			# Patriarch Authority Actions HBOX
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 15
+			
+				# Metropolitan Actions
+				widget = {
+					size = { 700 300 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+					
+					textbox = {
+						text = "METROPOLITAN_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_mega
+					}
+					
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 15
+						
+						widget = { # Character Portrait
+							size = { 220 300 }
+							character_portrait_large_torso = {
+								position = { 30 0 }
+								datacontext = "[GetPlayer.MakeScope.Var('eocfm_devout_leader_var').GetCharacter]"
+								blockoverride "show_hat" {}
+								blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+								blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+								blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+							}
+							default_header_clean_faded = {
+								size = { 250 40 }
+								position = { 14 255 }
+								blockoverride "text" {}
+								textbox = {
+									text = "NAME"
+#TE										text = "[GetPlayer.GetCustom('eocfm_devout_leader_type')]"
+									parentanchor = center
+									position = { 0 -2 }
+									autoresize = yes
+									max_width = 190
+									elide = right
+									using = fontsize_large
+								}
+							}
+						}
+					
+						widget = {
+							size = { 200 150 }
+							background = {
+								using = entry_bg_unit_dark
+							}
+						}
+						
+						widget = {
+							size = { 210 270 }
+							background = {
+								using = entry_bg_simple
+							}
+							
+							button = { # Commission Icon Button
+								parentanchor = center
+								position = { 0 -100 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Commission Icon"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_commission_icon_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							}
+							
+							button = { # Dissolve Monasteries Button
+								parentanchor = center
+								position = { 0 -50 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Dissolve the Monasteries"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_dissolve_monasteries_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							}
+							
+							button = { # Restore Monasteries Button
+								parentanchor = center
+								position = { 0 -50 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Restore the Monasteries"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_restore_monasteries_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							}
+							
+							button = { # Enact Caesaropapism Button
+								parentanchor = center
+								position = { 0 0 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Enact Caesaropapism"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_enact_casearopapism_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}
+							
+							button = { # Repeal Caesaropapism button
+								parentanchor = center
+								position = { 0 0 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Repeal Caesaropapism"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_repeal_casearopapism_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}
+							
+							button = { # Grant Subsidies Button
+								parentanchor = center
+								position = { 0 50 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Grant Church Subsidies"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_grant_subsidies_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}
+							
+							button = { # End Subsidies Button
+								parentanchor = center
+								position = { 0 50 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "End Church Subsidies"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_end_subsidies_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}							
+							
+							button = { # Establish Schools Button
+								parentanchor = center
+								position = { 0 100 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Establish Sunday Schools"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_establish_schools_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}
+							
+							button = { # Disband Schools Button
+								parentanchor = center
+								position = { 0 100 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Disband Sunday Schools"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_disband_schools_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"	
+							}
+						}
+					}
+				}
+				
+				# Ecumenical Actions	
+				widget = {
+					size = { 700 300 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+				
+					textbox = {
+						text = "ECUMENICAL_PATRIARCH_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_mega
+					}
+					
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 15
+
+						widget = {
+							size = { 220 300 }
+							# Character Portrait
+							character_portrait_large_torso = {
+								position = { 30 0 }
+								datacontext = "[GetPlayer.MakeScope.Var('eocfm_constantinople_patriarch_var').GetCharacter]"
+								blockoverride "show_hat" {}
+								blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+								blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+								blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+							}
+							default_header_clean_faded = {
+								size = { 250 40 }
+								position = { 14 255 }
+								blockoverride "text" {}
+								textbox = {
+									text = "NAME"
+#TE									text = "[GetPlayer.GetCustom('eocfm_constantinople_patriarch_type')]"
+									parentanchor = center
+									position = { 0 -2 }
+									autoresize = yes
+									max_width = 190
+									elide = right
+									using = fontsize_large
+								}
+							}
+						}
+						
+						widget = {
+							size = { 200 150 }
+							background = {
+								using = entry_bg_unit_dark
+							}
+						}
+						
+						widget = {
+							size = { 210 210 }
+							background = {
+								using = entry_bg_simple
+							}
+							
+							button = {
+								parentanchor = center
+								position = { 0 -78 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Seek Political Mandate"
+								using = fontsize_medium
+							}
+							button = {
+								parentanchor = center
+								position = { 0 -28 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "DUMMY"
+								using = fontsize_medium
+							}
+							button = {
+								parentanchor = center
+								position = { 0 22 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "DUMMY"
+								using = fontsize_medium
+							}
+							button = {
+								parentanchor = center
+								position = { 0 72 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Demand Deposition"
+								using = fontsize_medium
+							}
+						}
+					}
+				}
+			}
+			
+			# Ancient Patriarchates Status HBOX
+			hbox = {
+				spacing = 15
+			
+				# Patriarchate of Anitoch
+				widget = {
+					layoutpolicy_horizontal = expanding
+					
+					size = { 280 320 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+					# Character Portrait
+					character_portrait_medium_torso = {
+						position = { 0 20 }
+						parentanchor = top|center
+						datacontext = "[GetPlayer.MakeScope.Var('eocfm_antioch_patriarch_var').GetCharacter]"
+						blockoverride "show_hat" {}
+						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+					}
+					default_header_clean_faded = {
+						size = { 250 40 }
+						position = { 0 200 }
+						parentanchor = top|center
+						blockoverride "text" {
+						}
+						textbox = {
+							text = "NAME"
+#TE								text = "[GetPlayer.GetCustom('eocfm_antioch_patriarch_type')]"
+							parentanchor = center
+							position = { 0 -2 }
+							autoresize = yes
+							max_width = 190
+							elide = right
+							using = fontsize_large
+						}
+					}
+					textbox = {
+						text = "ANTIOCH_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 250
+						elide = right
+						using = fontsize_xl
+					}
+					textbox = {
+						text = "ANTIOCH_CONTROLLER_TEXT"
+						position = { 0 240 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_medium
+					}
+					button = {
+						parentanchor = bottom|hcenter
+						position = { 0 -5 }
+						using = default_button_primary_big_action
+						size = { 220 40 }
+						raw_text = "Integrate Patriarchal Seat"
+						using = fontsize_medium
+					}
+				}
+				
+				# Patriarchate of Jerusalem
+				widget = {
+					layoutpolicy_horizontal = expanding
+					
+					size = { 280 320 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+					# Character Portrait
+					character_portrait_medium_torso = {
+						position = { 0 20 }
+						parentanchor = top|center
+						datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]"
+						blockoverride "show_hat" {}
+						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+					}
+					default_header_clean_faded = {
+						size = { 250 40 }
+						position = { 0 200 }
+						parentanchor = top|center
+						blockoverride "text" {
+						}
+						textbox = {
+							text = "NAME"
+#TE								text = "[GetPlayer.GetCustom('eocfm_jerusalem_patriarch_type')]"
+							parentanchor = center
+							position = { 0 -2 }
+							autoresize = yes
+							max_width = 190
+							elide = right
+							using = fontsize_large
+						}
+					}
+					textbox = {
+						text = "JERUSALEM_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 250
+						elide = right
+						using = fontsize_xl
+					}
+					textbox = {
+						text = "JERUSALEM_CONTROLLER_TEXT"
+						position = { 0 240 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_medium
+					}
+					button = {
+						parentanchor = bottom|hcenter
+						position = { 0 -5 }
+						using = default_button_primary_big_action
+						size = { 220 40 }
+						raw_text = "Integrate Patriarchal Seat"
+						using = fontsize_medium
+					}
+				}
+				
+				# Patriarchate of Alexandria
+				widget = {
+					layoutpolicy_horizontal = expanding
+					
+					size = { 280 320 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+					# Character Portrait
+					character_portrait_medium_torso = {
+						position = { 0 20 }
+						parentanchor = top|center
+						datacontext = "[GetPlayer.MakeScope.Var('eocfm_alexandria_patriarch_var').GetCharacter]"
+						blockoverride "show_hat" {}
+						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+					}
+					default_header_clean_faded = {
+						size = { 250 40 }
+						position = { 0 200 }
+						parentanchor = top|center
+						blockoverride "text" {
+						}
+						textbox = {
+							text = "NAME"
+#TE								text = "[GetPlayer.GetCustom('eocfm_alexandria_patriarch_type')]"
+							parentanchor = center
+							position = { 0 -2 }
+							autoresize = yes
+							max_width = 190
+							elide = right
+							using = fontsize_large
+						}
+					}
+					textbox = {
+						text = "ALEXANDRIA_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 250
+						elide = right
+						using = fontsize_xl
+					}
+					textbox = {
+						text = "ALEXANDRIA_CONTROLLER_TEXT"
+						position = { 0 240 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_medium
+					}
+					button = {
+						parentanchor = bottom|hcenter
+						position = { 0 -5 }
+						using = default_button_primary_big_action
+						size = { 220 40 }
+						raw_text = "Integrate Patriarchal Seat"
+						using = fontsize_medium
+					}
+				}
+				
+				# Patriarchate of Moscow
+				widget = {
+					layoutpolicy_horizontal = expanding
+					
+					size = { 280 320 }
+					background = {
+						using = entry_bg_unit_dark
+					}
+					# Character Portrait
+					character_portrait_medium_torso = {
+						position = { 0 20 }
+						parentanchor = top|center
+						datacontext = "[GetPlayer.MakeScope.Var('eocfm_moscow_patriarch_var').GetCharacter]"
+						blockoverride "show_hat" {}
+						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+					}
+					default_header_clean_faded = {
+						size = { 250 40 }
+						position = { 0 200 }
+						parentanchor = top|center
+						blockoverride "text" {
+						}
+						textbox = {
+							text = "NAME"
+#TE								text = "[GetPlayer.GetCustom('eocfm_moscow_patriarch_type')]"
+							parentanchor = center
+							position = { 0 -2 }
+							autoresize = yes
+							max_width = 190
+							elide = right
+							using = fontsize_large
+						}
+					}
+					textbox = {
+						text = "MOSCOW_HEADER_TEXT"
+						position = { 0 5 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 250
+						elide = right
+						using = fontsize_xl
+					}
+					textbox = {
+						text = "MOSCOW_CONTROLLER_TEXT"
+						position = { 0 240 }
+						parentanchor = top|center
+						autoresize = yes
+						max_width = 300
+						elide = right
+						using = fontsize_medium
+					}
+					button = {
+						parentanchor = bottom|hcenter
+						position = { 0 -5 }
+						using = default_button_primary_big_action
+						size = { 220 40 }
+						raw_text = "Integrate Patriarchal Seat"
+						using = fontsize_medium
+					}
+				}
+			}
+		}
+	}
+}

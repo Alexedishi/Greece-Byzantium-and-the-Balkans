@@ -1,24 +1,15 @@
-﻿patriarch_authority_capacity = {
+﻿caesaropapism_capacity_value = {
 	value = 0
-## BASE	
+	
+	## BASE
 	add = 100
-## SOURCES
+	
+	##SOURCES
+	
 	# Law Check
 	if = {
 		limit = {
-			has_law = law_type:law_theocracy
-		}
-		add = 200
-	}
-	else_if = {
-		limit = {
 			has_law = law_type:law_monarchy
-		}
-		add = 100
-	}
-	if = {
-		limit = {
-			has_law = law_type:law_religious_schools
 		}
 		add = 100
 	}
@@ -26,13 +17,25 @@
 	# Modifiers Check
 	if = {
 		limit = {
-			has_modifier = modifier_eocfm_caesaropapism
+			has_modifier = modifier_eocfm_reformed_synod
+		}
+		add = 200
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_dissolved_monasteries
 		}
 		add = 100
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_subsidizing_church
+		}
+		add = 100
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_sunday_schools
 		}
 		add = 100
 	}
@@ -88,13 +91,37 @@
 		}
 		add = 200
 	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_backed_reforms
+		}
+		 add = 50
+	}
 	
-## MULTIPLIERS
+	##PENALTIES
+	
+	# Law Check
+	if = {
+		limit = {
+			has_law = law_type:law_theocracy
+		}
+		subtract = 500
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_religious_schools
+		}
+		subtract = 200
+	}
+	
+	##MULTIPLIERS
+	
+	# Law Check
 	if = {
 		limit = {
 			has_law = law_type:law_state_religion
 		}
-		multiply = 1.50
+		multiply = 0.75
 	}
 	else_if = {
 		limit = {
@@ -106,10 +133,25 @@
 		limit = {
 			has_law = law_type:law_total_separation
 		}
-		multiply = 0.75
+		multiply = 1.50
+	}
+
+	# Modifiers Check
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_restored_synod
+		}
+		multiply = 0.50
+	}	
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_restored_monasteries
+		}
+		multiply = 0.90
 	}
 	
-## EXPENSES
+	##EXPENSES
+	
 	# Major Actions Check
 	if = {
 		limit = {
@@ -119,15 +161,15 @@
 	}
 	if = {
 		limit = {
-			has_journal_entry = je_eocfm_integrating_seat
+			has_variable = eocfm_schism_var
 		}
-		subtract = 500
+		subtract = 800
 	}
 	if = {
 		limit = {
-			has_journal_entry = je_eocfm_autocephaly
+			has_variable = eocfm_integration_var
 		}
-		subtract = 800
+		subtract = 500
 	}
 	
 	# Law Check
@@ -141,18 +183,4 @@
 		subtract = 200
 	}
 	
-	# Decree Check
-	every_scope_state = {
-		limit = {
-			has_decree = decree_eocfm_consecrate_metropolitan
-		}
-		subtract = 100
-	}
-	every_scope_state = {
-		limit = {
-			has_decree = decree_eocfm_encourage_almsgiving
-		}
-		subtract = 100
-	}
-
 }
