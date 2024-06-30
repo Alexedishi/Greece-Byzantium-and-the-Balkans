@@ -228,4 +228,82 @@ Fixes:
 
 Event Relocations:
 balkfm.630 -> balkfm.640
-	
+
+--Update 2.1.4--
+**Updated for V3 1.7**
+New Additions:
+-New Opener journal "The Armansperg Regency" for Greece with event chain to introduce the Bavarocracy
+-Greek Revolts are now handled by je_grefm_greek_separatism
+-Revolts will now fire based off a mixture of radical_fraction and Greek support
+-New journal entry "The 14 Regions" representing the historic urbanization of Constantinople
+-New state trait "The Golden Horn" for Eastern Thrace
+
+Balancing/Adjustments:
+-Complete Teardown of "The Bavarocracy" journal and sub-content. The timeout is now a progress bar that drains monthly; this drain speed can be slowed down by completing the sub-journals
+	-Integrated the Bavarian Auxilliaries and Turk-Eater decisions as scripted buttons within the main Bavarocracy journal.
+	-Old Royal Palace is now available during the Bavarocracy journal chain instead of after abandoning the Byzantine Restoration
+	-Added new scripted button to get foreign loans
+	-New event "The Philorthodox Conspiracy" behaves like a grefm-specific version of eocfm.006
+	-Constitution modifiers also impact political strength on top of opinion.
+-Reworked the "Tyranny of House Wittelsbach" journal; The timeout is now a progress bar that depends on IG clout, enacted laws, and ruler popularity.
+-Reworked the completion requirements of "A Bavarian Greece"; it now behaves as an inverse Stamp Out Monarchy journal
+-The Megali Idea opening event now adds all claims at once; grefm.200/201 have been merged and the Treaty of Laussane option has been removed
+-Reworked events for Archaeology, some have been demoted to notifications and others have new options
+-Integrated the Mega Palation survey button into "The 14 Regions"
+-Removed Hippodrome survey
+-Greece/Byzantium monuments now longer appear in every state
+-Removed Cretan Revolt journals
+-Removed legacy Venizelism journal
+-Subsidizing the Church will now reduce their political strength
+-Caesaropapism now reduces Devout political strength by 25%
+-New option in grefm.031 in case you arrived via success in Bavarocracy Main
+-Added global notification in the event that a riot is suppressed
+-Suppressing a riot will reduce tension by 200
+-Hidden event added that can start the rioting event chain randomly any time Tension is over 400
+-eqfm rebellion effect now creates a dominion with an option to grant autonomy to bring it in line with how grefm rebellions behave
+
+Fixes:
+-"Comission Icon" button will now be disabled if the event is active
+-Stop Church Subsidies button is now visible regardless of your current amount of PA
+-Epirote Revolt event now snatches all Greek pops in Ottoman Albania and moves them to Epirote Albania
+-Fixed a trigger issue preventing the stop subsides button from appearing if you have don't have enough PA.
+-Deconfliction will now be correctly limited to Balkan uprisings
+-"Churches Burned in State" option now correctly deducts money
+-Adjusted rounding in some script values.
+-Kogalniceanu is now correctly freed from the void
+-Milos no longer wears a fez
+
+Event Relocations/Adjustments:
+je_grefm_the_dedilomeni_principle_otto_alternate -> je_grefm_bavarian_greece
+je_grefm_the_cretan_revolts -> deleted
+je_grefm_the_cretan_revolts_fallback -> deleted
+je_grefm_venizelism -> deleted
+grefm.009 -> grefm.030
+grefm.021 -> grefm.035
+grefm.022 -> grefm.029
+grefm.023 -> deleted
+grefm.030 -> grefm.031
+grefm.031 -> grefm.032
+grefm.032 -> grefm.033
+grefm.033 -> grefm.034
+grefm.200 -> merged with grefm.201 with new loc
+grefm.203 -> grefm.200
+grefm.204 -> grefm.203
+grefm.205 -> grefm.204
+grefm.210-12,15-18 -> reworked with new loc
+grefm.213-14 -> deleted
+grefm.219 -> deleted
+grefm.902-4 -> deleted
+grefm.905 -> grefm.902
+grefm.910-14 -> deleted
+grefm.915 -> grefm.219
+grefm.916 -> grefm.119
+
+--Update 2.1.5--
+Fixes/Adjustments:
+-Fixed Scripting for Revolt Buttons
+-Added ai_chance to the Greek Separatism buttons to avoid going bankrupt from supporting separatism
+-Fixed an incorrect variable trigger preventing the Turkish homelands event
+-14 Regions journal will be available immediately after forming BYZ/ERE
+-Option to Elect a member of House Ypsilantis to the greek throne has been switched to always appear
+-Option to abolish the monarchy in "An Elected Monarch" will enact Parliamentary Republic instead of Presidential. It still requires Egalitarianism to appear.

@@ -259,6 +259,13 @@ namespace = grefm
 #	901 - Adds Mainland Greece claims to non-GRE Greek nations
 #	902 - Reassigns Revolt Journals
 
+#910-910 - Technical Events
+#	910 - The Makedonijan Revolt (No Triggers)
+#   911 - The Epirote Revolt (No Triggers)
+#	912 - The Cypriot Revolt (No Triggers)
+#	913 - The Macedonian Revolt (No Triggers)
+#	914 - The Smyrnite Revolt (No Triggers)
+
 ############################
 
 
@@ -2468,8 +2475,7 @@ grefm.030 = { # 1862 head of state referendum
 	
 	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
 		name = grefm.030.4
-		trigger = {
-			has_law = law_type:law_hereditary_bureaucrats
+		trigger = { # Always Available
 		}
 		custom_tooltip = {
 			text = grefm.030.4.tt
@@ -2487,10 +2493,28 @@ grefm.030 = { # 1862 head of state referendum
 						arrogant
 					}
 					on_created = {
-#						set_variable = grefm_phanariot
+						set_variable = grefm_phanariot
 						set_character_as_ruler = yes
 					}
 				}
+			}
+		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = -25
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = -25
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = -25
 			}
 		}
 		trigger_event = {
@@ -2534,7 +2558,7 @@ grefm.030 = { # 1862 head of state referendum
 		trigger = {
 			has_technology_researched = egalitarianism
 		}
-		activate_law = law_type:law_presidential_republic
+		activate_law = law_type:law_parliamentary_republic
 		trigger_event = {
 			id = grefm.005 # convenient for cleanup, flavor, and damaging relations
 			popup = yes
@@ -9258,11 +9282,19 @@ grefm.260 = { # the fate of the turks
 	dlc = dlc_grefm
 
 	trigger = {
-		has_variable = grefm_megali_idea_completed
-		has_technology_researched = civilizing_mission
 		NOT = {	has_variable = grefm_greek_homelands_event }
+		has_global_variable = grefm_megali_idea_complete
+		any_scope_state = {
+			state_region = {
+				AND = {
+					is_homeland = cu:turkish
+					is_homeland = cu:greek
+				}
+			}
+		}
+		has_technology_researched = civilizing_mission
 	}
-		
+	
 	immediate = {
 		set_variable = grefm_greek_homelands_event
 	}
@@ -10426,6 +10458,9 @@ grefm.901 = { # adds claims to greek countries if they go independent
 	hidden = yes
 	
 	trigger = {
+		country_has_primary_culture = cu:greek
+		NOT = { has_variable = grefm_mainland_claims_added }
+		is_subject = no
 		NOR = {
 			exists = c:GRE
 			exists = c:BYZ
@@ -10434,9 +10469,6 @@ grefm.901 = { # adds claims to greek countries if they go independent
 			exists = c:HEMP
 			exists = c:ODXY
 		}
-		NOT = { has_variable = grefm_mainland_claims_added }
-		country_has_primary_culture = cu:greek
-		is_subject = no
 	}
 	
 	immediate = {
@@ -10508,6 +10540,624 @@ grefm.902 = { # hidden event triggering the Don Pacifico Affair
 			}
 		}
 		remove_variable = grefm_don_pacifico_var
+	}
+	
+}
+
+#### TECHNICAL EVENTS ####
+
+grefm.910 = { # The Makedonijan Revolt (No Triggers)
+	type = country_event
+	placement = scope:skopia_state_scope
+	
+	title = grefm.214.t
+	desc = grefm.214.d
+	flavor = grefm.214.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# triggered by grefm_skopia_provoke_button
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_SKOPIA = {
+			random_scope_state = {
+				save_scope_as = skopia_state_scope
+			}
+		}
+		create_country = {
+			tag = NMAC
+			origin = this
+			state = scope:skopia_state_scope
+		}
+		c:NMAC = {
+			save_scope_as = makedonija_scope
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:NMAC
+			type = dominion
+		}
+		create_bidirectional_truce = {
+			country = c:NMAC
+			months = 60
+		}
+		grefm_greek_revolt_tension_effect = yes
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.214.a
+		default_option = yes
+		c:NMAC = {
+			make_independent = yes
+		}
+		end_truce = c:NMAC
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:NMAC
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:NMAC = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_SKOPIA.region_state:NMAC
+				}
+				add_war_goal = {
+					holder = c:NMAC
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:NMAC
+					value = 100
+				}
+			}
+			change_infamy = -5
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.214.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		create_diplomatic_pact = {
+			country = c:NMAC
+			type = protectorate
+		}
+	}
+	
+}
+
+grefm.911 = { # The Epirote Revolt (No Triggers)
+	type = country_event
+	placement = scope:albania_state_scope
+	
+	title = grefm.215.t
+	desc = grefm.215.d
+	flavor = grefm.215.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# triggered from grefm_epirus_provoke_button
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_ALBANIA = {
+			random_scope_state = {
+				save_scope_as = albania_state_scope
+			}
+		}
+		create_country = {
+			tag = EPI
+			origin = this
+			province = p:xC42EC6
+			province = p:x7BE071
+			province = p:x18C9AD
+			province = p:x01D0E0
+			province = p:x8050E0
+			on_created = {
+			}
+		}
+		c:EPI = {
+			save_scope_as = epirus_scope
+			create_epirus_characters = yes
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:EPI
+			type = dominion
+		}
+		create_bidirectional_truce = {
+			country = c:EPI
+			months = 60
+		}
+		random_scope_state = {
+			limit = {
+				state_region = s:STATE_ALBANIA
+			}
+			every_scope_pop = {
+				limit = {
+					culture = cu:greek
+				}
+				move_pop = s:STATE_ALBANIA.region_state:EPI
+			}
+		}
+		grefm_greek_revolt_tension_effect = yes
+		set_variable = grefm_owner_tracker
+	}
+	
+	option = { # Get the Whip
+		name = grefm.215.a
+		default_option = yes
+		c:EPI = {
+			make_independent = yes
+		}
+		end_truce = c:EPI
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:EPI
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:EPI = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_ALBANIA.region_state:EPI
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_THESSALIA.region_state:EPI
+				}
+				add_war_goal = {
+					holder = c:EPI
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:EPI
+					value = 100
+				}
+			}
+			change_infamy = -10
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.215.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		create_diplomatic_pact = {
+			country = c:EPI
+			type = protectorate
+		}
+	}
+	
+}
+
+grefm.912 = { # The Cypriot Revolt (No Triggers)
+	type = country_event
+	placement = scope:cyprus_state_scope
+	
+	title = grefm.216.t
+	desc = grefm.216.d
+	flavor = grefm.216.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# triggered from grefm_cyprus_provoke_button
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_CYPRUS = {
+			random_scope_state = {
+				save_scope_as = cyprus_state_scope
+			}
+		}
+		create_country = {
+			tag = CYP
+			origin = this
+			state = scope:cyprus_state_scope
+		}
+		c:CYP = {
+			save_scope_as = cyprus_scope
+			create_cyprus_characters = yes
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:CYP
+			type = dominion
+		}
+		create_bidirectional_truce = {
+			country = c:CYP
+			months = 60
+		}
+		grefm_greek_revolt_tension_effect = yes
+		set_variable = grefm_owner_tracker		
+	}	
+		
+	option = { # Get the Whip
+		name = grefm.216.a
+		default_option = yes
+		c:CYP = {
+			make_independent = yes
+		}
+		end_truce = c:CYP
+		create_diplomatic_play = {
+			name = grefm_cyprus_rebellion
+			target_country = c:CYP
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:CYP = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_CYPRUS.region_state:CYP
+				}
+				add_war_goal = {
+					holder = c:CYP
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:CYP
+					value = 100
+				}
+			}
+			change_infamy = -5
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					country_has_primary_culture = cu:greek
+				}
+				trigger_event = {
+					id = grefm.212 # Greek Uprising in State (GRE)
+				}
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.216.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		create_diplomatic_pact = {
+			country = c:CYP
+			type = protectorate
+		}
+	}
+	
+}
+
+grefm.913 = { # The Macedonian Revolt (No Triggers)
+	type = country_event
+	placement = scope:macedonia_state_scope
+	
+	title = grefm.217.t
+	desc = grefm.217.d
+	flavor = grefm.217.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# triggered from grefm_macedonia_provoke_button
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_MACEDONIA = {
+			random_scope_state = {
+				save_scope_as = macedonia_state_scope
+			}
+		}
+		create_country = {
+			tag = MAC
+			origin = this
+			state = scope:macedonia_state_scope
+		}
+		c:MAC = {
+			save_scope_as = macedonia_scope
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:MAC
+			type = dominion
+		}
+		create_bidirectional_truce = {
+			country = c:MAC
+			months = 60
+		}
+		grefm_greek_revolt_tension_effect = yes
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.217.a
+		default_option = yes
+		c:MAC = {
+			make_independent = yes
+		}
+		end_truce = c:MAC
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:MAC
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:MAC = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_MACEDONIA.region_state:MAC
+				}
+				add_war_goal = {
+					holder = c:MAC
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:MAC
+					value = 100
+				}
+			}
+			change_infamy = -5
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.217.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		create_diplomatic_pact = {
+			country = c:MAC
+			type = protectorate
+		}
+	}
+	
+}
+
+grefm.914 = { # The Smyrna Revolt (No Triggers)
+	type = country_event
+	placement = scope:aydin_state_scope
+	
+	title = grefm.218.t
+	desc = grefm.218.d
+	flavor = grefm.218.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		# triggered from grefm_smyrna_provoke_button
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = grefm_revolt_cooldown
+			days = 720
+		}
+		s:STATE_AYDIN = {
+			random_scope_state = {
+				save_scope_as = aydin_state_scope
+			}
+		}
+		create_country = {
+			tag = SMYR
+			origin = this
+			state = scope:aydin_state_scope
+		}
+		c:SMYR = {
+			save_scope_as = smyrna_scope
+			set_variable = grefm_revolt_tracker
+		}
+		create_diplomatic_pact = {
+			country = c:SMYR
+			type = dominion
+		}
+		create_bidirectional_truce = {
+			country = c:SMYR
+			months = 60
+		}
+		grefm_greek_revolt_tension_effect = yes
+		set_variable = grefm_owner_tracker
+	}
+		
+	option = { # Get the Whip
+		name = grefm.218.a
+		default_option = yes
+		c:SMYR = {
+			make_independent = yes
+		}
+		end_truce = c:SMYR
+		create_diplomatic_play = {
+			name = grefm_epirus_rebellion
+			target_country = c:SMYR
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					ROOT = {
+						is_diplomatic_play_initiator = yes
+					}
+					c:SMYR = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_war_goal = {
+					holder = root
+					type = return_state
+					target_state = s:STATE_AYDIN.region_state:SMYR
+				}
+				add_war_goal = {
+					holder = c:SMYR
+					type = independence
+				}
+				add_diplomatic_play_war_support = {
+					target = c:SMYR
+					value = 100
+				}
+			}
+			change_infamy = -5
+		}
+		every_country = {
+			limit = {
+				country_has_primary_culture = cu:greek
+			}
+			trigger_event = {
+				id = grefm.212 # Greek Uprising in State (GRE)
+			}
+		}
+	}
+	
+	option = { # Give them Autonomy
+		name = grefm.218.b
+		add_modifier = {
+			name = modifier_grefm_granted_balkan_autonomy
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+		create_diplomatic_pact = {
+			country = c:SMYR
+			type = protectorate
+		}
 	}
 	
 }
