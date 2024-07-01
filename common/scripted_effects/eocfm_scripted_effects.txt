@@ -1,4 +1,4 @@
-﻿eocfm_update_authority_effect = {
+﻿eocfm_update_caesaropapism_effect = {
 	set_variable = {
 		name = caesaropapism_capacity_var
 		value = caesaropapism_capacity_value
@@ -42,6 +42,7 @@ eocfm_update_patriarch_variables_effect = {
 					has_template = template_eocfm_constantinople_patriarch
 				}
 			save_scope_as = eocfm_constantinople_patriarch_scope
+			}
 		}
 	}
 	else = {
@@ -180,7 +181,7 @@ eocfm_update_seat_controllers_effect = {
 			save_scope_as = eocfm_moscow_controller_scope
 		}
 		set_global_variable = {
-			name = eocfm_amoscow_controller_var
+			name = eocfm_moscow_controller_var
 			value = scope:eocfm_moscow_controller_scope
 		}
 	}
@@ -244,12 +245,12 @@ eocfm_save_seat_controller_scopes_effect = {
 
 eocfm_update_seat_bonus_effect = {
 	hidden_effect = {
-		remove_modifier = modifier_eocfm_controls_rome
-		remove_modifier = modifier_eocfm_controls_constantinople
-		remove_modifier = modifier_eocfm_controls_antioch
-		remove_modifier = modifier_eocfm_controls_alexandria
-		remove_modifier = modifier_eocfm_controls_jerusalem
-		remove_modifier = modifier_eocfm_controls_moscow
+#		remove_modifier ?= modifier_eocfm_controls_rome
+		remove_modifier ?= modifier_eocfm_controls_constantinople
+		remove_modifier ?= modifier_eocfm_controls_antioch
+		remove_modifier ?= modifier_eocfm_controls_alexandria
+		remove_modifier ?= modifier_eocfm_controls_jerusalem
+		remove_modifier ?= modifier_eocfm_controls_moscow
 	}
 #	if = {
 #		limit = {
@@ -257,7 +258,7 @@ eocfm_update_seat_bonus_effect = {
 #			owns_entire_state_region = STATE_LAZIO
 #		}
 #		add_modifier = modifier_eocfm_controls_rome
-	}
+#	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_constantinople
@@ -295,31 +296,35 @@ eocfm_update_seat_bonus_effect = {
 	}
 }
 
-eocfm_remove_all__modifiers_effect = {
-	remove_modifier = modifier_eocfm_hosting_council
-	remove_modifier = modifier_eocfm_integrating_seat
-	remove_modifier = modifier_eocfm_supported_synod
-	remove_modifier = modifier_eocfm_rejected_synod
-	remove_modifier = modifier_eocfm_caesaropapism
-	remove_modifier = modifier_eocfm_revoked_caesaropapism
-	remove_modifier = modifier_eocfm_asserted_caesaropapism
-	remove_modifier = modifier_eocfm_subsidizing_church
-	remove_modifier = modifier_eocfm_receiving_subsidies
-	remove_modifier = modifier_eocfm_sunday_schools
-	remove_modifier = modifier_eocfm_disbanded_sunday_schools
-	remove_modifier = modifier_eocfm_dissolved_monasteries
+eocfm_remove_all_modifiers_effect = {
+	remove_modifier ?= modifier_eocfm_hosting_council
+	remove_modifier ?= modifier_eocfm_integrating_seat
+	remove_modifier ?= modifier_eocfm_reformed_synod
+	remove_modifier ?= modifier_eocfm_restored_synod
+	remove_modifier ?= modifier_eocfm_asserted_caesaropapism
+	remove_modifier ?= modifier_eocfm_subsidizing_church
+	remove_modifier ?= modifier_eocfm_sunday_schools
+	remove_modifier ?= modifier_eocfm_disbanded_sunday_schools
+	remove_modifier ?= modifier_eocfm_dissolved_monasteries
+}
+
+eocfm_remove_focus_modifiers_effect = {
+	remove_modifier ?= modifier_eocfm_emphasize_unity
+	remove_modifier ?= modifier_eocfm_enforce_attendance
+	remove_modifier ?= modifier_eocfm_theologize_dogma
+	remove_modifier ?= modifier_eocfm_promote_ecumenism
 }
 
 eocfm_remove_icon_modifiers_effect = {
-	remove_modifier = modifier_eocfm_icon_christ_pantocrator
-	remove_modifier = modifier_eocfm_icon_eleusa
-	remove_modifier = modifier_eocfm_icon_john_climacus
-	remove_modifier = modifier_eocfm_icon_michael_archistrategos
-	remove_modifier = modifier_eocfm_icon_nikolaos_wonderworker
-	remove_modifier = modifier_eocfm_icon_gregory_nazianzus
-	remove_modifier = modifier_eocfm_icon_paul_of_thebes
-	remove_modifier = modifier_eocfm_icon_issac_the_syrian
-	remove_modifier = modifier_eocfm_icon_basil_megas
+	remove_modifier ?= modifier_eocfm_icon_christ_pantocrator
+	remove_modifier ?= modifier_eocfm_icon_eleusa
+	remove_modifier ?= modifier_eocfm_icon_john_climacus
+	remove_modifier ?= modifier_eocfm_icon_michael_archistrategos
+	remove_modifier ?= modifier_eocfm_icon_nikolaos_wonderworker
+	remove_modifier ?= modifier_eocfm_icon_gregory_nazianzus
+	remove_modifier ?= modifier_eocfm_icon_paul_of_thebes
+	remove_modifier ?= modifier_eocfm_icon_issac_the_syrian
+	remove_modifier ?= modifier_eocfm_icon_basil_megas
 }
 
 eocfm_remove_intregration_variables_effect = {
@@ -336,12 +341,12 @@ eocfm_remove_intregration_variables_effect = {
 }
 
 eocfm_remove_seat_modifiers_effect = {
-	remove_modifier = modifier_eocfm_controls_rome
-	remove_modifier = modifier_eocfm_controls_constantinople
-	remove_modifier = modifier_eocfm_controls_antioch
-	remove_modifier = modifier_eocfm_controls_alexandria
-	remove_modifier = modifier_eocfm_controls_jerusalem
-	remove_modifier = modifier_eocfm_controls_moscow
+	remove_modifier ?= modifier_eocfm_controls_rome
+	remove_modifier ?= modifier_eocfm_controls_constantinople
+	remove_modifier ?= modifier_eocfm_controls_antioch
+	remove_modifier ?= modifier_eocfm_controls_alexandria
+	remove_modifier ?= modifier_eocfm_controls_jerusalem
+	remove_modifier ?= modifier_eocfm_controls_moscow
 }
 
 eocfm_council_cleanup_effect = {

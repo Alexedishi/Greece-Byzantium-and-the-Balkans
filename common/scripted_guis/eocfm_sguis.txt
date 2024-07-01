@@ -1,17 +1,4 @@
-﻿eocfm_temp_name_sgui = {
-	scope = country
-	
-	is_shown = {
-	}
-	
-	is_valid = {
-	}
-	
-	effect = {
-	}
-}
-
-#################
+﻿#################
 # GENERAL SETUP #
 #################
 
@@ -19,8 +6,90 @@ eocfm_setup_sgui = {
 	scope = country
 	
 	effect = {
-		eocfm_update_authority = yes
-		eocfm_update_patriarch_scopes = yes
+		eocfm_update_caesaropapism_effect = yes
+		eocfm_save_patriarch_scopes_effect = yes
+	}
+}
+
+######################
+# METROPOLIS ACTIONS #
+######################
+
+eocfm_emphasize_unity_sgui = {
+	scope = country
+	
+	is_shown = {
+		always = yes
+	}
+	
+	is_valid = {
+		NOT = {
+			has_modifier = modifier_eocfm_emphasize_unity
+		}
+	}
+	
+	effect = {
+		eocfm_remove_focus_modifiers_effect = yes
+		add_modifier = modifier_eocfm_emphasize_unity
+	}
+}
+
+
+eocfm_enforce_attendance_sgui = {
+	scope = country
+	
+	is_shown = {
+		always = yes
+	}
+	
+	is_valid = {
+		NOT = {
+			has_modifier = modifier_eocfm_enforce_attendance
+		}
+	}
+	
+	effect = {
+		eocfm_remove_focus_modifiers_effect = yes
+		add_modifier = modifier_eocfm_enforce_attendance
+	
+	}
+}
+
+eocfm_theologize_dogma_sgui = {
+	scope = country
+	
+	is_shown = {
+		always = yes
+	}
+	
+	is_valid = {
+		NOT = {
+			has_modifier = modifier_eocfm_theologize_dogma
+		}
+	}
+	
+	effect = {
+		eocfm_remove_focus_modifiers_effect = yes
+		add_modifier = modifier_eocfm_theologize_dogma
+	}
+}
+
+eocfm_promote_ecumenism_sgui = {
+	scope = country
+	
+	is_shown = {
+		always = yes
+	}
+	
+	is_valid = {
+		NOT = {
+			has_modifier = modifier_eocfm_promote_ecumenism
+		}
+	}
+	
+	effect = {
+		eocfm_remove_focus_modifiers_effect = yes
+		add_modifier = modifier_eocfm_promote_ecumenism
 	}
 }
 
@@ -97,7 +166,7 @@ eocfm_dissolve_monasteries_sgui = {
 		}
 		add_modifier = modifier_eocfm_dissolved_monasteries
 		set_variable = eocfm_dissolved_monasteries
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -118,11 +187,11 @@ eocfm_restore_monasteries_sgui = {
 			name = modifier_eocfm_restored_monasteries
 			months = normal_modifier_time
 		}
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
-eocfm_reformed_synod_sgui = {
+eocfm_reform_synod_sgui = {
 	scope = country
 	
 	is_shown = {
@@ -137,8 +206,9 @@ eocfm_reformed_synod_sgui = {
 			is_in_government = no
 			ig_approval > 0
 		}
-		NOT = {
+		NOR = {
 			has_modifier = modifier_eocfm_reformed_synod
+			has_modifier = modifier_eocfm_restored_synod
 		}
 	}
 	
@@ -148,11 +218,11 @@ eocfm_reformed_synod_sgui = {
 			pop_type = clergymen
 			value = small_radicals
 		}
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
-eocfm_restored_synod_sgui = {
+eocfm_restore_synod_sgui = {
 	scope = country
 	
 	is_shown = {
@@ -160,7 +230,7 @@ eocfm_restored_synod_sgui = {
 	}
 	
 	is_valid = {
-		has_modifier = modifier_eocfm_caesaropapism
+		has_modifier = modifier_eocfm_reformed_synod
 		custom_tooltip = {
 			text = eocfm_need_100_tt
 			hidden_trigger = {
@@ -170,9 +240,9 @@ eocfm_restored_synod_sgui = {
 	}
 	
 	effect = {
-		remove_modifier = modifier_eocfm_caesaropapism
+		remove_modifier = modifier_eocfm_reformed_synod
 		add_modifier = {
-			name = modifier_eocfm_revoked_caesaropapism
+			name = modifier_eocfm_restored_synod
 			months = long_modifier_time
 			is_decaying = yes
 		}
@@ -181,7 +251,7 @@ eocfm_restored_synod_sgui = {
 			value = small_radicals
 		}
 		remove_variable = eocfm_caesaropapism_questioned
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -202,7 +272,7 @@ eocfm_grant_subsidies_sgui = {
 	
 	effect = {
 		add_modifier = modifier_eocfm_subsidizing_church
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -230,7 +300,7 @@ eocfm_end_subsidies_sgui = {
 	
 	effect = {
 		remove_modifier = modifier_eocfm_subsidizing_church
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -317,7 +387,7 @@ eocfm_declare_autocephaly_sgui = {
 		}
 		trigger_event = {
 			id = eocfm.100 # Country Declaration of Schism
-			pop = yes
+			popup = yes
 		}
 	}
 }

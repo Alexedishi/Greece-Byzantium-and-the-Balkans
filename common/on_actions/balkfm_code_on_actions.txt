@@ -22,11 +22,6 @@ on_monthly_pulse_country = {
 	}
 }
 
-#on_yearly_pulse_country = {
-#	on_actions = {
-#	}
-#}
-
 ############
 
 balkfm_monthly_pulse = { # These events are monitored from all scopes
@@ -205,8 +200,8 @@ eocfm_monthly_pulse = {
 		5 = eocfm.141 # Seat Integration Disputed
 	}
 	effect = {
-		eocfm_update_authority = yes
-		eocfm_update_seat_bonuses = yes
+		eocfm_update_caesaropapism_effect = yes
+		eocfm_update_seat_bonus_effect = yes
 		if = {
 			limit = {
 				has_variable = eocfm_schism_var
@@ -413,7 +408,7 @@ eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade succes
 			trigger_event = {
 				id = eocfm.131 # Victorious Crusade
 			}
-			eocfm_crusade_cleanup = yes
+			eocfm_crusade_cleanup_effect = yes
 		}
 	}
 }
@@ -434,7 +429,7 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 			trigger_event = {
 				id = eocfm.132 # Failed Crusade
 			}
-			eocfm_crusade_cleanup = yes
+			eocfm_crusade_cleanup_effect = yes
 		}
 	}
 }

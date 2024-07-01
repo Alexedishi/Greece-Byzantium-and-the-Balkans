@@ -70,7 +70,7 @@ namespace = eocfm
 #	106 - ##The Patriarchate of Romania (ROM)
 #	107 - Autocephaly Completion Technical Event
 
-#110-109 - Partiarchal Seat Events
+#110-109 - Partiarchal Seat Usurpation Events
 #	110 - ##Constantinopole Claimed by Country
 #	111 - ##Constantinopole Usurped by Country
 #	112 - ##Antioch Claimed by Country
@@ -99,10 +99,12 @@ namespace = eocfm
 #	131 - Victorious Crusade
 #	132 - Failed Crusade
 
-#140-149 -  Partiarchal Seat Integration Events
+#140-149 - Partiarchal Seat Integration Events
 #	140 - ##Seat Usurped by Country
 #	141 - ##Seat Integration Disputed (Part 1)
 #	142 - ##Seat Integration Disputed (Part 2)
+
+#150-159 - Patriarchal Seat Sway Events
 
 
 ##  #EOC2  RUM MILLET FLAVOR  Events 200-299  ##
@@ -181,14 +183,14 @@ eocfm.001 = { # The Bishops of the East (Generic)
 				save_scope_as = devout_leader_scope
 			}
 		}
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 		set_variable = eocfm_starter_var
 	}
 
 	option = {
 		name = eocfm.001.a
 		default_option = yes
-		eocfm_update_seat_ownership = yes
+		eocfm_update_seat_bonus_effect = yes
 	}
 	
 }
@@ -231,14 +233,14 @@ eocfm.003 = { # Greek Holy Synod
 				save_scope_as = devout_leader_scope
 			}
 		}
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 		set_variable = eocfm_starter_var
 	}	
 	
  	option = {
 		name = eocfm.003.a
 		default_option = yes
-		eocfm_update_seat_ownership = yes
+		eocfm_update_seat_bonus_effect = yes
 	}
 
 }
@@ -276,14 +278,14 @@ eocfm.004 = { # Most Holy Synod (RUS)
 				save_scope_as = devout_leader_scope
 			}
 		}
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 		set_variable = eocfm_starter_var
 	}	
 	
  	option = {
 		name = eocfm.004.a
 		default_option = yes
-		eocfm_update_seat_ownership = yes
+		eocfm_update_seat_bonus_effect = yes
 	}
 
 }
@@ -729,7 +731,7 @@ eocfm.020 = { # Commissioning an Icon
 	}
 	
 	after = {
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 }
@@ -801,9 +803,9 @@ eocfm.031 = { # Church-State Relations
 	option = {
 		name = eocfm.031.a 
 		default_option = yes
-		remove_modifier = modifier_eocfm_caesaropapism
+		remove_modifier = modifier_eocfm_reformed_synod
 		add_modifier = {
-			name = modifier_eocfm_revoked_caesaropapism
+			name = modifier_eocfm_restored_synod
 			months = normal_modifier_time
 			is_decaying = yes
 		}
@@ -1011,7 +1013,7 @@ eocfm.101 = { # Recognition of Autocephaly (Generic)
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1051,7 +1053,7 @@ eocfm.102 = { # Tomos of 1850
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1091,7 +1093,7 @@ eocfm.103 = { # Metropolitanate of Cetinje
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1131,7 +1133,7 @@ eocfm.104 = { # The Metropolitanate of Belgrade
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1171,7 +1173,7 @@ eocfm.105 = { # The Patriarch of All Bulgaria
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1211,7 +1213,7 @@ eocfm.106 = { # The Patriarchate of Romania
 	
 	immediate = {
 		set_variable = eocfm_is_autocephalous
-		eocfm_update_authority = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 	
 	option = {
@@ -1443,8 +1445,8 @@ eocfm.111 = { # Constantinopole Usurped by Country
 				set_variable = eocfm_controls_constantinople
 			}
 		}
-		eocfm_remove_intregration_variables = yes
-		eocfm_update_authority = yes
+		eocfm_remove_intregration_variables_effect = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 
 }
@@ -1603,8 +1605,8 @@ eocfm.113 = { # Antioch Usurped by Country
 				set_variable = eocfm_controls_antioch
 			}
 		}
-		eocfm_remove_intregration_variables = yes
-		eocfm_update_authority = yes
+		eocfm_remove_intregration_variables_effect = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 
 }
@@ -1763,8 +1765,8 @@ eocfm.115 = { # Jerusalem Usurped by Country
 				set_variable = eocfm_controls_jerusalem
 			}
 		}
-		eocfm_remove_intregration_variables = yes
-		eocfm_update_authority = yes
+		eocfm_remove_intregration_variables_effect = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 
 }
@@ -1923,8 +1925,8 @@ eocfm.117 = { # Alexandria Usurped by Country
 				set_variable = eocfm_controls_alexandria
 			}
 		}
-		eocfm_remove_intregration_variables = yes
-		eocfm_update_authority = yes
+		eocfm_remove_intregration_variables_effect = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 
 }
@@ -2083,8 +2085,8 @@ eocfm.119 = { # Moscow Usurped by Country
 				set_variable = eocfm_controls_moscow
 			}
 		}
-		eocfm_remove_intregration_variables = yes
-		eocfm_update_authority = yes
+		eocfm_remove_intregration_variables_effect = yes
+		eocfm_update_caesaropapism_effect = yes
 	}
 
 }
@@ -3077,8 +3079,6 @@ eocfm.141 = { # Seat Integration Disputed (Part 1)
 			}
 		}
 	}
-
-	orphan = yes # event is functionally complete, but needs to be able to differentiate between concurrent integrations
 
 }
 
