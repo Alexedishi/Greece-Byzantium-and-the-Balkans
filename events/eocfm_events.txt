@@ -184,6 +184,7 @@ eocfm.001 = { # The Bishops of the East (Generic)
 			}
 		}
 		eocfm_update_caesaropapism_effect = yes
+		eocfm_initialize_patriarchs_relations_effect = yes
 		set_variable = eocfm_starter_var
 	}
 
@@ -234,6 +235,7 @@ eocfm.003 = { # Greek Holy Synod
 			}
 		}
 		eocfm_update_caesaropapism_effect = yes
+		eocfm_initialize_patriarchs_relations_effect = yes
 		set_variable = eocfm_starter_var
 	}	
 	
@@ -279,12 +281,17 @@ eocfm.004 = { # Most Holy Synod (RUS)
 			}
 		}
 		eocfm_update_caesaropapism_effect = yes
+		eocfm_initialize_patriarchs_relations_effect = yes
 		set_variable = eocfm_starter_var
 	}	
 	
  	option = {
 		name = eocfm.004.a
 		default_option = yes
+		change_variable = {
+			name = eocfm_moscow_relations_var
+			add = 100
+		}
 		eocfm_update_seat_bonus_effect = yes
 	}
 
@@ -793,7 +800,7 @@ eocfm.031 = { # Church-State Relations
 	
 	trigger = {
 		NOT = { has_variable = eocfm_caesaropapism_questioned }
-		has_modifier = modifier_eocfm_caesaropapism
+		has_modifier = modifier_eocfm_reformed_synod
 	}
 	
 	immediate = {
@@ -3799,29 +3806,11 @@ eocfm.310 = { # The Ancient Partiarchates
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = eocfm_is_autocephalous
-		NOT = { has_variable = byzfm_pentarchy_restoration }
-		AND = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-			has_variable = eocfm_controls_constantinople
-		}
-		AND = {
-			owns_entire_state_region = STATE_ADANA
-			has_variable = eocfm_controls_antioch
-		}	
-		AND = {
-			owns_entire_state_region = STATE_LOWER_EGYPT
-			has_variable = eocfm_controls_alexandria
-		}	
-		AND = {
-			owns_entire_state_region = STATE_PALESTINE
-			has_variable = eocfm_controls_jerusalem
-		}
-		has_law = law_type:law_state_religion
+		# triggered by eocfm_secure_tetrarchy_sgui
 	}
 	
 	immediate = {
-		set_variable = byzfm_pentarchy_restoration
+		set_variable = eocfm_tetrarchy_secured
 		ig:ig_devout = {
 			save_scope_as = ig_devout_scope
 		}
@@ -3874,7 +3863,39 @@ eocfm.310 = { # The Ancient Partiarchates
 }
 
 eocfm.311 = { # The Restoration of the Pentarchy
-	orphan = yes
+	type = country_event
+	
+	title = eocfm.311.t
+	desc = eocfm.311.d
+	flavor = eocfm.311.f
+	
+	placement = root
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eocfm_secure_pentarchy_sgui
+	}
+	
+	immediate = {
+		set_variable = eocfm_pentarchy_secured
+	}
+	
+	option = {
+		name = eocfm.311.a
+		default_option = yes
+	}
+	
 }
 
 eocfm.312 = { # The Capture of the Great Mosque

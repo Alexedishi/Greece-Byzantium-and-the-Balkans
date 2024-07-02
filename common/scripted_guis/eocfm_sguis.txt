@@ -7,7 +7,7 @@ eocfm_setup_sgui = {
 	
 	effect = {
 		eocfm_update_caesaropapism_effect = yes
-		eocfm_save_patriarch_scopes_effect = yes
+		eocfm_update_patriarch_variables_effect = yes
 	}
 }
 
@@ -469,6 +469,78 @@ eocfm_convoke_council_sgui = {
 				days = 30
 			}
 		}	
+	}
+}
+
+eocfm_secure_tetrarchy_sgui = {
+	scope = country
+	
+	is_shown = {
+		NOR = {
+			has_variable = eocfm_tetrarchy_secured
+			has_variable = eocfm_pentarchy_secured
+		}
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_gui_secure_tetrarchy_tt2
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_variable = eocfm_controls_constantinople
+					owns_entire_state_region = STATE_ADANA
+					has_variable = eocfm_controls_antioch
+					owns_entire_state_region = STATE_LOWER_EGYPT
+					has_variable = eocfm_controls_alexandria
+					owns_entire_state_region = STATE_PALESTINE
+					has_variable = eocfm_controls_jerusalem
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.310 # The Ancient Partiarchates
+			popup = yes
+		}
+	}
+}
+
+eocfm_secure_pentarchy_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_tetrarchy_secured
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_gui_secure_pentarchy_tt2
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_variable = eocfm_controls_constantinople
+					owns_entire_state_region = STATE_ADANA
+					has_variable = eocfm_controls_antioch
+					owns_entire_state_region = STATE_LOWER_EGYPT
+					has_variable = eocfm_controls_alexandria
+					owns_entire_state_region = STATE_PALESTINE
+					has_variable = eocfm_controls_jerusalem
+#					owns_entire_state_region = STATE_ROME
+#					has_variable = eocfm_controls_rome
+				}
+			}
+		}
+		always = no
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.311 # The Restoration of the Pentarchy
+			popup = yes
+		}
 	}
 }
 

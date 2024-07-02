@@ -5,7 +5,102 @@
 	}
 }
 
+eocfm_initialize_patriarchs_relations_effect = {
+#	set_variable = {
+#		name = eocfm_rome_relations_var
+#		value = 0
+#	}
+	set_variable = {
+		name = eocfm_constantinople_relations_var
+		value = 0
+	}
+	set_variable = {
+		name = eocfm_antioch_relations_var
+		value = 0
+	}
+	set_variable = {
+		name = eocfm_jerusalem_relations_var
+		value = 0
+	}
+	set_variable = {
+		name = eocfm_alexandria_relations_var
+		value = 0
+	}
+	set_variable = {
+		name = eocfm_moscow_relations_var
+		value = 0
+	}
+}
+
+eocfm_initialize_patriarchs_effect = {
+	# Constantinople
+	create_character = {
+		template = template_eocfm_constantinople_patriarch
+		first_name = "Georgios"
+		last_name = "Fourtouniadis"
+		culture = cu:greek
+		on_created = {
+			place_character_in_void = 180 # 15 year shelf life
+		}
+	}
+
+	# Antioch
+	create_character = {
+		template = template_eocfm_antioch_patriarch
+		first_name = "Methodius"
+		last_name = "Methodius"
+		culture = cu:greek
+		on_created = {
+			place_character_in_void = 180 # 15 year shelf life
+		}
+	}
+	
+	# Jerusalem
+	create_character = {
+		template = template_eocfm_jerusalem_patriarch
+		first_name = "Methodius"
+		last_name = "Methodius"
+		culture = cu:greek
+		on_created = {
+			place_character_in_void = 180 # 15 year shelf life
+		}
+	}
+	
+	# Alexandria
+	create_character = {
+		template = template_eocfm_alexandria_patriarch
+		first_name = "Hierotheus"
+		last_name = "Hierotheus"
+		culture = cu:greek
+		on_created = {
+			place_character_in_void = 180 # 15 year shelf life
+		}
+	}
+	
+	# Moscow
+	create_character = {
+		template = template_eocfm_moscow_patriarch
+		first_name = "Vasily"
+		last_name = "Drozdov"
+		culture = cu:russian
+		on_created = {
+			place_character_in_void = 180 # 15 year shelf life
+		}
+	}
+}
+
 eocfm_update_patriarch_variables_effect = {
+	# Local Metropolitan
+	ig:ig_devout = {
+		leader = {
+			save_scope_as = eocfm_devout_leader_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_devout_leader_var
+		value = scope:eocfm_devout_leader_scope
+	}
+	
 	# Constantinople
 	if = {
 		limit = {
@@ -20,39 +115,8 @@ eocfm_update_patriarch_variables_effect = {
 			save_scope_as = eocfm_constantinople_patriarch_scope
 		}
 	}
-	else_if = {
-		limit = {
-			any_country = {
-				has_variable = eocfm_controls_constantinople
-			}
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_constantinople
-				country_has_state_religion = rel:orthodox
-			}
-			create_character = {
-				template = template_eocfm_constantinople_patriarch
-				on_created = {
-					place_character_in_void = 180 # 15 year shelf life
-				}
-			}
-			random_character_in_void = {
-				limit = {
-					has_template = template_eocfm_constantinople_patriarch
-				}
-			save_scope_as = eocfm_constantinople_patriarch_scope
-			}
-		}
-	}
 	else = {
-		create_character = {
-			template = template_eocfm_constantinople_patriarch
-			culture = cu:greek
-			on_created = {
-				place_character_in_void = 180 # 15 year shelf life
-			}
-		}
+		eocfm_replace_patriarchs_effect = yes
 		random_character_in_void = {
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
@@ -60,10 +124,327 @@ eocfm_update_patriarch_variables_effect = {
 			save_scope_as = eocfm_constantinople_patriarch_scope
 		}
 	}
-	set_global_variable = {
+	set_variable = {
 		name = eocfm_constantinople_patriarch_var
 		value = scope:eocfm_constantinople_patriarch_scope
 	}
+
+	# Antioch
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_eocfm_antioch_patriarch
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_antioch_patriarch
+			}
+			save_scope_as = eocfm_antioch_patriarch_scope
+		}
+	}
+	else = {
+		eocfm_replace_patriarchs_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_antioch_patriarch
+			}
+			save_scope_as = eocfm_antioch_patriarch_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_antioch_patriarch_var
+		value = scope:eocfm_antioch_patriarch_scope
+	}
+
+	# Jerusalem
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_eocfm_jerusalem_patriarch
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_jerusalem_patriarch
+			}
+			save_scope_as = eocfm_jerusalem_patriarch_scope
+		}
+	}
+	else = {
+		eocfm_replace_patriarchs_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_jerusalem_patriarch
+			}
+			save_scope_as = eocfm_jerusalem_patriarch_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_jerusalem_patriarch_var
+		value = scope:eocfm_jerusalem_patriarch_scope
+	}
+	
+	# Alexandria
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_eocfm_alexandria_patriarch
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_alexandria_patriarch
+			}
+			save_scope_as = eocfm_alexandria_patriarch_scope
+		}
+	}
+	else = {
+		eocfm_replace_patriarchs_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_alexandria_patriarch
+			}
+			save_scope_as = eocfm_alexandria_patriarch_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_alexandria_patriarch_var
+		value = scope:eocfm_alexandria_patriarch_scope
+	}
+	
+	# Moscow
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_eocfm_moscow_patriarch
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_moscow_patriarch
+			}
+			save_scope_as = eocfm_moscow_patriarch_scope
+		}
+	}
+	else = {
+		eocfm_replace_patriarchs_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_moscow_patriarch
+			}
+			save_scope_as = eocfm_moscow_patriarch_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_moscow_patriarch_var
+		value = scope:eocfm_moscow_patriarch_scope
+	}
+
+}
+	
+	
+eocfm_replace_patriarchs_effect = {
+	# Constantinople
+	if = {
+		limit = {
+			NOT = {
+				any_character_in_void = {
+					has_template = template_eocfm_constantinople_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_constantinople
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_constantinople
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_constantinople_patriarch
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_constantinople_patriarch
+				culture = cu:greek
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
+	# Antioch
+	if = {
+		limit = {
+			NOT = {
+				any_character_in_void = {
+					has_template = template_eocfm_antioch_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_antioch
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_antioch
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_antioch_patriarch
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_antioch_patriarch
+				culture = cu:greek
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
+	# Jerusalem
+	if = {
+		limit = {
+			NOT = {
+				any_character_in_void = {
+					has_template = template_eocfm_jerusalem_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_jerusalem
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_jerusalem
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_jerusalem_patriarch
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_jerusalem_patriarch
+				culture = cu:greek
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
+	# Alexandria
+	if = {
+		limit = {
+			NOT = {
+				any_character_in_void = {
+					has_template = template_eocfm_alexandria_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_alexandria
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_alexandria
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_alexandria_patriarch
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_alexandria_patriarch
+				culture = cu:greek
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
+	# Moscow
+	if = {
+		limit = {
+			NOT = {
+				any_character_in_void = {
+					has_template = template_eocfm_moscow_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_moscow
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_moscow
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_moscow_patriarch
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_moscow_patriarch
+				culture = cu:russian
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
 }
 
 eocfm_update_seat_controllers_effect = {
@@ -296,6 +677,91 @@ eocfm_update_seat_bonus_effect = {
 	}
 }
 
+eocfm_update_patriarch_relations_effect = {
+#	set_variable = {
+#		name = eocfm_rome_progress_var
+#		value = eocfm_rome_progress_value
+#	}
+	set_variable = {
+		name = eocfm_constantinople_progress_var
+		value = eocfm_constantinople_progress_value
+	}
+	set_variable = {
+		name = eocfm_antioch_progress_var
+		value = eocfm_antioch_progress_value
+	}
+	set_variable = {
+		name = eocfm_jerusalem_progress_var
+		value = eocfm_jerusalem_progress_value
+	}
+	set_variable = {
+		name = eocfm_alexandria_progress_var
+		value = eocfm_alexandria_progress_value
+	}
+	set_variable = {
+		name = eocfm_moscow_progress_var
+		value = eocfm_moscow_progress_value
+	}
+}
+
+eocfm_push_patriarch_relations_effect = {
+#	change_variable = {
+#		name = eocfm_rome_relations_var
+#		add = var:eocfm_rome_progress_var
+#	}
+#	clamp_variable = {
+#		name = eocfm_rome_relations_var
+#		min = 0
+#		max = 100
+#	}
+	change_variable = {
+		name = eocfm_constantinople_relations_var
+		add = var:eocfm_constantinople_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_constantinople_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_antioch_relations_var
+		add = var:eocfm_antioch_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_antioch_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_jerusalem_relations_var
+		add = var:eocfm_jerusalem_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_jerusalem_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_alexandria_relations_var
+		add = var:eocfm_alexandria_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_alexandria_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_moscow_relations_var
+		add = var:eocfm_moscow_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_moscow_relations_var
+		min = 0
+		max = 100
+	}
+}
+	
+
 eocfm_remove_all_modifiers_effect = {
 	remove_modifier ?= modifier_eocfm_hosting_council
 	remove_modifier ?= modifier_eocfm_integrating_seat
@@ -309,10 +775,12 @@ eocfm_remove_all_modifiers_effect = {
 }
 
 eocfm_remove_focus_modifiers_effect = {
-	remove_modifier ?= modifier_eocfm_emphasize_unity
-	remove_modifier ?= modifier_eocfm_enforce_attendance
-	remove_modifier ?= modifier_eocfm_theologize_dogma
-	remove_modifier ?= modifier_eocfm_promote_ecumenism
+	hidden_effect = {
+		remove_modifier ?= modifier_eocfm_emphasize_unity
+		remove_modifier ?= modifier_eocfm_enforce_attendance
+		remove_modifier ?= modifier_eocfm_theologize_dogma
+		remove_modifier ?= modifier_eocfm_promote_ecumenism
+	}
 }
 
 eocfm_remove_icon_modifiers_effect = {
@@ -341,7 +809,7 @@ eocfm_remove_intregration_variables_effect = {
 }
 
 eocfm_remove_seat_modifiers_effect = {
-	remove_modifier ?= modifier_eocfm_controls_rome
+#	remove_modifier ?= modifier_eocfm_controls_rome
 	remove_modifier ?= modifier_eocfm_controls_constantinople
 	remove_modifier ?= modifier_eocfm_controls_antioch
 	remove_modifier ?= modifier_eocfm_controls_alexandria

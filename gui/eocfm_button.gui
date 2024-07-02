@@ -1,29 +1,28 @@
-# Derived from Advanced Cheat Mod; credit to mrtats
-
 widget = {
     layer = top
     
     name = eocfm_button
-    position = { 0 900}
+    position = { 20 900 }
     size = { 40 40 }
     using = Animation_ShowHide_Quick
     
+	visible = "[And( IsInGame, And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown )))]"
 
     sidepanel_button_small = {
         name = "advcm_shortcut_button"
-        size = { 42 40 }
+        size = { 40 40 }
         alpha = 0.7
 
         onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
 		onclick = "[GetScriptedGui('eocfm_setup_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-        tooltip = EOCFM_MAIN_BUTTON
+        tooltip = eocfm_gui_main_button
         
         blockoverride "icon" {
-            texture = "gfx/interface/icons/event_icons/event_orthodox.dds"
+            texture = "gfx/interface/icons/gui_icons/eocfm_main_button.dds"
         }
         
         blockoverride "icon_size" {
-            size = { 25 25 }
+            size = { 35 35 }
         }
         
         state = {
@@ -40,4 +39,16 @@ widget = {
             using = Animation_Curve_Default
         }
     }
+	
+	default_progressbar_horizontal = {
+		position = { 0 25 }
+		parentanchor = center
+		size = { 40 10 }
+		blockoverride "values" {
+			min = 0
+			max = 1000
+			value = "[FixedPointToFloat(GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value'))]"
+		}
+	}
+	
 }
