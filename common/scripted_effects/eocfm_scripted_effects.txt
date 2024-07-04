@@ -1,15 +1,8 @@
-﻿eocfm_update_caesaropapism_effect = {
+﻿eocfm_initialize_patriarchs_relations_effect = {
 	set_variable = {
-		name = caesaropapism_capacity_var
-		value = caesaropapism_capacity_value
+		name = eocfm_rome_relations_var
+		value = 0
 	}
-}
-
-eocfm_initialize_patriarchs_relations_effect = {
-#	set_variable = {
-#		name = eocfm_rome_relations_var
-#		value = 0
-#	}
 	set_variable = {
 		name = eocfm_constantinople_relations_var
 		value = 0
@@ -448,6 +441,31 @@ eocfm_replace_patriarchs_effect = {
 }
 
 eocfm_update_seat_controllers_effect = {
+	#Rome
+	if = {
+		limit = {
+			any_country = {
+				has_variable = eocfm_controls_rome
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_rome
+			}
+			save_scope_as = eocfm_rome_controller_scope
+		}
+		set_variable = {
+			name = eocfm_rome_controller_var
+			value = scope:eocfm_rome_controller_scope
+		}
+	}
+	else = {
+		set_variable = {
+			name = eocfm_rome_controller_var
+			value = 0
+		}
+	}
+
 	#Constantinople
 	if = {
 		limit = {
@@ -461,13 +479,13 @@ eocfm_update_seat_controllers_effect = {
 			}
 			save_scope_as = eocfm_constantinople_controller_scope
 		}
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_constantinople_controller_var
 			value = scope:eocfm_constantinople_controller_scope
 		}
 	}
 	else = {
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_constantinople_controller_var
 			value = 0
 		}
@@ -486,13 +504,13 @@ eocfm_update_seat_controllers_effect = {
 			}
 			save_scope_as = eocfm_antioch_controller_scope
 		}
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_antioch_controller_var
 			value = scope:eocfm_antioch_controller_scope
 		}
 	}
 	else = {
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_antioch_controller_var
 			value = 0
 		}
@@ -511,13 +529,13 @@ eocfm_update_seat_controllers_effect = {
 			}
 			save_scope_as = eocfm_jerusalem_controller_scope
 		}
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_jerusalem_controller_var
 			value = scope:eocfm_jerusalem_controller_scope
 		}
 	}
 	else = {
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_jerusalem_controller_var
 			value = 0
 		}
@@ -536,17 +554,17 @@ eocfm_update_seat_controllers_effect = {
 			}
 			save_scope_as = eocfm_alexandria_controller_scope
 		}
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_alexandria_controller_var
 			value = scope:eocfm_alexandria_controller_scope
 		}
 	}
 	else = {
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_alexandria_controller_var
 			value = 0
 		}
-	}	
+	}
 	
 	#Moscow
 	if = {
@@ -561,17 +579,17 @@ eocfm_update_seat_controllers_effect = {
 			}
 			save_scope_as = eocfm_moscow_controller_scope
 		}
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_moscow_controller_var
 			value = scope:eocfm_moscow_controller_scope
 		}
 	}
 	else = {
-		set_global_variable = {
+		set_variable = {
 			name = eocfm_moscow_controller_var
 			value = 0
 		}
-	}	
+	}
 	
 }
 
@@ -586,12 +604,12 @@ eocfm_save_patriarch_scopes_effect = {
 }
 
 eocfm_save_seat_controller_scopes_effect = {
-#	random_country = {
-#		limit = {
-#			has_variable = eocfm_controls_rome
-#		}
-#		save_scope_as = eocfm_rome_controller
-#	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_rome
+		}
+		save_scope_as = eocfm_rome_controller
+	}
 	random_country = {
 		limit = {
 			has_variable = eocfm_controls_constantinople
@@ -626,20 +644,20 @@ eocfm_save_seat_controller_scopes_effect = {
 
 eocfm_update_seat_bonus_effect = {
 	hidden_effect = {
-#		remove_modifier ?= modifier_eocfm_controls_rome
+		remove_modifier ?= modifier_eocfm_controls_rome
 		remove_modifier ?= modifier_eocfm_controls_constantinople
 		remove_modifier ?= modifier_eocfm_controls_antioch
 		remove_modifier ?= modifier_eocfm_controls_alexandria
 		remove_modifier ?= modifier_eocfm_controls_jerusalem
 		remove_modifier ?= modifier_eocfm_controls_moscow
 	}
-#	if = {
-#		limit = {
-#			has_variable = eocfm_controls_rome
-#			owns_entire_state_region = STATE_LAZIO
-#		}
-#		add_modifier = modifier_eocfm_controls_rome
-#	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_rome
+			owns_entire_state_region = STATE_LAZIO
+		}
+		add_modifier = modifier_eocfm_controls_rome
+	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_constantinople
@@ -678,10 +696,10 @@ eocfm_update_seat_bonus_effect = {
 }
 
 eocfm_update_patriarch_relations_effect = {
-#	set_variable = {
-#		name = eocfm_rome_progress_var
-#		value = eocfm_rome_progress_value
-#	}
+	set_variable = {
+		name = eocfm_rome_progress_var
+		value = eocfm_rome_progress_value
+	}
 	set_variable = {
 		name = eocfm_constantinople_progress_var
 		value = eocfm_constantinople_progress_value
@@ -705,15 +723,15 @@ eocfm_update_patriarch_relations_effect = {
 }
 
 eocfm_push_patriarch_relations_effect = {
-#	change_variable = {
-#		name = eocfm_rome_relations_var
-#		add = var:eocfm_rome_progress_var
-#	}
-#	clamp_variable = {
-#		name = eocfm_rome_relations_var
-#		min = 0
-#		max = 100
-#	}
+	change_variable = {
+		name = eocfm_rome_relations_var
+		add = var:eocfm_rome_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_rome_relations_var
+		min = 0
+		max = 100
+	}
 	change_variable = {
 		name = eocfm_constantinople_relations_var
 		add = var:eocfm_constantinople_progress_var
@@ -797,7 +815,7 @@ eocfm_remove_icon_modifiers_effect = {
 
 eocfm_remove_intregration_variables_effect = {
 	remove_variable = eocfm_integration_var
-#	remove_variable = eocfm_integrating_rome
+	remove_variable = eocfm_integrating_rome
 	remove_variable = eocfm_integrating_constantinople
 	remove_variable = eocfm_integrating_antioch
 	remove_variable = eocfm_integrating_alexandria
@@ -809,7 +827,7 @@ eocfm_remove_intregration_variables_effect = {
 }
 
 eocfm_remove_seat_modifiers_effect = {
-#	remove_modifier ?= modifier_eocfm_controls_rome
+	remove_modifier ?= modifier_eocfm_controls_rome
 	remove_modifier ?= modifier_eocfm_controls_constantinople
 	remove_modifier ?= modifier_eocfm_controls_antioch
 	remove_modifier ?= modifier_eocfm_controls_alexandria

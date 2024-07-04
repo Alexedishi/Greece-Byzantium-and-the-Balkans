@@ -6,8 +6,8 @@ eocfm_setup_sgui = {
 	scope = country
 	
 	effect = {
-		eocfm_update_caesaropapism_effect = yes
 		eocfm_update_patriarch_variables_effect = yes
+		eocfm_update_seat_controllers_effect = yes
 	}
 }
 
@@ -109,7 +109,7 @@ eocfm_commission_icon_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_200_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 200
+				caesaropapism_capacity_value >= 200
 			}
 		}
 		custom_tooltip = {
@@ -166,7 +166,6 @@ eocfm_dissolve_monasteries_sgui = {
 		}
 		add_modifier = modifier_eocfm_dissolved_monasteries
 		set_variable = eocfm_dissolved_monasteries
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -187,7 +186,6 @@ eocfm_restore_monasteries_sgui = {
 			name = modifier_eocfm_restored_monasteries
 			months = normal_modifier_time
 		}
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -218,7 +216,6 @@ eocfm_reform_synod_sgui = {
 			pop_type = clergymen
 			value = small_radicals
 		}
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -234,7 +231,7 @@ eocfm_restore_synod_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_100_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 100
+				caesaropapism_capacity_value >= 100
 			}
 		}
 	}
@@ -251,7 +248,6 @@ eocfm_restore_synod_sgui = {
 			value = small_radicals
 		}
 		remove_variable = eocfm_caesaropapism_questioned
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -272,7 +268,6 @@ eocfm_grant_subsidies_sgui = {
 	
 	effect = {
 		add_modifier = modifier_eocfm_subsidizing_church
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -293,14 +288,13 @@ eocfm_end_subsidies_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_100_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 100
+				caesaropapism_capacity_value >= 100
 			}
 		}
 	}
 	
 	effect = {
 		remove_modifier = modifier_eocfm_subsidizing_church
-		eocfm_update_caesaropapism_effect = yes
 	}
 }
 
@@ -367,7 +361,7 @@ eocfm_declare_autocephaly_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_800_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 800
+				caesaropapism_capacity_value >= 800
 			}
 		}
 		NOT = {
@@ -411,7 +405,7 @@ eocfm_convoke_council_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_1000_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 1000
+				caesaropapism_capacity_value >= 1000
 			}
 		}
 		custom_tooltip = {
@@ -479,6 +473,7 @@ eocfm_secure_tetrarchy_sgui = {
 		NOR = {
 			has_variable = eocfm_tetrarchy_secured
 			has_variable = eocfm_pentarchy_secured
+			has_global_variable = eocfm_schism_mended
 		}
 	}
 	
@@ -502,7 +497,7 @@ eocfm_secure_tetrarchy_sgui = {
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.310 # The Ancient Partiarchates
+			id = eocfm.317 # The Ancient Partiarchates
 			popup = yes
 		}
 	}
@@ -513,6 +508,12 @@ eocfm_secure_pentarchy_sgui = {
 	
 	is_shown = {
 		has_variable = eocfm_tetrarchy_secured
+		NOT = { 
+			has_variable = eocfm_pentarchy_secured
+		}
+		NOT = {
+			has_global_variable = eocfm_schism_mended
+		}
 	}
 	
 	is_valid = {
@@ -528,8 +529,8 @@ eocfm_secure_pentarchy_sgui = {
 					has_variable = eocfm_controls_alexandria
 					owns_entire_state_region = STATE_PALESTINE
 					has_variable = eocfm_controls_jerusalem
-#					owns_entire_state_region = STATE_ROME
-#					has_variable = eocfm_controls_rome
+					owns_entire_state_region = STATE_LAZIO
+					has_variable = eocfm_controls_rome
 				}
 			}
 		}
@@ -538,9 +539,45 @@ eocfm_secure_pentarchy_sgui = {
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.311 # The Restoration of the Pentarchy
+			id = eocfm.318 # The Restoration of the Pentarchy
 			popup = yes
 		}
+	}
+}
+
+eocfm_mend_schism_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_pentarchy_secured
+		NOT = {
+			has_global_variable = eocfm_schism_mended
+		}
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_gui_mend_schism_tt2
+			hidden_trigger = {
+				AND = {
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_variable = eocfm_controls_constantinople
+					owns_entire_state_region = STATE_ADANA
+					has_variable = eocfm_controls_antioch
+					owns_entire_state_region = STATE_LOWER_EGYPT
+					has_variable = eocfm_controls_alexandria
+					owns_entire_state_region = STATE_PALESTINE
+					has_variable = eocfm_controls_jerusalem
+					owns_entire_state_region = STATE_LAZIO
+					has_variable = eocfm_controls_rome
+				}
+			}
+		}
+		always = no
+	}
+	
+	effect = {
+		add_modifier = modifier_eocfm_mending_schism
 	}
 }
 
@@ -575,6 +612,76 @@ eocfm_demand_deposition_sgui = {
 #####################
 # SEAT INTERACTIONS #
 #####################
+## Rome
+eocfm_integrate_rome_sgui = {
+	scope = country
+	
+	is_shown = {
+		NOT = {
+			has_variable = eocfm_controls_rome
+		}		
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_500_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 500
+			}
+		}	
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_integrating_seat_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = eocfm_integration_var
+				}
+			}
+		}
+		owns_entire_state_region = STATE_LAZIO
+	}
+	
+	effect = {
+		set_variable = eocfm_integrating_rome
+		set_variable = {
+			name = eocfm_integration_var
+			value = 0
+		}
+		trigger_event = {
+			id = eocfm.310 # Challenging the Patriarch of the West
+		}
+		every_country = {
+			limit = {
+				OR = {
+					country_has_state_religion = rel:catholic
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			trigger_event = {
+				id = eocfm.310 # Challenging the Patriarch of the West
+			}
+		}
+	}
+}
+
+eocfm_sway_rome_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_rome
+	}
+	
+	is_valid = {
+	}
+	
+	effect = {
+	}
+}
 
 ## Constantinople
 eocfm_integrate_constantinople_sgui = {
@@ -590,7 +697,7 @@ eocfm_integrate_constantinople_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 500
+				caesaropapism_capacity_value >= 500
 			}
 		}	
 		custom_tooltip = {
@@ -658,7 +765,7 @@ eocfm_integrate_antioch_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 500
+				caesaropapism_capacity_value >= 500
 			}
 		}	
 		custom_tooltip = {
@@ -718,7 +825,7 @@ eocfm_integrate_jerusalem_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 500
+				caesaropapism_capacity_value >= 500
 			}
 		}	
 		custom_tooltip = {
@@ -778,7 +885,7 @@ eocfm_integrate_alexandria_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 500
+				caesaropapism_capacity_value >= 500
 			}
 		}	
 		custom_tooltip = {
@@ -838,7 +945,7 @@ eocfm_integrate_moscow_sgui = {
 		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
-				var:caesaropapism_capacity_var >= 500
+				caesaropapism_capacity_value >= 500
 			}
 		}	
 		custom_tooltip = {

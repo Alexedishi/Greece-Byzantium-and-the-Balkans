@@ -2,7 +2,10 @@
 	value = 0
 	
 	## BASE
-	add = 100
+	add = {
+		value = 100
+		desc = "eocfm_capacity_from_base"
+	}
 	
 	##SOURCES
 	
@@ -11,8 +14,10 @@
 		limit = {
 			has_law = law_type:law_monarchy
 		}
-		add = 100
-		desc = "eocfm_from_monarchy"
+		add = {	
+			value = 100
+			desc = "eocfm_capacity_from_monarchy"
+		}
 	}
 	
 	# Modifiers Check
@@ -20,69 +25,93 @@
 		limit = {
 			has_modifier = modifier_eocfm_reformed_synod
 		}
-		add = 200
+		add = {	
+			value = 200
+			desc = "eocfm_capacity_from_reformed_synod"
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_dissolved_monasteries
 		}
-		add = 100
+		add = {
+			value = 100
+			desc = "eocfm_capacity_from_dissolved_monasteries"
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_subsidizing_church
 		}
-		add = 100
+		add = {
+			value = 100
+			desc = "eocfm_capacity_from_subsidizing_church"
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_sunday_schools
 		}
-		add = 100
+		add = {
+			value = 100
+			desc = "eocfm_capacity_from_established_schools"
+		}
 	}
 	
 	# Patriarchal Seats Check
 	if = {
 		limit = {
-			eocfm_controls_all_seats_trigger = yes
+			has_variable = eocfm_controls_rome
 		}
-		add = 400
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_rome"
+		}
 	}
-#	if = {
-#		limit = {
-#			has_variable = eocfm_controls_rome
-#		}
-#		add = 100
-#	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_constantinople
 		}
-		add = 100
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_constantinople"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_antioch
 		}
-		add = 100
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_antioch"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_alexandria
 		}
-		add = 100
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_alexandria"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_jerusalem
 		}
-		add = 100
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_jerusalem"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_moscow
 		}
-		add = 100
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_controls_moscow"
+		}
 	}
 	
 	# Other Sources Check
@@ -90,13 +119,46 @@
 		limit = {
 			has_variable = eocfm_is_autocephalous
 		}
-		add = 200
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_having_autocephaly"
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_backed_reforms
 		}
-		 add = 50
+		add = {
+			value = 50
+			desc = "eocfm_capacity_from_backing_reforms"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_secured_tetrarchy
+		}
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_secured_tetrarchy"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_secured_pentarchy
+		}
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_secured_pentarchy"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_mended_schism
+		}
+		add = {
+			value = 2000
+			desc = "eocfm_capacity_from_mended_schism"
+		}
 	}
 	
 	##PENALTIES
@@ -106,35 +168,52 @@
 		limit = {
 			has_law = law_type:law_theocracy
 		}
-		subtract = 500
+		subtract = {
+			value = 500
+			desc = "eocfm_capacity_from_theocracy"
+		}
 	}
 	if = {
 		limit = {
 			has_law = law_type:law_religious_schools
 		}
-		subtract = 200
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_religious_schools"
+		}
 	}
 	
 	##MULTIPLIERS
+	
+	#Seat Check
+	if = {
+		limit = {
+			eocfm_controls_all_seats_trigger = yes
+		}
+		multiply = {
+			value = 1.50
+			desc = "eocfm_capacity_from_controls_all_seats"
+		}
+	}
 	
 	# Law Check
 	if = {
 		limit = {
 			has_law = law_type:law_state_religion
 		}
-		multiply = 0.75
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_freedom_of_conscience
+		multiply = {
+			value = 1.1
+			desc = "eocfm_capacity_from_state_religion"
 		}
-		multiply = 1.25
 	}
 	else_if = {
 		limit = {
 			has_law = law_type:law_total_separation
 		}
-		multiply = 1.50
+		multiply = {
+			value = 0.9
+			desc = "eocfm_capacity_from_total_separation"
+		}
 	}
 
 	# Modifiers Check
@@ -142,13 +221,19 @@
 		limit = {
 			has_modifier = modifier_eocfm_restored_synod
 		}
-		multiply = 0.50
-	}	
+		multiply = {
+			value = 0.50
+			desc = "eocfm_capacity_from_restored_synod"
+		}
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_restored_monasteries
 		}
-		multiply = 0.90
+		multiply = {
+			value = 0.90
+			desc = "eocfm_capacity_from_restored_monasteries"
+		}
 	}
 	
 	##EXPENSES
@@ -158,19 +243,37 @@
 		limit = {
 			has_modifier = modifier_eocfm_hosting_council
 		}
-		subtract = 1000
+		subtract = {
+			value = 1000
+			desc = "eocfm_capacity_from_hosting_council"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_schism_var
 		}
-		subtract = 800
+		subtract = {
+			value = 800
+			desc = "eocfm_capacity_from_schismatic"
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_integration_var
 		}
-		subtract = 500
+		subtract = {
+			value = 500
+			desc = "eocfm_capacity_from_seat_integration"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_mending_schism
+		}
+		subtract = {
+			value = 2000
+			desc = "eocfm_capacity_from_mending_schism"
+		}
 	}
 	
 	# Law Check
@@ -181,7 +284,10 @@
 		limit = {
 			eocfm_has_icon_trigger = yes
 		}
-		subtract = 200
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_has_icon"
+		}
 	}
 	
 	# Decree Check
@@ -189,20 +295,39 @@
 		limit = {
 			has_decree = decree_eocfm_consecrate_metropolitan
 		}
-		subtract = 100
+		subtract = {
+			value = 100
+			desc = "eocfm_capacity_from_metropolitan_decree"
+		}
 	}
 	
 	every_scope_state = {
 		limit = {
 			has_decree = decree_eocfm_encourage_almsgiving
 		}
-		subtract = 100
+		subtract = {
+			value = 100
+			desc = "eocfm_capacity_from_almsgiving_decree"
+		}
 	}
 	
 }
 
 eocfm_rome_progress_value = {
 	value = 0
+	subtract = -0.5
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_rome
+		}
+		add = 1.0
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_controls_rome
+		}
+		add = 1.0
+	}
 }
 
 eocfm_constantinople_progress_value = {

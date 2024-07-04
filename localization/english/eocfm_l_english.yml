@@ -43,6 +43,7 @@
  eocfm_integration_gain_2: "We will gain #variable 2#! months of progress."
  
  eocfm_integrating_seat_tt: "Is not currently integrating a Patriarchal Seat."
+ eocfm_rome_claimed_tt: ""
  eocfm_constantinople_claimed_tt: ""
  eocfm_antioch_claimed_tt: ""
  eocfm_jerusalem_claimed_tt: ""
@@ -71,6 +72,8 @@
  # notifications
  notification_notification_eocfm_autocephaly_recognized_name: ""
  notification_notification_eocfm_autocephaly_recognized_desc: ""
+ notification_notification_eocfm_rome_claimed_name: ""
+ notification_notification_eocfm_rome_claimed_desc: ""
  notification_notification_eocfm_constantinople_claimed_name: ""
  notification_notification_eocfm_constantinople_claimed_desc: ""
  notification_notification_eocfm_constantinople_usurped_name: ""
@@ -282,6 +285,46 @@
  
  # production methods
  
+ # script value breakdowns
+ eocfm_capacity_from_base: "Base Capacity:"
+ 
+ eocfm_capacity_from_monarchy: "From having #yellow Monarchy#! enacted"
+ eocfm_capacity_from_reformed_synod: "From #bold Reforming the National Synod#!"
+ eocfm_capacity_from_dissolved_monasteries: "From #bold Dissolving the Monasteries#!"
+ eocfm_capacity_from_subsidizing_church: "From #bold Subsidizing the Church#!"
+ eocfm_capacity_from_established_schools: "From #bold Establishing Sunday Schools#!"
+ 
+ eocfm_capacity_from_controls_rome: "From #bold Controlling Rome#!"
+ eocfm_capacity_from_controls_constantinople: "From #bold Controlling Constantinople#!"
+ eocfm_capacity_from_controls_antioch: "From #bold Controlling Antioch#!"
+ eocfm_capacity_from_controls_alexandria: "From #bold Controlling Alexandria#!"
+ eocfm_capacity_from_controls_jerusalem: "From #bold Controlling Jerusalem#!"
+ eocfm_capacity_from_controls_moscow: "From #bold Controlling Moscow#!"
+ 
+ eocfm_capacity_from_having_autocephaly: "From #bold Having Declared [concept_autocephaly]#!"
+ eocfm_capacity_from_backing_reforms: "From #bold Backing Liturgical Reforms#!"
+ eocfm_capacity_from_secured_tetrarchy: "From #bold Securing the Tetrarchy#!"
+ eocfm_capacity_from_secured_pentarchy: "From #bold Securing the Pentarchy#!"
+ eocfm_capacity_from_mended_schism: "From #bold Successfully Mending the Great Schism#!"
+ 
+ eocfm_capacity_from_theocracy: "From having #yellow Theocracy#! enacted"
+ eocfm_capacity_from_religious_schools: "From having #yellow Religious Schools#! enacted"
+ 
+ eocfm_capacity_from_controls_all_seats: "From #bold Controlling all Patriarchal Seats#!"
+ eocfm_capacity_from_state_religion: "From having #yellow State Religion#! enacted"
+ eocfm_capacity_from_total_separation: "From having #yellow Total Separation#! enacted"
+ 
+ eocfm_capacity_from_restored_synod: "From #bold Restoring the Synod#!"
+ eocfm_capacity_from_restored_monasteries: "From #bold Restoring the Monasteries#!"
+ 
+ eocfm_capacity_from_hosting_council: "From #bold #greece Hosting an Ecumenical Council#!#!"
+ eocfm_capacity_from_schismatic: "From #bold #red Being in Schism#!#!"
+ eocfm_capacity_from_seat_integration: "From #bold Integrating a Patriarchal Seat#!"
+ eocfm_capacity_from_mending_schism: "From #bold Attempting to Mend the Great Schism#!"
+ eocfm_capacity_from_has_icon: "From #bold Having an Active Icon#!"
+ eocfm_capacity_from_metropolitan_decree: "From states with the #bold Consecrate Metropolitan Bishop#! decree."
+ eocfm_capacity_from_almsgiving_decree: "From states with the #bold Encourage Almsgiving#! decree."
+ 
  # concepts
  concept_caesaropapism: "Caesaropapism"
  concept_caesaropapism_desc: "#bold Caesaropapism#! is the extent to which the [GetReligion('orthodox').GetName] Church has been overtaken by and integrated into the state apparatus. This value represents the state's ability to sway its local bishops towards the will of the state."
@@ -297,30 +340,7 @@
  concept_crusade: "Crusade"
  
  # custom loc
- custom_eocfm_capacity_base: "\n• #green +100#! as a base."
- custom_eocfm_capacity_theocracy: "\n• #green +200#! from having #yellow Theocracy#! enacted."
- custom_eocfm_capacity_monarchy: "\n• #green +100#! from having #yellow Monarchy#! enacted."
- custom_eocfm_capacity_schools: "\n• #green +100#! from having #yellow Religious Schools#! enacted."
- custom_eocfm_capacity_autocephalous: "\n• #green +200#! from having #bold Autocephaly#!."
- custom_eocfm_capacity_caesaropapism: "\n• #green +100#! from having #bold Caesaropapism#!."
- custom_eocfm_capacity_subsidies: "\n• #green +100#! from #bold Subsidizing the Church#!."
  
- custom_eocfm_controls_all_seats: "\n• #green +400#! from controlling all six #bold Patriarchal Seats#!."
- custom_eocfm_capacity_rome_owned: "\n• #green +100#! from controling #bold Rome#!."
- custom_eocfm_capacity_constantinople_owned: "\n• #green +100#! from controling #bold Constantinople#!."
- custom_eocfm_capacity_antioch_owned: "\n• #green +100#! from controling #bold Antioch#!."
- custom_eocfm_capacity_alexandria_owned: "\n• #green +100#! from controling #bold Alexandria#!."
- custom_eocfm_capacity_jerusalem: "\n• #green +100#! from controling #bold Jerusalem#!."
- custom_eocfm_capacity_moscow: "\n• #green +100#! from controling #bold Moscow#!."
- 
- custom_eocfm_capacity_hosting_council: "\n• #red -1000#! while hosting the Ecumenical Council."
- custom_eocfm_capacity_integrating_seat: "\n• #red -500#! while integrating a #bold Patriarchal Seat#!."
- custom_eocfm_capacity_schismatic: "\n• #red -800#! from being in Schism."
- custom_eocfm_capacity_icon: "\n• #red -200#! from having an #bold Icon#! active."
- 
- custom_eocfm_capacity_state_church: "\n• #green +50%#! from having State Religion enacted."
- custom_eocfm_capactiy_religious_freedom: "\n• #green +25%#! from having Freedom of Conscience enacted."
- custom_eocfm_capacity_total_separation: "\n• #red -25%#! from having Total Separation enacted."
  
  # GUI Button
  eocfm_gui_main_button: "#bold The Orthodox Church#!\n@eocfm_caesaropapism! Balance: #bold #greece [GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value')]#!#!"
@@ -330,8 +350,8 @@
  eocfm_gui_national_church_name: "The Orthodox Church of [GetPlayer.GetName]"
  eocfm_gui_national_church_desc: "As long as we do not forsake the faith, the state will be able to assert influence\nover its bishops that can be used to direct their efforts to the benefit of the state."
  eocfm_gui_caesaropapism_amount: "We have @eocfm_caesaropapism! #bold #greece [GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value')]#!#! [concept_caesaropapism]."
- eocfm_gui_caesaropapism_amount_tt: "Your total generation of #blue [GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value')]#! [concept_caesaropapism] is due to:"
- eocfm_gui_autocephaly_status: "We are #bold #green In Communion#!#! with Constantinople."
+ eocfm_gui_caesaropapism_amount_tt: "Your total generation of #blue [GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value')]#! @eocfm_caesaropapism! [concept_caesaropapism] is due to:\n[Country.MakeScope.GetScriptValueDesc('caesaropapism_capacity_value')]"
+ eocfm_gui_autocephaly_status: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_autocephaly_status_type')]"
  custom_eocfm_no_autocephaly: "We are #bold #green In Communion#!#! with Constantinople."
  custom_eocfm_schismatic: "We are #bold #red In Schism#!#! with Constantinople."
  custom_eocfm_autocephalous: "Our [concept_autocephaly] has #bold #green Been Recognized#!#! by Constantinople."
@@ -344,12 +364,12 @@
  eocfm_gui_theologize_dogma_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_promote_ecumenism_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_metropolitan_focus_header: "Current Focus:"
- eocfm_gui_eocfm_focus_status: "TODO"
+ eocfm_gui_eocfm_focus_status: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_metropolitan_focus_type')]"
  custom_eocfm_no_focus: "#bold None#!"
- custom_eocfm_emphasize_unity_focus: "#bold #greece Emphasizing Pan-Orthodox Unity#!#!"
- custom_eocfm_enforce_attendance_focus: "#bold #greece Enforcing Church Attendance#!#!"
+ custom_eocfm_emphasize_unity_focus: "#bold #green Emphasizing Pan-Orthodox Unity#!#!"
+ custom_eocfm_enforce_attendance_focus: "#bold #red Enforcing Church Attendance#!#!"
  custom_eocfm_theologize_dogma_focus: "#bold #greece Theologizing Novel Dogma#!#!"
- custom_eocfm_promote_ecumenism_focus: "#bold #greece Promoting Christian Ecumenism#!#!"
+ custom_eocfm_promote_ecumenism_focus: "#bold #purple Promoting Christian Ecumenism#!#!"
  
  # GUI Metropolitan Buttons
  eocfm_gui_commission_icon_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
@@ -366,9 +386,8 @@
  eocfm_gui_ecumenical_patriarch_header: "Ecumenical Patriarchate"
  eocfm_gui_ecumenical_patriarch_name: "Ecumenical Patriarch [GetPlayer.MakeScope.Var('eocfm_constantinople_patriarch_var').GetCharacter.GetLastName]"
  eocfm_gui_ecumenical_patriarch_controller: "Constantinople answers to #yellow #bold The Porte#!#!"
- custom_eocfm_constantinople_owner1: "Constantinople answers to #bold #yellow #!#!."
- custom_eocfm_constantinople_owner2: "Constantinople answers to #bold #yellow The Porte#!#!."
- custom_eocfm_constantinople_owner3: "Constantinople answers to #bold #yellow No One#!#!." 
+ custom_eocfm_constantinople_owner1: "Constantinople answers to "
+ custom_eocfm_constantinople_owner2: "Constantinople answers to #bold #yellow No One#!#!." 
  eocfm_gui_declare_autocephaly_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_autocephaly_progress_amount: "TODO"
  eocfm_gui_autocephaly_progress_tt: "TODO"
@@ -376,6 +395,9 @@
  eocfm_gui_secure_tetrarchy_tt2: "Own and Control the Ancient Seats of #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
  eocfm_gui_secure_pentarchy_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_secure_pentarchy_tt2: "Own and Control the Ancient Seats of #yellow Rome#!, #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
+ eocfm_gui_mend_schism_tt1: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_mend_schism_tt2: "Own and Control the Ancient Seats of #yellow Rome#!, #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
+ eocfm_mending_possible_tt: "It is now possible to attempt to mend the Great Schism."
  eocfm_gui_convoke_council_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_seek_mandate_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_dummy_1: ""
@@ -385,36 +407,40 @@
  # GUI Antioch Widget
  eocfm_gui_antioch_patriarch_header: "Patriarchate of Antioch"
  eocfm_gui_antioch_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_antioch_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_antioch_patriarch_controller: "Antioch answers to #bold #yellow The Porte#!#!"
- custom_eocfm_antioch_owner1: "Antioch answers to #bold #yellow #!#!"
- custom_eocfm_antioch_owner2: "Antioch answers to #bold #yellow The Porte#!#!"
- custom_eocfm_antioch_owner3: "Antioch answers to #bold #yellow No One#!#!"
+ eocfm_gui_antioch_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_antioch_controller_type')]"
+ custom_eocfm_antioch_owner1: "Antioch answers to [GetPlayer.MakeScope.Var('eocfm_antioch_controller_var').GetCountry.GetName]"
+ custom_eocfm_antioch_owner2: "Antioch answers to #bold #yellow No One#!#!"
  ecofm_gui_integrate_antioch_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Jerusalem Widget
  eocfm_gui_jerusalem_patriarch_header: "Patriarchate of Jerusalem"
  eocfm_gui_jerusalem_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_jerusalem_patriarch_controller: "Jerusalem answers to #bold #yellow Egypt#!#!"
- custom_eocfm_jerusalem_owner1: "Jerusalem answers to #bold #yellow #!#!"
- custom_eocfm_jerusalem_owner2: "Jerusalem answers to #bold #yellow The Porte#!#!"
- custom_eocfm_jerusalem_owner3: "Jerusalem answers to #bold #yellow No One#!#!"
+ eocfm_gui_jerusalem_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_jerusalem_controller_type')]"
+ custom_eocfm_jerusalem_owner1: "Jerusalem answers to [GetPlayer.MakeScope.Var('eocfm_jerusalem_controller_var').GetCountry.GetName]"
+ custom_eocfm_jerusalem_owner2: "Jerusalem answers to #bold #yellow No One#!#!"
  ecofm_gui_integrate_jerusalem_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Alexandria Widget
  eocfm_gui_alexandria_patriarch_header: "Patriarchate of Alexandria"
  eocfm_gui_alexandria_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_alexandria_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_alexandria_patriarch_controller: "Alexandria answers to #bold #yellow Egypt#!#!"
- custom_eocfm_alexandria_owner1: "Alexandria answers to #bold #yellow #!#!"
- custom_eocfm_alexandria_owner2: "Alexandria answers to #bold #yellow The Porte#!#!"
- custom_eocfm_alexandria_owner3: "Alexandria answers to #bold #yellow No One#!#!"
+ eocfm_gui_alexandria_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_alexandria_controller_type')]"
+ custom_eocfm_alexandria_owner1: "Alexandria answers to [GetPlayer.MakeScope.Var('eocfm_alexandria_controller_var').GetCountry.GetName]"
+ custom_eocfm_alexandria_owner2: "Alexandria answers to #bold #yellow No One#!#!"
  ecofm_gui_integrate_alexandria_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Moscow Widget
  eocfm_gui_moscow_patriarch_header: "Patriarchate of Moscow"
  eocfm_gui_moscow_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_moscow_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_moscow_patriarch_controller: "Moscow answers to #bold #yellow Russia#!#!"
- custom_eocfm_moscow_owner1: "Moscow answers to #bold #yellow #!#!"
- custom_eocfm_moscow_owner2: "Moscow answers to #bold #yellow The Porte!#!"
- custom_eocfm_moscow_owner3: "Moscow answers to #bold #yellow No One#!#!"
+ eocfm_gui_moscow_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_moscow_controller_type')]"
+ custom_eocfm_moscow_owner1: "Moscow answers to [GetPlayer.MakeScope.Var('eocfm_moscow_controller_var').GetCountry.GetName]"
+ custom_eocfm_moscow_owner2: "Moscow answers to #bold #yellow No One#!#!"
  ecofm_gui_integrate_moscow_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ 
+ # GUI Rome Widget
+ eocfm_gui_rome_patriarch_header: "Patriarchate of Antioch"
+ eocfm_gui_rome_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_antioch_patriarch_var').GetCharacter.GetLastName]"
+ eocfm_gui_rome_patriarch_controller: "[SCOPE.GetRootScope.GetCountry.GetCustom('eocfm_rome_controller_type')]"
+ custom_eocfm_rome_owner1: "Rome answers to [GetPlayer.MakeScope.Var('eocfm_rome_controller_var').GetCountry.GetName]"
+ custom_eocfm_rome_owner2: "Rome answers to #bold #yellow No One#!#!"
+ ecofm_gui_integrate_rome_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  

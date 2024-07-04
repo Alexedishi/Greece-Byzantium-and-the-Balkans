@@ -1,54 +1,120 @@
 widget = {
-    layer = top
-    
+    layer = layer_ingame_hud
+    parentanchor = bottom|left
     name = eocfm_button
-    position = { 20 900 }
+    position = { 5 -200 }
     size = { 40 40 }
-    using = Animation_ShowHide_Quick
+    using = hud_visibility
     
 	visible = "[And( IsInGame, And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown )))]"
 
-    sidepanel_button_small = {
-        name = "advcm_shortcut_button"
-        size = { 40 40 }
-        alpha = 0.7
+	# Sidebar Background Textures
+	flowcontainer = {
+		name = "community_sidebar_icons"
+		margin = { 0 0 }
+		direction = vertical
+		ignoreinvisible = yes
+		spacing = 5
 
-        onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
-		onclick = "[GetScriptedGui('eocfm_setup_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-        tooltip = eocfm_gui_main_button
-        
-        blockoverride "icon" {
-            texture = "gfx/interface/icons/gui_icons/eocfm_main_button.dds"
-        }
-        
-        blockoverride "icon_size" {
-            size = { 35 35 }
-        }
-        
-        state = {
-            name = _mouse_enter
-            alpha = 1
-            duration = 0.7
-            using = Animation_Curve_Default
-        }
+		icon = {
+			texture = "gfx/interface/main_hud/sidebar_skin_bg_2.dds"
+			size = { 50 50 }
+			
+			datacontext = "[GetScriptedGui('community_gui_morgenrote_sgui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 
-        state = {
-            name = _mouse_leave
-            alpha = 0.7
-            duration = 0.2
-            using = Animation_Curve_Default
-        }
-    }
-	
-	default_progressbar_horizontal = {
-		position = { 0 25 }
-		parentanchor = center
-		size = { 40 10 }
-		blockoverride "values" {
-			min = 0
-			max = 1000
-			value = "[FixedPointToFloat(GetPlayer.MakeScope.ScriptValue('caesaropapism_capacity_value'))]"
+			using = hud_shiny_effect
+		}
+
+		icon = {
+			texture = "gfx/interface/main_hud/sidebar_skin_bg_2.dds"
+			size = { 50 50 }
+			
+			datacontext = "[GetScriptedGui('community_gui_grefm_sgui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+
+			using = hud_shiny_effect
 		}
 	}
-	
+
+	# Sidebar Buttons
+	flowcontainer = {
+		name = "community_sidebar_buttons"
+		margin = { 0 0 }
+		direction = vertical
+		ignoreinvisible = yes
+		spacing = 5
+
+		button_icon_round = {
+			name = "mgr_main_button"
+			
+			size = { 50 50 }
+
+			datacontext = "[GetScriptedGui('community_gui_morgenrote_sgui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			
+#			onclick = "[GetVariableSystem.Toggle('##TODO##')]" #your gui variable here
+			onclick = "[GetVariableSystem.Toggle('com_fullscreen')]"
+			
+			blockoverride "icon" {
+				texture = "gfx/interface/icons/gui_icons/eocfm_main_button.dds"
+			}
+			
+			blockoverride "icon_size" {
+				size = { 35 35 }
+			}
+			
+			state = {
+				name = _mouse_enter
+				alpha = 1
+				duration = 0.7
+				using = Animation_Curve_Default
+			}
+
+			state = {
+				name = _mouse_leave
+				alpha = 0.7
+				duration = 0.2
+				using = Animation_Curve_Default
+			}
+		}
+		
+		button_icon_round = {
+			name = "eocfm_main_button"
+			
+			size = { 50 50 }
+			
+			datacontext = "[GetScriptedGui('community_gui_grefm_sgui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			
+			onclick = "[GetVariableSystem.Toggle('com_fullscreen')]"
+			onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
+			onclick = "[GetScriptedGui('eocfm_setup_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			tooltip = eocfm_gui_main_button
+			
+			blockoverride "icon" {
+				texture = "gfx/interface/icons/gui_icons/eocfm_main_button.dds"
+			}
+			
+			blockoverride "icon_size" {
+				size = { 35 35 }
+			}
+			
+			state = {
+				name = _mouse_enter
+				alpha = 1
+				duration = 0.7
+				using = Animation_Curve_Default
+			}
+
+			state = {
+				name = _mouse_leave
+				alpha = 0.7
+				duration = 0.2
+				using = Animation_Curve_Default
+			}
+		}
+	}
 }
