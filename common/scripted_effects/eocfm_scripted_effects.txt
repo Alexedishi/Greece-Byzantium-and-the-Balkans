@@ -94,6 +94,46 @@ eocfm_update_patriarch_variables_effect = {
 		value = scope:eocfm_devout_leader_scope
 	}
 	
+	# Rome
+	if = {
+		limit = {
+			c:PAP ?= {
+				has_law = law_type:law_theocracy
+			}
+		}
+		c:PAP ?= {
+			ruler = {
+				save_scope_as = eocfm_rome_patriarch_scope
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_eocfm_rome_patriarch
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_rome_patriarch
+			}
+			save_scope_as = eocfm_rome_patriarch_scope
+		}
+	}
+	else = {
+		eocfm_replace_patriarchs_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_rome_patriarch
+			}
+			save_scope_as = eocfm_rome_patriarch_scope
+		}
+	}
+	set_variable = {
+		name = eocfm_rome_patriarch_var
+		value = scope:eocfm_rome_patriarch_scope
+	}
+	
 	# Constantinople
 	if = {
 		limit = {
@@ -235,9 +275,53 @@ eocfm_update_patriarch_variables_effect = {
 	}
 
 }
-	
-	
+
 eocfm_replace_patriarchs_effect = {
+	# Rome
+	if = {
+		limit = {
+			NOR = {
+				c:PAP ?= {
+					has_law = law_type:law_theocracy
+				}
+				any_character_in_void = {
+					has_template = template_eocfm_rome_patriarch
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = eocfm_controls_rome
+					country_has_state_religion = rel:orthodox
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_controls_rome
+					country_has_state_religion = rel:orthodox
+				}
+				create_character = {
+					template = template_eocfm_rome_patriarch
+					religion = rel:orthodox
+					on_created = {
+						place_character_in_void = 180 # 15 year shelf life
+					}
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_eocfm_rome_patriarch
+				culture = cu:south_italian
+				religion = rel:catholic
+				on_created = {
+					place_character_in_void = 180 # 15 year shelf life
+				}
+			}
+		}
+	}
+	
 	# Constantinople
 	if = {
 		limit = {
@@ -593,16 +677,6 @@ eocfm_update_seat_controllers_effect = {
 	
 }
 
-eocfm_save_patriarch_scopes_effect = {
-	random_character_in_void = {
-		limit = {
-			has_template = template_eocfm_constantinople_patriarch
-		}
-		save_scope_as = eocfm_constantinople_patriarch_scope
-	}
-
-}
-
 eocfm_save_seat_controller_scopes_effect = {
 	random_country = {
 		limit = {
@@ -668,7 +742,7 @@ eocfm_update_seat_bonus_effect = {
 	if = {
 		limit = {
 			has_variable = eocfm_controls_antioch
-			owns_entire_state_region = STATE_ADANA
+			owns_entire_state_region = STATE_SYRIA
 		}
 		add_modifier = modifier_eocfm_controls_antioch
 	}
@@ -778,7 +852,6 @@ eocfm_push_patriarch_relations_effect = {
 		max = 100
 	}
 }
-	
 
 eocfm_remove_all_modifiers_effect = {
 	remove_modifier ?= modifier_eocfm_hosting_council

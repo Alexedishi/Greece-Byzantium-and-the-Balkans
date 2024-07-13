@@ -6,8 +6,19 @@
 	
 	### Specific Country Setups
 	c:GRE = {
+		grefm_initialize_bavarocracy_variables_effect = yes
+		add_journal_entry = {
+			type = je_grefm_regency_council
+		}
+		add_journal_entry = {
+			type = je_grefm_bavarocracy_main
+		}
 		trigger_event = {
 			id = grefm.001 # The Regency Council
+		}
+		set_variable = {
+			name = grefm_bavarocracy_var
+			value = 2000
 		}
 		add_modifier = modifier_eocfm_reformed_synod
 		add_modifier = modifier_eocfm_dissolved_monasteries
@@ -17,33 +28,80 @@
 		eocfm_initialize_patriarchs_effect = yes # Greece is loadbearing too now bois
 	}
 	
+	c:ION = {
+		add_journal_entry = {
+			type = je_grefm_ion_xenocracy
+		}
+		add_journal_entry = {
+			type = je_grefm_ion_venetian_legacy
+		}
+		add_journal_entry = {
+			type = je_grefm_ion_poverty
+		}
+		trigger_event = {
+			id = grefm.400 # The Republic of the Seven Islands
+		}
+	}
+	
 	c:MON = {
+		balkfm_set_up_montenegro = yes
 		trigger_event = {
 			id = balkfm.300 # A Feudal Relic
-			days = 1
 		}
-		balkfm_set_up_montenegro = yes
+		add_journal_entry = {
+			type = je_balkfm_mon_prince_bishopric
+		}
 	}
 	
 	c:SER = {
+		balkfm_set_monarchism_variables = yes
 		trigger_event = {
 			id = balkfm.400 # Mileta's Rebellion
-			days = 1
 		}
-		balkfm_set_monarchism_variables = yes
+		add_journal_entry = {
+			type = je_balkfm_ser_monarchism
+		}
+		change_variable = {
+			name = obrenovic_support_var
+			add = 150
+		}
+		change_variable = {
+			name = karadordevic_support_var
+			add = 50
+		}
 	}
 	
 	c:MOL ?= {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_regulamentul_organic
+		}
 		trigger_event = {
 			id = balkfm.600 # The Lands of Stephen the Great
-			days = 1
 		}
 	}
 	
 	c:WAL ?= {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_regulamentul_organic
+		}
 		trigger_event = {
 			id = balkfm.610 # The Land Beyond the Snowy Mountains
-			days = 1
 		}
 	}
 	
@@ -92,7 +150,7 @@
 		}
 		else_if = {
 			limit = {
-				c:GRE ?= this
+				c:RUS ?= this
 			}
 			trigger_event = {
 				id = eocfm.004 # Most Holy Synod (RUS)
@@ -171,5 +229,12 @@
 		name = eocfm_council_var
 		value = 0
 	}
-
+	set_global_variable = {
+		name = eocfm_crusade_counter
+		value = 0
+	}
+	set_global_variable = {
+		name = eocfm_deposition_counter
+		value = 0
+	}
 }

@@ -1604,3 +1604,48 @@ grefm_archeaology_cancel_button = {
 	}
 
 }
+
+# Enosis
+
+grefm_ionian_enosis_button = {
+	name = "grefm_ionian_enosis_button"
+	desc = "grefm_ionian_enosis_button_desc"
+	
+	visible = {
+		c:ION ?= this
+		exists = c:GRE
+		exists = c:GBR
+		is_subject_of = c:GBR
+	}
+	
+	possible = {
+		c:GBR ?= {
+			relations:GRE >= relations_threshold:neutral
+		}
+		c:GBR ?= {
+			relations:root >= relations_threshold:amiable
+		}
+		c:GRE ?= {
+			relations:root >= relations_threshold:amiable
+		}
+		NOR = {
+			has_truce_with = c:GRE
+			has_truce_with = c:GBR
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_ionian_enosis_tt
+			hidden_effect = {
+				play_as = c:GRE
+				c:GRE = {
+					annex = c:ION
+					trigger_event = {
+						id = grefm.421 # Union with the Greek State
+					}
+				}
+			}
+		}
+	}
+}

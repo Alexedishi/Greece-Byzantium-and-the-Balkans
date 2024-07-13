@@ -51,12 +51,12 @@ namespace = eocfm
 #	029 - ##The Blessings of Basil the Great
 
 #030-039 - Authority Action Events
-#	030 - ##Dissolution of the Monasteries
+#	030 - Monastic Reparations
 #	031 - Church-State Relations
 
 #040-049 - Decree Events
 #	040 - Priestly Excesses
-#	041 - ##The Widow's Mite
+#	041 - The Widow's Mite
 
 
 ##  #EOC1  ECUMENICAL ORTHODOX FLAVOR  Events 100-199  ##
@@ -68,20 +68,20 @@ namespace = eocfm
 #	103 - Metropolitanate of Cetinje (MON)
 #	104 - The Metropolitanate of Belgrade (SER)
 #	105 - The Patriarch of All Bulgaria (BUL)
-#	106 - ##The Patriarchate of Romania (ROM)
+#	106 - The Patriarchate of Romania (ROM)
 #	107 - Autocephaly Completion Technical Event
 
 #110-109 - Partiarchal Seat Usurpation Events
-#	110 - ##Constantinopole Claimed by Country
-#	111 - ##Constantinopole Usurped by Country
-#	112 - ##Antioch Claimed by Country
-#	113 - ##Antioch Usurped by Country
-#	114 - ##Jerusalem Claimed by Country
-#	115 - ##Jerusalem Usurped by Country
-#	116 - ##Alexandria Claimed by Country
-#	117 - ##Alexandria Usurped by Country
-#	118 - ##Moscow Claimed by Country
-#	119 - ##Moscow Usurped by Country
+#	110 - Constantinopole Claimed by Country
+#	111 - Constantinopole Usurped by Country
+#	112 - Antioch Claimed by Country
+#	113 - Antioch Usurped by Country
+#	114 - Jerusalem Claimed by Country
+#	115 - Jerusalem Usurped by Country
+#	116 - Alexandria Claimed by Country
+#	117 - Alexandria Usurped by Country
+#	118 - Moscow Claimed by Country
+#	119 - Moscow Usurped by Country
 
 #120-129 - Ecumenical Council Events
 #	120 - Ecumenical Council Convoked
@@ -101,11 +101,18 @@ namespace = eocfm
 #	132 - Failed Crusade
 
 #140-149 - Partiarchal Seat Integration Events
-#	140 - ##Seat Usurped by Country
-#	141 - ##Seat Integration Disputed (Part 1)
-#	142 - ##Seat Integration Disputed (Part 2)
+#	140 - ##Seat Integration Disputed (Part 1)
+#	141 - ##Seat Integration Disputed (Part 2)
 
 #150-159 - Patriarchal Seat Sway Events
+#	150 - ##Ecumenical Financing
+#	151 - ##Delegation Arrives from Seat
+#	152 - ##
+
+#160-169 - Ecumenical Partiarchate Events
+#	160 - ##An Audience with the Patriarch
+#	161 - ##Ecumenical Patriarch Deposed
+
 
 
 ##  #EOC2  RUM MILLET FLAVOR  Events 200-299  ##
@@ -126,22 +133,16 @@ namespace = eocfm
 #	308 - The Supremacy of Constantinopole
 
 #310-310 - Orthodox Imperial Ambitions
-#	310 - ##Challenging the Patriarch of the West
-#	311 - ##The Throne of Saint Peter
-#	312 - ##The Council of Unification
+#	310 - The Capture of the Great Mosque
+#	311 - OPEN
+#	312 - OPEN
 #	313 - OPEN
-#	314 - OPEN
-#	315 - OPEN
-#	316 - >>The Capture of the Great Mosque
-#	317 - >>The Ancient Partiarchates
-#	318 - ##The Restoration of the Pentarchy
-#	319 - ##The Supreme Pontiff of the Universal Church
-
-#320-329 -  Annexation Events
-#	320 - The Ukrainian Domain
-#	321 - The Byelorussian Domain
-#	322 - The Georgian Domain
-#	323 - The Moldovian Domain
+#	314 - The Ancient Partiarchates
+#	315 - The Restoration of the Pentarchy
+#	316 - Challenging the Patriarch of the West
+#	317 - The Throne of Saint Peter
+#	318 - The Council of Unification
+#	319 - The Supreme Pontiff of the Universal Church
 
 
 ##	#EOC9	TECHNICAL EVENTS	Events 900-999	##
@@ -325,8 +326,9 @@ eocfm.010 = { # Ecumenical Reforms
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
+		NOR = {
 			has_variable = eocfm_reform_considered
+			has_modifier = modifier_eocfm_reformed_synod
 		}
 	}
 	
@@ -341,6 +343,11 @@ eocfm.010 = { # Ecumenical Reforms
 			name = modifier_eocfm_backed_reforms
 			months = very_long_modifier_time
 		}
+		add_modifier = modifier_eocfm_reformed_synod
+		add_radicals = {
+			pop_type = clergymen
+			value = small_radicals
+		}
 	}
 	
 	option = { # Do Not
@@ -349,6 +356,11 @@ eocfm.010 = { # Ecumenical Reforms
 			name = modifier_eocfm_clung_to_tradition
 			months = very_long_modifier_time
 		}
+		add_loyalists = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+		custom_tooltip = eocfm.010.tt
 	}
 
 }
@@ -749,7 +761,7 @@ eocfm.020 = { # Commissioning an Icon
 
 #### AUTHORITY ACTION EVENTS ####
 
-eocfm.030 = { # Dissolution of the Monasteries
+eocfm.030 = { # Monastic Reparations
 	type = country_event
 	placement = root
 	
@@ -770,14 +782,31 @@ eocfm.030 = { # Dissolution of the Monasteries
 	dlc = dlc_grefm
 	
 	trigger = {
+		NOT = {
+			has_variable = eocfm_monastic_reparations_considered
+		}
+		has_modifier = modifier_eocfm_dissolved_monasteries
 	}
 	
-	immediate = {		
+	immediate = {
+		set_variable = eocfm_monastic_reparations_considered
 	}	
 	
- 	option = {
+ 	option = { # They can deal
 		name = eocfm.030.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_monastic_reparations
+			months = long_modifier_time
+		}
+	}
+	
+	option = { # Make them whole
+		name = eocfm.030.b
+		add_modifier = {
+			name = modifier_eocfm_destitute_clergy
+			months = long_modifier_time
+		}
 	}
 
 }
@@ -803,7 +832,9 @@ eocfm.031 = { # Church-State Relations
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_variable = eocfm_caesaropapism_questioned }
+		NOT = { 
+			has_variable = eocfm_caesaropapism_questioned
+		}
 		has_modifier = modifier_eocfm_reformed_synod
 	}
 	
@@ -855,8 +886,11 @@ eocfm.040 = { # Priestly Excesses
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_modifier = modifier_eocfm_subsidizing_church
+		NOT = {
+			has_variable = eocfm_decree_event_var
+		}
 		any_scope_state = {
+			has_decree = decree_eocfm_consecrate_metropolitan
 			NOT = {
 				has_modifier = modifier_eocfm_grand_cathedral
 			}
@@ -866,22 +900,23 @@ eocfm.040 = { # Priestly Excesses
 	immediate = {
 		random_scope_state = {
 			limit = {
+				has_decree = decree_eocfm_consecrate_metropolitan
 				NOT = {
 					has_modifier = modifier_eocfm_grand_cathedral
 				}
 			}
-			save_scope_as = eocfm_event_state
+			save_scope_as = eocfm_decree_state_scope
 		}
-	}
-	
-	cooldown = { 
-		years = 20
+		set_variable = {
+			name = eocfm_decree_event_var
+			days = 1825 # Five year lockout
+		}
 	}
 	
 	option = { # Allow Construction
 		name = eocfm.040.a
 		default_option = yes
-		scope:eocfm_event_state = {
+		scope:eocfm_decree_state_scope = {
 			add_modifier = {
 				name = modifier_eocfm_new_cathedral
 				months = long_modifier_time
@@ -903,7 +938,7 @@ eocfm.040 = { # Priestly Excesses
 	
 	option = { # Curtail Construction
 		name = eocfm.040.b
-		scope:eocfm_event_state = {
+		scope:eocfm_decree_state_scope = {
 			add_radicals_in_state = {
 				pop_type = clergymen
 				value = medium_radicals
@@ -922,7 +957,7 @@ eocfm.040 = { # Priestly Excesses
 	option = { # Give More Moni
 		name = eocfm.040.c
 		add_treasury = -50000
-		scope:eocfm_event_state = {
+		scope:eocfm_decree_state_scope = {
 			add_modifier = {
 				name = modifier_eocfm_grand_cathedral
 				months = long_modifier_time
@@ -943,6 +978,91 @@ eocfm.040 = { # Priestly Excesses
 		add_radicals = {
 			pop_type = clerks
 			value = medium_radicals
+		}
+	}
+
+}
+
+eocfm.041 = { # The Widow's Mite
+	type = country_event
+	placement = scope:eocfm_decree_state_scope
+	
+	title = eocfm.041.t
+	desc = eocfm.041.d
+	flavor = eocfm.041.f
+	
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_decree_event_var
+		}
+		any_scope_state = {
+			has_decree = decree_eocfm_encourage_almsgiving
+		}
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_decree = decree_eocfm_encourage_almsgiving
+			}
+			save_scope_as = eocfm_decree_state_scope
+		}
+		set_variable = {
+			name = eocfm_decree_event_var
+			days = 1825 # Five year lockout
+		}
+	}
+	
+	option = { # Praise the family
+		name = eocfm.041.a
+		default_option = yes
+		scope:eocfm_decree_state_scope = {
+			add_modifier = {
+				name = modifier_eocfm_recognized_pious_donations
+				months = normal_modifier_time
+			}
+			add_loyalists_in_state = {
+				strata = rich
+				value = small_radicals
+			}
+			add_radicals_in_state = {
+				strata = medium
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				strata = poor
+				value = small_radicals
+			}
+		}
+	}
+	
+	option = { # Encourage Restraint
+		name = eocfm.041.b
+		scope:eocfm_decree_state_scope = {
+			add_modifier = {
+				name = modifier_eocfm_discouraged_pious_donations
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				strata = rich
+				value = small_radicals
+			}
+			add_loyalists_in_state = {
+				strata = medium
+				value = small_radicals
+			}
 		}
 	}
 
@@ -989,11 +1109,30 @@ eocfm.100 = { # Country Declaration of Schism
 			name = eocfm_schism_var
 			value = 0
 		}
+		eocfm_update_patriarch_variables_effect = yes
 	}
 	
 	option = {
 		name = eocfm.100.a
 		default_option = yes
+		custom_tooltip = eocfm.100.tt
+		every_country = {
+			limit = {
+				OR = {
+					AND = {
+						country_has_state_religion = rel:orthodox
+						NOT = {
+							this = ROOT
+						}
+					}
+					c:TUR ?= this
+				}
+			}
+			ROOT = {
+				save_scope_as = eocfm_schism_scope
+			}
+			post_notification = notification_eocfm_autocephaly_declared
+		}	
 	}
 
 }
@@ -1023,6 +1162,7 @@ eocfm.101 = { # Recognition of Autocephaly (Generic)
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1062,6 +1202,13 @@ eocfm.102 = { # Tomos of 1850
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes # this ensures the Ecumenical Patriarch exists
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1101,6 +1248,13 @@ eocfm.103 = { # Metropolitanate of Cetinje
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes # this ensures the Ecumenical Patriarch exists
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1140,6 +1294,13 @@ eocfm.104 = { # The Metropolitanate of Belgrade
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes # this ensures the Ecumenical Patriarch exists
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1179,6 +1340,13 @@ eocfm.105 = { # The Patriarch of All Bulgaria
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes # this ensures the Ecumenical Patriarch exists
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1218,6 +1386,13 @@ eocfm.106 = { # The Patriarchate of Romania
 	}
 	
 	immediate = {
+		eocfm_update_patriarch_variables_effect = yes # this ensures the Ecumenical Patriarch exists
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_constantinople_patriarch_scope
+		}
 		set_variable = eocfm_is_autocephalous
 	}
 	
@@ -1244,6 +1419,7 @@ eocfm.107 = { # Autocephaly Completion Technical Event
 	
 	immediate = {
 		remove_variable = eocfm_schism_var
+		remove_modifier = modifier_eocfm_schismatic
 		set_variable = eocfm_is_autocephalous
 		if = {
 			limit = {
@@ -1290,6 +1466,23 @@ eocfm.107 = { # Autocephaly Completion Technical Event
 				id = eocfm.101 # Autocephaly of the National Church
 			}
 		}
+		every_country = {
+			limit = {
+				OR = {
+					AND = {
+						country_has_state_religion = rel:orthodox
+						NOT = {
+							this = ROOT
+						}
+					}
+					c:TUR ?= this
+				}
+			}
+			ROOT = {
+				save_scope_as = eocfm_schism_scope
+			}
+			post_notification = notification_eocfm_autocephaly_recognized
+		}
 	}
 
 }
@@ -1323,18 +1516,18 @@ eocfm.110 = { # Constantinopole Claimed by Country
 	immediate = {
 		random_country = {	
 			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_constantinople
+				has_variable = eocfm_integrating_constantinople
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_constantinople
 				}
 			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_constantinople
-			}
-			save_scope_as = eocfm_controller_scope
+			post_notification = notification_eocfm_constantinople_claimed
 		}
 	}
 	
@@ -1352,15 +1545,6 @@ eocfm.110 = { # Constantinopole Claimed by Country
 				country = root
 				value = -15
 			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_constantinople
-				}
-			}
-			post_notification = notification_eocfm_constantinople_claimed
 		}
 	}
 	
@@ -1398,56 +1582,50 @@ eocfm.111 = { # Constantinopole Usurped by Country
 	
 	trigger = {
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_constantinople
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = eocfm_controls_constantinople
 			}
 			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_constantinople
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_constantinople
+				}
 			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_constantinople
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_constantinople_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_constantinople
 		}
 		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_constantinople
 	}
+	
 	
 	option = {
 		name = eocfm.111.a
 		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						country_has_state_religion = rel:orthodox
-					}
-					post_notification = notification_eocfm_constantinople_usurped
-				}
-				remove_variable = eocfm_controls_constantinople
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_constantinople_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_constantinople
+		custom_tooltip = eocfm_controls_constantinople_tt
+		scope:eocfm_controller_scope ?= {
+			change_relations = {
+				country = root
+				value = -30
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -1482,18 +1660,18 @@ eocfm.112 = { # Antioch Claimed by Country
 	immediate = {
 		random_country = {	
 			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_antioch
+				has_variable = eocfm_integrating_antioch
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_antioch
 				}
 			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_antioch
-			}
-			save_scope_as = eocfm_controller_scope
+			post_notification = notification_eocfm_antioch_claimed
 		}
 	}
 	
@@ -1511,15 +1689,6 @@ eocfm.112 = { # Antioch Claimed by Country
 				country = root
 				value = -15
 			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_antioch
-				}
-			}
-			post_notification = notification_eocfm_antioch_claimed
 		}
 	}
 	
@@ -1557,56 +1726,49 @@ eocfm.113 = { # Antioch Usurped by Country
 	
 	trigger = {
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_antioch
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = eocfm_controls_antioch
 			}
 			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_antioch
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_antioch
+				}
 			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_antioch
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_antioch_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_antioch
 		}
 		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_antioch
 	}
 	
 	option = {
-		name = eocfm.113.a
+		name = eocfm.111.a
 		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						country_has_state_religion = rel:orthodox
-					}
-					post_notification = notification_eocfm_antioch_usurped
-				}
-				remove_variable = eocfm_controls_antioch
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_antioch_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_antioch
+		custom_tooltip = eocfm_controls_antioch_tt
+		scope:eocfm_controller_scope ?= {
+			change_relations = {
+				country = root
+				value = -30
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -1641,18 +1803,18 @@ eocfm.114 = { # Jerusalem Claimed by Country
 	immediate = {
 		random_country = {	
 			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_jerusalem
+				has_variable = eocfm_integrating_jerusalem
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_jerusalem
 				}
 			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_jerusalem
-			}
-			save_scope_as = eocfm_controller_scope
+			post_notification = notification_eocfm_jerusalem_claimed
 		}
 	}
 	
@@ -1670,15 +1832,6 @@ eocfm.114 = { # Jerusalem Claimed by Country
 				country = root
 				value = -15
 			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_jerusalem
-				}
-			}
-			post_notification = notification_eocfm_jerusalem_claimed
 		}
 	}
 	
@@ -1716,56 +1869,49 @@ eocfm.115 = { # Jerusalem Usurped by Country
 	
 	trigger = {
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_jerusalem
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = eocfm_controls_jerusalem
 			}
 			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_jerusalem
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_jerusalem
+				}
 			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_jerusalem
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_jerusalem_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_jerusalem
 		}
 		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_jerusalem
 	}
 	
 	option = {
 		name = eocfm.115.a
 		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						country_has_state_religion = rel:orthodox
-					}
-					post_notification = notification_eocfm_jerusalem_usurped
-				}
-				remove_variable = eocfm_controls_jerusalem
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_antioch_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_jerusalem
+		custom_tooltip = eocfm_controls_jerusalem_tt
+		scope:eocfm_controller_scope ?= {
+			change_relations = {
+				country = root
+				value = -30
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -1800,18 +1946,18 @@ eocfm.116 = { # Alexandria Claimed by Country
 	immediate = {
 		random_country = {	
 			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_alexandria
+				has_variable = eocfm_integrating_alexandria
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_alexandria
 				}
 			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_alexandria
-			}
-			save_scope_as = eocfm_controller_scope
+			post_notification = notification_eocfm_alexandria_claimed
 		}
 	}
 	
@@ -1829,15 +1975,6 @@ eocfm.116 = { # Alexandria Claimed by Country
 				country = root
 				value = -15
 			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_alexandria
-				}
-			}
-			post_notification = notification_eocfm_alexandria_claimed
 		}
 	}
 	
@@ -1875,56 +2012,49 @@ eocfm.117 = { # Alexandria Usurped by Country
 	
 	trigger = {
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_alexandria
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = eocfm_controls_alexandria
 			}
 			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_alexandria
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_alexandria
+				}
 			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_alexandria
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_alexandria_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_alexandria
 		}
 		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_alexandria
 	}
 	
 	option = {
 		name = eocfm.117.a
 		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						country_has_state_religion = rel:orthodox
-					}
-					post_notification = notification_eocfm_alexandria_usurped
-				}
-				remove_variable = eocfm_controls_antioch
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_alexandria_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_alexandria
+		custom_tooltip = eocfm_controls_alexandria_tt
+		scope:eocfm_controller_scope ?= {
+			change_relations = {
+				country = root
+				value = -30
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -1959,18 +2089,18 @@ eocfm.118 = { # Moscow Claimed by Country
 	immediate = {
 		random_country = {	
 			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_moscow
+				has_variable = eocfm_integrating_moscow
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_moscow
 				}
 			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_moscow
-			}
-			save_scope_as = eocfm_controller_scope
+			post_notification = notification_eocfm_moscow_claimed
 		}
 	}
 	
@@ -1988,15 +2118,6 @@ eocfm.118 = { # Moscow Claimed by Country
 				country = root
 				value = -15
 			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_moscow
-				}
-			}
-			post_notification = notification_eocfm_moscow_claimed
 		}
 	}
 	
@@ -2034,56 +2155,49 @@ eocfm.119 = { # Moscow Usurped by Country
 	
 	trigger = {
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_moscow
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
 		random_country = {
 			limit = {
 				has_variable = eocfm_controls_moscow
 			}
 			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_moscow
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_moscow
+				}
 			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_moscow
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_moscow_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_moscow
 		}
 		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_moscow
 	}
 	
 	option = {
 		name = eocfm.119.a
 		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						country_has_state_religion = rel:orthodox
-					}
-					post_notification = notification_eocfm_moscow_usurped
-				}
-				remove_variable = eocfm_controls_moscow
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_antioch_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_moscow
+		custom_tooltip = eocfm_controls_moscow_tt
+		scope:eocfm_controller_scope = {
+			change_relations = {
+				country = root
+				value = -30
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -2223,7 +2337,16 @@ eocfm.121 = { # Council of X
 			days = 90
 		}
 	}
-
+	
+	option = { # Mend the Great Schism
+		name = eocfm.121.g
+		trigger = {
+			eocfm_controls_tetrarchy_trigger = yes
+		}
+		trigger_event = {
+			id = eocfm.315 # The Council of Unification
+		}
+	}
 }
 
 eocfm.122 = { # Birth of the New Crusades
@@ -2974,46 +3097,13 @@ eocfm.132 = { # Failed Crusade
 
 #### PATRIARHCAL SEAT INTEGRATION EVENTS ####
 
-eocfm.140 = { # Patriarchal Seat Usurped by Country
+eocfm.140 = { # Seat Integration Disputed (Part 1)
 	type = country_event
 	placement = root
 	
 	title = eocfm.140.t
 	desc = eocfm.140.d
 	flavor = eocfm.140.f
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}	
-	
-	immediate = {
-	}
-	
-	option = {
-		name = eocfm.140.a
-		default_option = yes
-	}
-
-}
-
-eocfm.141 = { # Seat Integration Disputed (Part 1)
-	type = country_event
-	placement = root
-	
-	title = eocfm.141.t
-	desc = eocfm.141.d
-	flavor = eocfm.141.f
 	
 	event_image = {
 		video = "unspecific_politicians_arguing"
@@ -3050,7 +3140,7 @@ eocfm.141 = { # Seat Integration Disputed (Part 1)
 	}
 	
 	option = {
-		name = eocfm.141.a
+		name = eocfm.140.a
 		default_option = yes
 		change_relations = {
 			country = scope:eocfm_integrator_scope
@@ -3062,7 +3152,7 @@ eocfm.141 = { # Seat Integration Disputed (Part 1)
 	}
 	
 	option = {
-		name = eocfm.141.b
+		name = eocfm.140.b
 		change_relations = {
 			country = scope:eocfm_integrator_scope
 			value = 20
@@ -3075,20 +3165,20 @@ eocfm.141 = { # Seat Integration Disputed (Part 1)
 	after = {
 		scope:eocfm_integrator_scope = {
 			trigger_event = {
-				id = eocfm.142 # Seat Integration Disputed (Part 2)
+				id = eocfm.141 # Seat Integration Disputed (Part 2)
 			}
 		}
 	}
 
 }
 
-eocfm.142 = { # Seat Integration Disputed (Part 2)
+eocfm.141 = { # Seat Integration Disputed (Part 2)
 	type = country_event
 	placement = root
 	
-	title = eocfm.141.t
-	desc = eocfm.141.d
-	flavor = eocfm.141.f
+	title = eocfm.140.t
+	desc = eocfm.140.d
+	flavor = eocfm.140.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -3115,7 +3205,7 @@ eocfm.142 = { # Seat Integration Disputed (Part 2)
 	}
 	
 	option = {
-		name = eocfm.142.a
+		name = eocfm.141.a
 		default_option = yes
 		trigger = {
 			has_variable = eocfm_seat_opposed
@@ -3133,7 +3223,7 @@ eocfm.142 = { # Seat Integration Disputed (Part 2)
 	}
 	
 	option = {
-		name = eocfm.142.a
+		name = eocfm.141.a
 		default_option = yes
 		trigger = {
 			has_variable = eocfm_seat_endorsed
@@ -3158,6 +3248,78 @@ eocfm.142 = { # Seat Integration Disputed (Part 2)
 	}
 
 }
+
+#### PATRIARCHAL SEAT SWAY EVENTS ####
+
+
+#### ECUMENICAL PATRIARCHATE EVENTS ####
+
+eocfm.160 = { # An Audience with the Patriarch
+	type = country_event
+	placement = root
+	
+	title = eocfm.160.t
+	desc = eocfm.160.d
+	flavor = eocfm.160.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = eocfm.160.a
+		default_option = yes
+	}
+
+}
+
+eocfm.161 = { # Ecumenical Patriarch Deposed
+	type = country_event
+	placement = root
+	
+	title = eocfm.161.t
+	desc = eocfm.161.d
+	flavor = eocfm.161.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = eocfm.161.a
+		default_option = yes
+	}
+
+}
+
 
 ################################################
 ##  #EOC2  RUM MILLET FLAVOR  Events 200-299  ##
@@ -3777,178 +3939,12 @@ eocfm.308 = { # conclusion of the Third Rome chain
 
 #### ORTHODOX IMPERIAL AMBITIONS ####
 
-eocfm.310 = { # Challenging the Patriarch of the West
+eocfm.310 = { # The Capture of the Great Mosque
 	type = country_event
-	placement = root
 	
 	title = eocfm.310.t
 	desc = eocfm.310.d
 	flavor = eocfm.310.f
-	
-	event_image = {
-		video = "southamerica_christianity"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by eocfm_integrate_rome_sgui
-	}
-	
-	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_rome
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_rome
-			}
-			save_scope_as = eocfm_controller_scope
-		}
-	}
-	
-	option = {
-		name = eocfm.310.a
-		default_option = yes
-		trigger = {
-			has_variable = eocfm_integrating_rome
-		}
-		every_country = {
-			limit = {
-				OR = {
-					has_variable = eocfm_is_autocephalous
-					country_has_state_religion = rel:catholic
-				}
-				
-			}
-			change_relations = {
-				country = root
-				value = -15
-			}
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_rome
-				}
-			}
-			post_notification = notification_eocfm_rome_claimed
-		}
-	}
-	
-	option = {
-		name = eocfm.310.b
-		trigger = {
-			NOT = {
-				has_variable = eocfm_integrating_rome
-			}
-		}
-		custom_tooltip = eocfm_rome_claimed_tt
-	}
-	
-}
-
-eocfm.311 = { # The Throne of Saint Peter
-	type = country_event
-	placement = root
-	
-	title = eocfm.311.t
-	desc = eocfm.311.d
-	flavor = eocfm.311.f
-	
-	event_image = {
-		video = "ep1_transfer_of_authority"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
-	}
-	
-	immediate = {
-		random_country = {	
-			limit = {
-				AND = {
-					has_variable = eocfm_integration_var
-					has_variable = eocfm_integrating_rome
-				}
-			}
-			save_scope_as = eocfm_usurper_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = eocfm_controls_rome
-			}
-			save_scope_as = eocfm_controller_scope
-			trigger_event = {
-				id = eocfm.140 # Seat Usurped by Country
-			}
-		}
-		remove_variable = eocfm_integration_var
-	}
-	
-	option = {
-		name = eocfm.311.a
-		default_option = yes
-		if = {
-			limit = {
-				exists = scope:eocfm_controller_scope
-			}
-			scope:eocfm_controller_scope = {
-				change_relations = {
-					country = root
-					value = -25
-				}
-				every_country = {
-					limit = {
-						OR = {
-							country_has_state_religion = rel:orthodox
-							country_has_state_religion = rel:catholic
-						}
-					}
-					post_notification = notification_eocfm_rome_usurped
-				}
-				remove_variable = eocfm_controls_rome
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_controls_rome_tt
-			hidden_effect = {
-				set_variable = eocfm_controls_rome
-			}
-		}
-		eocfm_remove_intregration_variables_effect = yes
-	}
-
-}
-
-eocfm.316 = { # The Capture of the Great Mosque
-	type = country_event
-	
-	title = eocfm.316.t
-	desc = eocfm.316.d
-	flavor = eocfm.316.f
 	
 	placement = scope:hedjaz_state
 	
@@ -3993,7 +3989,7 @@ eocfm.316 = { # The Capture of the Great Mosque
 	}
 	
 	option = { # burn it down
-		name = eocfm.316.a
+		name = eocfm.310.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_byzfm_great_mosque_destroyed
@@ -4022,7 +4018,7 @@ eocfm.316 = { # The Capture of the Great Mosque
 	}
 	
 	option = { # turn it into a museum
-		name = eocfm.316.b
+		name = eocfm.310.b
 		add_radicals = {
 			value = medium_radicals
 			religion = rel:sunni
@@ -4039,7 +4035,7 @@ eocfm.316 = { # The Capture of the Great Mosque
 	}
 	
 	option = { # leave it be
-		name = eocfm.316.c
+		name = eocfm.310.c
 		scope:hedjaz_state = {
 			add_loyalists_in_state = {
 				value = medium_radicals
@@ -4054,12 +4050,12 @@ eocfm.316 = { # The Capture of the Great Mosque
 	
 }
 
-eocfm.317 = { # The Ancient Partiarchates
+eocfm.314 = { # The Ancient Partiarchates
 	type = country_event
 	
-	title = eocfm.317.t
-	desc = eocfm.317.d
-	flavor = eocfm.317.f
+	title = eocfm.314.t
+	desc = eocfm.314.d
+	flavor = eocfm.314.f
 	
 	placement = root
 	
@@ -4099,7 +4095,7 @@ eocfm.317 = { # The Ancient Partiarchates
 	}
 	
 	option = { # declare the emperor divine
-		name = eocfm.317.a
+		name = eocfm.314.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_byzfm_nomos_empsychos
@@ -4112,7 +4108,7 @@ eocfm.317 = { # The Ancient Partiarchates
 	}
 	
 	option = { # nah, church and state are separate d00d
-		name = eocfm.317.b
+		name = eocfm.314.b
 		ig:ig_devout = {
 			add_modifier = {
 				name = modifier_byzfm_restored_pentarchy
@@ -4132,12 +4128,12 @@ eocfm.317 = { # The Ancient Partiarchates
 	
 }
 
-eocfm.318 = { # The Restoration of the Pentarchy
+eocfm.315 = { # The Restoration of the Pentarchy
 	type = country_event
 	
-	title = eocfm.318.t
-	desc = eocfm.318.d
-	flavor = eocfm.318.f
+	title = eocfm.315.t
+	desc = eocfm.315.d
+	flavor = eocfm.315.f
 	
 	placement = root
 	
@@ -4162,7 +4158,7 @@ eocfm.318 = { # The Restoration of the Pentarchy
 	}
 	
 	option = {
-		name = eocfm.318.a
+		name = eocfm.315.a
 		default_option = yes
 		custom_tooltip = eocfm_mending_possible_tt
 		set_variable = {
@@ -4171,6 +4167,193 @@ eocfm.318 = { # The Restoration of the Pentarchy
 		}
 	}
 	
+}
+
+eocfm.316 = { # Challenging the Patriarch of the West
+	type = country_event
+	placement = root
+	
+	title = eocfm.316.t
+	desc = eocfm.316.d
+	flavor = eocfm.316.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eocfm_integrate_rome_sgui
+	}
+	
+	immediate = {
+		random_country = {	
+			limit = {
+				has_variable = eocfm_integrating_rome
+			}
+			save_scope_as = eocfm_claimant_scope
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = {
+					has_variable = eocfm_controls_constantinople
+				}
+			}
+			post_notification = notification_eocfm_rome_claimed
+		}
+	}
+	
+	option = {
+		name = eocfm.316.a
+		default_option = yes
+		trigger = {
+			has_variable = eocfm_integrating_rome
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_variable = eocfm_is_autocephalous
+					country_has_state_religion = rel:catholic
+				}
+				
+			}
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+	}
+	
+	option = {
+		name = eocfm.316.b
+		trigger = {
+			NOT = {
+				has_variable = eocfm_integrating_rome
+			}
+		}
+		custom_tooltip = eocfm_rome_claimed_tt
+	}
+	
+}
+
+eocfm.317 = { # The Throne of Saint Peter
+	type = country_event
+	placement = root
+	
+	title = eocfm.317.t
+	desc = eocfm.317.d
+	flavor = eocfm.317.f
+	
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = eocfm_integration_var
+		var:eocfm_integration_var <= 60
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_rome
+			}
+			save_scope_as = eocfm_controller_scope
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_integrating_rome
+				}
+				OR = {
+					country_has_state_religion = rel:orthodox
+					country_has_state_religion = rel:catholic
+				}
+			}
+			random_country = {
+				limit = {
+					has_variable = eocfm_integrating_rome
+				}
+				save_scope_as = eocfm_claimant_scope
+			}
+			post_notification = notification_eocfm_rome_usurped
+		}
+		scope:eocfm_controller_scope ?= {
+			remove_variable = eocfm_controls_rome
+		}
+		remove_variable = eocfm_integration_var
+		set_variable = eocfm_controls_rome
+	}
+	
+	option = {
+		name = eocfm.317.a
+		default_option = yes
+		custom_tooltip = eocfm_controls_rome_tt
+		scope:eocfm_controller_scope ?= {
+			change_relations = {
+				country = root
+				value = -30
+			}
+		}
+		eocfm_remove_intregration_variables_effect = yes
+	}
+
+}
+
+eocfm.318 = { # The Council of Unification
+	type = country_event
+	placement = scope:eocfm_mending_country_scope
+	
+	title = eocfm.318.t
+	desc = eocfm.318.d
+	flavor = eocfm.318.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_mending_var
+			}
+			save_scope_as = eocfm_mending_country_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.318.a
+		default_option = yes
+		custom_tooltip = eocfm.318.tt
+	}
+
 }
 
 eocfm.319 = { # The Supreme Pontiff of the Universal Church
@@ -4196,7 +4379,7 @@ eocfm.319 = { # The Supreme Pontiff of the Universal Church
 	
 	trigger = {
 		has_variable = eocfm_mending_var
-		var:eocfm_mending_var <= 120
+		var:eocfm_mending_var >= 240
 	}
 	
 	immediate = {
@@ -4206,6 +4389,11 @@ eocfm.319 = { # The Supreme Pontiff of the Universal Church
 	option = {
 		name = eocfm.319.a
 		default_option = yes
+		add_loyalists = {
+			religion = rel:orthodox
+			value = large_radicals
+		}
+		add_modifier = modifier_eocfm_mended_schism
 	}
 	
 }

@@ -228,13 +228,34 @@ namespace = grefm
 
 #310-319 - Hellenistic Imperial Ambition Events
 #	310 - ##The Shores of the Hospitable Sea
-#	311 - ##The Lands of Magna Graecia
-#	312 - ##The Legacy of the Phocaeans
+#	311 - ##The Black Sea Secured
+#	312 - ##The Lands of Magna Graecia
+#	313 - ##Magna Graecia Secured
+#	314 - ##The Foundings of Alexander
+#	315 - ##Alexandria on the Oxus
+#	316 - ##Alexandria in Margiana
+#	317 - ##Alexandria on the Indus
+#	318 - ##Alexandria in the Caucasus
 
 #  320-329 - OPEN
 
 
-##	#GRE4	OPEN	Events 400-499	##
+##  #GRE4  IONIAN ISLANDS FLAVOR  Events  400-499  ##
+
+#400-409 - The Xenocracy Events
+#	400 - The Republic of the Seven Islands
+#	401 - The Ionian Jewel
+#	402 - Modernized Agriculture
+#	403 - A Civilized State
+
+#410-419 - The Ionian Jews Events
+#	410 - ##Romaniotes and Sephardim
+#	411 - ##Jews Request former Rights
+#	412 - ##Nacamulli's Press House
+
+#420-429 - Greek Union Events
+#	420 - ##The Dream of Enosis
+#	421 - ##Union with the Greek State
 
 
 ##	#GRE5	OPEN	Events 500-599	##
@@ -246,10 +267,7 @@ namespace = grefm
 ##	#GRE7	OPEN	Events 700-799	##
 
 	
-##	#GRE8	COMPATIBILITY ALTERNATES	Events 800-899	##
-#800-809 - Morgenröte
-#	800 - Archaeological Society of Athens (MGR Alternate)
-#	801 - A Greek Identity (MGR Alternate)
+##  #GRE8  OPEN  Events 800-899  ##
 
 
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
@@ -300,7 +318,6 @@ grefm.001 = { # Bavarocracy notification
 	}
 	
 	immediate = {
-		grefm_initialize_bavarocracy_variables_effect = yes
 		trigger_event = {
 			id = grefm.021 # King Ludwig Visits Greece
 			days = 40 # Mid-February
@@ -330,24 +347,11 @@ grefm.001 = { # Bavarocracy notification
 	option = { 
 		name = grefm.001.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_regency_council
-		}
 		show_as_tooltip = {
 			add_modifier = modifier_grefm_armansperg_regency
 		}
-		add_journal_entry = {
-			type = je_grefm_bavarocracy_main
-		}
 		show_as_tooltip = {
 			add_modifier = modifier_grefm_bavarocracy
-		}
-	}
-	
-	after = {
-		set_variable = {
-			name = grefm_bavarocracy_var
-			value = 2000
 		}
 	}
 
@@ -6549,7 +6553,6 @@ grefm.200 = { # The Lands of Thessaly
 			}
 		}
 	}
-
 }
 
 
@@ -6705,6 +6708,16 @@ grefm.201 = { # The Megali Idea
 			id = grefm.210 # Greek Separatism
 			days = 30
 		}
+		if = {
+			limit = {
+				c:ION ?= this
+				has_dlc_feature = lobbies
+			}
+			trigger_event = {
+				id = grefm.420
+				days = 30
+			}
+		}
 	}
 	
 	option = { # vanilla option 2
@@ -6714,6 +6727,10 @@ grefm.201 = { # The Megali Idea
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
 			}
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = large_radicals
 		}
 	}
 	
@@ -6747,7 +6764,7 @@ grefm.202 = { # The Future of Greece
 	}
 	
 	immediate = {
-		set_variable = grefm_megali_idea_complete
+		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	option = { # The Purple Pheonix
@@ -10337,34 +10354,29 @@ grefm.307 = { # Hellenistic Empire choice
 				}
 			}
 		}
+		trigger_event = {
+			id = grefm.314 # The Foundings of Alexander
+			days = 90
+		}
 	}
 	
 }
 
 #### Hellenistic Imperial Ambition Events ####
 
-
-
-##########################################################
-##	#GRE8	COMPATIBILITY ALTERNATES	Events 800-899	##
-##########################################################
-# Currently, the only intentional compatibility is with "Morgenröte - Dawn of Flavor"
-
-#### MORGENRÖTE EVENTS ####
-
-grefm.800 = { # Archaeological Society of Athens (MGR Alternate)
+grefm.310 = { # The Shores of the Hospitable Sea
 	type = country_event
 	placement = root
 	
-	title = grefm.800.t
-	desc = grefm.800.d
-	flavor = grefm.800.f
+	title = grefm.310.t
+	desc = grefm.310.d
+	flavor = grefm.310.f
 	
 	event_image = {
-		video = "unspecific_world_fair"
+		video = "votp_gunboat_diplomacy"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -10373,32 +10385,76 @@ grefm.800 = { # Archaeological Society of Athens (MGR Alternate)
 	dlc = dlc_grefm
 	
 	trigger = {
-	}
-	
-	immediate = {
+		# triggered by je_grefm_black_sea
 	}	
 	
+	immediate = {
+	}
+	
 	option = {
-		name = grefm.800.a
+		name = grefm.310.a
 		default_option = yes
-		custom_tooltip = grefm.800.tt
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_DOBRUDJA
+					owns_entire_state_region = STATE_DOBRUDJA
+				}
+			}
+			s:STATE_DOBRUDJA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_KARS
+					owns_entire_state_region = STATE_KARS
+				}
+			}
+			s:STATE_KARS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_GREATER_CAUCASUS
+					owns_entire_state_region = STATE_GREATER_CAUCASUS
+				}
+			}
+			s:STATE_GREATER_CAUCASUS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CRIMEA
+					owns_entire_state_region = STATE_CRIMEA
+				}
+			}
+			s:STATE_CRIMEA = {
+				add_claim = ROOT
+			}
+		}
 	}
 
 }
 
-grefm.801 = { # A Greek Identity (MGR Alternate)
+grefm.311 = { # The Black Sea Secured
 	type = country_event
 	placement = root
 	
-	title = grefm.801.t
-	desc = grefm.801.d
-	flavor = grefm.801.f
+	title = grefm.311.t
+	desc = grefm.311.d
+	flavor = grefm.311.f
 	
 	event_image = {
-		video = "unspecific_world_fair"
+		video = "unspecific_military_parade"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -10407,27 +10463,747 @@ grefm.801 = { # A Greek Identity (MGR Alternate)
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by je_grefm_black_sea
 	}
 	
 	immediate = {
 	}
 	
 	option = {
-		name = grefm.801.a
+		name = grefm.311.a
+		default_option = yes
+		s:STATE_KARS = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_GREATER_CAUCASUS = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CRIMEA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.312 = { # The Lands of Magna Graecia
+	type = country_event
+	placement = root
+	
+	title = grefm.312.t
+	desc = grefm.312.d
+	flavor = grefm.312.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_magna_graecia
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.312.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_APULIA
+					owns_entire_state_region = STATE_APULIA
+				}
+			}
+			s:STATE_APULIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CALABRIA
+					owns_entire_state_region = STATE_CALABRIA
+				}
+			}
+			s:STATE_CALABRIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CAMPANIA
+					owns_entire_state_region = STATE_CAMPANIA
+				}
+			}
+			s:STATE_CAMPANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SICILY
+					owns_entire_state_region = STATE_SICILY
+				}
+			}
+			s:STATE_SICILY = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+}
+
+grefm.313 = { # Magna Graecia Secured
+	type = country_event
+	placement = root
+	
+	title = grefm.313.t
+	desc = grefm.313.d
+	flavor = grefm.313.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_black_sea
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.313.a
+		default_option = yes
+		s:STATE_APULIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CALABRIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CAMPANIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_SICILY = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.314 = { # The Foundings of Alexander
+	type = country_event
+	placement = root
+	
+	title = grefm.314.t
+	desc = grefm.314.d
+	flavor = grefm.314.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.307
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.314.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_alexandria_oxus
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_merv
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_indus
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_susiana
+		}
+	}
+
+}
+
+grefm.315 = { # Alexandria on the Oxus
+	type = country_event
+	placement = root
+	
+	title = grefm.315.t
+	desc = grefm.315.d
+	flavor = grefm.315.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_oxus
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.315.a
+		default_option = yes
+		s:STATE_MERZ = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_UZBEKIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.316 = { # Alexandria in Margiana
+	type = country_event
+	placement = root
+	
+	title = grefm.316.t
+	desc = grefm.316.d
+	flavor = grefm.316.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_merv
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.316.a
+		default_option = yes
+		s:STATE_FERGANA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_KIRGHIZIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_TAJIKISTAN = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.317 = { # Alexandria on the Indus
+	type = country_event
+	placement = root
+	
+	title = grefm.317.t
+	desc = grefm.317.d
+	flavor = grefm.317.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_indus
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.317.a
+		default_option = yes
+		s:STATE_PUNJAB = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_SINDH = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_KASHMIR = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.318 = { # Alexandria in Susiana
+	type = country_event
+	placement = root
+	
+	title = grefm.318.t
+	desc = grefm.318.d
+	flavor = grefm.318.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_susiana
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.318.a
+		default_option = yes
+		s:STATE_KHUZESTAN = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_BASRA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_BAGHDAD = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+
+#####################################################
+##  #GRE4  IONIAN ISLANDS FLAVOR  Events  400-499  ##
+#####################################################
+
+#### XENOCRACY EVENTS ####
+
+grefm.400 = { # The Republic of the Seven Islands
+	type = country_event
+	placement = root
+	
+	title = grefm.400.t
+	desc = grefm.400.d
+	flavor = grefm.400.f
+	
+	event_image = {
+		video = "grefm_ion_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_heptanese.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.400.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_xenocracy
+			add_modifier = modifier_grefm_hepantese_administration
+			add_modifier = modifier_grefm_venetian_legacy
+		}
+	}
+
+}
+
+grefm.401 = { # The Ionian Jewel
+	type = country_event
+	placement = root
+	
+	title = grefm.401.t
+	desc = grefm.401.d
+	flavor = grefm.401.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_heptanese.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_xenocracy
+	}
+	
+	immediate = {
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+	}
+	
+	option = {
+		name = grefm.401.a
+		default_option = yes
+		c:GBR = {
+			change_relations = {
+				country = root
+				value = 25
+			}
+			set_secret_goal = {
+				country = root
+				secret_goal = protect
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_ionian_jewel
+			months = long_modifier_time
+		}
+	}
+
+}
+
+grefm.402 = { # Modernized Agriculture
+	type = country_event
+	placement = root
+	
+	title = grefm.402.t
+	desc = grefm.402.d
+	flavor = grefm.402.f
+	
+	event_image = {
+		video = "southamerica_factory_opening"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_venetian_legacy
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.402.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_grefm_archaiologiki_etaireia
+			name = modifier_grefm_modernized_agriculture
 			months = long_modifier_time
-			multiplier = 10 # grants the full bonus value
+			is_decaying = yes
 		}
 		add_loyalists = {
 			culture = cu:greek
-			value = small_radicals
+			value = medium_radicals
 		}
-		set_variable = grefm_greek_identity_resolved
 	}
 
 }
+
+grefm.403 = { # A Civilized State
+	type = country_event
+	placement = root
+	
+	title = grefm.403.t
+	desc = grefm.403.d
+	flavor = grefm.403.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_poverty
+	}
+	
+	immediate = {
+		add_modifier = { # this is to avoid a snap bureaucracy shortage from the journal closing
+			name = modifier_grefm_civilized_state
+			months = long_modifier_time
+			is_decaying = yes
+		}
+	}
+	
+	option = {
+		name = grefm.403.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_grefm_civilized_state
+				months = long_modifier_time
+				is_decaying = yes
+			}
+		}
+		add_loyalists = {
+			strata = poor
+			value = large_radicals
+		}
+	}
+	
+}
+
+#### GREEK UNION EVENTS ####
+
+grefm.420 = { # The Dream of Enosis
+	type = country_event
+	placement = root
+	
+	title = grefm.420.t
+	desc = grefm.420.d
+	flavor = grefm.420.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.201
+	}	
+	
+	immediate = {
+		c:GRE = {
+			save_scope_as = greece_scope
+			set_secret_goal = { # Greece was not secretive about its desires for union with the Islands
+				country = c:ION
+				secret_goal = befriend
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.420.a
+		default_option = yes
+		if = {
+			limit = {
+				has_dlc_feature = lobbies
+				
+			}
+			create_political_lobby = {  # The majority of Ionian politics was unified on the idea of seeking union with Greece at all costs
+				type = lobby_pro_country  
+				target = c:GRE
+				add_interest_group = ig:ig_petty_bourgeoisie
+				add_interest_group = ig:ig_intelligentsia
+				add_interest_group = ig:ig_armed_forces
+				add_interest_group = ig:ig_rural_folk
+				add_interest_group = ig:ig_industrialists
+			}
+		}
+	}
+
+}
+
+grefm.421 = { # 
+	type = country_event
+	placement = root
+	
+	title = grefm.421.t
+	desc = grefm.421.d
+	flavor = grefm.421.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_ionian_enosis_button
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.421.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_hepantese_union
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+
+
+
+
 
 ##################################################
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##

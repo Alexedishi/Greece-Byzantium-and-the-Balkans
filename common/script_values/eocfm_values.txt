@@ -160,6 +160,15 @@
 			desc = "eocfm_capacity_from_mended_schism"
 		}
 	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_expelled_metropolitan
+		}
+		add = {
+			value = 200
+			desc = "eocfm_capacity_from_expelled_metropolitan"
+		}
+	}
 	
 	##PENALTIES
 	
@@ -180,6 +189,15 @@
 		subtract = {
 			value = 200
 			desc = "eocfm_capacity_from_religious_schools"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_autocephaly_abandoned
+		}
+		subtract = {
+			value = 500
+			desc "eocfm_capacity_from_autocephaly_abandoned"
 		}
 	}
 	
@@ -276,8 +294,61 @@
 		}
 	}
 	
-	# Law Check
-		# Nothing to consider yet
+	# Sway Check
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_rome
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_rome"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_constantinople
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_constantinople"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_antioch
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_antioch"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_jerusalem
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_jerusalem"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_alexandria
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_alexandria"
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_moscow
+		}
+		subtract = {
+			value = 200
+			desc = "eocfm_capacity_from_swaying_moscow"
+		}
+	}
 	
 	# Modifiers Check
 	if = {
@@ -310,6 +381,8 @@
 			desc = "eocfm_capacity_from_almsgiving_decree"
 		}
 	}
+	
+	min = 0
 	
 }
 

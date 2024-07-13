@@ -703,7 +703,6 @@ balkfm_set_bulgarian_laws = {
 }
 
 balkfm_create_bulgarian_characters = {
-	# all ages are based on age at in 1879
 	heir = {
 		save_scope_as = balkfm_bul_heir_scope
 	}
@@ -716,185 +715,48 @@ balkfm_create_bulgarian_characters = {
 		}
 	}
 	create_character = {
-		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
-		first_name = Alexander
-		last_name = Battenburg
-		historical = yes
-		age = 22
-		dna = mr_bul_battenberg_alexander
-		culture = cu:bulgarian
-		religion = rel:protestant # was granted an exception to the constitution
-		ig_leader = yes
-		interest_group = ig_landowners
-		ruler = yes
-		ideology = ideology_royalist
-		traits = {
-			basic_political_operator
-			romantic
-			arrogant
-		}
-		on_created = {
-			set_variable = balkfm_is_alex
-		}
+		template = template_balkfm_battenburg_alexander
 	}
 	create_character = {
-		# Kliment Turnovski, prominent clergyman, sat at the first Grand National Assembly and was a loud supporter of Russia
-		first_name = Kliment
-		last_name = Turnovski
-		historical = yes
-		age = 38
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_devout
-		ideology = ideology_traditionalist 
-		traits = {
-			pious
-			arrogant
-		}
+		template = template_balkfm_turnovski_kliment
 	}
 	create_character = {
-		# Dragan Tsankov, prominent liberal leader, 3rd Prime Minister
-		first_name = Dragan
-		last_name = Tsankov
-		historical = yes
-		age = 50
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_intelligentsia
-		ideology = ideology_social_democrat
-		traits = {
-			basic_political_operator
-			cautious
-			tactful
-		}
+		template = template_balkfm_tsankov_dragan
 	}
 	create_character = {
-		# Konstantin Kesyakov, one of the highest ranking native Bulgarians in the early Bulgarian army; fled after the 1886 coup
-		first_name = Konstantin
-		last_name = Kesyakov
-		historical = yes
-		age = 40
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_armed_forces
-		ideology = ideology_liberal_leader
-		traits = {
-			direct
-			honorable
-		}
+		template = template_balkfm_kesyakov_konstantin
 	}
 	create_character = {
-		# Yanko Sakazov, one of the founders of the Bulgarian Social Democratic Union
-		first_name = Yanko
-		last_name = Sakazov
-		historical = yes
-		age = 22
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_trade_unions
-		ideology = ideology_liberal_leader
-		traits = {
-			direct
-			honorable
-			basic_political_operator
-		}
+		template = template_balkfm_sakazov_yanko
 	}
 }
 
 balkfm_create_bulgarian_regency_characters = {
-	# all ages are based on age at in 1886
 	create_character = {
-		# Sava Mutkurov, Bulgarian general, tried to protect Alexander's claim to the throne; welcomed Ferdinand to the throne on his arrival
-		first_name = Sava
-		last_name = Mutkurov
-		historical = yes
-		age = 34
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_armed_forces
-		ideology = ideology_royalist
-		traits = {
-			direct
-			honorable
-		}
+		template = template_balkfm_mutkurov_sava
 	}
 	create_character = {
-		# Petko Karavelov, 4x prime minister and ardent liberal
-		first_name = Petko
-		last_name = Karavelov
-		historical = yes
-		age = 46
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_intelligentsia
-		ideology = ideology_social_democrat
-		traits = {
-			expert_political_operator
-			cautious
-		}
+		template = template_balkfm_karavelov_petko
 	}
 	create_character = {
-		# Stefan Stambolov
-		first_name = Stefan
-		last_name = Stambolov
-		historical = yes
-		age = 40
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_rural_folk
-		ideology = ideology_authoritarian
-		traits = {
-			imposing
-			grifter
-			direct
-		}
+		template = template_balkfm_stambolov_stefan
 	}	
 	create_character = {
-		# Evlogi Georgiev, older brother of Hristo Georgiev; funded the University of Sofia
-		first_name = Evlogi
-		last_name = Georgiev
-		historical = yes
-		age = 67
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		ideology = ideology_reformer
-		traits = {
-			direct
-			romantic
-		}
+		template = 	template_balkfm_georgiev_evlogi
 	}
 }
 
 balkfm_create_bulgarian_royals = {
-	# all ages are based on age at in 1886
 	create_character = {
-		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
-		first_name = Ferdinand
-		last_name = Sakskoburggotski
-		historical = yes
-		age = 25
-		dna = mr_bul_sachsen_coburg_ferdinand
-		culture = cu:south_german
-		religion = rel:catholic # seriously what was so hard about giving the orthodox an orthodox king smh
-		ig_leader = yes
-		interest_group = ig_landowners
-		ideology = ideology_royalist
-		traits = {
-			basic_political_operator
-			romantic
-			brave
-		}
+		template = template_balkfm_sakskoburggotski_ferdinand
 		on_created = {
-			set_variable = balkfm_is_ferdinand
-			place_character_in_void = 720 # 60 year lease on life
+			place_character_in_void = 12
+		}
+	}
+	create_character = {
+		template = template_balkfm_dadiani_nikoloz
+		on_created = {
+			place_character_in_void = 12
 		}
 	}
 }

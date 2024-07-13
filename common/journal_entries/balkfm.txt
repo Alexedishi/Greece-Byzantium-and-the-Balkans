@@ -231,6 +231,15 @@ je_balkfm_mon_prince_bishopric = {
 		}
 	}
 	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_mon_prince_bishopric
+			trigger = {
+				always = yes
+			}
+		}
+	}
+	
 	weight = 1000
 
 }
@@ -407,111 +416,6 @@ je_balkfm_mon_black_mountain = {
 	
 	weight = 1000
 
-}
-
-je_balkfm_mon_philosopher_bishop = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	group = je_group_balkfm_montenegro	
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_balkfm_mon_philosopher_bishop_tt
-			hidden_trigger = {
-				var:manzoni_literary_tradition_var >= 50
-			}
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.391 # The Philosopher-Bishop
-		}
-	}
-	
-	fail = {
-		custom_tooltip = {
-			text = balkfm_mon_petar_dead_tt
-			hidden_trigger = {
-				ruler = {
-					NOT = {
-						has_variable = balkfm_is_petar
-					}
-				}
-			}
-		}
-	}
-		
-	invalid = {
-		hidden_trigger = {
-			morgenrote_is_active = no
-		}
-	}
-	
-	scripted_button = balkfm_compose_epic_button
-	
-	weight = 500
-	
-}
-
-je_balkfm_mon_epic = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	group = je_group_balkfm_montenegro
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = balkfm_epic_composition_var
-				}
-			}
-			set_variable = {
-				name = balkfm_epic_composition_var
-				value = 0
-			}
-		}
-	}
-	
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
-		}
-	}
-
-	on_complete = {
-		trigger_event = {
-			id = balkfm.392 # Literary Work Completed
-		}
-		remove_modifier = modifier_balkfm_composing_epic
-	}
-	
-	current_value = {
-		value = var:balkfm_epic_composition_var
-	}
-
-	goal_add_value = {
-		add = 24
-	}
-	
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = balkfm_epic_composition_var
-				add = 1
-			}
-		}
-	}
-	
-	weight = 500
-	
 }
 
 #################
@@ -1197,6 +1101,113 @@ je_balkfm_bul_brigandage = {
 	transferable = no	
 }
 
+je_balkfm_bul_legitimacy = {
+	icon = "gfx/interface/icons/event_icons/event_sakskoburggotski.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_unrecognized_monarch
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_bul_legitimacy_tt1
+			hidden_trigger = {
+				legitimacy >= 80
+				NOT = {
+					any_interest_group = {
+						is_insurrectionary = yes
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_balkfm_bul_legitimacy_tt2
+			hidden_trigger = {
+				exists = heir
+			}
+		}
+		ruler = {
+			popularity >= 50
+		}
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_balkfm_bul_legitimacy_tt4
+			hidden_trigger = {
+				ruler = {
+					NOR = {
+						has_template = template_balkfm_sakskoburggotski_ferdinand
+						has_template = template_balkfm_dadiani_nikoloz
+					}
+				}
+			}
+		}
+	}
+	
+	invalid = {
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+
+	weight = 100
+	
+}
+
+je_balkfm_bul_military_modernization = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	immediate = {
+	}
+	
+	complete = {
+		any_military_formation = {
+			any_combat_unit = {
+				count >= 50
+				OR = {
+					has_unit_type = unit_type:combat_unit_type_trench_infantry
+					has_unit_type = unit_type:combat_unit_type_squad_infantry
+					has_unit_type = unit_type:combat_unit_type_mechanized_infantry
+					has_unit_type = unit_type:combat_unit_type_shrapnel_artillery
+					has_unit_type = unit_type:combat_unit_type_siege_artillery
+					has_unit_type = unit_type:combat_unit_type_heavy_tank
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.525 # The Bulgarian Army
+		}
+	}
+	
+	weight = 100
+	
+}
+
 ## BULGARIAN IRREDENTISM ##
 
 je_balkfm_bul_liberation_of_bulgaria = {
@@ -1478,29 +1489,6 @@ je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	
 }
 
-je_balkfm_bul_old_bulgaria = {
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_balkfm_bulgaria
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_weaksauce
-		}
-	}	
-	
-	weight = 500
-	
-}
-
 je_balkfm_bul_restoration = { # this copied in from the byzfm side, only difference is the on_complete effect
 	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
@@ -1574,6 +1562,52 @@ je_balkfm_bul_restoration = { # this copied in from the byzfm side, only differe
 
 	weight = 10000
 }
+
+## BULGARIAN IMPERIAL AMBITIONS ##
+
+je_balkfm_bul_old_bulgaria = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:TSAR = this
+	}
+	
+	possible = {
+		has_technology_researched = pan-nationalism
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.590 # Memories of the Steppe
+		}
+	}
+	
+	complete = {
+		owns_entire_state_region = STATE_CRIMEA
+		owns_entire_state_region = STATE_CHERSON
+		owns_entire_state_region = STATE_TAURIDA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.591 # Old Great Bulgaria
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_weaksauce
+		}
+	}	
+	
+	weight = 500
+	
+}
+
 
 ########################################
 # MOLDOVA / WALLACHIA / ROMANIA FLAVOR #

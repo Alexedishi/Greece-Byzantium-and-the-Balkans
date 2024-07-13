@@ -1333,6 +1333,8 @@ je_grefm_megali_idea = {
 			id = grefm.201 # The Megali Idea
 		}
 	}
+	
+	scripted_button = grefm_ionian_enosis_button
 
 	complete = {
 		is_subject = no
@@ -2048,8 +2050,6 @@ je_grefm_lands_of_arianon = {
 		country_or_subject_owns_entire_state_region = STATE_TABRIZ
 		country_or_subject_owns_entire_state_region = STATE_PERSIAN_KURDISTAN
 		country_or_subject_owns_entire_state_region = STATE_LURISTAN
-		country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
-		country_or_subject_owns_entire_state_region = STATE_BASRA
 		country_or_subject_owns_entire_state_region = STATE_MAZANDARAN
 		country_or_subject_owns_entire_state_region = STATE_IRAKAJEMI
 		country_or_subject_owns_entire_state_region = STATE_SEMNAN
@@ -2116,22 +2116,191 @@ je_grefm_the_graveyard_of_empires = {
 # IMPERIAL AMBITIONS #
 ######################
 
-#
-#je_grefm_alexandria_oxus = {
-#		country_or_subject_owns_entire_state_region = STATE_MERZ
-#		country_or_subject_owns_entire_state_region = STATE_UZBEKIA
-#}
-#je_grefm_alexandria_merv = {
-#		country_or_subject_owns_entire_state_region = STATE_FERGANA
-#		country_or_subject_owns_entire_state_region = STATE_KIRGHIZIA
-#		country_or_subject_owns_entire_state_region = STATE_TAJIKISTAN
-#}
-#je_grefm_alexandria_indus = {
-#		country_or_subject_owns_entire_state_region = STATE_PUNJAB
-#		country_or_subject_owns_entire_state_region = STATE_SINDH
-#		country_or_subject_owns_entire_state_region = STATE_KASHMIR
-#}
-#
+je_grefm_black_sea = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+	
+	is_shown_when_inactive = {
+		has_variable = byzfm_revenge_of_the_greeks
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		owns_entire_state_region = STATE_HUDAVENDIGAR
+		owns_entire_state_region = STATE_KASTAMONU
+		owns_entire_state_region = STATE_TRABZON
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.310 # The Shores of the Hospitable Sea
+		}
+	}
+	
+	complete = {
+		owns_entire_state_region = STATE_KARS
+		owns_entire_state_region = STATE_GREATER_CAUCASUS
+		owns_entire_state_region = STATE_CRIMEA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.311 # The Black Sea Secured
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_magna_graecia = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+
+	is_shown_when_inactive = {
+		has_variable = byzfm_revenge_of_the_greeks
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.312 # The Lands of Magna Graecia
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
+		owns_entire_state_region = STATE_ALBANIA
+	}
+	
+	complete = {
+		owns_entire_state_region = STATE_APULIA
+		owns_entire_state_region = STATE_CALABRIA
+		owns_entire_state_region = STATE_CAMPANIA
+		owns_entire_state_region = STATE_SICILY
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.313 # Magna Graecia Secured
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_alexandria_oxus = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_MERZ
+		country_or_subject_owns_entire_state_region = STATE_UZBEKIA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.315 # Alexandria on the Oxus
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_alexandria_merv = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+	
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_FERGANA
+		country_or_subject_owns_entire_state_region = STATE_KIRGHIZIA
+		country_or_subject_owns_entire_state_region = STATE_TAJIKISTAN
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.316 # Alexandria in Margiana
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_alexandria_indus = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+	
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_PUNJAB
+		country_or_subject_owns_entire_state_region = STATE_SINDH
+		country_or_subject_owns_entire_state_region = STATE_KASHMIR
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.317 # Alexandria on the Indus
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_alexandria_susiana = {
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	group = je_group_grefm_empire
+	
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
+		country_or_subject_owns_entire_state_region = STATE_BASRA
+		country_or_subject_owns_entire_state_region = STATE_BAGHDAD
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.318 # Alexandria in Susiana
+		}
+	}
+	
+	invalid = {
+		has_variable = grefm_weaksauce
+	}
+
+	weight = 1000
+
+}
+
 
 ################
 # OTHER FLAVOR #
@@ -2308,77 +2477,166 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 
 }
 
-############################
-# COMPATIBILITY ALTERNATES #
-############################
+#########################
+# IONIAN ISLANDS FLAVOR #
+#########################
 
-je_grefm_archaeology_mgr = { # Alternate journal entry; Replaces je_grefm_archaeology if Morgenrote is present
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+je_grefm_ion_xenocracy = {
+	icon = "gfx/interface/icons/event_icons/event_heptanese.dds"
 	
-	group = je_group_grefm_nationalism
+	group = je_group_grefm_heptanese
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-		morgenrote_is_active = yes
-		has_journal_entry = je_grefm_greek_nationalism
-	}
-
-	possible = {
-		custom_tooltip = {
-			text = je_grefm_archeaology_mgr_tt1
-			hidden_trigger = {
-				has_variable = lepsius_first_excavation_team
-			}
-		}
+	immediate = {
 	}
 	
-	immediate = {
-		# grefm-specfic variables are still set since they are used by byzfm content
-		set_variable = {
-			name = grefm_archeaology_var
-			value = 0
-		}
-		set_variable = {
-			name = grefm_excavation_var
-			value = 0
-		}
-		trigger_event = {
-			id = grefm.800 # Archaeological Society of Athens (MGR Alternate)
-		}
+	modifiers_while_active = {	
+		modifier_grefm_xenocracy
+		modifier_grefm_hepantese_administration
 	}
 	
 	complete = {
-		custom_tooltip = {
-			text = je_grefm_archeaology_mgr_tt2
-			hidden_trigger = {
-				var:lepsius_local_artifact_minor >= 50
+		AND = {
+			any_scope_building = {
+				is_building_type = building_government_administration
+				OR = {
+					has_active_production_method = pm_vertical_filing_cabinets
+					has_active_production_method = pm_switch_boards
+				}
+			}
+			bureaucracy < 0
+			approaching_bureaucracy_shortage = no
+		}
+		institution_investment_level = {
+			institution = institution_police
+			value >= 3
+		}
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 3
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.401 # An Ideal Colony
+		}
+	}
+	
+	fail = {
+		OR = {
+			is_subject = no
+			trigger_if = {
+				limit = {
+					exists = c:GRE
+				}
+				is_subject_of = c:GRE
 			}
 		}
-		custom_tooltip = {
-			text = je_grefm_archeaology_mgr_tt3
-			hidden_trigger = {
-				var:lepsius_aegean_artifact_minor >= 10
+	}
+
+	weight = 1000
+
+}
+
+je_grefm_ion_venetian_legacy = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_grefm_heptanese
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_venetian_legacy
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
+		}
+		any_scope_building = {
+			is_building_type = building_wheat_farm
+			earnings >= 5
+			NOR = {
+				has_active_production_method = pm_simple_farming
+				has_active_production_method = pm_tools_disabled
 			}
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.801 # A Greek Identity (MGR Alternate)
+			id = grefm.402 # Modernized Agriculture
 		}
 	}
 	
-	weight = 2999
+	weight = 500
 	
 }
 
-je_grefm_venizelism_humanities = { # This journal is added alongside the other Venizelism entries if MGR is present; this represents Venizelo's recognition of the Greek humanities
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+je_grefm_ion_poverty = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_grefm_nationalism
+	group = je_group_grefm_heptanese
 	
-	weight = 500
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		bureaucracy > 0
+		institution_investment_level = {
+			institution = institution_social_security
+			value >= 2
+		}
+		institution_investment_level = {
+			institution = institution_health_system
+			value >= 2
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.403 # A Civilized State
+		}
+	}
+	
+	weight = 100
+	
+}
+
+je_grefm_ion_jewry = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_grefm_heptanese
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = je_grefm_ion_jewry_tt
+	}
+	
+	on_complete = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+	}
+	
+	weight = 100
 	
 }
 

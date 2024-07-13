@@ -144,7 +144,7 @@ fullscreen_block_window = {
 					position = { 0 5 }
 					parentanchor = top|hcenter
 					autoresize = yes
-					max_width = 300
+					max_width = 350
 					elide = right
 					using = fontsize_mega
 				}
@@ -440,7 +440,7 @@ fullscreen_block_window = {
 					position = { 0 5 }
 					parentanchor = top|hcenter
 					autoresize = yes
-					max_width = 300
+					max_width = 350
 					elide = right
 					using = fontsize_mega
 				}
@@ -478,15 +478,43 @@ fullscreen_block_window = {
 						}
 					}
 					
+					## Ecumenical Patriarchate Status & Autocephaly Actions
 					widget = {
-						size = { 200 150 }
-						background = {
-							using = entry_bg_unit_dark
+						size = { 200 280 }
+						
+						widget = {
+							size = { 240 180 }
+							position = { 0 40 }
+							parentanchor = top|hcenter
+						
+							background = {
+								using = entry_bg_unit_dark
+							}
+						
+							textbox = {
+								text = "eocfm_gui_ecumenical_patriarch_controller"
+								position = { 0 10 }
+								parentanchor = top|hcenter
+								autoresize = yes
+								max_width = 350
+								elide = right
+								using = fontsize_large
+							}
+							
+							textbox = {
+								raw_text = "eocfm_gui_event_counter_tt"
+								position = { 0 75 }
+								parentanchor = top|hcenter
+								autoresize = yes
+								max_width = 300
+								elide = right
+								using = fontsize_medium
+							}
 						}
 						
 						button = {
-							parentanchor = center
-							position = { 0 115 }
+							parentanchor = bottom|hcenter
+							position = { 0 0 }
 							using = default_button_primary_big_action
 							size = { 220 45 }
 							raw_text = "Declare Autocephaly"
@@ -498,8 +526,25 @@ fullscreen_block_window = {
 							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							tooltip = "eocfm_gui_declare_autocephaly_tt"
 						}
+						
+						button = {
+							parentanchor = bottom|hcenter
+							position = { 0 0 }
+							using = default_button_primary_big_action
+							size = { 220 45 }
+							raw_text = "Convoke Ecumenical Council"
+							using = fontsize_large
+							
+							datacontext = "[GetScriptedGui('eocfm_convoke_council_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_convoke_council_tt"
+						}
+
 					}
 					
+					## Ecumenical Actions Buttons
 					widget = {
 						size = { 210 210 }
 						background = {
@@ -535,22 +580,51 @@ fullscreen_block_window = {
 							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							tooltip = "eocfm_gui_secure_tetrarchy_tt"
 						}
+						
 						button = {
 							parentanchor = center
 							position = { 0 -28 }
 							using = default_button_primary_big_action
 							size = { 200 40 }
-							raw_text = "Seek Political Mandate"
+							raw_text = "Integrate Patriarchal Seat"
 							using = fontsize_medium
+							
+							datacontext = "[GetScriptedGui('eocfm_integrate_constantinople_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_integrate_constantinople_tt"
 						}
 						button = {
 							parentanchor = center
 							position = { 0 22 }
 							using = default_button_primary_big_action
 							size = { 200 40 }
-							raw_text = "DUMMY"
+							raw_text = "Sway Ecumenical Patriarch"
 							using = fontsize_medium
+							
+							datacontext = "[GetScriptedGui('eocfm_seek_mandate_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_sway_constantinople_tt"
 						}
+						
+						button = {
+							parentanchor = center
+							position = { 0 22 }
+							using = default_button_primary_big_action
+							size = { 200 40 }
+							raw_text = "Seek Political Mandate"
+							using = fontsize_medium
+							
+							datacontext = "[GetScriptedGui('eocfm_seek_mandate_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_seek_mandate_tt"
+						}
+						
 						button = {
 							parentanchor = center
 							position = { 0 72 }
@@ -558,6 +632,12 @@ fullscreen_block_window = {
 							size = { 200 40 }
 							raw_text = "Demand Deposition"
 							using = fontsize_medium
+							
+							datacontext = "[GetScriptedGui('eocfm_demand_deposition_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_demand_deposition_tt"
 						}
 					}
 				}
@@ -634,7 +714,7 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "ecofm_gui_integrate_jerusalem_tt"
+					tooltip = "eocfm_gui_integrate_jerusalem_tt"
 				}
 			}
 			
@@ -702,7 +782,7 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "ecofm_gui_integrate_jerusalem_tt"
+					tooltip = "eocfm_gui_integrate_jerusalem_tt"
 				}
 			}
 			
@@ -770,7 +850,7 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "ecofm_gui_integrate_alexandria_tt"
+					tooltip = "eocfm_gui_integrate_alexandria_tt"
 				}
 			}
 			
@@ -838,7 +918,75 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "ecofm_gui_integrate_moscow_tt"
+					tooltip = "eocfm_gui_integrate_moscow_tt"
+				}
+			}
+			
+			# Patriarchate of Rome
+			widget = {
+				layoutpolicy_horizontal = expanding
+				
+				size = { 280 320 }
+				background = {
+					using = entry_bg_unit_dark
+				}
+				# Character Portrait
+				character_portrait_medium_torso = {
+					position = { 0 20 }
+					parentanchor = top|hcenter
+					datacontext = "[GetPlayer.MakeScope.Var('eocfm_rome_patriarch_var').GetCharacter]"
+					blockoverride "show_hat" {}
+					blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+				}
+				default_header_clean_faded = {
+					size = { 250 40 }
+					position = { 0 200 }
+					parentanchor = top|hcenter
+					blockoverride "text" {
+					}
+					textbox = {
+						text = "eocfm_gui_rome_patriarch_name"
+						parentanchor = center
+						position = { 0 -2 }
+						autoresize = yes
+						max_width = 190
+						elide = right
+						using = fontsize_large
+					}
+				}
+				textbox = {
+					text = "eocfm_gui_rome_patriarch_header"
+					position = { 0 5 }
+					parentanchor = top|hcenter
+					autoresize = yes
+					max_width = 250
+					elide = right
+					using = fontsize_xl
+				}
+				textbox = {
+					text = "eocfm_gui_rome_patriarch_controller"
+					position = { 0 240 }
+					parentanchor = top|hcenter
+					autoresize = yes
+					max_width = 400
+					elide = right
+					using = fontsize_medium
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Integrate Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_integrate_rome_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_integrate_moscow_tt"
 				}
 			}
 		}

@@ -23,6 +23,10 @@
  # montenegro content
  je_balkfm_mon_prince_bishopric: "The Prince-Bishopric"
  je_balkfm_mon_prince_bishopric_reason: "To many, the country of Montenegro seems like a ghost from the distant past. With nation-states to the west and empires to the east, the small nation endures as a reminder of Europe's feudal past. The ascent of Petar II to the throne has finally heralded change in the Prince-Bishopric. Invigorated by the ideals of his father, Petar I, and by liberalism from the West, the young Bishop hopes to bring the light of modernity to Montenegro."
+ balkfm_mon_prince_bishopric_tt: "Guide [ROOT.GetCountry.GetName] into the modern age."
+ balkfm_mon_prince_bishopric_tt1: "We have reformed our society"
+ balkfm_mon_prince_bishopric_tt2: "We have centralized our government"
+ balkfm_mon_prince_bishopric_tt3: "We have organized our military"
  je_balkfm_mon_montenegrin_frontiers: "The Montenegrin Frontiers"
  je_balkfm_mon_montenegrin_frontiers_reason: "When the Seljuks stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans.\n\nHowever, as their authority over the Balkans continues to disintegrate, the Sublime Porte has embarked on a series of violent actions against the Southern Slavs. Separated from the greater Serb community, many feel that Montenegro is destined for doom lest it manage to secure the border with the Ottomans."
  je_balkfm_mon_societal_reform: "Societal Reform"
@@ -40,17 +44,6 @@
  je_balkfm_mon_black_mountain: "The Black Mountain"
  je_balkfm_mon_black_mountain_reason: "Montenegro, named after the appearance of the mountain Lovćen, clings on by a thread. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
  
- je_balkfm_mon_philosopher_bishop: "The Philosopher-Bishop"
- je_balkfm_mon_philosopher_bishop_reason: "#yellow Prince-Bishop Njegoš#! grew up with the best education the Montenegrin court could afford him, as rudimentary as it was. However, in his youth, he was tutored by Serbian poet #yellow Sima Milutinović Sarajlija#!. It was through his tutelage that Njegoš discovered both a love for literature and his own capacity for writing. Since then, the young Prince-Bishop has striven to document as many of the countless Serbian folk tales as possible.\n\n Following in the footsteps of his father, #yellow Petar I Petrović-Njegoš#!, he hopes to establish a discrete Montenegrin #o Literary Tradition#!.\n\nCurrently, we have #blue [GetPlayer.MakeScope.Var('manzoni_literary_tradition_var').GetValue]#! #o Literary Tradition#!."
- je_balkfm_mon_epic: "Composing Literary Epic"
- je_balkfm_mon_epic_reason: "The Prince-Bishop has been struck with inspiration once again. Stealing away to his study every evening, he pens fantastical stories blending Montenegrin oral tradition with religious overtones, and nationalistic fantasies."
- je_balkfm_mon_epic_goal: "The Prince-Bishop has completed his latest #o Literary Work#!."
- 
- balkfm_mon_prince_bishopric_tt1: "We have reformed our society"
- balkfm_mon_prince_bishopric_tt2: "We have centralized our government"
- balkfm_mon_prince_bishopric_tt3: "We have organized our military"
- je_balkfm_mon_philosopher_bishop_tt: "Has #yellow 50#! or more #o Literary Tradition#!."
- balkfm_mon_petar_dead_tt: "Prince-Bishop Petar II is dead."
  
  # serbia content
  je_balkfm_ser_monarchism: "Dynastic Rivalry"
@@ -122,6 +115,15 @@
  je_balkfm_bul_brigandage: "Brigandage"
  je_balkfm_bul_brigandage_reason: "In the wake of the Greek War of Independence, bandits have terrorized the Balkan countryside outside of the reach of the central governments. Across the peninnsula, people demand they be brought to justice."
  
+ je_balkfm_bul_legitimacy: "Legitimizing the Throne"
+ je_balkfm_bul_legitimacy_reason: "The coronation of [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] [ROOT.GetCountry.GetRuler.GetFirstName] has done little to secure the faith of the Bulgarian people in the monarchy. Seeking to rememedy the damage done by the ousting of Prince Battenburg, Minister #yellow Stefan Stambolov#! and his supporters have put forward a plan to prove the worth of the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle], lest [ROOT.GetCountry.Name] find itself under direct control by one of the [Concept('concept_great_power', '$concept_great_powers$')]."
+ je_balkfm_bul_legitimacy_tt1: "We have over #bold 80#! [concept_legitimacy] and none of our [Concept('concept_interest_group','$concept_interest_groups$')] are insurrectionary."
+ je_balkfm_bul_legitimacy_tt2: "King [ROOT.GetCountry.GetRuler.GetFirstName] has an heir."
+ je_balkfm_bul_legitimacy_tt3: "#yellow Alexander Battenburg#! is dead."
+ je_balkfm_bul_legitimacy_tt4: "The King has died or left the throne before legitimizing his house."
+ je_balkfm_bul_military_modernization: "Military Modernization"
+ je_balkfm_bul_military_modernization_reason: "[ROOT.GetCountry.GetName]'s existence is a tenuous one at best. With hostile powers on our borders, it is imperative that the young nation develop a military capable of defending our newfound freedom."
+ 
  je_balkfm_bul_liberation_of_bulgaria: "The Liberation of Bulgaria"
  je_balkfm_bul_liberation_of_bulgaria_reason: "Bulgaria has achieved liberty after nearly five centuries of cowering before the might of the Sultan in Tsargrad. Yet, we have been unfairly denied union with the rest of the Bulgarian community. Our brethren in Eastern Rumelia call for freedom from the Sublime Porte."
  je_balkfm_bul_greater_bulgaria: "Greater Bulgaria"
@@ -177,7 +179,7 @@
  je_balkfm_rom_1866_1_reason: "King [ROOT.GetCountry.GetRuler.GetFullName] was invited to rule [ROOT.GetCountry.GetName] on the pretense of defending the freedoms of the Romanian people. With his endorsement of the constitution, the people look to their leadership to implement the prescribed reforms into law."
  je_balkfm_rom_1866_2: "Romanian Constitutionalism"
  je_balkfm_rom_1866_2_reason: "King [ROOT.GetCountry.GetRuler.GetFullName] was invited to rule [ROOT.GetCountry.GetName] on the pretense of defending the freedoms of the Romanian people. Instead, the King has fallen prey to the temptations of autocracy and seeks to impose his rule over the Romanian state.\n\nThe King currently commands #variable [ROOT.GetVariable('balkfm_1866_var').GetValue] support. This is expected to change by #variable [ROOT.GetVariable('balkfm_1866_progress_var').GetValue|+=]#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_rom_sources various sources#!."
- je_balkfm_rom_sources: "Expected change is due to:\n#variable [Country.MakeScope.Var('balkfm_1866_ruler_var').GetValue|+=]#! from the King's popularity.\n#variable [Country.MakeScope.Var('alkfm_1866_support_var').GetValue|+=]#! from interest groups that support #yellow Autocracy#! or #yellow Oligarchy#!.\n#variable [Country.MakeScope.Var('balkfm_1866_radicals_var').GetValue|-=]#! from radicalism in #bold Romania#!."
+ je_balkfm_rom_sources: "Expected change is due to:\n#variable [Country.MakeScope.Var('balkfm_1866_ruler_var').GetValue|+=]#! from the King's popularity.\n#variable [Country.MakeScope.Var('balkfm_1866_support_var').GetValue|+=]#! from interest groups that support #yellow Autocracy#! or #yellow Oligarchy#!.\n#variable [Country.MakeScope.Var('balkfm_1866_radicals_var').GetValue|-=]#! from radicalism in #bold Romania#!."
  je_balkfm_rom_1866_fail: "The King has lost all support."
  je_balkfm_rom_constitution_1: "The King commands broad support."
  je_balkfm_rom_constitution_2: "The King's supporters are wavering."
@@ -290,9 +292,6 @@
  balkfm_austrian_agitation_desc: "[ROOT.GetCountry.GetName] has gained its own administration, yet so many of our people have come under the thumb of the German rulers to our north. We should help them fight for their freedom."
  balkfm_ottoman_agitation: "Support Ottoman Yugoslavs"
  balkfm_ottoman_agitation_desc: "[ROOT.GetCountry.GetName] might have a measure of freedom from the #bold Porte#!, but our countrymen still live under their oppression. We should aid their fight for freedom."
- 
- balkfm_compose_epic: "Compose Literary Epic"
- balkfm_compose_epic_desc: "The Prince-Bishop yearns to spend more time devoting himself to his writings. While a priceless contribution to the growing national identity of Montenegro, some worry he is distracted from ruling."
  
  balkfm_cement_monarchy: "Cement Dynastic Succession"
  balkfm_cement_monarchy_desc: "Our dynasty has secured its control over the Serbian throne. All that's left it to convince the National Assembly to grant us the right of inheritance."
@@ -460,8 +459,21 @@
  modifier_balkfm_railway_buyout_desc: "Railway Buyout"
  modifier_balkfm_bulgarian_railways: "Bulgarian Railways"
  modifier_balkfm_bulgarian_railways_desc: "Bulgarian Railways"
- modifier_balkfm_autocephaly_abandoned: "Abandoned Autocepalous Ambitions"
- modifier_balkfm_autocephaly_abandoned_desc: "Abandoned Autocepalous Ambitions"
+ 
+ modifier_balkfm_learning_bulgarian: "Learning Bulgarian"
+ modifier_balkfm_learning_bulgarian_desc: "Learning Bulgarian"
+ modifier_balkfm_refused_bulgarian: "Refused Bulgarian Lessons"
+ modifier_balkfm_refused_bulgarian_desc: "Refused Bulgarian Lessons"
+ modifier_balkfm_military_reconciliation: "Military Reconciliation"
+ modifier_balkfm_military_reconciliation_desc: "Military Reconciliation"
+ modifier_balkfm_military_tension: "Military Tensions"
+ modifier_balkfm_military_tension_desc: "Military Tensions"
+ modifier_balkfm_modernized_military: "Modernized Military"
+ modifier_balkfm_modernized_military_desc: "Modernized Military"
+ modifier_balkfm_unchallenged_rule: "Unchallenged Rule"
+ modifier_balkfm_unchallenged_rule_desc: "Unchallenged Rule"
+ modifier_balkfm_heresy_questioned: "Heresy Questioned"
+ modifier_balkfm_heresy_questioned_desc: "Heresy Questioned"
  modifier_balkfm_bulgarian_resurgence: "Bulgarian Resurgence"
  modifier_balkfm_bulgarian_resurgence_desc: "Bulgarian Resurgence"
  

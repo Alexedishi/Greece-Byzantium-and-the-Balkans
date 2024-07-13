@@ -207,6 +207,7 @@ eocfm_reform_synod_sgui = {
 		NOR = {
 			has_modifier = modifier_eocfm_reformed_synod
 			has_modifier = modifier_eocfm_restored_synod
+			has_modifier = modifier_eocfm_clung_to_tradition
 		}
 	}
 	
@@ -367,6 +368,20 @@ eocfm_declare_autocephaly_sgui = {
 		NOT = {
 			has_law = law_type:law_theocracy
 		}
+		trigger_if = {
+			limit = {
+				OR = {
+					c:MOL ?= this
+					c:WAL ?= this
+				}
+			}
+			custom_tooltip = {
+				text = eocfm_unite_romania_tt
+				hidden_trigger = {
+					c:ROM ?= this
+				}
+			}
+		}
 		hidden_trigger = {
 			NOT = {
 				has_variable = eocfm_schism_var
@@ -382,6 +397,10 @@ eocfm_declare_autocephaly_sgui = {
 		trigger_event = {
 			id = eocfm.100 # Country Declaration of Schism
 			popup = yes
+		}
+		add_modifier = {
+			name = modifier_eocfm_schismatic
+			months = 120
 		}
 	}
 }
@@ -484,7 +503,7 @@ eocfm_secure_tetrarchy_sgui = {
 				AND = {
 					owns_entire_state_region = STATE_EASTERN_THRACE
 					has_variable = eocfm_controls_constantinople
-					owns_entire_state_region = STATE_ADANA
+					owns_entire_state_region = STATE_SYRIA
 					has_variable = eocfm_controls_antioch
 					owns_entire_state_region = STATE_LOWER_EGYPT
 					has_variable = eocfm_controls_alexandria
@@ -497,7 +516,7 @@ eocfm_secure_tetrarchy_sgui = {
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.317 # The Ancient Partiarchates
+			id = eocfm.314 # The Ancient Partiarchates
 			popup = yes
 		}
 	}
@@ -523,7 +542,7 @@ eocfm_secure_pentarchy_sgui = {
 				AND = {
 					owns_entire_state_region = STATE_EASTERN_THRACE
 					has_variable = eocfm_controls_constantinople
-					owns_entire_state_region = STATE_ADANA
+					owns_entire_state_region = STATE_SYRIA
 					has_variable = eocfm_controls_antioch
 					owns_entire_state_region = STATE_LOWER_EGYPT
 					has_variable = eocfm_controls_alexandria
@@ -539,7 +558,7 @@ eocfm_secure_pentarchy_sgui = {
 	
 	effect = {
 		trigger_event = {
-			id = eocfm.318 # The Restoration of the Pentarchy
+			id = eocfm.315 # The Restoration of the Pentarchy
 			popup = yes
 		}
 	}
@@ -557,12 +576,18 @@ eocfm_mend_schism_sgui = {
 	
 	is_valid = {
 		custom_tooltip = {
+			text = eocfm_need_2000_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 2000
+			}
+		}
+		custom_tooltip = {
 			text = eocfm_gui_mend_schism_tt2
 			hidden_trigger = {
 				AND = {
 					owns_entire_state_region = STATE_EASTERN_THRACE
 					has_variable = eocfm_controls_constantinople
-					owns_entire_state_region = STATE_ADANA
+					owns_entire_state_region = STATE_SYRIA
 					has_variable = eocfm_controls_antioch
 					owns_entire_state_region = STATE_LOWER_EGYPT
 					has_variable = eocfm_controls_alexandria
@@ -573,11 +598,40 @@ eocfm_mend_schism_sgui = {
 				}
 			}
 		}
-		always = no
+		custom_tooltip = {
+			text = eocfm_gui_mend_schism_tt3
+			hidden_trigger = {
+				NOR = {
+					has_global_variable = eocfm_mending_started
+					has_global_variable = eocfm_schism_mended
+				}
+			}
+		}
 	}
 	
 	effect = {
+		set_global_variable = eocfm_mending_started
+		set_variable = {
+			name = eocfm_mending_var
+			value = 0
+		}
+		trigger_event = {
+			id = eocfm.318 # The Council of Unification
+		}
 		add_modifier = modifier_eocfm_mending_schism
+		hidden_effect = {
+			every_country = {
+				limit = {
+					country_has_state_religion = rel:orthodox
+					NOT = {
+						has_variable = eocfm_mending_var
+					}
+				}
+				trigger_event = {
+					id = eocfm.318 # The Council of Unification
+				}
+			}
+		}
 	}
 }
 
@@ -589,9 +643,24 @@ eocfm_seek_mandate_sgui = {
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_500_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 500
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_has_ecumenical_patriarch_approval_tt
+			hidden_trigger = {
+				var:eocfm_constantinople_relations_var >= 100
+			}
+		}
 	}
 	
 	effect = {
+		trigger_event = {
+			id = eocfm.160 # An Audience with the Patriarch
+		}
 	}
 }
 
@@ -603,9 +672,47 @@ eocfm_demand_deposition_sgui = {
 	}
 	
 	is_valid = {
+		trigger_if = {
+			limit = {
+				c:TUR ?= {
+					has_variable = eocfm_controls_constantinople
+				}
+			}
+			c:TUR = {
+				relations:root >= relations_threshold:cordial
+			}
+		}
+		trigger_if = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_controls_constantinople
+				}
+			}
+			custom_tooltip = {
+				text = eocfm_has_junior_patriarch_approval_tt
+				hidden_trigger = {
+					eocfm_has_junior_patriarch_approval_trigger = yes
+				}
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_patriarch_deposed_cooldown_tt
+			hidden_trigger = {
+				NOT = {
+					has_global_variable = eocfm_patriarch_deposed_var
+				}
+			}
+		}
 	}
 	
 	effect = {
+		trigger_event = {
+			id = eocfm.161 # Ecumenical Patriarch Deposed
+		}
+		set_variable = {
+			name = eocfm_patriarch_deposed_var
+			days = 1825
+		}
 	}
 }
 
@@ -663,7 +770,7 @@ eocfm_integrate_rome_sgui = {
 				}
 			}
 			trigger_event = {
-				id = eocfm.310 # Challenging the Patriarch of the West
+				id = eocfm.316 # Challenging the Patriarch of the West
 			}
 		}
 	}
@@ -737,17 +844,44 @@ eocfm_integrate_constantinople_sgui = {
 	}
 }
 
-eocfm_sway_constantinople_sgui = {
+eocfm_start_sway_constantinople_sgui = {
 	scope = country
 	
 	is_shown = {
 		has_variable = eocfm_controls_constantinople
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_constantinople
+		}
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}			
 	}
 	
 	effect = {
+		add_modifier = modifier_eocfm_swaying_constantinople
+	}
+}
+
+eocfm_stop_sway_constantinople_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_constantinople
+		has_modifier = modifier_eocfm_swaying_constantinople
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_constantinople
 	}
 }
 
@@ -782,7 +916,7 @@ eocfm_integrate_antioch_sgui = {
 				}
 			}
 		}
-		owns_entire_state_region = STATE_ADANA
+		owns_entire_state_region = STATE_SYRIA
 	}
 	
 	effect = {

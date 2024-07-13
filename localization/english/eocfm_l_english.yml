@@ -25,6 +25,8 @@
  decree_eocfm_encourage_almsgiving_desc: "Promote the giving of donations to the Orthodox Church (and skim a little off the top). #yellow This will cost 100 [concept_caesaropapism]#!."
  
  # tooltips
+ eocfm_unite_romania_tt: "We have #bold United the Principalities#!"
+ 
  eocfm_commission_icon_tt: "Does not currently have an icon."
  eocfm_controls_major_seat_tt: "Controls one of the Patriarchal Seats."
  eocfm_has_autocephaly_tt: "Has declared Autocephaly."
@@ -33,11 +35,12 @@
  eocfm_convoke_council_tt3: "An Ecumenical Council is not currently being held."
  je_eocfm_convoke_council_tt: "•Reply to the Epistle to the Easterners (requires #yellow Mass Communication#!).\n•Settle the issue of Phyletism (requires #yellow Nationalism#!).\n•Reform the Julian Calendar (requires #yellow Central Planning#!).\n•Revive the [Concept('concept_crusades','$concept_crusades$')] (must have #bold Restored the Byzantine Empire#!)."
  
- eocfm_need_100_tt: "Has #blue 100#! [concept_caesaropapism]."
- eocfm_need_200_tt: "Has #blue 200#! [concept_caesaropapism]."
- eocfm_need_500_tt: "Has #blue 500#! [concept_caesaropapism]."
- eocfm_need_800_tt: "Has #blue 800#! [concept_caesaropapism]."
- eocfm_need_1000_tt: "Has #blue 1000#! [concept_caesaropapism]."
+ eocfm_need_100_tt: "Has #blue 100#! @eocfm_caesaropapism! [concept_caesaropapism]."
+ eocfm_need_200_tt: "Has #blue 200#! @eocfm_caesaropapism! [concept_caesaropapism]."
+ eocfm_need_500_tt: "Has #blue 500#! @eocfm_caesaropapism! [concept_caesaropapism]."
+ eocfm_need_800_tt: "Has #blue 800#! @eocfm_caesaropapism! [concept_caesaropapism]."
+ eocfm_need_1000_tt: "Has #blue 1000#! @eocfm_caesaropapism! [concept_caesaropapism]."
+ eocfm_need_2000_tt: "Has #blue 2000#! @eocfm_caesaropapism! [concept_caesaropapism]."
  
  eocfm_integration_lose_6: "We will lose #variable 6#! months of progress."
  eocfm_integration_gain_2: "We will gain #variable 2#! months of progress."
@@ -57,11 +60,22 @@
  eocfm_controls_moscow_tt: "We now control the Patriarchal Seat of #yellow Moscow#!."
  
  je_eocfm_the_orthodox_realms_constantinople: "Own #yellow Eastern Thrace#! and control the #bold Seat of Constantinople#!."
- je_eocfm_the_orthodox_realms_antioch: "Own #yellow Adana#! and control the #bold Seat of Antioch#!."
+ je_eocfm_the_orthodox_realms_antioch: "Own #yellow Syria#! and control the #bold Seat of Antioch#!."
  je_eocfm_the_orthodox_realms_alexandria: "Own #yellow Lower Egypt#! and control the #bold Seat of Alexandria#!."
  je_eocfm_the_orthodox_realms_jerusalem: "Own #yellow Palestine#! and control the #bold Seat of Jerusalem#!."
  je_eocfm_the_third_rome_tt1: "Own and control the seat of #yellow Moscow#!."
  je_eocfm_the_third_rome_tt2: "Own and control all #bold Eastern Patriarchal Seats#!."
+ 
+ eocfm_has_any_patriarch_approval_tt: "We have over 100 [Concept('concept_ecumenism','$concept_ecumenical_relations$')] with any #tooltippable #tooltip:[GetRawTextTooltipTag('eocfm_all_patriarchal_seats_tt')] Patriarchate.#!#!"
+ eocfm_has_ecumenical_patriarch_approval_tt: "We have over 100 [Concept('concept_ecumenism','$concept_ecumenical_relations$')] with the #bold Ecumenical Patriarchate#!."
+ eocfm_has_east_patriarch_approval_tt: "We have over 100 [Concept('concept_ecumenism','$concept_ecumenical_relations$')] with any #tooltippable #tooltip:[GetRawTextTooltipTag('eocfm_east_patriarchal_seats_tt')] Eastern Patriarchate.#!#!"
+ eocfm_has_junior_patriarch_approval_tt: "We have over 100 [Concept('concept_ecumenism','$concept_ecumenical_relations$')] with any #tooltippable #tooltip:[GetRawTextTooltipTag('eocfm_junior_patriarchal_seats_tt')] Junior Patriarchate.#!#!"
+ eocfm_has_senior_patriarch_approval_tt: "We have over 100 [Concept('concept_ecumenism','$concept_ecumenical_relations$')] with any #tooltippable #tooltip:[GetRawTextTooltipTag('eocfm_senior_patriarchal_seats_tt')] Senior Patriarchate.#!#!"
+ 
+ eocfm_all_patriarchal_seats_tt: "•See of Rome (Seated in #yellow Lazio#!).\n•Ecumenical Patriarchate of Constantinople (Seated in #yellow Eastern Thrace#!).\n•Patriarchate of Antioch and All the East (Seated in #yellow Syria#!).\n•Patriarchate of Jerusalem (Seated in #yellow Palestine#!).\n•Patriarchate of Alexandria and all Africa (Seated in #yellow Lower Egypt#!).\n•Moscow Patriarchate (Seated in #yellow Moscow#!)."
+ eocfm_east_patriarchal_seats_tt: "•Ecumenical Patriarchate of Constantinople (Seated in #yellow Eastern Thrace#!).\n•Patriarchate of Antioch and All the East (Seated in #yellow Syria#!).\n•Patriarchate of Jerusalem (Seated in #yellow Palestine#!).\n•Patriarchate of Alexandria and all Africa (Seated in #yellow Lower Egypt#!).\n•Moscow Patriarchate (Seated in #yellow Moscow#!)."
+ eocfm_senior_patriarchal_seats_tt: "•See of Rome (Seated in #yellow Lazio#!).\n•Ecumenical Patriarchate of Constantinople (Seated in #yellow Eastern Thrace#!)."
+ eocfm_junior_patriarchal_seats_tt: "•Patriarchate of Antioch and All the East (Seated in #yellow Syria#!).\n•Patriarchate of Jerusalem (Seated in #yellow Palestine#!).\n•Patriarchate of Alexandria and all Africa (Seated in #yellow Lower Egypt#!).\n•Moscow Patriarchate (Seated in #yellow Moscow#!)."
  
  eocfm_crusades_enabled_tt: "Enables [Concept('concept_crusades','$concept_crusades$')] against Muslim nations. #italic Theoú thélontos!#!"
  dp_crusade: "Crusade"
@@ -70,54 +84,62 @@
  eocfm_dp_crusade_tt: "There is not an ongoing Crusade."
 
  # notifications
- notification_notification_eocfm_autocephaly_recognized_name: ""
- notification_notification_eocfm_autocephaly_recognized_desc: ""
- notification_notification_eocfm_rome_claimed_name: ""
- notification_notification_eocfm_rome_claimed_desc: ""
- notification_notification_eocfm_constantinople_claimed_name: ""
- notification_notification_eocfm_constantinople_claimed_desc: ""
- notification_notification_eocfm_constantinople_usurped_name: ""
- notification_notification_eocfm_constantinople_usurped_desc: ""
- notification_notification_eocfm_antioch_claimed_name: ""
- notification_notification_eocfm_antioch_claimed_desc: ""
- notification_notification_eocfm_antioch_usurped_name: ""
- notification_notification_eocfm_antioch_usurped_desc: ""
- notification_notification_eocfm_jerusalem_claimed_name: ""
- notification_notification_eocfm_jerusalem_claimed_desc: ""
- notification_notification_eocfm_jerusalem_usurped_name: ""
- notification_notification_eocfm_jerusalem_usurped_desc: ""
- notification_notification_eocfm_alexandria_claimed_name: ""
- notification_notification_eocfm_alexandria_claimed_desc: ""
- notification_notification_eocfm_alexandria_usurped_name: ""
- notification_notification_eocfm_alexandria_usurped_desc: ""
- notification_notification_eocfm_moscow_claimed_name: ""
- notification_notification_eocfm_moscow_claimed_desc: ""
- notification_notification_eocfm_moscow_usurped_name: ""
- notification_notification_eocfm_moscow_usurped_desc: ""
+ notification_notification_eocfm_autocephaly_declared_name: "Autocephaly Declared"
+ notification_notification_eocfm_autocephaly_declared_desc: "[SCOPE.sCountry('eocfm_schism_scope').GetName] has declared their [concept_autocephaly] in defiance of the Ecumenical Patriarch."
+ notification_notification_eocfm_autocephaly_recognized_name: "Autocephaly Recognized"
+ notification_notification_eocfm_autocephaly_recognized_desc: "[SCOPE.sCountry('eocfm_schism_scope').GetName] has been recognized by the Ecumenical Patriarch as an [Concept('concept_autocephaly','$concept_autocephalous$')] jurisdiction of the Eastern Church."
+ 
+ notification_notification_eocfm_rome_claimed_name: "Seat of Rome Claimed"
+ notification_notification_eocfm_rome_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Rome#!."
+ notification_notification_eocfm_rome_usurped_name: "Seat of Rome Usurped!"
+ notification_notification_eocfm_rome_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Rome#! and installed bishops in alignment with them."
+ 
+ notification_notification_eocfm_constantinople_claimed_name: "Seat of Constantinople Claimed"
+ notification_notification_eocfm_constantinople_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Constantinople#!."
+ notification_notification_eocfm_constantinople_usurped_name: "Seat of Constantinople Usurped"
+ notification_notification_eocfm_constantinople_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Constantinople#! and installed bishops in alignment with them."
+ 
+ notification_notification_eocfm_antioch_claimed_name: "Seat of Antioch Claimed"
+ notification_notification_eocfm_antioch_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Antioch#!."
+ notification_notification_eocfm_antioch_usurped_name: "Seat of Antioch Usurped"
+ notification_notification_eocfm_antioch_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Antioch#! and installed bishops in alignment with them."
+ 
+ notification_notification_eocfm_jerusalem_claimed_name: "Seat of Jerusalem Claimed"
+ notification_notification_eocfm_jerusalem_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Jerusalem#!."
+ notification_notification_eocfm_jerusalem_usurped_name: "Seat of Jerusalem Usurped"
+ notification_notification_eocfm_jerusalem_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Jerusalem#! and installed bishops in alignment with them."
+ 
+ notification_notification_eocfm_alexandria_claimed_name: "Seat of Alexandria Claimed"
+ notification_notification_eocfm_alexandria_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Alexandria#!."
+ notification_notification_eocfm_alexandria_usurped_name: "Seat of Alexandria Usurped"
+ notification_notification_eocfm_alexandria_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Alexandria#! and installed bishops in alignment with them."
+ 
+ notification_notification_eocfm_moscow_claimed_name: "Seat of Moscow Claimed"
+ notification_notification_eocfm_moscow_claimed_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has claimed theological jurisdiction over the Holy Seat of #bold Moscow#!."
+ notification_notification_eocfm_moscow_usurped_name: "Seat of Moscow Usurped"
+ notification_notification_eocfm_moscow_usurped_desc: "[SCOPE.sCountry('eocfm_claimant_scope').GetName] has seized control of the Holy Seat of #bold Moscow#! and installed bishops in alignment with them."
+ 
+ # alerts
+ ag_eocfm_alerts_name: "Orthodoxy Interaction Available"
+ ag_eocfm_alerts_desc: "There are Eastern Orthodox Church actions available. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget to select one."
+ ag_eocfm_alerts_tooltip: "#header $ag_eocfm_alerts_name$#!\n$TOOLTIP_DELIMITER$\n$ag_eocfm_alerts_desc$\n\n$ALERT_GROUP_TOOLTIP_FOOTER$"
+ 
+ alert_eocfm_no_focus_alert_name: "No Metropolitan Focus Active"
+ alert_eocfm_no_focus_alert_hint: "Our Metropolitan Bishop has not been given an ecclesiastic focus. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget to select one." 
+ alert_eocfm_no_focus_alert_action: "non-existent panel. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget."
+ eocfm_no_focus_alert_setting_name: "No Metropolitan Focus Active"
+ 
+ alert_eocfm_icon_possible_alert_name: "Can Select an Icon"
+ alert_eocfm_icon_possible_alert_hint: "We have at least 200 @eocfm_caesaropapism! [concept_caesaropapism] and do not have an icon selected. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget to select one."
+ alert_eocfm_icon_possible_alert_action: "non-existent panel. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget."
+ eocfm_icon_possible_alert_setting_name: "@grefm! Icon Selection Possible"
+ 
+ alert_eocfm_integration_possible_alert_name: "Can Integrate Patriarchal Seat"
+ alert_eocfm_integration_possible_alert_hint: "We have at least 500 @eocfm_caesaropapism! [concept_caesaropapism] and own a state that hosts a Patriarchal Seat that is not under our control. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget to begin the integration process."
+ alert_eocfm_integration_possible_alert_action: "non-existent panel. Access the @eocfm_orthodoxy! Eastern Orthodox Church widget."
+ eocfm_integration_possible_alert_setting_name: "@grefm! Patriarchal Seat Integration Possible"
  
  # scripted buttons
- eocfm_declare_autocephaly: "Declare Autocephaly"
- eocfm_declare_autocephaly_desc: "Once the symbol of unity in the Eastern Church, the Ecumenical Patriarch in Constantinople has increasingly come under the influence of the Ottoman Sultan. Unless we sever our connections with Constantinople, the Ottomans are sure to continue to interfere in our politics and may even try to further their attempts to suppress our culture."
- eocfm_commission_icon: "Commission Icon"
- eocfm_commission_icon_desc: "We can use some of our influence over the Church to commission icons to inspire the faithful. These icons will endure for 10 years before needing replacement."
- eocfm_convoke_council: "Covoke Ecumenical Council"
- eocfm_convoke_council_desc: "Our influence within the Eastern Orthodox community is obvious. We could use this power to summon an Ecumenical Council to settle long-standing issues within the Orthodox Church."
- eocfm_integrate_seat: "Integrate Patriarchal Seat"
- eocfm_integrate_seat_desc: "One of the Ancient Seats of the Eastern Orthodox Church has come under our control. Should we see fit, we could replace its bishops with ones loyal to [ROOT.GetCountry.GetName]. This may anger their former patrons."
- eocfm_enact_caesaropapism: "Enact Caesaropapism"
- eocfm_enact_caesaropapism_desc: "Caesaropapism, the idea of merging the church and state, has gained traction as a means of both protecting and enforcing our independent identity as a people. By subjugating the church to the state apparatus, we can insulate ourselves from further interference by the Sultan."
- eocfm_revoke_caesaropapism: "Revoke Caesaropapism"
- eocfm_revoke_caesaropapism_desc: "The act of subjugating the Church has had profound effects. Chafing under the yoke of the state, the Church has lost a lot of its former influence. If we wish, we could restore the independence of the clergy."
- eocfm_subsidize_church: "Grant Church Subsidies"
- eocfm_subsidize_church_desc: "[ROOT.GetCountry.GetName] could grant state subsidies to the Orthodox Church in the name of supporting the needs of the clergy... in exchange for their compliance."
- eocfm_stop_subsidies: "Stop Church Subsidies"
- eocfm_stop_subsidies_desc: "Civic leaders decry the use of secular funds to provide for spiritual matters."
- eocfm_establish_sunday_schools: "Establish Sunday Schools"
- eocfm_establish_sunday_schools_desc: "The best way to spread the divine word and to bring literacy to the poorest of our children is by providing them with weekly education following liturgical services."
- eocfm_disband_sunday_schools: "Disband Sunday Schools"
- eocfm_disband_sunday_schools_desc: ""
- eocfm_dissolve_the_monasteries: "Dissolve the Monasteries"
- eocfm_dissolve_the_monasteries_desc: "Throughout our hinterland, there are several ancient monasteries that cling on by momentum alone. Administrators have advised that the functions of both the church and the state could be dramatically improved by shuttering several minor monasteries."
  
  # country_flavor_text
  
@@ -152,6 +174,8 @@
  
  modifier_eocfm_schismatic: "Schismatic"
  modifier_eocfm_schismatic_desc: "Schismatic"
+ modifier_eocfm_autocephaly_abandoned: "Abandoned Autocepalous Ambitions"
+ modifier_eocfm_autocephaly_abandoned_desc: "Abandoned Autocepalous Ambitions"
  modifier_eocfm_autocephaly_granted: "Autocephaly Granted"
  modifier_eocfm_autocephaly_granted_desc: "Autocephaly Granted"
  modifier_eocfm_integrating_seat: "Integrating Patriarchal Seat"
@@ -190,6 +214,10 @@
  modifier_eocfm_promote_ecumenism: "Promoting Ecumenism"
  modifier_eocfm_promote_ecumenism_desc: "Promoting Ecumenism"
  
+ modifier_eocfm_monastic_reparations: "Monastic Reparations"
+ modifier_eocfm_monastic_reparations_desc: "Monastic Reparations"
+ modifier_eocfm_destitute_clergy: "Destitute Clergy"
+ modifier_eocfm_destitute_clergy_desc: "Destitute Clergy"
  modifier_eocfm_asserted_caesaropapism: "Asserted Caesaropapism"
  modifier_eocfm_asserted_caesaropapism_desc: "Asserted Caesaropapism"
  modifier_eocfm_supported_synod: "Supported Synod"
@@ -216,6 +244,8 @@
  modifier_eocfm_ruler_accepted_conversion_desc: "Ruler Accepted Conversion"
  modifier_eocfm_ruler_refused_conversion: "Ruler Refused Conversion"
  modifier_eocfm_ruler_refused_conversion_desc: "Ruler Refused Conversion"
+ modifier_eocfm_expelled_metropolitan: "Expelled Metropolitan Bishop"
+ modifier_eocfm_expelled_metropolitan_desc: "Expelled Metropolitan Bishop"
  
  modifier_eocfm_icon_christ_pantocrator: "Icon of Christ Pantocrator"
  modifier_eocfm_icon_christ_pantocrator_desc: "Icon of Christ Pantocrator"
@@ -272,8 +302,8 @@
  Hierotheus: "Hierotheus"
  
  # traits
- trait_ecofm_patriarch: "Patriarch"
- trait_ecofm_patriarch_desc: ""
+ trait_eocfm_patriarch: "Patriarch"
+ trait_eocfm_patriarch_desc: ""
  
  # ideologies
  
@@ -286,7 +316,7 @@
  # production methods
  
  # script value breakdowns
- eocfm_capacity_from_base: "Base Capacity:"
+ eocfm_capacity_from_base: "Base Capacity"
  
  eocfm_capacity_from_monarchy: "From having #yellow Monarchy#! enacted"
  eocfm_capacity_from_reformed_synod: "From #bold Reforming the National Synod#!"
@@ -306,9 +336,11 @@
  eocfm_capacity_from_secured_tetrarchy: "From #bold Securing the Tetrarchy#!"
  eocfm_capacity_from_secured_pentarchy: "From #bold Securing the Pentarchy#!"
  eocfm_capacity_from_mended_schism: "From #bold Successfully Mending the Great Schism#!"
+ eocfm_capacity_from_expelled_metropolitan: "From #bold Expelling Metropolitan Bishop#!"
  
  eocfm_capacity_from_theocracy: "From having #yellow Theocracy#! enacted"
  eocfm_capacity_from_religious_schools: "From having #yellow Religious Schools#! enacted"
+ eocfm_capacity_from_autocephaly_abandoned: "From #bold Submitting to Constantinople#!"
  
  eocfm_capacity_from_controls_all_seats: "From #bold Controlling all Patriarchal Seats#!"
  eocfm_capacity_from_state_religion: "From having #yellow State Religion#! enacted"
@@ -316,6 +348,13 @@
  
  eocfm_capacity_from_restored_synod: "From #bold Restoring the Synod#!"
  eocfm_capacity_from_restored_monasteries: "From #bold Restoring the Monasteries#!"
+ 
+ eocfm_capacity_from_swaying_rome: "From swaying Rome"
+ eocfm_capacity_from_swaying_constantinople: "From swaying Constantinople"
+ eocfm_capacity_from_swaying_antioch: "From swaying Antioch"
+ eocfm_capacity_from_swaying_jerusalem: "From swaying Jerusalem"
+ eocfm_capacity_from_swaying_alexandria: "From swaying Alexandria"
+ eocfm_capacity_from_swaying_moscow: "From swaying Moscow"
  
  eocfm_capacity_from_hosting_council: "From #bold #greece Hosting an Ecumenical Council#!#!"
  eocfm_capacity_from_schismatic: "From #bold #red Being in Schism#!#!"
@@ -333,11 +372,16 @@
  concept_autocephalous: "Autocephalous"
  concept_patriarchal_seat: "Patriarchal Seat"
  concept_patriarchal_seat_desc: "In late antiquity, the early Christian church was organized into five major regions, each centered on the ancient holy cites of #yellow Rome#!, #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!. Following the Great Schism, the latter four would go on to form the #bold Eastern Orthodoxy.\n\nWith the spread of Christianity to the lands of the Slavs in the middle ages, #yellow Moscow#! has come to be recognized as one of the most important cities in the East, alongside the ancient Patriarchates."
+ concept_patriarchs: "Patriarchs"
  concept_ecumenical_council: "Ecumenical Council"
  concept_ecumenical_council_desc: "#bold Ecumenical Councils#! are large gatherings of prominent bishops for the purpose of settling religious questions or disputes. First called by the Roman Emperors, these councils have become a cornerstone of making critical interpretations of or changes to church dogma. In the Eastern Orthodoxy, these are held to be the supreme legal authority in the church... provided their contents are accepted by the Orthdox community at large.
+ concept_councils: "Ecumenical Councils"
  concept_crusades: "Crusades"
  concept_crusades_desc: "The Crusades were a series of religiously-motivated wars initiated by Western European countries against non-Christians. While popularly conceptualized as centered on reclaiming the Holy Land from Muslim rulers, similar religious conflicts saw Chrstian expansion into Scandanavia, Eastern Europe, and Iberia. These wars were generally motivated by a desire for fame from nobles and a desire for indulgences by the commonfolk."
  concept_crusade: "Crusade"
+ concept_ecumenism: "Ecumenism"
+ concept_ecumenism_desc: "Ecumenism is the belief and goal that all Christian communities, regardless of differences in creeds and doctrine should cooperate to bring together the various Christian denominations and reunite into a Great Church. While unthinkable in previous eras, this idea has begun to take hold as Traditionalist thought slowly gives way to more moderate thinking."
+ concept_ecumenical_relations: "Ecumenical Relations"
  
  # custom loc
  
@@ -385,24 +429,31 @@
  # GUI Ecumenical Actions
  eocfm_gui_ecumenical_patriarch_header: "Ecumenical Patriarchate"
  eocfm_gui_ecumenical_patriarch_name: "Ecumenical Patriarch [GetPlayer.MakeScope.Var('eocfm_constantinople_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_ecumenical_patriarch_controller: "Constantinople answers to #yellow #bold The Porte#!#!"
- custom_eocfm_constantinople_owner1: "Constantinople answers to "
- custom_eocfm_constantinople_owner2: "Constantinople answers to #bold #yellow No One#!#!." 
+ eocfm_gui_ecumenical_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_constantinople_controller_type')]"
+ custom_eocfm_constantinople_owner1: "Constantinople answers to\n [GetPlayer.MakeScope.Var('eocfm_constantinople_controller_var').GetCountry.GetName]"
+ custom_eocfm_constantinople_owner2: "Constantinople answers to #bold #yellow No One#!#!."
+ eocfm_gui_integrate_constantinople_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_sway_constantinople_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ 
+ eocfm_gui_event_counter_tt: "[Concept('concept_ecumenical_council','$concept_councils$')] Convoked: #bold [GetGlobalVariable('eocfm_council_var').GetValue]#!\n[Concept('concept_crusades','$concept_crusades$')] Launched: #bold [GetGlobalVariable('eocfm_crusade_counter').GetValue]#!\n[Concept('concept_patriarchal_seat','$concept_patriarchs$')] Deposed: #bold [GetGlobalVariable('eocfm_deposition_counter').GetValue]#!"
  eocfm_gui_declare_autocephaly_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_convoke_council_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_autocephaly_progress_amount: "TODO"
  eocfm_gui_autocephaly_progress_tt: "TODO"
+ 
  eocfm_gui_secure_tetrarchy_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_secure_tetrarchy_tt2: "Own and Control the Ancient Seats of #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
  eocfm_gui_secure_pentarchy_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_secure_pentarchy_tt2: "Own and Control the Ancient Seats of #yellow Rome#!, #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
  eocfm_gui_mend_schism_tt1: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_mend_schism_tt2: "Own and Control the Ancient Seats of #yellow Rome#!, #yellow Constantinople#!, #yellow Antioch#!, #yellow Jerusalem#!, and #yellow Alexandria#!."
+ eocfm_gui_mend_schism_tt3: "The #bold Great Schism#! has neither been mended nor is any country attempting to do so."
  eocfm_mending_possible_tt: "It is now possible to attempt to mend the Great Schism."
- eocfm_gui_convoke_council_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_seek_mandate_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  eocfm_gui_dummy_1: ""
  eocfm_gui_dummy_2: ""
  eocfm_gui_demand_deposition_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_patriarch_deposed_cooldown_tt: "The #bold Ecumenical Patriarch#! has not been deposed within the last five years."
  
  # GUI Antioch Widget
  eocfm_gui_antioch_patriarch_header: "Patriarchate of Antioch"
@@ -410,7 +461,7 @@
  eocfm_gui_antioch_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_antioch_controller_type')]"
  custom_eocfm_antioch_owner1: "Antioch answers to [GetPlayer.MakeScope.Var('eocfm_antioch_controller_var').GetCountry.GetName]"
  custom_eocfm_antioch_owner2: "Antioch answers to #bold #yellow No One#!#!"
- ecofm_gui_integrate_antioch_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_integrate_antioch_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Jerusalem Widget
  eocfm_gui_jerusalem_patriarch_header: "Patriarchate of Jerusalem"
@@ -418,7 +469,7 @@
  eocfm_gui_jerusalem_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_jerusalem_controller_type')]"
  custom_eocfm_jerusalem_owner1: "Jerusalem answers to [GetPlayer.MakeScope.Var('eocfm_jerusalem_controller_var').GetCountry.GetName]"
  custom_eocfm_jerusalem_owner2: "Jerusalem answers to #bold #yellow No One#!#!"
- ecofm_gui_integrate_jerusalem_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_integrate_jerusalem_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Alexandria Widget
  eocfm_gui_alexandria_patriarch_header: "Patriarchate of Alexandria"
@@ -426,7 +477,7 @@
  eocfm_gui_alexandria_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_alexandria_controller_type')]"
  custom_eocfm_alexandria_owner1: "Alexandria answers to [GetPlayer.MakeScope.Var('eocfm_alexandria_controller_var').GetCountry.GetName]"
  custom_eocfm_alexandria_owner2: "Alexandria answers to #bold #yellow No One#!#!"
- ecofm_gui_integrate_alexandria_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_integrate_alexandria_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Moscow Widget
  eocfm_gui_moscow_patriarch_header: "Patriarchate of Moscow"
@@ -434,13 +485,13 @@
  eocfm_gui_moscow_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_moscow_controller_type')]"
  custom_eocfm_moscow_owner1: "Moscow answers to [GetPlayer.MakeScope.Var('eocfm_moscow_controller_var').GetCountry.GetName]"
  custom_eocfm_moscow_owner2: "Moscow answers to #bold #yellow No One#!#!"
- ecofm_gui_integrate_moscow_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_integrate_moscow_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
  # GUI Rome Widget
- eocfm_gui_rome_patriarch_header: "Patriarchate of Antioch"
- eocfm_gui_rome_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_antioch_patriarch_var').GetCharacter.GetLastName]"
- eocfm_gui_rome_patriarch_controller: "[SCOPE.GetRootScope.GetCountry.GetCustom('eocfm_rome_controller_type')]"
+ eocfm_gui_rome_patriarch_header: "Patriarchate of Rome"
+ eocfm_gui_rome_patriarch_name: "Patriarch [GetPlayer.MakeScope.Var('eocfm_rome_patriarch_var').GetCharacter.GetLastName]"
+ eocfm_gui_rome_patriarch_controller: "[GetPlayer.MakeScope.GetCountry.GetCustom('eocfm_rome_controller_type')]"
  custom_eocfm_rome_owner1: "Rome answers to [GetPlayer.MakeScope.Var('eocfm_rome_controller_var').GetCountry.GetName]"
  custom_eocfm_rome_owner2: "Rome answers to #bold #yellow No One#!#!"
- ecofm_gui_integrate_rome_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+ eocfm_gui_integrate_rome_tt: "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
  
