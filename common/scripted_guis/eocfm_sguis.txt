@@ -2,6 +2,44 @@
 # GENERAL SETUP #
 #################
 
+eocfm_window_visible_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_window_is_active_var
+		var:eocfm_window_is_active_var > 0
+	}
+}
+
+eocfm_button_sgui = {
+	scope = country 
+	
+	is_shown = {
+		country_has_state_religion = rel:orthodox
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = eocfm_window_is_active_var
+				var:eocfm_window_is_active_var > 0
+			}
+			set_variable = {
+				name = eocfm_window_is_active_var
+				value = 0
+			}
+		}
+		else = {
+			set_variable = {
+				name = eocfm_window_is_active_var
+				value = 1
+			}
+		}
+	}
+	
+}
+	
+
 eocfm_setup_sgui = {
 	scope = country
 	

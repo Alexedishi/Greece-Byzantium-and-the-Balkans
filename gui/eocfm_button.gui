@@ -8,7 +8,16 @@ widget = {
     size = { 50 100 }
     using = hud_visibility
     
-	visible = "[And( IsInGame, And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown )))]"
+	visible = "[And( 
+		And( 
+			And( 
+				Not( IsPauseMenuShown ),
+				Not( IsGameOverScreenShown )
+			),
+			GetScriptedGui('eocfm_button_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)
+		),
+		IsInGame
+	)]"
 	
 	vbox = {
 		layoutpolicy_vertical = expanding
@@ -21,9 +30,6 @@ widget = {
 			icon = {
 				texture = "gfx/interface/main_hud/sidebar_skin_bg_2.dds"
 				size = { 50 50 }
-				
-				datacontext = "[GetScriptedGui('community_gui_grefm_sgui')]"
-				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 
 				using = hud_shiny_effect
 			}
@@ -33,12 +39,7 @@ widget = {
 				
 				size = { 50 50 }
 				
-				datacontext = "[GetScriptedGui('community_gui_grefm_sgui')]"
-				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-				
-				onclick = "[GetVariableSystem.Toggle('com_fullscreen')]"
-				onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
+				onclick = "[GetScriptedGui('eocfm_button_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 				onclick = "[GetScriptedGui('eocfm_setup_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 				tooltip = eocfm_gui_main_button
 				

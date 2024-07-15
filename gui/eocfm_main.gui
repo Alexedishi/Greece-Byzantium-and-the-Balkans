@@ -8,7 +8,16 @@ fullscreen_block_window = {
 	allow_outside = yes
 	alwaystransparent = no
 	
-	visible = "[And( And( IsInGame, And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown ))), GetVariableSystem.Exists('eocfm_main_visible'))]"
+	visible = "[And( 
+		And( 
+			IsInGame, 
+			And( 
+				Not( IsPauseMenuShown ), 
+				Not( IsGameOverScreenShown )
+			)
+		), 
+		GetScriptedGui('eocfm_window_visible_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)
+	)]"
 	
     datacontext = "[GetVariableSystem]"
 	datacontext = "[GetPlayer]"
@@ -17,8 +26,7 @@ fullscreen_block_window = {
 		close_button_large = {
 			name = "tutorial_highlight_close_button"
 			parentanchor = top|right
-			onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
-			onclick = "[GetVariableSystem.Toggle('com_fullscreen')]"
+			onclick = "[GetScriptedGui('eocfm_button_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 			shortcut = "close_window"
 
 			block "close_button_position" {
@@ -29,8 +37,7 @@ fullscreen_block_window = {
 		back_button_large = {
 			position = { 11 15 }
 			parentanchor = top|left
-			onclick = "[GetVariableSystem.Toggle('eocfm_main_visible')]"
-			onclick = "[GetVariableSystem.Toggle('com_fullscreen')]"
+			onclick = "[GetScriptedGui('eocfm_button_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 			input_action = "back"
 		}
 	}
