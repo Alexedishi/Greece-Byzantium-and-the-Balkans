@@ -1311,21 +1311,14 @@ je_grefm_megali_idea = {
 
 	is_shown_when_inactive = {
 		country_has_primary_culture = cu:greek
-		NOT = { has_global_variable = has_formed_byz }
+		NOR = { 
+			has_global_variable = has_formed_byz
+			has_global_variable = grefm_megali_idea_complete
+		}
 	}
 
 	possible = {
 		has_technology_researched = nationalism
-		custom_tooltip = {
-			text = greek_state_possible_tt
-			any_scope_state = {
-				state_region = {
-					is_homeland = cu:greek
-				}
-				count >= 3
-			}
-		}
-		is_subject = no
 	}
 
 	immediate = {
@@ -2623,16 +2616,33 @@ je_grefm_ion_jewry = {
 	}
 	
 	complete = {
-		custom_tooltip = je_grefm_ion_jewry_tt
+		custom_tooltip = je_grefm_ion_jewry_complete_tt
 	}
 	
 	on_complete = {
+		trigger_event = {
+			id = grefm.419 # A Judaeo-Greek Nation
+		}
+	}
+	
+	fail = {
+		custom_tooltip = je_grefm_ion_jewry_fail_tt
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = grefm.418 # Jewish Exclusion
+		}
 	}
 	
 	on_monthly_pulse = {
 		events = {
+			grefm.412 # Nacamulli's Press House
 		}
 		random_events = {
+			400 = 0
+			25 = grefm.411 # Jews Request former Rights
+			5 = grefm.413 # Blood Libel
 		}
 	}
 	
