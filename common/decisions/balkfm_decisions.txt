@@ -2,14 +2,12 @@
 	is_shown = {
 		c:ROM ?= this
 		owns_entire_state_region = STATE_WALLACHIA
-		any_scope_building = {
-			NOT = {
+		NOR = {
+			any_scope_building = {
 				is_building_type = building_castelul_peles
 			}
-		}
-		NOT = {
 			has_journal_entry = je_balkfm_peles_castle
-		}		
+		}
 	}
 	
 	possible = {	
@@ -27,5 +25,30 @@
 	
 	ai_chance = {
 		base = 0
+	}
+}
+
+balkfm_clear_construction_modifiers_decision = {
+	is_shown = {
+		OR = {
+			has_modifier = modifier_balkfm_construction_1
+			has_modifier = modifier_balkfm_construction_2
+			has_modifier = modifier_balkfm_construction_3
+		}
+		NOR = {
+			has_journal_entry = je_balkfm_peles_castle
+		}		
+	}
+	
+	possible = {	
+		always = yes
+	}
+	
+	when_taken = {
+		balkfm_clean_up_construction_effect = yes
+	}
+	
+	ai_chance = {
+		base = 100
 	}
 }
