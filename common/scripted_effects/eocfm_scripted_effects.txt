@@ -853,6 +853,75 @@ eocfm_push_patriarch_relations_effect = {
 	}
 }
 
+eocfm_check_relations_variables_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_rome_relations_var
+			}
+		}
+		set_variable = {
+			name = eocfm_rome_relations_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_constantinople_relations_var
+			}
+		}
+		set_variable = {
+			name = eocfm_constantinople_relations_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_antioch_relations_var
+			}
+		}
+		set_variable = {
+			name = eocfm_antioch_relations_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_jerusalem_relations_var
+			}
+		}	
+		set_variable = {
+			name = eocfm_jerusalem_relations_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_alexandria_relations_var
+			}
+		}
+		set_variable = {
+			name = eocfm_alexandria_relations_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = eocfm_moscow_relations_var
+			}
+		}
+		set_variable = {
+			name = eocfm_moscow_relations_var
+			value = 0
+		}
+	}	
+}
+
 eocfm_remove_all_modifiers_effect = {
 	remove_modifier ?= modifier_eocfm_hosting_council
 	remove_modifier ?= modifier_eocfm_integrating_seat
@@ -894,7 +963,6 @@ eocfm_remove_intregration_variables_effect = {
 	remove_variable = eocfm_integrating_alexandria
 	remove_variable = eocfm_integrating_jerusalem
 	remove_variable = eocfm_integrating_moscow
-	remove_variable = eocfm_seat_dispute_var
 	remove_variable = eocfm_seat_endorsed
 	remove_variable = eocfm_seat_opposed
 }

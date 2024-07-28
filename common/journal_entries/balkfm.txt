@@ -1101,7 +1101,7 @@ je_balkfm_bul_brigandage = {
 	transferable = no	
 }
 
-je_balkfm_bul_legitimacy = {
+je_balkfm_bul_stambolovism = {
 	icon = "gfx/interface/icons/event_icons/event_sakskoburggotski.dds"
 	
 	group = je_group_balkfm_bulgaria
@@ -1109,6 +1109,10 @@ je_balkfm_bul_legitimacy = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = balkfm_stambolovism_var
+			value = 0
+		}
 	}
 	
 	modifiers_while_active = {
@@ -1116,59 +1120,78 @@ je_balkfm_bul_legitimacy = {
 	}
 	
 	complete = {
-		custom_tooltip = {
-			text = je_balkfm_bul_legitimacy_tt1
-			hidden_trigger = {
-				legitimacy >= 80
-				NOT = {
-					any_interest_group = {
-						is_insurrectionary = yes
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			text = je_balkfm_bul_legitimacy_tt2
-			hidden_trigger = {
-				exists = heir
-			}
-		}
-		ruler = {
-			popularity >= 50
+		scope:journal_entry = {
+			is_goal_complete = yes
 		}
 	}
 	
 	on_complete = {
+		trigger_event = {
+			id = balkfm.531 # Royal Recognition
+		}
+		balkfm_remove_stambolovism_variables_effect = yes
 	}
 	
 	fail = {
 		custom_tooltip = {
-			text = je_balkfm_bul_legitimacy_tt4
+			text = je_balkfm_bul_stambolovism_fail
 			hidden_trigger = {
 				ruler = {
 					NOR = {
 						has_template = template_balkfm_sakskoburggotski_ferdinand
 						has_template = template_balkfm_dadiani_nikoloz
+						has_template = template_balkfm_bogoridi_alexander
 					}
 				}
 			}
 		}
 	}
 	
+	on_fail = {
+		balkfm_remove_stambolovism_variables_effect = yes
+	}
+	
 	invalid = {
-		NOT = {
+		NOR = {
 			has_law = law_type:law_monarchy
+			is_subject = yes
+		}
+	}
+	
+	on_invalid = {
+		balkfm_remove_stambolovism_variables_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			set_variable = {
+				name = balkfm_stambolovism_var
+				value = balkfm_stambolovism_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		events = {
+			balkfm.528 # The House of Bulgaria
 		}
 		random_events = {
-		}
-		effect = {
+			200 = 0
+			5 = balkfm.526 # The Panista Plot
+			5 = balkfm.527 # Funerary Politics
+			10 = balkfm.563 # An Orthodox Heir
 		}
 	}
+	
+	current_value = {
+		value = var:balkfm_stambolovism_var
+	}
+
+	goal_add_value = {
+		value = 5
+	}
+
+	progressbar = yes
 
 	weight = 100
 	
@@ -1302,7 +1325,7 @@ je_balkfm_bul_greater_bulgaria = {
 }
 
 je_balkfm_bul_greater_bulgaria_alternate = {
-	# NOTE: there is a corner case where BUL can be released with both STATE_BULGARIA and STATE_NORTHERN_THRACE, AND the on_actions won't catch it
+	# NOTE: there is a corner case where BUL can spawn with both STATE_BULGARIA and STATE_NORTHERN_THRACE, AND the on_actions won't catch it
 	# The variable balkfm_bulgarian_liberation combined with the owns_entire_state_region triggers will activate the correct journal entry
 	# balkfm.583 can be triggered by either journal, but will add je_balkfm_bul_greater_bulgaria if balkfm_bulgarian_liberation is present
 	# Yes, this is hacky and I don't like it either
@@ -1441,128 +1464,6 @@ je_balkfm_bul_empire = {
 	weight = 500
 }
 
-je_balkfm_bul_megali_idea = { # megali idea minus Attica and the Islands
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_balkfm_empire
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-		is_subject = no
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		calc_true_if = {
-			amount >= 10
-			owns_entire_state_region = STATE_ATTICA
-			owns_entire_state_region = STATE_THESSALIA
-			owns_entire_state_region = STATE_MACEDONIA
-			owns_entire_state_region = STATE_SKOPIA
-			owns_entire_state_region = STATE_WESTERN_THRACE
-			owns_entire_state_region = STATE_NORTHERN_THRACE
-			owns_entire_state_region = STATE_HUDAVENDIGAR
-			owns_entire_state_region = STATE_AYDIN
-			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_CRETE
-			owns_entire_state_region = STATE_IONIAN_ISLANDS
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.588 # The Queen of Cities
-		}
-		set_global_variable = grefm_megali_idea_complete
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = balkfm_weaksauce
-				has_variable = byzfm_weaksauce
-			}
-		}
-	}
-	
-	weight = 500
-	
-}
-
-je_balkfm_bul_restoration = { # this copied in from the byzfm side, only difference is the on_complete effect
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_byzfm_restoration
-	
-	should_be_pinned_by_default = yes	
-	
-	immediate = {
-	}
-	
-	complete = {
-		has_law = law_type:law_monarchy
-		custom_tooltip = {
-			text = je_byzfm_restoration_tt1
-			hidden_trigger = {
-				calc_true_if = {
-					amount > 9
-					country_or_subject_owns_entire_state_region = STATE_ALBANIA
-					country_or_subject_owns_entire_state_region = STATE_BOSNIA
-					country_or_subject_owns_entire_state_region = STATE_BULGARIA
-					country_or_subject_owns_entire_state_region = STATE_CRETE
-					country_or_subject_owns_entire_state_region = STATE_CROATIA
-					country_or_subject_owns_entire_state_region = STATE_DALMATIA
-					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
-					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
-					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
-					country_or_subject_owns_entire_state_region = STATE_SKOPIA
-					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
-					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
-					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-					country_or_subject_owns_entire_state_region = STATE_THESSALIA
-					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
-				}
-			}
-		}
-		custom_tooltip = {
-			text = je_byzfm_restoration_tt2
-			hidden_trigger = {
-				calc_true_if = {
-					amount > 8
-					country_or_subject_owns_entire_state_region = STATE_ADANA
-					country_or_subject_owns_entire_state_region = STATE_ANKARA
-					country_or_subject_owns_entire_state_region = STATE_AYDIN
-					country_or_subject_owns_entire_state_region = STATE_CYPRUS
-					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
-					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
-					country_or_subject_owns_entire_state_region = STATE_ERZURUM
-					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
-					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
-					country_or_subject_owns_entire_state_region = STATE_KONYA
-					country_or_subject_owns_entire_state_region = STATE_TRABZON
-				}
-			}
-		}
-	}
-		
-	on_complete = {
-		trigger_event = {
-			id = balkfm.572 # Nova Roma Constantinopolitana
-		}
-	}
-	
-	invalid = {
-		has_variable = byzfm_weaksauce
-	}
-
-	weight = 10000
-}
-
 ## BULGARIAN IMPERIAL AMBITIONS ##
 
 je_balkfm_bul_old_bulgaria = {
@@ -1608,6 +1509,90 @@ je_balkfm_bul_old_bulgaria = {
 	
 }
 
+## EASTERN RUMELIA CONTENT ##
+
+je_balkfm_bul_two_bulgarias = {
+	icon = "gfx/interface/icons/event_icons/event_rumelia.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:ERUM ?= this
+		is_subject_of = c:TUR
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+	}
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_governor_counter
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_erum_governor_var
+			value = 60
+		}
+		trigger_event = {
+			id = balkfm.570 # The Two Bulgarias
+		}
+	}
+	
+	scripted_button = balkfm_bulgarian_union_button
+	
+	complete = {
+		owns_entire_state_region = STATE_NORTHERN_THRACE
+		custom_tooltip = {
+			text = je_balkfm_bul_two_bulgarias
+			hidden_trigger = {
+				exists = c:BUL
+				is_subject_of = c:BUL
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.579 # Union with Bulgaria
+		}
+	}
+	
+	fail = {
+		NOT = {
+			exists = c:BUL
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.571 # New Governor-General Appointed
+		}
+		effect = {
+			change_variable = {	
+				name = balkfm_erum_governor_var
+				subtract = 1
+			}
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_bul_two_bulgarias_status
+			trigger = {
+				has_variable = balkfm_erum_governor_var
+			}
+		}
+	}
+
+	weight = 100
+	
+}
 
 ########################################
 # MOLDOVA / WALLACHIA / ROMANIA FLAVOR #
@@ -1879,6 +1864,7 @@ je_balkfm_rom_1848 = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		balkfm_1848_variables_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -2531,185 +2517,6 @@ je_balkfm_rom_greater_romania = {
 	
 }
 
-je_balkfm_rom_megali_idea = {
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_balkfm_romanian_nationalism
-	
-	should_be_pinned_by_default = yes
-
-	immediate = {
-	}
-
-	complete = {
-		is_subject = no
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		calc_true_if = {
-			amount >= 10
-			owns_entire_state_region = STATE_ATTICA
-			owns_entire_state_region = STATE_THESSALIA
-			owns_entire_state_region = STATE_MACEDONIA
-			owns_entire_state_region = STATE_SKOPIA
-			owns_entire_state_region = STATE_WESTERN_THRACE
-			owns_entire_state_region = STATE_NORTHERN_THRACE
-			owns_entire_state_region = STATE_HUDAVENDIGAR
-			owns_entire_state_region = STATE_AYDIN
-			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_CRETE
-			owns_entire_state_region = STATE_IONIAN_ISLANDS
-		}
-	}
-
-	on_complete = {
-		trigger_event = { 
-			id = balkfm.674 # The Queen of Cities
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_variable = byzfm_weaksauce
-				has_variable = balkfm_weaksauce
-			}
-		}
-	}
-	
-	weight = 1000
-
-}
-
-je_balkfm_rom_restoration = {
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_byzfm_restoration
-	
-	should_be_pinned_by_default = yes	
-	
-	immediate = {
-	}
-	
-	modifiers_while_active = {
-		modifier_byzfm_imperial_aspiriations
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_byzfm_restoration_tt1
-			hidden_trigger = {
-				calc_true_if = {
-					amount > 9
-					country_or_subject_owns_entire_state_region = STATE_ALBANIA
-					country_or_subject_owns_entire_state_region = STATE_BOSNIA
-					country_or_subject_owns_entire_state_region = STATE_BULGARIA
-					country_or_subject_owns_entire_state_region = STATE_CRETE
-					country_or_subject_owns_entire_state_region = STATE_CROATIA
-					country_or_subject_owns_entire_state_region = STATE_DALMATIA
-					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
-					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
-					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
-					country_or_subject_owns_entire_state_region = STATE_SKOPIA
-					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
-					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
-					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-					country_or_subject_owns_entire_state_region = STATE_THESSALIA
-					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
-				}
-			}
-		}
-		custom_tooltip = {
-			text = je_byzfm_restoration_tt2
-			hidden_trigger = {
-				calc_true_if = {
-					amount > 8
-					country_or_subject_owns_entire_state_region = STATE_ADANA
-					country_or_subject_owns_entire_state_region = STATE_ANKARA
-					country_or_subject_owns_entire_state_region = STATE_AYDIN
-					country_or_subject_owns_entire_state_region = STATE_CYPRUS
-					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
-					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
-					country_or_subject_owns_entire_state_region = STATE_ERZURUM
-					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
-					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
-					country_or_subject_owns_entire_state_region = STATE_KONYA
-					country_or_subject_owns_entire_state_region = STATE_TRABZON
-				}
-			}
-		}
-	}
-		
-	on_complete = {
-		trigger_event = {
-			id = balkfm.677 # Nova Roma Constantinopolitana
-		}
-	}
-	
-	invalid = {
-		has_variable = byzfm_weaksauce
-	}
-
-	weight = 10000
-}
-
-je_balkfm_rome_of_the_east = {
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
-	
-	group = je_group_byzfm_restoration
-	
-	should_be_pinned_by_default = yes
-	
-	modifiers_while_active = {
-		modifier_byzfm_imperial_aspiriations
-	}
-
-	complete = {
-		country_rank >= rank_value:great_power
-		any_scope_state = {
-			has_building = building_mega_palation
-		}
-		country_or_subject_owns_entire_state_region = STATE_ALEPPO
-		country_or_subject_owns_entire_state_region = STATE_LEBANON
-		country_or_subject_owns_entire_state_region = STATE_SYRIA
-		country_or_subject_owns_entire_state_region = STATE_PALESTINE
-		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
-		country_or_subject_owns_entire_state_region = STATE_SINAI
-		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
-		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
-		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
-		country_or_subject_owns_entire_state_region = STATE_MATRUH
-		country_or_subject_owns_entire_state_region = STATE_LIBYA
-	}
-	
-	invalid = {
-		has_variable = byzfm_weaksauce
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.679 # Imperiul României
-		}
-	}
-	
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_balkfm_rome_of_the_east_status
-			}
-		}
-	}	
-
-	weight = 10000
-	
-}
-
 je_balkfm_peles_castle = {
 	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
@@ -2734,6 +2541,7 @@ je_balkfm_peles_castle = {
 		trigger_event = {
 			id = balkfm.661 # A Royal Estate
 		}
+		balkfm_clean_up_construction_effect = yes
 	}
 	
 	fail = {

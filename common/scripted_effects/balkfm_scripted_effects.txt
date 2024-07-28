@@ -640,7 +640,7 @@ balkfm_create_bulgaria = { # creates BUL, used for the Great Eastern Crisis
 	}
 }
 
-balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testing purposes in balkfm.905.
+balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testing purposes in balkfm.005.
 	create_country = {
 		tag = BUL
 		origin = this
@@ -702,17 +702,31 @@ balkfm_set_bulgarian_laws = {
 	activate_law = law_type:law_slavery_banned
 }
 
-balkfm_create_bulgarian_characters = {
-	heir = {
-		save_scope_as = balkfm_bul_heir_scope
+balkfm_set_up_rumelia = {
+	create_character = {
+		template = template_balkfm_bogoridi_alexander
+		ruler = yes
 	}
-	if = {
-		limit = {
-			exists = scope:balkfm_bul_heir_scope
-		}
-		scope:balkfm_bul_heir_scope = {
-			kill_character = yes # just some housekeeping
-		}
+	create_character = {
+		template = template_balkfm_stranski_georgi
+	}
+	activate_law = law_type:law_monarchy
+	activate_law = law_type:law_landed_voting
+	activate_law = law_type:law_cultural_exclusion
+	activate_law = law_type:law_state_religion
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_professional_army
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_mercantilism
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_no_police
+	activate_law = law_type:law_right_of_assembly
+	activate_law = law_type:law_slavery_banned
+}
+
+balkfm_create_bulgarian_characters = {
+	heir ?= {
+		kill_character = yes # just some housekeeping
 	}
 	create_character = {
 		template = template_balkfm_battenburg_alexander
@@ -758,6 +772,79 @@ balkfm_create_bulgarian_royals = {
 		on_created = {
 			place_character_in_void = 12
 		}
+	}
+	if = {
+		limit = {
+			c:ERUM ?= {
+				ruler = {
+					NOT = {
+						has_template = template_balkfm_bogoridi_alexander
+					}
+				}
+			}
+		}
+		create_character = {
+			template = template_balkfm_bogoridi_alexander
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+	}
+	create_character = {
+		template = template_balkfm_glucksburg_valdemar
+		on_created = {
+			place_character_in_void = 12
+		}
+	}
+	create_character = {
+		template = template_balkfm_goltz_wilhelm
+		on_created = {
+			place_character_in_void = 12
+		}
+	}
+}
+
+balkfm_remove_stambolovism_variables_effect = {
+	remove_variable = balkfm_stambolovism_var
+	remove_variable = balkfm_battenburg_letter
+	remove_variable = balkfm_military_modernized
+	remove_variable = balkfm_executed_panitsa
+	remove_variable = balkfm_showed_off_regalia
+	
+	remove_variable = balkfm_exiled_panitsa
+	remove_variable = balkfm_put_away_regalia
+}
+
+balkfm_rumelian_ruler_rotation_effect = {
+	if = {
+		limit = {
+			var:balkfm_governor_counter <= 1
+		}
+		create_character = {
+			template = template_balkfm_bogoridi_alexander
+			on_created = {
+				place_character_in_void = 12
+				set_variable = balkfm_rumelian_ruler_var
+			}
+		}
+	}
+	else = {
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_landowners
+			ideology = ideology_royalist
+			traits = {
+				reserved # idk man, this is a dynamic character
+			}
+			on_created = {
+				place_character_in_void = 12
+				set_variable = balkfm_rumelian_ruler_var
+			}
+		}
+	}
+	change_variable = {
+		name = balkfm_governor_counter
+		add = 1
 	}
 }
 
@@ -1054,9 +1141,9 @@ balkfm_wallachian_election_effect = {
 }
 
 balkfm_set_up_1848_variables_effect = {
-	change_variable = {
+	set_variable = {
 		name = balkfm_1848_rom_var
-		add = 0
+		value = 0
 	}
 	set_variable = {
 		name = balkfm_1848_progress_var

@@ -1,7 +1,7 @@
 ﻿########################
 # GREECE FLAVOR EVENTS #
 ########################
-# Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality.
+# Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality, relevant, and hopefully engaging.
 # The Greek Empires are split between grefm, byzfm, and eocfm. This decision was made to limit the size of this file back when this mod's scope was much smaller. balkfm has since eclipsed this module in scope, but I won't be merging them back together. That would just be a lot of work for no gains.
 
 ####################
@@ -57,8 +57,8 @@ namespace = grefm
 #	024 - The King's Intellect Challenged
 #	025 - Discharging the Regency
 #	026 - The Philorthodox Conspiracy
-#	027 -
-#	028 -
+#	027 - OPEN
+#	028 - OPEN
 #	029 - Absolutism in Greece
 
 #030-039 - Constitutional Monarchy Events
@@ -155,6 +155,12 @@ namespace = grefm
 #	161 - The Don Pacifico Affair
 #	162 - 
 
+#170-179 - Greek Piracy Events
+#	170 - ##Pirates Hold Up Trade Ship (GRE)
+#	171 - ##Pirates Hold Up Trade Ship (TUR)
+#	172 - ##Pirates Kidnap Prominent Bey (GRE)
+#	173 - ##Pirates Kidnap Prominent Bey (TUR)
+
 #190-199 - Historical Content Not Otherwise Specified
 
 ##	#GRE2	GREEK NATIONALISM	Events 200-299	##
@@ -205,6 +211,7 @@ namespace = grefm
 #	251 - Wali of Crete Oversteps Authority
 #	252 - Greek Agitation in Crete
 #	253 - ##Language Bans in Crete <--1890
+#	254 - ##Cretan Gun-Runners Arrested
 #	259 - Crete Revolts Again (TUR/EGY)
 
 #260-269 - Homeland Events
@@ -260,12 +267,23 @@ namespace = grefm
 
 #420-429 - Greek Union Events
 #	420 - The Dream of Enosis
-#	421 - Union with the Greek State
+#	421 - Ionian Union with the Greek State
 #	422 - ##Moisis Caimis Supports Demotiki
 
 
-##	#GRE5	OPEN	Events 500-599	##
+##	#GRE5  MINOR GREEK STATES  Events  500-599  ##
 
+#500-509 - Principality of Samos Events
+#	500 - Samos Defiant
+#	501 - An Imposed Ruler
+#	502 - The Organic Charter
+#	503 - The Tyranny of Lord Stefanos
+#	504 - Ruler Desposed
+#	505 - New Governor Appointed
+#	506 - OPEN
+#	507 - OPEN
+#	508 - Samos Liberated
+#	509 - Samian Union with the Greek State
 
 ##	#GRE6	OPEN	Events 600-699	##
 
@@ -2578,7 +2596,10 @@ grefm.030 = { # 1862 head of state referendum
 	option = { # Dredge up a Palaiologos descendant
 		name = grefm.030.7
 		trigger = {
-			has_variable = byzfm_byzantium_formed
+			OR = {
+				c:BYZ ?= this
+				c:ERE ?= this
+			}
 		}
 		custom_tooltip = {
 			text = grefm.030.7.tt
@@ -2703,7 +2724,6 @@ grefm.031 = { # the king of the hellenes
 		default_option = yes
 		trigger = {
 			has_variable = grefm_1862_election_held
-			NOT = { has_variable = byzfm_byzantium_formed }
 		}
 		scope:grefm_trikoupis_scope = {
 			free_character_from_void = yes
@@ -2715,7 +2735,6 @@ grefm.031 = { # the king of the hellenes
 		name = grefm.031.a
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
-			NOT = { has_variable = byzfm_byzantium_formed }
 		}
 		set_variable = {
 			name = grefm_absolutism_var
@@ -6782,16 +6801,10 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_purple_phoenix_tt
 			hidden_effect = {
-				trigger_event = {
-					id = byzfm.300 # The Pheonix Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_purple_phoenix
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_purple_phoenix
 	}	
 	
 	option = { # The Revenge of the Greeks
@@ -6802,16 +6815,10 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_revenge_of_the_greeks_tt
 			hidden_effect = {
-				trigger_event = {
-					id = grefm.300 # The Vergina Sun Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_revenge_of_the_greeks
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_revenge_of_the_greeks
 	}
 
 	option = { # The Orthodox Realms
@@ -6822,16 +6829,11 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_orthodox_realms_tt
 			hidden_effect = {
-				trigger_event = {
-					id = eocfm.300 # The Partiarchate Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_texas_left 
+				# this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_texas_left # this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
 	}
 
 	option = { # whimpy whimpy whimpy
@@ -9800,7 +9802,7 @@ grefm.265 = { # Greco-Turkish Relations
 
 #### REVENGE OF THE GREEKS EVENTS ####
 
-grefm.300 = { #Resurrection of the Byzantine Empire
+grefm.300 = { # Resurrection of the Byzantine Empire
 	type = country_event
 	placement = ROOT
 
@@ -9841,7 +9843,6 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 			post_notification = unification_notification_byz
 		}
 		set_global_variable = has_formed_byz
-		set_variable = byzfm_byzantium_formed
 	}
 	
 	option = {
@@ -9854,6 +9855,14 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 		add_modifier = {
 			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			add_primary_culture = cu:greek
 		}
 	}
 	
@@ -9893,7 +9902,7 @@ grefm.301 = { # The Revenge of the Greeks
 	option = {
 		name = grefm.301.a
 		default_option = yes
-		set_capital = STATE_EASTERN_THRACE
+#		set_capital = STATE_EASTERN_THRACE
 		add_journal_entry = {
 			type = je_grefm_revenge_of_the_greeks
 		}
@@ -10191,15 +10200,22 @@ grefm.304 = { # The Legacy of Alexander
 			name = modifier_byzfm_restored
 			months = long_modifier_time
 		}
-		trigger_event = {
-			id = grefm.305 # The Lands of Arianōn
-			days = 30
+		if = {
+			limit = {
+				has_variable = byzfm_revenge_of_the_greeks
+			}
+			trigger_event = {
+				id = grefm.305 # The Lands of Arianōn
+				days = 30
+			}
 		}
-		
 	}
 	
 	option = {
 		name = grefm.304.b
+		trigger = {
+			has_variable = byzfm_revenge_of_the_greeks
+		}
 		add_modifier = {
 			name = modifier_byzfm_restored
 			months = long_modifier_time
@@ -11114,6 +11130,74 @@ grefm.403 = { # A Civilized State
 	
 }
 
+grefm.404 = { # The Ionian Academy
+	type = country_event
+	placement = scope:university_state
+	
+	title = grefm.404.t
+	desc = grefm.404.d
+	flavor = grefm.404.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:university_benefactor
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		morgenrote_is_active = no
+		NOT = { has_variable = grefm_ion_university_considered }
+		has_technology_researched = academia
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
+	}
+	
+	immediate = {
+		ruler = { 
+			save_scope_as = university_benefactor
+		}
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = university_state
+			}
+		}
+		set_variable = grefm_ion_university_considered
+	}
+	
+	option = {
+		name = grefm.404.a
+		default_option = yes
+		scope:university_state = {
+			create_building = {
+ 				building = "building_university"
+				level = 1
+ 			}
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_royal_university
+			months = normal_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+	}
+	
+	option = {
+		name = grefm.404.b
+		scope:university_benefactor = {
+			add_modifier = {
+				name = modifier_grefm_blocked_building_university
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
 #### THE IONIAN JEWS EVENTS ####
 
 grefm.410 = { # Romaniotes and sephardic
@@ -11380,7 +11464,7 @@ grefm.414 = { # Unrest in Corfu
 		if = {
 			limit = {
 				any_scope_pop = {
-					has_pop_type = soldier
+					is_pop_type = soldiers
 				}
 			}
 			kill_population = { # one soldier was killed defending the Jewish families
@@ -11501,7 +11585,7 @@ grefm.419 = { # A Judaeo-Greek Nation
 	
 	immediate = {
 		grefm_clean_up_ionian_jew_modifiers = yes
-		set_global_variable = grefm_romaniote_jews_integrated
+#		set_global_variable = grefm_romaniote_jews_integrated
 	}
 	
 	option = {
@@ -11579,7 +11663,7 @@ grefm.420 = { # The Dream of Enosis
 
 }
 
-grefm.421 = { # Union with the Greek State
+grefm.421 = { # Ionian Union with the Greek State
 	type = country_event
 	placement = scope:ionian_islands_state_scope
 	
@@ -11617,8 +11701,489 @@ grefm.421 = { # Union with the Greek State
 	option = {
 		name = grefm.421.a
 		default_option = yes
+		annex = c:ION
 		add_modifier = {
 			name = modifier_grefm_hepantese_union
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+
+##################################################
+##	#GRE5  MINOR GREEK STATES  Events  500-599  ##
+##################################################
+
+#### PRINCIPALITY OF SAMOS EVENTS ####
+
+grefm.500 = { # Samos Defiant
+	type = country_event
+	placement = root
+	
+	title = grefm.500.t
+	desc = grefm.500.d
+	flavor = grefm.500.f
+	
+	event_image = {
+		video = "grefm_ion_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		set_variable = grefm_stefanos_var
+	}
+	
+	option = {
+		name = grefm.500.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_submission
+		}
+		trigger_event = {
+			id = grefm.501 # An Imposed Ruler
+			days = 30
+		}
+	}
+	
+}
+
+grefm.501 = { # An Imposed Ruler
+	type = country_event
+	placement = root
+	
+	title = grefm.501.t
+	desc = grefm.501.d
+	flavor = grefm.501.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered ny grefm.500
+	}
+	
+	immediate = {
+		set_variable = {
+			name = grefm_samos_support_var
+			value = 100
+		}
+		set_variable = {
+			name = grefm_samos_ruler_counter
+			value = 1
+		}
+		set_variable = {
+			name = grefm_samos_ruler_duration_var
+			value = 60
+		}
+	}
+	
+	option = {
+		name = grefm.500.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_samos_organic_law
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_westernized_thought
+			add_modifier = modifier_grefm_hegemonic_ruler
+		}
+	}
+	
+}
+
+grefm.502 = { # The Organic Charter
+	type = country_event
+	placement = root
+	
+	title = grefm.502.t
+	desc = grefm.502.d
+	flavor = grefm.502.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.502.a
+		default_option = yes
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value > neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}		
+		add_modifier = {
+			name = modifier_grefm_organic_charter
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+	}
+
+}
+
+grefm.503 = { # The Tyranny of Lord Stefanos
+	type = country_event
+	placement = root
+	
+	title = grefm.503.t
+	desc = grefm.503.d
+	flavor = grefm.503.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.503.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_tyrannical_ruler
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = large_radicals
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+			leader = {
+				set_ideology = ideology:ideology_republican_leader
+			}
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+	}
+
+}
+
+grefm.504 = { # Stefanos Desposed
+	type = country_event
+	placement = root
+	
+	title = grefm.504.t
+	desc = grefm.504.d
+	flavor = grefm.504.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_support_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.504.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+		add_modifier = {
+			name = modifier_grefm_ruler_ejected
+			months = short_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
+
+grefm.505 = { # New Governor Appointed
+	type = country_event
+	placement = root
+	
+	title = grefm.505.t
+	desc = grefm.505.d
+	flavor = grefm.505.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_ruler_duration_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.505.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+	}
+
+}
+
+grefm.506 = { # Ruler Desposed
+	type = country_event
+	placement = root
+	
+	title = grefm.506.t
+	desc = grefm.506.d
+	flavor = grefm.506.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_support_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.506.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+		add_modifier = {
+			name = modifier_grefm_ruler_ejected
+			months = short_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
+
+grefm.507 = { # OPEN
+	orphan = yes
+}
+
+grefm.508 = { # Samos Liberated
+	type = country_event
+	placement = root
+	
+	title = grefm.508.t
+	desc = grefm.508.d
+	flavor = grefm.508.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_samos_main
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.508.a
+		default_option = yes
+		add_loyalists = {
+			culture = cu:greek
+			value = large_radicals
+		}
+	}
+
+}
+
+grefm.509 = { # Samian Union with the Greek State
+	type = country_event
+	placement = root
+	
+	title = grefm.509.t
+	desc = grefm.509.d
+	flavor = grefm.509.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_samos_enosis_button
+	}
+	
+	immediate = {
+		c:SAMO = {
+			save_scope_as = samos_scope
+		}
+	}
+	
+	option = {
+		name = grefm.509.a
+		default_option = yes
+		annex = c:SAMO
+		add_modifier = {
+			name = modifier_grefm_samian_union
 			months = normal_modifier_time
 		}
 	}

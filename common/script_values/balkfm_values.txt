@@ -295,6 +295,7 @@ karadordevic_progress_value = {
 }
 
 ## BULGARIA VALUES ##
+
 balkfm_battenburg_support_value = {
 # Generally, it should be hard to get this above 5 while retaining liberal laws
 	value = 0
@@ -423,6 +424,104 @@ balkfm_battenburg_support_value = {
 		}
 		add = 1
 	}
+	
+}
+
+balkfm_stambolovism_value = {
+	value = 0
+	
+	## Sources
+	if = {
+		limit = {
+			exists = heir
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_having_heir
+		}
+	}
+	if = {
+		limit = {
+			ruler = {
+				popularity > 50
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_ruler_popularity
+		}
+	}
+	if = {
+		limit = {
+			any_scope_character = {
+				has_template = template_balkfm_stambolov_stefan
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_stambolov
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_battenburg_letter
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_battenburg_letter
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_military_modernized
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_military_modernized
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_executed_panitsa
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_firing_squad
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_showed_off_regalia
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_boldness
+		}
+	}
+	
+	## Penalities
+	
+	if = {
+		limit = {
+			has_variable = balkfm_exiled_panitsa
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_exiled_panitsa
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_put_away_regalia
+		}
+		subtract = {
+			value = 2
+			desc = balkfm_bul_from_whimpy
+		}
+	}
+	
+	max = 5
+	min = 0
 	
 }
 

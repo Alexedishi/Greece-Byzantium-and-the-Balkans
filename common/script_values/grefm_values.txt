@@ -391,3 +391,27 @@ grefm_crete_progress_value = {
 	add = global_var:grefm_crete_accelerate_var
 	add = global_var:grefm_crete_nationalism_var
 }
+
+## Samos Prince Values ##
+
+grefm_samos_support_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			ig_approval > 0
+		}
+		add = {
+			value = ig_clout
+			desc = grefm_samos_from_support
+		}
+	}
+	every_interest_group = {
+		limit = {
+			ig_approval < 0
+		}
+		subtract = {
+			value = ig_clout
+			desc = grefm_samos_from_opposition
+		}
+	}
+}

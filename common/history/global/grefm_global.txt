@@ -1,10 +1,22 @@
 ﻿GLOBAL = { # general mod setup
-	### General Setup
+### General Setup ###
+	# State Traits
 	s:STATE_EASTERN_THRACE = {
 		add_state_trait = balkfm_state_trait_golden_horn
 	}
 	
-	### Specific Country Setups
+### New Country Creation & Setup ###
+	# Principality of Samos
+	create_country = {
+		tag = SAMO
+		origin = c:TUR
+		province = p:xC56452
+		on_created = {
+			grefm_setup_samos_effect = yes
+		}
+	}
+	
+### Specific Country Setups ###	
 	c:GRE = {
 		grefm_initialize_bavarocracy_variables_effect = yes
 		add_journal_entry = {
@@ -19,6 +31,14 @@
 		set_variable = {
 			name = grefm_bavarocracy_var
 			value = 2000
+		}
+		set_secret_goal = {
+			country = c:SAMO
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:ION
+			secret_goal = befriend
 		}
 		add_modifier = modifier_eocfm_reformed_synod
 		add_modifier = modifier_eocfm_dissolved_monasteries
@@ -40,6 +60,32 @@
 		}
 		trigger_event = {
 			id = grefm.400 # The Republic of the Seven Islands
+		}
+		set_secret_goal = {
+			country = c:SAMO
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}
+	
+	c:SAMO = {
+		grefm_initialize_samos_variables_effect = yes
+		add_journal_entry = {
+			type = je_grefm_samos_main
+		}
+		trigger_event = {
+			id = grefm.500 # Samos Defiant
+		}
+		set_secret_goal = {
+			country = c:ION
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
 		}
 	}
 	
@@ -119,6 +165,14 @@
 #		trigger_event = {
 #			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
 #		}
+		create_diplomatic_pact = {
+			country = c:SAMO
+			type = protectorate
+		}
+		set_secret_goal = { # This should help to avoid getting bullied at game start
+			country = c:SAMO
+			secret_goal = befriend
+		}
 		eqfm_calculate_tension_variables_effect = yes # Yes, Turkey is loadbearing
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
@@ -135,7 +189,90 @@
 	c:PAP ?= {
 		set_variable = eocfm_controls_rome
 	}
+	
+### Buildings ###
 
+	# Samos Setup
+	s:STATE_EAST_AEGEAN_ISLANDS = {
+		region_state:SAMO = {
+			kill_population_percent_in_state = {
+				percent = 1
+			}
+			create_building = {
+				building = "building_vineyard_plantation"
+				add_ownership = {
+					building = {
+						type = "building_manor_house"
+						country = "c:SAMO"
+						levels = 1
+						region = "STATE_EAST_AEGEAN_ISLANDS"
+					}
+				}
+				reserves = 1
+				activate_production_methods = {
+					"default_building_vineyard_plantation"
+					"pm_road_carts"
+				}
+			}
+			create_building = {
+				building = "building_wheat_farm"
+				add_ownership = {
+					building = {
+						type = "building_manor_house"
+						country = "c:SAMO"
+						levels = 1
+						region = "STATE_EAST_AEGEAN_ISLANDS"
+					}
+				}
+				reserves = 1
+				activate_production_methods = {
+					"pm_simple_farming"
+					"pm_no_secondary"
+					"pm_tools_disabled"
+				}
+			} 
+			create_building = {
+				building = "building_port"
+				add_ownership = {
+					country = {
+						country = "c:SAMO"
+						levels = 1
+					}
+				}
+				reserves = 1
+				activate_production_methods={
+					"pm_anchorage"
+				}
+			}
+			create_pop = {
+				culture = greek
+				pop_type = aristocrats
+				size = 400
+			}
+			create_pop = {
+				culture = greek
+				pop_type = clergymen
+				size = 800
+			}
+			create_pop = {
+				culture = greek
+				pop_type = laborers
+				size = 5000
+			}
+			create_pop = {
+				culture = greek
+				pop_type = farmers
+				size = 4000
+			}
+			create_pop = {
+				culture = greek
+				size = 30000
+			}
+		}
+	}
+
+### EOCFM Setup ###
+	# This should fire AFTER all other setup
 	every_country = {
 		limit = {
 			country_has_state_religion = rel:orthodox
@@ -173,7 +310,8 @@
 		}
 	}
 	
-	### Variables
+### Variables ###
+	
 	# eqfm Tension Variables
 	set_global_variable = {
 		name = eqfm_tension_var

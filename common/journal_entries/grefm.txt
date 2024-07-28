@@ -1328,6 +1328,8 @@ je_grefm_megali_idea = {
 	}
 	
 	scripted_button = grefm_ionian_enosis_button
+	scripted_button = grefm_ionian_enosis_alternate_button
+	scripted_button = grefm_samos_enosis_button
 
 	complete = {
 		is_subject = no
@@ -1354,6 +1356,7 @@ je_grefm_megali_idea = {
 		trigger_event = { 
 			id = grefm.202 # The Future of Greece
 		}
+		custom_tooltip = je_grefm_megali_idea_complete_tt
 	}
 	
 	invalid = {
@@ -1903,7 +1906,25 @@ je_grefm_revenge_of_the_greeks = {
 	
 	should_be_pinned_by_default = yes	
 	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+		has_variable = byzfm_revenge_of_the_greeks
+	}
+	
+	possible = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = grefm.300 # The Vergina Sun Rises
+		}
 	}
 	
 	modifiers_while_active = {
@@ -2207,7 +2228,7 @@ je_grefm_alexandria_oxus = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.315 # Alexandria on the Oxus
+			id = grefm.315 # The Farthest Alexandria
 		}
 	}
 	
@@ -2528,6 +2549,13 @@ je_grefm_ion_xenocracy = {
 			}
 		}
 	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			100 = 0
+			5 = grefm.404 # The Ionian Academy
+		}
+	}
 
 	weight = 1000
 
@@ -2616,7 +2644,23 @@ je_grefm_ion_jewry = {
 	}
 	
 	complete = {
-		custom_tooltip = je_grefm_ion_jewry_complete_tt
+		OR = {
+			modifier:state_jewish_standard_of_living_add >= 4
+			custom_tooltip = {
+				text = je_grefm_ion_jewry_complete_tt
+				hidden_trigger = {
+					loyalist_fraction = {
+						culture = cu:sephardic
+						value > 0.75
+					}
+				}
+			}
+			cu:sephardic = {
+				NOT = {
+					culture_is_discriminated_in = root
+				}
+			}
+		}
 	}
 	
 	on_complete = {
@@ -2626,7 +2670,15 @@ je_grefm_ion_jewry = {
 	}
 	
 	fail = {
-		custom_tooltip = je_grefm_ion_jewry_fail_tt
+		custom_tooltip = {
+			text = je_grefm_ion_jewry_fail_tt
+			hidden_trigger = {
+				radical_fraction = {
+					culture = cu:sephardic
+					value > 0.75
+				}
+			}
+		}
 	}
 	
 	on_fail = {
@@ -2650,23 +2702,192 @@ je_grefm_ion_jewry = {
 	
 }
 
-#####################
-# UNUSED /TECHNICAL #
-#####################
-je_grefm_intro = {
-	icon = "gfx/interface/icons/event_icons/tutorial_icon.dds"
+########################
+# MINOR COUNTRY FLAVOR #
+########################
+
+je_grefm_samos_main = {
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
 	
 	group = je_group_grefm_content
 	
-	should_be_pinned_by_default = no
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_submission
+	}
 	
 	complete = {
-		always = yes
-	}
-
-	on_complete = {
+		OR = {
+			is_subject = no
+			trigger_if = {
+				limit = {
+					exists = c:GRE
+				}
+				is_subject_of = c:GRE
+			}
+		}
 	}
 	
-	weight = 1
+	on_complete = {
+		trigger_event = {
+			id = grefm.508 # Samos Liberated
+		}
+	}
+	
+	fail = {
+		OR = {
+			is_subject_type = subject_type_puppet
+			is_subject_type = subject_type_vassal
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			grefm.505 # New Ruler Appointed
+			grefm.506 # Prince of Samos Deposed
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = grefm_stefanos_var
+					}
+					has_law = law_type:law_monarchy
+				}
+				change_variable = {
+					name = grefm_samos_support_var
+					add = grefm_samos_support_value
+				}
+				change_variable = {
+					name = grefm_samos_ruler_duration_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					has_variable = grefm_stefanos_var
+					NOT = {
+						has_law = law_type:law_monarchy
+					}
+				}
+				remove_variable = grefm_stefanos_var
+			}
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_grefm_samos_main_status_1
+				trigger = {
+					has_variable = grefm_stefanos_var
+					has_law = law_type:law_monarchy
+				}
+			}
+			triggered_desc = {
+				desc = je_grefm_samos_main_status_2
+				trigger = {
+					NOT = {
+						has_variable = grefm_stefanos_var
+						has_law = law_type:law_monarchy
+					}
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
+
+je_grefm_samos_organic_law = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_grefm_content
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_grefm_westernized_thought
+		modifier_grefm_hegemonic_ruler
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		OR = {
+			has_law = law_type:law_appointed_bureaucrats
+			has_law = law_type:law_elected_bureaucrats
+		}
+		OR = {
+			has_law = law_type:law_census_voting
+			has_law = law_type:law_universal_suffrage
+		}
+		NOR = {
+			has_law = law_type:law_consumption_based_taxation
+			has_law = law_type:law_land_based_taxation
+			has_law = law_type:law_censorship
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.502 # The Organic Charter
+		}
+		remove_variable = grefm_stefanos_var
+	}
+	
+	fail = {
+		has_law = law_type:law_monarchy
+		has_law = law_type:law_autocracy
+		has_law = law_type:law_hereditary_bureaucrats
+		has_law = law_type:law_consumption_based_taxation
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = grefm.503 # The Tyranny of Lord Stefanos
+		}
+	}
+	
+	timeout = 4745 # You get 13 years, just like Stefanos did
+	
+	on_timeout = {
+		trigger_event = {
+			id = grefm.504 # Stefanos Desposed
+		}
+		remove_variable = grefm_stefanos_var
+	}
+	
+	invalid = {
+		NOR = {
+			has_law = law_type:law_monarchy
+			trigger_if = {
+				limit = {
+					exists = c:TUR
+				}
+				is_subject_of = c:TUR
+			}
+			custom_tooltip = {
+				text = je_grefm_stefanos_tt
+				hidden_trigger = {
+					ruler = {
+						NOT = {
+							has_template = template_grefm_bogoridi_stefan
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_invalid = {
+		remove_variable = grefm_stefanos_var
+	}
+	
+	weight = 500
 	
 }

@@ -533,12 +533,35 @@ fullscreen_block_window = {
 							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							tooltip = "eocfm_gui_declare_autocephaly_tt"
 						}
+		
+						green_progressbar_horizontal = {
+							parentanchor = bottom|hcenter
+							position = { 0 -15 }
+							size = { 200 20 }
+							visible = "[GetScriptedGui('eocfm_schism_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							
+							blockoverride "values" {
+								min = 0
+								max = 120
+								value = "[Country.MakeScope.Var('eocfm_schism_var').GetValue]"
+							}
+						}
+						
+						textbox = {
+							raw_text = "#bold #greece Autocephaly Progress#!#!"
+							position = { 0 -19 }
+							parentanchor = bottom|hcenter
+							autoresize = yes
+							max_width = 300
+							elide = right
+							using = fontsize_medium
+						}
 						
 						button = {
 							parentanchor = bottom|hcenter
 							position = { 0 0 }
 							using = default_button_primary_big_action
-							size = { 220 45 }
+							size = { 260 45 }
 							raw_text = "Convoke Ecumenical Council"
 							using = fontsize_large
 							

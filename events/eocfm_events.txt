@@ -111,7 +111,8 @@ namespace = eocfm
 
 #160-169 - Ecumenical Partiarchate Events
 #	160 - ##An Audience with the Patriarch
-#	161 - ##Ecumenical Patriarch Deposed
+#	161 - ##Country Demands Deposition
+#	162 - ##Ecumenical Patriarch Deposed
 
 
 
@@ -3118,28 +3119,41 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_global_variable = eocfm_seat_event_var }
-		NOT = { has_variable = eocfm_seat_dispute_var }
 		eocfm_controls_major_seat_trigger = yes
 		any_country = {
 			has_variable = eocfm_integration_var
-			local_var:eocfm_integration_var < 80 # to avoid event finishing event chain early
+			var:eocfm_integration_var < 80
+			NOR = {
+				has_modifier = modifier_eocfm_asserted_integration
+				has_modifier = modifier_eocfm_folded_integration
+			}
 		}
+		NOT = {
+			has_global_variable = eocfm_seat_dispute_cooldown_var
+		}
+		
 	}
 	
 	immediate = {
-		set_variable = eocfm_seat_dispute_var
-		set_global_variable = eocfm_seat_event_var # locks out this event chain until it resolves
+		set_global_variable = {
+			name = eocfm_seat_dispute_cooldown_var
+			months = 12 # lazy way to block event from running itself over
+		}
 		random_country = {
 			limit = {
-				eocfm_is_integrating_seat_trigger = yes
+				has_variable = eocfm_integration_var
+				var:eocfm_integration_var < 80
+				NOR = {
+					has_modifier = modifier_eocfm_asserted_integration
+					has_modifier = modifier_eocfm_folded_integration
+				}
 			}
 			save_scope_as = eocfm_integrator_scope
 		}
-		set_variable = eocfm_seat_disputer
+		set_variable = eocfm_seat_dispute_starter
 	}
 	
-	option = {
+	option = { # Challenge their seat integration
 		name = eocfm.140.a
 		default_option = yes
 		change_relations = {
@@ -3151,7 +3165,7 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 		}
 	}
 	
-	option = {
+	option = { # Support their seat integration
 		name = eocfm.140.b
 		change_relations = {
 			country = scope:eocfm_integrator_scope
@@ -3198,7 +3212,7 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 	immediate = {
 		random_country = {
 			limit = {
-				has_variable = eocfm_seat_disputer
+				has_variable = eocfm_seat_dispute_starter
 			}
 			save_scope_as = eocfm_disputer_scope
 		}
@@ -3219,6 +3233,9 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 				}
 			}
 		}
+		scope:eocfm_disputer_scope = {
+			remove_variable = eocfm_seat_dispute_starter
+		}
 		remove_variable = eocfm_seat_opposed
 	}
 	
@@ -3237,14 +3254,10 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 				}
 			}
 		}
-		remove_variable = eocfm_seat_endorsed
-	}
-	
-	after = {
 		scope:eocfm_disputer_scope = {
-			remove_variable = eocfm_seat_disputer
+			remove_variable = eocfm_seat_dispute_starter
 		}
-		remove_global_variable = eocfm_seat_event_var
+		remove_variable = eocfm_seat_endorsed
 	}
 
 }
@@ -3374,7 +3387,6 @@ eocfm.300 = { # The Partiarchate Rises
 			post_notification = unification_notification_byz
 		}
 		set_global_variable = has_formed_byz
-		set_variable = byzfm_byzantium_formed
 	}
 	
 	option = {
@@ -3387,6 +3399,14 @@ eocfm.300 = { # The Partiarchate Rises
 		add_modifier = {
 			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			add_primary_culture = cu:greek
 		}
 	}
 }
@@ -3425,7 +3445,7 @@ eocfm.301 = { # The Metropolitan Lands
 	option = {
 		name = eocfm.301.a
 		default_option = yes
-		set_capital = STATE_EASTERN_THRACE
+#		set_capital = STATE_EASTERN_THRACE
 		add_journal_entry = {
 			type = je_eocfm_the_metropolitan_lands
 		}
@@ -3720,14 +3740,22 @@ eocfm.304 = { # The Church of the East
 			name = modifier_byzfm_restored
 			months = very_long_modifier_time
 		}
-		trigger_event = {
-			id = eocfm.305 # Across the Hospitable Sea
-			days = 30
+		if = {
+			limit = {
+				has_variable = byzfm_texas_left
+			}
+			trigger_event = {
+				id = eocfm.305 # Across the Hospitable Sea
+				days = 30
+			}
 		}
 	}
 	
 	option = {
 		name = eocfm.304.b
+		trigger = {
+			has_variable = byzfm_texas_left
+		}
 		add_modifier = {
 			name = modifier_byzfm_restored
 			months = very_long_modifier_time

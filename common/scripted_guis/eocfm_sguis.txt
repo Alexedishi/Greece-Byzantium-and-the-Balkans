@@ -6,7 +6,6 @@ eocfm_window_visible_sgui = {
 	scope = country
 	
 	is_shown = {
-		exists = this
 		has_variable = eocfm_window_is_active_var
 		var:eocfm_window_is_active_var > 0
 	}
@@ -16,7 +15,6 @@ eocfm_button_sgui = {
 	scope = country 
 	
 	is_shown = {
-		exists = this
 		country_has_state_religion = rel:orthodox
 	}
 	
@@ -48,6 +46,7 @@ eocfm_setup_sgui = {
 	effect = {
 		eocfm_update_patriarch_variables_effect = yes
 		eocfm_update_seat_controllers_effect = yes
+		eocfm_check_relations_variables_effect = yes
 	}
 }
 
@@ -392,8 +391,9 @@ eocfm_declare_autocephaly_sgui = {
 	scope = country
 	
 	is_shown = {
-		NOT = {
+		NOR = {
 			has_variable = eocfm_is_autocephalous
+			has_variable = eocfm_schism_var
 		}
 	}
 	
@@ -443,6 +443,15 @@ eocfm_declare_autocephaly_sgui = {
 			months = 120
 		}
 	}
+}
+
+eocfm_schism_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_schism_var
+	}
+	
 }
 
 eocfm_convoke_council_sgui = {

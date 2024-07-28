@@ -115,12 +115,13 @@
  je_balkfm_bul_brigandage: "Brigandage"
  je_balkfm_bul_brigandage_reason: "In the wake of the Greek War of Independence, bandits have terrorized the Balkan countryside outside of the reach of the central governments. Across the peninnsula, people demand they be brought to justice."
  
- je_balkfm_bul_legitimacy: "Legitimizing the Throne"
- je_balkfm_bul_legitimacy_reason: "The coronation of [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] [ROOT.GetCountry.GetRuler.GetFirstName] has done little to secure the faith of the Bulgarian people in the monarchy. Seeking to rememedy the damage done by the ousting of Prince Battenburg, Minister #yellow Stefan Stambolov#! and his supporters have put forward a plan to prove the worth of the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle], lest [ROOT.GetCountry.Name] find itself under direct control by one of the [Concept('concept_great_power', '$concept_great_powers$')]."
- je_balkfm_bul_legitimacy_tt1: "We have over #bold 80#! [concept_legitimacy] and none of our [Concept('concept_interest_group','$concept_interest_groups$')] are insurrectionary."
- je_balkfm_bul_legitimacy_tt2: "King [ROOT.GetCountry.GetRuler.GetFirstName] has an heir."
- je_balkfm_bul_legitimacy_tt3: "#yellow Alexander Battenburg#! is dead."
- je_balkfm_bul_legitimacy_tt4: "The King has died or left the throne before legitimizing his house."
+ je_balkfm_bul_stambolovism: "Stambolovism"
+ je_balkfm_bul_stambolovism_reason: "The coronation of [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] [ROOT.GetCountry.GetRuler.GetFirstName] has done little to secure the faith of the Bulgarian people in the monarchy. Seeking to rememedy the damage done by the ousting of Prince Battenburg, Minister #yellow Stefan Stambolov#! and his supporters have put forward a plan to prove the worth of the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle], lest [ROOT.GetCountry.GetName] find itself under direct control by one of the [Concept('concept_great_power', '$concept_great_powers$')].\n\nThe [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] currently has #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_stambolovism_breakdown [Country.MakeScope.ScriptValue('balkfm_stambolovism_value')|+=]#! #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_stambolovism_sources Legitimizing Factors#!
+ je_balkfm_bul_stambolovism_goal: "The Prince has secured at least #bold 5#! legitimizing factors."
+ je_balkfm_bul_stambolovism_sources: "The following can influence recognition of the Prince:\n•The Prince has produced an heir.\n•The Prince has over 50 [concept_popularity].\n•Completing Military Reforms\n•#yellow Stefan Stambolov#! is a leader in politics.\n•Choices during Stambolovism events."
+ je_balkfm_bul_stambolovism_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_stambolovism_value')]"
+ je_balkfm_bul_stambolovism_fail: "The King has died or left the throne before legitimizing his house."
+
  je_balkfm_bul_military_modernization: "Military Modernization"
  je_balkfm_bul_military_modernization_reason: "[ROOT.GetCountry.GetName]'s existence is a tenuous one at best. With hostile powers on our borders, it is imperative that the young nation develop a military capable of defending our newfound freedom."
  
@@ -134,13 +135,12 @@
  je_balkfm_bul_tsardom_reason: "Followng their arrival in the Balkans, the Bulgarians were Slavicized and established a large domain spanning the north of the region. After the fall of the Byzantine Empire, Bulgarian communities have been estranged from each other by the designs of the Porte. We should reunite these peoples with the Bulgarian state."
  je_balkfm_bul_empire: "The Bulgarian Empire"
  je_balkfm_bul_empire_reason: "Rife with the spirit of Nationalism and freed from the shackles of Ottoman oppression, [ROOT.GetCountry.GetName] aspires to become the new master of the Balkans. We will secure our dominion over Rumelia."
- je_balkfm_bul_megali_idea: "The Throne of the East"
- je_balkfm_bul_megali_idea_reason: "In 924, Simoen I the Great, then regent of the Bulgarian Empire was crowned #italic basileus tōn Boulgarōn#! by Byzantine Emperor Romanos I. With the extinction of the Byzantine state by the Ottomans and the resurrection of the Bulgarian state, nationalists have declared that the mantle of the Empire has been inherited by [ROOT.GetCountry.GetName]."
  je_balkfm_bul_old_bulgaria: "Old Great Bulgaria"
  je_balkfm_bul_old_bulgaria_reason: ""
  
- je_balkfm_bul_restoration: "The Byzantine Restoration"
- je_balkfm_bul_restoration_reason: "The Byzantine heartlands once stretched across both the Balkans and Anatolia. We will restore our dominion over these lands."
+ je_balkfm_bul_two_bulgarias: "The Two Bulgarias"
+ je_balkfm_bul_two_bulgarias_reason: ""
+ je_balkfm_bul_two_bulgarias_status: "There are #bold [GetPlayer.MakeScope.Var('balkfm_erum_governor_var').GetValue]#! months remaining in our Governor-General's term."
  
  # Romanian Flavor
  je_balkfm_rom_regulamentul_organic: "The Regulamentul Organic"
@@ -203,13 +203,6 @@
  je_balkfm_rom_united_principalities_reason_status_2: "Maintain the union of principalities for 10 years."
  je_balkfm_rom_greater_romania: "Greater Romania"
  je_balkfm_rom_greater_romania_reason: "[ROOT.GetCountry.GetName] has achieved union. Yet, countless Romanians are trapped abroad, subject to the mechanations and abuses of the Imperialist powers. The Romanian state will not be whole until all Romanians can call it home."
- je_balkfm_rom_megali_idea: "A Romanian Empire"
- je_balkfm_rom_megali_idea_reason: "The Roman Empire once stretched across the Mediterranean, and it was the arrival of Roman settlers that gave rise to the Romanian people. The time has come for [ROOT.GetCountry.GetName] to reclaim the Balkans and restore Roman authority over the Balkans."
- je_balkfm_rom_restoration: "The Byzantine Restoration"
- je_balkfm_rom_restoration_reason: "The Byzantine heartlands once stretched across both the Balkans and Anatolia. We will restore our dominion over these lands."
- je_balkfm_rome_of_the_east: "Rome of the East"
- je_balkfm_rome_of_the_east_reason: "The Roman East encompassed Egypt and the Levant at the height of the Empire. We will reclaim these lands."
- je_balkfm_rome_of_the_east_status: "Reassert [ROOT.GetCountry.GetName]'s control over the Near East."
  
  je_balkfm_peles_castle: "Peleș Castle"
  je_balkfm_peles_castle_reason: "With the recognition of [ROOT.GetCountry.GetName], [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] [ROOT.GetCountry.GetRuler.GetFullName] has put forward a plan to construct a royal residence that would lend legitimacy and prestige to the fledgling Romanian state.Construction will progress depending on our level of investment.\n\nConstruction is currently expected to progress by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_peles_castle_sources [ROOT.GetVariable('balkfm_construction_progress_var').GetValue|+=]#! per month."
@@ -224,6 +217,8 @@
  # decisions
  balkfm_peles_castle_decision: "Build the Peleș Castle"
  balkfm_peles_castle_decision_desc: "Romania has finally forged a union between the Principalities. The King has proposed the construction of a royal estate with the aim of securing legitimacy and prestige for the young nation."
+ balkfm_clear_construction_modifiers_decision: "Clear Construction Modifiers"
+ balkfm_clear_construction_modifiers_decision_desc: "This is a fallback decision to remove the construction penalities should they get stuck."
  
  # tooltips
  je_balkfm_construction_0: "Construction is stalled."
@@ -253,7 +248,12 @@
  balkfm_karadordevic_plus_200: "House #yellow Karađorđević#! gains 200 #o Senate Support#!."
  balkfm_karadordevic_minus_50: "House #yellow Karađorđević#! loses 50 #o Senate Suppport#!."
  
- balkfm_declare_tsardom_tt: "#red Bulgaria will become independent!#!"
+ balkfm_stamobolov_plus_1: "This will #bold #green increase#!#! legitimacy of the Prince by #bold 1#!."
+ balkfm_stamobolov_plus_2: "This will #bold #green increase#!#! legitimacy of the Prince by #bold 2#!."
+ balkfm_stamobolov_minus_1: "This will #bold #red decrease#!#! legitimacy of the Prince by #bold 1#!."
+ balkfm_stamobolov_minus_2: "This will #bold #red decrease#!#! legitimacy of the Prince by #bold 2#!."
+ balkfm_declare_tsardom_tt: "#red #bold Bulgaria will become independent!#!#!"
+ balkfm_bulgarian_union_tt: "#red #bold We will become a subject of Bulgaria!#!#!"
  
  balkfm_united_principalities_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has formed a [concept_personal_union] over another #bold Romanian#! country or made it a [concept_puppet] of [SCOPE.GetRootScope.GetCountry.GetName]."
  balkfm_no_other_romanians_tt: "There are no other #bold Romanian#! countries to unite with."
@@ -303,10 +303,14 @@
  
  balkfm_purchase_rail: "Purchase the Rusé-Varna Line"
  balkfm_purchase_rail_desc: "We are obliged by treaty to the British, to purchase the English-owned Rusé-Varna railway. However, Russophiles within the government continue to push that this is a waste of resources that would be best directed at fulfilling Russian demands for rail access."
- balkfm_annex_rumelia: "Annex Rumelia"
+ balkfm_annex_rumelia: "Secure Union with Rumelia"
  balkfm_annex_rumelia_desc: "Bulgaria exists as only half of herself. Leaders in the National Awakening have continued their work in stoking desires for a union between Bulgaria and East Rumelia."
  balkfm_declare_tsardom: "Declare the Tsardom"
  balkfm_declare_tsardom_desc: "Bulgaria is whole. It falls to the Prince to shed the farce of Ottoman suzerainty and reclaim the old Bulgarian crown."
+ balkfm_declare_tsardom_alternate: "Declare the Tsardom"
+ balkfm_declare_tsardom_alternate_desc: "Bulgaria is whole. It falls to the Prince to shed the farce of Ottoman suzerainty and reclaim the old Bulgarian crown."
+ balkfm_bulgarian_union: "Secure Union with Bulgaria"
+ balkfm_bulgarian_union_desc: "Bulgaria exists as only half of herself. Leaders in the National Awakening have continued their work in stoking desires for a union between Bulgaria and East Rumelia."
  
  balkfm_mol_intervention: "Request Russian Intervention"
  balkfm_mol_intervention_desc: "Support for the Prince is crumbling. Supporters of the #italic Regulamentul#! have demanded that we make an emergency request to the Russian consul for direct intervention before its too late."
@@ -460,6 +464,8 @@
  modifier_balkfm_bulgarian_railways: "Bulgarian Railways"
  modifier_balkfm_bulgarian_railways_desc: "Bulgarian Railways"
  
+ modifier_balkfm_unrecognized_monarch: "Unrecognized Monarch"
+ modifier_balkfm_unrecognized_monarch_desc: "Unrecognized Monarch"
  modifier_balkfm_learning_bulgarian: "Learning Bulgarian"
  modifier_balkfm_learning_bulgarian_desc: "Learning Bulgarian"
  modifier_balkfm_refused_bulgarian: "Refused Bulgarian Lessons"
@@ -474,6 +480,20 @@
  modifier_balkfm_unchallenged_rule_desc: "Unchallenged Rule"
  modifier_balkfm_heresy_questioned: "Heresy Questioned"
  modifier_balkfm_heresy_questioned_desc: "Heresy Questioned"
+ modifier_balkfm_rooted_out_conspiracy: "Rooted Out Conspiracy"
+ modifier_balkfm_rooted_out_conspiracy_desc: "Rooted Out Conspiracy"
+ modifier_balkfm_seditious_officers: "Seditious Officers"
+ modifier_balkfm_seditious_officers_desc: "Seditious Officers"
+ modifier_balkfm_whimpy_ruler: "Weak Ruler"
+ modifier_balkfm_whimpy_ruler_desc: "Weak Ruler"
+ modifier_balkfm_bold_ruler: "Bold Ruler"
+ modifier_balkfm_bold_ruler_desc: "Bold Ruler"
+ modifier_balkfm_foxy_ferdinand: "Foxy Ferdinand"
+ modifier_balkfm_foxy_ferdinand_desc: "Foxy Ferdinand"
+ modifier_balkfm_royal_recognition: "Royal Recognition"
+ modifier_balkfm_royal_recognition_desc: "Royal Recognition"
+ modifier_balkfm_bulgarian_bismark: "Bulgarian Bismark"
+ modifier_balkfm_bulgarian_bismark_desc: "Bulgarian Bismark"
  modifier_balkfm_bulgarian_resurgence: "Bulgarian Resurgence"
  modifier_balkfm_bulgarian_resurgence_desc: "Bulgarian Resurgence"
  
@@ -554,6 +574,7 @@
  Stambolov: "Stambolov"
  Sobolev: "Sobolev"
  Kaulbars: "Kaulbars"
+ Goltz: "Goltz"
 
  Zimonjic: "Zimonjić"
  
@@ -617,3 +638,14 @@
  custom_balkfm_protochronism_dacianism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Dacianism#!."
  custom_balkfm_protochronism_stall: "Nationalist sentiments currently do not favor either side."
  
+ # script value breakdowns
+ balkfm_bul_from_having_heir: "From having an heir."
+ balkfm_bul_from_ruler_popularity: "From our Prince having [concept_popularity] over #bold 50#!"
+ balkfm_bul_from_stambolov: "From having #yellow Stefan Stambolov#! involved in politics"
+ balkfm_bul_from_battenburg_letter: "From the approval of #yellow Alexander Battenburg#!"
+ balkfm_bul_from_military_modernized: "From modernizing the military"
+ balkfm_bul_from_firing_squad: "From executing the leaders of the #bold Panista Plot#!"
+ balkfm_bul_from_boldness: "From the boldness of the Prince"
+ 
+ balkfm_bul_from_exiled_panitsa: "From showing mercy to the leaders of the #bold Panista Plot#!"
+ balkfm_bul_from_whimpy: "From the timidness of the Prince"
