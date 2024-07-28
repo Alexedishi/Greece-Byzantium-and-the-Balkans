@@ -1,4 +1,6 @@
-﻿eocfm_initialize_patriarchs_relations_effect = {
+﻿#### SETUP EFFECTS ####
+
+eocfm_initialize_patriarchs_relations_effect = {
 	set_variable = {
 		name = eocfm_rome_relations_var
 		value = 0
@@ -81,6 +83,8 @@ eocfm_initialize_patriarchs_effect = {
 		}
 	}
 }
+
+#### SCOPE AND CHARACTER UPKEEP EFFECTS ####
 
 eocfm_update_patriarch_variables_effect = {
 	# Local Metropolitan
@@ -677,181 +681,7 @@ eocfm_update_seat_controllers_effect = {
 	
 }
 
-eocfm_save_seat_controller_scopes_effect = {
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_rome
-		}
-		save_scope_as = eocfm_rome_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_constantinople
-		}
-		save_scope_as = eocfm_constantinople_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_antioch
-		}
-		save_scope_as = eocfm_antioch_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_alexandria
-		}
-		save_scope_as = eocfm_alexandria_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_jerusalem
-		}
-		save_scope_as = eocfm_jerusalem_controller
-	}
-	random_country = {
-		limit = {
-			has_variable = eocfm_controls_moscow
-		}
-		save_scope_as = eocfm_moscow_controller
-	}
-}
-
-eocfm_update_seat_bonus_effect = {
-	hidden_effect = {
-		remove_modifier ?= modifier_eocfm_controls_rome
-		remove_modifier ?= modifier_eocfm_controls_constantinople
-		remove_modifier ?= modifier_eocfm_controls_antioch
-		remove_modifier ?= modifier_eocfm_controls_alexandria
-		remove_modifier ?= modifier_eocfm_controls_jerusalem
-		remove_modifier ?= modifier_eocfm_controls_moscow
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_rome
-			owns_entire_state_region = STATE_LAZIO
-		}
-		add_modifier = modifier_eocfm_controls_rome
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_constantinople
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-		add_modifier = modifier_eocfm_controls_constantinople
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_antioch
-			owns_entire_state_region = STATE_SYRIA
-		}
-		add_modifier = modifier_eocfm_controls_antioch
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_alexandria
-			owns_entire_state_region = STATE_LOWER_EGYPT
-		}
-		add_modifier = modifier_eocfm_controls_alexandria
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_jerusalem
-			owns_entire_state_region = STATE_PALESTINE
-		}
-		add_modifier = modifier_eocfm_controls_jerusalem
-	}
-	if = {
-		limit = {
-			has_variable = eocfm_controls_moscow
-			owns_entire_state_region = STATE_MOSCOW
-		}
-		add_modifier = modifier_eocfm_controls_moscow
-	}
-}
-
-eocfm_update_patriarch_relations_effect = {
-	set_variable = {
-		name = eocfm_rome_progress_var
-		value = eocfm_rome_progress_value
-	}
-	set_variable = {
-		name = eocfm_constantinople_progress_var
-		value = eocfm_constantinople_progress_value
-	}
-	set_variable = {
-		name = eocfm_antioch_progress_var
-		value = eocfm_antioch_progress_value
-	}
-	set_variable = {
-		name = eocfm_jerusalem_progress_var
-		value = eocfm_jerusalem_progress_value
-	}
-	set_variable = {
-		name = eocfm_alexandria_progress_var
-		value = eocfm_alexandria_progress_value
-	}
-	set_variable = {
-		name = eocfm_moscow_progress_var
-		value = eocfm_moscow_progress_value
-	}
-}
-
-eocfm_push_patriarch_relations_effect = {
-	change_variable = {
-		name = eocfm_rome_relations_var
-		add = var:eocfm_rome_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_rome_relations_var
-		min = 0
-		max = 100
-	}
-	change_variable = {
-		name = eocfm_constantinople_relations_var
-		add = var:eocfm_constantinople_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_constantinople_relations_var
-		min = 0
-		max = 100
-	}
-	change_variable = {
-		name = eocfm_antioch_relations_var
-		add = var:eocfm_antioch_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_antioch_relations_var
-		min = 0
-		max = 100
-	}
-	change_variable = {
-		name = eocfm_jerusalem_relations_var
-		add = var:eocfm_jerusalem_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_jerusalem_relations_var
-		min = 0
-		max = 100
-	}
-	change_variable = {
-		name = eocfm_alexandria_relations_var
-		add = var:eocfm_alexandria_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_alexandria_relations_var
-		min = 0
-		max = 100
-	}
-	change_variable = {
-		name = eocfm_moscow_relations_var
-		add = var:eocfm_moscow_progress_var
-	}
-	clamp_variable = {
-		name = eocfm_moscow_relations_var
-		min = 0
-		max = 100
-	}
-}
+#### SEAT SWAY AND MODIFIERS UPKEEP EFFECTS ####
 
 eocfm_check_relations_variables_effect = {
 	if = {
@@ -921,6 +751,527 @@ eocfm_check_relations_variables_effect = {
 		}
 	}	
 }
+
+eocfm_update_relations_progress_effect = {
+	set_variable = {
+		name = eocfm_rome_progress_var
+		value = eocfm_rome_progress_value
+	}
+	set_variable = {
+		name = eocfm_constantinople_progress_var
+		value = eocfm_constantinople_progress_value
+	}
+	set_variable = {
+		name = eocfm_antioch_progress_var
+		value = eocfm_antioch_progress_value
+	}
+	set_variable = {
+		name = eocfm_jerusalem_progress_var
+		value = eocfm_jerusalem_progress_value
+	}
+	set_variable = {
+		name = eocfm_alexandria_progress_var
+		value = eocfm_alexandria_progress_value
+	}
+	set_variable = {
+		name = eocfm_moscow_progress_var
+		value = eocfm_moscow_progress_value
+	}
+}
+
+eocfm_push_relations_effect = {
+	change_variable = {
+		name = eocfm_rome_relations_var
+		add = var:eocfm_rome_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_rome_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_constantinople_relations_var
+		add = var:eocfm_constantinople_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_constantinople_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_antioch_relations_var
+		add = var:eocfm_antioch_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_antioch_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_jerusalem_relations_var
+		add = var:eocfm_jerusalem_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_jerusalem_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_alexandria_relations_var
+		add = var:eocfm_alexandria_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_alexandria_relations_var
+		min = 0
+		max = 100
+	}
+	change_variable = {
+		name = eocfm_moscow_relations_var
+		add = var:eocfm_moscow_progress_var
+	}
+	clamp_variable = {
+		name = eocfm_moscow_relations_var
+		min = 0
+		max = 100
+	}
+}
+
+eocfm_update_seat_bonus_effect = {
+	# Rome Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_rome
+			var:eocfm_rome_progress_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_rome
+			}
+		}
+		add_modifier = modifier_eocfm_controls_rome
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_rome
+				var:eocfm_rome_progress_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_rome
+		}
+		remove_modifier = modifier_eocfm_controls_rome
+	}
+	
+	# Constantinople Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_constantinople
+			var:eocfm_constantinople_relations_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_constantinople
+			}
+		}
+		add_modifier = modifier_eocfm_controls_constantinople
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_constantinople
+				var:eocfm_constantinople_relations_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_constantinople
+		}
+		remove_modifier = modifier_eocfm_controls_constantinople
+	}
+	
+	# Antioch Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_antioch
+			var:eocfm_antioch_relations_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_antioch
+			}
+		}
+		add_modifier = modifier_eocfm_controls_antioch
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_antioch
+				var:eocfm_antioch_relations_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_antioch
+		}
+		remove_modifier = modifier_eocfm_controls_antioch
+	}
+	
+	# Alexandria Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_alexandria
+			var:eocfm_alexandria_relations_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_alexandria
+			}
+		}
+		add_modifier = modifier_eocfm_controls_alexandria
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_alexandria
+				var:eocfm_alexandria_relations_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_alexandria
+		}
+		remove_modifier = modifier_eocfm_controls_alexandria
+	}
+	
+	# Jerusalem Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_jerusalem
+			var:eocfm_jerusalem_relations_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_jerusalem
+			}
+		}
+		add_modifier = modifier_eocfm_controls_jerusalem
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_jerusalem
+				var:eocfm_jerusalem_relations_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_jerusalem
+		}
+		remove_modifier = modifier_eocfm_controls_jerusalem
+	}
+	
+	# Moscow Bonus
+	if = {
+		limit = {
+			has_variable = eocfm_controls_moscow
+			var:eocfm_moscow_relations_var >= 80
+			NOT = {
+				has_modifier = modifier_eocfm_controls_moscow
+			}
+		}
+		add_modifier = modifier_eocfm_controls_moscow
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_controls_moscow
+				var:eocfm_moscow_relations_var >= 80
+			}
+			has_modifier = modifier_eocfm_controls_moscow
+		}
+		remove_modifier = modifier_eocfm_controls_moscow
+	}
+}
+
+eocfm_confirm_sway_validity_effect = {
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_rome
+			NOT = {
+				has_variable = eocfm_controls_rome
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_rome
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_constantinople
+			NOT = {
+				has_variable = eocfm_controls_constantinople
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_constantinople
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_antioch
+			NOT = {
+				has_variable = eocfm_controls_antioch
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_antioch
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_jerusalem
+			NOT = {
+				has_variable = eocfm_controls_alexandria
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_jerusalem
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_alexandria
+			NOT = {
+				has_variable = eocfm_controls_jerusalem
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_alexandria
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_swaying_moscow
+			NOT = {
+				has_variable = eocfm_controls_moscow
+			}
+		}
+		remove_modifier = modifier_eocfm_swaying_moscow
+	}
+}
+
+#### EVENT-SPECIFIC EFFECTS ####
+
+eocfm_save_seat_controller_scopes_effect = {
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_rome
+		}
+		save_scope_as = eocfm_rome_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_constantinople
+		}
+		save_scope_as = eocfm_constantinople_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_antioch
+		}
+		save_scope_as = eocfm_antioch_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_alexandria
+		}
+		save_scope_as = eocfm_alexandria_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_jerusalem
+		}
+		save_scope_as = eocfm_jerusalem_controller
+	}
+	random_country = {
+		limit = {
+			has_variable = eocfm_controls_moscow
+		}
+		save_scope_as = eocfm_moscow_controller
+	}
+}
+
+eocfm_select_random_controlled_seat_effect = {
+	random_list = {
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_rome
+			}
+			set_variable = eocfm_rome_event_var
+		}
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_constantinople
+			}
+			set_variable = eocfm_constantinople_event_var
+		}
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_antioch
+			}
+			set_variable = eocfm_antioch_event_var
+		}
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_jerusalem
+			}
+			set_variable = eocfm_jerusalem_event_var
+		}
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_alexandria
+			}
+			set_variable = eocfm_alexandria_event_var
+		}
+		5 = {
+			trigger = {
+				has_variable = eocfm_controls_moscow
+			}
+			set_variable = eocfm_moscow_event_var
+		}
+	}
+}
+
+eocfm_save_sway_event_patriarch_effect = {
+	if = {
+		limit = {
+			has_variable = eocfm_rome_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_rome_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_constantinople_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_antioch_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_antioch_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_jerusalem_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_jerusalem_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_alexandria_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_alexandria_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_moscow_event_var
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_moscow_patriarch
+			}
+			save_scope_as = eocfm_sway_event_scope
+		}
+	}
+}
+
+eocfm_boost_opinion_from_sway_effect = {
+	if = {
+		limit = {
+			has_variable = eocfm_rome_event_var
+		}
+		change_variable = {
+			name = eocfm_rome_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_rome_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_rome_relations_tt
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_constantinople_event_var
+		}
+		change_variable = {
+			name = eocfm_constantinople_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_constantinople_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_constantinople_relations_tt
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_antioch_event_var
+		}
+		change_variable = {
+			name = eocfm_antioch_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_antioch_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_antioch_relations_tt
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_jerusalem_event_var
+		}
+		change_variable = {
+			name = eocfm_jerusalem_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_jerusalem_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_jerusalem_relations_tt
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_alexandria_event_var
+		}
+		change_variable = {
+			name = eocfm_alexandria_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_alexandria_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_alexandria_relations_tt
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_moscow_event_var
+		}
+		change_variable = {
+			name = eocfm_moscow_relations_var
+			add = 20
+		}
+		clamp_variable = {
+			name = eocfm_moscow_relations_var
+			min = 0
+			max = 100
+		}
+		custom_tooltip = eocfm_boost_moscow_relations_tt
+	}
+}
+
+#### CLEANUP EFFECTS ####
 
 eocfm_remove_all_modifiers_effect = {
 	remove_modifier ?= modifier_eocfm_hosting_council
@@ -994,4 +1345,13 @@ eocfm_crusade_cleanup_effect = {
 	remove_variable = eocfm_crusade_target
 	remove_variable = eocfm_crusade_attacker
 	remove_variable = eocfm_crusade_warmup_var
+}
+
+eocfm_sway_event_cleanup_effect = {
+	remove_variable = eocfm_rome_event_var
+	remove_variable = eocfm_constantinople_event_var
+	remove_variable = eocfm_antioch_event_var
+	remove_variable = eocfm_jerusalem_event_var
+	remove_variable = eocfm_alexandria_event_var
+	remove_variable = eocfm_moscow_event_var
 }

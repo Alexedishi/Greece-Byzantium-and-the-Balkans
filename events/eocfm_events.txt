@@ -3119,7 +3119,7 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 	dlc = dlc_grefm
 	
 	trigger = {
-		eocfm_controls_major_seat_trigger = yes
+		eocfm_controls_any_seat_trigger = yes
 		any_country = {
 			has_variable = eocfm_integration_var
 			var:eocfm_integration_var < 80
@@ -3263,6 +3263,59 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 }
 
 #### PATRIARCHAL SEAT SWAY EVENTS ####
+
+eocfm.150 = { # Ecumenical Financing
+	type = country_event
+	placement = root
+	
+	title = eocfm.150.t
+	desc = eocfm.150.d
+	flavor = eocfm.150.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:eocfm_sway_event_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		eocfm_is_swaying_seat_trigger = yes
+	}
+	
+	cancellation_trigger = {
+		eocfm_controls_any_seat_trigger = no
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+		eocfm_update_patriarch_variables_effect = yes
+		eocfm_select_random_controlled_seat_effect = yes
+	}
+	
+	option = { # Grant Funding
+		name = eocfm.150.a
+		default_option = yes
+		eocfm_boost_opinion_from_sway_effect = yes
+	}
+	
+	option = { # Do Not
+		name = eocfm.150.b
+	}
+	
+	after = {
+		eocfm_sway_event_cleanup_effect = yes
+	}
+
+}
 
 
 #### ECUMENICAL PATRIARCHATE EVENTS ####

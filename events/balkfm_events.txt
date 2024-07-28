@@ -5373,8 +5373,8 @@ balkfm.516 = { # A Warm Reception
 			value = 10
 		}
 		add_modifier = {
-			name = modifier_balkfm_order_of_osmanieh
-			months = very_long_modifier_time
+			name = modifier_turkfm_order_of_osmanieh
+			months = long_modifier_time
 		}
 		add_treasury = 50000
 	}
@@ -5732,6 +5732,12 @@ balkfm.520 = { # An Elected Prince
 		trigger_event = {
 			id = balkfm.562 # Ecclesiatic Hostility
 			days = 300
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_order_of_osmanieh
+			}
+			remove_modifier = modifier_turkfm_order_of_osmanieh
 		}
 	}
 	
@@ -6671,7 +6677,7 @@ balkfm.532 = { # Spring in Constantinople
 		name = balkfm.532.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_balkfm_order_of_osmanieh
+			name = modifier_turkfm_order_of_honor
 			months = long_modifier_time
 		}
 	}
