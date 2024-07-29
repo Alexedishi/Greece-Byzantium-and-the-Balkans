@@ -555,6 +555,7 @@ fullscreen_block_window = {
 							max_width = 300
 							elide = right
 							using = fontsize_medium
+							visible = "[GetScriptedGui('eocfm_schism_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 						
 						button = {
@@ -581,6 +582,7 @@ fullscreen_block_window = {
 							using = entry_bg_simple
 						}
 						
+						## Secure Tetrarchy/Pentarchy Buttons
 						button = {
 							parentanchor = center
 							position = { 0 -78 }
@@ -611,6 +613,7 @@ fullscreen_block_window = {
 							tooltip = "eocfm_gui_secure_tetrarchy_tt"
 						}
 						
+						## Seat Integration/Sway Buttons
 						button = {
 							parentanchor = center
 							position = { 0 -28 }
@@ -625,21 +628,48 @@ fullscreen_block_window = {
 							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							tooltip = "eocfm_gui_integrate_constantinople_tt"
 						}
+						green_progressbar_horizontal = {
+							parentanchor = bottom|hcenter
+							position = { 0 -28 }
+							size = { 200 20 }
+							visible = "[GetScriptedGui('eocfm_constantinople_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							
+							blockoverride "values" {
+								min = 0
+								max = 120
+								value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+							}
+						}
 						button = {
 							parentanchor = center
-							position = { 0 22 }
+							position = { 0 -28 }
 							using = default_button_primary_big_action
 							size = { 200 40 }
 							raw_text = "Sway Ecumenical Patriarch"
 							using = fontsize_medium
 							
-							datacontext = "[GetScriptedGui('eocfm_seek_mandate_sgui')]"
+							datacontext = "[GetScriptedGui('eocfm_start_sway_constantinople_sgui')]"
 							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-							tooltip = "eocfm_gui_sway_constantinople_tt"
+							tooltip = "eocfm_gui_start_sway_constantinople_tt"
+						}
+						button = {
+							parentanchor = center
+							position = { 0 -28 }
+							using = default_button_primary_big_action
+							size = { 200 40 }
+							raw_text = "Cease Diplomatic Efforts"
+							using = fontsize_medium
+							
+							datacontext = "[GetScriptedGui('eocfm_stop_sway_constantinople_sgui')]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+							tooltip = "eocfm_gui_stop_sway_constantinople_tt"
 						}
 						
+						## Seek Mandate Button
 						button = {
 							parentanchor = center
 							position = { 0 22 }
@@ -655,6 +685,7 @@ fullscreen_block_window = {
 							tooltip = "eocfm_gui_seek_mandate_tt"
 						}
 						
+						## Depose Patriarch Button
 						button = {
 							parentanchor = center
 							position = { 0 72 }
@@ -732,6 +763,7 @@ fullscreen_block_window = {
 					elide = right
 					using = fontsize_medium
 				}
+				
 				button = {
 					parentanchor = bottom|hcenter
 					position = { 0 -5 }
@@ -744,7 +776,47 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "eocfm_gui_integrate_jerusalem_tt"
+					tooltip = "eocfm_gui_integrate_antioch_tt"
+				}
+				green_progressbar_horizontal = {
+					parentanchor = bottom|hcenter
+					position = { 0 -28 }
+					size = { 200 20 }
+					visible = "[GetScriptedGui('eocfm_antioch_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					
+					blockoverride "values" {
+						min = 0
+						max = 120
+						value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+					}
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Sway Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_start_sway_antioch_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_start_sway_antioch_tt"
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Cease Diplomatic Efforts"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_stop_sway_antioch_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_stop_sway_antioch_tt"
 				}
 			}
 			
@@ -800,6 +872,7 @@ fullscreen_block_window = {
 					elide = right
 					using = fontsize_medium
 				}
+				
 				button = {
 					parentanchor = bottom|hcenter
 					position = { 0 -5 }
@@ -813,6 +886,46 @@ fullscreen_block_window = {
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					tooltip = "eocfm_gui_integrate_jerusalem_tt"
+				}
+				green_progressbar_horizontal = {
+					parentanchor = bottom|hcenter
+					position = { 0 -28 }
+					size = { 200 20 }
+					visible = "[GetScriptedGui('eocfm_jerusalem_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					
+					blockoverride "values" {
+						min = 0
+						max = 120
+						value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+					}
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Sway Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_start_sway_jerusalem_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_start_sway_jerusalem_tt"
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Cease Diplomatic Efforts"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_stop_sway_jerusalem_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_stop_sway_jerusalem_tt"
 				}
 			}
 			
@@ -868,6 +981,7 @@ fullscreen_block_window = {
 					elide = right
 					using = fontsize_medium
 				}
+				
 				button = {
 					parentanchor = bottom|hcenter
 					position = { 0 -5 }
@@ -881,6 +995,46 @@ fullscreen_block_window = {
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					tooltip = "eocfm_gui_integrate_alexandria_tt"
+				}
+				green_progressbar_horizontal = {
+					parentanchor = bottom|hcenter
+					position = { 0 -28 }
+					size = { 200 20 }
+					visible = "[GetScriptedGui('eocfm_alexandria_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					
+					blockoverride "values" {
+						min = 0
+						max = 120
+						value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+					}
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Sway Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_start_sway_alexandria_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_start_sway_alexandria_tt"
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Cease Diplomatic Efforts"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_stop_sway_alexandria_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_stop_sway_alexandria_tt"
 				}
 			}
 			
@@ -936,6 +1090,7 @@ fullscreen_block_window = {
 					elide = right
 					using = fontsize_medium
 				}
+				
 				button = {
 					parentanchor = bottom|hcenter
 					position = { 0 -5 }
@@ -949,6 +1104,46 @@ fullscreen_block_window = {
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					tooltip = "eocfm_gui_integrate_moscow_tt"
+				}
+				green_progressbar_horizontal = {
+					parentanchor = bottom|hcenter
+					position = { 0 -28 }
+					size = { 200 20 }
+					visible = "[GetScriptedGui('eocfm_moscow_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					
+					blockoverride "values" {
+						min = 0
+						max = 120
+						value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+					}
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Sway Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_start_sway_moscow_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_start_sway_moscow_tt"
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Cease Diplomatic Efforts"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_stop_sway_moscow_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_stop_sway_moscow_tt"
 				}
 			}
 			
@@ -1016,7 +1211,47 @@ fullscreen_block_window = {
 					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-					tooltip = "eocfm_gui_integrate_moscow_tt"
+					tooltip = "eocfm_gui_integrate_rome_tt"
+				}
+				green_progressbar_horizontal = {
+					parentanchor = bottom|hcenter
+					position = { 0 -28 }
+					size = { 200 20 }
+					visible = "[GetScriptedGui('eocfm_rome_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					
+					blockoverride "values" {
+						min = 0
+						max = 120
+						value = "[Country.MakeScope.Var('eocfm_integration_var').GetValue]"
+					}
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Sway Patriarchal Seat"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_start_sway_rome_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_start_sway_rome_tt"
+				}
+				button = {
+					parentanchor = bottom|hcenter
+					position = { 0 -5 }
+					using = default_button_primary_big_action
+					size = { 220 40 }
+					raw_text = "Cease Diplomatic Efforts"
+					using = fontsize_medium
+					
+					datacontext = "[GetScriptedGui('eocfm_stop_sway_rome_sgui')]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+					tooltip = "eocfm_gui_stop_sway_rome_tt"
 				}
 			}
 		}

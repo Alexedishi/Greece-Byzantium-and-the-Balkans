@@ -736,84 +736,15 @@ eocfm_demand_deposition_sgui = {
 #####################
 # SEAT INTERACTIONS #
 #####################
-## Rome
-eocfm_integrate_rome_sgui = {
-	scope = country
-	
-	is_shown = {
-		NOT = {
-			has_variable = eocfm_controls_rome
-		}		
-	}
-	
-	is_valid = {
-		custom_tooltip = {
-			text = eocfm_need_500_tt
-			hidden_trigger = {
-				caesaropapism_capacity_value >= 500
-			}
-		}	
-		custom_tooltip = {
-			text = eocfm_has_autocephaly_tt
-			hidden_trigger = {
-				has_variable = eocfm_is_autocephalous
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_integrating_seat_tt
-			hidden_trigger = {
-				NOT = {
-					has_variable = eocfm_integration_var
-				}
-			}
-		}
-		owns_entire_state_region = STATE_LAZIO
-	}
-	
-	effect = {
-		set_variable = eocfm_integrating_rome
-		set_variable = {
-			name = eocfm_integration_var
-			value = 0
-		}
-		trigger_event = {
-			id = eocfm.310 # Challenging the Patriarch of the West
-		}
-		every_country = {
-			limit = {
-				OR = {
-					country_has_state_religion = rel:catholic
-					country_has_state_religion = rel:orthodox
-				}
-			}
-			trigger_event = {
-				id = eocfm.316 # Challenging the Patriarch of the West
-			}
-		}
-	}
-}
-
-eocfm_sway_rome_sgui = {
-	scope = country
-	
-	is_shown = {
-		has_variable = eocfm_controls_rome
-	}
-	
-	is_valid = {
-	}
-	
-	effect = {
-	}
-}
 
 ## Constantinople
 eocfm_integrate_constantinople_sgui = {
 	scope = country
 	
 	is_shown = {
-		NOT = {
+		NOR = {
 			has_variable = eocfm_controls_constantinople
+			has_variable = eocfm_integrating_constantinople
 		}		
 	}
 	
@@ -859,6 +790,15 @@ eocfm_integrate_constantinople_sgui = {
 			}
 		}
 	}
+}
+
+eocfm_constantinople_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_constantinople
+	}
+	
 }
 
 eocfm_start_sway_constantinople_sgui = {
@@ -948,17 +888,53 @@ eocfm_integrate_antioch_sgui = {
 	}
 }
 
-eocfm_sway_antioch_sgui = {
+eocfm_antioch_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_antioch
+	}
+	
+}
+
+eocfm_start_sway_antioch_sgui = {
 	scope = country
 	
 	is_shown = {
 		has_variable = eocfm_controls_antioch
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_antioch
+		}
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}			
 	}
 	
 	effect = {
+		add_modifier = modifier_eocfm_swaying_antioch
+	}
+}
+
+eocfm_stop_sway_antioch_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_antioch
+		has_modifier = modifier_eocfm_swaying_antioch
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_antioch
 	}
 }
 
@@ -1008,17 +984,53 @@ eocfm_integrate_jerusalem_sgui = {
 	}
 }
 
-eocfm_sway_jerusalem_sgui = {
+eocfm_jerusalem_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_jerusalem
+	}
+	
+}
+
+eocfm_start_sway_jerusalem_sgui = {
 	scope = country
 	
 	is_shown = {
 		has_variable = eocfm_controls_jerusalem
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_jerusalem
+		}
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}			
 	}
 	
 	effect = {
+		add_modifier = modifier_eocfm_swaying_jerusalem
+	}
+}
+
+eocfm_stop_sway_jerusalem_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_jerusalem
+		has_modifier = modifier_eocfm_swaying_jerusalem
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_jerusalem
 	}
 }
 
@@ -1068,17 +1080,53 @@ eocfm_integrate_alexandria_sgui = {
 	}
 }
 
-eocfm_sway_alexandria_sgui = {
+eocfm_alexandria_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_alexandria
+	}
+	
+}
+
+eocfm_start_sway_alexandria_sgui = {
 	scope = country
 	
 	is_shown = {
 		has_variable = eocfm_controls_alexandria
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_alexandria
+		}
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}			
 	}
 	
 	effect = {
+		add_modifier = modifier_eocfm_swaying_alexandria
+	}
+}
+
+eocfm_stop_sway_alexandria_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_alexandria
+		has_modifier = modifier_eocfm_swaying_alexandria
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_alexandria
 	}
 }
 
@@ -1128,17 +1176,162 @@ eocfm_integrate_moscow_sgui = {
 	}
 }
 
-eocfm_sway_moscow_sgui = {
+eocfm_moscow_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_moscow
+	}
+	
+}
+
+eocfm_start_sway_moscow_sgui = {
 	scope = country
 	
 	is_shown = {
 		has_variable = eocfm_controls_moscow
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_moscow
+		}
 	}
 	
 	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}			
 	}
 	
 	effect = {
+		add_modifier = modifier_eocfm_swaying_moscow
 	}
 }
 
+eocfm_stop_sway_moscow_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_moscow
+		has_modifier = modifier_eocfm_swaying_moscow
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_moscow
+	}
+}
+
+## Rome; at the bottom in this case to match alignment in the gui file
+eocfm_integrate_rome_sgui = {
+	scope = country
+	
+	is_shown = {
+		NOR = {
+			has_variable = eocfm_controls_rome
+			has_variable = eocfm_integrating_rome
+		}		
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_500_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 500
+			}
+		}	
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_integrating_seat_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = eocfm_integration_var
+				}
+			}
+		}
+		owns_entire_state_region = STATE_LAZIO
+	}
+	
+	effect = {
+		set_variable = eocfm_integrating_rome
+		set_variable = {
+			name = eocfm_integration_var
+			value = 0
+		}
+		trigger_event = {
+			id = eocfm.316 # Challenging the Patriarch of the West
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:catholic
+						country_has_state_religion = rel:orthodox
+					}
+				}
+				trigger_event = {
+					id = eocfm.316 # Challenging the Patriarch of the West
+				}
+			}
+		}
+	}
+}
+
+eocfm_rome_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_integrating_rome
+	}
+	
+}
+
+eocfm_start_sway_rome_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_rome
+		NOT = {
+			has_modifier = modifier_eocfm_swaying_rome
+		}
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_need_200_tt
+			hidden_trigger = {
+				caesaropapism_capacity_value >= 200
+			}
+		}
+	}
+	
+	effect = {
+		add_modifier = modifier_eocfm_swaying_rome
+	}
+}
+
+eocfm_stop_sway_rome_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_controls_rome
+		has_modifier = modifier_eocfm_swaying_rome
+	}
+	
+	is_valid = {
+		always = yes
+	}
+	
+	effect = {
+		remove_modifier = modifier_eocfm_swaying_rome
+	}
+}

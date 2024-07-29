@@ -4,7 +4,7 @@
 	## BASE
 	add = {
 		value = 100
-		desc = "eocfm_capacity_from_base"
+		desc = eocfm_capacity_from_base
 	}
 	
 	##SOURCES
@@ -16,7 +16,16 @@
 		}
 		add = {	
 			value = 100
-			desc = "eocfm_capacity_from_monarchy"
+			desc = eocfm_capacity_from_monarchy
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_state_religion
+		}
+		add = {
+			value = 100
+			desc = eocfm_capacity_from_state_religion
 		}
 	}
 	
@@ -27,7 +36,7 @@
 		}
 		add = {	
 			value = 200
-			desc = "eocfm_capacity_from_reformed_synod"
+			desc = eocfm_capacity_from_reformed_synod
 		}
 	}
 	if = {
@@ -36,7 +45,7 @@
 		}
 		add = {
 			value = 100
-			desc = "eocfm_capacity_from_dissolved_monasteries"
+			desc = eocfm_capacity_from_dissolved_monasteries
 		}
 	}
 	if = {
@@ -45,7 +54,7 @@
 		}
 		add = {
 			value = 100
-			desc = "eocfm_capacity_from_subsidizing_church"
+			desc = eocfm_capacity_from_subsidizing_church
 		}
 	}
 	if = {
@@ -54,7 +63,7 @@
 		}
 		add = {
 			value = 100
-			desc = "eocfm_capacity_from_established_schools"
+			desc = eocfm_capacity_from_established_schools
 		}
 	}
 	
@@ -65,7 +74,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_rome"
+			desc = eocfm_capacity_from_controls_rome
 		}
 	}
 	if = {
@@ -74,7 +83,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_constantinople"
+			desc = eocfm_capacity_from_controls_constantinople
 		}
 	}
 	if = {
@@ -83,7 +92,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_antioch"
+			desc = eocfm_capacity_from_controls_antioch
 		}
 	}
 	if = {
@@ -92,7 +101,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_alexandria"
+			desc = eocfm_capacity_from_controls_alexandria
 		}
 	}
 	if = {
@@ -101,7 +110,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_jerusalem"
+			desc = eocfm_capacity_from_controls_jerusalem
 		}
 	}
 	if = {
@@ -110,7 +119,16 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_controls_moscow"
+			desc = eocfm_capacity_from_controls_moscow
+		}
+	}
+	if = {
+		limit = {
+			eocfm_controls_all_seats_trigger = yes
+		}
+		multiply = {
+			value = 400
+			desc = eocfm_capacity_from_controls_all_seats
 		}
 	}
 	
@@ -121,7 +139,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_having_autocephaly"
+			desc = eocfm_capacity_from_having_autocephaly
 		}
 	}
 	if = {
@@ -130,7 +148,7 @@
 		}
 		add = {
 			value = 50
-			desc = "eocfm_capacity_from_backing_reforms"
+			desc = eocfm_capacity_from_backing_reforms
 		}
 	}
 	if = {
@@ -139,7 +157,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_secured_tetrarchy"
+			desc = eocfm_capacity_from_secured_tetrarchy
 		}
 	}
 	if = {
@@ -148,7 +166,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_secured_pentarchy"
+			desc = eocfm_capacity_from_secured_pentarchy
 		}
 	}
 	if = {
@@ -157,7 +175,7 @@
 		}
 		add = {
 			value = 2000
-			desc = "eocfm_capacity_from_mended_schism"
+			desc = eocfm_capacity_from_mended_schism
 		}
 	}
 	if = {
@@ -166,7 +184,7 @@
 		}
 		add = {
 			value = 200
-			desc = "eocfm_capacity_from_expelled_metropolitan"
+			desc = eocfm_capacity_from_expelled_metropolitan
 		}
 	}
 	
@@ -179,7 +197,16 @@
 		}
 		subtract = {
 			value = 500
-			desc = "eocfm_capacity_from_theocracy"
+			desc = eocfm_capacity_from_theocracy
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_total_separation
+		}
+		subtract = {
+			value = 1000
+			desc = eocfm_capacity_from_total_separation
 		}
 	}
 	if = {
@@ -188,7 +215,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_religious_schools"
+			desc = eocfm_capacity_from_religious_schools
 		}
 	}
 	if = {
@@ -197,60 +224,7 @@
 		}
 		subtract = {
 			value = 500
-			desc "eocfm_capacity_from_autocephaly_abandoned"
-		}
-	}
-	
-	##MULTIPLIERS
-	
-	#Seat Check
-	if = {
-		limit = {
-			eocfm_controls_all_seats_trigger = yes
-		}
-		multiply = {
-			value = 1.50
-			desc = "eocfm_capacity_from_controls_all_seats"
-		}
-	}
-	
-	# Law Check
-	if = {
-		limit = {
-			has_law = law_type:law_state_religion
-		}
-		multiply = {
-			value = 1.1
-			desc = "eocfm_capacity_from_state_religion"
-		}
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_total_separation
-		}
-		multiply = {
-			value = 0.9
-			desc = "eocfm_capacity_from_total_separation"
-		}
-	}
-
-	# Modifiers Check
-	if = {
-		limit = {
-			has_modifier = modifier_eocfm_restored_synod
-		}
-		multiply = {
-			value = 0.50
-			desc = "eocfm_capacity_from_restored_synod"
-		}
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_eocfm_restored_monasteries
-		}
-		multiply = {
-			value = 0.90
-			desc = "eocfm_capacity_from_restored_monasteries"
+			desc eocfm_capacity_from_autocephaly_abandoned
 		}
 	}
 	
@@ -263,7 +237,7 @@
 		}
 		subtract = {
 			value = 1000
-			desc = "eocfm_capacity_from_hosting_council"
+			desc = eocfm_capacity_from_hosting_council
 		}
 	}
 	if = {
@@ -272,7 +246,7 @@
 		}
 		subtract = {
 			value = 800
-			desc = "eocfm_capacity_from_schismatic"
+			desc = eocfm_capacity_from_schismatic
 		}
 	}
 	if = {
@@ -281,7 +255,7 @@
 		}
 		subtract = {
 			value = 500
-			desc = "eocfm_capacity_from_seat_integration"
+			desc = eocfm_capacity_from_seat_integration
 		}
 	}
 	if = {
@@ -290,7 +264,7 @@
 		}
 		subtract = {
 			value = 2000
-			desc = "eocfm_capacity_from_mending_schism"
+			desc = eocfm_capacity_from_mending_schism
 		}
 	}
 	
@@ -301,7 +275,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_rome"
+			desc = eocfm_capacity_from_swaying_rome
 		}
 	}
 	if = {
@@ -310,7 +284,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_constantinople"
+			desc = eocfm_capacity_from_swaying_constantinople
 		}
 	}
 	if = {
@@ -319,7 +293,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_antioch"
+			desc = eocfm_capacity_from_swaying_antioch
 		}
 	}
 	if = {
@@ -328,7 +302,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_jerusalem"
+			desc = eocfm_capacity_from_swaying_jerusalem
 		}
 	}
 	if = {
@@ -337,7 +311,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_alexandria"
+			desc = eocfm_capacity_from_swaying_alexandria
 		}
 	}
 	if = {
@@ -346,7 +320,7 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_swaying_moscow"
+			desc = eocfm_capacity_from_swaying_moscow
 		}
 	}
 	
@@ -357,7 +331,25 @@
 		}
 		subtract = {
 			value = 200
-			desc = "eocfm_capacity_from_has_icon"
+			desc = eocfm_capacity_from_has_icon
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_restored_synod
+		}
+		subtract = {
+			value = 500
+			desc = eocfm_capacity_from_restored_synod
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_eocfm_restored_monasteries
+		}
+		subtract = {
+			value = 200
+			desc = eocfm_capacity_from_restored_monasteries
 		}
 	}
 	
@@ -368,7 +360,7 @@
 		}
 		subtract = {
 			value = 100
-			desc = "eocfm_capacity_from_metropolitan_decree"
+			desc = eocfm_capacity_from_metropolitan_decree
 		}
 	}
 	
@@ -378,7 +370,7 @@
 		}
 		subtract = {
 			value = 100
-			desc = "eocfm_capacity_from_almsgiving_decree"
+			desc = eocfm_capacity_from_almsgiving_decree
 		}
 	}
 	
