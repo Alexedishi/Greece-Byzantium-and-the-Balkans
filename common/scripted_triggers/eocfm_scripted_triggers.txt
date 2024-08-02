@@ -210,7 +210,13 @@ eocfm_has_senior_patriarch_approval_trigger = {
 
 eocfm_has_low_relations_with_any_patriarch_trigger = {
 	OR = {
-		var:eocfm_rome_relations_var < 20
+		AND = {
+			any_country = {
+				has_variable = eocfm_controls_rome
+				country_has_state_religion = rel:orthodox
+			}
+			var:eocfm_rome_relations_var < 20
+		}
 		var:eocfm_constantinople_relations_var < 20
 		var:eocfm_antioch_relations_var < 20
 		var:eocfm_jerusalem_relations_var < 20
@@ -249,6 +255,10 @@ eocfm_is_condemnation_target_trigger = { # This feels like bad scripting, idk
 	eocfm_has_impious_law_trigger = yes
 	OR = {
 		AND = {
+			any_country = {
+				has_variable = eocfm_controls_rome
+				country_has_state_religion = rel:orthodox
+			}
 			var:eocfm_rome_relations_var < 20
 			NOT = {
 				has_modifier = modifier_eocfm_condemned_by_rome

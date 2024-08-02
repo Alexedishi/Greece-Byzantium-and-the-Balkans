@@ -3299,7 +3299,7 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 			months = normal_modifier_time
 		}
 		create_incident = {
-			target = scope:eocfm_disputer_scope
+			country = scope:eocfm_disputer_scope
 			value = 10
 		}
 		scope:eocfm_disputer_scope = {
@@ -3390,6 +3390,7 @@ eocfm.150 = { # Ecumenical Financing
 	
 	trigger = {
 		eocfm_is_swaying_seat_trigger = yes
+		eocfm_has_ongoing_patriarch_event_trigger = no
 	}
 	
 	cooldown = {
@@ -3405,7 +3406,7 @@ eocfm.150 = { # Ecumenical Financing
 	option = { # Grant Funding
 		name = eocfm.150.a
 		default_option = yes
-		eocfm_boost_opinion_from_sway_effect = yes
+		eocfm_increase_patriarch_opinion_effect = yes
 		add_loyalists = {
 			religion = rel:orthodox
 			value = small_radicals
@@ -3431,7 +3432,7 @@ eocfm.150 = { # Ecumenical Financing
 	}
 	
 	after = {
-		eocfm_sway_event_cleanup_effect = yes
+		eocfm_remove_seat_event_variables_effect = yes
 	}
 
 }
@@ -3448,7 +3449,7 @@ eocfm.151 = { # Delegation Arrives from Seat
 		video = "southamerica_christianity"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3481,7 +3482,7 @@ eocfm.151 = { # Delegation Arrives from Seat
 		show_as_unavailable = {
 			always = yes
 		}
-		eocfm_boost_opinion_from_sway_effect = yes
+		eocfm_increase_patriarch_opinion_effect = yes
 		add_modifier = {
 			name = modifier_eocfm_received_delegation
 			months = normal_modifier_time
@@ -3746,7 +3747,7 @@ eocfm.167 = { # Country Demands Deposition
 	option = { # Depose the Patriarch
 		name = eocfm.167.b
 		custom_tooltip = {
-			text = eocfm_161.tt
+			text = eocfm.167.tt
 			hidden_effect = {
 				eocfm_replace_ecumenical_patriarch_effect = yes
 			}
@@ -3835,7 +3836,7 @@ eocfm.169 = { # The Living Law
 		video = "southamerica_christianity"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3903,11 +3904,8 @@ eocfm.170 = { # Patriarch Condemns Immorality
 		eocfm_has_ongoing_patriarch_event_trigger = no
 	}
 	
-	cancellation_trigger = {
-	}
-	
 	cooldown = {
-		years = 5 just to avoid getting spammed
+		years = 5 # just to avoid getting spammed
 	}
 	
 	immediate = {
@@ -3919,6 +3917,68 @@ eocfm.170 = { # Patriarch Condemns Immorality
 		name = eocfm.170.a
 		default_option = yes
 		eocfm_add_condemnation_effect = yes
+		eocfm_remove_seat_event_variables_effect = yes
+	}
+
+}
+
+eocfm.171 = { # Theological Dispute with Patriarch
+	type = country_event
+	placement = root
+	
+	title = eocfm.171.t
+	desc = eocfm.171.d
+	flavor = eocfm.171.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_modifier = modifier_eocfm_theologize_dogma
+		NOT = {
+			has_modifier = modifier_eocfm_conceded_doctrine
+		}
+		eocfm_has_low_relations_with_any_patriarch_trigger = yes
+		eocfm_has_ongoing_patriarch_event_trigger = no
+	}
+	
+	cooldown = {
+		years = 2 # Hope your luck ain't this bad
+	}
+	
+	immediate = {
+		eocfm_select_random_seat_effect = yes
+		eocfm_save_event_patriarch_effect = yes
+	}
+	
+	option = { # Concede the Point
+		name = eocfm.171.a
+		default_option = yes
+		eocfm_increase_patriarch_opinion_effect = yes
+		add_modifier = {
+			name = modifier_eocfm_conceded_doctrine
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+	
+	option = { # Assert New Thinking
+		name = eocfm.171.b
+		eocfm_decrease_patriarch_opinion_effect = yes
+		add_modifier = {
+			name = modifier_eocfm_asserted_doctrine
+			months = normal_modifier_time
+			is_decaying = yes
+		}
 	}
 
 }
