@@ -58,6 +58,8 @@ namespace = eocfm
 #	040 - Priestly Excesses
 #	041 - The Widow's Mite
 
+#090-099 - Local Orthodox Technical Events
+# 090 - OPEN
 
 ##  #EOC1  ECUMENICAL ORTHODOX FLAVOR  Events 100-199  ##
 
@@ -101,20 +103,34 @@ namespace = eocfm
 #	132 - Failed Crusade
 
 #140-149 - Partiarchal Seat Integration Events
-#	140 - ##Seat Integration Disputed (Part 1)
-#	141 - ##Seat Integration Disputed (Part 2)
+#	140 - Seat Integration Disputed (Part 1)
+#	141 - Seat Integration Disputed (Part 2)
 
 #150-159 - Patriarchal Seat Sway Events
-#	150 - ##Ecumenical Financing
-#	151 - ##Delegation Arrives from Seat
-#	152 - ##
+#	150 - Ecumenical Financing
+#	151 - Delegation Arrives from Seat
 
-#160-169 - Ecumenical Partiarchate Events
-#	160 - ##An Audience with the Patriarch
-#	161 - ##Country Demands Deposition
-#	162 - ##Ecumenical Patriarch Deposed
+#160-169 - Ecumenical Partiarch Events
+#	160 - An Audience with the Patriarch
+##	161 - The Patriarch's Blessings
+#	162 - Ecumenical Partiarch Denounces Secularism
+#	167 - ##Country Demands Deposition
+#	168 - ##Ecumenical Patriarch Deposed
+#	169 - ##The Living Law
 
+#170-179 - Miscellaneous Patriarch Events
+#	170 - ##Patriarch Condemns Immorality
+#	171 - ##Theological Dispute with Patriarch
+#	172 - ##
 
+#190-199 - Ecumenical Orthodox Technical Events
+#	190 - [TECH] Removes Lex Animata
+#	191 - [TECH] Rome Partiarch Replacement
+#	192 - [TECH] Constantinopole Patriarch Replacement
+#	193 - [TECH] Antioch Patriarch Replacement
+#	194 - [TECH] Jerusalem Patriarch Replacement
+#	195 - [TECH] Alexandria Patriarch Replacement
+#	196 - [TECH] Moscow Patriarch Replacement
 
 ##  #EOC2  RUM MILLET FLAVOR  Events 200-299  ##
 # // This will cover future Turkish interactions with eocfm mechanics //
@@ -3146,17 +3162,20 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 	trigger = {
 		eocfm_controls_any_seat_trigger = yes
 		any_country = {
+			NOT = {
+				this = root
+			}
 			has_variable = eocfm_integration_var
 			var:eocfm_integration_var < 80
 			NOR = {
 				has_modifier = modifier_eocfm_asserted_integration
 				has_modifier = modifier_eocfm_folded_integration
 			}
+			relations:root < relations_threshold:cordial # Usually means that only Russia will get in your way most playthroughs, but this is historically pertinent
 		}
 		NOT = {
 			has_global_variable = eocfm_seat_dispute_cooldown_var
 		}
-		
 	}
 	
 	immediate = {
@@ -3166,8 +3185,12 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 		}
 		random_country = {
 			limit = {
+				NOT = {
+					this = root
+				}
 				has_variable = eocfm_integration_var
-				var:eocfm_integration_var < 80
+				var:eocfm_integration_var < 100
+				var:eocfm_integration_var > 24
 				NOR = {
 					has_modifier = modifier_eocfm_asserted_integration
 					has_modifier = modifier_eocfm_folded_integration
@@ -3196,9 +3219,6 @@ eocfm.140 = { # Seat Integration Disputed (Part 1)
 			country = scope:eocfm_integrator_scope
 			value = 20
 		}
-		scope:eocfm_integrator_scope = {
-			set_variable = eocfm_seat_endorsed
-		}
 	}
 	
 	after = {
@@ -3215,9 +3235,24 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 	type = country_event
 	placement = root
 	
-	title = eocfm.140.t
-	desc = eocfm.140.d
-	flavor = eocfm.140.f
+	title = eocfm.141.t
+	desc = {
+		triggered_desc = {
+			desc = eocfm.141.d1
+			trigger = {
+				has_variable = eocfm_seat_opposed
+			}
+		}
+		triggered_desc = {
+			desc = eocfm.141.d2
+			trigger = {
+				NOT = {
+					has_variable = eocfm_seat_opposed
+				}
+			}
+		}
+	}
+	flavor = eocfm.141.f
 	
 	event_image = {
 		video = "southamerica_christianity"
@@ -3232,6 +3267,7 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by eocfm.140
 	}
 	
 	immediate = {
@@ -3243,9 +3279,41 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 		}
 	}
 	
-	option = {
+	option = { # Stick to your guns
 		name = eocfm.141.a
 		default_option = yes
+		trigger = {
+			has_variable = eocfm_seat_opposed
+		}
+		custom_tooltip = {
+			text = eocfm_integration_gain_2
+			hidden_effect = {
+				change_variable = {
+					name = eocfm_integration_var
+					add = 8
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_eocfm_asserted_integration
+			months = normal_modifier_time
+		}
+		create_incident = {
+			target = scope:eocfm_disputer_scope
+			value = 10
+		}
+		scope:eocfm_disputer_scope = {
+			set_secret_goal = {
+				country = root
+				secret_goal = antagonize
+			}
+			remove_variable = eocfm_seat_dispute_starter
+		}
+		remove_variable = eocfm_seat_opposed
+	}
+	
+	option = { # Back Down a Little Bit
+		name = eocfm.141.b
 		trigger = {
 			has_variable = eocfm_seat_opposed
 		}
@@ -3259,32 +3327,43 @@ eocfm.141 = { # Seat Integration Disputed (Part 2)
 			}
 		}
 		scope:eocfm_disputer_scope = {
+			change_relations = {
+				country = root
+				value = 10
+			}
 			remove_variable = eocfm_seat_dispute_starter
+		}
+		add_modifier = {
+			name = modifier_eocfm_folded_integration
+			months = normal_modifier_time
 		}
 		remove_variable = eocfm_seat_opposed
 	}
 	
 	option = {
-		name = eocfm.141.a
-		default_option = yes
+		name = eocfm.141.c
 		trigger = {
-			has_variable = eocfm_seat_endorsed
+			NOT = {
+				has_variable = eocfm_seat_opposed
+			}
 		}
 		custom_tooltip = {
-			text = eocfm_integration_gain_2
+			text = eocfm_integration_gain_4
 			hidden_effect = {
 				change_variable = {
 					name = eocfm_integration_var
-					add = 8
+					add = 16
 				}
 			}
 		}
 		scope:eocfm_disputer_scope = {
+			change_relations = {
+				country = root
+				value = 15
+			}
 			remove_variable = eocfm_seat_dispute_starter
 		}
-		remove_variable = eocfm_seat_endorsed
 	}
-
 }
 
 #### PATRIARCHAL SEAT SWAY EVENTS ####
@@ -3313,27 +3392,42 @@ eocfm.150 = { # Ecumenical Financing
 		eocfm_is_swaying_seat_trigger = yes
 	}
 	
-	cancellation_trigger = {
-		eocfm_controls_any_seat_trigger = no
-	}
-	
 	cooldown = {
 		years = 5
 	}
 	
 	immediate = {
 		eocfm_update_patriarch_variables_effect = yes
-		eocfm_select_random_controlled_seat_effect = yes
+		eocfm_select_random_swayed_seat_effect = yes
+		eocfm_save_event_patriarch_effect = yes
 	}
 	
 	option = { # Grant Funding
 		name = eocfm.150.a
 		default_option = yes
 		eocfm_boost_opinion_from_sway_effect = yes
+		add_loyalists = {
+			religion = rel:orthodox
+			value = small_radicals
+		}
+		add_modifier = {
+			name = eocfm_granted_ecumenical_funds
+			months = normal_modifier_time
+			is_decaying = yes
+		}
 	}
 	
 	option = { # Do Not
 		name = eocfm.150.b
+		add_radicals = {
+			pop_type = clergymen
+			value = small_radicals
+		}
+		add_modifier = {
+			name = eocfm_refused_ecumenical_funds
+			months = normal_modifier_time
+			is_decaying = yes
+		}
 	}
 	
 	after = {
@@ -3342,6 +3436,77 @@ eocfm.150 = { # Ecumenical Financing
 
 }
 
+eocfm.151 = { # Delegation Arrives from Seat
+	type = country_event
+	placement = root
+	
+	title = eocfm.151.t
+	desc = eocfm.151.d
+	flavor = eocfm.151.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		eocfm_is_swaying_seat_trigger = yes
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+		eocfm_update_patriarch_variables_effect = yes
+		eocfm_select_random_swayed_seat_effect = yes
+		eocfm_save_event_patriarch_effect = yes
+	}
+	
+	option = { # Receive Them
+		name = eocfm.151.a
+		default_option = yes
+		trigger = {
+			NOT = {
+				has_law = law_type:law_total_separation
+			}
+		}
+		show_as_unavailable = {
+			always = yes
+		}
+		eocfm_boost_opinion_from_sway_effect = yes
+		add_modifier = {
+			name = modifier_eocfm_received_delegation
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+	
+	option = { # Turn Them AWay
+		name = eocfm.151.b
+		trigger = {
+			NOT = {
+				has_law = law_type:law_state_religion
+			}
+		}
+		show_as_unavailable = {
+			always = yes
+		}
+		add_modifier = {
+			name = modifier_eocfm_refused_delegation
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
 
 #### ECUMENICAL PATRIARCHATE EVENTS ####
 
@@ -3366,19 +3531,59 @@ eocfm.160 = { # An Audience with the Patriarch
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by eocfm_seek_mandate_sgui
 	}
 	
 	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
+	}
+	
+	cancellation_trigger = {
+		eocfm_has_mandate_trigger = yes
 	}
 	
 	option = {
-		name = eocfm.160.a
+		name = eocfm.160.1
 		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocracy_mandate
+			months = long_modifier_time
+		}
+	}
+	
+	option = {
+		name = eocfm.160.2
+		add_modifier = {
+			name = modifier_eocfm_government_mandate
+			months = long_modifier_time
+		}
+		
+	}
+	
+	option = {
+		name = eocfm.160.3
+		add_modifier = {
+			name = modifier_eocfm_influence_mandate
+			months = long_modifier_time
+		}
+	}
+	
+	option = {
+		name = eocfm.160.4
+		add_modifier = {
+			name = modifier_eocfm_military_mandate
+			months = long_modifier_time
+		}
 	}
 
 }
 
-eocfm.161 = { # Ecumenical Patriarch Deposed
+eocfm.161 = { # The Patriarch's Blessings
 	type = country_event
 	placement = root
 	
@@ -3399,18 +3604,348 @@ eocfm.161 = { # Ecumenical Patriarch Deposed
 	dlc = dlc_grefm
 	
 	trigger = {
+		var:eocfm_constantinople_relations_var >= 80
+		NOT = {
+			has_modifier = modifier_eocfm_divine_mandate
+		}
+		calc_true_if = {
+			amount >= 4
+			has_law = law_type:law_theocracy
+			has_law = law_type:law_state_religion
+			has_law = law_type:law_charity_hospitals
+			has_law = law_type:law_no_womens_rights
+			NOT = {
+				has_law = law_type:law_no_social_security
+			}
+		}
 	}
 	
 	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
 	}
 	
 	option = {
 		name = eocfm.161.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_divine_mandate
+			months = normal_modifier_time
+		}
+		custom_tooltip = eocfm_relations_maintain_20_tt
 	}
 
 }
 
+eocfm.162 = { # Ecumenical Partiarch Denounces Secularism
+	type = country_event
+	placement = root
+	
+	title = eocfm.162.t
+	desc = eocfm.162.d
+	flavor = eocfm.162.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:eocfm_constantinople_relations_var < 80
+		OR = {
+			has_law = law_type:law_total_separation
+			has_law = law_type:law_state_athesim
+		}
+		NOT = {
+			has_modifier = modifier_eocfm_secularism_denounced
+		}
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.162.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_secularism_denounced
+		}
+		custom_tooltip = eocfm_relations_need_80_tt
+	}
+
+}
+
+eocfm.167 = { # Country Demands Deposition
+	type = country_event
+	placement = root
+	
+	title = eocfm.167.t
+	desc = eocfm.167.d
+	flavor = eocfm.167.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eocfm_demand_deposition_sgui
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = eocfm_requested_deposition
+			}
+			save_scope_as = eocfm_deposition_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
+	}
+	
+	option = { # Ignore the Request
+		name = eocfm.167.a
+		default_option = yes
+		scope:eocfm_deposition_scope = {
+			change_relations = {
+				country = root
+				value = -15
+			}
+			post_notification = notification_eocfm_deposition_declined
+		}
+	}
+	
+	option = { # Depose the Patriarch
+		name = eocfm.167.b
+		custom_tooltip = {
+			text = eocfm_161.tt
+			hidden_effect = {
+				eocfm_replace_ecumenical_patriarch_effect = yes
+			}
+		}
+		scope:eocfm_deposition_scope = {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+			}
+			trigger_event = {
+				id = eocfm.168 # Ecumenical Partiarch Deposed
+			}
+		}
+	}
+
+}
+
+eocfm.168 = { # Ecumenical Patriarch Deposed
+	type = country_event
+	placement = root
+	
+	title = eocfm.168.t
+	desc = eocfm.168.d
+	flavor = eocfm.168.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_mitre.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by eocfm.167
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.168.a
+		default_option = yes
+		custom_tooltip = {
+			text = eocfm_patriarch_deposed_tt
+			hidden_effect = {
+				change_variable = {
+					name = eocfm_constantinople_relations_var
+					add = -50
+				}
+				clamp_variable = {
+					name = eocfm_constantinople_relations_var
+					min = 0
+					max = 100
+				}
+			}
+		}
+	}
+
+}
+
+eocfm.169 = { # The Living Law
+	type = country_event
+	placement = root
+	
+	title = eocfm.169.t
+	desc = eocfm.169.d
+	flavor = eocfm.169.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = eocfm_is_autocephalous
+		NOT = {
+			has_modifier = modifier_eocfm_lex_animata
+		}
+		has_law = law_type:law_monarchy
+		has_law = law_type:law_autocracy
+		has_law = law_type:law_state_religion
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = patriarch_event_scope
+		}
+	}
+	
+	option = {
+		name = eocfm.169.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_lex_animata
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+	}
+
+}
+
+#### MISCELLANEOUS PATRIARCH EVENTS ####
+
+eocfm.170 = { # Patriarch Condemns Immorality
+	type = country_event
+	placement = root
+	
+	title = eocfm.170.t
+	desc = eocfm.170.d
+	flavor = eocfm.170.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		eocfm_is_condemnation_target_trigger = yes
+		eocfm_has_ongoing_patriarch_event_trigger = no
+	}
+	
+	cancellation_trigger = {
+	}
+	
+	cooldown = {
+		years = 5 just to avoid getting spammed
+	}
+	
+	immediate = {
+		eocfm_select_random_condemnation_seat_effect = yes
+		eocfm_save_event_patriarch_effect = yes
+	}
+	
+	option = {
+		name = eocfm.170.a
+		default_option = yes
+		eocfm_add_condemnation_effect = yes
+	}
+
+}
+
+#### ECUMENICAL ORTHODOX TECHNICAL EVENTS ####
+
+eocfm.190 = { # Removes Lex Animata Modifier
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		has_modifier = modifier_eocfm_lex_animata
+		NAND = {
+			has_variable = eocfm_is_autocephalous
+			has_law = law_type:law_monarchy
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_state_religion
+		}
+	}
+	
+	immediate = {
+		remove_modifier = modifier_eocfm_lex_animata
+		post_notification = notification_eocfm_lex_animata_lost
+	}
+	
+}
 
 ################################################
 ##  #EOC2  RUM MILLET FLAVOR  Events 200-299  ##

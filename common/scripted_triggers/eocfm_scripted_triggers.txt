@@ -208,7 +208,107 @@ eocfm_has_senior_patriarch_approval_trigger = {
 	}
 }
 
+eocfm_has_low_relations_with_any_patriarch_trigger = {
+	OR = {
+		var:eocfm_rome_relations_var < 20
+		var:eocfm_constantinople_relations_var < 20
+		var:eocfm_antioch_relations_var < 20
+		var:eocfm_jerusalem_relations_var < 20
+		var:eocfm_alexandria_relations_var < 20
+		var:eocfm_moscow_relations_var < 20
+	}
+}
+
+eocfm_has_low_relations_with_ecumenical_patriarch_trigger = {
+	var:eocfm_constantinople_relations_var < 20
+}
+
+eocfm_has_ongoing_patriarch_event_trigger = {
+	OR = {
+		has_variable = eocfm_rome_event_var
+		has_variable = eocfm_constantinople_event_var
+		has_variable = eocfm_antioch_event_var
+		has_variable = eocfm_jerusalem_event_var
+		has_variable = eocfm_alexandria_event_var
+		has_variable = eocfm_moscow_event_var
+	}
+}
+
+eocfm_has_impious_law_trigger = {
+	OR = {
+		has_law = law_type:law_anarchy
+		has_law = law_type:law_total_separation
+		has_law = law_type:law_state_atheism
+		has_law = law_type:law_womens_suffrage
+		has_law = law_type:law_debt_slavery
+		has_law = law_type:law_slave_trade
+	}
+}
+
+eocfm_is_condemnation_target_trigger = { # This feels like bad scripting, idk
+	eocfm_has_impious_law_trigger = yes
+	OR = {
+		AND = {
+			var:eocfm_rome_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_rome
+			}
+		}
+		AND = {
+			var:eocfm_constantinople_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_constantinople
+			}
+		}
+		AND = {
+			var:eocfm_antioch_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_antioch
+			}
+		}
+		AND = {
+			var:eocfm_jerusalem_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_jerusalem
+			}
+		}
+		AND = {
+			var:eocfm_alexandria_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_alexandria
+			}
+		}
+		AND = {
+			var:eocfm_moscow_relations_var < 20
+			NOT = {
+				has_modifier = modifier_eocfm_condemned_by_moscow
+			}
+		}
+	}
+}
+
+eocfm_has_been_condemned_by_patriarch_trigger = {
+	OR = {
+		has_modifier = modifier_eocfm_condemned_by_rome
+		has_modifier = modifier_eocfm_condemned_by_constantinople
+		has_modifier = modifier_eocfm_condemned_by_antioch
+		has_modifier = modifier_eocfm_condemned_by_jerusalem
+		has_modifier = modifier_eocfm_condemned_by_alexandria
+		has_modifier = modifier_eocfm_condemned_by_moscow
+	}
+}
+		
+
 #### ECUMENICAL ACTION TRIGGERS ####
+
+eocfm_has_mandate_trigger = {
+	OR = {
+		has_modifier = modifier_eocfm_autocracy_mandate
+		has_modifier = modifier_eocfm_government_mandate
+		has_modifier = modifier_eocfm_influence_mandate
+		has_modifier = modifier_eocfm_military_mandate
+	}
+}
 
 eocfm_can_host_council_trigger = {
 	OR = {

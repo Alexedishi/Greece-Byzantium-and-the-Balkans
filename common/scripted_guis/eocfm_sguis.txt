@@ -661,6 +661,12 @@ eocfm_seek_mandate_sgui = {
 	
 	is_valid = {
 		custom_tooltip = {
+			text = eocfm_has_mandate_tt
+			hidden_trigger = {
+				eocfm_has_mandate_trigger = yes
+			}
+		}
+		custom_tooltip = {
 			text = eocfm_need_500_tt
 			hidden_trigger = {
 				caesaropapism_capacity_value >= 500
@@ -669,7 +675,17 @@ eocfm_seek_mandate_sgui = {
 		custom_tooltip = {
 			text = eocfm_has_ecumenical_patriarch_approval_tt
 			hidden_trigger = {
-				var:eocfm_constantinople_relations_var >= 100
+				var:eocfm_constantinople_relations_var >= 80
+			}
+		}
+		trigger_if = {
+			limit = {
+				c:TUR ?= {
+					has_variable = eocfm_controls_constantinople
+				}
+			}
+			c:TUR = {
+				relations:root >= relations_threshold:cordial
 			}
 		}
 	}
@@ -678,6 +694,7 @@ eocfm_seek_mandate_sgui = {
 		trigger_event = {
 			id = eocfm.160 # An Audience with the Patriarch
 		}
+		set_variable = eocfm_considering_mandate
 	}
 }
 
@@ -691,12 +708,21 @@ eocfm_demand_deposition_sgui = {
 	is_valid = {
 		trigger_if = {
 			limit = {
-				c:TUR ?= {
+				NOT = {
+					has_variable = eocfm_controls_constantinople
+				}
+				any_country = {
 					has_variable = eocfm_controls_constantinople
 				}
 			}
-			c:TUR = {
-				relations:root >= relations_threshold:cordial
+			custom_tooltip = {
+				text = eocfm_has_constantinople_controller_approval_tt
+				hidden_trigger = {
+					any_country = {
+						has_variable = eocfm_controls_constantinople
+						relations:root >= relations_threshold:cordial
+					}
+				}
 			}
 		}
 		trigger_if = {
