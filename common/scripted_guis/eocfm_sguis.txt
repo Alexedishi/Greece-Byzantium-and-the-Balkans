@@ -663,7 +663,10 @@ eocfm_seek_mandate_sgui = {
 		custom_tooltip = {
 			text = eocfm_has_mandate_tt
 			hidden_trigger = {
-				eocfm_has_mandate_trigger = yes
+				eocfm_has_mandate_trigger = no
+				NOT = {
+					has_variable = eocfm_considering_mandate
+				}
 			}
 		}
 		custom_tooltip = {
@@ -746,16 +749,35 @@ eocfm_demand_deposition_sgui = {
 				}
 			}
 		}
+		trigger_if = { # Can't depose them if no one controls them.
+			limit = {
+				NOT = {
+					any_country = {
+						has_variable = eocfm_controls_constantinople
+					}
+				}
+			}
+			custom_tooltip = {
+				text = eocfm_needs_controller_tt
+				hidden_trigger = {
+					any_country = {
+						has_variable = eocfm_controls_constantinople
+					}
+				}
+			}
+		}
 	}
 	
 	effect = {
-		trigger_event = {
-			id = eocfm.161 # Ecumenical Patriarch Deposed
+		random_country = {
+			limit = {
+				has_variable = eocfm_controls_constantinople
+			}
+			trigger_event = {
+				id = eocfm.161 # Ecumenical Patriarch Deposed
+			}
 		}
-		set_variable = {
-			name = eocfm_patriarch_deposed_var
-			days = 1825
-		}
+		set_variable = eocfm_requested_deposition
 	}
 }
 

@@ -3412,7 +3412,7 @@ eocfm.150 = { # Ecumenical Financing
 			value = small_radicals
 		}
 		add_modifier = {
-			name = eocfm_granted_ecumenical_funds
+			name = modifier_eocfm_granted_ecumenical_funds
 			months = normal_modifier_time
 			is_decaying = yes
 		}
@@ -3425,7 +3425,7 @@ eocfm.150 = { # Ecumenical Financing
 			value = small_radicals
 		}
 		add_modifier = {
-			name = eocfm_refused_ecumenical_funds
+			name = modifier_eocfm_refused_ecumenical_funds
 			months = normal_modifier_time
 			is_decaying = yes
 		}
@@ -3540,7 +3540,7 @@ eocfm.160 = { # An Audience with the Patriarch
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -3626,7 +3626,7 @@ eocfm.161 = { # The Patriarch's Blessings
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -3637,7 +3637,7 @@ eocfm.161 = { # The Patriarch's Blessings
 			name = modifier_eocfm_divine_mandate
 			months = normal_modifier_time
 		}
-		custom_tooltip = eocfm_relations_maintain_20_tt
+		custom_tooltip = eocfm_relations_maintain_80_tt
 	}
 
 }
@@ -3663,10 +3663,10 @@ eocfm.162 = { # Ecumenical Partiarch Denounces Secularism
 	dlc = dlc_grefm
 	
 	trigger = {
-		var:eocfm_constantinople_relations_var < 80
+		var:eocfm_constantinople_relations_var < 20
 		OR = {
 			has_law = law_type:law_total_separation
-			has_law = law_type:law_state_athesim
+			has_law = law_type:law_state_atheism
 		}
 		NOT = {
 			has_modifier = modifier_eocfm_secularism_denounced
@@ -3678,7 +3678,7 @@ eocfm.162 = { # Ecumenical Partiarch Denounces Secularism
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -3688,7 +3688,7 @@ eocfm.162 = { # Ecumenical Partiarch Denounces Secularism
 		add_modifier = {
 			name = modifier_eocfm_secularism_denounced
 		}
-		custom_tooltip = eocfm_relations_need_80_tt
+		custom_tooltip = eocfm_relations_constantinople_need_80_tt
 	}
 
 }
@@ -3728,7 +3728,7 @@ eocfm.167 = { # Country Demands Deposition
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -3766,6 +3766,10 @@ eocfm.167 = { # Country Demands Deposition
 				id = eocfm.168 # Ecumenical Partiarch Deposed
 			}
 		}
+		set_global_variable = {
+			name = eocfm_patriarch_deposed_var
+			days = 1825
+		}
 	}
 
 }
@@ -3799,7 +3803,7 @@ eocfm.168 = { # Ecumenical Patriarch Deposed
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -3859,7 +3863,7 @@ eocfm.169 = { # The Living Law
 			limit = {
 				has_template = template_eocfm_constantinople_patriarch
 			}
-			save_scope_as = patriarch_event_scope
+			save_scope_as = eocfm_patriarch_event_scope
 		}
 	}
 	
@@ -4795,35 +4799,12 @@ eocfm.314 = { # The Ancient Partiarchates
 		}
 	}
 	
-	option = { # declare the emperor divine
-		name = eocfm.314.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_nomos_empsychos
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-			religion = rel:orthodox
-		}
-	}
-	
-	option = { # nah, church and state are separate d00d
+	option = {
 		name = eocfm.314.b
-		ig:ig_devout = {
-			add_modifier = {
-				name = modifier_byzfm_restored_pentarchy
-				is_decaying = yes
-				months = long_modifier_time
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:ig_devout_party_scope
-			}
-			scope:ig_devout_party_scope = {
-				add_momentum = 0.15
-			}
+		add_modifier = {
+			name = modifier_eocfm_secured_tetrarchy
+			is_decaying = yes
+			months = long_modifier_time
 		}
 	}
 	
@@ -4862,9 +4843,10 @@ eocfm.315 = { # The Restoration of the Pentarchy
 		name = eocfm.315.a
 		default_option = yes
 		custom_tooltip = eocfm_mending_possible_tt
-		set_variable = {
-			name = eocfm_mending_var
-			value = 0
+		add_modifier = {
+			name = modifier_eocfm_secured_pentarchy
+			is_decaying = yes
+			months = long_modifier_time
 		}
 	}
 	
