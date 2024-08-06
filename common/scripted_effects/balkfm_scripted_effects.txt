@@ -848,6 +848,33 @@ balkfm_rumelian_ruler_rotation_effect = {
 	}
 }
 
+balkfm_create_silistra_effect = {
+	# This event is used to provide a route for Bulgarian gameplay from game start. The SILI tag is defined in turkfm since it's an Eyalet tag. If this tag is called in Turkfm content it will not use these creation and setup effects.
+	create_country = {
+		tag = SILI
+		origin = c:TUR
+		state = s:STATE_BULGARIA.region_state:TUR
+		on_created = {
+			balkfm_set_up_silistra_effect = yes
+		}
+	}
+}
+
+balkfm_set_up_silistra_effect = {
+	create_character = {
+		template = 
+	}
+	create_character = {
+		template = template_balkfm_miladinov_dimitar
+	}
+	trigger_event = {
+		id = balkfm.550 # The Bulgarian Millet
+	}
+	add_journal_entry = {
+		type = je_balkfm_bul_millet
+	}
+}
+
 ## ROMANIA EFFECTS ##
 
 balkfm_moldavian_election_effect = {
