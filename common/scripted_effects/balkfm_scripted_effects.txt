@@ -730,6 +730,7 @@ balkfm_create_bulgarian_characters = {
 	}
 	create_character = {
 		template = template_balkfm_battenburg_alexander
+		ruler = yes
 	}
 	create_character = {
 		template = template_balkfm_turnovski_kliment
@@ -848,7 +849,7 @@ balkfm_rumelian_ruler_rotation_effect = {
 	}
 }
 
-balkfm_create_silistra_effect = {
+balkfm_play_silistra_effect = {
 	# This event is used to provide a route for Bulgarian gameplay from game start. The SILI tag is defined in turkfm since it's an Eyalet tag. If this tag is called in Turkfm content it will not use these creation and setup effects.
 	create_country = {
 		tag = SILI
@@ -858,21 +859,76 @@ balkfm_create_silistra_effect = {
 			balkfm_set_up_silistra_effect = yes
 		}
 	}
+	play_as = c:SILI
 }
 
 balkfm_set_up_silistra_effect = {
-	create_character = {
-		template = 
-	}
+#	create_character = {
+#		template = 
+#	}
 	create_character = {
 		template = template_balkfm_miladinov_dimitar
+	}
+	set_variable = {
+		name = balkfm_nationalism_var
+		value = 0
 	}
 	trigger_event = {
 		id = balkfm.550 # The Bulgarian Millet
 	}
 	add_journal_entry = {
-		type = je_balkfm_bul_millet
+		type = je_balkfm_bul_silistra
 	}
+	c:TUR  = {
+		create_diplomatic_pact = {
+			country = c:SILI
+			type = vassal
+		}
+		set_secret_goal = {
+			secret_goal = protect
+			country = c:SILI
+		}
+	}
+}
+
+balkfm_become_bulgaria_effect = {
+	if = {
+		limit = {
+			NOT = {
+				c:BUL ?= this
+			}
+		}
+		change_tag = BUL
+	}
+	trigger_event = {
+		id = balkfm.500 # The Golden Lion Awakens
+		days = 1 # or else the loc breaks
+	}
+	hidden_effect = {
+		heir ?= {
+			kill_character = yes # just some housekeeping
+		}
+		create_character = {
+			template = template_balkfm_turnovski_kliment
+		}
+		create_character = {
+			template = template_balkfm_tsankov_dragan
+		}
+		create_character = {
+			template = template_balkfm_kesyakov_konstantin
+		}
+		create_character = {
+			template = template_balkfm_sakazov_yanko
+		}
+	}
+}
+
+balkfm_clean_up_silistra_variables_effect = {
+	remove_variable = balkfm_nis_insurgency_happened
+	remove_variable = balkfm_bulgarian_question_happened
+	remove_variable = balkfm_constantinople_newspaper_published
+	remove_variable = balkfm_golden_lion_tickled
+	remove_variable = balkfm_legion_formed
 }
 
 ## ROMANIA EFFECTS ##

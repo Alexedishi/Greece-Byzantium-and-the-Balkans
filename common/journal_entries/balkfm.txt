@@ -1246,6 +1246,7 @@ je_balkfm_bul_liberation_of_bulgaria = {
 			has_global_variable = eqfm_crisis_var
 			has_global_variable = eqfm_berlin_congress_var
 			has_variable = balkfm_bulgarian_liberation
+			has_variable = balkfm_golden_lion_tickled
 		}
 		owns_entire_state_region = STATE_BULGARIA
 		NOT = { owns_entire_state_region = STATE_NORTHERN_THRACE }
@@ -1342,6 +1343,7 @@ je_balkfm_bul_greater_bulgaria_alternate = {
 			has_global_variable = eqfm_crisis_var
 			has_global_variable = eqfm_berlin_congress_var
 			has_variable = balkfm_bulgarian_liberation
+			has_variable = balkfm_golden_lion_tickled # this is to block this journal in the event that the player is coming in from SILI
 		}
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
@@ -1591,6 +1593,164 @@ je_balkfm_bul_two_bulgarias = {
 	}
 
 	weight = 100
+	
+}
+
+## SILISTRA CONTENT ##
+
+je_balkfm_bul_silistra = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_turkfm_eyalet
+	}
+	
+	complete = {
+		has_law = law_type:law_monarchy
+		trigger_if = {
+			limit = {
+				exists = c:TUR
+			}
+			is_subject_of = c:TUR
+			NOR = {
+				is_subject_type = subject_type_puppet
+				is_subject_type = subject_type_dominion
+				is_subject_type = subject_type_vassal
+			}
+			custom_tooltip = {
+				text = eocfm_has_autocephaly_tt
+				hidden_trigger = {
+					has_variable = eocfm_is_autocephalous
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_balkfm_bul_silistra_tt
+			hidden_trigger = {
+				c:BUL ?= this
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.559 # Securing our Sovereignty
+		}
+		balkfm_clean_up_silistra_variables_effect = yes
+	}
+	
+	invalid = {
+		OR = {
+			trigger_if = {
+				limit = {
+					exists = c:TUR
+				}
+				NOT = {
+					is_subject_of = c:TUR
+				}
+			}
+			is_subject = no
+		}
+	}
+	
+	on_invalid = {
+		trigger_event = {
+			id = balkfm.559 # Securing our Sovereignty
+		}
+		balkfm_clean_up_silistra_variables_effect = yes
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.551 # Insurgency in Niš
+			balkfm.552 # The Bulgarian Question
+			balkfm.553 # Tsarigradski Vestnik
+			balkfm.556 # The Bulgarian Legion
+		}
+		random_events = {
+			100 = 0
+			5 = balkfm.557 # The Legion Strikes Again!
+		}
+	}
+
+	weight = 1000
+	
+}
+
+je_balkfm_bul_national_awakening = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:SILI ?= this
+		has_journal_entry = je_balkfm_bul_national_awakening
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.554 # The Bulgarian National Revival
+		}
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_bul_national_awakening_tt1
+			hidden_trigger = {
+				var:balkfm_nationalism_var >= 100
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.558 # The Birth of the Bulgarian State
+		}
+		custom_tooltip = je_balkfm_bul_national_awakening_tt2
+		remove_variable = balkfm_nationalism_var
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = je_balkfm_bul_silistra_tt
+			hidden_trigger = {
+				c:BUL ?= this
+			}
+		}
+	}
+	
+	on_invalid = {
+		remove_variable = balkfm_nationalism_var
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_technology_researched = nationalism
+				}
+				change_variable = {
+					name = balkfm_nationalism_var
+					add = balkfm_nationalism_progress_value
+				}
+			}
+		}
+	}
+	
+	weight = 1000
 	
 }
 

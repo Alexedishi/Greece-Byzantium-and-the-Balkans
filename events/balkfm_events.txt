@@ -197,16 +197,16 @@ namespace = balkfm
 #	540 - OPEN
 
 #550-559 - Bulgarian Millet Events
-#	550 - ##The Bulgarian Millet
-#	551 - ##Insurgency in Niš
-#	552 - ##The Bulgarian Question <- academia
+#	550 - The Bulgarian Millet
+#	551 - Insurgency in Niš
+#	552 - The Bulgarian Question
 #	553 - ##Tsarigradski Vestnik <- mass communication
 #	554 - ##The Bulgarian National Revival <- nationalism
 #	555 - OPEN
 #	556 - ##The Bulgarian Legion
 #	557 - ##The Legion Strikes Again!
-#	558 - ##The Birth of Bulgaria
-#	559 - ##The Nature of the State
+#	558 - ##The Golden Lion Awakens (Silistra Alternate)
+#	559 - ##Securing a Monarch
 
 #560-569 - Bulgarian Orthodox Church Events
 #	560 - Threats of Schism
@@ -6704,6 +6704,516 @@ balkfm.532 = { # Spring in Constantinople
 
 }
 
+#### THE REIGN OF BORIS I AND BEYOND EVENTS ####
+
+balkfm.550 = { # The Bulgarian Millet
+	type = country_event
+	placement = root
+	
+	title = balkfm.550.t
+	desc = balkfm.550.d
+	flavor = balkfm.550.f
+	
+	event_image = {
+		video = "rp1_brazilian_city"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_set_up_silistra_effect
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.550.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_turkfm_eyalet
+		}
+	}
+
+}
+
+balkfm.551 = { # Insurgency in Niš
+	type = country_event
+	placement = root
+	
+	title = balkfm.551.t
+	desc = balkfm.551.d
+	flavor = balkfm.551.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+#		has_global_variable = turkfm_tanzimat_started ##TODO turkfm interoperability
+		NOT = {
+			has_variable = balkfm_nis_insurgency_happened
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		s:STATE_SOUTHERN_SERBIA = {
+			random_scope_state = {
+				save_scope_as = southern_serbia_state_scope
+			}
+		}
+		set_variable = balkfm_nis_insurgency_happened
+	}
+	
+	option = { # Claim Responsibility
+		name = balkfm.551.a
+		default_option = yes
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+		add_loyalists = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Let the Greeks have it
+		name = balkfm.551.b
+		add_radicals = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_balkfm_bulgarian_dissent
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+balkfm.552 = { # The Bulgarian Question
+	type = country_event
+	placement = root
+	
+	title = balkfm.552.t
+	desc = balkfm.552.d
+	flavor = balkfm.552.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_bulgarian_question_happened
+		}
+		has_technology_researched = academia
+	}
+	
+	immediate = {
+		set_variable = balkfm_bulgarian_question_happened
+	}
+	
+	option = { # Focus on Nationalism
+		name = balkfm.552.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_NORTHERN_THRACE
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_MACEDONIA
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		create_incident = {
+			country = c:TUR
+			value = 15
+		}
+		add_technology_progress = { 
+			progress = 5000
+			technology = nationalism
+		}
+	}
+	
+	option = { # Just Coexist
+		name = balkfm.552.b
+		add_technology_progress = { 
+			progress = 5000
+			technology = nationalism
+		}
+	}
+}
+
+balkfm.553 = { # Tsarigradski Vestnik 
+	type = country_event
+	placement = root
+	
+	title = balkfm.553.t
+	desc = balkfm.553.d
+	flavor = balkfm.553.f
+	
+	event_image = {
+		video = "ep1_printing_press"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_constantinople_newspaper_published
+		}
+		has_technology_researched = mass_communication
+	}
+	
+	immediate = {
+		set_variable = balkfm_constantinople_newspaper_published
+	}
+	
+	option = {
+		name = balkfm.553.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					has_technology_researched = nationalism
+				}
+			}
+			add_technology_progress = { 
+				progress = 5000
+				technology = nationalism
+			}
+		}
+		else = {
+			add_technology_progress = { 
+				progress = 5000
+				technology = pan-nationalism
+			}
+		}
+	}
+
+}
+
+
+balkfm.554 = { # The Bulgarian National Revival
+	type = country_event
+	placement = root
+	
+	title = balkfm.554.t
+	desc = balkfm.554.d
+	flavor = balkfm.554.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_bul_national_awakening
+	}
+	
+	immediate = {
+		set_variable = balkfm_golden_lion_tickled
+	}
+	
+	option = {
+		name = balkfm.554.a
+		default_option = yes
+		add_journal_entry = {	
+			type = je_balkfm_bul_national_awakening
+		}
+	}
+
+}
+
+balkfm.555 = { # OPEN
+	orphan = yes
+}
+
+balkfm.556 = { # The Bulgarian Legion
+	type = country_event
+	placement = root
+	
+	title = balkfm.556.t
+	desc = balkfm.556.d
+	flavor = balkfm.556.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_legion_formed
+		}
+		has_variable = balkfm_golden_lion_tickled
+	}
+	
+	immediate = {
+		set_variable = balkfm_legion_formed
+	}
+	
+	option = {
+		name = balkfm.556.a
+		default_option = yes
+	}
+	
+	option = {
+		name = balkfm.556.b
+	}
+
+}
+
+balkfm.557 = { # The Legion Strikes Again!
+	type = country_event
+	placement = root
+	
+	title = balkfm.557.t
+	desc = balkfm.557.d
+	flavor = balkfm.557.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = balkfm_legion_formed
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.557.a
+		default_option = yes
+	}
+	
+	option = {
+		name = balkfm.557.b
+	}
+
+}
+
+balkfm.558 = { # The Golden Lion Awakens (Silistra Alternate)
+	type = country_event
+	placement = root
+	
+	title = balkfm.558.t
+	desc = balkfm.558.d
+	flavor = balkfm.558.f
+	
+	event_image = {
+		video = "ep1_transfer_of_power"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_bul_millet
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		overlord ?= {
+			save_scope_as = balkfm_overlord_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.558.a
+		default_option = yes
+		set_country_type = recognized
+		if = {
+			limit = {
+				exists = scope:balkfm_overlord_scope
+			}
+			hidden_effect = {
+				make_independent = yes
+			}
+			scope:balkfm_overlord_scope = {
+				create_diplomatic_pact = {
+					type = protectorate
+					country = root
+				}
+			}
+		}
+		change_tag = BUL
+		trigger_event = {
+			id = balkfm.559
+			days = 30
+		}
+	}
+
+}
+
+balkfm.559 = { # Securing a Monarch
+	type = country_event
+	placement = root
+	
+	title = balkfm.559.t
+	desc = balkfm.559.d
+	flavor = balkfm.559.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.558
+	}
+	
+	immediate = {
+		create_character = {
+			template = template_balkfm_battenburg_alexander
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		create_character = {
+			template = template_balkfm_bogoridi_emmanuel
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		create_character = {
+			template = template_balkfm_exarch_alexander
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_battenburg_alexander
+			}
+			save_scope_as = balkfm_battenburg_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_bogoridi_emmanuel
+			}
+			save_scope_as = balkfm_bogoridi_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_exarch_alexander
+			}
+			save_scope_as = balkfm_exarch_scope
+		}
+	}
+	
+	option = { # Alexander Battenburg, the historical option
+		name = balkfm.559.1
+		default_option = yes
+		scope:balkfm_battenburg_scope = {
+			set_character_as_ruler = yes
+			free_character_from_void = yes
+		}
+		balkfm_become_bulgaria_effect = yes
+	}
+	
+	option = { # Emmanuel Bogoridi, grandson of Stefanos Bogoridi
+		name = balkfm.559.2
+		scope:balkfm_bogoridi_scope = {
+			set_character_as_ruler = yes
+			free_character_from_void = yes
+		}
+		balkfm_become_bulgaria_effect = yes
+	}
+	
+	option = { # Alexander Exarch, prominent Bulgarian revivalist
+		name = balkfm.599.3
+		scope:balkfm_exarch_scope = {
+			set_character_as_ruler = yes
+			free_character_from_void = yes
+		}
+		balkfm_become_bulgaria_effect = yes
+	}
+
+}
 
 #### BULGARIAN ORTHODOX CHURCH EVENTS ####
 balkfm.560 = { # Threats of Schism
