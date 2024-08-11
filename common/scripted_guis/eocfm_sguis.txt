@@ -15,6 +15,7 @@ eocfm_button_sgui = {
 	scope = country 
 	
 	is_shown = {
+		community_gui_is_active = no
 		country_has_state_religion = rel:orthodox
 	}
 	
@@ -405,8 +406,9 @@ eocfm_declare_autocephaly_sgui = {
 				caesaropapism_capacity_value >= 800
 			}
 		}
-		NOT = {
+		NOR = {
 			has_law = law_type:law_theocracy
+			has_modifier = modifier_eocfm_autocephaly_abandoned
 		}
 		trigger_if = {
 			limit = {
@@ -420,11 +422,6 @@ eocfm_declare_autocephaly_sgui = {
 				hidden_trigger = {
 					c:ROM ?= this
 				}
-			}
-		}
-		hidden_trigger = {
-			NOT = {
-				has_variable = eocfm_schism_var
 			}
 		}
 	}

@@ -200,21 +200,21 @@ namespace = balkfm
 #	550 - The Bulgarian Millet
 #	551 - Insurgency in Niš
 #	552 - The Bulgarian Question
-#	553 - ##Tsarigradski Vestnik <- mass communication
-#	554 - ##The Bulgarian National Revival <- nationalism
-#	555 - OPEN
+#	553 - Tsarigradski Vestnik
+#	554 - The Bulgarian National Revival
+#	555 - Great Powers Support Bulgaria
 #	556 - ##The Bulgarian Legion
 #	557 - ##The Legion Strikes Again!
-#	558 - ##The Golden Lion Awakens (Silistra Alternate)
-#	559 - ##Securing a Monarch
+#	558 - The Birth of the Bulgarian State
+#	559 - Securing our Sovereignty
 
 #560-569 - Bulgarian Orthodox Church Events
 #	560 - Threats of Schism
 #	561 - Royal Wedding (balkfm Variant)
 #	562 - Ecclesiatic Hostility
 #	563 - An Orthodox Heir
-#	564 - ##Liturgical Language <- romanticism
-#	565 - ##Restoring the Exarchate
+#	564 - ##Restoring the Exarchate
+#	565 - ##Liturgical Language
 #	566 - ##Ecclesiatic Purges
 #	567 - OPEN
 #	568 - OPEN
@@ -4496,12 +4496,18 @@ balkfm.500 = { # The Golden Lion Awakens
 			}
 		}
 		hidden_effect = {
-			trigger_event = {
-				id = balkfm.560 # Threats of Schism
-				days = 240
+			if = {
+				limit = {
+					NOT = {
+						has_variable = eocfm_is_autocephalous
+					}
+				}
+				trigger_event = {
+					id = balkfm.560 # Threats of Schism
+					days = 240
+				}
 			}
 		}
-	
 	}
 
 }
@@ -6833,7 +6839,7 @@ balkfm.552 = { # The Bulgarian Question
 		NOT = {
 			has_variable = balkfm_bulgarian_question_happened
 		}
-		has_technology_researched = academia
+		has_technology_researched = egalitarianism
 	}
 	
 	immediate = {
@@ -6915,7 +6921,7 @@ balkfm.553 = { # Tsarigradski Vestnik
 		set_variable = balkfm_constantinople_newspaper_published
 	}
 	
-	option = {
+	option = { # Support the Publishing
 		name = balkfm.553.a
 		default_option = yes
 		if = {
@@ -6935,8 +6941,45 @@ balkfm.553 = { # Tsarigradski Vestnik
 				technology = pan-nationalism
 			}
 		}
+		add_radicals = {
+			religion = rel:sunni
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = balkfm_revivalism_advance_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					add = 100
+				}
+			}
+		}
 	}
-
+	
+	option = { # Oppose the Publishing
+		name = balkfm.553.b
+		add_loyalists = {
+			religion = rel:sunni
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = balkfm_revivalism_regress_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					subtract = 100
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+	}
 }
 
 
@@ -6978,8 +7021,51 @@ balkfm.554 = { # The Bulgarian National Revival
 
 }
 
-balkfm.555 = { # OPEN
-	orphan = yes
+balkfm.555 = { # Great Powers Support Bulgaria
+	type = country_event
+	placement = root
+	
+	title = balkfm.555.t
+	desc = balkfm.555.d
+	flavor = balkfm.555.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_revivalist_support_button
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.556.a
+		default_option = yes
+		custom_tooltip = {
+			text = balkfm.556.tt
+			hidden_effect = {
+				set_variable = balkfm_revivalism_supported_var
+			}
+		}
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+	}
+
 }
 
 balkfm.556 = { # The Bulgarian Legion
@@ -7062,7 +7148,7 @@ balkfm.557 = { # The Legion Strikes Again!
 
 }
 
-balkfm.558 = { # The Golden Lion Awakens (Silistra Alternate)
+balkfm.558 = { # The Birth of the Bulgarian State
 	type = country_event
 	placement = root
 	
@@ -7122,7 +7208,7 @@ balkfm.558 = { # The Golden Lion Awakens (Silistra Alternate)
 
 }
 
-balkfm.559 = { # Securing a Monarch
+balkfm.559 = { # Securing our Sovereignty
 	type = country_event
 	placement = root
 	
@@ -7240,10 +7326,7 @@ balkfm.560 = { # Threats of Schism
 	}
 	
 	immediate = {
-		set_variable = {
-			name = eocfm_schism_var
-			value = 0
-		}
+		# triggered by balkfm.500
 	}
 	
 	option = { # Declare Autocephaly
@@ -7257,6 +7340,17 @@ balkfm.560 = { # Threats of Schism
 			change_relations = {
 				country = PREV
 				value = -25
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eocfm_schism_var
+				}
+			}
+			set_variable = {
+				name = eocfm_schism_var
+				value = 0
 			}
 		}
 	}
@@ -7623,6 +7717,216 @@ balkfm.563 = { # An Orthodox Heir
 				country = root
 				secret_goal = protect
 			}
+		}
+	}
+
+}
+
+balkfm.564 = { # Restoring the Exarchate
+	type = country_event
+	placement = root
+	
+	title = balkfm.564.t
+	desc = balkfm.564.d
+	flavor = balkfm.564.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_bul_bulgarian_exarchate
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.564.a
+		default_option = yes
+	}
+
+}
+
+balkfm.565 = { # Liturgical Language
+	type = country_event
+	placement = root
+	
+	title = balkfm.565.t
+	desc = balkfm.565.d
+	flavor = balkfm.565.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_language_disputed
+		}
+		var:eocfm_schism_var >= 100
+		has_technology_researched = mass_communication
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_bul_bulgarian_exarchate
+		}
+	}
+	
+	immediate = {
+		set_variable = balkfm_language_disputed
+	}
+	
+	option = { # Bulgarian or bust
+		name = balkfm.565.a
+		default_option = yes
+		add_loyalists = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = balkfm_exarchate_advance_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 100
+			}
+		}
+	}
+	
+	option = { # Ehh, we're soyboys
+		name = balkfm.565.b
+		add_loyalists = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = balkfm_exarchate_regress_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 100
+			}
+		}
+	}
+
+}
+
+balkfm.566 = { # Ecclesiatic Purges
+	type = country_event
+	placement = root
+	
+	title = balkfm.566.t
+	desc = balkfm.566.d
+	flavor = balkfm.566.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_ecclesiarchy_purged
+		}
+		var:eocfm_schism_var >= 500
+		has_technology_researched = central_archives
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_bul_bulgarian_exarchate
+		}
+	}
+	
+	immediate = {
+		set_variable = balkfm_ecclesiarchy_purged
+	}
+	
+	option = {
+		name = balkfm.566.a
+		default_option = yes
+	}
+	
+	option = {
+		name = balkfm.566.b
+	}
+
+}
+
+balkfm.567 = { # OPEN
+	orphan = yes
+}
+
+balkfm.568 = { # OPEN
+	orphan = yes
+}
+
+balkfm.569 = { # The Exarchate of Bulgaria
+	type = country_event
+	placement = root
+	
+	title = balkfm.569.t
+	desc = balkfm.569.d
+	flavor = balkfm.569.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_bul_bulgarian_exarchate
+	}
+	
+	immediate = {
+		remove_variable = eocfm_schism_var
+		set_variable = eocfm_is_autocephalous
+	}
+	
+	option = {
+		name = balkfm.569.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_autocephaly_granted
+			months = long_modifier_time
 		}
 	}
 

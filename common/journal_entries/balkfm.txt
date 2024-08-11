@@ -1617,18 +1617,18 @@ je_balkfm_bul_silistra = {
 		trigger_if = {
 			limit = {
 				exists = c:TUR
+				is_subject_of = c:TUR
 			}
-			is_subject_of = c:TUR
 			NOR = {
 				is_subject_type = subject_type_puppet
 				is_subject_type = subject_type_dominion
 				is_subject_type = subject_type_vassal
 			}
-			custom_tooltip = {
-				text = eocfm_has_autocephaly_tt
-				hidden_trigger = {
-					has_variable = eocfm_is_autocephalous
-				}
+		}
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
 			}
 		}
 		custom_tooltip = {
@@ -1669,13 +1669,13 @@ je_balkfm_bul_silistra = {
 	
 	on_monthly_pulse = {
 		events = {
-			balkfm.551 # Insurgency in Niš
 			balkfm.552 # The Bulgarian Question
 			balkfm.553 # Tsarigradski Vestnik
 			balkfm.556 # The Bulgarian Legion
 		}
 		random_events = {
-			100 = 0
+			200 = 0
+			5 = balkfm.551 # Insurgency in Niš
 			5 = balkfm.557 # The Legion Strikes Again!
 		}
 	}
@@ -1693,7 +1693,6 @@ je_balkfm_bul_national_awakening = {
 	
 	is_shown_when_inactive = {
 		c:SILI ?= this
-		has_journal_entry = je_balkfm_bul_national_awakening
 	}
 	
 	possible = {
@@ -1704,23 +1703,93 @@ je_balkfm_bul_national_awakening = {
 		trigger_event = {
 			id = balkfm.554 # The Bulgarian National Revival
 		}
+		set_variable = {
+			name = balkfm_revivalism_var
+			value = 0
+		}
 	}
+	
+	scripted_button = balkfm_revivalist_support_button
+	scripted_button = balkfm_become_bulgaria_button
 	
 	complete = {
 		custom_tooltip = {
-			text = je_balkfm_bul_national_awakening_tt1
+			text = je_balkfm_bul_silistra_tt
 			hidden_trigger = {
-				var:balkfm_nationalism_var >= 100
+				c:BUL ?= this
 			}
 		}
 	}
 	
 	on_complete = {
-		trigger_event = {
-			id = balkfm.558 # The Birth of the Bulgarian State
+		balkfm_clean_up_revivalism_variables_effect = yes
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = balkfm_revivalism_var
+				add = balkfm_revivalism_progress_value
+			}
 		}
-		custom_tooltip = je_balkfm_bul_national_awakening_tt2
-		remove_variable = balkfm_nationalism_var
+	}
+	
+	current_value = {
+		value = var:balkfm_revivalism_var
+	}
+
+	goal_add_value = {
+		value = 1000
+	}
+
+	progressbar = yes
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_bul_national_awakening_status
+			trigger = {
+				has_technology_researched = nationalism
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
+
+je_balkfm_bul_bulgarian_exarchate = {
+	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
+	
+	group = je_group_balkfm_bulgaria
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:SILI ?= this
+	}
+	
+	possible = {
+		has_technology_researched = romanticism
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = balkfm.564 # Liturgical Language
+		}
+		set_variable = {
+			name = eocfm_schism_var
+			value = 0
+		}
+	}
+	
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.569 # The Exarchate of Bulgaria
+		}
 	}
 	
 	invalid = {
@@ -1733,26 +1802,50 @@ je_balkfm_bul_national_awakening = {
 	}
 	
 	on_invalid = {
-		remove_variable = balkfm_nationalism_var
+		clamp_variable = {
+			name = eocfm_schism_var
+			max = 60
+			min = 0
+		}
 	}
 	
 	on_monthly_pulse = {
+		random_events = {
+			200 = 0
+			5 = balkfm.565 # Liturgical Language
+			5 = balkfm.566 # Ecclesiatic Purges
+		}
 		effect = {
-			if = {
-				limit = {
-					has_technology_researched = nationalism
-				}
-				change_variable = {
-					name = balkfm_nationalism_var
-					add = balkfm_nationalism_progress_value
-				}
+			change_variable = {
+				name = eocfm_schism_var
+				add = balkfm_schism_progress_value
 			}
 		}
 	}
 	
-	weight = 1000
+	current_value = {
+		value = var:eocfm_schism_var
+	}
+
+	goal_add_value = {
+		value = 1000
+	}
+
+	progressbar = yes
 	
-}
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_bul_bulgarian_exarchate_status
+			trigger = {
+				has_variable = eocfm_schism_var
+			}
+		}
+	}
+	
+	weight = 500
+	
+}	
+	
 
 ########################################
 # MOLDOVA / WALLACHIA / ROMANIA FLAVOR #

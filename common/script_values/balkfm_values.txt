@@ -525,8 +525,45 @@ balkfm_stambolovism_value = {
 	
 }
 
-balkfm_nationalism_progress_value = {
+balkfm_revivalism_progress_value = {
 	value = 0
+	add = {
+		value = root.literacy
+		desc = balkfm_from_literacy
+	}
+	add = {
+		value = {
+			add = root.prestige
+			multiply = root.ig_intelligentsia.ig_clout
+		}
+		desc = balkfm_bul_from_intelligentsia_influence
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_is_autocephalous
+		}
+		add = {
+			value = 10
+			desc = balkfm_bul_from_autocephaly
+		}
+	}
+}
+
+balkfm_schism_progress_value = {
+	value = 0
+	add = {
+		value = {
+			add = root.prestige
+			multiply = root.ig_devout.ig_clout
+		}
+		desc = balkfm_bul_from_devout_influence
+	}
+	c:TUR = {
+		add = {
+			value = relations:root
+			desc = balkfm_bul_from_ottoman_relations
+		}
+	}
 }
 
 ## ROMANIA VALUES ##
