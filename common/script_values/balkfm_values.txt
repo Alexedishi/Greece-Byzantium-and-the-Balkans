@@ -528,14 +528,11 @@ balkfm_stambolovism_value = {
 balkfm_revivalism_progress_value = {
 	value = 0
 	add = {
-		value = root.literacy
+		value = root.literacy_rate
 		desc = balkfm_from_literacy
 	}
 	add = {
-		value = {
-			add = root.prestige
-			multiply = root.ig_intelligentsia.ig_clout
-		}
+		value = balkfm_intelligentsia_influence_value
 		desc = balkfm_bul_from_intelligentsia_influence
 	}
 	if = {
@@ -552,10 +549,7 @@ balkfm_revivalism_progress_value = {
 balkfm_schism_progress_value = {
 	value = 0
 	add = {
-		value = {
-			add = root.prestige
-			multiply = root.ig_devout.ig_clout
-		}
+		value = balkfm_intelligentsia_devout_value
 		desc = balkfm_bul_from_devout_influence
 	}
 	c:TUR = {
@@ -564,6 +558,18 @@ balkfm_schism_progress_value = {
 			desc = balkfm_bul_from_ottoman_relations
 		}
 	}
+}
+
+balkfm_intelligentsia_influence_value = {
+	value = 0
+	add = root.prestige
+	multiply = root.ig:ig_intelligentsia.ig_clout
+}
+
+balkfm_intelligentsia_devout_value = {
+	value = 0
+	add = root.prestige
+	multiply = root.ig:ig_devout.ig_clout
 }
 
 ## ROMANIA VALUES ##
