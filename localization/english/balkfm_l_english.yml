@@ -90,7 +90,8 @@
  
  # bulgaria content
  je_balkfm_bul_battenburg_monarchy: "The Battenburg Monarchy"
- je_balkfm_bul_battenburg_monarchy_reason: "In the wake of recognition by the Porte, [SCOPE.sCharacter('balkfm_alex_scope').GetFirstName] I was elected with the explicit backing by the Tsar. However, the people have instituted a liberal constitution that runs in conflict with the international intent of having a Russian puppet in the Balkans. The Prince walks a careful line, with further liberal reforms risking his standing with Russia.\n\nThe Prince's ability to retain the throne will be determined by various#tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_battenburg_pos  positive#! or#tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_battenburg_neg  negative#! conditions. The vehemently divided National Assembly will only tolerate the Prince so long as he guards liberal ideals and maintains the support of the Russian Tsars."
+ je_balkfm_bul_battenburg_monarchy_reason: "In the wake of recognition by the Porte, [SCOPE.sCharacter('balkfm_alex_scope').GetFirstName] I was elected with the explicit backing by the Tsar. However, the people have instituted a liberal constitution that runs in conflict with the international intent of having a Russian puppet in the Balkans. The Prince walks a careful line, with further liberal reforms risking his standing with Russia.\n\nThe Prince's ability to retain the throne will be determined by various#tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_battenburg_pos  positive#! or#tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_battenburg_neg  negative#! conditions. The vehemently divided National Assembly will only tolerate the Prince so long as he guards liberal ideals and maintains the support of the Russian Tsars.\n\nThe Prince currently enjoys #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_battenburg_monarchy_breakdown [Country.MakeScope.ScriptValue('balkfm_battenburg_support_value')|+=]#! support."
+ je_balkfm_bul_battenburg_monarchy_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_battenburg_support_value')]" 
  je_balkfm_battenburg_pos: "The following conditions will #bold advance#! the #bold Progress Bar#!:\n•Maintaining strong relations with #yellow Russia#!.\n•The [GetInterestGroupVariant('ig_landowners',GetPlayer).GetNameWithCountryVariant] are [concept_powerful] and [concept_in_government].\n•Accepting Russian military attachés.\n•Defending the Freedom of the Press.\n•Fulfilling stragetic obligations to Russia.\n•Endorsing the Schism with Constantinople.\n•Resolving the issue of #bold Brigandage#!."
  je_balkfm_battenburg_neg: "The following conditions will #bold deplete#! the #bold Progress Bar#!:\n•Failing to maintain good relations with #yellow Russia#!.\n•The [GetInterestGroupVariant('ig_armed_forces',GetPlayer).GetNameWithCountryVariant] are [concept_powerful] and not [concept_in_government].\n•Suspending the Freedom of the Press.\n•Abrogating the constitution.\n•Achieving Union with Eastern Rumelia\n•Buying out the #bold Rusé-Varna railway#!."
  je_balkfm_alex_yeeted_tt: "Alexander was been expelled from #bold Bulgaria#!."
@@ -146,14 +147,17 @@
  je_balkfm_bul_silistra_reason: "The Bulgarian people have been subject to Ottoman rule for well over four centuries. Since the #bold Fall of Tarnovo#!, the Bulgarian lands have been divided between many Ottoman administrative units, tearing apart the common fabric of former Bulgaria. This has been to change with the emergence of dozens of western-educated revivalist thinkers, who collective advocate for the continued existence of a Bulgarian identity and for the right and duty of the Bulgarian people to overthrow their Turkish oppressors."
  je_balkfm_bul_silistra_tt: "We have formed #bold Bulgaria#!"
  je_balkfm_bul_national_awakening: "The National Awakening of Bulgaria"
- je_balkfm_bul_national_awakening_reason: "The spread of #yellow Nationalist#! thought to the masses has energized the revivalist movement. While the movement lacks a centralized leadership, the dream of a restored Bulgaria has taken root across the Balkans.\n\n The #yellow Revivalist#! Movement has garnered #bold [GetPlayer.MakeScope.Var('balkfm_revivalism_var').GetValue]/100#! momentum. This is expected to change by _ next month."
+ je_balkfm_bul_national_awakening_reason: "The spread of #yellow Nationalist#! thought to the masses has energized the revivalist movement. While the movement lacks a centralized leadership, the dream of a restored Bulgaria has taken root across the Balkans.\n\n The #yellow Revivalist#! Movement has garnered #bold [GetPlayer.MakeScope.Var('balkfm_revivalism_var').GetValue]/100#! momentum. This is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_national_awakening_sources [GetPlayer.MakeScope.ScriptValue('balkfm_revivalism_progress_value')]#! next month."
  je_balkfm_bul_national_awakening_status: "#yellow Revivalists#! have #bold [GetPlayer.MakeScope.Var('balkfm_revivalism_var').GetValue]/1000#! momentum."
+ je_balkfm_bul_national_awakening_sources: "[Country.MakeScope.GetScriptValueDesc('balkfm_revivalism_progress_value')]"
  je_balkfm_bul_national_awakening_tt1: "The #yellow Revivalist#! Movement has over 100 momentum"
  je_balkfm_bul_national_awakening_tt2: "We have secured [concept_great_power] support for the revivalist cause"
  je_balkfm_bul_bulgarian_exarchate: "The Exarchate of Bulgaria"
- je_balkfm_bul_bulgarian_exarchate_reason: ""
+ je_balkfm_bul_bulgarian_exarchate_reason: "During the Byzantine Era, the Bulgarian state contested control of the Balkans with the ailing #bold Romanía#!. Over the course of their rivalry, the #bold Bulgarian Empire#! extracted both diplomatic recognition and ecclesiatic independence from the Baselius. Organizes as the Tarnovo Patriarchate, this church cemented the use of the Bulgarian language in their lands until it was violently reintegrated with the Ecumenical Patriarchate following the Fall of Constantinople to the Ottoman Empire.\n\nWithin the last century, the Phanariote Greeks has sought to extend their influence over the Bulgarian lands by enforcing Greek as the language of the Church. The Church has served as a bastion of Bulgarian identity since the Ottoman conquests and many fear that the displacement of the Bulgarian language from liturgy is just the first step in the erasure of Bulgarian identity as a whole.\n\n The #yellow Exarchate#! has garnered #bold [GetPlayer.MakeScope.Var('eocfm_schism_var').GetValue]/100#! momentum. This is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_bulgarian_exarchate_sources [GetPlayer.MakeScope.ScriptValue('balkfm_schism_progress_value')]#! next month."
+ je_balkfm_bul_bulgarian_exarchate_complete_tt: "The #yellow Exarchate#! has gathered #bold 1000#! momentum."
  je_balkfm_bul_bulgarian_exarchate_goal: "The progress bar is full"
  je_balkfm_bul_bulgarian_exarchate_status: "The #yellow Exarchate#! has #bold [GetPlayer.MakeScope.Var('eocfm_schism_var').GetValue]/1000#! momentum."
+ je_balkfm_bul_bulgarian_exarchate_sources: "[Country.MakeScope.GetScriptValueDesc('balkfm_schism_progress_value')]"
  
  # Romanian Flavor
  je_balkfm_rom_regulamentul_organic: "The Regulamentul Organic"
@@ -268,10 +272,12 @@
  balkfm_declare_tsardom_tt: "#red #bold Bulgaria will become independent!#!#!"
  balkfm_bulgarian_union_tt: "#red #bold We will become a subject of Bulgaria!#!#!"
  balkfm_become_bulgaria_tt: "#bold [ROOT.GetCountry.GetNameNoFormatting]#! will become #bold Bulgaria#!"
- balkfm_revivalism_advance_tt: "#yellow Revivalism#! momentum will #bold #green advance#!#! by #bold 100#!."
- balkfm_revivalism_regress_tt: "#yellow Revivalism#! momentum will #bold #red regress#!#! by #bold 100#!."
- balkfm_exarchate_advance_tt: "#yellow Exarchate#! momentum will #bold #green advance#!#! by #bold 100#!."
- balkfm_exarchate_regress_tt: "#yellow Exarchate#! momentum will #bold #red regress#!#! by #bold 100#!."
+ balkfm_revivalism_advance_100_tt: "#yellow Revivalism#! momentum will #bold #green advance#!#! by #bold 100#!."
+ balkfm_revivalism_regress_100_tt: "#yellow Revivalism#! momentum will #bold #red regress#!#! by #bold 100#!."
+ balkfm_revivalism_advance_50_tt: "#yellow Revivalism#! momentum will #bold #green advance#!#! by #bold 50#!."
+ balkfm_revivalism_regress_50_tt: "#yellow Revivalism#! momentum will #bold #red regress#!#! by #bold 50#!."
+ balkfm_exarchate_advance_100_tt: "#yellow Exarchate#! momentum will #bold #green advance#!#! by #bold 100#!."
+ balkfm_exarchate_regress_100_tt: "#yellow Exarchate#! momentum will #bold #red regress#!#! by #bold 100#!."
  
  balkfm_united_principalities_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has formed a [concept_personal_union] over another #bold Romanian#! country or made it a [concept_puppet] of [SCOPE.GetRootScope.GetCountry.GetName]."
  balkfm_no_other_romanians_tt: "There are no other #bold Romanian#! countries to unite with."
@@ -331,6 +337,8 @@
  balkfm_bulgarian_union_desc: "Bulgaria exists as only half of herself. Leaders in the National Awakening have continued their work in stoking desires for a union between Bulgaria and East Rumelia."
  balkfm_revivalist_support: "Seek International Support"
  balkfm_revivalist_support_desc: ""
+ balkfm_agitate_rumelia: "Support Rumelian Separatists"
+ balkfm_agitate_rumelia_desc: ""
  balkfm_become_bulgaria: "Declare the Bulgarian State"
  balkfm_become_bulgaria_desc: ""
  
@@ -516,6 +524,10 @@
  modifier_balkfm_bulgarian_bismark_desc: "Bulgarian Bismark"
  modifier_balkfm_bulgarian_resurgence: "Bulgarian Resurgence"
  modifier_balkfm_bulgarian_resurgence_desc: "Bulgarian Resurgence"
+ modifier_balkfm_bulgarian_dissent: "Bulgarian Dissent"
+ modifier_balkfm_bulgarian_dissent_desc: "Bulgarian Dissent"
+ modifier_balkfm_schismatic_efforts: "Schismatic Efforts"
+ modifier_balkfm_schismatic_efforts_desc: "Schismatic Efforts"
  
  modifier_balkfm_regulamentul_organic: "Regulamentul Organic"
  modifier_balkfm_regulamentul_organic_desc: "Regulamentul Organic"
@@ -660,6 +672,18 @@
  custom_balkfm_protochronism_stall: "Nationalist sentiments currently do not favor either side."
  
  # script value breakdowns
+ balkfm_bul_from_good_russian_relations: "From #green #bold good#!#! relations with Russia"
+ balkfm_bul_from_bad_russian_relations: "From #red #bold poor#!#! relations with Russia"
+ balkfm_bul_from_russian_attaches: "From accepting #bold Russian Military Attachés#!"
+ balkfm_bul_from_powerful_landowners_in_gov: "From the [GetInterestGroupVariant('ig_landowners',GetPlayer).GetName] being [concept_powerful] and [concept_in_government]"
+ balkfm_bul_from_powerful_military_not_in_gov: "From the [GetInterestGroupVariant('ig_armed_forces',GetPlayer).GetName] being [concept_powerful] and #bold NOT#! [concept_in_government]"
+ balkfm_bul_from_good_speech_laws: "From having either #yellow Protected Speech#! or #yellow Right of Assembly#! enacted"
+ balkfm_bul_from_bad_speech_laws: "From having either #yellow Censorship#! or #yellow Outlawed Dissent#! enacted"
+ balkfm_bul_from_no_voting: "From not having any #bold Voting Rights#!"
+ balkfm_bul_from_brigandage_completed: "From #bold Solving the Brigandage Issue#!"
+ balkfm_bul_from_railways_buyout: "From #bold Buying Out the Rusé-Varna Line#!"
+ balkfm_bul_from_controlling_rumelia: "From Controlling #yellow Northern Thrace#!"
+ 
  balkfm_bul_from_having_heir: "From having an heir."
  balkfm_bul_from_ruler_popularity: "From our Prince having [concept_popularity] over #bold 50#!"
  balkfm_bul_from_stambolov: "From having #yellow Stefan Stambolov#! involved in politics"
@@ -671,9 +695,9 @@
  balkfm_bul_from_exiled_panitsa: "From showing mercy to the leaders of the #bold Panista Plot#!"
  balkfm_bul_from_whimpy: "From the timidness of the Prince"
  
- balkfm_bul_from_intelligentsia_influence: "From the Influence of the Intelligentsia (Their [concept_clout] x Our [concept_prestige])."
- balkfm_bul_from_autocephaly: "From securing the #bold Bulgarian Exarchate#!."
+ balkfm_bul_from_intelligentsia_influence: "From the Influence of the Intelligentsia (Their [concept_clout] x Our [concept_prestige])"
+ balkfm_bul_from_autocephaly: "From securing the #bold Bulgarian Exarchate#!"
  
- balkfm_bul_from_devout_influence: "From the Influence of the Devout (Their [concept_clout] x Our [concept_prestige])."
- balkfm_bul_from_ottoman_relations: "From our [concept_relations] with the #yellow Ottoman Empire#!."
+ balkfm_bul_from_devout_influence: "From the Influence of the Devout (Their [concept_clout] x Our [concept_prestige])"
+ balkfm_bul_from_ottoman_relations: "From our [concept_relations] with the #yellow Ottoman Empire#!"
  

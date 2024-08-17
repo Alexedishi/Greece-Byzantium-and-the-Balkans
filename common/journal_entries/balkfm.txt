@@ -863,7 +863,7 @@ je_balkfm_bul_battenburg_monarchy = {
 			custom_tooltip = {
 				text = battenburg_monarchy_success_tt1
 				hidden_trigger = {
-					var:balkfm_countercoup_var > 5
+					balkfm_battenburg_support_value > 5
 				}
 			}
 			custom_tooltip = {
@@ -887,7 +887,7 @@ je_balkfm_bul_battenburg_monarchy = {
 			custom_tooltip = {
 				text = battenburg_monarchy_fail_tt1
 				hidden_trigger = {
-					var:balkfm_countercoup_var <= 5
+					balkfm_battenburg_support_value <= 5
 				}
 			}
 			custom_tooltip = {
@@ -914,7 +914,7 @@ je_balkfm_bul_battenburg_monarchy = {
 	}
 	
 	current_value = {
-		value = var:balkfm_countercoup_var
+		value = balkfm_battenburg_support_value
 	}
 
 	goal_add_value = {
@@ -926,17 +926,6 @@ je_balkfm_bul_battenburg_monarchy = {
 	on_weekly_pulse = {
 		events = {
 			balkfm.509 # The August Coup
-		}
-		effect = {
-			set_variable = {
-				name = balkfm_countercoup_var
-				value = balkfm_battenburg_support_value
-			}
-			clamp_variable = {
-				name = balkfm_countercoup_var
-				min = 0
-				max = 10
-			}
 		}
 	}
 	
@@ -1282,6 +1271,8 @@ je_balkfm_bul_liberation_of_bulgaria = {
 		}
 	}
 	
+	scripted_button = balkfm_agitate_rumelia_button # balkfm.577
+	scripted_button = balkfm_uplift_rumelia_button # balkfm.578
 	scripted_button = balkfm_annex_rumelia_button # balkfm.581
 	scripted_button = balkfm_declare_tsardom_button # balkfm.582
 	
@@ -1661,8 +1652,20 @@ je_balkfm_bul_silistra = {
 	}
 	
 	on_invalid = {
-		trigger_event = {
-			id = balkfm.559 # Securing our Sovereignty
+		if = {
+			limit = {
+				NOT = {
+					c:BUL ?= this
+				}
+			}
+			trigger_event = {
+				id = balkfm.558 # Securing our Sovereignty
+			}
+		}
+		else = {
+			trigger_event = {
+				id = balkfm.559 # Securing our Sovereignty
+			}
 		}
 		balkfm_clean_up_silistra_variables_effect = yes
 	}
@@ -1791,7 +1794,13 @@ je_balkfm_bul_bulgarian_exarchate = {
 	}
 	
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = je_balkfm_bul_bulgarian_exarchate_complete_tt
+			hidden_trigger = {
+				scope:journal_entry = { is_goal_complete = yes }
+			}
+		}
+		has_technology_researched = nationalism
 	}
 	
 	on_complete = {
@@ -1845,7 +1854,7 @@ je_balkfm_bul_bulgarian_exarchate = {
 		triggered_desc = {
 			desc = je_balkfm_bul_bulgarian_exarchate_status
 			trigger = {
-				has_variable = eocfm_schism_var
+				has_technology_researched = romanticism
 			}
 		}
 	}

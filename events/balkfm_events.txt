@@ -206,7 +206,7 @@ namespace = balkfm
 #	556 - ##The Bulgarian Legion
 #	557 - ##The Legion Strikes Again!
 #	558 - The Birth of the Bulgarian State
-#	559 - Securing our Sovereignty
+#	559 - ##Securing our Sovereignty
 
 #560-569 - Bulgarian Orthodox Church Events
 #	560 - Threats of Schism
@@ -223,6 +223,8 @@ namespace = balkfm
 #570-579 - Eastern Rumelia Events
 #	570 - ##The Two Bulgarias
 #	571 - ##New Governor-General Appointed
+#	577 - ##Bulgarian Agitation in Rumelia
+#	578 - ##Eastern Rumelia Rebels!
 #	579 - Union with Bulgaria
 
 #580-589 - The Liberation of Bulgaria
@@ -4452,7 +4454,6 @@ balkfm.500 = { # The Golden Lion Awakens
 	}
 	
 	immediate = {
-#		balkfm_create_bulgarian_characters = yes
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
@@ -4466,12 +4467,8 @@ balkfm.500 = { # The Golden Lion Awakens
 			name = balkfm_coup_var
 			value = 120 # Alexander had 87 months before the coup, I'm being generous here
 		}
-		set_variable = {
-			name = balkfm_countercoup_var
-			value = 0
-		}
 		set_global_variable = balkfm_lion_awakened
-	}	
+	}
 	
 	option = {
 		name = balkfm.500.a
@@ -4533,8 +4530,13 @@ balkfm.501 = { # Democratic Obstructions
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = { has_variable = balkfm_bulgaria_consitution_1 }
+		NOT = { 
+			has_variable = balkfm_bulgaria_consitution_1
+		}
 		var:balkfm_coup_var <= 104 # Second Session of the National Assembly, relative to Alexander I's ascent to the throne
+		NOT = {
+			has_law = law_type:law_autocracy
+		}
 	}
 	
 	immediate = {
@@ -4548,7 +4550,21 @@ balkfm.501 = { # Democratic Obstructions
 	option = { # yeet the law
 		name = balkfm.501.a
 		default_option = yes
-		activate_law = law_type:law_oligarchy
+		if = {
+			limit = {
+				NOR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+				}
+			}
+			activate_law = law_type:law_oligarchy
+		}
+		else_if = {
+			limit = {
+				has_law = law_type:law_oligarchy
+			}
+			activate_law = law_type:law_autocracy
+		}
 		add_radicals = {
 			pop_type = academics
 			value = very_large_radicals
@@ -6890,7 +6906,7 @@ balkfm.552 = { # The Bulgarian Question
 	}
 }
 
-balkfm.553 = { # Tsarigradski Vestnik 
+balkfm.553 = { # The Bulgarian Eagle
 	type = country_event
 	placement = root
 	
@@ -6946,7 +6962,7 @@ balkfm.553 = { # Tsarigradski Vestnik
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = balkfm_revivalism_advance_tt
+			text = balkfm_revivalism_advance_100_tt
 			hidden_effect = {
 				change_variable = {
 					name = balkfm_revivalism_var
@@ -6967,7 +6983,7 @@ balkfm.553 = { # Tsarigradski Vestnik
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = balkfm_revivalism_regress_tt
+			text = balkfm_revivalism_regress_100_tt
 			hidden_effect = {
 				change_variable = {
 					name = balkfm_revivalism_var
@@ -7049,15 +7065,89 @@ balkfm.555 = { # Great Powers Support Bulgaria
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
+		c:AUS ?= {
+			save_scope_as = austria_scope
+		}
+		c:RUS ?= {
+			save_scope_as = russia_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.556.a
 		default_option = yes
+		trigger = {
+			c:RUS ?= {
+				relations:root >= relations_threshold:amicable
+				is_adjacent_to_country = root
+			}
+		}
 		custom_tooltip = {
-			text = balkfm.555.tt
+			text = balkfm.555.tt1
 			hidden_effect = {
 				set_variable = balkfm_revivalism_supported_var
+			}
+		}
+		custom_tooltip = {
+			text = balkfm.555.tt2
+			hidden_effect = {
+				c:RUS = {
+					set_secret_goal = {
+						secret_goal = protect
+						country = root
+					}
+					set_variable = balkfm_backing_bulgaria
+				}
+			}
+		}
+		custom_tooltip = {
+			text = balkfm_revivalism_advance_100_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					add = 100
+				}
+			}
+		}
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+	}	
+	
+	option = {
+		name = balkfm.556.b
+		trigger = {
+			c:AUS ?= {
+				relations:root >= relations_threshold:amicable
+				is_adjacent_to_country = root
+			}
+		}
+		custom_tooltip = {
+			text = balkfm.555.tt1
+			hidden_effect = {
+				set_variable = balkfm_revivalism_supported_var
+			}
+		}
+		custom_tooltip = {
+			text = balkfm.555.tt3
+			hidden_effect = {
+				c:AUS = {
+					set_secret_goal = {
+						secret_goal = protect
+						country = root
+					}
+					set_variable = balkfm_backing_bulgaria
+				}
+			}
+		}
+		custom_tooltip = {
+			text = balkfm_revivalism_advance_100_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					add = 100
+				}
 			}
 		}
 		create_incident = {
@@ -7102,10 +7192,36 @@ balkfm.556 = { # The Bulgarian Legion
 	option = {
 		name = balkfm.556.a
 		default_option = yes
+		custom_tooltip = {
+			text = balkfm_revivalism_advance_100_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					add = 100
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = -10
+		}
 	}
 	
 	option = {
 		name = balkfm.556.b
+		custom_tooltip = {
+			text = balkfm_revivalism_regress_50_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					subtract = 50
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
 	}
 
 }
@@ -7134,16 +7250,46 @@ balkfm.557 = { # The Legion Strikes Again!
 		has_variable = balkfm_legion_formed
 	}
 	
+	cooldown = {
+		years = 2
+	}
+	
 	immediate = {
 	}
 	
 	option = {
 		name = balkfm.557.a
 		default_option = yes
+		custom_tooltip = {
+			text = balkfm_revivalism_advance_50_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					add = 50
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = -10
+		}
 	}
 	
 	option = {
 		name = balkfm.557.b
+		custom_tooltip = {
+			text = balkfm_revivalism_regress_50_tt
+			hidden_effect = {
+				change_variable = {
+					name = balkfm_revivalism_var
+					subtract = 50
+				}
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 10
+		}
 	}
 
 }
@@ -7153,11 +7299,37 @@ balkfm.558 = { # The Birth of the Bulgarian State
 	placement = root
 	
 	title = balkfm.558.t
-	desc = balkfm.558.d
-	flavor = balkfm.558.f
+	desc = {
+		triggered_desc {
+			desc = balkfm.558.d1
+			trigger = {
+				is_subject = yes
+			}
+		}
+		triggered_desc {
+			desc = balkfm.558.d2
+			trigger = {
+				is_subject = no
+			}
+		}
+	}
+	flavor = {
+		triggered_desc {
+			desc = balkfm.558.f1
+			trigger = {
+				is_subject = yes
+			}
+		}
+		triggered_desc {
+			desc = balkfm.558.f2
+			trigger = {
+				is_subject = no
+			}
+		}
+	}
 	
 	event_image = {
-		video = "ep1_transfer_of_power"
+		video = "ep1_transfer_of_authority"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_bulgaria.dds"
@@ -7179,6 +7351,12 @@ balkfm.558 = { # The Birth of the Bulgarian State
 		overlord ?= {
 			save_scope_as = balkfm_overlord_scope
 		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_backing_bulgaria
+			}
+			save_scope_as = balkfm_support_scope
+		}
 	}
 	
 	option = {
@@ -7187,7 +7365,9 @@ balkfm.558 = { # The Birth of the Bulgarian State
 		set_country_type = recognized
 		if = {
 			limit = {
-				exists = scope:balkfm_overlord_scope
+				scope:balkfm_overlord_scope ?= {
+					c:TUR ?= this
+				}
 			}
 			hidden_effect = {
 				make_independent = yes
@@ -7200,8 +7380,24 @@ balkfm.558 = { # The Birth of the Bulgarian State
 			}
 		}
 		change_tag = BUL
+		add_primary_culture = cu:bulgarian
+		if = {
+			limit = {
+				country_has_primary_culture = cu:turkish
+			}
+			remove_primary_culture = cu:turkish
+		}
+		set_state_religion = rel:orthodox
+		custom_tooltip = {
+			text = balkfm.558.tt # vanilla loc is broken here. I can't be assed to track down the problem.
+			ig:ig_devout = { # this mimics the game setup effect for Orthodox nations
+				set_interest_group_name = ig_orthodox_church
+				remove_ideology = ideology_patriarchal
+				add_ideology = ideology_orthodox_patriarch
+			}
+		}
 		trigger_event = {
-			id = balkfm.559
+			id = balkfm.559 # Securing our Sovereignty
 			days = 30
 		}
 	}
@@ -7283,6 +7479,9 @@ balkfm.559 = { # Securing our Sovereignty
 	
 	option = { # Emmanuel Bogoridi, grandson of Stefanos Bogoridi
 		name = balkfm.559.2
+		trigger = {
+			has_variable = eocfm_is_autocephalous
+		}
 		scope:balkfm_bogoridi_scope = {
 			set_character_as_ruler = yes
 			free_character_from_void = yes
@@ -7292,11 +7491,15 @@ balkfm.559 = { # Securing our Sovereignty
 	
 	option = { # Alexander Exarch, prominent Bulgarian revivalist
 		name = balkfm.559.3
+		trigger = {
+			has_variable = balkfm_became_bulgaria_var
+		}
 		scope:balkfm_exarch_scope = {
 			set_character_as_ruler = yes
 			free_character_from_void = yes
 		}
 		balkfm_become_bulgaria_effect = yes
+		remove_variable = balkfm_became_bulgaria_var
 	}
 
 }
@@ -7809,7 +8012,7 @@ balkfm.565 = { # Liturgical Language
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = balkfm_exarchate_advance_tt
+			text = balkfm_exarchate_advance_100_tt
 			change_variable = {
 				name = eocfm_schism_var
 				add = 100
@@ -7828,7 +8031,7 @@ balkfm.565 = { # Liturgical Language
 			value = medium_radicals
 		}
 		custom_tooltip = {
-			text = balkfm_exarchate_regress_tt
+			text = balkfm_exarchate_regress_100_tt
 			change_variable = {
 				name = eocfm_schism_var
 				subtract = 100
@@ -8014,6 +8217,192 @@ balkfm.571 = { # New Governor-General Appointed
 		scope:balkfm_rumelian_ruler_scope = {
 			set_character_as_ruler = yes
 			free_character_from_void = yes
+		}
+	}
+
+}
+
+balkfm.577 = { # Bulgarian Agitation in Rumelia!
+	type = country_event
+	placement = scope:northern_thrace_state_scope
+	
+	title = balkfm.577.t
+	desc = balkfm.577.d
+	flavor = balkfm.577.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_agitate_rumelia_button
+	}
+	
+	immediate = {
+		s:STATE_NORTHERN_THRACE = {
+			random_scope_state = {
+				save_scope_as = northern_thrace_state_scope
+			}
+		}
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.577.a
+		default_option = yes
+		trigger = {
+			has_journal_entry = je_balkfm_bul_liberation_of_bulgaria
+		}
+		show_as_tooltip = {
+			scope:northern_thrace_state_scope = {
+				add_radicals_in_state = {
+					culture = cu:bulgarian
+					value = large_radicals
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = balkfm.577.b
+		trigger = {
+			NOT = {
+				has_journal_entry = je_balkfm_bul_liberation_of_bulgaria
+			}
+		}
+		scope:northern_thrace_state_scope = {
+			add_radicals_in_state = {
+				culture = cu:bulgarian
+				value = large_radicals
+			}
+		}
+	}
+
+}
+
+balkfm.578 = { # Eastern Rumelia Rebels!
+	type = country_event
+	placement = root
+	
+	title = balkfm.578.t
+	desc = balkfm.578.d
+	flavor = balkfm.578.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = { # As if there aren't enough events all trying to hammer this type of effect
+		if = {
+			limit = {
+				c:TUR ?= this
+			}
+			create_country = {
+				tag = ERUM
+				origin = this
+				state = s:STATE_NORTHERN_THRACE
+			}
+			if = {
+				limit = {
+					is_country_type = recognized
+				}
+				create_diplomatic_pact = {
+					country = c:ERUM
+					type = dominion
+				}
+			}
+			else_if = {
+				limit = {
+					is_country_type = unrecognized
+				}
+				create_diplomatic_pact = {
+					country = c:ERUM
+					type = vassal
+				}
+			}
+		}
+		c:ERUM ?= {
+			save_scope_as = rumelia_scope
+		}
+		c:TUR ?= {
+			save_scope_as = ottoman_scope
+		}
+		c:BUL = {
+			save_scope_as = bulgaria_scope
+		}
+	}
+	
+	option = { # For BUL
+		name = balkfm.578.a
+		default_option = yes
+		change_relations = {
+			country = c:ERUM
+			value = 50
+		}
+	}
+	
+	option = { # For TUR, spank them!
+		name = balkfm.578.b
+		scope:rumelia_scope = {
+			make_independent = yes
+		}
+		create_diplomatic_play = {
+			name = eqfm_balkan_rebellion
+			target_country = scope:rumelia_scope
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					scope:rumelia_scope = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = scope:rumelia_scope value = 100 }
+			}
+		}
+	}
+	
+	option = { # For TUR, be a pansy...
+		name = balkfm.578.c
+		scope:rumelia_scope = {
+			increase_autonomy = yes
+		}
+		create_bidirectional_truce = {  
+			country = scope:rumelia_scope
+			months = 60
+		}
+		add_radicals = {
+			culture = cu:turkish
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_eqfm_caved_to_separatists
+			months = normal_modifier_time
 		}
 	}
 
