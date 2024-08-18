@@ -24,7 +24,7 @@
 			has_law = law_type:law_state_religion
 		}
 		add = {
-			value = 100
+			value = 200
 			desc = eocfm_capacity_from_state_religion
 		}
 	}
@@ -205,8 +205,17 @@
 			has_law = law_type:law_total_separation
 		}
 		subtract = {
-			value = 1000
+			value = 500
 			desc = eocfm_capacity_from_total_separation
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_state_atheism
+		}
+		subtract = {
+			value = 100
+			desc = eocfm_capacity_from_state_atheism
 		}
 	}
 	if = {
@@ -365,6 +374,17 @@
 	}
 	
 	# Decree Check
+	add = {
+		value = eocfm_decree_expense_value
+		desc = eocfm_capacity_from_decrees
+	}
+	
+	min = 0
+	
+}
+
+eocfm_decree_expense_value = {
+	value = 0
 	every_scope_state = {
 		limit = {
 			has_decree = decree_eocfm_consecrate_metropolitan
@@ -374,7 +394,6 @@
 			desc = eocfm_capacity_from_metropolitan_decree
 		}
 	}
-	
 	every_scope_state = {
 		limit = {
 			has_decree = decree_eocfm_encourage_almsgiving
@@ -383,10 +402,8 @@
 			value = 100
 			desc = eocfm_capacity_from_almsgiving_decree
 		}
-	}
-	
-	min = 0
-	
+	}	
+
 }
 
 eocfm_rome_progress_value = {

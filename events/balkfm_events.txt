@@ -1080,9 +1080,9 @@ balkfm.098 = { # Test Event
 	type = country_event
 	placement = root
 	
-	title = balkfm.099.t
-	desc = balkfm.099.d
-	flavor = balkfm.099.f
+	title = balkfm.098.t
+	desc = balkfm.098.d
+	flavor = balkfm.098.f
 	
 	event_image = {
 		video = "unspecific_signed_contract"
@@ -1103,7 +1103,7 @@ balkfm.098 = { # Test Event
 	}	
 	
 	option = {
-		name = balkfm.099.a
+		name = balkfm.098.a
 		default_option = yes
 		create_diplomatic_pact = {
 			country = c:RUS
@@ -1116,7 +1116,7 @@ balkfm.098 = { # Test Event
 	}
 	
 	option = {
-		name = balkfm.099.a
+		name = balkfm.098.b
 		create_diplomatic_pact = {
 			country = c:RUS
 			type = war_reparations
@@ -1124,6 +1124,19 @@ balkfm.098 = { # Test Event
 		create_bidirectional_truce = {
 			country = c:RUS
 			months = 48
+		}
+	}
+	
+	option = {
+		name = balkfm.098.c
+		custom_tooltip = balkfm.098.tt
+	}
+	
+	
+	option = {
+		name = balkfm.098.e
+		add_journal_entry = {
+			type = je_balkfm_test_journal
 		}
 	}
 	
@@ -6202,7 +6215,7 @@ balkfm.526 = { # The Panitsa Plot
 	flavor = balkfm.526.f
 	
 	event_image = {
-		video = "votp_cops_breaking"
+		video = "ep1_clandestine_meeting"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
@@ -6221,6 +6234,11 @@ balkfm.526 = { # The Panitsa Plot
 	}
 	
 	immediate = {
+		ig:ig_rural_folk = {
+			leader = {
+				save_scope_as = stambolov_scope
+			}
+		}
 		set_variable = balkfm_panitsa_plot_happened
 	}
 	
@@ -8259,22 +8277,6 @@ balkfm.577 = { # Bulgarian Agitation in Rumelia!
 	
 	option = {
 		name = balkfm.577.a
-		default_option = yes
-		trigger = {
-			has_journal_entry = je_balkfm_bul_liberation_of_bulgaria
-		}
-		show_as_tooltip = {
-			scope:northern_thrace_state_scope = {
-				add_radicals_in_state = {
-					culture = cu:bulgarian
-					value = large_radicals
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = balkfm.577.b
 		trigger = {
 			NOT = {
 				has_journal_entry = je_balkfm_bul_liberation_of_bulgaria
@@ -8287,6 +8289,22 @@ balkfm.577 = { # Bulgarian Agitation in Rumelia!
 			}
 		}
 	}
+	
+	option = {
+		name = balkfm.577.b
+		default_option = yes
+		trigger = {
+			has_journal_entry = je_balkfm_bul_liberation_of_bulgaria
+		}
+		show_as_tooltip = {
+			scope:northern_thrace_state_scope = {
+				add_radicals_in_state = {
+					culture = cu:bulgarian
+					value = large_radicals
+				}
+			}
+		}
+	}	
 
 }
 
@@ -8311,6 +8329,7 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by balkfm_uplift_rumelia_button
 	}
 	
 	immediate = { # As if there aren't enough events all trying to hammer this type of effect
@@ -8321,7 +8340,7 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 			create_country = {
 				tag = ERUM
 				origin = this
-				state = s:STATE_NORTHERN_THRACE
+				state = s:STATE_NORTHERN_THRACE.region_state:TUR
 			}
 			if = {
 				limit = {
@@ -8350,6 +8369,9 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 		}
 		c:BUL = {
 			save_scope_as = bulgaria_scope
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
 		}
 	}
 	
@@ -10417,7 +10439,7 @@ balkfm.624 = { # Electing a Hospodar (MOL)
 			}
 			save_scope_as = balkfm_hospodar_candidate_3
 		}
-		heir = {
+		heir ?= {
 			save_scope_as = balkfm_heir_scope
 		}
 	}
