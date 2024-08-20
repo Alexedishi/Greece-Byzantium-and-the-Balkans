@@ -1817,12 +1817,14 @@ je_grefm_national_language = {
 	}
 	
 	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.241
-			}
+		trigger_event = {
+			id = grefm.241 # The Language Question
 		}
 	}
+	
+	scripted_progress_bar = grefm_dimotiki_progress_bar
+	scripted_progress_bar = grefm_katharevousa_progress_bar
+	scripted_progress_bar = grefm_khoine_progress_bar
 	
 	complete = {
 		has_law = law_type:law_compulsory_primary_school
@@ -1830,11 +1832,18 @@ je_grefm_national_language = {
 			institution = institution_schools
 			value >= 3
 		}
+		scope:journal_entry = {
+			OR = {
+				"scripted_bar_progress(grefm_dimotiki_progress_bar)" > 100
+				"scripted_bar_progress(grefm_katharevousa_progress_bar)" > 100
+				"scripted_bar_progress(grefm_khoine_progress_bar)" > 100
+			}
+		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.242 # a national language
+			id = grefm.242 # A National Language
 		}
 	}
 	

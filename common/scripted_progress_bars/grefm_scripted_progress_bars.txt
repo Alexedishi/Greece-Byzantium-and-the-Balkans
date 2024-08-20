@@ -1,0 +1,102 @@
+﻿grefm_dimotiki_progress_bar = {
+	name = "grefm_dimotiki_progress_bar"
+	desc = "grefm_dimotiki_progress_bar_desc"
+
+	default = yes
+	
+	monthly_progress = {
+		add = {
+			desc = "grefm_from_literacy"
+			value = owner.literacy_rate
+		}
+		add = {
+			desc = "grefm_from_rural_folk_clout"
+			value = owner.ig:ig_rural_folk.ig_clout
+		}
+		subtract = {
+			desc = "grefm_from_language_friction"
+			value = grefm_language_decay_value
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 200
+}
+
+grefm_katharevousa_progress_bar = {
+	name = "grefm_katharevousa_progress_bar"
+	desc = "grefm_katharevousa_progress_bar_desc"
+	
+	default_bad = yes
+
+	monthly_progress = {
+		add = {
+			desc = "grefm_from_intelligenstia_clout"
+			value = owner.ig:ig_intelligentsia.ig_clout
+		}
+		add = {
+			desc = "grefm_from_universities"
+			value = grefm_university_count_value
+		}
+		subtract = {
+			desc = "grefm_from_language_friction"
+			value = grefm_language_decay_value
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 200
+}
+
+grefm_khoine_progress_bar = {
+	name = "grefm_khoine_progress_bar"
+	desc = "grefm_khoine_progress_bar_desc"
+	
+	default_bad = yes
+
+	monthly_progress = {
+		add = {
+			desc = "grefm_from_landowners_clout"
+			value = owner.ig:ig_landowners.ig_clout
+		}
+		add = {
+			desc = "grefm_from_devout_clout"
+			value = owner.ig:ig_devout.ig_clout
+		}
+		if = {
+			limit = {
+				owner = {
+					has_law = law_type:law_theocracy
+				}
+			}
+			add = {
+				desc = "grefm_from_theocracy"
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					OR = {
+						has_law = law_type:law_total_separation
+						has_law = law_type:law_state_atheism
+					}
+				}
+			}
+			subtract = {
+				desc = "grefm_from_hostile_religious_policy"
+				value = 1
+			}
+		}
+		subtract = {
+			desc = "grefm_from_language_friction"
+			value = grefm_language_decay_value
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 200
+}

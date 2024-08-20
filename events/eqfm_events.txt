@@ -2247,6 +2247,7 @@ eqfm.108 = { # April Uprising (Bulgaria)
 				name = eqfm_crisis_local_var
 				value = global_var:eqfm_crisis_var
 			}
+			set_variable = eqfm_bul_crisis_spawn
 		}
 		create_bidirectional_truce = {
 			country = c:BUL
@@ -2849,6 +2850,24 @@ eqfm.119 = { # The Treaty of San Stefano
 			limit = {
 				c:BUL = this
 			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+				set_variable = eqfm_bul_macedonia_owned
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_SKOPIA
+				}
+				set_variable = eqfm_bul_skopia_owned
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+				set_variable = eqfm_bul_rumelia_owned
+			}
 			s:STATE_MACEDONIA = {
 				every_scope_state = {
 					limit = {
@@ -3040,6 +3059,9 @@ eqfm.121 = { # The Issue of Bulgaria
 				}
 				c:BUL ?= {
 					owns_entire_state_region = STATE_NORTHERN_THRACE
+					NOT = {
+						has_variable = eqfm_bul_rumelia_owned
+					}
 				}
 			}
 			create_country = {
@@ -3083,6 +3105,9 @@ eqfm.121 = { # The Issue of Bulgaria
 		if = {
 			limit = {
 				owns_entire_state_region = STATE_MACEDONIA
+				NOT = {
+					has_variable = eqfm_bul_macedonia_owned
+				}
 			}
 			s:STATE_MACEDONIA = {
 				every_scope_state = {
@@ -3098,6 +3123,9 @@ eqfm.121 = { # The Issue of Bulgaria
 		if = {
 			limit = {
 				owns_entire_state_region = STATE_SKOPIA
+				NOT = {
+					has_variable = eqfm_bul_skopia_owned
+				}
 			}
 			s:STATE_SKOPIA = {
 				every_scope_state = {
@@ -3110,7 +3138,14 @@ eqfm.121 = { # The Issue of Bulgaria
 				}
 			}
 		}
-		custom_tooltip = eqfm.121.tt1
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eqfm_bul_rumelia_owned
+				}
+			}
+			custom_tooltip = eqfm.121.tt1
+		}
 		custom_tooltip = eqfm.121.tt2	
 	}
 	
@@ -3119,9 +3154,16 @@ eqfm.121 = { # The Issue of Bulgaria
 		trigger = {
 			c:TUR ?= this
 		}
-		create_diplomatic_pact = {
-			country = c:BUL
-			type = protectorate
+		if = {
+			limit = {
+				c:BUL ?= {
+					has_variable = eqfm_bul_crisis_spawn
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:BUL
+				type = protectorate
+			}
 		}
 		if  = {
 			limit = {
@@ -3143,7 +3185,14 @@ eqfm.121 = { # The Issue of Bulgaria
 				c:TUR ?= this
 			}
 		}
-		custom_tooltip = eqfm.121.tt1
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eqfm_bul_rumelia_owned
+				}
+			}
+			custom_tooltip = eqfm.121.tt1
+		}
 		custom_tooltip = eqfm.121.tt2
 	}
 	

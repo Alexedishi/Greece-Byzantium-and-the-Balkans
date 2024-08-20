@@ -211,6 +211,52 @@ grefm_artifact_value = {
 	}
 }
 
+## Language Question Variables
+
+grefm_greek_radicals_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:greek
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_university_count_value = {
+	value = 0
+	every_scope_state = {
+		every_scope_building = {
+			limit = {
+				is_building_type = building_university
+			}
+            add = level
+		}
+	}
+	divide = 10
+}
+
+grefm_language_decay_value = {
+	value = 0
+	add = root.literacy_rate
+	add = root.ig:ig_rural_folk.ig_clout
+	add = root.ig:ig_intelligentsia.ig_clout
+	add = grefm_university_count_value
+	add = root.ig:ig_landowners.ig_clout
+	add = root.ig:ig_devout.ig_clout
+	divide = 6 # this is meant to slow down everything and clap out the weakest of the three values
+}
+
 ## Greek Separatism Values ##
 grefm_epirus_radicals_value = {
 	value = 0
