@@ -325,16 +325,50 @@ je_balkfm_mon_benefactor = {
 	
 	complete = {
 		OR = {
-			c:RUS ?= {
-				has_diplomatic_pact = {
-					who = c:MON
-					type = protectorate
+			trigger_if = {
+				limit = {
+					exists = c:RUS
+				}
+				custom_tooltip = {
+					text = je_balkfm_mon_benefactor_rus_tt
+					hidden_trigger = {
+						OR = {
+							has_diplomatic_pact = {
+								who = c:RUS
+								type = defensive_pact
+							}
+							has_diplomatic_pact = {
+								who = c:RUS
+								type = alliance
+							}
+							is_subject_of = c:RUS
+							is_in_same_power_bloc = c:RUS
+						}
+					}
 				}
 			}
-			c:AUS ?= {
-				has_diplomatic_pact = {
-					who = c:MON
-					type = protectorate
+			trigger_if = {
+				limit = {
+					exists = c:AUS
+				}
+				custom_tooltip = {
+					text = je_balkfm_mon_benefactor_aus_tt
+					hidden_trigger = {
+						hidden_trigger = {
+							OR = {
+								has_diplomatic_pact = {
+									who = c:AUS
+									type = defensive_pact
+								}
+								has_diplomatic_pact = {
+									who = c:AUS
+									type = alliance
+								}
+								is_subject_of = c:AUS
+								is_in_same_power_bloc = c:AUS
+							}
+						}
+					}
 				}
 			}
 		}
@@ -356,6 +390,90 @@ je_balkfm_mon_benefactor = {
 	}
 	
 }
+
+je_balkfm_mon_border_conflict = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	group = je_group_balkfm_montenegro
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	scripted_progress_bar = balkfm_mon_border_progress_bar
+	
+#	scripted_button = balkfm_reinforce_border_button
+#	scripted_button = balkfm_border_raid_button
+#	scripted_button = balkfm_ransom_noble_button
+#	scripted_button = balkfm_
+#
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_mon_border_conflict_complete_tt
+			hidden_trigger = {
+				scope:journal_entry = {
+					"scripted_bar_progress(balkfm_mon_border_progress_bar)" >= 100
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		balkfm_clean_up_border_variables_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	fail = {
+		OR = {	
+			custom_tooltip = {
+				text = je_balkfm_mon_border_conflict_fail_tt
+				hidden_trigger = {
+					scope:journal_entry = {
+						"scripted_bar_progress(balkfm_mon_border_progress_bar)" <= 0
+					}
+				}
+			}
+			is_subject_of = c:TUR
+			is_in_same_power_bloc = c:TUR
+		}
+	}
+	
+	on_fail = {
+		balkfm_clean_up_border_variables_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	invalid = {
+		OR = {
+			s:STATE_MONTENEGRO = {
+				NOT = {
+					any_scope_state = {
+						owner = c:TUR
+					}
+				}
+			}
+			hidden_trigger = {
+				has_variable = balkfm_border_conflict_resolved
+			}
+		}
+	}
+	
+	on_invalid = {
+		balkfm_clean_up_border_variables_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+#	on_monthly_pulse = {
+#		random_events = {
+#			
+#		}
+#	}
+	
+	weight = 1000
+	
+}	
 
 je_balkfm_mon_ali_pasha = {
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
@@ -380,7 +498,7 @@ je_balkfm_mon_ali_pasha = {
 		}
 		hidden_effect = {
 			trigger_event = {
-				id = balkfm.340 # Osman Pasha Attacks!
+				id = balkfm.350 # Osman Pasha Attacks!
 				days = 240
 			}
 		}
@@ -401,7 +519,22 @@ je_balkfm_mon_black_mountain = {
 	
 	should_be_pinned_by_default = yes
 	
+	is_shown_when_inactive = {
+		c:MON ?= this
+	}
+	
+	possible = {
+		NOR = {
+			has_journal_entry = je_balkfm_mon_border_conflict
+			country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+		}
+		has_technology_researched = nationalism
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = balkfm.380 # The Black Mountain
+		}
 	}
 	
 	complete = {

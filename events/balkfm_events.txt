@@ -82,7 +82,7 @@ namespace = balkfm
 
 ##  #BALK3  MONTENEGRO FLAVOR  Events  300-399 ##
 
-#300-309 - The Prince-Bishropic Era
+#300-309 - The Prince-Bishropic Events
 #	300 - A Feudal Relic
 #	301 - The Light of Modernity
 #	302 - Centralized Administration
@@ -91,12 +91,12 @@ namespace = balkfm
 #	305 - An Intractable Illness
 #	306 - The Passing of the Bishop
 
-#310-319 - The Principality Era
+#310-319 - Secularization of Montenegro Events
 #	310 - The Principality of Montenegro
 
-#320-329 - The Kingdom Era
+#320-329 - The Kingdom Era Event
 
-#330-339 - The Wrath of Ali Pasha
+#330-339 - The Wrath of Ali Pasha Events
 #	330 - The Battle of Grahovo
 #	331 - Negociations at Humac
 #	332 - Knives in the Dark
@@ -108,11 +108,23 @@ namespace = balkfm
 #	338 - The Arrogance of Ali Pasha
 #	339 - Ali Pasha's Demise
 
-#340-349 - Ottoman-Montenegrin Wars
-#	340 - ##Osman Pasha Attacks!
-#	341 - ##International Indifference
-#	342 - ##Omer Pasha Invades!
-#	343 - ##A Close Shave
+#340-349 - Ottoman-Montenegrin Border Conflict Events
+#	340 - The Ottoman Frontier
+#	341 - Montenegro Raids the Border
+#	342 - 
+#	343 - Border Villages Burned
+#	344 -
+#	345 -
+#	346 -
+#	347 - 
+#	348 - Montenegro Gains Ground
+#	349 - The Porte Gains Ground
+
+#350-359 - Ottoman-Montenegrin Wars
+#	350 - ##Osman Pasha Attacks!
+#	351 - ##International Indifference
+#	352 - ##Omer Pasha Invades!
+#	353 - ##A Close Shave
 
 #380-389 - Montenegrin Nationalism
 #	380 - The Black Mountain
@@ -1377,13 +1389,6 @@ balkfm.201 = { # Jugoslavism (MON)
 #		}
 #		balkfm_sad_yugoslavs = yes
 #	}
-	
-	after = {
-		trigger_event = {
-			id = balkfm.380 # The Black Mountain
-			days = 60
-		}
-	}
 
 }
 
@@ -1838,7 +1843,7 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 #################################################
 ## #BALK3	MONTENEGRO FLAVOR	Events 300-399 ##
 #################################################
-# The little engine that fucking could right here LET'S FUCKING GO
+# The little engine that= could right here LET'S FUCKING GO
 # Seriously, Petar II and Danilo II were the GOATs, if only the rest of the Balkans had leaders that gave anywhere near as much of a shit about their nations.
 
 #### THE REIGN OF PETAR II ####
@@ -1897,9 +1902,12 @@ balkfm.300 = { # A Feudal Relic
 				}
 			}
 		}
-	}
-
-	after = {
+#		hidden_effect = {
+#			trigger_event = {
+#				id = balkfm.350 # The Ottoman Frontier
+#				days = 60
+#			}
+#		}
 		hidden_effect = {
 			trigger_event = {
 				id = balkfm.330 # The Battle of Grahovo
@@ -2786,15 +2794,53 @@ balkfm.339 = { # Ali Pasha's Demise
 
 }
 
-## OTTOMAN-MONTENEGRIN WARS ##
+##  OTTOMAN-MONTENEGRIN BORDER CONFLICT EVENTS ##
 
-balkfm.340 = { # Osman Pasha Attacks!
+balkfm.340 = { # The Ottoman Frontier
 	type = country_event
 	placement = root
 	
 	title = balkfm.340.t
 	desc = balkfm.340.d
 	flavor = balkfm.340.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.300
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.340.a
+		default_option = yes
+	}
+	
+	orphan = yes
+	
+}
+
+## OTTOMAN-MONTENEGRIN WARS ##
+
+balkfm.350 = { # Osman Pasha Attacks!
+	type = country_event
+	placement = root
+	
+	title = balkfm.350.t
+	desc = balkfm.350.d
+	flavor = balkfm.350.f
 	
 	event_image = {
 		video = "europenorthamerica_before_the_battle"
@@ -2816,23 +2862,23 @@ balkfm.340 = { # Osman Pasha Attacks!
 	}
 	
 	option = {
-		name = balkfm.340.a
+		name = balkfm.350.a
 		default_option = yes
 		trigger_event = {
-			id = balkfm.341
+			id = balkfm.351 # International Indifference
 			days = 90
 		}
 	}
 
 }
 
-balkfm.341 = { # International Indifference
+balkfm.351 = { # International Indifference
 	type = country_event
 	placement = root
 	
-	title = balkfm.341.t
-	desc = balkfm.341.d
-	flavor = balkfm.341.f
+	title = balkfm.351.t
+	desc = balkfm.351.d
+	flavor = balkfm.351.f
 	
 	event_image = {
 		video = "southamerica_aristocrats"
@@ -2854,7 +2900,7 @@ balkfm.341 = { # International Indifference
 	}
 	
 	option = { # take it on the chin
-		name = balkfm.341.a
+		name = balkfm.351.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_border_defense
@@ -2866,7 +2912,7 @@ balkfm.341 = { # International Indifference
 	}
 	
 	option = { # get clapped again
-		name = balkfm.341.b
+		name = balkfm.351.b
 		trigger = {
 			c:TUR ?= {
 				has_state_in_state_region = STATE_MONTENEGRO
@@ -2877,7 +2923,7 @@ balkfm.341 = { # International Indifference
                 type = dp_return_state
                 target_state = s:STATE_MONTENEGRO.region_state:TUR
 		}
-		custom_tooltip = balkfm.341.tt
+		custom_tooltip = balkfm.351.tt
 		ai_chance = {
 			base = 1
 		}
@@ -6745,6 +6791,8 @@ balkfm.532 = { # Spring in Constantinople
 }
 
 #### THE REIGN OF BORIS I AND BEYOND EVENTS ####
+
+#### EYALET OF SILISTRA EVENTS ####
 
 balkfm.550 = { # The Bulgarian Millet
 	type = country_event
