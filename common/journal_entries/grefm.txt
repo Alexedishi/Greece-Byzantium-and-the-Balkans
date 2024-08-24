@@ -2650,6 +2650,14 @@ je_grefm_ion_jewry = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = grefm_samos_loyalist_jews_var
+			value = grefm_jewish_loyalists_value
+		}
+		set_variable = {
+			name = grefm_samos_radical_jews_var
+			value = grefm_jewish_radicals_value
+		}
 	}
 	
 	modifiers_while_active = {
@@ -2688,7 +2696,7 @@ je_grefm_ion_jewry = {
 		custom_tooltip = {
 			text = je_grefm_ion_jewry_fail_tt
 			hidden_trigger = {
-				var: >= 0.75
+				var:grefm_samos_radical_jews_var >= 0.75
 			}
 		}
 	}
