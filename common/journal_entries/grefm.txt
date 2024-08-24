@@ -2652,16 +2652,22 @@ je_grefm_ion_jewry = {
 	immediate = {
 	}
 	
+	modifiers_while_active = {
+		modifier_grefm_jewish_exclusion
+	}
+	
 	complete = {
 		OR = {
-			modifier:state_jewish_standard_of_living_add >= 4
 			custom_tooltip = {
-				text = je_grefm_ion_jewry_complete_tt
+				text = je_grefm_ion_jewry_complete_tt1
 				hidden_trigger = {
-					loyalist_fraction = {
-						culture = cu:sephardic
-						value > 0.75
-					}
+					modifier:state_jewish_standard_of_living_add >= 4
+				}
+			}
+			custom_tooltip = {
+				text = je_grefm_ion_jewry_complete_tt2
+				hidden_trigger = {
+					var:grefm_samos_loyalist_jews_var >= 0.75
 				}
 			}
 			cu:sephardic = {
@@ -2682,10 +2688,7 @@ je_grefm_ion_jewry = {
 		custom_tooltip = {
 			text = je_grefm_ion_jewry_fail_tt
 			hidden_trigger = {
-				radical_fraction = {
-					culture = cu:sephardic
-					value > 0.75
-				}
+				var: >= 0.75
 			}
 		}
 	}
@@ -2693,6 +2696,17 @@ je_grefm_ion_jewry = {
 	on_fail = {
 		trigger_event = {
 			id = grefm.418 # Jewish Exclusion
+		}
+	}
+	
+	on_weekly_pulse = {
+		set_variable = {
+			name = grefm_samos_loyalist_jews_var
+			value = grefm_jewish_loyalists_value
+		}
+		set_variable = {
+			name = grefm_samos_radical_jews_var
+			value = grefm_jewish_radicals_value
 		}
 	}
 	
