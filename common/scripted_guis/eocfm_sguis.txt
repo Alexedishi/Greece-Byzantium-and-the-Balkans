@@ -684,8 +684,13 @@ eocfm_seek_mandate_sgui = {
 					has_variable = eocfm_controls_constantinople
 				}
 			}
-			c:TUR = {
-				relations:root >= relations_threshold:cordial
+			custom_tooltip = {
+				text = eocfm_turk_relations_tt
+				hidden_trigger = {
+					c:TUR = {
+						relations:root >= relations_threshold:cordial
+					}
+				}
 			}
 		}
 	}
@@ -1349,6 +1354,15 @@ eocfm_start_sway_rome_sgui = {
 			text = eocfm_need_200_tt
 			hidden_trigger = {
 				caesaropapism_capacity_value >= 200
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_rome_reclaimed_tt
+			hidden_trigger = {
+				any_country = {
+					country_has_state_religion = rel:orthodox
+					has_variable = eocfm_controls_rome
+				}
 			}
 		}
 		influence > 100
