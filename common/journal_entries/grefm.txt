@@ -1833,10 +1833,15 @@ je_grefm_national_language = {
 			value >= 3
 		}
 		scope:journal_entry = {
-			OR = {
-				"scripted_bar_progress(grefm_dimotiki_progress_bar)" > 100
-				"scripted_bar_progress(grefm_katharevousa_progress_bar)" > 100
-				"scripted_bar_progress(grefm_khoine_progress_bar)" > 100
+			custom_tooltip = {
+				text = je_grefm_national_language_complete_tt
+				hidden_trigger = {
+					OR = {
+						"scripted_bar_progress(grefm_dimotiki_progress_bar)" > 100
+						"scripted_bar_progress(grefm_katharevousa_progress_bar)" > 100
+						"scripted_bar_progress(grefm_khoine_progress_bar)" > 100
+					}
+				}
 			}
 		}
 	}
@@ -2856,6 +2861,7 @@ je_grefm_samos_organic_law = {
 			has_law = law_type:law_elected_bureaucrats
 		}
 		OR = {
+			has_law = law_type:law_wealth_voting
 			has_law = law_type:law_census_voting
 			has_law = law_type:law_universal_suffrage
 		}

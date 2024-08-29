@@ -15,9 +15,9 @@
  je_grefm_regency_council_complete_tt: "Triggers the Event #white #bold Discharging the Regency Council#!#!"
  
  je_grefm_bavarocracy_main: "The Bavarocracy"
- je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support.\nThis is expected to change by #bold #variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
+ je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support.\nThis is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_breakdown [Country.MakeScope.ScriptValue('grefm_bavarocracy_progress_value')|+=]#! next month."
  je_grefm_bavarocracy_main_status: "Guide the people of [ROOT.GetCountry.GetName] into Liberty or Autocracy."
- je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•[GetPlayer.MakeScope.Var('grefm_ruler_popularity_var').GetValue|+=] from the King's popularity.[Country.GetCustom('grefm_bavarocracy_constitution_type')][Country.GetCustom('grefm_bavarocracy_land_reform_type')][Country.GetCustom('grefm_bavarocracy_brigandage_type')][Country.GetCustom('grefm_bavarocracy_civic_tradition_type')][Country.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][Country.GetCustom('grefm_bavarocracy_heir_faith_type')][Country.GetCustom('grefm_bavarocracy_nikitas_released_type')][Country.GetCustom('grefm_bavarocracy_royal_palace_type')]"
+ je_grefm_bavarocracy_main_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_bavarocracy_progress_value')]"
  je_grefm_bavarocracy_main_complete_tt: "Triggers the Event #white #bold The October Revolution#!#!"
  je_grefm_greek_constitution: "Bavarocracy: Promulgate Constitutional Law"
  je_grefm_greek_constitution_reason: "When the regency council took custody of the nation for the young King Otto, promises were made to produce a constitution that would limit the power of the King and provide good governance to the people. However, since taking the throne, the King has retained power in his court and has refused to call any form of national assembly. Politicians and citizens alike demand the King make good on his word."
@@ -82,6 +82,7 @@
  je_grefm_greek_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity."
  je_grefm_national_language: "A National Language"
  je_grefm_national_language_reason: "Separated by time, distance, and empires, the greater Greek populations have each diverged from the Greek languages that were spoken during the pre-Ottoman times. Scholars today have been engaged in a deep argument whether the Turkic intrusions into the Greek language, or any deviation from Koine Greek, should be tolerated at all."
+ je_grefm_national_language_complete_tt: "Support for any dialect is over #bold 100#!"
  je_grefm_the_womens_journal: "The Women's Journal"
  je_grefm_the_womens_journal_reason: "Spearheaded by Kalliroi Parren and backed by the greater Feminism movement, women across the Greek state yearn for better treatment. Historically seen as little more than housewives, women seek their own role in advancing the nationalist cause of the Greek people. The publication, #italic The Women's Journal#!, has acted as a herald for this movement putting forth the ideas that women should own their own property and that children should be taken off the factory floors."
  
@@ -142,15 +143,6 @@
  je_grefm_samos_organic_law_reason: "The socioeconomic state of [ROOT.GetCountry.GetName] reflects its centuries of domination by the Ottoman state. In their defense of the small island, the [Concept('concept_great_power', '$concept_great_powers$')] secured the promulgation of an Organic Charter from the Sultan in exchange for the submission of the island to the #bold Sublime Porte#!. However, the implementation of these administrative functions has been left to the islanders themselves."
  
  # custom localization
- custom_grefm_bavarocracy_constitution: "\n•#red #bold -1.00#!#! from not #bold Enacting a Constitution#!."
- custom_grefm_bavarocracy_land_reform: "\n•#red #bold -1.00#!#! from not #bold Reforming Land Policy#!."
- custom_grefm_bavarocracy_brigandage: "\n•#red #bold -1.00#!#! from not #bold Controlling Brigandage#!."
- custom_grefm_bavarocracy_civic_tradition: "\n•#red #bold -1.00#!#! from not #bold Establishing a Civil Service#!."
- custom_grefm_bavarocracy_bavarian_auxiliaries: "\n•#red #bold -1.00#!#! from #bold Hosting the Bavarian Auxiliaries#!."
- custom_grefm_bavarocracy_heir_faith: "\n•#red #bold -1.00#!#! from not having #bold Heir of the [GetReligion('orthodox').GetName] Faith#!."
- custom_grefm_bavarocracy_nikitas_released: "\n•#green #bold +1.00#!#! from #bold Releasing Nikitaras#!."
- custom_grefm_bavarocracy_royal_palace: "\n•#green #bold +1.00#!#! from #bold Building a Royal Residence#!."
- 
  custom_grefm_epirus_revolt: "\n•#variable [GetGlobalVariable('grefm_epirus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Epirus#! are radical."
  custom_grefm_macedonia_revolt: "\n•#variable [GetGlobalVariable('grefm_macedonia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Coastal Macedonia#! are radical."
  custom_grefm_makedonija_revolt: "\n•#variable [GetGlobalVariable('grefm_skopia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Northern Macedonia#! are radical."
@@ -161,19 +153,28 @@
  custom_grefm_samos_progress: "The Prince has #bold #greece [GetPlayer.MakeScope.Var('grefm_samos_support_var').GetValue]#!#! support. This is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_samos_main_breakdown [Country.MakeScope.ScriptValue('grefm_samos_support_value')|+=]#!  next month."
  
  # script value breakdowns
+ grefm_value_from_ruler_popularity: "From our [concept_ruler]'s [concept_popularity]"
+ grefm_value_from_land_reform: "From not #bold Reforming Our Land Policy#!"
+ grefm_value_from_brigandage_completed: "From not #bold Controlling the Brigands#!"
+ grefm_value_from_civic_tradition: "From lacking a #bold Civic Tradition#!"
+ grefm_value_from_bavarian_auxiliaries: "From #bold Hosting the Bavarian Auxiliaries#!"
+ grefm_value_from_lacking_heir: "From #bold Lacking an Heir#!"
+ grefm_value_from_turkeater_unleashed: "From #bold Releasing #greece Nikitaras#!#!"
+ grefm_value_from_royal_palace: "From #bold Building the Royal Palace#!"
+ 
  grefm_samos_from_support: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #green #bold positive#!#! [concept_approval]."
  grefm_samos_from_opposition: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #red #bold negative#!#! [concept_approval]."
  
  # scripted progressbars
  grefm_dimotiki_progress_bar: "Dimotiki Support"
- grefm_dimotiki_progress_bar_desc: "DUMMY"
+ grefm_dimotiki_progress_bar_desc: "Dimotiki"
  grefm_katharevousa_progress_bar: "Katharevousa Support"
- grefm_katharevousa_progress_bar_desc: "DUMMY"
+ grefm_katharevousa_progress_bar_desc: "Katharevousa"
  grefm_khoine_progress_bar: "Khoine Support"
- grefm_khoine_progress_bar_desc: "DUMMY"
+ grefm_khoine_progress_bar_desc: "Khoine"
  
  # scripted progressbar breakdowns
- grefm_from_literacy: "From our country's [concept_literacy]"
+ grefm_from_literacy: "From the [concept_literacy] of our [concept_pop]#o s#!"
  grefm_from_rural_folk_clout: "From the [concept_clout] of the #yellow Rural Folk#!"
  grefm_from_intelligenstia_clout: "From the [concept_clout] of the #yellow Intelligenstia#!"
  grefm_from_universities: "From our #bold University levels#!"
@@ -343,7 +344,7 @@
  grefm_crete_provoke_button: "Provoke Cretan Revolt"
  grefm_crete_provoke_button_desc: "Tensions in Crete have been steadily building over the years. Cretans beg for even the slightest sign of support from the Greek state to take up arms."
  grefm_greek_enosis_button: "Seek Union with the Greek State"
- grefm_greek_enosis_button_desc: ""
+ grefm_greek_enosis_button_desc: "The time was come for us to reunite with our brothers in the Greek state. All that remains is to complete the paperwork."
  
  
  # country_flavor_text
