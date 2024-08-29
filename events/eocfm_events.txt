@@ -609,6 +609,8 @@ eocfm.020 = { # Commissioning an Icon
 		}
 	}
 	
+	## PAGE 1 ##
+	
 	option = {
 		name = eocfm.020.1
 		trigger = {
@@ -641,6 +643,24 @@ eocfm.020 = { # Commissioning an Icon
 			months = long_modifier_time
 		}
 	}
+	
+	option = { # Show Page 2
+		name = eocfm.020.a
+		trigger = {
+			has_variable = icon_page_1
+		}
+		custom_tooltip = eocfm.020.tt
+		remove_variable = icon_page_1
+		set_variable = icon_page_2
+		hidden_effect = {
+			trigger_event = {
+				id = eocfm.020
+				popup = yes
+			}
+		}
+	}
+	
+	## PAGE 2 ##
 
 	option = {
 		name = eocfm.020.4
@@ -677,6 +697,24 @@ eocfm.020 = { # Commissioning an Icon
 		}
 		remove_variable = icon_page_2
 	}
+
+	option = { # Show Page 3
+		name = eocfm.020.a
+		trigger = {
+			has_variable = icon_page_2
+		}
+		custom_tooltip = eocfm.020.tt
+		remove_variable = icon_page_2
+		set_variable = icon_page_3
+		hidden_effect = {
+			trigger_event = {
+				id = eocfm.020
+				popup = yes
+			}
+		}
+	}
+	
+	## PAGE 3 ##
 
 	option = {
 		name = eocfm.020.7
@@ -731,37 +769,7 @@ eocfm.020 = { # Commissioning an Icon
 		}
 	}
 	
-	option = { # Show Page 2
-		name = eocfm.020.a
-		trigger = {
-			has_variable = icon_page_1
-		}
-		custom_tooltip = eocfm.020.tt
-		remove_variable = icon_page_1
-		set_variable = icon_page_2
-		hidden_effect = {
-			trigger_event = {
-				id = eocfm.020
-				popup = yes
-			}
-		}
-	}
-	
-	option = { # Show Page 3
-		name = eocfm.020.a
-		trigger = {
-			has_variable = icon_page_2
-		}
-		custom_tooltip = eocfm.020.tt
-		remove_variable = icon_page_2
-		set_variable = icon_page_3
-		hidden_effect = {
-			trigger_event = {
-				id = eocfm.020
-				popup = yes
-			}
-		}
-	}
+	## CANCEL OPTION ##
 
 	option = {
 		name = eocfm.020.b
@@ -769,12 +777,6 @@ eocfm.020 = { # Commissioning an Icon
 		remove_variable = icon_page_1
 		remove_variable = icon_page_2
 		remove_variable = icon_page_3		
-	}
-	
-	after = {
-		remove_variable = icon_page_1
-		remove_variable = icon_page_2
-		remove_variable = icon_page_3
 	}
 	
 }
