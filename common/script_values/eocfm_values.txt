@@ -408,106 +408,178 @@ eocfm_decree_expense_value = {
 
 eocfm_rome_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_rome
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
+
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_rome
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
 	}
 }
 
 eocfm_constantinople_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_variable = eocfm_is_autocephalous
+				has_variable = eocfm_schism_var
+			}
+		}
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_communion
+		}
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_constantinople
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_constantinople
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_schism_var
+		}
+		subtract = {
+			value = 1.0
+			desc = eocfm_value_from_schism
+		}
 	}
 }
 
-
 eocfm_antioch_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_antioch
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_antioch
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
 	}
 }
 
-
 eocfm_jerusalem_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_jerusalem
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_jerusalem
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
 	}
 }
 
-
 eocfm_alexandria_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_alexandria
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_alexandria
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
 	}
 }
 
-
 eocfm_moscow_progress_value = {
 	value = 0
-	subtract = -0.5
+	subtract = {
+		value = 0.5
+		desc = eocfm_value_from_base_decay
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_eocfm_swaying_moscow
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_swaying_seat
+		}
 	}
 	if = {
 		limit = {
 			has_variable = eocfm_controls_moscow
 		}
-		add = 1.0
+		add = {
+			value = 1.0
+			desc = eocfm_value_from_controlling_seat
+		}
 	}
 }
