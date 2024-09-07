@@ -620,6 +620,7 @@ eocfm.020 = { # Commissioning an Icon
 			name = modifier_eocfm_icon_christ_pantocrator
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_1
 	}
 
 	option = {
@@ -631,6 +632,7 @@ eocfm.020 = { # Commissioning an Icon
 			name = modifier_eocfm_icon_eleusa
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_1
 	}
 
 	option = {
@@ -642,6 +644,7 @@ eocfm.020 = { # Commissioning an Icon
 			name = modifier_eocfm_icon_john_climacus
 			months = long_modifier_time
 		}
+		remove_variable = icon_page_1
 	}
 	
 	option = { # Show Page 2
@@ -1540,7 +1543,7 @@ eocfm.110 = { # Constantinopole Claimed by Country
 			limit = {
 				has_variable = eocfm_integrating_constantinople
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -1579,7 +1582,7 @@ eocfm.110 = { # Constantinopole Claimed by Country
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -1608,6 +1611,7 @@ eocfm.111 = { # Constantinopole Usurped by Country
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_constantinople
 		has_variable = eocfm_integration_var
 		var:eocfm_integration_var >= 60
 	}
@@ -1633,7 +1637,7 @@ eocfm.111 = { # Constantinopole Usurped by Country
 				limit = {
 					has_variable = eocfm_integrating_constantinople
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_constantinople_usurped
 		}
@@ -1648,7 +1652,7 @@ eocfm.111 = { # Constantinopole Usurped by Country
 	option = {
 		name = eocfm.111.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_constantinople_tt
+		custom_tooltip = eocfm_usurped_constantinople_tt
 		scope:eocfm_controller_scope ?= {
 			change_relations = {
 				country = root
@@ -1689,7 +1693,7 @@ eocfm.112 = { # Antioch Claimed by Country
 			limit = {
 				has_variable = eocfm_integrating_antioch
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -1728,7 +1732,7 @@ eocfm.112 = { # Antioch Claimed by Country
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -1757,6 +1761,7 @@ eocfm.113 = { # Antioch Usurped by Country
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_antioch
 		has_variable = eocfm_integration_var
 		var:eocfm_integration_var >= 60
 	}
@@ -1782,7 +1787,7 @@ eocfm.113 = { # Antioch Usurped by Country
 				limit = {
 					has_variable = eocfm_integrating_antioch
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_antioch_usurped
 		}
@@ -1796,7 +1801,7 @@ eocfm.113 = { # Antioch Usurped by Country
 	option = {
 		name = eocfm.111.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_antioch_tt
+		custom_tooltip = eocfm_usurped_antioch_tt
 		scope:eocfm_controller_scope ?= {
 			change_relations = {
 				country = root
@@ -1837,7 +1842,7 @@ eocfm.114 = { # Jerusalem Claimed by Country
 			limit = {
 				has_variable = eocfm_integrating_jerusalem
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -1876,7 +1881,7 @@ eocfm.114 = { # Jerusalem Claimed by Country
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -1905,6 +1910,7 @@ eocfm.115 = { # Jerusalem Usurped by Country
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_jerusalem
 		has_variable = eocfm_integration_var
 		var:eocfm_integration_var >= 60
 	}
@@ -1930,7 +1936,7 @@ eocfm.115 = { # Jerusalem Usurped by Country
 				limit = {
 					has_variable = eocfm_integrating_jerusalem
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_jerusalem_usurped
 		}
@@ -1944,7 +1950,7 @@ eocfm.115 = { # Jerusalem Usurped by Country
 	option = {
 		name = eocfm.115.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_jerusalem_tt
+		custom_tooltip = eocfm_usurped_jerusalem_tt
 		scope:eocfm_controller_scope ?= {
 			change_relations = {
 				country = root
@@ -1985,7 +1991,7 @@ eocfm.116 = { # Alexandria Claimed by Country
 			limit = {
 				has_variable = eocfm_integrating_alexandria
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -2024,7 +2030,7 @@ eocfm.116 = { # Alexandria Claimed by Country
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -2053,6 +2059,7 @@ eocfm.117 = { # Alexandria Usurped by Country
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_alexandria
 		has_variable = eocfm_integration_var
 		var:eocfm_integration_var >= 60
 	}
@@ -2078,7 +2085,7 @@ eocfm.117 = { # Alexandria Usurped by Country
 				limit = {
 					has_variable = eocfm_integrating_alexandria
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_alexandria_usurped
 		}
@@ -2092,7 +2099,7 @@ eocfm.117 = { # Alexandria Usurped by Country
 	option = {
 		name = eocfm.117.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_alexandria_tt
+		custom_tooltip = eocfm_usurped_alexandria_tt
 		scope:eocfm_controller_scope ?= {
 			change_relations = {
 				country = root
@@ -2133,7 +2140,7 @@ eocfm.118 = { # Moscow Claimed by Country
 			limit = {
 				has_variable = eocfm_integrating_moscow
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -2172,7 +2179,7 @@ eocfm.118 = { # Moscow Claimed by Country
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -2201,6 +2208,7 @@ eocfm.119 = { # Moscow Usurped by Country
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_moscow
 		has_variable = eocfm_integration_var
 		var:eocfm_integration_var >= 60
 	}
@@ -2226,7 +2234,7 @@ eocfm.119 = { # Moscow Usurped by Country
 				limit = {
 					has_variable = eocfm_integrating_moscow
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_moscow_usurped
 		}
@@ -2240,7 +2248,7 @@ eocfm.119 = { # Moscow Usurped by Country
 	option = {
 		name = eocfm.119.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_moscow_tt
+		custom_tooltip = eocfm_usurped_moscow_tt
 		scope:eocfm_controller_scope = {
 			change_relations = {
 				country = root
@@ -4886,7 +4894,7 @@ eocfm.316 = { # Challenging the Patriarch of the West
 			limit = {
 				has_variable = eocfm_integrating_rome
 			}
-			save_scope_as = eocfm_claimant_scope
+			save_scope_as = eocfm_usurper_scope
 		}
 		every_country = {
 			limit = {
@@ -4929,7 +4937,7 @@ eocfm.316 = { # Challenging the Patriarch of the West
 		}
 		show_as_tooltip = {
 			change_relations = {
-				country = scope:eocfm_claimant_scope
+				country = scope:eocfm_usurper_scope
 				value = -15
 			}
 		}
@@ -4958,8 +4966,9 @@ eocfm.317 = { # The Throne of Saint Peter
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = eocfm_integrating_rome
 		has_variable = eocfm_integration_var
-		var:eocfm_integration_var <= 60
+		var:eocfm_integration_var >= 60
 	}
 	
 	immediate = {
@@ -4983,7 +4992,7 @@ eocfm.317 = { # The Throne of Saint Peter
 				limit = {
 					has_variable = eocfm_integrating_rome
 				}
-				save_scope_as = eocfm_claimant_scope
+				save_scope_as = eocfm_usurper_scope
 			}
 			post_notification = notification_eocfm_rome_usurped
 		}
@@ -4997,7 +5006,7 @@ eocfm.317 = { # The Throne of Saint Peter
 	option = {
 		name = eocfm.317.a
 		default_option = yes
-		custom_tooltip = eocfm_controls_rome_tt
+		custom_tooltip = eocfm_usurped_rome_tt
 		scope:eocfm_controller_scope ?= {
 			change_relations = {
 				country = root
