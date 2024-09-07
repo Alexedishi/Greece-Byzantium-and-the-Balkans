@@ -12312,9 +12312,18 @@ grefm.902 = { # hidden event triggering the Don Pacifico Affair
 	}
 	
 	immediate = {
-		c:POR = {
-			trigger_event = {
-				id = grefm.161 # The Don Pacifico Affair
+		if = {
+			limit = {
+				AND = {
+					exists = c:GRE
+					exists = c:GBR
+					exists = c:POR
+				}
+			}
+			c:POR = {
+				trigger_event = {
+					id = grefm.161 # The Don Pacifico Affair
+				}
 			}
 		}
 		remove_variable = grefm_don_pacifico_var
