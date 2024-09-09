@@ -4941,15 +4941,6 @@ eocfm.316 = { # Challenging the Patriarch of the West
 			}
 			save_scope_as = eocfm_usurper_scope
 		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = {
-					has_variable = eocfm_controls_constantinople
-				}
-			}
-			post_notification = notification_eocfm_rome_claimed
-		}
 	}
 	
 	option = {
@@ -4964,7 +4955,6 @@ eocfm.316 = { # Challenging the Patriarch of the West
 					has_variable = eocfm_is_autocephalous
 					country_has_state_religion = rel:catholic
 				}
-				
 			}
 			change_relations = {
 				country = root
@@ -4988,7 +4978,7 @@ eocfm.316 = { # Challenging the Patriarch of the West
 		}
 	}
 	
-}
+} 
 
 eocfm.317 = { # The Throne of Saint Peter
 	type = country_event
@@ -5052,10 +5042,15 @@ eocfm.317 = { # The Throne of Saint Peter
 		name = eocfm.317.a
 		default_option = yes
 		custom_tooltip = eocfm_usurped_rome_tt
-		scope:eocfm_controller_scope ?= {
-			change_relations = {
-				country = root
-				value = -30
+		if = {
+			limit = {
+				exists = scope:eocfm_controller_scope
+			}
+			scope:eocfm_controller_scope = {
+				change_relations = {
+					country = root
+					value = -30
+				}
 			}
 		}
 		eocfm_remove_intregration_variables_effect = yes
@@ -5130,7 +5125,14 @@ eocfm.319 = { # The Supreme Pontiff of the Universal Church
 	}
 	
 	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_eocfm_constantinople_patriarch
+			}
+			save_scope_as = eocfm_patriarch_event_scope
+		}
 		set_global_variable = eocfm_schism_mended
+		remove_variable = eocfm_mending_var
 	}
 	
 	option = {
@@ -5140,6 +5142,7 @@ eocfm.319 = { # The Supreme Pontiff of the Universal Church
 			religion = rel:orthodox
 			value = large_radicals
 		}
+		remove_modifier = modifier_eocfm_mending_schism
 		add_modifier = modifier_eocfm_mended_schism
 	}
 	

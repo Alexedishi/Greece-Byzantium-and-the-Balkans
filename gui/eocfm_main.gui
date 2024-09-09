@@ -633,6 +633,43 @@ widget = {
 								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 								tooltip = "eocfm_gui_secure_tetrarchy_tt"
 							}
+							button = {
+								parentanchor = center
+								position = { 0 -100 }
+								using = default_button_primary_big_action
+								size = { 200 40 }
+								raw_text = "Mend the Great Schism"
+								using = fontsize_medium
+								
+								datacontext = "[GetScriptedGui('eocfm_mend_schism_sgui')]"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+								tooltip = "eocfm_gui_mend_schism_tt1"
+							}
+							green_progressbar_horizontal = {
+								parentanchor = center
+								position = { 0 -100 }
+								size = { 194 30 }
+								visible = "[GetScriptedGui('eocfm_mending_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								blockoverride "values" {
+									min = 0
+									max = 240
+									value = "[Country.MakeScope.Var('eocfm_mending_var').GetValue]"
+								}
+							}
+							textbox = {
+								parentanchor = center
+								position = { 0 -103 }
+								autoresize = yes
+								visible = "[GetScriptedGui('eocfm_mending_progressbar_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								raw_text = "#bold #greece Mending Progress#!#!"
+								max_width = 300
+								elide = right
+								using = fontsize_medium
+							}
 							
 							##Seat Sway Buttons
 							button = {

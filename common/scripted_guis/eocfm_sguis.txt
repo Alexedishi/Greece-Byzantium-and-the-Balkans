@@ -592,15 +592,15 @@ eocfm_mend_schism_sgui = {
 	is_shown = {
 		has_variable = eocfm_pentarchy_secured
 		NOT = {
-			has_global_variable = eocfm_schism_mended
+			has_variable = eocfm_mending_var
 		}
 	}
 	
 	is_valid = {
 		custom_tooltip = {
-			text = eocfm_need_2000_tt
+			text = eocfm_need_1000_tt
 			hidden_trigger = {
-				eocfm_caesaropapism_capacity_value >= 2000
+				eocfm_caesaropapism_capacity_value >= 1000
 			}
 		}
 		custom_tooltip = {
@@ -644,6 +644,15 @@ eocfm_mend_schism_sgui = {
 			}
 		}
 	}
+}
+
+eocfm_mending_progressbar_sgui = {
+	scope = country
+	
+	is_shown = {
+		has_variable = eocfm_mending_var
+	}
+	
 }
 
 eocfm_seek_mandate_sgui = {
@@ -1360,8 +1369,10 @@ eocfm_integrate_rome_sgui = {
 			name = eocfm_integration_var
 			value = 0
 		}
-		trigger_event = {
-			id = eocfm.316 # Challenging the Patriarch of the West
+		show_as_tooltip = {
+			trigger_event = {
+				id = eocfm.316 # Challenging the Patriarch of the West
+			}
 		}
 		hidden_effect = {
 			every_country = {
