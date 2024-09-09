@@ -1,0 +1,98 @@
+﻿je_turkfm_sick_man_main = {
+# This is the rebuilt "Sick Man" journal. The vanilla journal has been removed.
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_turkfm_sick_man
+	}
+	
+	scripted_progress_bar = turkfm_sick_man_progress_bar
+	
+#	scripted_button = turkfm_start_tanzimat_button
+	
+	complete = {
+		custom_tooltip = {
+			text = je_turkfm_sick_man_complete_tt
+			hidden_trigger = {
+				"scripted_bar_progress(turkfm_sick_man_progress_bar)" >= 1000
+			}
+		}
+	}
+	
+	on_complete = {
+		
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = je_turkfm_sick_man_fail_tt
+			hidden_trigger = {
+				"scripted_bar_progress(turkfm_sick_man_progress_bar)" <= 0
+			}
+		}
+	}
+	
+	on_fail = {
+		
+	}
+	
+	invalid = {
+		country_rank < rank_value:unrecognized_major_power
+	}
+	
+	on_invalid = {
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					has_global_variable = turkfm_sick_man_completed
+#				}
+#				turkfm_clean_up_sick_man_effect = yes
+#			}
+#			else = {
+#				trigger_event = {
+#					id = 
+#				}
+#			}
+#		}
+	}
+	
+	on_weekly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+	
+	on_yearly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+	
+	status_desc = {
+	}
+
+	weight = 100
+	
+}

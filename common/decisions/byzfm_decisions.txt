@@ -60,7 +60,11 @@ expand_chariot_racing_decision = {
 byzfm_annex_theodoro_decision = {
 	is_shown = {
 		NOT = { has_variable = byzfm_theodoro_var }
-		has_variable = byzfm_byzantium_formed
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+			c:SPQR ?= this
+		}
 		is_subject = no
 		exists = c:THE
 		c:THE = {
@@ -99,7 +103,11 @@ byzfm_annex_theodoro_decision = {
 byzfm_annex_trabzon_decision = {
 	is_shown = {
 		NOT = { has_variable = byzfm_trabzon_var }
-		has_variable = byzfm_byzantium_formed
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+			c:SPQR ?= this
+		}
 		is_subject = no
 		exists = c:TRB
 		c:TRB = {

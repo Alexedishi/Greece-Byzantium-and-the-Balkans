@@ -149,6 +149,7 @@ bul_flavor_pulse = {
 		}
 	}
 	events = {
+		balkfm.530 # The University of Sofia
 	}
 	random_events = {
 		100 = 0
@@ -166,7 +167,7 @@ rom_flavor_pulse = {
 	}
 	events = {
 		balkfm.660 # The Academy of Romania
-		balkfm.673 # Echoes of the Empire
+		byzfm.394 # Echoes of the Empire
 	}
 	random_events = {
 		100 = 0
@@ -179,12 +180,60 @@ eocfm_monthly_pulse = {
 	}
 	events = {
 		eocfm.001 # Bishops of the East
-		eocfm.310 # The Ancient Partiarchates
-		eocfm.312 # The Capture of the Great Mosque
-		eocfm.901 # Restores JE
+		eocfm.107 # Autocephaly Completion Technical Event # Yes Doodlez, I'm disappointed in myself too
+		eocfm.111 # Constantinopole Usurped by Country
+		eocfm.113 # Antioch Usurped by Country
+		eocfm.115 # Jerusalem Usurped by Country
+		eocfm.117 # Alexandria Usurped by Country
+		eocfm.119 # Moscow Usurped by Country
+		eocfm.130 # The X Crusade
+		eocfm.161 # The Patriarch's Blessings
+		eocfm.169 # The Living Law
+		eocfm.190 # [TECH] Removes Lex Animata Modifier
+		eocfm.310 # The Capture of the Great Mosque
+		eocfm.317 # The Throne of Saint Peter
+		eocfm.319 # The Supreme Pontiff of the Universal Church
 	}
 	random_events = {
-		100 = 0
+		500 = 0
+		5 = eocfm.010 # Ecumenical Reforms
+		5 = eocfm.011 # Bible Translation Published
+		5 = eocfm.012 # A Heretical Ruler
+		5 = eocfm.030 # Dissolution of the Monasteries
+		5 = eocfm.031 # Church-State Relations
+		5 = eocfm.040 # Priestly Excesses	
+		5 = eocfm.041 # The Widow's Mite
+		5 = eocfm.140 # Seat Integration Disputed
+		5 = eocfm.150 # Ecumenical Financing
+		5 = eocfm.151 # Delegation Arrives from Seat
+		5 = eocfm.162 # Ecumenical Partiarch Denounces Secularism
+		5 = eocfm.170 # Patriarch Condemns Immorality
+		5 = eocfm.171 # Theological Dispute with Patriarch
+	}
+	effect = {
+		eocfm_update_patriarch_variables_effect = yes
+		eocfm_update_relations_effect = yes
+		eocfm_update_approval_bonus_effect = yes
+		eocfm_check_patriarch_modifiers_effect = yes
+		eocfm_update_caesaropapism_bonus_effect = yes
+		if = {
+			limit = {
+				has_variable = eocfm_schism_var
+			}
+			change_variable = {
+				name = eocfm_schism_var
+				add = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = eocfm_integration_var
+			}
+			change_variable = {
+				name = eocfm_integration_var
+				add = 1
+			}
+		}
 	}
 }
 
@@ -371,9 +420,9 @@ eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade succes
 				eocfm_crusade_participant_trigger = yes
 			}
 			trigger_event = {
-				id = eocfm.061 # Victorious Crusade
+				id = eocfm.131 # Victorious Crusade
 			}
-			eocfm_crusade_cleanup = yes
+			eocfm_crusade_cleanup_effect = yes
 		}
 	}
 }
@@ -392,9 +441,9 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 				eocfm_crusade_participant_trigger = yes
 			}
 			trigger_event = {
-				id = eocfm.062 # Failed Crusade
+				id = eocfm.132 # Failed Crusade
 			}
-			eocfm_crusade_cleanup = yes
+			eocfm_crusade_cleanup_effect = yes
 		}
 	}
 }

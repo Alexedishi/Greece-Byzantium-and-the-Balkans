@@ -102,13 +102,19 @@ namespace = eqfm
 #	139 - [TECH] Cleans Up Global Crisis/Berlin Variables
 
 
-##  #EQFM2  THE BALKAN WARS Events 200-209  ##
+##  #EQFM2  THE BALKAN WARS Events 200-299  ##
 
 #200-209 - The Balkan League Events
 
 #210-219 - Balkan Wars Phase 1 Events
 
 #220-229 - Balkan Wars Phase 2 Events
+
+
+##  #EQFM3  THE HABSBURG-OTTOMAN WARS  300-399  ##
+
+
+##  #EQFM4  The RUSSO-OTTOMAN WARS  400-499 ##
 
 
 #########################################################
@@ -957,6 +963,7 @@ eqfm.020 = { # Riots in State
 		any_scope_state = {
 			state_in_balkans = yes
 			is_split_state = no
+#			is_target_of_wargoal = no ##TODO Figure out how to screen riot states from foreign wargoals
 			NOR = { # temporary exclusion
 				state_region = s:STATE_SLOVENIA
 				state_region = s:STATE_CROATIA
@@ -2240,7 +2247,7 @@ eqfm.108 = { # April Uprising (Bulgaria)
 				name = eqfm_crisis_local_var
 				value = global_var:eqfm_crisis_var
 			}
-			balkfm_set_bulgarian_laws = yes
+			set_variable = eqfm_bul_crisis_spawn
 		}
 		create_bidirectional_truce = {
 			country = c:BUL
@@ -2843,6 +2850,24 @@ eqfm.119 = { # The Treaty of San Stefano
 			limit = {
 				c:BUL = this
 			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+				set_variable = eqfm_bul_macedonia_owned
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_SKOPIA
+				}
+				set_variable = eqfm_bul_skopia_owned
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+				set_variable = eqfm_bul_rumelia_owned
+			}
 			s:STATE_MACEDONIA = {
 				every_scope_state = {
 					limit = {
@@ -3034,6 +3059,9 @@ eqfm.121 = { # The Issue of Bulgaria
 				}
 				c:BUL ?= {
 					owns_entire_state_region = STATE_NORTHERN_THRACE
+					NOT = {
+						has_variable = eqfm_bul_rumelia_owned
+					}
 				}
 			}
 			create_country = {
@@ -3056,6 +3084,12 @@ eqfm.121 = { # The Issue of Bulgaria
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
+		c:ERUM ?= {
+			set_variable = {
+				name = balkfm_erum_governor_var
+				value = 60
+			}
+		}
 	}
 	
 	cooldown = { # just to simplify trigger block
@@ -3071,6 +3105,9 @@ eqfm.121 = { # The Issue of Bulgaria
 		if = {
 			limit = {
 				owns_entire_state_region = STATE_MACEDONIA
+				NOT = {
+					has_variable = eqfm_bul_macedonia_owned
+				}
 			}
 			s:STATE_MACEDONIA = {
 				every_scope_state = {
@@ -3086,6 +3123,9 @@ eqfm.121 = { # The Issue of Bulgaria
 		if = {
 			limit = {
 				owns_entire_state_region = STATE_SKOPIA
+				NOT = {
+					has_variable = eqfm_bul_skopia_owned
+				}
 			}
 			s:STATE_SKOPIA = {
 				every_scope_state = {
@@ -3098,7 +3138,14 @@ eqfm.121 = { # The Issue of Bulgaria
 				}
 			}
 		}
-		custom_tooltip = eqfm.121.tt1
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eqfm_bul_rumelia_owned
+				}
+			}
+			custom_tooltip = eqfm.121.tt1
+		}
 		custom_tooltip = eqfm.121.tt2	
 	}
 	
@@ -3107,9 +3154,16 @@ eqfm.121 = { # The Issue of Bulgaria
 		trigger = {
 			c:TUR ?= this
 		}
-		create_diplomatic_pact = {
-			country = c:BUL
-			type = protectorate
+		if = {
+			limit = {
+				c:BUL ?= {
+					has_variable = eqfm_bul_crisis_spawn
+				}
+			}
+			create_diplomatic_pact = {
+				country = c:BUL
+				type = protectorate
+			}
 		}
 		if  = {
 			limit = {
@@ -3131,7 +3185,14 @@ eqfm.121 = { # The Issue of Bulgaria
 				c:TUR ?= this
 			}
 		}
-		custom_tooltip = eqfm.121.tt1
+		if = {
+			limit = {
+				NOT = {
+					has_variable = eqfm_bul_rumelia_owned
+				}
+			}
+			custom_tooltip = eqfm.121.tt1
+		}
 		custom_tooltip = eqfm.121.tt2
 	}
 	
@@ -3864,6 +3925,7 @@ eqfm.129 = { # The Treaty of Berlin
 			limit = {
 				c:BUL ?= this
 			}
+			balkfm_create_battenburg_monarchy = yes
 			trigger_event = {
 				id = balkfm.500 # The Golden Lion Awakens
 				days = 30

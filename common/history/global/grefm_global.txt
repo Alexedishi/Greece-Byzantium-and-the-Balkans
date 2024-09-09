@@ -1,51 +1,123 @@
 ﻿GLOBAL = { # general mod setup
-	### General Setup
+### General Setup ###
+	# State Traits
 	s:STATE_EASTERN_THRACE = {
 		add_state_trait = balkfm_state_trait_golden_horn
 	}
 	
-	### Specific Country Setups
+### Specific Country Setups ###	
 	c:GRE = {
+		grefm_initialize_bavarocracy_variables_effect = yes
+		add_journal_entry = {
+			type = je_grefm_regency_council
+		}
+		add_journal_entry = {
+			type = je_grefm_bavarocracy_main
+		}
 		trigger_event = {
 			id = grefm.001 # The Regency Council
 		}
-		add_modifier = modifier_eocfm_caesaropapism
+		set_variable = {
+			name = grefm_bavarocracy_var
+			value = 2000
+		}
+		add_modifier = modifier_eocfm_reformed_synod
+		add_modifier = modifier_eocfm_dissolved_monasteries
 		set_variable = eocfm_dissolved_monasteries
 		set_variable = grefm_mainland_claims_added
 		set_variable = eocfm_ruler_conversion_considered
+		eocfm_initialize_patriarchs_effect = yes # Greece is loadbearing too now bois
+	}
+	
+	c:ION = {
+		add_journal_entry = {
+			type = je_grefm_ion_xenocracy
+		}
+		add_journal_entry = {
+			type = je_grefm_ion_venetian_legacy
+		}
+		add_journal_entry = {
+			type = je_grefm_ion_poverty
+		}
+		trigger_event = {
+			id = grefm.400 # The Republic of the Seven Islands
+		}
+	}
+	
+	c:SAMO = {
+		grefm_initialize_samos_variables_effect = yes
+		add_journal_entry = {
+			type = je_grefm_samos_main
+		}
+		trigger_event = {
+			id = grefm.500 # Samos Defiant
+		}
 	}
 	
 	c:MON = {
+		balkfm_set_up_montenegro = yes
 		trigger_event = {
 			id = balkfm.300 # A Feudal Relic
-			days = 1
 		}
-		balkfm_set_up_montenegro = yes
+		add_journal_entry = {
+			type = je_balkfm_mon_prince_bishopric
+		}
 	}
 	
 	c:SER = {
+		balkfm_set_monarchism_variables = yes
 		trigger_event = {
 			id = balkfm.400 # Mileta's Rebellion
-			days = 1
 		}
-		balkfm_set_monarchism_variables = yes
+		add_journal_entry = {
+			type = je_balkfm_ser_monarchism
+		}
+		change_variable = {
+			name = obrenovic_support_var
+			add = 150
+		}
+		change_variable = {
+			name = karadordevic_support_var
+			add = 50
+		}
 	}
 	
 	c:MOL ?= {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_regulamentul_organic
+		}
 		trigger_event = {
 			id = balkfm.600 # The Lands of Stephen the Great
-			days = 1
 		}
 	}
 	
 	c:WAL ?= {
+		set_variable = {
+			name = balkfm_regulamentul_var
+			value = 5
+		}
+		set_variable = {
+			name = balkfm_hospodar_election_counter
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_balkfm_rom_regulamentul_organic
+		}
 		trigger_event = {
 			id = balkfm.610 # The Land Beyond the Snowy Mountains
-			days = 1
 		}
 	}
 	
 	c:RUS ?= {
+		add_modifier = modifier_eocfm_reformed_synod
 		set_variable = eocfm_is_autocephalous
 		set_variable = eocfm_controls_moscow
 	}
@@ -55,12 +127,18 @@
 			id = eqfm.001 # The Eastern Question
 			days = 1
 		}
-		eqfm_calculate_tension_variables_effect = yes
+#		trigger_event = {
+#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
+#		}
+		eqfm_calculate_tension_variables_effect = yes # Yes, Turkey is loadbearing
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
 	}
 	
 	c:EGY ?= {
+#		trigger_event = {
+#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
+#		}
 		set_variable = eocfm_controls_alexandria
 		set_variable = eocfm_controls_jerusalem
 	}
@@ -69,8 +147,48 @@
 		set_variable = eocfm_controls_rome
 	}
 	
-	### Variables
-	# EQM Tension Variables
+### EOCFM Setup ###
+	# This should fire AFTER all other setup
+	every_country = {
+		limit = {
+			country_has_state_religion = rel:orthodox
+		}
+		if = {
+			limit = {
+				c:GRE ?= this
+			}
+			trigger_event = {
+				id = eocfm.003 # Greek Holy Synod (GRE)
+			}
+		}
+		else_if = {
+			limit = {
+				c:RUS ?= this
+			}
+			trigger_event = {
+				id = eocfm.004 # Most Holy Synod (RUS)
+			}
+		}
+		else = {
+			trigger_event = {
+				id = eocfm.001 # The Bishops of the East
+			}
+		}
+	}
+	
+	every_country = {
+		limit = {
+			country_has_state_religion = rel:orthodox
+		}
+		set_variable = {
+			name = eocfm_window_is_active_var
+			value = 0
+		}
+	}
+	
+### Variables ###
+	
+	# eqfm Tension Variables
 	set_global_variable = {
 		name = eqfm_tension_var
 		value = 0
@@ -130,19 +248,17 @@
 		value = 0
 	}
 	
-	every_country = {
-		limit = {
-			country_has_state_religion = rel:orthodox
-			NOT = { has_law = law_type:law_state_atheism }
-		}
-		trigger_event = {
-			id = eocfm.001 # The Bishops of the East
-		}
-	}
-	
+	# eocfm Variables
 	set_global_variable = {
 		name = eocfm_council_var
 		value = 0
 	}
-
+	set_global_variable = {
+		name = eocfm_crusade_counter
+		value = 0
+	}
+	set_global_variable = {
+		name = eocfm_deposition_counter
+		value = 0
+	}
 }

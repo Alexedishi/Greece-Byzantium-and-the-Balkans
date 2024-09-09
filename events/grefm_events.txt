@@ -1,7 +1,7 @@
 ﻿########################
 # GREECE FLAVOR EVENTS #
 ########################
-# Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality.
+# Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality, relevant, and hopefully engaging.
 # The Greek Empires are split between grefm, byzfm, and eocfm. This decision was made to limit the size of this file back when this mod's scope was much smaller. balkfm has since eclipsed this module in scope, but I won't be merging them back together. That would just be a lot of work for no gains.
 
 ####################
@@ -57,8 +57,8 @@ namespace = grefm
 #	024 - The King's Intellect Challenged
 #	025 - Discharging the Regency
 #	026 - The Philorthodox Conspiracy
-#	027 -
-#	028 -
+#	027 - OPEN
+#	028 - OPEN
 #	029 - Absolutism in Greece
 
 #030-039 - Constitutional Monarchy Events
@@ -155,6 +155,12 @@ namespace = grefm
 #	161 - The Don Pacifico Affair
 #	162 - 
 
+#170-179 - Greek Piracy Events
+#	170 - ##Pirates Hold Up Trade Ship (GRE)
+#	171 - ##Pirates Hold Up Trade Ship (TUR)
+#	172 - ##Pirates Kidnap Prominent Bey (GRE)
+#	173 - ##Pirates Kidnap Prominent Bey (TUR)
+
 #190-199 - Historical Content Not Otherwise Specified
 
 ##	#GRE2	GREEK NATIONALISM	Events 200-299	##
@@ -205,6 +211,7 @@ namespace = grefm
 #	251 - Wali of Crete Oversteps Authority
 #	252 - Greek Agitation in Crete
 #	253 - ##Language Bans in Crete <--1890
+#	254 - ##Cretan Gun-Runners Arrested
 #	259 - Crete Revolts Again (TUR/EGY)
 
 #260-269 - Homeland Events
@@ -228,17 +235,64 @@ namespace = grefm
 
 #310-319 - Hellenistic Imperial Ambition Events
 #	310 - ##The Shores of the Hospitable Sea
-#	311 - ##The Lands of Magna Graecia
-#	312 - ##The Legacy of the Phocaeans
+#	311 - ##The Black Sea Secured
+#	312 - ##The Lands of Magna Graecia
+#	313 - ##Magna Graecia Secured
+#	314 - ##The Foundings of Alexander
+#	315 - Alexandria on the Oxus
+#	316 - Alexandria in Margiana
+#	317 - Alexandria on the Indus
+#	318 - Alexandria in the Caucasus
 
 #  320-329 - OPEN
 
 
-##	#GRE4	OPEN	Events 400-499	##
+##  #GRE4  IONIAN ISLANDS FLAVOR  Events  400-499  ##
+
+#400-409 - The Xenocracy Events
+#	400 - The Republic of the Seven Islands
+#	401 - The Ionian Jewel
+#	402 - Modernized Agriculture
+#	403 - A Civilized State
+#	404 - The Ionian Academy
+
+#410-419 - The Ionian Jews Events
+#	410 - The Romaniote Jews
+#	411 - Jews Request former Rights
+#	412 - Nacamulli's Press House
+#	413 - Blood Libel
+#	414 - Unrest in Corfu
+#	418 - Jewish Exclusion
+#	419 - A Judaeo-Greek Nation
+
+#420-429 - Greek Union Events
+#	420 - The Dream of Enosis
+#	421 - Ionian Union with the Greek State
+#	422 - ##Moisis Caimis Supports Demotiki
 
 
-##	#GRE5	OPEN	Events 500-599	##
+##	#GRE5  MINOR GREEK STATES  Events  500-599  ##
 
+#500-509 - Principality of Samos Events
+#	500 - Samos Defiant
+#	501 - An Imposed Ruler
+#	502 - The Organic Charter
+#	503 - The Tyranny of Lord Stefanos
+#	504 - Stefanos Desposed
+#	505 - New Governor Appointed
+#	506 - Ruler Desposed
+#	507 - OPEN
+#	508 - Samos Liberated
+#	509 - Samian Union with the Greek State
+
+#510-519 - Epirus Events
+#	510 - ##TODO
+
+#520-529 - Trebizond Events
+#	520 - ##TODO
+
+#530-539 - Theodoro Events
+#	530 - ##TODO
 
 ##	#GRE6	OPEN	Events 600-699	##
 
@@ -246,10 +300,7 @@ namespace = grefm
 ##	#GRE7	OPEN	Events 700-799	##
 
 	
-##	#GRE8	COMPATIBILITY ALTERNATES	Events 800-899	##
-#800-809 - Morgenröte
-#	800 - Archaeological Society of Athens (MGR Alternate)
-#	801 - A Greek Identity (MGR Alternate)
+##  #GRE8  OPEN  Events 800-899  ##
 
 
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
@@ -300,7 +351,6 @@ grefm.001 = { # Bavarocracy notification
 	}
 	
 	immediate = {
-		grefm_initialize_bavarocracy_variables_effect = yes
 		trigger_event = {
 			id = grefm.021 # King Ludwig Visits Greece
 			days = 40 # Mid-February
@@ -330,24 +380,11 @@ grefm.001 = { # Bavarocracy notification
 	option = { 
 		name = grefm.001.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_regency_council
-		}
 		show_as_tooltip = {
 			add_modifier = modifier_grefm_armansperg_regency
 		}
-		add_journal_entry = {
-			type = je_grefm_bavarocracy_main
-		}
 		show_as_tooltip = {
 			add_modifier = modifier_grefm_bavarocracy
-		}
-	}
-	
-	after = {
-		set_variable = {
-			name = grefm_bavarocracy_var
-			value = 2000
 		}
 	}
 
@@ -2158,7 +2195,7 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 	}	
 	
 	option = { # Both will convert
-		name = eocfm.006.a
+		name = grefm.026.a
 		default_option = yes
 		scope:eocfm_ruler_scope = {
 			change_character_religion = rel:orthodox
@@ -2186,7 +2223,7 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 	}
 	
 	option = { # Heir will convert
-		name = eocfm.006.b
+		name = grefm.026.b
 		scope:eocfm_ruler_scope = {
 			add_modifier = {
 				name = modifier_eocfm_refused_conversion
@@ -2211,7 +2248,7 @@ grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of
 	}
 	
 	option = { # 99 THESES GO BRRRRRRRRR
-		name = eocfm.006.c
+		name = grefm.026.c
 		scope:eocfm_ruler_scope = {
 			add_modifier = {
 				name = modifier_eocfm_refused_conversion
@@ -2568,7 +2605,10 @@ grefm.030 = { # 1862 head of state referendum
 	option = { # Dredge up a Palaiologos descendant
 		name = grefm.030.7
 		trigger = {
-			has_variable = byzfm_byzantium_formed
+			OR = {
+				c:BYZ ?= this
+				c:ERE ?= this
+			}
 		}
 		custom_tooltip = {
 			text = grefm.030.7.tt
@@ -2693,7 +2733,6 @@ grefm.031 = { # the king of the hellenes
 		default_option = yes
 		trigger = {
 			has_variable = grefm_1862_election_held
-			NOT = { has_variable = byzfm_byzantium_formed }
 		}
 		scope:grefm_trikoupis_scope = {
 			free_character_from_void = yes
@@ -2705,7 +2744,6 @@ grefm.031 = { # the king of the hellenes
 		name = grefm.031.a
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
-			NOT = { has_variable = byzfm_byzantium_formed }
 		}
 		set_variable = {
 			name = grefm_absolutism_var
@@ -6549,7 +6587,6 @@ grefm.200 = { # The Lands of Thessaly
 			}
 		}
 	}
-
 }
 
 
@@ -6705,6 +6742,16 @@ grefm.201 = { # The Megali Idea
 			id = grefm.210 # Greek Separatism
 			days = 30
 		}
+		if = {
+			limit = {
+				c:ION ?= this
+				has_dlc_feature = lobbies
+			}
+			trigger_event = {
+				id = grefm.420
+				days = 30
+			}
+		}
 	}
 	
 	option = { # vanilla option 2
@@ -6714,6 +6761,10 @@ grefm.201 = { # The Megali Idea
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
 			}
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = large_radicals
 		}
 	}
 	
@@ -6747,7 +6798,7 @@ grefm.202 = { # The Future of Greece
 	}
 	
 	immediate = {
-		set_variable = grefm_megali_idea_complete
+		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	option = { # The Purple Pheonix
@@ -6759,16 +6810,10 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_purple_phoenix_tt
 			hidden_effect = {
-				trigger_event = {
-					id = byzfm.300 # The Pheonix Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_purple_phoenix
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_purple_phoenix
 	}	
 	
 	option = { # The Revenge of the Greeks
@@ -6779,16 +6824,10 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_revenge_of_the_greeks_tt
 			hidden_effect = {
-				trigger_event = {
-					id = grefm.300 # The Vergina Sun Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_revenge_of_the_greeks
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_revenge_of_the_greeks
 	}
 
 	option = { # The Orthodox Realms
@@ -6799,16 +6838,11 @@ grefm.202 = { # The Future of Greece
 		custom_tooltip = {
 			text = byzfm_the_orthodox_realms_tt
 			hidden_effect = {
-				trigger_event = {
-					id = eocfm.300 # The Partiarchate Rises
-					days = 1 # lets the names update
-					popup = yes
-				}
+				set_variable = byzfm_texas_left 
+				# this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
 			}
 		}
 		change_tag = BYZ
-		set_variable = byzfm_byzantium_formed
-		set_variable = byzfm_texas_left # this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
 	}
 
 	option = { # whimpy whimpy whimpy
@@ -8222,7 +8256,7 @@ grefm.230 = { #  The Defence of Jonas King
 	
 	trigger = {
 		NOT = { has_global_variable = jonas_king_started }
-		has_journal_entry = je_eocfm_patriarch_authority
+		country_has_state_religion = rel:orthodox
 		owns_entire_state_region = STATE_ATTICA
 		OR = {
 			has_variable = grefm_1843_revolution_happened
@@ -8354,9 +8388,9 @@ grefm.232 = { # Jonas King Returns
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_journal_entry = je_eocfm_patriarch_authority
-		has_variable = grefm_jonas_yeeted
 		NOT = { has_modifier = modifier_grefm_ejected_jonas }
+		has_variable = grefm_jonas_yeeted
+		country_has_state_religion = rel:orthodox
 		any_character_in_void = {
 			has_template = template_grefm_king_jonas
 		}
@@ -8596,7 +8630,7 @@ grefm.242 = { # a national language
 		}
 		add_modifier = {
 			name = modifier_grefm_embraced_demotic_greek
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}
 		set_variable = grefm_greek_language_solved
 	}
@@ -8613,7 +8647,7 @@ grefm.242 = { # a national language
 		}
 		add_modifier = {
 			name = modifier_grefm_enforced_katharevousa
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}
 		set_variable = grefm_greek_language_solved
 	}
@@ -8629,7 +8663,7 @@ grefm.242 = { # a national language
 		}
 		add_modifier = {
 			name = modifier_grefm_enshrined_khoine
-			months = long_modifier_time
+			months = very_long_modifier_time
 		}
 		set_variable = grefm_greek_language_solved
 	}
@@ -9777,7 +9811,7 @@ grefm.265 = { # Greco-Turkish Relations
 
 #### REVENGE OF THE GREEKS EVENTS ####
 
-grefm.300 = { #Resurrection of the Byzantine Empire
+grefm.300 = { # Resurrection of the Byzantine Empire
 	type = country_event
 	placement = ROOT
 
@@ -9818,7 +9852,6 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 			post_notification = unification_notification_byz
 		}
 		set_global_variable = has_formed_byz
-		set_variable = byzfm_byzantium_formed
 	}
 	
 	option = {
@@ -9831,6 +9864,14 @@ grefm.300 = { #Resurrection of the Byzantine Empire
 		add_modifier = {
 			name = modifier_byzfm_rebirth
 			months = very_long_modifier_time
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			add_primary_culture = cu:greek
 		}
 	}
 	
@@ -9870,7 +9911,7 @@ grefm.301 = { # The Revenge of the Greeks
 	option = {
 		name = grefm.301.a
 		default_option = yes
-		set_capital = STATE_EASTERN_THRACE
+#		set_capital = STATE_EASTERN_THRACE
 		add_journal_entry = {
 			type = je_grefm_revenge_of_the_greeks
 		}
@@ -10168,15 +10209,22 @@ grefm.304 = { # The Legacy of Alexander
 			name = modifier_byzfm_restored
 			months = long_modifier_time
 		}
-		trigger_event = {
-			id = grefm.305 # The Lands of Arianōn
-			days = 30
+		if = {
+			limit = {
+				has_variable = byzfm_revenge_of_the_greeks
+			}
+			trigger_event = {
+				id = grefm.305 # The Lands of Arianōn
+				days = 30
+			}
 		}
-		
 	}
 	
 	option = {
 		name = grefm.304.b
+		trigger = {
+			has_variable = byzfm_revenge_of_the_greeks
+		}
 		add_modifier = {
 			name = modifier_byzfm_restored
 			months = long_modifier_time
@@ -10337,34 +10385,29 @@ grefm.307 = { # Hellenistic Empire choice
 				}
 			}
 		}
+		trigger_event = {
+			id = grefm.314 # The Foundings of Alexander
+			days = 90
+		}
 	}
 	
 }
 
 #### Hellenistic Imperial Ambition Events ####
 
-
-
-##########################################################
-##	#GRE8	COMPATIBILITY ALTERNATES	Events 800-899	##
-##########################################################
-# Currently, the only intentional compatibility is with "Morgenröte - Dawn of Flavor"
-
-#### MORGENRÖTE EVENTS ####
-
-grefm.800 = { # Archaeological Society of Athens (MGR Alternate)
+grefm.310 = { # The Shores of the Hospitable Sea
 	type = country_event
 	placement = root
 	
-	title = grefm.800.t
-	desc = grefm.800.d
-	flavor = grefm.800.f
+	title = grefm.310.t
+	desc = grefm.310.d
+	flavor = grefm.310.f
 	
 	event_image = {
-		video = "unspecific_world_fair"
+		video = "votp_gunboat_diplomacy"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -10373,32 +10416,1432 @@ grefm.800 = { # Archaeological Society of Athens (MGR Alternate)
 	dlc = dlc_grefm
 	
 	trigger = {
-	}
-	
-	immediate = {
+		# triggered by je_grefm_black_sea
 	}	
 	
+	immediate = {
+	}
+	
 	option = {
-		name = grefm.800.a
+		name = grefm.310.a
 		default_option = yes
-		custom_tooltip = grefm.800.tt
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_DOBRUDJA
+					owns_entire_state_region = STATE_DOBRUDJA
+				}
+			}
+			s:STATE_DOBRUDJA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_KARS
+					owns_entire_state_region = STATE_KARS
+				}
+			}
+			s:STATE_KARS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_GREATER_CAUCASUS
+					owns_entire_state_region = STATE_GREATER_CAUCASUS
+				}
+			}
+			s:STATE_GREATER_CAUCASUS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CRIMEA
+					owns_entire_state_region = STATE_CRIMEA
+				}
+			}
+			s:STATE_CRIMEA = {
+				add_claim = ROOT
+			}
+		}
 	}
 
 }
 
-grefm.801 = { # A Greek Identity (MGR Alternate)
+grefm.311 = { # The Black Sea Secured
 	type = country_event
 	placement = root
 	
-	title = grefm.801.t
-	desc = grefm.801.d
-	flavor = grefm.801.f
+	title = grefm.311.t
+	desc = grefm.311.d
+	flavor = grefm.311.f
 	
 	event_image = {
-		video = "unspecific_world_fair"
+		video = "unspecific_military_parade"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_black_sea
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.311.a
+		default_option = yes
+		s:STATE_KARS = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_GREATER_CAUCASUS = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CRIMEA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_bosporan_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.312 = { # The Lands of Magna Graecia
+	type = country_event
+	placement = root
+	
+	title = grefm.312.t
+	desc = grefm.312.d
+	flavor = grefm.312.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_magna_graecia
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.312.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_APULIA
+					owns_entire_state_region = STATE_APULIA
+				}
+			}
+			s:STATE_APULIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CALABRIA
+					owns_entire_state_region = STATE_CALABRIA
+				}
+			}
+			s:STATE_CALABRIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_CAMPANIA
+					owns_entire_state_region = STATE_CAMPANIA
+				}
+			}
+			s:STATE_CAMPANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SICILY
+					owns_entire_state_region = STATE_SICILY
+				}
+			}
+			s:STATE_SICILY = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+}
+
+grefm.313 = { # Magna Graecia Secured
+	type = country_event
+	placement = root
+	
+	title = grefm.313.t
+	desc = grefm.313.d
+	flavor = grefm.313.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_black_sea
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.313.a
+		default_option = yes
+		s:STATE_APULIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CALABRIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_CAMPANIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_SICILY = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_belisarian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.314 = { # The Foundings of Alexander
+	type = country_event
+	placement = root
+	
+	title = grefm.314.t
+	desc = grefm.314.d
+	flavor = grefm.314.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.307
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.314.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_alexandria_oxus
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_merv
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_indus
+		}
+		add_journal_entry = {
+			type = je_grefm_alexandria_susiana
+		}
+	}
+
+}
+
+grefm.315 = { # Alexandria on the Oxus
+	type = country_event
+	placement = root
+	
+	title = grefm.315.t
+	desc = grefm.315.d
+	flavor = grefm.315.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_oxus
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.315.a
+		default_option = yes
+		s:STATE_MERZ = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_UZBEKIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.316 = { # Alexandria in Margiana
+	type = country_event
+	placement = root
+	
+	title = grefm.316.t
+	desc = grefm.316.d
+	flavor = grefm.316.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_merv
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.316.a
+		default_option = yes
+		s:STATE_FERGANA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_KIRGHIZIA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_TAJIKISTAN = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.317 = { # Alexandria on the Indus
+	type = country_event
+	placement = root
+	
+	title = grefm.317.t
+	desc = grefm.317.d
+	flavor = grefm.317.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_indus
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.317.a
+		default_option = yes
+		s:STATE_PUNJAB = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_SINDH = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_KASHMIR = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+grefm.318 = { # Alexandria in Susiana
+	type = country_event
+	placement = root
+	
+	title = grefm.318.t
+	desc = grefm.318.d
+	flavor = grefm.318.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_alexandria_susiana
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.318.a
+		default_option = yes
+		s:STATE_KHUZESTAN = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_BASRA = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+		s:STATE_BAGHDAD = {
+			random_scope_state = {
+				add_modifier = {
+					name = modifier_grefm_alexandrian_legacy
+					months = long_modifier_time
+				}
+			}
+		}
+	}
+
+}
+
+
+#####################################################
+##  #GRE4  IONIAN ISLANDS FLAVOR  Events  400-499  ##
+#####################################################
+
+#### XENOCRACY EVENTS ####
+
+grefm.400 = { # The Republic of the Seven Islands
+	type = country_event
+	placement = root
+	
+	title = grefm.400.t
+	desc = grefm.400.d
+	flavor = grefm.400.f
+	
+	event_image = {
+		video = "grefm_ion_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_heptanese.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.400.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_xenocracy
+			add_modifier = modifier_grefm_hepantese_administration
+			add_modifier = modifier_grefm_venetian_legacy
+		}
+		trigger_event = {
+			id = grefm.410 # The Romaniote Jews
+			days = 30
+		}
+	}
+
+}
+
+grefm.401 = { # The Ionian Jewel
+	type = country_event
+	placement = root
+	
+	title = grefm.401.t
+	desc = grefm.401.d
+	flavor = grefm.401.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_heptanese.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_xenocracy
+	}
+	
+	immediate = {
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+	}
+	
+	option = {
+		name = grefm.401.a
+		default_option = yes
+		c:GBR = {
+			change_relations = {
+				country = root
+				value = 25
+			}
+			set_secret_goal = {
+				country = root
+				secret_goal = protect
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_ionian_jewel
+			months = long_modifier_time
+		}
+	}
+
+}
+
+grefm.402 = { # Modernized Agriculture
+	type = country_event
+	placement = root
+	
+	title = grefm.402.t
+	desc = grefm.402.d
+	flavor = grefm.402.f
+	
+	event_image = {
+		video = "southamerica_factory_opening"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_venetian_legacy
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.402.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_modernized_agriculture
+			months = long_modifier_time
+			is_decaying = yes
+		}
+		add_loyalists = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+	}
+
+}
+
+grefm.403 = { # A Civilized State
+	type = country_event
+	placement = root
+	
+	title = grefm.403.t
+	desc = grefm.403.d
+	flavor = grefm.403.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_poverty
+	}
+	
+	immediate = {
+		add_modifier = { # this is to avoid a snap bureaucracy shortage from the journal closing
+			name = modifier_grefm_civilized_state
+			months = long_modifier_time
+			is_decaying = yes
+		}
+	}
+	
+	option = {
+		name = grefm.403.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_grefm_civilized_state
+				months = long_modifier_time
+				is_decaying = yes
+			}
+		}
+		add_loyalists = {
+			strata = poor
+			value = large_radicals
+		}
+	}
+	
+}
+
+grefm.404 = { # The Ionian Academy
+	type = country_event
+	placement = scope:university_state
+	
+	title = grefm.404.t
+	desc = grefm.404.d
+	flavor = grefm.404.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:university_benefactor
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		morgenrote_is_active = no
+		NOT = { has_variable = grefm_ion_university_considered }
+		has_technology_researched = academia
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
+	}
+	
+	immediate = {
+		ruler = { 
+			save_scope_as = university_benefactor
+		}
+		s:STATE_ATTICA = {
+			random_scope_state = {
+				save_scope_as = university_state
+			}
+		}
+		set_variable = grefm_ion_university_considered
+	}
+	
+	option = {
+		name = grefm.404.a
+		default_option = yes
+		scope:university_state = {
+			create_building = {
+ 				building = "building_university"
+				level = 1
+ 			}
+		}
+		add_modifier = {
+			name = modifier_grefm_funding_royal_university
+			months = normal_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+	}
+	
+	option = {
+		name = grefm.404.b
+		scope:university_benefactor = {
+			add_modifier = {
+				name = modifier_grefm_blocked_building_university
+				months = normal_modifier_time
+			}
+		}
+	}
+
+}
+
+#### THE IONIAN JEWS EVENTS ####
+
+grefm.410 = { # Romaniotes and Sephardim
+	type = country_event
+	placement = root
+	
+	title = grefm.410.t
+	desc = grefm.410.d
+	flavor = grefm.410.f
+	
+	event_image = {
+		video = "europenorthamerica_judaism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_jewish.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.400
+	}
+	
+	immediate = {
+		set_variable = {
+			name = grefm_samos_loyalist_jews_var
+			value = 0
+		}
+		set_variable = {
+			name = grefm_samos_radical_jews_var
+			value = 0
+		}
+	}
+	
+	option = {
+		name = grefm.410.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_ion_jewry
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_jewish_exclusion
+		}
+	}
+
+}
+
+grefm.411 = { # Jews Request former Rights
+	type = country_event
+	placement = root
+	
+	title = grefm.411.t
+	desc = grefm.411.d
+	flavor = grefm.411.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_jewish.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_jews_requested_rights
+		}
+		has_technology_researched = mass_communication
+	}
+	
+	immediate = {
+		set_variable = grefm_jews_requested_rights
+	}
+	
+	option = { # Let them rights
+		name = grefm.411.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_jewish_legal_concessions
+			months = very_long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = small_radicals
+		}
+	}
+	
+	option = { # Be a chode
+		name = grefm.411.b
+		add_modifier = {
+			name = modifier_grefm_denied_jewish_rights
+			months = very_long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:sephardic
+			value = medium_radicals
+		}
+	}
+
+}
+
+grefm.412 = { # Nacamulli's Press House
+	type = country_event
+	placement = root
+	
+	title = grefm.412.t
+	desc = grefm.412.d
+	flavor = grefm.412.f
+	
+	event_image = {
+		video = "ep1_printing_press"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_nacamullis_press
+		}
+		has_technology_researched = human_rights # this might be too late
+	}
+	
+	immediate = {
+		set_variable = grefm_nacamullis_press
+	}
+	
+	option = { # Circulate the articles
+		name = grefm.412.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_chronica_israelitika
+			months = very_long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = small_radicals
+		}
+	}
+	
+	option = { # Supress the articles
+		name = grefm.412.b
+		add_modifier = {
+			name = modifier_grefm_closed_presshouse
+			months = very_long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:sephardic
+			value = small_radicals
+		}
+	}
+
+}
+
+grefm.413 = { # Blood Libel
+	type = country_event
+	placement = root
+	
+	title = grefm.413.t
+	desc = grefm.413.d
+	flavor = grefm.413.f
+	
+	event_image = {
+		video = "dlc_grefm"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_jewish.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_blood_libel_happened
+		}
+		has_technology_researched = nationalism # technically, this event didn't happen until 1891, but it should be plausible any time after nationalism has gripped the country
+	}
+	
+	immediate = {
+		set_variable = grefm_blood_libel_happened
+	}
+	
+	option = { # Break up the Mob
+		name = grefm.413.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_suppressed_blood_libel
+			months = very_long_modifier_time
+		}
+		add_radicals = {
+			strata = poor
+			value = medium_radicals
+		}
+	}
+	
+	option = { # What could go wrong?
+		name = grefm.413.b
+		add_radicals = {
+			culture = cu:sephardic
+			value = medium_radicals
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.414 # Unrest in Corfu
+			}
+		}
+	}
+
+}
+
+grefm.414 = { # Unrest in Corfu
+	type = country_event
+	placement = root
+	
+	title = grefm.414.t
+	desc = grefm.414.d
+	flavor = grefm.414.f
+	
+	event_image = {
+		video = "votp_cops_march"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.413
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Make Arrests (too late tho bro)
+		name = grefm.414.a
+		default_option = yes
+		add_radicals = {
+			culture = cu:greek
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:sephardic
+			value = large_radicals
+		}
+		kill_population = { # the incident began because of a single Jewish girl found dead
+			culture = cu:sephardic
+			value = 1
+		}
+		kill_population = { # 3 "christians" were shot by soldiers
+			religion = rel:orthodox
+			value = 3
+		}
+		if = {
+			limit = {
+				any_scope_pop = {
+					is_pop_type = soldiers
+				}
+			}
+			kill_population = { # one soldier was killed defending the Jewish families
+				pop_type = soldiers
+				value = 1
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_blood_libel
+			months = very_long_modifier_time
+		}
+	}
+	
+	option = { # OPE
+		name = grefm.414.b
+		add_radicals = {
+			culture = cu:greek
+			value = small_radicals
+		}
+		add_radicals = {
+			culture = cu:sephardic
+			value = very_large_radicals
+		}
+		kill_population = { # the incident began because of a single Jewish girl found dead
+			culture = cu:sephardic
+			value = 1
+		}
+		kill_population = { # 3 "christians" were shot by soldiers
+			religion = rel:orthodox
+			value = 3
+		}
+		if = {
+			limit = {
+				any_scope_pop = {
+					is_pop_type = soldiers
+				}
+			}
+			kill_population = { # one soldier was killed defending the Jewish families
+				pop_type = soldiers
+				value = 1
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_blood_libel
+			months = very_long_modifier_time
+		}
+	}
+
+}
+
+grefm.418 = { # Jewish Exclusion
+	type = country_event
+	placement = root
+	
+	title = grefm.418.t
+	desc = grefm.418.d
+	flavor = grefm.418.f
+	
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_jewish.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_jewry
+	}	
+	
+	immediate = {
+		grefm_clean_up_ionian_jew_modifiers = yes
+	}
+	
+	option = {
+		name = grefm.418.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_jewish_neglect
+			months = very_long_modifier_time
+			is_decaying = yes
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+	}
+
+}
+
+grefm.419 = { # A Judaeo-Greek Nation
+	type = country_event
+	placement = root
+	
+	title = grefm.419.t
+	desc = grefm.419.d
+	flavor = grefm.419.f
+	
+	event_image = {
+		video = "europenorthamerica_judaism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_jewish.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_ion_jewry
+	}
+	
+	immediate = {
+		grefm_clean_up_ionian_jew_modifiers = yes
+#		set_global_variable = grefm_romaniote_jews_integrated
+	}
+	
+	option = {
+		name = grefm.419.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_jewish_integration
+			months = long_modifier_time
+			is_decaying = yes
+		}
+		add_loyalists = {
+			culture = cu:sephardic
+			value = medium_radicals
+		}
+		add_primary_culture = cu:sephardic
+	}
+
+}
+
+#### GREEK UNION EVENTS ####
+
+grefm.420 = { # The Dream of Enosis
+	type = country_event
+	placement = root
+	
+	title = grefm.420.t
+	desc = grefm.420.d
+	flavor = grefm.420.f
+	
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.201
+	}	
+	
+	immediate = {
+		c:GRE = {
+			save_scope_as = greece_scope
+			set_secret_goal = { # Greece was not secretive about its desires for union with the Islands
+				country = c:ION
+				secret_goal = befriend
+			}
+		}
+	}
+	
+	option = {
+		name = grefm.420.a
+		default_option = yes
+		if = {
+			limit = {
+				has_dlc_feature = lobbies
+				
+			}
+			create_political_lobby = {  # The majority of Ionian politics was unified on the idea of seeking union with Greece at all costs
+				type = lobby_pro_country  
+				target = c:GRE
+				add_interest_group = ig:ig_petty_bourgeoisie
+				add_interest_group = ig:ig_intelligentsia
+				add_interest_group = ig:ig_armed_forces
+				add_interest_group = ig:ig_rural_folk
+				add_interest_group = ig:ig_industrialists
+			}
+		}
+	}
+
+}
+
+grefm.421 = { # Ionian Union with the Greek State
+	type = country_event
+	placement = scope:ionian_islands_state_scope
+	
+	title = grefm.421.t
+	desc = grefm.421.d
+	flavor = grefm.421.f
+	
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_ionian_enosis_button
+	}	
+	
+	immediate = {
+		s:STATE_IONIAN_ISLANDS = {
+			random_scope_state = {
+				save_scope_as = ionian_islands_state_scope
+			}
+		}
+		c:GBR = {
+			save_scope_as = uk_scope
+		}
+	}
+	
+	option = {
+		name = grefm.421.a
+		default_option = yes
+		annex = c:ION
+		add_modifier = {
+			name = modifier_grefm_hepantese_union
+			months = normal_modifier_time
+		}
+	}
+
+}
+
+
+##################################################
+##	#GRE5  MINOR GREEK STATES  Events  500-599  ##
+##################################################
+
+#### PRINCIPALITY OF SAMOS EVENTS ####
+
+grefm.500 = { # Samos Defiant
+	type = country_event
+	placement = root
+	
+	title = grefm.500.t
+	desc = grefm.500.d
+	flavor = grefm.500.f
+	
+	event_image = {
+		video = "grefm_ion_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		set_variable = grefm_stefanos_var
+	}
+	
+	option = {
+		name = grefm.500.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_submission
+		}
+		trigger_event = {
+			id = grefm.501 # An Imposed Ruler
+			days = 30
+		}
+	}
+	
+}
+
+grefm.501 = { # An Imposed Ruler
+	type = country_event
+	placement = root
+	
+	title = grefm.501.t
+	desc = grefm.501.d
+	flavor = grefm.501.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered ny grefm.500
+	}
+	
+	immediate = {
+		set_variable = {
+			name = grefm_samos_support_var
+			value = 100
+		}
+		set_variable = {
+			name = grefm_samos_ruler_counter
+			value = 1
+		}
+		set_variable = {
+			name = grefm_samos_ruler_duration_var
+			value = 60
+		}
+	}
+	
+	option = {
+		name = grefm.500.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_samos_organic_law
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_westernized_thought
+			add_modifier = modifier_grefm_hegemonic_ruler
+		}
+	}
+	
+}
+
+grefm.502 = { # The Organic Charter
+	type = country_event
+	placement = root
+	
+	title = grefm.502.t
+	desc = grefm.502.d
+	flavor = grefm.502.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -10413,18 +11856,353 @@ grefm.801 = { # A Greek Identity (MGR Alternate)
 	}
 	
 	option = {
-		name = grefm.801.a
+		name = grefm.502.a
 		default_option = yes
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value > neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}		
 		add_modifier = {
-			name = modifier_grefm_archaiologiki_etaireia
+			name = modifier_grefm_organic_charter
 			months = long_modifier_time
-			multiplier = 10 # grants the full bonus value
 		}
 		add_loyalists = {
 			culture = cu:greek
-			value = small_radicals
+			value = medium_radicals
 		}
-		set_variable = grefm_greek_identity_resolved
+	}
+
+}
+
+grefm.503 = { # The Tyranny of Lord Stefanos
+	type = country_event
+	placement = root
+	
+	title = grefm.503.t
+	desc = grefm.503.d
+	flavor = grefm.503.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}	
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.503.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_grefm_tyrannical_ruler
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			culture = cu:greek
+			value = large_radicals
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+			leader = {
+				set_ideology = ideology:ideology_republican_leader
+			}
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value < neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_refused
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+	}
+
+}
+
+grefm.504 = { # Stefanos Desposed
+	type = country_event
+	placement = root
+	
+	title = grefm.504.t
+	desc = grefm.504.d
+	flavor = grefm.504.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_support_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.504.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+		add_modifier = {
+			name = modifier_grefm_ruler_ejected
+			months = short_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
+
+grefm.505 = { # New Governor Appointed
+	type = country_event
+	placement = root
+	
+	title = grefm.505.t
+	desc = grefm.505.d
+	flavor = grefm.505.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_ruler_duration_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.505.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+	}
+
+}
+
+grefm.506 = { # Ruler Desposed
+	type = country_event
+	placement = root
+	
+	title = grefm.506.t
+	desc = grefm.506.d
+	flavor = grefm.506.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 1
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = grefm_stefanos_var
+		}
+		var:grefm_samos_support_var <= 0
+		has_law = law_type:law_monarchy
+	}
+	
+	immediate = {
+		grefm_generate_samos_ruler_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = grefm_samos_ruler_var
+			}
+			save_scope_as = samos_next_ruler_scope
+		}
+	}
+	
+	option = {
+		name = grefm.506.a
+		default_option = yes
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			disinherit_character = yes
+		}
+		scope:samos_next_ruler_scope = {
+			set_character_as_ruler = yes
+			remove_variable = grefm_samos_ruler_var
+		}
+		add_modifier = {
+			name = modifier_grefm_ruler_ejected
+			months = short_modifier_time
+			is_decaying = yes
+		}
+	}
+
+}
+
+grefm.507 = { # OPEN
+	orphan = yes
+}
+
+grefm.508 = { # Samos Liberated
+	type = country_event
+	placement = root
+	
+	title = grefm.508.t
+	desc = grefm.508.d
+	flavor = grefm.508.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_samos_main
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.508.a
+		default_option = yes
+		add_loyalists = {
+			culture = cu:greek
+			value = large_radicals
+		}
+	}
+
+}
+
+grefm.509 = { # Samian Union with the Greek State
+	type = country_event
+	placement = root
+	
+	title = grefm.509.t
+	desc = grefm.509.d
+	flavor = grefm.509.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_samos.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_samos_enosis_button
+	}
+	
+	immediate = {
+		c:SAMO = {
+			save_scope_as = samos_scope
+		}
+	}
+	
+	option = {
+		name = grefm.509.a
+		default_option = yes
+		annex = c:SAMO
+		add_modifier = {
+			name = modifier_grefm_samian_union
+			months = normal_modifier_time
+		}
 	}
 
 }
@@ -10534,9 +12312,18 @@ grefm.902 = { # hidden event triggering the Don Pacifico Affair
 	}
 	
 	immediate = {
-		c:POR = {
-			trigger_event = {
-				id = grefm.161 # The Don Pacifico Affair
+		if = {
+			limit = {
+				AND = {
+					exists = c:GRE
+					exists = c:GBR
+					exists = c:POR
+				}
+			}
+			c:POR = {
+				trigger_event = {
+					id = grefm.161 # The Don Pacifico Affair
+				}
 			}
 		}
 		remove_variable = grefm_don_pacifico_var

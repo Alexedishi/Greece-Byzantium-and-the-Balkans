@@ -288,29 +288,7 @@ balkfm_ottoman_agitation_button = {
 }
 
 # MONTENEGRO BUTTONS
-balkfm_compose_epic_button = {
-	name = "balkfm_compose_epic"
-	desc = "balkfm_compose_epic_desc"
-	
-	visible = {
-		always = yes
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_balkfm_composing_epic }
-	}
-	
-	effect = {
-		set_variable = {
-			name = balkfm_epic_composition_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_balkfm_mon_epic
-		}
-		add_modifier = modifier_balkfm_composing_epic
-	}
-}
+
 
 # SERBIA BUTTONS
 balkfm_cement_monarchy_button = {
@@ -445,6 +423,7 @@ balkfm_annex_rumelia_button = {
 			hidden_trigger = {
 				any_country = {
 					country_rank >= rank_value:great_power
+					NOT = { c:TUR ?= this }
 					NOT = { has_war_with = ROOT }
 					has_interest_marker_in_region = ROOT.capital.region
 					relations:root > 0
@@ -458,14 +437,19 @@ balkfm_annex_rumelia_button = {
 				THIS = root.top_overlord
 			}
 		}
-		top_overlord = {
-			relations:root <= relations_threshold:neutral
+		trigger_if = {
+			limit = {
+				is_subject = yes
+			}
+			top_overlord = {
+				relations:root <= relations_threshold:neutral
+			}
 		}
 	}
 	
 	effect = {
 		trigger_event = {
-			id = balkfm.581 # Union with East Rumelia
+			id = balkfm.581 # The Tophane Agreement
 		}
 		custom_tooltip = balkfm_countercoup_reduce_1
 		set_variable = balkfm_annex_rumelia_taken
@@ -483,8 +467,11 @@ balkfm_declare_tsardom_button = {
 	
 	visible = {
 		NOT = { has_variable = balkfm_tsardom_declared }
-		is_subject = yes
-		exists = c:ERUM
+		c:ERUM ?= {
+			is_subject_of = root
+		}
+		exists = c:TUR
+		is_subject_of = c:TUR
 	}
 		
 	possible = {
@@ -502,6 +489,293 @@ balkfm_declare_tsardom_button = {
 		custom_tooltip = balkfm_declare_tsardom_tt
 		set_variable = balkfm_tsardom_declared
 	}
+}
+
+balkfm_declare_tsardom_alternate_button = {
+	name = "balkfm_declare_tsardom_alternate"
+	desc = "balkfm_declare_tsardom_alternate_desc"
+	
+	visible = {
+		NOT = { has_variable = balkfm_tsardom_declared }
+		c:ERUM ?= {
+			is_subject_of = root
+		}
+		trigger_if = {
+			limit = {
+				exists = c:TUR
+			}
+			NOT = {
+				is_subject_of = c:TUR
+			}
+		}
+	}
+		
+	possible = {
+		NOT = {
+			has_journal_entry = je_balkfm_bul_battenburg_monarchy
+		}
+		owns_entire_state_region = STATE_BULGARIA
+		country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.597 # A United Bulgaria
+		}
+		set_variable = balkfm_tsardom_declared
+	}
+}
+
+balkfm_bulgarian_union_button = {
+	name = "balkfm_bulgarian_union"
+	desc = "balkfm_bulgarian_union_desc"
+	
+	visible = {
+		NOT = { has_variable = balkfm_annex_rumelia_taken }
+		OR = {
+			AND = {
+				is_subject_of = c:TUR
+				c:BUL ?= {
+					is_ai = yes
+					is_subject_of = c:TUR
+				}
+			}
+			AND = {
+				is_subject = no
+				c:BUL ?= {
+					is_ai = yes
+					is_subject = no
+				}
+			}
+		}
+	}
+	
+	possible = {
+        custom_tooltip = {
+            text = balkfm_friend_with_all_great_powers_tt
+			hidden_trigger = {
+				any_country = {
+					country_rank >= rank_value:great_power
+					NOT = { c:TUR ?= this }
+					NOT = { has_war_with = ROOT }
+					has_interest_marker_in_region = ROOT.capital.region
+					relations:root > 0
+				}
+			}
+        }
+		c:BUL ?= {
+			relations:root >= relations_threshold:amicable
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			top_overlord = {
+				THIS = root.top_overlord
+			}
+		}
+		trigger_if = {
+			limit = {
+				is_subject = yes
+			}
+			top_overlord = {
+				relations:root <= relations_threshold:neutral
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.579 # Union with Bulgaria
+		}
+		custom_tooltip = balkfm_bulgarian_union_tt
+		set_variable = balkfm_annex_rumelia_taken
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+	
+}
+
+balkfm_revivalist_support_button = {
+	name = "balkfm_revivalist_support"
+	desc = "balkfm_revivalist_support_desc"
+	
+	visible = {
+		NOT = { has_variable = balkfm_revivalism_requested_var }
+	}
+	
+	possible = {
+		OR = {
+			c:AUS ?= {
+				relations:root >= relations_threshold:amicable
+				is_adjacent_to_country = root
+			}
+			c:RUS ?= {
+				relations:root >= relations_threshold:amicable
+				is_adjacent_to_country = root
+			}
+		}
+		trigger_if = {
+			limit = {
+				is_subject = yes
+			}
+			top_overlord = {
+				relations:root <= relations_threshold:neutral
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.555 # Great Powers Support Bulgaria
+		}
+		set_variable = balkfm_revivalism_requested_var
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+	
+}
+
+balkfm_become_bulgaria_button = {
+	name = "balkfm_become_bulgaria"
+	desc = "balkfm_become_bulgaria_desc"
+	
+	visible = {
+		NOT = { has_variable = balkfm_became_bulgaria_var }
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_balkfm_bul_national_awakening_tt1
+			hidden_trigger = {
+				var:balkfm_revivalism_var >= 1000
+			}
+		}
+		trigger_if = {
+			limit = {
+				OR = {
+					exists = c:AUS
+					exists = c:RUS
+				}
+			}
+			custom_tooltip = {
+				text = je_balkfm_bul_national_awakening_tt2
+				hidden_trigger = {
+					has_variable = balkfm_revivalism_supported_var
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.558 # The Birth of the Bulgarian State
+		}
+		custom_tooltip = {
+			text = balkfm_become_bulgaria_tt
+			hidden_effect = {
+				set_variable = balkfm_became_bulgaria_var
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 100
+	}
+	
+}
+
+balkfm_agitate_rumelia_button = {
+	name = "balkfm_agitate_rumelia"
+	desc = "balkfm_agitate_rumelia_desc"
+	
+	visible = {
+		NOR = {
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			exists = c:ERUM
+		}
+		c:TUR ?= {
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+	}
+	
+	possible = {
+		c:TUR = {
+			relations:root <= relations_threshold:neutral
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_nationalist_agitation
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.577 # Bulgarian Agitation in Rumelia
+		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.577 # Bulgarian Agitation in Rumelia
+			}
+		}
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = short_modifier_time
+		}
+	}
+
+	ai_chance = {
+		base = 100
+	}
+	
+}
+
+balkfm_uplift_rumelia_button = {
+	name = "balkfm_uplift_rumelia"
+	desc = "balkfm_uplift_rumelia_desc"
+	
+	visible = {
+		NOR = {
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			exists = c:ERUM
+		}
+		c:TUR ?= {
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+	}
+	
+	possible = {
+		c:TUR = {
+			relations:root <= relations_threshold:poor
+		}
+		NOR = {
+			has_modifier = modifier_balkfm_nationalist_agitation
+			has_truce_with = c:TUR
+			has_war_with = c:TUR # yeah, guess who got punk'd during testing
+		}
+		s:STATE_NORTHERN_THRACE = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.30
+					culture = cu:bulgarian
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.578 # Eastern Rumelia Rebels!
+		}
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = normal_modifier_time
+		}
+	}
+
+	ai_chance = {
+		base = 100
+	}
+	
 }
 
 # Romania Buttons

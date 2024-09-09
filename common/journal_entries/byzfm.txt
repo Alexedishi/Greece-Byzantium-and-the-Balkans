@@ -1,4 +1,240 @@
-﻿#############################
+﻿############################
+# GENERAL BYZANTINE FLAVOR #
+############################
+
+je_byzfm_constantinople = { # 14 Regions of Constantinople
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
+		}
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = byzfm.100 # The 14 Regions of Constantinople
+		}
+	}
+	
+	scripted_button = byzfm_mega_palation_survey_button
+	
+	complete = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		capital = {
+			state_region = s:STATE_EASTERN_THRACE
+			has_building = building_hippodrome
+			has_building = building_mega_palation
+			total_urbanization >= 2000
+			any_scope_building = {
+				is_building_type = building_government_administration
+				OR = {
+					has_active_production_method = pm_vertical_filing_cabinets
+					has_active_production_method = pm_switch_boards
+				}
+				level >= 10
+			}
+			any_scope_building = {
+				is_building_type = building_shipyards
+				OR = {
+					has_active_production_method = pm_metal_shipbuilding
+					has_active_production_method = pm_arc_welding_shipbuilding
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_military_shipyards
+				OR = {
+					has_active_production_method = pm_military_shipbuilding_steam
+					has_active_production_method = pm_military_shipbuilding_steam_2
+				}
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 5
+			}
+			any_scope_building = {
+				is_building_type = building_silk_plantation
+				weekly_profit > 0
+				occupancy >= 0.75
+				level >= 20
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = byzfm.104 # Notitia Urbis Constantinopolitanae
+		}
+	}
+	
+	fail = {
+		NOT = {
+			has_state_in_state_region = STATE_EASTERN_THRACE
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			byzfm.102 # The Great Palace of Constantinople
+			byzfm.103 # The Hippodrome of Constantinople
+		}
+	}
+
+	weight = 400
+	
+}
+
+je_byzfm_mega_palation_survey = {
+	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	
+	group = je_group_byzfm_content
+
+	modifiers_while_active = {
+		modifier_byzfm_site_survey
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = byzfm.101 # Imperial Palace Ruins Identified
+		}
+		remove_variable = byzfm_imperial_palace_var
+	}
+
+	fail = {
+		NOT = {
+			owns_entire_state_region = STATE_EASTERN_THRACE
+		}
+	}
+
+	on_fail = {
+		remove_variable = byzfm_imperial_palace_var
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = byzfm_mega_palation_surveyed
+		}
+	}
+	
+	on_invalid = {
+		remove_variable = byzfm_imperial_palace_var
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = byzfm_imperial_palace_var
+				add = 1
+			}
+		}
+	}
+
+	current_value = {
+		value = root.var:byzfm_imperial_palace_var
+	}
+
+	goal_add_value = {
+		value = 24
+	}
+
+	progressbar = yes
+
+	weight = 100
+
+	should_be_pinned_by_default = yes
+	
+}
+
+je_byzfm_byzantine_nationalism = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_content
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+		NOR = {
+			has_law = law_type:law_ethnostate
+			has_law = law_type:law_total_separation
+			has_law = law_type:law_state_atheism
+		}
+	}
+	
+	possible = {
+		NOR = {
+			has_law = law_type:law_ethnostate
+			has_law = law_type:law_total_separation
+			has_law = law_type:law_state_atheism
+		}
+	}
+	
+	immediate = {
+	}
+	
+	complete = {
+		has_law = law_type:law_multicultural
+		has_law = law_type:law_state_religion
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+		OR = {
+			has_law = law_type:law_ethnostate
+			has_law = law_type:law_total_separation
+			has_law = law_type:law_state_atheism
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+
+	weight = 100
+	
+}
+
+je_byzfm_divine_administration = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_byzfm_content	
+}
+
+#############################
 # THE BYZANTINE RESTORATION #
 #############################
 
@@ -9,7 +245,53 @@ je_byzfm_restoration = {
 	
 	should_be_pinned_by_default = yes	
 	
+	is_shown_when_inactive = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+		NOR = {
+			has_variable = byzfm_revenge_of_the_greeks
+			has_variable = byzfm_texas_left
+		}
+	}
+	
+	possible = {
+		OR = {
+			c:BYZ ?= this
+			c:ERE ?= this
+		}
+	}
+	
 	immediate = {
+		show_as_tooltip = {
+			trigger_event = {
+				id = byzfm.300 # The Pheonix Rises
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_variable = byzfm_golden_lion
+				}
+				trigger_event = {
+					id = byzfm.392 # The Golden Lion Roars
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = byzfm_golden_eagle
+				}
+				trigger_event = {
+					id = byzfm.396 # The Golden Eagle Soars
+				}
+			}
+			else = {
+				trigger_event = {
+					id = byzfm.300 # The Pheonix Rises
+				}
+			}
+		}
 	}
 	
 	modifiers_while_active = {
@@ -338,179 +620,105 @@ je_byzfm_the_purple_phoenix_central_italy = {
 # IMPERIAL AMIBITIONS #
 #######################
 
-je_byzfm_constantinople = { # 14 Regions of Constantinople
+############################################
+# BYZANTINE RESTORATION ALTERNATE JOURNALS #
+############################################
+
+je_byzfm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
 	
-	group = je_group_byzfm_content
+	group = je_group_balkfm_empire
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-		OR = {
-			c:BYZ ?= this
-			c:ERE ?= this
-		}
-	}
-	
-	possible = {
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
-		}
-		hidden_trigger = {
-			has_variable = byzfm_byzantium_formed
-		}
-	}
-	
-	immediate = {
-		trigger_event = {
-			id = byzfm.100 # The 14 Regions of Constantinople
-		}
-	}
-	
-	scripted_button = byzfm_mega_palation_survey_button
-	
 	complete = {
+		is_subject = no
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
-			has_building = building_hippodrome
-			has_building = building_mega_palation
-			total_urbanization >= 2000
-			any_scope_building = {
-				is_building_type = building_government_administration
-				OR = {
-					has_active_production_method = pm_vertical_filing_cabinets
-					has_active_production_method = pm_switch_boards
-				}
-				level >= 10
-			}
-			any_scope_building = {
-				is_building_type = building_shipyards
-				OR = {
-					has_active_production_method = pm_metal_shipbuilding
-					has_active_production_method = pm_arc_welding_shipbuilding
-				}
-				weekly_profit > 0
-				occupancy >= 0.75
-				level >= 5
-			}
-			any_scope_building = {
-				is_building_type = building_military_shipyards
-				OR = {
-					has_active_production_method = pm_military_shipbuilding_steam
-					has_active_production_method = pm_military_shipbuilding_steam_2
-				}
-				weekly_profit > 0
-				occupancy >= 0.75
-				level >= 5
-			}
-			any_scope_building = {
-				is_building_type = building_silk_plantation
-				weekly_profit > 0
-				occupancy >= 0.75
-				level >= 20
-			}
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = byzfm.104 # Notitia Urbis Constantinopolitanae
+			id = balkfm.588 # The Queen of Cities
 		}
-	}
-	
-	fail = {
-		NOT = {
-			has_state_in_state_region = STATE_EASTERN_THRACE
-		}
-	}
-	
-	on_fail = {
-	}
-	
-	on_monthly_pulse = {
-		events = {
-			byzfm.102 # The Great Palace of Constantinople
-			byzfm.103 # The Hippodrome of Constantinople
-		}
-	}
-
-	weight = 400
-	
-}
-
-je_byzfm_mega_palation_survey = {
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	group = je_group_byzfm_content
-
-	modifiers_while_active = {
-		modifier_byzfm_site_survey
-	}
-
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
-	}
-
-	on_complete = {
-		trigger_event = {
-			id = byzfm.101 # Imperial Palace Ruins Identified
-		}
-		remove_variable = byzfm_imperial_palace_var
-	}
-
-	fail = {
-		NOT = {
-			owns_entire_state_region = STATE_EASTERN_THRACE
-		}
-	}
-
-	on_fail = {
-		remove_variable = byzfm_imperial_palace_var
+		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = byzfm_mega_palation_surveyed
-		}
-	}
-	
-	on_invalid = {
-		remove_variable = byzfm_imperial_palace_var
-	}
-	
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = byzfm_imperial_palace_var
-				add = 1
+			OR = {
+				has_variable = balkfm_weaksauce
+				has_variable = byzfm_weaksauce
 			}
 		}
 	}
-
-	current_value = {
-		value = root.var:byzfm_imperial_palace_var
-	}
-
-	goal_add_value = {
-		value = 24
-	}
-
-	progressbar = yes
-
-	weight = 100
-
-	should_be_pinned_by_default = yes
+	
+	weight = 500
 	
 }
 
-#je_byzfm_byzantism = {
-#}
-#
-#je_byzfm_themata_system = {
-#}
-#
-#je_byzfm_divine_administration = {
-#}
-#
+je_byzfm_rom_megali_idea = {
+	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	
+	group = je_group_balkfm_romanian_nationalism
+	
+	should_be_pinned_by_default = yes
+
+	immediate = {
+	}
+
+	complete = {
+		is_subject = no
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = byzfm.395 # The Queen of Cities
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = byzfm_weaksauce
+				has_variable = balkfm_weaksauce
+			}
+		}
+	}
+	
+	weight = 1000
+
+}

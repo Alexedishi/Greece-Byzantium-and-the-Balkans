@@ -295,6 +295,7 @@ karadordevic_progress_value = {
 }
 
 ## BULGARIA VALUES ##
+
 balkfm_battenburg_support_value = {
 # Generally, it should be hard to get this above 5 while retaining liberal laws
 	value = 0
@@ -306,7 +307,10 @@ balkfm_battenburg_support_value = {
 				relations:root > relations_threshold:neutral
 			}
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_bul_from_good_russian_relations
+		}
 	}
 	else_if = {
 		limit = {
@@ -314,13 +318,19 @@ balkfm_battenburg_support_value = {
 				relations:root < relations_threshold:neutral
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_bad_russian_relations
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_balkfm_russian_attaches
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_bul_from_russian_attaches
+		}
 	}
 	
 	# Landowners power check
@@ -333,7 +343,10 @@ balkfm_battenburg_support_value = {
 				}
 			}
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_bul_from_powerful_landowners_in_gov
+		}
 	}
 	
 	# Military power check
@@ -346,7 +359,10 @@ balkfm_battenburg_support_value = {
 				}
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_powerful_military_not_in_gov
+		}
 	}
 	
 	# Freedom of the press check (balkfm.501)
@@ -357,7 +373,10 @@ balkfm_battenburg_support_value = {
 				has_law = law_type:law_right_of_assembly
 			}
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_bul_from_good_speech_laws
+		}
 	}
 	else_if = {
 		limit = {
@@ -366,7 +385,10 @@ balkfm_battenburg_support_value = {
 				has_law = law_type:law_outlawed_dissent
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_bad_speech_laws
+		}
 	}
 	
 	# Autocracy check (balkfm.502)
@@ -377,7 +399,10 @@ balkfm_battenburg_support_value = {
 				has_law = law_type:law_oligarchy
 			}
 		}
-		subtract = 2
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_no_voting
+		}
 	}
 	
 	# Brigandage check (balkfm.510/511)
@@ -385,7 +410,10 @@ balkfm_battenburg_support_value = {
 		limit = {
 			has_variable = balkfm_brigandage_completed
 		}
-		add = 2
+		add = {
+			value = 1
+			desc = balkfm_bul_from_brigandage_completed
+		}
 	}
 	
 	# Railways check (balkfm.512/513/514)
@@ -399,7 +427,10 @@ balkfm_battenburg_support_value = {
 		limit = {
 			has_modifier = modifier_balkfm_railway_buyout
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_railways_buyout
+		}
 	}
 	
 	# Rumelia check (balkfm.581)
@@ -410,20 +441,185 @@ balkfm_battenburg_support_value = {
 				owns_entire_state_region = STATE_NORTHERN_THRACE
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_controlling_rumelia
+		}
 	}
 	
 	# Schism check (balkfm.560)
 	if = {
 		limit = {
 			OR = {
-				has_journal_entry = je_eocfm_autocephaly
+				has_variable = eocfm_schism_var
 				has_variable = eocfm_is_autocephalous
 			}
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_bul_from_autocephaly
+		}
 	}
 	
+	round = 1
+	min = 0
+	max = 10
+	
+}
+
+balkfm_stambolovism_value = {
+	value = 0
+	
+	## Sources
+	if = {
+		limit = {
+			exists = heir
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_having_heir
+		}
+	}
+	if = {
+		limit = {
+			ruler = {
+				popularity > 50
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_ruler_popularity
+		}
+	}
+	if = {
+		limit = {
+			any_scope_character = {
+				has_template = template_balkfm_stambolov_stefan
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_stambolov
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_battenburg_letter
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_battenburg_letter
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_military_modernized
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_military_modernized
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_executed_panitsa
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_firing_squad
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_showed_off_regalia
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_boldness
+		}
+	}
+	
+	## Penalities
+	
+	if = {
+		limit = {
+			has_variable = balkfm_exiled_panitsa
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_exiled_panitsa
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_put_away_regalia
+		}
+		subtract = {
+			value = 2
+			desc = balkfm_bul_from_whimpy
+		}
+	}
+	
+	max = 5
+	min = 0
+	
+}
+
+balkfm_revivalism_progress_value = {
+	value = 0
+	add = {
+		value = root.literacy_rate
+		desc = balkfm_from_literacy
+	}
+	add = {
+		value = balkfm_intelligentsia_influence_value
+		desc = balkfm_bul_from_intelligentsia_influence
+	}
+	if = {
+		limit = {
+			has_variable = eocfm_is_autocephalous
+		}
+		add = {
+			value = 10
+			desc = balkfm_bul_from_autocephaly
+		}
+	}
+	round = 0.01
+}
+
+balkfm_schism_progress_value = {
+	value = 0
+	add = {
+		value = balkfm_intelligentsia_devout_value
+		desc = balkfm_bul_from_devout_influence
+	}
+	add = {
+		value = balkfm_ottoman_relations_value
+		desc = balkfm_bul_from_ottoman_relations
+	}
+	round = 0.01
+}
+
+balkfm_intelligentsia_influence_value = {
+	value = 0
+	add = root.prestige
+	multiply = root.ig:ig_intelligentsia.ig_clout
+}
+
+balkfm_intelligentsia_devout_value = {
+	value = 0
+	add = root.prestige
+	multiply = root.ig:ig_devout.ig_clout
+}
+
+balkfm_ottoman_relations_value = {
+	value = 0
+	c:TUR = {
+		add = {
+			value = relations:root	
+		}
+	}
+	multiply = 0.1
 }
 
 ## ROMANIA VALUES ##
@@ -593,6 +789,10 @@ balkfm_junimism_popularity_value = {
 					value > neutral
 				}
 			}
+			AND = {
+				has_role = politician
+				is_ruler = no
+			}
 		}
 		add = popularity
 	}
@@ -617,6 +817,7 @@ balkfm_junimism_progress_value = {
 }
 
 balkfm_dacianism_popularity_value = {
+	value = 0
 	every_scope_character = {
 		limit = {
 			OR = {
@@ -628,6 +829,10 @@ balkfm_dacianism_popularity_value = {
 					law = law_type:law_agrarianism
 					value < neutral
 				}
+			}
+			AND = {
+				has_role = politician
+				is_ruler = no
 			}
 		}
 		add = popularity

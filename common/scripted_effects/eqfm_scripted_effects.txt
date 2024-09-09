@@ -610,7 +610,7 @@ eqfm_massacre_effect = {
 				has_pop_culture = greek
 			}
 		}
-		kill_population_percent = {
+		kill_population_percent_in_state = {
 			percent = 0.05
 			culture = cu:greek
 		}
@@ -621,7 +621,7 @@ eqfm_massacre_effect = {
 				has_pop_culture = serb
 			}
 		}
-		kill_population_percent = {
+		kill_population_percent_in_state = {
 			percent = 0.05
 			culture = cu:serb
 		}
@@ -632,7 +632,7 @@ eqfm_massacre_effect = {
 				has_pop_culture = bulgarian
 			}
 		}
-		kill_population_percent = {
+		kill_population_percent_in_state = {
 			percent = 0.05
 			culture = cu:bulgarian
 		}
@@ -643,7 +643,7 @@ eqfm_massacre_effect = {
 				has_pop_culture = bosniak
 			}
 		}
-		kill_population_percent = {
+		kill_population_percent_in_state = {
 			percent = 0.05
 			culture = cu:bosniak
 		}
@@ -654,7 +654,7 @@ eqfm_massacre_effect = {
 				has_pop_culture = croat
 			}
 		}
-		kill_population_percent = {
+		kill_population_percent_in_state = {
 			percent = 0.05
 			culture = cu:croat
 		}
@@ -668,99 +668,120 @@ eqfm_create_rebellion_effect = {
 			s:STATE_BOSNIA = {
 				create_country = {
 					tag = BOS
-					origin = this
+					origin = c:TUR
 					state = s:STATE_BOSNIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:BOS = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:BOS
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:BOS
+						type = dominion
+					}
 				}
 			}
 			s:STATE_MONTENEGRO = {
 				create_country = {
 					tag = MON
-					origin = this
+					origin = c:TUR
 					state = s:STATE_MONTENEGRO.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:MON = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:MON
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:MON
+						type = dominion
+					}
 				}
 			}
 			s:STATE_ALBANIA = {
 				create_country = {
 					tag = ALB
-					origin = this
+					origin = c:TUR
 					state = s:STATE_ALBANIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:ALB = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:ALB
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:ALB
+						type = dominion
+					}
 				}
 			}
 			s:STATE_SKOPIA = {
 				create_country = {
 					tag = NMAC
-					origin = this
+					origin = c:TUR
 					state = s:STATE_SKOPIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:NMAC = {
-					save_scope_as = eqfm_rebellion_scope
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:NMAC
+						type = dominion
+					}
 				}
-				create_diplomatic_pact = {
-					country = c:NMAC
-					type = dominion
-				}
-			} 
+			}
 			s:STATE_NORTHERN_THRACE = {
 				create_country = {
 					tag = ERUM
-					origin = this
+					origin = c:TUR
 					state = s:STATE_NORTHERN_THRACE.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:ERUM = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:ERUM
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:ERUM
+						type = dominion
+					}
 				}
 			}
 			s:STATE_WESTERN_THRACE = {
 				create_country = {
 					tag = THRA
-					origin = this
+					origin = c:TUR
 					state = s:STATE_WESTERN_THRACE.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:THRA = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:THRA
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:THRA
+						type = dominion
+					}
 				}
 			}
 			s:STATE_BULGARIA = {
 				create_country = {
-				tag = BUL
-				origin = this
-				state = s:STATE_BULGARIA.region_state:TUR
+					tag = BUL
+					origin = c:TUR
+					state = s:STATE_BULGARIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:BUL = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:BUL
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:BUL
+						type = dominion
+					}
 				}
 			}
 			s:STATE_SOUTHERN_SERBIA = {
@@ -768,13 +789,16 @@ eqfm_create_rebellion_effect = {
 					tag = NISH
 					origin = this
 					state = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:NISH = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:NISH
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:NISH
+						type = dominion
+					}
 				}
 			}
 			s:STATE_NORTHERN_SERBIA = {
@@ -782,13 +806,16 @@ eqfm_create_rebellion_effect = {
 					tag = SER
 					origin = this
 					state = s:STATE_NORTHERN_SERBIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:SER = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:SER
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:SER
+						type = dominion
+					}
 				}
 			}
 			s:STATE_PELOPONNESE = {
@@ -796,13 +823,16 @@ eqfm_create_rebellion_effect = {
 					tag = MORE
 					origin = this
 					state = s:STATE_PELOPONNESE.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:MORE = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:MORE
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:MORE
+						type = dominion
+					}
 				}
 			}
 			s:STATE_IONIAN_ISLANDS = {
@@ -810,13 +840,16 @@ eqfm_create_rebellion_effect = {
 					tag = ION
 					origin = this
 					state = s:STATE_IONIAN_ISLANDS.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:ION = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:ION
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:ION
+						type = dominion
+					}
 				}
 			}
 			s:STATE_ATTICA = {
@@ -824,13 +857,16 @@ eqfm_create_rebellion_effect = {
 					tag = ATHE
 					origin = this
 					state = s:STATE_ATTICA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:ATHE = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:ATHE
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:ATHE
+						type = dominion
+					}
 				}
 			}
 			s:STATE_THESSALIA = {
@@ -838,13 +874,16 @@ eqfm_create_rebellion_effect = {
 					tag = EPI
 					origin = this
 					state = s:STATE_THESSALIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:EPI = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:EPI
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:EPI
+						type = dominion
+					}
 				}
 			}
 			s:STATE_MACEDONIA = {
@@ -852,13 +891,16 @@ eqfm_create_rebellion_effect = {
 					tag = MAC
 					origin = this
 					state = s:STATE_MACEDONIA.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:MAC = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:MAC
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:MAC
+						type = dominion
+					}
 				}
 			}
 			s:STATE_CRETE = {
@@ -866,13 +908,16 @@ eqfm_create_rebellion_effect = {
 					tag = CRE
 					origin = this
 					state = s:STATE_CRETE.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:CRE = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:CRE
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:CRE
+						type = dominion
+					}
 				}
 			}
 			s:STATE_WEST_AEGEAN_ISLANDS = {
@@ -880,24 +925,48 @@ eqfm_create_rebellion_effect = {
 					tag = NAXO
 					origin = this
 					state = s:STATE_WEST_AEGEAN_ISLANDS.region_state:TUR
+					on_created = {
+						set_variable = eqfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
 				}
-				c:NAXO = {
-					save_scope_as = eqfm_rebellion_scope
-				}
-				create_diplomatic_pact = {
-					country = c:NAXO
-					type = dominion
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:NAXO
+						type = dominion
+					}
 				}
 			}
 		}
 	}
-	scope:eqfm_rebellion_scope = {
-		set_variable = eqfm_rebellion_tag_tracker
+	random_country = {
+		limit = {
+			has_variable = eqfm_rebellion_tag_tracker
+		}
+		save_scope_as = eqfm_rebellion_scope
 	}
 	trigger_event = {
 		id = eqfm.025 # Balkan Country Rebellion
 		days = 1 # Let It Cook
 	}
+}
+
+eqfm_set_rebellion_laws = {
+	activate_law = law_type:law_parliamentary_republic
+	activate_law = law_type:law_state_religion
+	activate_law = law_type:law_census_voting
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_no_schools
+	activate_law = law_type:law_no_police
+	activate_law = law_type:law_land_based_taxation
+	activate_law = law_type:law_national_supremacy
+	activate_law = law_type:law_traditionalism
+	activate_law = law_type:law_mercantilism
+	activate_law = law_type:law_no_workers_rights
+	activate_law = law_type:law_censorship
+	activate_law = law_type:law_professional_army
+	activate_law = law_type:law_migration_controls
+	activate_law = law_type:law_tenant_farmers
 }
 
 eqfm_secession_start_effect = {

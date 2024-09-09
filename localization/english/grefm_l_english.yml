@@ -7,6 +7,7 @@
  je_group_grefm_nationalism: "Greek Nationalism"
  je_group_grefm_empire: "The Revenge of the Greeks"
  je_group_grefm_ambition: "Greek Imperial Ambitions"
+ je_group_grefm_heptanese: "Ionian Islands Flavor"
  
  je_grefm_regency_council: "The Regency Council"
  je_grefm_regency_council_reason: "King [ROOT.GetCountry.GetRuler.GetFullName] was still a minor when the Great Powers agreed that he was a satisfactory candidate to rule the reconstituted Greek state. While the young monarch completed his education and began aclimating to his future position, day-to-day administration was delegated to a three-man regency council staffed and funded primarily by Bavarian aristocrats. Following the advice of #yellow King Ludwig I of Bavaria#!, the regents have balked at introducing constitutional governance to the young nation.\n\nAs [ROOT.GetCountry.GetRuler.GetFirstName] prepares to ascend to the throne in his own right, the prominent regent, [GetInterestGroupVariant('ig_landowners',GetPlayer).GetLeader.GetFullName] has centralized the power of the state around himself in a ploy to install himself and his descendants as the rulers of [ROOT.GetCountry.GetName]. Since taking control of the regency, he has vicously played the fledgling political parties and his fellow ministers against each other, paralyzing all state functions."
@@ -14,9 +15,9 @@
  je_grefm_regency_council_complete_tt: "Triggers the Event #white #bold Discharging the Regency Council#!#!"
  
  je_grefm_bavarocracy_main: "The Bavarocracy"
- je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support.\nThis is expected to change by #bold #variable [ROOT.GetVariable('grefm_bavarocracy_progress_var').GetValue|+=]#!#! next month from #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_sources several factors#!."
+ je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.\n\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! support.\nThis is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_breakdown [Country.MakeScope.ScriptValue('grefm_bavarocracy_progress_value')|+=]#! next month."
  je_grefm_bavarocracy_main_status: "Guide the people of [ROOT.GetCountry.GetName] into Liberty or Autocracy."
- je_grefm_bavarocracy_main_sources: "Current progress change is due to:\n•[GetPlayer.MakeScope.Var('grefm_ruler_popularity_var').GetValue|+=] from the King's popularity.[Country.GetCustom('grefm_bavarocracy_constitution_type')][Country.GetCustom('grefm_bavarocracy_land_reform_type')][Country.GetCustom('grefm_bavarocracy_brigandage_type')][Country.GetCustom('grefm_bavarocracy_civic_tradition_type')][Country.GetCustom('grefm_bavarocracy_bavarian_auxiliaries_type')][Country.GetCustom('grefm_bavarocracy_heir_faith_type')][Country.GetCustom('grefm_bavarocracy_nikitas_released_type')][Country.GetCustom('grefm_bavarocracy_royal_palace_type')]"
+ je_grefm_bavarocracy_main_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_bavarocracy_progress_value')]"
  je_grefm_bavarocracy_main_complete_tt: "Triggers the Event #white #bold The October Revolution#!#!"
  je_grefm_greek_constitution: "Bavarocracy: Promulgate Constitutional Law"
  je_grefm_greek_constitution_reason: "When the regency council took custody of the nation for the young King Otto, promises were made to produce a constitution that would limit the power of the King and provide good governance to the people. However, since taking the throne, the King has retained power in his court and has refused to call any form of national assembly. Politicians and citizens alike demand the King make good on his word."
@@ -70,6 +71,7 @@
  
  je_grefm_megali_idea: "The Megali Idea"
  je_grefm_megali_idea_reason: "The Greek World once stretched from the hills of the Balkans to the shores of the Levantine Sea. Across the Mediterranean, Greek peoples call for union with the Greek state. We will see the Greek realm restored."
+ je_grefm_megali_idea_complete_tt: "We will have the option to form #bold Byzantium#!."
  je_grefm_greater_greece: "Greater Greece"
  je_grefm_greater_greece_reason: "The Megali Idea has been brought to fruition, but only in its most basic form. Several Greek communities still lie beyond our borders. We have an imperative to see to it that our borders grow until every Greek may find shelter within the Greek state."
  je_grefm_grecoturkism: "Greco-Turkism"
@@ -80,6 +82,7 @@
  je_grefm_greek_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity."
  je_grefm_national_language: "A National Language"
  je_grefm_national_language_reason: "Separated by time, distance, and empires, the greater Greek populations have each diverged from the Greek languages that were spoken during the pre-Ottoman times. Scholars today have been engaged in a deep argument whether the Turkic intrusions into the Greek language, or any deviation from Koine Greek, should be tolerated at all."
+ je_grefm_national_language_complete_tt: "Support for any dialect is over #bold 100#!"
  je_grefm_the_womens_journal: "The Women's Journal"
  je_grefm_the_womens_journal_reason: "Spearheaded by Kalliroi Parren and backed by the greater Feminism movement, women across the Greek state yearn for better treatment. Historically seen as little more than housewives, women seek their own role in advancing the nationalist cause of the Greek people. The publication, #italic The Women's Journal#!, has acted as a herald for this movement putting forth the ideas that women should own their own property and that children should be taken off the factory floors."
  
@@ -106,22 +109,80 @@
  je_grefm_the_graveyard_of_empires: "The Graveyard of Empires"
  je_grefm_the_graveyard_of_empires_reason: "Just over two millennia ago, Alexander the Great's armies thundered across Eurasia, bringing lands past the Hindu Kush into the Greek sphere. For centuries after, Greek kingdoms rose and fell, ensuring Greek influence as far as the Indus River. Even later, the followers of Nestorius brought their heretical teachings to these lands. Now, the Empire will see these lands prosper under the Greek state."
  
- # custom localization
- custom_grefm_bavarocracy_constitution: "\n•#red #bold -1.00#!#! from not #bold Enacting a Constitution#!."
- custom_grefm_bavarocracy_land_reform: "\n•#red #bold -1.00#!#! from not #bold Reforming Land Policy#!."
- custom_grefm_bavarocracy_brigandage: "\n•#red #bold -1.00#!#! from not #bold Controlling Brigandage#!."
- custom_grefm_bavarocracy_civic_tradition: "\n•#red #bold -1.00#!#! from not #bold Establishing a Civil Service#!."
- custom_grefm_bavarocracy_bavarian_auxiliaries: "\n•#red #bold -1.00#!#! from #bold Hosting the Bavarian Auxiliaries#!."
- custom_grefm_bavarocracy_heir_faith: "\n•#red #bold -1.00#!#! from not having #bold Heir of the [GetReligion('orthodox').GetName] Faith#!."
- custom_grefm_bavarocracy_nikitas_released: "\n•#green #bold +1.00#!#! from #bold Releasing Nikitaras#!."
- custom_grefm_bavarocracy_royal_palace: "\n•#green #bold +1.00#!#! from #bold Building a Royal Residence#!."
+ je_grefm_black_sea: "Imperial Ambition: Éfxinos Póndos"
+ je_grefm_black_sea_reason: "The Black Sea was once entirely within the Greek sphere. We will bring relief to our people that still call its shores home."
+ je_grefm_magna_graecia: "Imperial Ambition: Megálē Hellás"
+ je_grefm_magna_graecia_reason: "Once one of the heartlands of Greek culture, southern Italy saw the mixing of Greek and Roman culture throughout antiquity."
+ je_grefm_alexandria_oxus: "The Foundings: Alexandria on the Oxus"
+ je_grefm_alexandria_oxus_reason: "Considered by contemporaries as the "Fathest Alexandria," Alexandria on the Oxus represented the furthest intrusion of Greek influence towards the realm of Chinese influence."
+ je_grefm_alexandria_merv: "The Foundings: Alexandria in Margiana"
+ je_grefm_alexandria_merv_reason: "Founded as an oasis stop, the city of Merv has a long history stretching beyond written records. Renamed after Alexander for a time, this represented the northernmost extent of Greek influence into Central Asia."
+ je_grefm_alexandria_indus: "The Foundings: Alexandria on the Indus"
+ je_grefm_alexandria_indus_reason: "A ruined citadel mound at the junction of the Indus and Acesines Rivers is the last reminder of a colony town founded by Alexander for the purpose of settling Thracian veterans. While little remains of the city itself, the ruin is a testament to the farthest extension of Greek influence into India."
+ je_grefm_alexandria_susiana: "The Foundings: Alexandria in Susiana"
+ je_grefm_alexandria_susiana_reason: "The relative backwater of city of Shush does little to indicate its long history. Once known as Susiana, the city once contended for supremacy over the lower Zagros mountains during the Bronze Age. After his conquest of the Achaemenid Empire, Alexander hosted a series of mass weddings between Macedonian and Persian nobles to secure his claim to the throne of Persia."
  
+ je_grefm_ion_xenocracy: "The Xenocracy"
+ je_grefm_ion_xenocracy_reason: "The [ROOT.GetCountry.GetName] has seen countless overlords come and go, from their initial conquest by the Romans two millenia ago, the Heptanese have changes hands several times, although they avoided conquest by the Ottoman Empire. Since 1815, the island have been administered as a protectorate of the British Empire. Under the ausipices of High Commissioner [ROOT.GetCountry.GetRuler.GetFullName], Philhellenes across the Empire have sought to model the islands into an ideal colony, in line with British successes across their realm."
+ je_grefm_ion_venetian_legacy: "A Venetian Legacy"
+ je_grefm_ion_venetian_legacy_reason: "The Heptanese came under Venetian rule in the 13th century after they were taken from the ailing Byzantine Empire. The Venetians brought with them medieval farming practices which widely replaced ancient farming practices. Since then, agriculture has remained unchanged across the islands, with output having declined following successive conflicts between the [Concept('concept_great_power', '$concept_great_powers$')] and disruptions from the #bold Greek War of Independence#!. With renewed attention from Philhellenes in London, local leaders have begun to push for a coordinated reform of farming practices across the islands."
+ je_grefm_ion_poverty: "Poorhouses and Sanitation"
+ je_grefm_ion_poverty_reason: "In the wake of the #bold Greek War of Independence#!, the [ROOT.GetCountry.GetName] have been inundated with refugees from the mainland. Lacking both industry and agriculture, the state has struggled to meet the needs of the poor. In keeping with his mandate, the High Commissioner has formed a committee with the express goal of providing outreach programs to aid the destitute."
+ je_grefm_ion_jewry: "The Jewry of the Ionian Islands"
+ je_grefm_ion_jewry_reason: "The [GetCulture('shepardic').GetName] Jews have a long history on the [ROOT.GetCountry.GetName]. From the first arrivals during the Second Temple era and Roman rule, to migrations from explusions at the hands of Catholicism, the #bold Heptanese#! host a vibrant [GetReligion('jewish').GetName] community.\n\nWhile their rights have varied over the course of Byzantine, Venetian, and French rule, the Jewry have been accustomed to co-existence with the [GetCulture('greek').GetName] [GetReligion('orthodox').GetName] community. However, their position has taken a sudden turn with the passing of the Islands to the [ROOT.GetCountry.GetPowerBloc.GetName]. With the majority of Jews exluded from the state, many have begun to protest their unwarranted second-class status.\n\nCurrently, #bold #green [GetPlayer.MakeScope.Var('grefm_samos_loyalist_jews_var').GetValue]%#!#! of our #yellow Sephardic#! [concept_pop]#o s#! are [concept_loyalist] while #bold #red [GetPlayer.MakeScope.Var('grefm_samos_radical_jews_var').GetValue]%#!#! of our #yellow Sephardic#! [concept_pop]#o s#! are [concept_radical]."
+ je_grefm_ion_jewry_complete_tt1: "The total [concept_timed_modifier] for #yellow Sephardic#! [concept_pop]#o s#! [concept_sol] is #bold #green +4#! or greater#!."
+ je_grefm_ion_jewry_complete_tt2: "Over #bold #green 75%#!#! of our #yellow Sephardic#! [concept_pop]#o s#! are [Concept('concept_loyalist','$concept_loyal$')]."
+ je_grefm_ion_jewry_fail_tt: "Over #bold #red 75%#!#! of our #yellow Sephardic#! [concept_pop]#o s#! are [concept_radical]."
+ 
+ je_grefm_samos_main: "Samos in Servitude"
+ je_grefm_samos_main_reason: "When #yellow Greece#! took up arms in the #bold Greek War of Independence#!, they were joined by rebellions on the many smaller islands of the Aegean. Among them was the [ROOT.GetCountry.GetName], which defied the Ottoman state by refusing to submit to terms that would have seen them reintegrated into the Empire. Their defiance gained recognition from the [Concept('concept_great_power', '$concept_great_powers$')], who intervened to secure the island's autonomy from the #bold Sublime Porte#!.\n\nPresently, the islands are nominally ruled by a #italic bey#! appointed by the Sultan, although the government of the island has its independence in all but name. With their union with #yellow Greece#! denied, the islanders are hopeful for a time when their cruel separation from their Greek cousins will come to an end.\n\n[Country.GetCustom('grefm_samos_support_type')]"
+ je_grefm_samos_main_status_1: "Lord [ROOT.GetCountry.GetRuler.GetFirstName] rules with an iron fist."
+ je_grefm_samos_main_status_2: "Lord [ROOT.GetCountry.GetRuler.GetFirstName] has #bold #greece [GetPlayer.MakeScope.Var('grefm_samos_support_var').GetValue]#!#! support."
+ je_grefm_samos_main_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_samos_support_value')]"
+ je_grefm_samos_organic_law: "The Organic Law of Samos"
+ je_grefm_samos_organic_law_reason: "The socioeconomic state of [ROOT.GetCountry.GetName] reflects its centuries of domination by the Ottoman state. In their defense of the small island, the [Concept('concept_great_power', '$concept_great_powers$')] secured the promulgation of an Organic Charter from the Sultan in exchange for the submission of the island to the #bold Sublime Porte#!. However, the implementation of these administrative functions has been left to the islanders themselves."
+ 
+ # custom localization
  custom_grefm_epirus_revolt: "\n•#variable [GetGlobalVariable('grefm_epirus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Epirus#! are radical."
  custom_grefm_macedonia_revolt: "\n•#variable [GetGlobalVariable('grefm_macedonia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Coastal Macedonia#! are radical."
  custom_grefm_makedonija_revolt: "\n•#variable [GetGlobalVariable('grefm_skopia_radicals_var').GetValue|-=]%#! of Greeks in #yellow Northern Macedonia#! are radical."
  custom_grefm_smyrna_revolt: "\n•#variable [GetGlobalVariable('grefm_smyrna_radicals_var').GetValue|-=]%#! of Greeks in #yellow Smyrna#! are radical."
  custom_grefm_cyprus_revolt: "\n•#variable [GetGlobalVariable('grefm_cyprus_radicals_var').GetValue|-=]%#! of Greeks in #yellow Cyprus#! are radical."
  custom_grefm_crete_momentum: "\n\nMeanwhile, the Cretan Greeks have been resisting non-Orthodox rule ever since the island was captured from the Byzantine Empire in the 1200s. Currently, the revolt has #blue #bold [GetGlobalVariable('grefm_crete_revolt_var').GetValue]#!#! momentum. This is expected to change by #bold #tooltippable #tooltip:[GetRawTextTooltipTag('grefm_crete_progress_tt')] [GetGlobalVariable('grefm_crete_progress_var').GetValue]#!#!#! next month. The next revolt will occur when momentum reaches #bold 200#!." 
+ 
+ custom_grefm_samos_progress: "The Prince has #bold #greece [GetPlayer.MakeScope.Var('grefm_samos_support_var').GetValue]#!#! support. This is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_samos_main_breakdown [Country.MakeScope.ScriptValue('grefm_samos_support_value')|+=]#!  next month."
+ 
+ # script value breakdowns
+ grefm_value_from_ruler_popularity: "From our [concept_ruler]'s [concept_popularity]"
+ grefm_value_from_land_reform: "From not #bold Reforming Our Land Policy#!"
+ grefm_value_from_brigandage_completed: "From not #bold Controlling the Brigands#!"
+ grefm_value_from_civic_tradition: "From lacking a #bold Civic Tradition#!"
+ grefm_value_from_bavarian_auxiliaries: "From #bold Hosting the Bavarian Auxiliaries#!"
+ grefm_value_from_lacking_heir: "From #bold Lacking an Heir#!"
+ grefm_value_from_turkeater_unleashed: "From #bold Releasing #greece Nikitaras#!#!"
+ grefm_value_from_royal_palace: "From #bold Building the Royal Palace#!"
+ 
+ grefm_samos_from_support: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #green #bold positive#!#! [concept_approval]."
+ grefm_samos_from_opposition: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #red #bold negative#!#! [concept_approval]."
+ 
+ # scripted progressbars
+ grefm_dimotiki_progress_bar: "Dimotiki Support"
+ grefm_dimotiki_progress_bar_desc: "Dimotiki"
+ grefm_katharevousa_progress_bar: "Katharevousa Support"
+ grefm_katharevousa_progress_bar_desc: "Katharevousa"
+ grefm_khoine_progress_bar: "Khoine Support"
+ grefm_khoine_progress_bar_desc: "Khoine"
+ 
+ # scripted progressbar breakdowns
+ grefm_from_literacy: "From the [concept_literacy] of our [concept_pop]#o s#!"
+ grefm_from_rural_folk_clout: "From the [concept_clout] of the #yellow Rural Folk#!"
+ grefm_from_intelligenstia_clout: "From the [concept_clout] of the #yellow Intelligenstia#!"
+ grefm_from_universities: "From our #bold University levels#!"
+ grefm_from_landowners_clout: "From the [concept_clout] of the #yellow Landowners#!."
+ grefm_from_devout_clout: "From the [concept_clout] of the #yellow Devout#!"
+ grefm_from_theocracy: "From having #yellow Theocracy#! enacted"
+ grefm_from_hostile_religious_policy: "From our #bold Hostile Religious Policy#!"
+ grefm_from_language_friction: "From #bold Friction#! between dialects."
  
  # decisions
  grefm_corinth_canal_survey_decision: "Survey the Isthmus of Corinth"
@@ -177,6 +238,7 @@
  grefm_crete_provoke_tt1: "The #bold #greece Cretan Revolt#!#! has #bold 150 or more#! momentum."
  grefm_crete_provoke_tt2: "The #yellow Cretan Greeks#! will take up arms."
  je_grefm_greek_separatism_crete_tt: "The #greece Cretan Revolt#! has #bold #tooltippable #tooltip:[GetRawTextTooltipTag('grefm_crete_progress_tt')] [GetGlobalVariable('grefm_crete_revolt_var').GetValue]/200#!#!#! momentum."
+ grefm_greek_enosis_tt: "#bold #red This will change your played country to#! #greece Greece#! #red ! You will adopt all Greek laws and institutions!#!#!."
  
  grefm_crete_momentum_plus_20: "#red 20#! momentum will be added to the Cretan Revolt."
  grefm_crete_momentum_plus_10: "#red 10#! momentum will be added to the Cretan Revolt."
@@ -193,6 +255,7 @@
  grefm_weaksauce_tt: "#red This option will abandon the#! #greece Megali Idea#!!"
  grefm_tzatzikisauce_tt: "#greece Conversely, you can explore your future as Greece#!."
  grefm_turkish_homelands_tt: "All other Greek homeland states will lose their Turkish homeland status."
+ je_grefm_stefanos_tt: "#yellow Stefanos Bogoridi#! is no longer #bold Prince of Samos#!."
  
  grefm_future_update_tt: "This content will be added in the next update."
  
@@ -280,6 +343,9 @@
  grefm_crete_cease_button_desc: "Ceasing support for Crete will free up our resources for other endeavours."
  grefm_crete_provoke_button: "Provoke Cretan Revolt"
  grefm_crete_provoke_button_desc: "Tensions in Crete have been steadily building over the years. Cretans beg for even the slightest sign of support from the Greek state to take up arms."
+ grefm_greek_enosis_button: "Seek Union with the Greek State"
+ grefm_greek_enosis_button_desc: "The time was come for us to reunite with our brothers in the Greek state. All that remains is to complete the paperwork."
+ 
  
  # country_flavor_text
  EPI_FLAVOR_TEXT: "Epirus."
@@ -300,9 +366,16 @@
  THRA_ADJ: "Thracian"
  SMYR: "Smyrna"
  SMYR_ADJ: "Smyrnite" # this is drawn from Smyrna, Georgia, USA. Secondary sources from Greece just use... Smyrna...
+ SAMO: "Samos"
+ SAMO_ADJ: "Samian"
  
  # dynamic country names
  dyn_c_greek_peoples_republic: "Greek People's Republic"
+ 
+ # interest group names
+ 
+ grefm_ig_samos_landowners: "Kallikanzaroi"
+ grefm_ig_samos_rural_folk: "Karmanioloi"
  
  # modifiers
  modifier_grefm_bavarocracy: "The Bavarocracy"
@@ -376,12 +449,12 @@
  modifier_grefm_unearthed_tomb_desc: "Discovered Grave Site"
  modifier_grefm_discovered_ancient_palace: "Discovered Mycenaean Palace"
  modifier_grefm_discovered_ancient_palace_desc: "Discovered Mycenaean Palace"
- modifier_grefm_embraced_demotic_greek: "Embraced Demotic Greek"
- modifier_grefm_embraced_demotic_greek_desc: "Embraced Demotic Greek"
+ modifier_grefm_embraced_demotic_greek: "Embraced Dimotikí"
+ modifier_grefm_embraced_demotic_greek_desc: "Embraced Dimotikí"
  modifier_grefm_enforced_katharevousa: "Enforced Katharevousa"
  modifier_grefm_enforced_katharevousa_desc: "Enforced Katharevousa"
- modifier_grefm_enshrined_khoine: "Enshrined Khoine Greek"
- modifier_grefm_enshrined_khoine_desc: "Enshrined Khoine Greek"
+ modifier_grefm_enshrined_khoine: "Enshrined Koine Greek"
+ modifier_grefm_enshrined_khoine_desc: "Enshrined Koine Greek"
  modifier_grefm_greek_feminism: "Greek Feminism"
  modifier_grefm_greek_feminism_desc: "Greek Feminism"
  modifier_grefm_nationalist_agitation: "Nationalist Agitation"
@@ -488,6 +561,55 @@
  modifier_grefm_bad_reconstruction: "Questionable Reconstruction"
  modifier_grefm_bad_reconstruction_desc: "Questionable Reconstruction"
  
+ modifier_grefm_bosporan_legacy: "Bosporan Legacy"
+ modifier_grefm_bosporan_legacy_desc: "Bosporan Legacy"
+ modifier_grefm_belisarian_legacy: "Belisarian Legacy"
+ modifier_grefm_belisarian_legacy_desc: "Belisarian Legacy"
+ modifier_grefm_alexandrian_legacy: "Alexandrian Legacy"
+ modifier_grefm_alexandrian_legacy_desc: "Alexandrian Legacy"
+ 
+ modifier_grefm_xenocracy: "Xenocracy"
+ modifier_grefm_xenocracy_desc: "Xenocracy"
+ modifier_grefm_hepantese_administration: "Heptanese Administration"
+ modifier_grefm_hepantese_administration_desc: "Heptanese Administration"
+ modifier_grefm_venetian_legacy: "Venetian Legacy"
+ modifier_grefm_venetian_legacy_desc: "Venetian Legacy"
+ modifier_grefm_ionian_jewel: "Ionian Jewel"
+ modifier_grefm_ionian_jewel_desc: "Ionian Jewel"
+ modifier_grefm_modernized_agriculture: "Modernized Agriculture"
+ modifier_grefm_modernized_agriculture_desc: "Modernized Agriculture"
+ modifier_grefm_civilized_state: "Civilized State"
+ modifier_grefm_civilized_state_desc: "Civilized State"
+ modifier_grefm_hepantese_union: "Heptanese Union"
+ modifier_grefm_hepantese_union_desc: "Heptanese Union"
+ modifier_grefm_jewish_exclusion: "Jewish Exclusion"
+ modifier_grefm_jewish_exclusion_desc: "Jewish Exclusion"
+ modifier_grefm_jewish_legal_concessions: "Jewish Legal Concessions"
+ modifier_grefm_jewish_legal_concessions_desc: "Jewish Legal Concessions"
+ modifier_grefm_denied_jewish_rights: "Denied Rights to the Jewry"
+ modifier_grefm_denied_jewish_rights_desc: "Denied Rights to the Jewry"
+ modifier_grefm_chronica_israelitika: "Jewish Printing House"
+ modifier_grefm_chronica_israelitika_desc: "Jewish Printing House"
+ modifier_grefm_closed_presshouse: "Shuttered Printing House"
+ modifier_grefm_closed_presshouse_desc: "Shuttered Printing House"
+ modifier_grefm_suppressed_blood_libel: "Suppressed Blood Libel"
+ modifier_grefm_suppressed_blood_libel_desc: "Suppressed Blood Libel"
+ modifier_grefm_blood_libel: "Blood Libel"
+ modifier_grefm_blood_libel_desc: "Blood Libel"
+ modifier_grefm_jewish_neglect: "Jewish Neglect"
+ modifier_grefm_jewish_neglect_desc: "Jewish Neglect"
+ modifier_grefm_jewish_integration: "Jewish Integration"
+ modifier_grefm_jewish_integration_desc: "Jewish Integration"
+ 
+ modifier_grefm_submission: "Submission to the Sultan"
+ modifier_grefm_submission_desc: "Submission to the Sultan"
+ modifier_grefm_hegemonic_ruler: "Hegemonic Ruler"
+ modifier_grefm_hegemonic_ruler_desc: "Hegemonic Ruler"
+ modifier_grefm_organic_charter: "Organic Charter"
+ modifier_grefm_organic_charter_desc: "Organic Charter"
+ modifier_grefm_samian_union: "Samian Union"
+ modifier_grefm_samian_union_desc: "Samian Union"
+ 
  # names
  Glucksburg: "Glücksburg"
  Yannis: "Yannis"
@@ -506,6 +628,19 @@
  Kanellos: "Kanellos"
  Oldenburg: "Oldenburg"
  von_Rudhart: "von Rudhart"
+ Kallimachis: "Kallimachis"
+ Miltiadis: "Miltiadis"
+ Aristarchis: "Aristarchis"
+ Adosidis: "Adosidis"
+ Photiadis: "Photiadis"
+ Karatheodori: "Karatheodori"
+ Berovich: "Berovich"
+ Vagianis: "Vagianis"
+ Michail: "Michail"
+ Mavrogenis: "Mavrogenis"
+ Vithynos: "Vithynos"
+ Karatheodoris: "Karatheodoris"
+ Kopasis: "Kopasis"
  
  # traits
  trait_grefm_bavarocrat: "Bavarocrat"
@@ -518,8 +653,8 @@
  # ideologies
  ideology_bavarocrat: "Bavarocrat"
  ideology_bavarocrat_desc: "#lore Empowered by their favor with the Wittelsbach court, this character seeks to retain their influence over the state through absolutist Monarchism.#!"
- ideology_grefm_constiutionalist: "Constitutionalist"
- ideology_grefm_constiutionalist_desc: "#lore Inspired by Western thought, this character aims to bring Constitutional rule to the nation."
+ ideology_grefm_constitutionalist: "Constitutionalist"
+ ideology_grefm_constitutionalist_desc: "#lore Inspired by Western thought, this character aims to bring Constitutional rule to the nation."
  
  ideology_venizelos: "Venizelist"
  ideology_venizelos_desc: "#lore Driven by the Cretan struggle, this character strives to reform Greek society for an industrial future and to bring the dream of the Megali Idea into reality.#!"
@@ -549,20 +684,6 @@
  concept_eastern_question_desc: "The Eastern Question is the unstable political situation caused by the decline of the Ottoman Empire. As the empire slowly crumbles from within, the [Concept('concept_great_power','$concept_great_powers$')] struggle to find strategic and political solutions to expand their influence without disrupting the [Concept('concept_concert_of_europe','$concept_concert_of_europe$')]."
  concept_concert_of_europe: "Concert of Europe"
  concept_concert_of_europe_desc: "The Concert of Europe is the informal poltical structure and balance of power that gives each country a [Concept('concept_rank','$concept_rank$')], provides each [Concept('concept_great_power','$concept_great_power$')] with a sphere of influence, and has been a major step towards avoiding the conditions that led to the French Revolutionary War and the Napoleonic Wars."
- 
- # objectives
- je_grefm_intro: "Welcome to the Greece & Byzantium Flavor Mod!"
- je_grefm_intro_reason: "This Journal Entry will close itself out, just let it figure itself out."
- grefm_objective: "Greece & Byzantium"
- grefm_objective_desc: "Develop the fledgling nation of #o Greece#! from its tumultuous transition into independence. Greece faces many challenges between the Ottoman Empire and domineering Great Powers, but overcoming them will allow you to take Greece onto the world stage or even restore the #o Byzantine Empire#!!\n\nMost of this content is centered around Greece's struggle with #bold Monarchism#! and the #greece Megali Idea#!, but should you continue into forming #o Byzantium#!, you can take the paths of #purple Restoring the Roman Empire#!, #green Crusading for formerly Hellenic lands#!, or #yellow Dominating the Orthodox peoples#!."
- grefm_objective_name_GRE: "#v $GRE$#!"
- grefm_objective_desc_GRE: "#lore The #bold Fall of Constantinople#! ended over 3000 years of Greek dominance over the near East. Greece today is newly independent, but backwards and unstable. Centuries of exploitation and stagnation under Ottoman rule have left Greece with an ineffective government and a largely rural populace. Will you take an autocratic route, or will you listen to the people that cry out for liberalism? Will you take up the banner of irredentism and bring freedom and prosperity to the Greek peoples across the Aegean Sea?"
- grefm_objective_idle_header: ""
- grefm_objective_idle_hint: ""
- 
- # dlc
- dlc_grefm: "Greece, Byzantium, & the Balkans Flavor"
- dlc_grefm_desc: "Develop the fledgling nations of the Balkans from their tumultuous transitions into independence. Each faces many challenges between the Ottoman Empire and domineering Great Powers, but overcoming them will allow you to take them onto the world stage or even restore the #o Byzantine Empire#!! \n\n (#italic #greece If you see this, the mod is active#!#!.)"
  
  # archaeology localization
  je_grefm_archaeology: "Greek Cultural Roots"
@@ -610,10 +731,4 @@
  grefm_mega_palation_button_desc: "The Imperial Palace, the Méga Palátion, lies in ruin, yet it may be possible to restore large portions of it."
  grefm_hippodrome_button: "Survey the Hippodrome"
  grefm_hippodrome_button_desc: "The Hippodrome served as a site for popular entertainment for centuries. While ruined, it's restoration is within the realm of possibility."
- 
- je_grefm_archaeology_mgr: "Greek Cultural Roots"
- je_grefm_archaeology_mgr_reason: "Ruins of pre-historic and ancient Greek civilizations lie scattered across the Balkans and Anatolia. As Greeks, it falls to us to reclaim these relics of our heritage. #blue Use the#! #red Mörgenrote#! #blue interface to conduct excavations.#!\n\nCurrently, you have #variable [GetPlayer.MakeScope.Var('lepsius_local_artifact_minor').GetValue]#! #o Local Artifacts#! and #variable [GetPlayer.MakeScope.Var('lepsius_aegean_artifact_minor').GetValue]#! #o Aegean Artifacts#!."
- je_grefm_archeaology_mgr_tt1: "We have established an #o Archaeological Team#!."
- je_grefm_archeaology_mgr_tt2: "Collected #variable 50#! #o Local Artifacts#!."
- je_grefm_archeaology_mgr_tt3: "Collected #variable 10#! #o Aegean Artifacts#!."
  

@@ -314,6 +314,9 @@ balkfm_save_ali_pasha_scopes = {
 	}
 }
 
+balkfm_clean_up_border_variables_effect = {
+}
+
 ## SERBIA EFFECTS ##
 balkfm_set_monarchism_variables = {
 	set_variable = {
@@ -616,6 +619,7 @@ balkfm_create_bulgaria = { # creates BUL, used for the Great Eastern Crisis
 			origin = this
 			state = s:STATE_BULGARIA.region_state:TUR
 			on_created = {
+				balkfm_set_bulgarian_laws = yes
 			}
 		}
 	}
@@ -635,12 +639,9 @@ balkfm_create_bulgaria = { # creates BUL, used for the Great Eastern Crisis
 			}
 		}
 	}
-	c:BUL = {
-		balkfm_set_bulgarian_laws = yes
-	}
 }
 
-balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testing purposes in balkfm.905.
+balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testing purposes in balkfm.005.
 	create_country = {
 		tag = BUL
 		origin = this
@@ -702,201 +703,248 @@ balkfm_set_bulgarian_laws = {
 	activate_law = law_type:law_slavery_banned
 }
 
-balkfm_create_bulgarian_characters = {
-	# all ages are based on age at in 1879
-	heir = {
-		save_scope_as = balkfm_bul_heir_scope
-	}
-	if = {
-		limit = {
-			exists = scope:balkfm_bul_heir_scope
-		}
-		scope:balkfm_bul_heir_scope = {
-			kill_character = yes # just some housekeeping
-		}
-	}
+balkfm_set_up_rumelia = {
 	create_character = {
-		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
-		first_name = Alexander
-		last_name = Battenburg
-		historical = yes
-		age = 22
-		dna = mr_bul_battenberg_alexander
-		culture = cu:bulgarian
-		religion = rel:protestant # was granted an exception to the constitution
-		ig_leader = yes
-		interest_group = ig_landowners
+		template = template_balkfm_bogoridi_alexander
 		ruler = yes
-		ideology = ideology_royalist
-		traits = {
-			basic_political_operator
-			romantic
-			arrogant
-		}
-		on_created = {
-			set_variable = balkfm_is_alex
-		}
 	}
 	create_character = {
-		# Kliment Turnovski, prominent clergyman, sat at the first Grand National Assembly and was a loud supporter of Russia
-		first_name = Kliment
-		last_name = Turnovski
-		historical = yes
-		age = 38
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_devout
-		ideology = ideology_traditionalist 
-		traits = {
-			pious
-			arrogant
-		}
+		template = template_balkfm_stranski_georgi
+	}
+	activate_law = law_type:law_monarchy
+	activate_law = law_type:law_landed_voting
+	activate_law = law_type:law_cultural_exclusion
+	activate_law = law_type:law_state_religion
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_professional_army
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_mercantilism
+	activate_law = law_type:law_tenant_farmers
+	activate_law = law_type:law_no_police
+	activate_law = law_type:law_right_of_assembly
+	activate_law = law_type:law_slavery_banned
+}
+
+balkfm_create_battenburg_monarchy = {
+	heir ?= {
+		kill_character = yes # just some housekeeping
 	}
 	create_character = {
-		# Dragan Tsankov, prominent liberal leader, 3rd Prime Minister
-		first_name = Dragan
-		last_name = Tsankov
-		historical = yes
-		age = 50
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_intelligentsia
-		ideology = ideology_social_democrat
-		traits = {
-			basic_political_operator
-			cautious
-			tactful
-		}
+		template = template_balkfm_battenburg_alexander
+		ruler = yes
+	}
+}
+
+balkfm_create_bulgarian_characters = {
+	create_character = {
+		template = template_balkfm_turnovski_kliment
 	}
 	create_character = {
-		# Konstantin Kesyakov, one of the highest ranking native Bulgarians in the early Bulgarian army; fled after the 1886 coup
-		first_name = Konstantin
-		last_name = Kesyakov
-		historical = yes
-		age = 40
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_armed_forces
-		ideology = ideology_liberal_leader
-		traits = {
-			direct
-			honorable
-		}
+		template = template_balkfm_tsankov_dragan
 	}
 	create_character = {
-		# Yanko Sakazov, one of the founders of the Bulgarian Social Democratic Union
-		first_name = Yanko
-		last_name = Sakazov
-		historical = yes
-		age = 22
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_trade_unions
-		ideology = ideology_liberal_leader
-		traits = {
-			direct
-			honorable
-			basic_political_operator
-		}
+		template = template_balkfm_kesyakov_konstantin
+	}
+	create_character = {
+		template = template_balkfm_sakazov_yanko
 	}
 }
 
 balkfm_create_bulgarian_regency_characters = {
-	# all ages are based on age at in 1886
 	create_character = {
-		# Sava Mutkurov, Bulgarian general, tried to protect Alexander's claim to the throne; welcomed Ferdinand to the throne on his arrival
-		first_name = Sava
-		last_name = Mutkurov
-		historical = yes
-		age = 34
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_armed_forces
-		ideology = ideology_royalist
-		traits = {
-			direct
-			honorable
-		}
+		template = template_balkfm_mutkurov_sava
 	}
 	create_character = {
-		# Petko Karavelov, 4x prime minister and ardent liberal
-		first_name = Petko
-		last_name = Karavelov
-		historical = yes
-		age = 46
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_intelligentsia
-		ideology = ideology_social_democrat
-		traits = {
-			expert_political_operator
-			cautious
-		}
+		template = template_balkfm_karavelov_petko
 	}
 	create_character = {
-		# Stefan Stambolov
-		first_name = Stefan
-		last_name = Stambolov
-		historical = yes
-		age = 40
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		interest_group = ig_rural_folk
-		ideology = ideology_authoritarian
-		traits = {
-			imposing
-			grifter
-			direct
-		}
+		template = template_balkfm_stambolov_stefan
 	}	
 	create_character = {
-		# Evlogi Georgiev, older brother of Hristo Georgiev; funded the University of Sofia
-		first_name = Evlogi
-		last_name = Georgiev
-		historical = yes
-		age = 67
-		culture = cu:bulgarian
-		religion = rel:orthodox
-		ig_leader = yes
-		ideology = ideology_reformer
-		traits = {
-			direct
-			romantic
-		}
+		template = 	template_balkfm_georgiev_evlogi
 	}
 }
 
 balkfm_create_bulgarian_royals = {
-	# all ages are based on age at in 1886
 	create_character = {
-		# Alexander I, elected to rule the Principality of Bulgaria with Russian support
-		first_name = Ferdinand
-		last_name = Sakskoburggotski
-		historical = yes
-		age = 25
-		dna = mr_bul_sachsen_coburg_ferdinand
-		culture = cu:south_german
-		religion = rel:catholic # seriously what was so hard about giving the orthodox an orthodox king smh
-		ig_leader = yes
-		interest_group = ig_landowners
-		ideology = ideology_royalist
-		traits = {
-			basic_political_operator
-			romantic
-			brave
-		}
+		template = template_balkfm_sakskoburggotski_ferdinand
 		on_created = {
-			set_variable = balkfm_is_ferdinand
-			place_character_in_void = 720 # 60 year lease on life
+			place_character_in_void = 12
 		}
 	}
+	create_character = {
+		template = template_balkfm_dadiani_nikoloz
+		on_created = {
+			place_character_in_void = 12
+		}
+	}
+	if = {
+		limit = {
+			c:ERUM ?= {
+				ruler = {
+					NOT = {
+						has_template = template_balkfm_bogoridi_alexander
+					}
+				}
+			}
+		}
+		create_character = {
+			template = template_balkfm_bogoridi_alexander
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+	}
+	create_character = {
+		template = template_balkfm_glucksburg_valdemar
+		on_created = {
+			place_character_in_void = 12
+		}
+	}
+	create_character = {
+		template = template_balkfm_goltz_wilhelm
+		on_created = {
+			place_character_in_void = 12
+		}
+	}
+}
+
+balkfm_remove_stambolovism_variables_effect = {
+	remove_variable = balkfm_stambolovism_var
+	remove_variable = balkfm_battenburg_letter
+	remove_variable = balkfm_military_modernized
+	remove_variable = balkfm_executed_panitsa
+	remove_variable = balkfm_showed_off_regalia
+	
+	remove_variable = balkfm_exiled_panitsa
+	remove_variable = balkfm_put_away_regalia
+}
+
+balkfm_rumelian_ruler_rotation_effect = {
+	if = {
+		limit = {
+			var:balkfm_governor_counter <= 1
+		}
+		create_character = {
+			template = template_balkfm_bogoridi_alexander
+			on_created = {
+				place_character_in_void = 12
+				set_variable = balkfm_rumelian_ruler_var
+			}
+		}
+	}
+	else = {
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_landowners
+			ideology = ideology_royalist
+			traits = {
+				reserved # idk man, this is a dynamic character
+			}
+			on_created = {
+				place_character_in_void = 12
+				set_variable = balkfm_rumelian_ruler_var
+			}
+		}
+	}
+	change_variable = {
+		name = balkfm_governor_counter
+		add = 1
+	}
+}
+
+balkfm_play_silistra_effect = {
+	# This event is used to provide a route for Bulgarian gameplay from game start. The SILI tag is defined in turkfm since it's an Eyalet tag. If this tag is called in Turkfm content it will not use these creation and setup effects.
+	create_country = {
+		tag = SILI
+		origin = c:TUR
+		state = s:STATE_BULGARIA.region_state:TUR
+		state = s:STATE_DOBRUDJA.region_state:TUR
+		on_created = {
+			balkfm_set_up_silistra_effect = yes
+		}
+	}
+	play_as = c:SILI
+}
+
+balkfm_set_up_silistra_effect = {
+#	create_character = {
+#		template = 
+#	}
+	create_character = {
+		template = template_balkfm_miladinov_dimitar
+	}
+	set_variable = {
+		name = balkfm_revivalism_var
+		value = 0
+	}
+	set_variable = {
+		name = eocfm_schism_var # Silistra isn't Orthodox so the on_actions won't trigger this
+		value = 0
+	}
+	trigger_event = {
+		id = balkfm.550 # The Bulgarian Millet
+	}
+	add_journal_entry = {
+		type = je_balkfm_bul_silistra
+	}
+	c:TUR  = {
+		create_diplomatic_pact = {
+			country = c:SILI
+			type = puppet
+		}
+		set_secret_goal = {
+			secret_goal = protect
+			country = c:SILI
+		}
+	}
+}
+
+balkfm_become_bulgaria_effect = {
+	if = {
+		limit = {
+			NOT = {
+				c:BUL ?= this
+			}
+		}
+		change_tag = BUL
+	}
+	hidden_effect = {
+		heir ?= {
+			kill_character = yes # just some housekeeping
+		}
+		create_character = {
+			template = template_balkfm_turnovski_kliment
+		}
+		create_character = {
+			template = template_balkfm_tsankov_dragan
+		}
+		create_character = {
+			template = template_balkfm_kesyakov_konstantin
+		}
+		create_character = {
+			template = template_balkfm_sakazov_yanko
+		}
+	}
+	trigger_event = {
+		id = balkfm.500 # The Golden Lion Awakens
+		popup = yes
+	}
+	remove_variable = balkfm_golden_lion_tickled
+}
+
+balkfm_clean_up_silistra_variables_effect = {
+	remove_variable = balkfm_nis_insurgency_happened
+	remove_variable = balkfm_bulgarian_question_happened
+	remove_variable = balkfm_constantinople_newspaper_published
+	remove_variable = balkfm_golden_lion_tickled
+	remove_variable = balkfm_legion_formed
+}
+
+balkfm_clean_up_revivalism_variables_effect = {
+	remove_variable = balkfm_revivalism_requested_var
+	remove_variable = balkfm_revivalism_supported_var
+	remove_variable = balkfm_revivalism_var
 }
 
 ## ROMANIA EFFECTS ##
@@ -1192,9 +1240,9 @@ balkfm_wallachian_election_effect = {
 }
 
 balkfm_set_up_1848_variables_effect = {
-	change_variable = {
+	set_variable = {
 		name = balkfm_1848_rom_var
-		add = 0
+		value = 0
 	}
 	set_variable = {
 		name = balkfm_1848_progress_var

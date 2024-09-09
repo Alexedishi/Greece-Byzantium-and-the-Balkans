@@ -1604,3 +1604,131 @@ grefm_archeaology_cancel_button = {
 	}
 
 }
+
+# Enosis
+
+grefm_ionian_enosis_button = {
+	name = "grefm_greek_enosis_button"
+	desc = "grefm_greek_enosis_button_desc"
+	
+	visible = {
+		c:ION ?= this
+		exists = c:GRE
+		exists = c:GBR
+		is_subject_of = c:GBR
+	}
+	
+	possible = {
+		c:GBR ?= {
+			c:GRE = {
+				relations:PREV >= relations_threshold:neutral
+			}
+		}
+		c:GBR ?= {
+			relations:root >= relations_threshold:amicable
+		}
+		c:GRE ?= {
+			relations:root >= relations_threshold:amicable
+		}
+		NOR = {
+			has_truce_with = c:GRE
+			has_truce_with = c:GBR
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_greek_enosis_tt
+			hidden_effect = {
+				play_as = c:GRE
+				c:GRE = {
+					trigger_event = {
+						id = grefm.421 # Ionian Union with the Greek State
+					}
+				}
+			}
+		}
+	}
+}
+
+grefm_ionian_enosis_alternate_button = { # this is in case ION breaks away from GBR
+	name = "grefm_greek_enosis_button"
+	desc = "grefm_greek_enosis_button_desc"
+	
+	visible = {
+		c:ION ?= this
+		exists = c:GRE
+		trigger_if = {
+			limit = {
+				exists = c:GBR
+			}
+			NOT = {
+				is_subject_of = c:GBR
+			}
+		}
+	}
+	
+	possible = {
+		c:GRE ?= {
+			relations:root >= relations_threshold:amicable
+		}
+		OR = {
+			is_subject = no
+			is_subject_of = c:GRE
+		}
+		NOT = {
+			has_truce_with = c:GRE
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_greek_enosis_tt
+			hidden_effect = {
+				play_as = c:GRE
+				c:GRE = {
+					trigger_event = {
+						id = grefm.421 # Ionian Union with the Greek State
+					}
+				}
+			}
+		}
+	}
+}
+
+grefm_samos_enosis_button = {
+	name = "grefm_greek_enosis_button"
+	desc = "grefm_greek_enosis_button_desc"
+	
+	visible = {
+		c:SAMO ?= this
+		exists = c:GRE
+	}
+	
+	possible = {
+		c:GRE ?= {
+			relations:root >= relations_threshold:amicable
+		}
+		OR = {
+			is_subject = no
+			is_subject_of = c:GRE
+		}
+		NOT = {
+			has_truce_with = c:GRE
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_greek_enosis_tt
+			hidden_effect = {
+				play_as = c:GRE
+				c:GRE = {
+					trigger_event = {
+						id = grefm.509 # Samian Union with the Greek State
+					}
+				}
+			}
+		}
+	}
+}

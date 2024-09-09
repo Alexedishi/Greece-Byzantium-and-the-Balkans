@@ -1,231 +1,232 @@
-﻿patriarch_authority_type = {
+﻿eocfm_metropolitan_focus_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			always = yes
+			NOR = {
+				has_modifier = modifier_eocfm_emphasize_unity
+				has_modifier = modifier_eocfm_enforce_attendance
+				has_modifier = modifier_eocfm_theologize_dogma
+				has_modifier = modifier_eocfm_promote_ecumenism
+			}
 		}
-		localization_key = custom_eocfm_capacity_base
+		localization_key = custom_eocfm_no_focus
 	}
+	
+	text = {
+		trigger = {
+			has_modifier = modifier_eocfm_emphasize_unity
+		}
+		localization_key = custom_eocfm_emphasize_unity_focus
+	}
+	
+	text = {
+		trigger = {
+			has_modifier = modifier_eocfm_enforce_attendance
+		}
+		localization_key = custom_eocfm_enforce_attendance_focus
+	}
+	
+	text = {
+		trigger = {
+			has_modifier = modifier_eocfm_theologize_dogma
+		}
+		localization_key = custom_eocfm_theologize_dogma_focus
+	}
+	
+	text = {
+		trigger = {
+			has_modifier = modifier_eocfm_promote_ecumenism
+		}
+		localization_key = custom_eocfm_promote_ecumenism_focus
+	}
+	
 }
 
-patriarch_authority_theocracy_type = {
+eocfm_autocephaly_status_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_law = law_type:law_theocracy
+			NOR = {
+				has_variable = eocfm_is_autocephalous
+				has_variable = eocfm_schism_var
+			}
 		}
-		localization_key = custom_eocfm_capacity_theocracy
+		localization_key = custom_eocfm_no_autocephaly
 	}
-}
-
-patriarch_authority_monarchy_type = {	
-	type = country
-	
 	text = {
 		trigger = {
-			has_law = law_type:law_monarchy
+			has_variable = eocfm_schism_var
 		}
-		localization_key = custom_eocfm_capacity_monarchy
+		localization_key = custom_eocfm_schismatic
 	}
-}
-
-patriarch_authority_schools_type = {
-	type = country
-	
-	text = {
-		trigger = {
-			has_law = law_type:law_religious_schools
-		}
-		localization_key = custom_eocfm_capacity_schools
-	}
-}
-
-patriarch_authority_state_religion_type = {	
-	type = country
-	
-	text = {
-		trigger = {
-			has_law = law_type:law_state_religion
-		}
-		localization_key =  custom_eocfm_capacity_state_church
-	}
-}
-
-patriarch_authority_free_religion_type = {	
-	type = country
-	
-	text = {
-		trigger = {
-			has_law = law_type:law_freedom_of_conscience
-		}
-		localization_key = custom_eocfm_capactiy_religious_freedom
-	}
-}
-
-patriarch_authority_autocephaly_type = {	
-	type = country
-	
 	text = {
 		trigger = {
 			has_variable = eocfm_is_autocephalous
 		}
-		localization_key = custom_eocfm_capacity_autocephalous
+		localization_key = custom_eocfm_autocephalous
 	}
 }
+	
 
-patriarch_authority_caesaropapism_type = {	
+eocfm_rome_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_modifier = modifier_eocfm_caesaropapism
+			exists = var:eocfm_rome_controller_var
 		}
-		localization_key = custom_eocfm_capacity_caesaropapism
+		localization_key = custom_eocfm_rome_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_rome_controller_var = 0
+		}
+		localization_key = custom_eocfm_rome_owner2
+	}
+	
 }
 
-patriarch_authority_subsidy_type = {	
+eocfm_constantinople_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_modifier = modifier_eocfm_subsidizing_church
+			exists = var:eocfm_constantinople_controller_var
 		}
-		localization_key = custom_eocfm_capacity_subsidies
+		localization_key = custom_eocfm_constantinople_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_constantinople_controller_var = 0
+		}
+		localization_key = custom_eocfm_constantinople_owner2
+	}
+	
 }
 
-patriarch_authority_all_seats_type = {	
+eocfm_antioch_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			eocfm_controls_all_seats_trigger = yes
+			exists = var:eocfm_antioch_controller_var
 		}
-		localization_key = custom_eocfm_controls_all_seats
+		localization_key = custom_eocfm_antioch_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_antioch_controller_var = 0
+		}
+		localization_key = custom_eocfm_antioch_owner2
+	}
+	
 }
 
-patriarch_authority_rome_type = {	
+eocfm_jerusalem_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_rome
+			exists = var:eocfm_jerusalem_controller_var
 		}
-		localization_key = custom_eocfm_capacity_rome_owned
+		localization_key = custom_eocfm_jerusalem_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_jerusalem_controller_var = 0
+		}
+		localization_key = custom_eocfm_jerusalem_owner2
+	}
+	
 }
 
-patriarch_authority_constantinople_type = {	
+eocfm_alexandria_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_constantinople
+			exists = var:eocfm_alexandria_controller_var
 		}
-		localization_key = custom_eocfm_capacity_constantinople_owned
+		localization_key = custom_eocfm_alexandria_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_alexandria_controller_var = 0
+		}
+		localization_key = custom_eocfm_alexandria_owner2
+	}
+	
 }
 
-patriarch_authority_antioch_type = {	
+eocfm_moscow_controller_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_antioch
+			exists = var:eocfm_moscow_controller_var
 		}
-		localization_key = custom_eocfm_capacity_antioch_owned
+		localization_key = custom_eocfm_moscow_owner1
 	}
+	
+	text = {
+		trigger = {
+			var:eocfm_moscow_controller_var = 0
+		}
+		localization_key = custom_eocfm_moscow_owner2
+	}
+	
 }
 
-patriarch_authority_alexandria_type = {	
+eocfm_seat_event_type = {
 	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_alexandria
+			has_variable = eocfm_rome_event_var
 		}
-		localization_key = custom_eocfm_capacity_alexandria_owned
+		localization_key = custom_eocfm_rome
 	}
-}
-
-patriarch_authority_jerusalem_type = {	
-	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_jerusalem
+			has_variable = eocfm_constantinople_event_var
 		}
-		localization_key = custom_eocfm_capacity_jerusalem
+		localization_key = custom_eocfm_constantinople
 	}
-}
-
-patriarch_authority_moscow_type = {	
-	type = country
 	
 	text = {
 		trigger = {
-			has_variable = eocfm_controls_moscow
+			has_variable = eocfm_antioch_event_var
 		}
-		localization_key = custom_eocfm_capacity_moscow
+		localization_key = custom_eocfm_antioch
 	}
-}
-
-patriarch_authority_council_type = {
-	type = country
 	
 	text = {
 		trigger = {
-			has_modifier = modifier_eocfm_hosting_council
+			has_variable = eocfm_jerusalem_event_var
 		}
-		localization_key = custom_eocfm_capacity_hosting_council
+		localization_key = custom_eocfm_jerusalem
 	}
-}
-
-patriarch_authority_intregrating_seat_type = {	
-	type = country
 	
 	text = {
 		trigger = {
-			has_journal_entry = je_eocfm_integrating_seat
+			has_variable = eocfm_alexandria_event_var
 		}
-		localization_key = custom_eocfm_capacity_integrating_seat
+		localization_key = custom_eocfm_alexandria
 	}
-}
-
-patriarch_authority_schismatic_type = {
-	type = country
 	
 	text = {
 		trigger = {
-			has_journal_entry = je_eocfm_autocephaly
+			has_variable = eocfm_moscow_event_var
 		}
-		localization_key = custom_eocfm_capacity_schismatic
+		localization_key = custom_eocfm_moscow
 	}
-}
-
-patriarch_authority_total_separation_type = {
-	type = country
 	
-	text = {
-		trigger = {
-			has_law = law_type:law_total_separation
-		}
-		localization_key = custom_eocfm_capacity_total_separation
-	}
-}
-
-patriarch_authority_icon_type = {
-	type = country
-	
-	text = {
-		trigger = {
-			eocfm_has_icon_trigger = yes
-		}
-		localization_key = custom_eocfm_capacity_icon
-	}	
-
 }

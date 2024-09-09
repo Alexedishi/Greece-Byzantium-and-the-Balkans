@@ -8,7 +8,10 @@ grefm_bavarocracy_progress_value = {
 				has_variable = grefm_constitution_completed
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_ruler_popularity
+		}
 	}
 	if = {
 		limit = {
@@ -16,7 +19,10 @@ grefm_bavarocracy_progress_value = {
 				has_variable = grefm_land_reform_completed
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_land_reform
+		}
 	}
 	if = {
 		limit = {
@@ -24,7 +30,10 @@ grefm_bavarocracy_progress_value = {
 				has_variable = grefm_brigandage_completed
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_brigandage_completed
+		}
 	}
 	if = {
 		limit = {
@@ -32,13 +41,19 @@ grefm_bavarocracy_progress_value = {
 				has_variable = grefm_civic_tradition_completed
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_civic_tradition
+		}
 	}
 	if = {
 		limit = {
 			has_modifier = modifier_grefm_bavarian_auxiliaries
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_bavarian_auxiliaries
+		}
 	}
 	if = {
 		limit = {
@@ -48,14 +63,20 @@ grefm_bavarocracy_progress_value = {
 				}
 			}
 		}
-		subtract = 1
+		subtract = {
+			value = 1
+			desc = grefm_value_from_lacking_heir
+		}
 	}
 	
 	if = {
 		limit = {
 			has_modifier = modifier_grefm_nikitas_released
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = grefm_value_from_turkeater_unleashed
+		}
 	}
 	if = {
 		limit = {
@@ -64,7 +85,10 @@ grefm_bavarocracy_progress_value = {
 				has_building = building_palaia_anaktora
 			}
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = grefm_value_from_royal_palace
+		}
 	}
 	round_to = 0.01
 }
@@ -209,6 +233,52 @@ grefm_artifact_value = {
 		}
 		add = 1
 	}
+}
+
+## Language Question Variables
+
+grefm_greek_radicals_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:greek
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:greek
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_university_count_value = {
+	value = 0
+	every_scope_state = {
+		every_scope_building = {
+			limit = {
+				is_building_type = building_university
+			}
+            add = level
+		}
+	}
+	divide = 10
+}
+
+grefm_language_decay_value = {
+	value = 0
+	add = root.literacy_rate
+	add = root.ig:ig_rural_folk.ig_clout
+	add = root.ig:ig_intelligentsia.ig_clout
+	add = grefm_university_count_value
+	add = root.ig:ig_landowners.ig_clout
+	add = root.ig:ig_devout.ig_clout
+	divide = 6 # this is meant to slow down everything and clap out the weakest of the three values
 }
 
 ## Greek Separatism Values ##
@@ -390,4 +460,74 @@ grefm_crete_progress_value = {
 	add = global_var:grefm_crete_radicals_var
 	add = global_var:grefm_crete_accelerate_var
 	add = global_var:grefm_crete_nationalism_var
+}
+
+## Ionian Jewry Values ##
+
+grefm_jewish_loyalists_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:sephardic
+			}
+			add  = pop_loyalist_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:sephardic
+			}
+			add = 1
+		}
+		min = 1
+	}
+	
+	round_to = 0.01
+}
+
+grefm_jewish_radicals_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:sephardic
+			}
+			add  = pop_radical_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:sephardic
+			}
+			add = 1
+		}
+		min = 1
+	}
+	
+	round_to = 0.01
+}
+
+## Samos Prince Values ##
+
+grefm_samos_support_value = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			ig_approval > 0
+		}
+		add = {
+			value = ig_clout
+			desc = grefm_samos_from_support
+		}
+	}
+	every_interest_group = {
+		limit = {
+			ig_approval < 0
+		}
+		subtract = {
+			value = ig_clout
+			desc = grefm_samos_from_opposition
+		}
+	}
 }
