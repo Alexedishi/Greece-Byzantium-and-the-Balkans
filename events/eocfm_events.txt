@@ -2282,7 +2282,8 @@ eocfm.120 = { # Ecumenical Council Convoked
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE button
+	trigger = {
+		# triggered by eocfm.121
 	}
 	
 	immediate = {
@@ -2297,15 +2298,7 @@ eocfm.120 = { # Ecumenical Council Convoked
 	option = {
 		name = eocfm.120.a
 		default_option = yes
-		if = {
-			limit = {
-				has_modifier = modifier_eocfm_hosting_council
-			}
-			trigger_event = {
-				id = eocfm.121 # Council of X
-				days = 30
-			}
-		}
+		custom_tooltip = eocfm.120.tt
 	}
 	
 }
@@ -2331,16 +2324,26 @@ eocfm.121 = { # Council of X
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by eocfm_convoke_council_sgui
 	}
 	
 	immediate = {
-		set_global_variable = {
+		set_global_variable = { # This variable should be reset to zero before every council event chain
 			name = eocfm_council_votes
 			value = 0
 		}
 		change_global_variable = {
 			name = eocfm_council_var
 			add = 1
+		}
+		every_country = {
+			limit = {
+				country_has_state_religion = rel:orthodox
+				NOT = { has_modifier = modifier_eocfm_hosting_council }
+			}
+			trigger_event = {
+				id = eocfm.120 # Ecumenical Council Convoked
+			}
 		}
 	}
 	
@@ -2396,10 +2399,10 @@ eocfm.121 = { # Council of X
 	option = { # Mend the Great Schism
 		name = eocfm.121.g
 		trigger = {
-			eocfm_controls_tetrarchy_trigger = yes
+			eocfm_controls_and_owns_pentarchy_trigger = yes
 		}
 		trigger_event = {
-			id = eocfm.315 # The Council of Unification
+			id = eocfm.318 # The Council of Unification
 		}
 	}
 }
@@ -2504,7 +2507,41 @@ eocfm.123 = { # Epistle to the Easterners
 				}
 			}
 		}
-	}	
+		if = { ##TODO This is copied in from eocfm_update_patriarch_variables_effect, I need a universal scripted effect for this functionality in the future
+			limit = {
+				c:PAP ?= {
+					has_law = law_type:law_theocracy
+				}
+			}
+			c:PAP ?= {
+				ruler = {
+					save_scope_as = eocfm_rome_patriarch_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_character_in_void = {
+					has_template = template_eocfm_rome_patriarch
+				}
+			}
+			random_character_in_void = {
+				limit = {
+					has_template = template_eocfm_rome_patriarch
+				}
+				save_scope_as = eocfm_rome_patriarch_scope
+			}
+		}
+		else = {
+			eocfm_replace_patriarchs_effect = yes
+			random_character_in_void = {
+				limit = {
+					has_template = template_eocfm_rome_patriarch
+				}
+				save_scope_as = eocfm_rome_patriarch_scope
+			}
+		}
+	}
 	
 	option = { # F the Po-Pope
 		name = eocfm.123.a
@@ -3593,6 +3630,14 @@ eocfm.160 = { # An Audience with the Patriarch
 			name = modifier_eocfm_military_mandate
 			months = long_modifier_time
 		}
+	}
+	
+	option = {
+		name = eocfm.160.a
+	}
+	
+	after = {
+		remove_variable = eocfm_considering_mandate
 	}
 
 }

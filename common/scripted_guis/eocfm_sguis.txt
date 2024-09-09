@@ -505,7 +505,10 @@ eocfm_convoke_council_sgui = {
 					}
 				}
 			}
-		}	
+		}
+		NOT = {
+			has_modifier = modifier_eocfm_hosting_council
+		}
 	}
 	
 	effect = {
@@ -519,19 +522,8 @@ eocfm_convoke_council_sgui = {
 			}
 		}
 		trigger_event = {
-			id = eocfm.031 # Council of X
-			days = 30
+			id = eocfm.121 # Council of X
 			popup = yes
-		}
-		every_country = {
-			limit = {
-				country_has_state_religion = rel:orthodox
-				NOT = { has_modifier = modifier_eocfm_hosting_council }
-			}
-			trigger_event = {
-				id = eocfm.120 # Ecumenical Council Convoked
-				days = 30
-			}
 		}	
 	}
 }
@@ -663,12 +655,17 @@ eocfm_seek_mandate_sgui = {
 	
 	is_valid = {
 		custom_tooltip = {
-			text = eocfm_has_mandate_tt
+			text = eocfm_considering_mandate_tt
 			hidden_trigger = {
-				eocfm_has_mandate_trigger = no
 				NOT = {
 					has_variable = eocfm_considering_mandate
 				}
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_has_mandate_tt
+			hidden_trigger = {
+				eocfm_has_mandate_trigger = no
 			}
 		}
 		custom_tooltip = {
