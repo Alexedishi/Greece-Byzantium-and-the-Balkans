@@ -27,12 +27,10 @@
  # montenegro content
  je_balkfm_mon_prince_bishopric: "The Prince-Bishopric"
  je_balkfm_mon_prince_bishopric_reason: "To many, the country of Montenegro seems like a ghost from the distant past. With nation-states to the west and empires to the east, the small nation endures as a reminder of Europe's feudal past. The ascent of Petar II to the throne has finally heralded change in the Prince-Bishopric. Invigorated by the ideals of his father, Petar I, and by liberalism from the West, the young Bishop hopes to bring the light of modernity to Montenegro."
- balkfm_mon_prince_bishopric_tt: "Guide [ROOT.GetCountry.GetName] into the modern age."
- balkfm_mon_prince_bishopric_tt1: "We have reformed our society"
- balkfm_mon_prince_bishopric_tt2: "We have centralized our government"
- balkfm_mon_prince_bishopric_tt3: "We have organized our military"
- je_balkfm_mon_montenegrin_frontiers: "The Montenegrin Frontiers"
- je_balkfm_mon_montenegrin_frontiers_reason: "When the Seljuks stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans.\n\nHowever, as their authority over the Balkans continues to disintegrate, the Sublime Porte has embarked on a series of violent actions against the Southern Slavs. Separated from the greater Serb community, many feel that Montenegro is destined for doom lest it manage to secure the border with the Ottomans."
+ je_balkfm_mon_prince_bishopric_status: "Guide [ROOT.GetCountry.GetName] into modernity."
+ je_balkfm_mon_prince_bishopric_tt1: "We have reformed our society"
+ je_balkfm_mon_prince_bishopric_tt2: "We have centralized our government"
+ je_balkfm_mon_prince_bishopric_tt3: "We have organized our military"
  je_balkfm_mon_societal_reform: "Societal Reform"
  je_balkfm_mon_societal_reform_reason: "Montenegro is dominated by its feudal station. In the foothills of the Black Mountain, the people practice the same agriculture that has been in place since the Byzantine times. Industry is totally absent and the peasantry remain tied to their lords and cheiftans. The Bishop hopes to elevate the country from this pitiful state."
  je_balkfm_mon_administration: "Administrative Reform"
@@ -45,9 +43,10 @@
  je_balkfm_mon_benefactor_aus_tt: "We are either a [concept_subject] of #yellow Austria#!, in the same [concept_power_bloc] as #yellow Austria#!, or we have a #bold Defensive Pact#! or #bold Alliance#! with #yellow Austria#!."
  
  je_balkfm_mon_black_mountain: "The Lands of the Black Mountain"
- je_balkfm_mon_black_mountain_reason: "Montenegro, named after the appearance of the mountain Lovćen, clings on by a thread. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
- je_balkfm_mon_black_mountain_status: ""
- je_balkfm_mon_black_mountain_breakdown: ""
+ je_balkfm_mon_black_mountain_reason: "We control #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown1 [Country.MakeScope.ScriptValue('balkfm_mon_border_value')]#!/5 #yellow Montenegrin#! provinces. Every month, we will gain or lose support amongst the Montenegrin tribes living under Ottoman rule. Currently, our strength in the hinterlands will change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown2 [Country.MakeScope.ScriptValue('balkfm_border_conflict_value')|+=]#! next month.\n\nThis can be influenced by the following factors:\n•Completing the #bold Prince-Bishopric#! journal entries.\n•Maintaining positive [concept_infrastructure] in the capital.\n•Researching #yellow Nationalism#!.\n•Maintaining a standing [concept_army].\n•Capturing and Ransoming Ottoman nobles.\n•Having a #bold Defensive Pact#! or #bold Alliance#! with a [concept_great_power] rivaling the #yellow Ottoman Empire#!.\n•Being in a [concept_power_bloc] led by a [concept_great_power] rivaling the #yellow Ottoman Empire#!\n•Your choices during #bold Border Conflict#! events. $TOOLTIP_DELIMITER$\nWhen the forces of Murad I stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans. However, as their authority over the Balkans continues to disintegrate, the Sublime Porte has embarked on a series of violent actions against the Southern Slavs. Separated from the greater Serb community, many feel that Montenegro is destined for doom lest it manage to secure the border with the Ottomans. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
+ je_balkfm_mon_black_mountain_status: "We control #bold [GetPlayer.MakeScope.Var('balkfm_mon_border_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
+ je_balkfm_mon_black_mountain_breakdown1: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_border_value')]"
+ je_balkfm_mon_black_mountain_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_border_conflict_value')]"
  je_balkfm_mon_black_mountain_complete_tt: "#bold Montenegro#! has reclaimed all lands in the #yellow Montenegro#! state region."
  je_balkfm_mon_black_mountain_fail_tt: "#bold Montenegro#! controls no lands in the #yellow Montenegro#! state region."
  je_balkfm_mon_ali_pasha: "The Wrath of Ali Pasha"
@@ -55,7 +54,6 @@
  je_balkfm_mon_ali_pasha_tt: "Montenegro has weathered #yellow Ali Pasha's#! aggression."
  je_balkfm_mon_nationalism: ""
  je_balkfm_mon_nationalism_reason: ""
- 
  
  # serbia content
  je_balkfm_ser_monarchism: "Dynastic Rivalry"
@@ -398,10 +396,45 @@
  balkfm_proclaim_triune: "Proclaim the Triune Kingdom"
  balkfm_proclaim_triune_desc: "We have united the crowns of Croatia, Slavonia, and Dalmatia. All that remains is to proclaim the union of these lands into a single, independent, nation."
  
+# script value breakdowns
+ balkfm_value_from_base: "As a Base."
+ 
+ balkfm_mon_value_from_cetinje: "From controlling Cetinje" 
+ balkfm_mon_value_from_niksic: "From controlling Nikšić"
+ balkfm_mon_value_from_podgorica: "From controlling Podgorica"
+ balkfm_mon_value_from_pljevlja: "From controlling Pljevlja"
+ balkfm_mon_value_from_kotor: "From controlling Kotor"
+ 
+ balkfm_bul_from_good_russian_relations: "From #green #bold good#!#! relations with Russia"
+ balkfm_bul_from_bad_russian_relations: "From #red #bold poor#!#! relations with Russia"
+ balkfm_bul_from_russian_attaches: "From accepting #bold Russian Military Attachés#!"
+ balkfm_bul_from_powerful_landowners_in_gov: "From the [GetInterestGroupVariant('ig_landowners',GetPlayer).GetName] being [concept_powerful] and [concept_in_government]"
+ balkfm_bul_from_powerful_military_not_in_gov: "From the [GetInterestGroupVariant('ig_armed_forces',GetPlayer).GetName] being [concept_powerful] and #bold NOT#! [concept_in_government]"
+ balkfm_bul_from_good_speech_laws: "From having either #yellow Protected Speech#! or #yellow Right of Assembly#! enacted"
+ balkfm_bul_from_bad_speech_laws: "From having either #yellow Censorship#! or #yellow Outlawed Dissent#! enacted"
+ balkfm_bul_from_no_voting: "From not having any #bold Voting Rights#!"
+ balkfm_bul_from_brigandage_completed: "From #bold Solving the Brigandage Issue#!"
+ balkfm_bul_from_railways_buyout: "From #bold Buying Out the Rusé-Varna Line#!"
+ balkfm_bul_from_controlling_rumelia: "From Controlling #yellow Northern Thrace#!"
+ 
+ balkfm_bul_from_having_heir: "From having an heir."
+ balkfm_bul_from_ruler_popularity: "From our Prince having [concept_popularity] over #bold 50#!"
+ balkfm_bul_from_stambolov: "From having #yellow Stefan Stambolov#! involved in politics"
+ balkfm_bul_from_battenburg_letter: "From the approval of #yellow Alexander Battenburg#!"
+ balkfm_bul_from_military_modernized: "From modernizing the military"
+ balkfm_bul_from_firing_squad: "From executing the leaders of the #bold Panista Plot#!"
+ balkfm_bul_from_boldness: "From the boldness of the Prince"
+ balkfm_bul_from_exiled_panitsa: "From showing mercy to the leaders of the #bold Panista Plot#!"
+ balkfm_bul_from_whimpy: "From the timidness of the Prince"
+ balkfm_bul_from_intelligentsia_influence: "From the Influence of the Intelligentsia (Their [concept_clout] x Our [concept_prestige])"
+ balkfm_bul_from_autocephaly: "From securing the #bold Bulgarian Exarchate#!"
+ balkfm_bul_from_devout_influence: "From the Influence of the Devout (Their [concept_clout] x Our [concept_prestige])"
+ balkfm_bul_from_ottoman_relations: "From our [concept_relations] with the #yellow Ottoman Empire#!"
+ 
  # scripted progressbars
  balkfm_mon_border_progress_bar: "balkfm_mon_border_progress_bar"
- balkfm_mon_border_progress_bar_mon_desc: "balkfm_mon_border_progress_bar_mon_desc"
- balkfm_mon_border_progress_bar_tur_desc: "balkfm_mon_border_progress_bar_tur_desc"
+ balkfm_mon_border_progress_bar_mon_desc: "Montenegrin Support"
+ balkfm_mon_border_progress_bar_tur_desc: "Ottoman Support"
  
  # country_flavor_text
  
@@ -447,6 +480,8 @@
  modifier_balkfm_blocked_building_university: "Blocked Building University"
  modifier_balkfm_blocked_building_university_desc: "Blocked Building University"
  
+ modifier_balkfm_spartan_existence: "Spartan Existence"
+ modifier_balkfm_spartan_existence_desc: "Spartan Existence"
  modifier_balkfm_reformed_society: "Reformed Society"
  modifier_balkfm_reformed_society_desc: "Reformed Society"
  modifier_balkfm_centralized_administration: "Centralized Administration"
@@ -733,37 +768,4 @@
  custom_balkfm_protochronism_juninism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Junimism#!."
  custom_balkfm_protochronism_dacianism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Dacianism#!."
  custom_balkfm_protochronism_stall: "Nationalist sentiments currently do not favor either side."
- 
- # script value breakdowns
- balkfm_mon_value_from_cetinje: "From controlling Cetinje" 
- balkfm_mon_value_from_niksic: "From controlling Nikšić"
- balkfm_mon_value_from_podgorica: "From controlling Podgorica"
- balkfm_mon_value_from_pljevlja: "From controlling Pljevlja"
- balkfm_mon_value_from_kotor: "From controlling Kotor"
- 
- balkfm_bul_from_good_russian_relations: "From #green #bold good#!#! relations with Russia"
- balkfm_bul_from_bad_russian_relations: "From #red #bold poor#!#! relations with Russia"
- balkfm_bul_from_russian_attaches: "From accepting #bold Russian Military Attachés#!"
- balkfm_bul_from_powerful_landowners_in_gov: "From the [GetInterestGroupVariant('ig_landowners',GetPlayer).GetName] being [concept_powerful] and [concept_in_government]"
- balkfm_bul_from_powerful_military_not_in_gov: "From the [GetInterestGroupVariant('ig_armed_forces',GetPlayer).GetName] being [concept_powerful] and #bold NOT#! [concept_in_government]"
- balkfm_bul_from_good_speech_laws: "From having either #yellow Protected Speech#! or #yellow Right of Assembly#! enacted"
- balkfm_bul_from_bad_speech_laws: "From having either #yellow Censorship#! or #yellow Outlawed Dissent#! enacted"
- balkfm_bul_from_no_voting: "From not having any #bold Voting Rights#!"
- balkfm_bul_from_brigandage_completed: "From #bold Solving the Brigandage Issue#!"
- balkfm_bul_from_railways_buyout: "From #bold Buying Out the Rusé-Varna Line#!"
- balkfm_bul_from_controlling_rumelia: "From Controlling #yellow Northern Thrace#!"
- 
- balkfm_bul_from_having_heir: "From having an heir."
- balkfm_bul_from_ruler_popularity: "From our Prince having [concept_popularity] over #bold 50#!"
- balkfm_bul_from_stambolov: "From having #yellow Stefan Stambolov#! involved in politics"
- balkfm_bul_from_battenburg_letter: "From the approval of #yellow Alexander Battenburg#!"
- balkfm_bul_from_military_modernized: "From modernizing the military"
- balkfm_bul_from_firing_squad: "From executing the leaders of the #bold Panista Plot#!"
- balkfm_bul_from_boldness: "From the boldness of the Prince"
- balkfm_bul_from_exiled_panitsa: "From showing mercy to the leaders of the #bold Panista Plot#!"
- balkfm_bul_from_whimpy: "From the timidness of the Prince"
- balkfm_bul_from_intelligentsia_influence: "From the Influence of the Intelligentsia (Their [concept_clout] x Our [concept_prestige])"
- balkfm_bul_from_autocephaly: "From securing the #bold Bulgarian Exarchate#!"
- balkfm_bul_from_devout_influence: "From the Influence of the Devout (Their [concept_clout] x Our [concept_prestige])"
- balkfm_bul_from_ottoman_relations: "From our [concept_relations] with the #yellow Ottoman Empire#!"
  

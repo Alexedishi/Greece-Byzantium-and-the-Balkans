@@ -86,8 +86,8 @@ namespace = balkfm
 #	300 - A Feudal Relic
 #	301 - The Light of Modernity
 #	302 - Centralized Administration
-#	303 - In Search of a Benefactor
-#	304 - A Professional Outfit
+#	303 - A Professional Outfit
+#	304 - OPEN
 #	305 - An Intractable Illness
 #	306 - The Passing of the Bishop
 
@@ -1994,56 +1994,13 @@ balkfm.302 = { # Centralized Administration
 
 }
 
-balkfm.303 = { # In Search of a Benefactor
+balkfm.303 = { # A Professional Outfit
 	type = country_event
 	placement = root
 	
 	title = balkfm.303.t
 	desc = balkfm.303.d
 	flavor = balkfm.303.f
-	
-	event_image = {
-		video = "africa_leader_arguing"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		c:RUS = {
-			save_scope_as = russia_scope
-		}
-		trigger_event = {
-			id = balkfm.331 # Negociations at Humac
-			days = 380 # early 1838
-		}
-	}
-	
-	option = {
-		name = balkfm.303.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_mon_benefactor
-		}
-	}
-
-}
-
-balkfm.304 = { # A Professional Outfit
-	type = country_event
-	placement = root
-	
-	title = balkfm.304.t
-	desc = balkfm.304.d
-	flavor = balkfm.304.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -2064,7 +2021,7 @@ balkfm.304 = { # A Professional Outfit
 	}	
 	
 	option = {
-		name = balkfm.304.a
+		name = balkfm.303.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_organized_military
@@ -2149,7 +2106,7 @@ balkfm.330 = { # The Battle of Grahovo
 		name = balkfm.330.a
 		default_option = yes
 		trigger_event = {
-			id = balkfm.303 # In Search of a Benefactor
+			id = balkfm.331 # Negociations At Humac
 			days = 120 # should be early 1937
 		}
 		add_journal_entry = {
@@ -2192,23 +2149,8 @@ balkfm.331 = { # Negociations At Humac
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
-		if = {
-			limit = {
-				any_country = {
-					has_variable = balkfm_benefactor_var
-				}
-			}
-			random_country = {
-				limit = {
-					has_variable = balkfm_benefactor_var
-				}
-				save_scope_as = balkfm_benefactor_scope
-			}
-		}
-		else = {
-			c:RUS = {
-				save_scope_as = balkfm_benefactor_scope
-			}
+		c:RUS = {
+			save_scope_as = balkfm_benefactor_scope
 		}
 	}
 	
@@ -2850,7 +2792,7 @@ balkfm.350 = { # The Ottoman Frontier
 		video = "southamerica_war_civilians"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -3040,9 +2982,6 @@ balkfm.380 = { # The Black Mountain
 	option = {
 		name = balkfm.380.a
 		default_option = yes
-		s:STATE_MONTENEGRO = {
-			add_claim = root
-		}
 	}
 
 }
