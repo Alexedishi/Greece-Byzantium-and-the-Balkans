@@ -314,7 +314,105 @@ balkfm_save_ali_pasha_scopes = {
 	}
 }
 
+balkfm_mon_determine_next_province_effect = {
+	# This is gross, but the province iterator doesn't interate (and would probably be less efficient than this scripting)
+	if = {
+		limit = {
+			p:x8C6292 = { # Cetinje
+				owner != root
+			}
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 1
+		}
+	}
+	else_if = {
+		limit = {
+			p:x8C6292 = { # Cetinje
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner != root
+			}
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			p:x8C6292 = { # Cetinje
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner != root
+			}
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 3
+		}
+	}
+	else_if = {
+		limit = {
+			p:x8C6292 = { # Cetinje
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner = root
+			}
+			p:xA12F82 = { # Pljevla
+				owner != root
+			}
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 4
+		}
+	}
+	else_if = {
+		limit = {
+			p:x8C6292 = { # Cetinje
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner = root
+			}
+			p:xA12F82 = { # Pljevla
+				owner = root
+			}
+			p:x90A0E0 = { # Kotor
+				owner != root
+			}
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 5
+		}
+	}
+	else = {
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 0
+		}
+	}
+}
+
 balkfm_clean_up_border_variables_effect = {
+	remove_variable = balkfm_border_conflict_var
+	remove_variable = balkfm_next_province_var
+	remove_variable = balkfm_view_captives_var
 }
 
 ## SERBIA EFFECTS ##

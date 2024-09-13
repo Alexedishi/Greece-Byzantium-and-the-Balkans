@@ -108,27 +108,32 @@ namespace = balkfm
 #	338 - The Arrogance of Ali Pasha
 #	339 - Ali Pasha's Demise
 
-#340-349 - Ottoman-Montenegrin Border Conflict Events
-#	340 - The Ottoman Frontier
-#	341 - Montenegro Raids the Border
-#	342 - 
-#	343 - Border Villages Burned
-#	344 -
-#	345 -
-#	346 -
-#	347 - 
-#	348 - Montenegro Gains Ground
-#	349 - The Porte Gains Ground
+#340-349 - Ottoman-Montenegrin Border Conflict Mechanical Events 
+#	340 - ##Cross Border Incursion
+#	341 - ##Border Villages Burned
+#	342 - ##Border Incursion Repelled
+#	343 - ##
+#	344 - ##
+#	345 - ##Headtaking Renounced
+#	346 - ##Montenegrin Noble Killed
+#	347 - ##Ottoman Noble Captured
+#	348 - ##Montenegro Offers Ransom
+#	349 - ##Noble Ransomed
 
-#350-359 - Ottoman-Montenegrin Wars
-#	350 - ##Osman Pasha Attacks!
-#	351 - ##International Indifference
+#350-359 - Ottoman-Montenegrin Border Conflict Narrative Events
+#	350 - #The Ottoman Frontier
+#	351 - ##Osman Pasha Attacks!
 #	352 - ##Omer Pasha Invades!
 #	353 - ##A Close Shave
+#	354 - ##OPEN
+#	355 - ##Negociations Over Cattaro
+#	356 - ##Montenegro Gains Ground
+#	357 - ##The Porte Gains Ground
+#	358 - ##International Indifference
+#	359 - ##The Lands of Montenegro
 
 #380-389 - Montenegrin Nationalism
 #	380 - The Black Mountain
-#	381 - ##The Lands of Montenegro
 
 
 ##  #BALK4  SERBIA FLAVOR  Events  400-499  ##
@@ -465,6 +470,7 @@ balkfm.010 = { # The Unused Variable Dumpster Fire
 		set_variable = eocfm_crusade_defender
 		set_global_variable = eqfm_cancel_struggle
 		remove_variable = balkfm_1848_failed
+		set_variable = balkfm_captured_noble_var
 		
 		remove_variable = eocfm_devout_leader_var
 		remove_variable = eocfm_rome_patriarch_var
@@ -1902,12 +1908,6 @@ balkfm.300 = { # A Feudal Relic
 				}
 			}
 		}
-#		hidden_effect = {
-#			trigger_event = {
-#				id = balkfm.350 # The Ottoman Frontier
-#				days = 60
-#			}
-#		}
 		hidden_effect = {
 			trigger_event = {
 				id = balkfm.330 # The Battle of Grahovo
@@ -2157,8 +2157,7 @@ balkfm.330 = { # The Battle of Grahovo
 		}
 		show_as_tooltip = {
 			add_modifier = {
-				name = modifier_balkfm_border_feud
-				months = 13
+				name = modifier_balkfm_ali_pasha
 			}
 		}
 	}
@@ -2430,7 +2429,7 @@ balkfm.334 = { # The Demise of Smaïl-aga
 		}
 		hidden_effect = {
 			trigger_event = {
-				id = balkfm.335
+				id = balkfm.335 # Unintended Consequences
 				days = 200
 			}
 		}
@@ -2794,15 +2793,58 @@ balkfm.339 = { # Ali Pasha's Demise
 
 }
 
-##  OTTOMAN-MONTENEGRIN BORDER CONFLICT EVENTS ##
+##  OTTOMAN-MONTENEGRIN BORDER CONFLICT MECHANICAL EVENTS ##
 
-balkfm.340 = { # The Ottoman Frontier
+balkfm.340 = { # Cross Border Incursion
+	orphan = yes
+}
+
+balkfm.341 = { # Border Villages Burned
+	orphan = yes
+}
+
+balkfm.342 = { # Border Incursion Repelled
+	orphan = yes
+}
+
+balkfm.343 = { # 
+	orphan = yes
+}
+
+balkfm.344 = { # 
+	orphan = yes
+}
+
+balkfm.345 = { # Headtaking Renounced
+	
+}
+
+balkfm.346 = { # Montenegrin Noble Killed
+	orphan = yes
+}
+
+balkfm.347 = { # Ottoman Noble Captured
+	orphan = yes
+}
+
+balkfm.348 = { # Montenegro Offers Ransom
+	
+}
+
+balkfm.349 = { # Noble Ransomed
+	orphan = yes
+}
+
+
+## OTTOMAN-MONTENEGRIN BORDER CONFLICT NARRATIVE EVENTS ##
+
+balkfm.350 = { # The Ottoman Frontier
 	type = country_event
 	placement = root
 	
-	title = balkfm.340.t
-	desc = balkfm.340.d
-	flavor = balkfm.340.f
+	title = balkfm.350.t
+	desc = balkfm.350.d
+	flavor = balkfm.350.f
 	
 	event_image = {
 		video = "southamerica_war_civilians"
@@ -2824,23 +2866,22 @@ balkfm.340 = { # The Ottoman Frontier
 	}
 	
 	option = {
-		name = balkfm.340.a
+		name = balkfm.350.a
 		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_border_feud
+		}
 	}
-	
-	orphan = yes
 	
 }
 
-## OTTOMAN-MONTENEGRIN WARS ##
-
-balkfm.350 = { # Osman Pasha Attacks!
+balkfm.351 = { # Osman Pasha Attacks!
 	type = country_event
 	placement = root
 	
-	title = balkfm.350.t
-	desc = balkfm.350.d
-	flavor = balkfm.350.f
+	title = balkfm.351.t
+	desc = balkfm.351.d
+	flavor = balkfm.351.f
 	
 	event_image = {
 		video = "europenorthamerica_before_the_battle"
@@ -2862,23 +2903,45 @@ balkfm.350 = { # Osman Pasha Attacks!
 	}
 	
 	option = {
-		name = balkfm.350.a
+		name = balkfm.351.a
 		default_option = yes
-		trigger_event = {
-			id = balkfm.351 # International Indifference
-			days = 90
-		}
 	}
+	
+	orphan = yes
 
 }
 
-balkfm.351 = { # International Indifference
+balkfm.352 = { # Omer Pasha Invades!
+	orphan = yes
+}
+
+balkfm.353 = { # A Close Shave
+	orphan = yes
+}
+
+balkfm.354 = { # 
+	orphan = yes
+}
+
+balkfm.355 = { # Negociations Over Cattaro
+
+}
+
+balkfm.356 = { # Montenegro Gains Ground
+	orphan = yes
+}
+
+balkfm.357 = { # The Porte Gains Ground
+	orphan = yes
+}
+
+balkfm.358 = { # International Indifference
 	type = country_event
 	placement = root
 	
-	title = balkfm.351.t
-	desc = balkfm.351.d
-	flavor = balkfm.351.f
+	title = balkfm.358.t
+	desc = balkfm.358.d
+	flavor = balkfm.358.f
 	
 	event_image = {
 		video = "southamerica_aristocrats"
@@ -2896,36 +2959,51 @@ balkfm.351 = { # International Indifference
 	}
 	
 	immediate = {
-		balkfm_save_ali_pasha_scopes = yes
 	}
 	
 	option = { # take it on the chin
-		name = balkfm.351.a
+		name = balkfm.358.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_balkfm_border_defense
-			months = very_long_modifier_time
-		}
-		ai_chance = {
-			base = 100
+			name = modifier_balkfm_submission
+			months = long_modifier_time
 		}
 	}
+
+}
+
+balkfm.359 = { # The Lands of Montenegro
+	type = country_event
+	placement = root
 	
-	option = { # get clapped again
-		name = balkfm.351.b
-		trigger = {
-			c:TUR ?= {
-				has_state_in_state_region = STATE_MONTENEGRO
-			}
-		}
-        create_diplomatic_play = {
-                name = dp_petars_last_stand
-                type = dp_return_state
-                target_state = s:STATE_MONTENEGRO.region_state:TUR
-		}
-		custom_tooltip = balkfm.351.tt
-		ai_chance = {
-			base = 1
+	title = balkfm.359.t
+	desc = balkfm.359.d
+	flavor = balkfm.359.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}	
+	
+	option = {
+		name = balkfm.359.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_reclaimed_lovcen
+			months = long_modifier_time
 		}
 	}
 
@@ -2964,43 +3042,6 @@ balkfm.380 = { # The Black Mountain
 		default_option = yes
 		s:STATE_MONTENEGRO = {
 			add_claim = root
-		}
-	}
-
-}
-
-balkfm.381 = { # The Lands of Montenegro
-	type = country_event
-	placement = root
-	
-	title = balkfm.381.t
-	desc = balkfm.381.d
-	flavor = balkfm.381.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.381.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_reclaimed_lovcen
-			months = long_modifier_time
 		}
 	}
 

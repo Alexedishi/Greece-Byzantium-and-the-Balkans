@@ -391,7 +391,7 @@ je_balkfm_mon_benefactor = {
 	
 }
 
-je_balkfm_mon_border_conflict = {
+je_balkfm_mon_black_mountain = {
 	icon = "gfx/interface/icons/event_icons/event_military.dds"
 	
 	group = je_group_balkfm_montenegro
@@ -399,81 +399,128 @@ je_balkfm_mon_border_conflict = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = balkfm_border_conflict_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 2
+		}
+		set_variable = {
+			name = balkfm_view_captives_var
+			value = 0
+		}
 	}
 	
-	scripted_progress_bar = balkfm_mon_border_progress_bar
+	modifiers_while_active = {
+		modifier_balkfm_border_feud
+	}
+	
+#	scripted_progress_bar = balkfm_mon_border_progress_bar
 	
 #	scripted_button = balkfm_reinforce_border_button
 #	scripted_button = balkfm_border_raid_button
 #	scripted_button = balkfm_ransom_noble_button
-#	scripted_button = balkfm_
-#
+#	scripted_button = balkfm_view_captives_button
+#	scripted_button = balkfm_renounce_headtaking_button
+#	scripted_button = balkfm_negociate_kotor_button
+#	scripted_button = balkfm_subjugate_montenegro_button
 	
 	complete = {
 		custom_tooltip = {
-			text = je_balkfm_mon_border_conflict_complete_tt
+			text = je_balkfm_mon_black_mountain_complete_tt
 			hidden_trigger = {
-				scope:journal_entry = {
-					"scripted_bar_progress(balkfm_mon_border_progress_bar)" >= 100
-				}
+				balkfm_mon_border_value >= 5
 			}
 		}
 	}
 	
 	on_complete = {
+		trigger_event = {
+			id = balkfm.359 # The Lands of Montenegro
+		}
 		balkfm_clean_up_border_variables_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
 	fail = {
-		OR = {	
+		OR = {
 			custom_tooltip = {
-				text = je_balkfm_mon_border_conflict_fail_tt
+				text = je_balkfm_mon_black_mountain_fail_tt
 				hidden_trigger = {
-					scope:journal_entry = {
-						"scripted_bar_progress(balkfm_mon_border_progress_bar)" <= 0
+					NOT = {
+						any_scope_state = {
+							state_region = s:STATE_MONTENEGRO
+						}
 					}
 				}
 			}
-			is_subject_of = c:TUR
-			is_in_same_power_bloc = c:TUR
+		}
+		trigger_if = {
+			limit = {
+				exists = c:TUR
+			}
+			OR = {
+				is_subject_of = c:TUR
+				is_in_same_power_bloc = c:TUR
+			}
 		}
 	}
 	
 	on_fail = {
+		trigger_event = {
+			id = balkfm.358 # International Indifference
+		}
 		balkfm_clean_up_border_variables_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
 	invalid = {
-		OR = {
-			s:STATE_MONTENEGRO = {
-				NOT = {
-					any_scope_state = {
-						owner = c:TUR
-					}
-				}
-			}
-			hidden_trigger = {
-				has_variable = balkfm_border_conflict_resolved
-			}
+		hidden_trigger = {
+			has_variable = balkfm_border_conflict_resolved
 		}
 	}
 	
 	on_invalid = {
 		balkfm_clean_up_border_variables_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
-#	on_monthly_pulse = {
-#		random_events = {
-#			
+	on_weekly_pulse = {
+		effect = {
+#			balkfm_mon_determine_next_province_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+#			balkfm.351 # Osman Pasha Attacks!
+#			balkfm.352 # Omer Pasha Invades!
+		}
+		random_events = {
+			400 = 0
+#			5 = balkfm.340 # Cross Border Incursion
+#			5 = balkfm.341 # Border Villages Burned
+#			5 = balkfm.342 # Border Incursion Repelled
+#			5 = balkfm.343 #
+#			5 = balkfm.344 #
+		}
+	}
+	
+	status_desc = {
+#		first_valid = {
+#			triggered_desc = {
+#				desc = je_balkfm_mon_black_mountain_status
+#				trigger = {
+#					always = yes
+#				}
+#			}
 #		}
-#	}
+	}
 	
 	weight = 1000
 	
-}	
+}
 
 je_balkfm_mon_ali_pasha = {
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
@@ -496,23 +543,17 @@ je_balkfm_mon_ali_pasha = {
 			name = modifier_balkfm_weathered_the_storm
 			months = normal_modifier_time
 		}
-		hidden_effect = {
-			trigger_event = {
-				id = balkfm.350 # Osman Pasha Attacks!
-				days = 240
-			}
-		}
 	}
 	
 	modifiers_while_active = {
-		modifier_balkfm_border_feud
+		modifier_balkfm_ali_pasha
 	}
 	
 	weight = 400
 	
 }
 
-je_balkfm_mon_black_mountain = {
+je_balkfm_mon_nationalism = {
 	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
 	
 	group = je_group_balkfm_montenegro
@@ -520,31 +561,27 @@ je_balkfm_mon_black_mountain = {
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
-		c:MON ?= this
+#		c:MON ?= this
 	}
 	
 	possible = {
-		NOR = {
-			has_journal_entry = je_balkfm_mon_border_conflict
-			country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-		}
-		has_technology_researched = nationalism
+#		NOR = {
+#			has_journal_entry = je_balkfm_mon_black_mountain
+#			owns_entire_state_region = STATE_MONTENEGRO
+#		}
+#		has_technology_researched = nationalism
 	}
 	
 	immediate = {
 		trigger_event = {
-			id = balkfm.380 # The Black Mountain
+			id = balkfm.380
 		}
 	}
 	
 	complete = {
-		owns_entire_state_region = STATE_MONTENEGRO
 	}
 	
 	on_complete = {
-		trigger_event = {
-			id = balkfm.381 # The Lands of Montenegro
-		}
 	}
 	
 	weight = 1000
