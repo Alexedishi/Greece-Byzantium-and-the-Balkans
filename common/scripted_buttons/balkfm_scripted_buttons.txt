@@ -288,7 +288,240 @@ balkfm_ottoman_agitation_button = {
 }
 
 # MONTENEGRO BUTTONS
+balkfm_reinforce_border_button = {
+	name = "balkfm_reinforce_border_button"
+	desc = "balkfm_reinforce_border_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+	}
+	
+	selected = {
+		has_variable = balkfm_reinforce_border_var
+	}
+	
+	effect = {
+		remove_variable = balkfm_border_raid_var
+		if = {
+			limit = {
+				has_variable = balkfm_reinforce_border_var
+			}
+			remove_variable = balkfm_reinforce_border_var
+		}
+		else = {
+			set_variable = balkfm_reinforce_border_var
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
 
+balkfm_border_raid_button = {
+	name = "balkfm_border_raid_button"
+	desc = "balkfm_border_raid_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+	}
+	
+	selected = {
+		has_variable = balkfm_border_raid_var
+	}
+	
+	effect = {
+		remove_variable = balkfm_reinforce_border_var
+		if = {
+			limit = {
+				has_variable = balkfm_border_raid_var
+			}
+			remove_variable = balkfm_border_raid_var
+		}
+		else = {
+			set_variable = balkfm_border_raid_var
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
+balkfm_view_captives_button = {
+	name = "balkfm_view_captives_button"
+	desc = "balkfm_view_captives_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		var:balkfm_view_captives_var = 1
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_view_captives_tt1
+			hidden_trigger = {
+				balkfm_mon_captured_nobles_value > 0
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = balkfm_view_captives_tt2
+			hidden_effect = {
+				if = {
+					limit = {
+						var:balkfm_view_captives_var = 1
+					}
+					set_variable = {
+						name = balkfm_view_captives_var
+						value = 0
+					}
+				}
+				else = {
+					set_variable = {
+						name = balkfm_view_captives_var
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
+balkfm_ransom_noble_button = {
+	name = "balkfm_ransom_noble_button"
+	desc = "balkfm_ransom_noble_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_ransom_noble_tt1
+			hidden_trigger = {
+				balkfm_mon_captured_nobles_value > 0
+			}
+		}
+		NOR = {
+			has_modifier = modifier_balkfm_ransomed_noble
+			has_modifier = modifier_balkfm_ransom_failed
+		}
+	}
+	
+	effect = {
+		c:TUR ?= {
+			trigger_event = {
+				id = balkfm.348 # Montenegro Offers Ransom
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
+balkfm_renounce_headtaking_button = {
+	name = "balkfm_renounce_headtaking_button"
+	desc = "balkfm_renounce_headtaking_button_desc"
+	
+	visible = {
+		has_modifier = modifier_balkfm_practicing_headtaking
+	}
+	
+	possible = {
+		has_modifier = modifier_balkfm_practicing_headtaking
+	}
+	
+	effect = {
+		remove_modifier = modifier_balkfm_practicing_headtaking
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.345 # Headtaking Renounced
+			}
+		}
+		custom_tooltip = balkfm_renounce_headtaking_tt
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
+balkfm_negociate_kotor_button = {
+	name = "balkfm_negociate_kotor_button"
+	desc = "balkfm_negociate_kotor_button_desc"
+	
+	visible = {
+		c:AUS ?= {
+			has_state_in_state_region = STATE_MONTENEGRO
+		}
+	}
+	
+	possible = {
+		OR = {
+			is_subject_of = c:AUS
+			is_in_same_power_bloc = c:AUS
+			has_diplomatic_pact = { 
+				who = c:AUS 
+				type = alliance
+			}
+		}
+		c:AUS = {
+			relations:root >= relations_threshold:amicable
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.355 # Negociations Over Cattaro
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
 
 # SERBIA BUTTONS
 balkfm_cement_monarchy_button = {
