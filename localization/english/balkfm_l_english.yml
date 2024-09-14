@@ -43,8 +43,8 @@
  je_balkfm_mon_benefactor_aus_tt: "We are either a [concept_subject] of #yellow Austria#!, in the same [concept_power_bloc] as #yellow Austria#!, or we have a #bold Defensive Pact#! or #bold Alliance#! with #yellow Austria#!."
  
  je_balkfm_mon_black_mountain: "The Lands of the Black Mountain"
- je_balkfm_mon_black_mountain_reason: "We control #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown1 [Country.MakeScope.ScriptValue('balkfm_mon_border_value')]#!/5 #yellow Montenegrin#! provinces. Every month, we will gain or lose support amongst the Montenegrin tribes living under Ottoman rule. Currently, our strength in the hinterlands will change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown2 [Country.MakeScope.ScriptValue('balkfm_border_conflict_value')|+=]#! next month.\n\nThis can be influenced by the following factors:\n•Completing the #bold Prince-Bishopric#! journal entries.\n•Maintaining positive [concept_infrastructure] in the capital.\n•Researching #yellow Nationalism#!.\n•Maintaining a standing [concept_army].\n•Capturing and Ransoming Ottoman nobles.\n•Having a #bold Defensive Pact#! or #bold Alliance#! with a [concept_great_power] rivaling the #yellow Ottoman Empire#!.\n•Being in a [concept_power_bloc] led by a [concept_great_power] rivaling the #yellow Ottoman Empire#!\n•Your choices during #bold Border Conflict#! events. $TOOLTIP_DELIMITER$\nWhen the forces of Murad I stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans. However, as their authority over the Balkans continues to disintegrate, the Sublime Porte has embarked on a series of violent actions against the Southern Slavs. Separated from the greater Serb community, many feel that Montenegro is destined for doom lest it manage to secure the border with the Ottomans. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
- je_balkfm_mon_black_mountain_status: "We control #bold [GetPlayer.MakeScope.Var('balkfm_mon_border_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
+ je_balkfm_mon_black_mountain_reason: "We control #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown1 [Country.MakeScope.ScriptValue('balkfm_mon_border_value')]#!/5 #yellow Montenegrin#! provinces. Every month, we will gain or lose support amongst the Montenegrin tribes living under Ottoman rule. Currently, our strength in the hinterlands will change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown2 [Country.MakeScope.ScriptValue('balkfm_border_conflict_value')|+=]#! next month.\n\nThis can be influenced by the following factors:\n•Completing the #bold Prince-Bishopric#! journal entries.\n•Maintaining positive [concept_infrastructure] in the capital.\n•Researching #yellow Nationalism#!.\n•Maintaining a standing [concept_army].\n•Capturing and Ransoming Ottoman nobles.\n•Having a #bold Defensive Pact#! or #bold Alliance#! with a [concept_great_power] rivaling the #yellow Ottoman Empire#!.\n•Being in a [concept_power_bloc] led by a [concept_great_power] rivaling the #yellow Ottoman Empire#!\n•Your choices during #bold Border Conflict#! events. \n$TOOLTIP_DELIMITER$\nWhen the forces of Murad I stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans. However, as their authority over the Balkans continues to disintegrate, the Sublime Porte has embarked on a series of violent actions against the Southern Slavs. Separated from the greater Serb community, many feel that Montenegro is destined for doom lest it manage to secure the border with the Ottomans. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
+ je_balkfm_mon_black_mountain_status: "We control #bold [GetGlobalVariable('balkfm_mon_border_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
  je_balkfm_mon_black_mountain_breakdown1: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_border_value')]"
  je_balkfm_mon_black_mountain_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_border_conflict_value')]"
  je_balkfm_mon_black_mountain_complete_tt: "#bold Montenegro#! has reclaimed all lands in the #yellow Montenegro#! state region."
@@ -327,22 +327,25 @@
  balkfm_ottoman_agitation: "Support Ottoman Yugoslavs"
  balkfm_ottoman_agitation_desc: "[ROOT.GetCountry.GetName] might have a measure of freedom from the #bold Porte#!, but our countrymen still live under their oppression. We should aid their fight for freedom."
  
- balkfm_reinforce_border_button: "Reinforce the Border"
- balkfm_reinforce_border_button_desc: ""
- balkfm_border_raid_button: "Launch Border Raids"
- balkfm_border_raid_button_desc: ""
+ balkfm_reinforce_border_button: "Reinforce Border Checkpoints"
+ balkfm_reinforce_border_button_desc: "The border between Montenegro and the Ottoman Empire is ill-defined, with casual travel across the border being commonplace. This has impeded our attempts to secure recognition with the Porte labeling us as merely "disobient subjects."\n$TOOLTIP_DELIMITER$\nFocusing on the defense of the border over reclaiming territory will partially insulate us from Ottoman aggression and may motivate tribal leaders to seek their own way apart from both countries."
+ balkfm_reinforce_border_tt: "This will change our stance towards Border Defense."
+ balkfm_border_raid_button: "Sanction Cross-Border Raids"
+ balkfm_border_raid_button_desc: "The Montenegrin people know these mountains better than the Turks. Given sanction, our tribal subordinates are eager to strike out across the border to sow disorder in furtherance of our cause.\n$TOOLTIP_DELIMITER$\nCross-border raids will disrupt Ottoman operations in Montenegrin lands. With some luck, we may even be able to seize local nobles for use as hostages. However, the resident tribal leaders may not appreciate damages to their lands. If we're not careful, this could also spiral into greater conflict with the Porte itself."
+ balkfm_border_raid_tt: "This will change our stance towards Border Raids."
  balkfm_view_captives_button: "View Captive Nobles"
- balkfm_view_captives_button_desc: ""
+ balkfm_view_captives_button_desc: "Kept under constant guard, our Ottoman captives are held at arm's length from the court. We could pay them a visit should we care to."
  balkfm_view_captives_tt1: "We have at least one captured Ottoman noble."
  balkfm_view_captives_tt2: "This open the #bold Captured Nobles#! widget."
  balkfm_ransom_noble_button: "Ransom Ottoman Noble"
- balkfm_ransom_noble_button_desc: ""
+ balkfm_ransom_noble_button_desc: "While they serve as a potent propaganda piece, the nobles we've captured do little for the cause beyond languishing in capivity. The Ottoman court may be interested in paying a ransom in exchange for a chance to save face."
  balkfm_ransom_noble_tt1: "We have at least #bold 1#! captured noble."
  balkfm_renounce_headtaking_button: "Renounce Headtaking"
  balkfm_renounce_headtaking_button_desc: ""
  balkfm_renounce_headtaking_tt: ""
  balkfm_negociate_kotor_button: "Negociate Adriatic Access"
  balkfm_negociate_kotor_button_desc: ""
+ balkfm_annex_tribe_button: "Annex 
  
  balkfm_cement_monarchy: "Cement Dynastic Succession"
  balkfm_cement_monarchy_desc: "Our dynasty has secured its control over the Serbian throne. All that's left it to convince the National Assembly to grant us the right of inheritance."
@@ -432,7 +435,7 @@
  balkfm_bul_from_ottoman_relations: "From our [concept_relations] with the #yellow Ottoman Empire#!"
  
  # scripted progressbars
- balkfm_mon_border_progress_bar: "balkfm_mon_border_progress_bar"
+ balkfm_mon_border_progress_bar: ""
  balkfm_mon_border_progress_bar_mon_desc: "Montenegrin Support"
  balkfm_mon_border_progress_bar_tur_desc: "Ottoman Support"
  

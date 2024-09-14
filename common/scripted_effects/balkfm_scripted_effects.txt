@@ -323,7 +323,7 @@ balkfm_mon_determine_next_province_effect = {
 				owner != root
 			}
 		}
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 1
 		}
@@ -337,7 +337,7 @@ balkfm_mon_determine_next_province_effect = {
 				owner != root
 			}
 		}
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 2
 		}
@@ -354,7 +354,7 @@ balkfm_mon_determine_next_province_effect = {
 				owner != root
 			}
 		}
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 3
 		}
@@ -374,7 +374,7 @@ balkfm_mon_determine_next_province_effect = {
 				owner != root
 			}
 		}
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 4
 		}
@@ -397,13 +397,13 @@ balkfm_mon_determine_next_province_effect = {
 				owner != root
 			}
 		}
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 5
 		}
 	}
 	else = {
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_next_province_var
 			value = 0
 		}
@@ -411,10 +411,10 @@ balkfm_mon_determine_next_province_effect = {
 }
 
 balkfm_border_cleanup_effect = {
-	remove_variable = balkfm_border_conflict_var
-	remove_variable = balkfm_next_province_var
+	remove_global_variable = balkfm_border_influence_var
+	remove_global_variable = balkfm_next_province_var
+	remove_global_variable = balkfm_border_progress_var
 	remove_variable = balkfm_view_captives_var
-	remove_variable = balkfm_mon_border_var
 	remove_modifier = modifier_balkfm_practicing_headtaking
 }
 

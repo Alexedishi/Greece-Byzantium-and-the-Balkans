@@ -330,20 +330,12 @@ je_balkfm_mon_black_mountain = {
 	
 	immediate = {
 		set_variable = {
-			name = balkfm_border_conflict_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_next_province_var
-			value = 2
-		}
-		set_variable = {
 			name = balkfm_view_captives_var
 			value = 0
 		}
 		set_variable = {
-			name = balkfm_mon_border_var
-			value = balkfm_mon_border_value
+			name = balkfm_tribal_annexation_window
+			value = 0
 		}
 	}
 	
@@ -359,7 +351,7 @@ je_balkfm_mon_black_mountain = {
 	scripted_button = balkfm_view_captives_button
 	scripted_button = balkfm_renounce_headtaking_button
 	scripted_button = balkfm_negociate_kotor_button
-#	scripted_button = balkfm_subjugate_montenegro_button
+	scripted_button = balkfm_annex_tribe_button
 	
 	complete = {
 		custom_tooltip = {
@@ -374,7 +366,7 @@ je_balkfm_mon_black_mountain = {
 		trigger_event = {
 			id = balkfm.359 # The Lands of Montenegro
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
@@ -406,53 +398,67 @@ je_balkfm_mon_black_mountain = {
 		trigger_event = {
 			id = balkfm.358 # International Indifference
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = balkfm_border_conflict_resolved
+			has_global_variable = balkfm_border_conflict_resolved
 		}
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
 			balkfm_mon_determine_next_province_effect = yes
 			set_variable = {
-				name = balkfm_mon_border_var
-				value = balkfm_mon_border_value
+				name = balkfm_border_progress_var
+				value = balkfm_border_progress_value
 			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			change_variable = {
-				name = balkfm_border_conflict_var
-				add = balkfm_border_conflict_value
+			set_variable = {
+				name = balkfm_border_progress_var
+				value = balkfm_border_progress_value
 			}
-			clamp_variable = {
-				name = balkfm_border_conflict_var
+			change_global_variable = {
+				name = balkfm_border_influence_var
+				add = var:balkfm_border_progress_var
+			}
+			clamp_global_variable = {
+				name = balkfm_border_influence_var
 				max = 1000
 				min = 0
+			}
+			set_bar_progress = {
+				name = balkfm_mon_border_progress_bar
+				value = global_var:balkfm_border_influence_var
 			}
 		}
 		events = {
 #			balkfm.351 # Osman Pasha Attacks!
 #			balkfm.352 # Omer Pasha Invades!
+#			balkfm.353 # A Close Shave
+#			balkfm.357 # Country Gains Ground
 		}
 		random_events = {
 			400 = 0
 #			5 = balkfm.340 # Cross Border Incursion
 #			5 = balkfm.341 # Border Villages Burned
 #			5 = balkfm.342 # Border Incursion Repelled
-#			5 = balkfm.343 #
-#			5 = balkfm.344 #
+#			5 = balkfm.343 # Tribal Leader Evades Taxation
+#			5 = balkfm.344 # Village Skirmish Escalates
+#			5 = balkfm.345 # Montenegrin Folk Hero Killed
+#			5 = balkfm.346 # 
+#			5 = balkfm.347 # Ottoman Noble Captured
+#			5 = balkfm.354 # Montenegrin Tribe Rebels
 		}
 	}
 	
