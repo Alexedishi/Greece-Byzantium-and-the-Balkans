@@ -410,11 +410,160 @@ balkfm_mon_determine_next_province_effect = {
 	}
 }
 
+balkfm_generate_captive_effect = {
+	random_list = {
+		5 = { # Bosnian Noble
+			trigger = {
+				c:TUR = {
+					has_state_in_state_region = STATE_BOSNIA
+				}
+			}
+			create_character = {
+				template = template_balkfm_captive_bosnian
+			}
+		}
+		5 = { # Albanian Noble
+			trigger = {
+				c:TUR = {
+					has_state_in_state_region = STATE_ALBANIA
+				}
+			}
+			create_character = {
+				template = template_balkfm_captive_albanian
+			}
+		}
+		5 = { # Serbian Noble
+			trigger = {
+				c:TUR = {
+					has_state_in_state_region = STATE_SOUTHERN_SERBIA
+				}
+			}
+			create_character = {
+				template = template_balkfm_captive_serbian
+			}
+		}
+	}
+}
+
+balkfm_update_captive_variables = {
+	random_character_in_void = {
+		limit = {
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
+		}
+		save_scope_as = balkfm_captive_1_scope
+	}
+	random_character_in_void = {
+		limit = {
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
+			scope:balkfm_captive_1_scope != this
+		}
+		save_scope_as = balkfm_captive_2_scope
+	}
+	random_character_in_void = {
+		limit = {
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
+			scope:balkfm_captive_1_scope != this
+			scope:balkfm_captive_2_scope != this
+		}
+		save_scope_as = balkfm_captive_3_scope
+	}
+	random_character_in_void = {
+		limit = {
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
+			scope:balkfm_captive_1_scope != this
+			scope:balkfm_captive_2_scope != this
+			scope:balkfm_captive_3_scope != this
+		}
+		save_scope_as = balkfm_captive_4_scope
+	}
+	if = {
+		limit = {	
+			exists = scope:balkfm_captive_1_scope
+		}
+		set_variable = {
+			name = balkfm_captive_1_var
+			value = scope:balkfm_captive_1_scope
+		}
+	}
+	else = {
+		set_variable = {
+			name = balkfm_captive_1_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {	
+			exists = scope:balkfm_captive_2_scope
+		}
+		set_variable = {
+			name = balkfm_captive_2_var
+			value = scope:balkfm_captive_2_scope
+		}
+	}
+	else = {
+		set_variable = {
+			name = balkfm_captive_2_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {	
+			exists = scope:balkfm_captive_3_scope
+		}
+		set_variable = {
+			name = balkfm_captive_3_var
+			value = scope:balkfm_captive_3_scope
+		}
+	}
+	else = {
+		set_variable = {
+			name = balkfm_captive_3_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {	
+			exists = scope:balkfm_captive_4_scope
+		}
+		set_variable = {
+			name = balkfm_captive_4_var
+			value = scope:balkfm_captive_4_scope
+		}
+	}
+	else = {
+		set_variable = {
+			name = balkfm_captive_4_var
+			value = 0
+		}
+	}
+}
+	
+
 balkfm_border_cleanup_effect = {
 	remove_global_variable = balkfm_border_influence_var
 	remove_global_variable = balkfm_next_province_var
 	remove_global_variable = balkfm_border_progress_var
 	remove_variable = balkfm_view_captives_var
+	remove_variable = balkfm_captive_1_var
+	remove_variable = balkfm_captive_2_var
+	remove_variable = balkfm_captive_3_var
+	remove_variable = balkfm_captive_4_var
 	remove_modifier = modifier_balkfm_practicing_headtaking
 }
 

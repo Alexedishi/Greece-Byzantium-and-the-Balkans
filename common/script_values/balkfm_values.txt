@@ -110,7 +110,11 @@ balkfm_mon_captured_nobles_value = {
 	value = 0
 	every_character_in_void = {
 		limit = {
-			has_variable = balkfm_captured_noble_var
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
 		}
 		add = 1
 	}

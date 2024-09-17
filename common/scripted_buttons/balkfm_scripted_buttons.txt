@@ -364,6 +364,56 @@ balkfm_border_raid_button = {
 	}
 }
 
+balkfm_annex_tribe_button = {
+	name = "balkfm_annex_tribe_button"
+	desc = "balkfm_annex_tribe_button_desc"
+	
+	visible = {
+		OR = {
+			exists = c:MON_CEN
+			exists = c:MON_NIK
+			exists = c:MON_POD
+			exists = c:MON_PLJ
+			exists = c:MON_KOT
+		}
+	}
+	
+	possible = {
+		any_country = {
+			limit = {
+				custom_tooltip = {
+					text = balkfm_annex_tribe_tt
+					OR = {
+						c:MON_CEN ?= this
+						c:MON_NIK ?= this
+						c:MON_POD ?= this
+						c:MON_PLJ ?= this
+						c:MON_KOT ?= this
+					}
+				}
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.356 # Tribal Annexation
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
 balkfm_view_captives_button = {
 	name = "balkfm_view_captives_button"
 	desc = "balkfm_view_captives_button_desc"
@@ -404,44 +454,6 @@ balkfm_view_captives_button = {
 						value = 1
 					}
 				}
-			}
-		}
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
-	}
-}
-
-balkfm_ransom_noble_button = {
-	name = "balkfm_ransom_noble_button"
-	desc = "balkfm_ransom_noble_button_desc"
-	
-	visible = {
-		always = yes
-	}
-	
-	possible = {
-		custom_tooltip = {
-			text = balkfm_ransom_noble_tt1
-			hidden_trigger = {
-				balkfm_mon_captured_nobles_value > 0
-			}
-		}
-		NOR = {
-			has_modifier = modifier_balkfm_ransomed_noble
-			has_modifier = modifier_balkfm_ransom_failed
-		}
-	}
-	
-	effect = {
-		c:TUR ?= {
-			trigger_event = {
-				id = balkfm.349 # Montenegro Offers Ransom
 			}
 		}
 	}
@@ -513,83 +525,6 @@ balkfm_negociate_kotor_button = {
 	effect = {
 		trigger_event = {
 			id = balkfm.355 # Negociations Over Cattaro
-		}
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
-	}
-}
-
-balkfm_annex_tribe_button = {
-	name = "balkfm_annex_tribe_button"
-	desc = "balkfm_annex_tribe_button_desc"
-	
-	visible = {
-		OR = {
-			exists = c:MON_CEN
-			exists = c:MON_NIK
-			exists = c:MON_POD
-			exists = c:MON_PLJ
-			exists = c:MON_KOT
-		}
-	}
-	
-	possible = {
-		any_country = {
-			limit = {
-				custom_tooltip = {
-					text = balkfm_annex_tribe_tt
-					OR = {
-						c:MON_CEN ?= this
-						c:MON_NIK ?= this
-						c:MON_POD ?= this
-						c:MON_PLJ ?= this
-						c:MON_KOT ?= this
-					}
-				}
-				relations:root >= relations_threshold:amicable
-			}
-		}
-	}
-	
-	effect = {
-		if = {
-			limit = {
-				calc_true_if = {
-					amount > 1
-					exists = c:MON_CEN
-					exists = c:MON_NIK
-					exists = c:MON_POD
-					exists = c:MON_PLJ
-					exists = c:MON_KOT
-				}
-			}
-			set_variable = {
-				name = balkfm_tribal_annexation_window
-				value = 1
-			}
-		}
-		else = {
-			random_country = {
-				limit = {
-					OR = {
-						c:MON_CEN ?= this
-						c:MON_NIK ?= this
-						c:MON_POD ?= this
-						c:MON_PLJ ?= this
-						c:MON_KOT ?= this
-					}
-				}
-				set_variable = balkfm_tribal_annexation_target
-			}
-		}
-		trigger_event = {
-			id = balkfm.356 # Tribal Annexation
 		}
 	}
 	
