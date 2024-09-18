@@ -1,175 +1,210 @@
 widget = {
 	name = "balkfm_captives_window"
-	layer = popups
-	parentanchor = top|hcenter
-	position = { 0 0 }
+	layer = top
+	parentanchor = center
+	size = { 400 600 }
+	maximumsize = { 400 -1 }
 	
-	visible = "[And( 
-		And( 
+	visible =  "[Not( IsObserver )]"
+	
+	datacontext = "[GetPlayer]"
+
+	widget = {
+		parentanchor = center
+		size = { 400 600 }
+		maximumsize = { 400 -1 }
+		
+		using = clickthrough_blocker
+		filter_mouse = all
+		
+		visible = "[And( 
+			IsInGame, 
 			And( 
 				Not( IsPauseMenuShown ), 
-				Not( IsGameOverScreenShown )
-			), 
-			Not( IsObserver )
-		), 
-		IsInGame
-	)]"
-	
-	default_block_window = {
-		visible = "[GetScriptedGui('balkfm_view_captives_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		parentanchor = center
+				And( 
+					Not( IsGameOverScreenShown ), 
+					GetScriptedGui('balkfm_view_captives_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)
+				)
+			)
+		)]"
 		
-		blockoverride "window_header_name" {
-			raw_text = "Captive Ottoman Nobles"
+		### BACKGROUND
+		widget = {
+			size = { 100% 100% }
+
+			background = {
+				texture = "gfx/interface/backgrounds/popup_bg.dds"
+				spriteType = Corneredstretched
+				spriteborder = { 90 90 }
+				texture_density = 2
+
+				modify_texture = {
+					texture = "gfx/interface/backgrounds/default_bg_shading.dds"
+					spriteType = Corneredstretched
+					spriteborder = { 0 0 }
+					blend_mode = overlay
+				}
+				modify_texture = {
+					using = texture_velvet
+				}
+			}
 		}
 		
-		blockoverride "entire_back_button" {
+		### HEADER
+		widget = {
+			size = { 100% 82 }
+
+			popup_top_header = {}
+
+			textbox = {
+				block "first_line_position" {
+					position = { 0 24 }
+				}
+				size = { 75% 40 }
+				block "window_header_name" {
+					raw_text = "Captive Nobles"
+				}
+				elide = right
+				fontsize_min = 14
+				parentanchor = hcenter
+				align = hcenter|nobaseline
+				using = header_font
+				using = header_font_size
+				default_format = "#header"
+			}
+
+			block "second_line" {}
+		}
+		
+		### FRAME
+		popup_bg_frame = {}
+
+		vbox = {
+			spacing = 5
+			
+			layoutpolicy_vertical = preferred
+			layoutpolicy_horizontal = preferred
+			
+			expand = {}
+			
+			widget = {
+				size = { 360 120 }
+				background = {
+					using = entry_bg_unit_dark
+				}
+				
+				character_portrait_medium = {
+					position = { 10 10 }
+					parentanchor = top|left
+					datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
+					blockoverride "show_hat" {}
+					blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+				}
+				
+				textbox = {
+					raw_text = "Captive 1"
+					position = { 10 -10 }
+					parentanchor = left|bottom
+					autoresize = yes
+					using = fontsize_xl
+				}
+			}
+			
+			widget = {
+				size = { 360 120 }
+				background = {
+					using = entry_bg_unit_dark
+				}
+				
+				character_portrait_medium = {
+					position = { 10 10 }
+					parentanchor = top|left
+					datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
+					blockoverride "show_hat" {}
+					blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+				}
+				
+				textbox = {
+					raw_text = "Captive 2"
+					position = { 10 -10 }
+					parentanchor = left|bottom
+					autoresize = yes
+					using = fontsize_xl
+				}
+			}
+			
+			widget = {
+				size = { 360 120 }
+				background = {
+					using = entry_bg_unit_dark
+				}
+				
+				character_portrait_medium = {
+					position = { 10 10 }
+					parentanchor = top|left
+					datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
+					blockoverride "show_hat" {}
+					blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+				}
+				
+				textbox = {
+					raw_text = "Captive 3"
+					position = { 10 -10 }
+					parentanchor = left|bottom
+					autoresize = yes
+					using = fontsize_xl
+				}
+			}
+			
+			widget = {
+				size = { 360 120 }
+				background = {
+					using = entry_bg_unit_dark
+				}
+				
+				character_portrait_medium = {
+					position = { 10 10 }
+					parentanchor = top|left
+					datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
+					blockoverride "show_hat" {}
+					blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
+					blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
+				}
+				
+				textbox = {
+					raw_text = "Captive 4"
+					position = { 10 -10 }
+					parentanchor = left|bottom
+					autoresize = yes
+					using = fontsize_xl
+				}
+			}
+			
 		}
 		
 		button_icon_round = {
-			parentanchor = top|right
-			size = { 50 50 }
-			position = { -9 29 }
+				parentanchor = top|right
+				size = { 50 50 }
+				position = { 0 0 }
 
-			datacontext = "[GetScriptedGui('balkfm_view_captives_sgui')]"
-			onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-			enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-			tooltip = "eocfm_gui_emphasize_unity_tt" ##TODO Placeholder text
-			
-			blockoverride "icon" {
-				texture = "gfx/interface/buttons/button_icons/close.dds"
-			}
-			blockoverride "icon_size" {
-				size = { 100% 100% }
-			}
-		}
-		
-		blockoverride "scrollarea_content_vbox" {
-			vbox = {
-				resizeparent = yes
-				layoutpolicy_vertical = expanding
-				margin_top = 5
-				margin_bottom = 10
-				spacing = 5
-				parentanchor = top|left
+				datacontext = "[GetScriptedGui('balkfm_view_captives_sgui')]"
+				onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+				tooltip = "eocfm_gui_emphasize_unity_tt" ##TODO Placeholder text
 				
-				widget = {
-					size = { 400 100 }
-					background = {
-						using = entry_bg_simple
-					}
-					
-					textbox = {
-						raw_text = "Yeet the Bey"
-						position = { 0 0 }
-						maximumsize = { 350 90 }
-						multiline = yes
-						parentanchor = center
-						autoresize = yes
-						using = fontsize_xl
-					}
+				blockoverride "icon" {
+					texture = "gfx/interface/buttons/button_icons/close.dds"
 				}
-				
-				widget = {
-					size = { 400 120 }
-					background = {
-						using = entry_bg_unit_dark
-					}
-					
-					character_portrait_medium = {
-						position = { 10 10 }
-						parentanchor = top|left
-						datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
-						blockoverride "show_hat" {}
-						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
-					}
-					
-					textbox = {
-						raw_text = "Captive 1"
-						position = { 10 -10 }
-						parentanchor = left|bottom
-						autoresize = yes
-						using = fontsize_xl
-					}
+				blockoverride "icon_size" {
+					size = { 100% 100% }
 				}
-				
-				widget = {
-					size = { 400 120 }
-					background = {
-						using = entry_bg_unit_dark
-					}
-					
-					character_portrait_medium = {
-						position = { 10 10 }
-						parentanchor = top|left
-						datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
-						blockoverride "show_hat" {}
-						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
-					}
-					
-					textbox = {
-						raw_text = "Captive 2"
-						position = { 10 -10 }
-						parentanchor = left|bottom
-						autoresize = yes
-						using = fontsize_xl
-					}
-				}
-				
-				widget = {
-					size = { 400 120 }
-					background = {
-						using = entry_bg_unit_dark
-					}
-					
-					character_portrait_medium = {
-						position = { 10 10 }
-						parentanchor = top|left
-						datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
-						blockoverride "show_hat" {}
-						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
-					}
-					
-					textbox = {
-						raw_text = "Captive 3"
-						position = { 10 -10 }
-						parentanchor = left|bottom
-						autoresize = yes
-						using = fontsize_xl
-					}
-				}
-				
-				widget = {
-					size = { 400 120 }
-					background = {
-						using = entry_bg_unit_dark
-					}
-					
-					character_portrait_medium = {
-						position = { 10 10 }
-						parentanchor = top|left
-						datacontext = "[GetPlayer.MakeScope.Var('eocfm_jerusalem_patriarch_var').GetCharacter]" ##TODO Placeholder Portrait
-						blockoverride "show_hat" {}
-						blockoverride "tooltip" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_icons" {} #TODO Remove when Tooltip doesnt cause error anymore
-						blockoverride "portrait_button" {} #TODO Remove when Tooltip doesnt cause error anymore
-					}
-					
-					textbox = {
-						raw_text = "Captive 4"
-						position = { 10 -10 }
-						parentanchor = left|bottom
-						autoresize = yes
-						using = fontsize_xl
-					}
-				}
-				
 			}
 		}
 	}

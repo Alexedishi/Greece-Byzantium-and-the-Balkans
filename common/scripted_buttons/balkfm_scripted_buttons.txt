@@ -380,22 +380,23 @@ balkfm_annex_tribe_button = {
 	
 	possible = {
 		any_country = {
-			limit = {
-				custom_tooltip = {
-					text = balkfm_annex_tribe_tt
-					OR = {
-						c:MON_CEN ?= this
-						c:MON_NIK ?= this
-						c:MON_POD ?= this
-						c:MON_PLJ ?= this
-						c:MON_KOT ?= this
-					}
+			custom_tooltip = {
+				text = balkfm_annex_tribe_tt
+				OR = {
+					c:MON_CEN ?= this
+					c:MON_NIK ?= this
+					c:MON_POD ?= this
+					c:MON_PLJ ?= this
+					c:MON_KOT ?= this
 				}
-				relations:root >= relations_threshold:amicable
 			}
+			is_subject = no
+			is_in_power_bloc = no
+			relations:root >= relations_threshold:amicable
 		}
-		NOT = {
+		NOR = {
 			has_modifier = modifier_balkfm_annexed_tribe
+			has_variable = balkfm_annexing_tribe
 		}
 	}
 	
@@ -403,6 +404,7 @@ balkfm_annex_tribe_button = {
 		trigger_event = {
 			id = balkfm.356 # Tribal Annexation
 		}
+		set_variable = balkfm_annexing_tribe
 	}
 	
 	ai_chance = {
@@ -439,6 +441,7 @@ balkfm_view_captives_button = {
 		custom_tooltip = {
 			text = balkfm_view_captives_tt2
 			hidden_effect = {
+				balkfm_update_captive_variables_effect = yes
 				if = {
 					limit = {
 						var:balkfm_view_captives_var = 1
@@ -477,16 +480,28 @@ balkfm_renounce_headtaking_button = {
 	
 	possible = {
 		has_modifier = modifier_balkfm_practicing_headtaking
+		custom_tooltip = {
+			text = balkfm_renounce_headtaking_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_negociated_headtaking
+				}
+			}
+		}
 	}
 	
 	effect = {
-		remove_modifier = modifier_balkfm_practicing_headtaking
 		c:TUR = {
 			trigger_event = {
 				id = balkfm.348 # Headtaking Renounced
+				days = { 7 14 }
 			}
 		}
-		custom_tooltip = balkfm_renounce_headtaking_tt
+		custom_tooltip = balkfm_renounce_headtaking_tt2
+		set_variable = {
+			name = balkfm_negociated_headtaking
+			years = 10
+		}
 	}
 	
 	ai_chance = {
@@ -505,6 +520,9 @@ balkfm_negociate_kotor_button = {
 	visible = {
 		c:AUS ?= {
 			has_state_in_state_region = STATE_MONTENEGRO
+		}
+		NOT = {
+			has_variable = balkfm_negociated_kotor
 		}
 	}
 	
@@ -526,14 +544,11 @@ balkfm_negociate_kotor_button = {
 		trigger_event = {
 			id = balkfm.355 # Negociations Over Cattaro
 		}
+		set_variable = balkfm_negociated_kotor
 	}
 	
 	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
+		base = 100
 	}
 }
 

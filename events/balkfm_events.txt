@@ -46,7 +46,7 @@ namespace = balkfm
 #020-029 - Hidden Technical Events (Variable Placement)
 #	020 - Places Yugoslav Secession Variable
 
-#030-039 - Hidden Technical Events (Rebel Pasha Spawns)
+#030-039 - Hidden Technical Events (Rebel Pasha Spawns) ## These will move to TURKFM
 #	030 - Creates Hersek with Smaïl-aga at the Helm
 #	031 - Creates Hersek with Ali Pasha at the Helm
 #	032 - Cleans up after balkfm.031
@@ -116,13 +116,13 @@ namespace = balkfm
 #	343 - ##Tribal Leader Evades Taxation
 #	344 - ##Village Skirmish Escalates
 #	345 - ##Montenegrin Folk Hero Killed
-#	346 - ##
+#	346 - ##Ottoman Noble Executed
 #	347 - ##Ottoman Noble Captured
-#	348 - ##Headtaking Renounced
+#	348 - ##Negociations on Headtaking
 #	349 - ##Montenegro Offers Ransom/Ottoman Noble Ransomed
 
 #350-359 - Ottoman-Montenegrin Border Conflict Narrative Events
-#	350 - #The Ottoman Frontier
+#	350 - #OPEN
 #	351 - ##Osman Pasha Attacks!
 #	352 - ##Omer Pasha Invades!
 #	353 - ##A Close Shave
@@ -1897,6 +1897,12 @@ balkfm.300 = { # A Feudal Relic
 		add_journal_entry = {
 			type = je_balkfm_mon_military_reform
 		}
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_spartan_existence
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_border_feud
+		}
 		if = {
 			limit = {
 				morgenrote_is_active = yes
@@ -1914,6 +1920,7 @@ balkfm.300 = { # A Feudal Relic
 				days = 230 # should fire in mid-August 
 			}
 		}
+		custom_tooltip = balkfm.300.tt
 	}
 
 }
@@ -2761,19 +2768,420 @@ balkfm.345 = { # Montenegrin Folk Hero Killed
 	orphan = yes
 }
 
-balkfm.346 = { # 
-	orphan = yes
+balkfm.346 = { # Ottoman Noble Executed
+	type = country_event
+	placement = root
+	
+	title = balkfm.346.t
+	desc = balkfm.346.d
+	flavor = balkfm.346.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_captive_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_execute_captive sguis
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_captive_event_target
+			}
+			save_scope_as = balkfm_captive_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.346.a
+		default_option = yes
+		scope:balkfm_captive_scope = {
+			kill_character = yes
+		}
+		add_modifier = {
+			name = modifier_balkfm_executed_noble
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+	}
+	
 }
 
 balkfm.347 = { # Ottoman Noble Captured
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.347.t
+	desc = balkfm.347.d
+	flavor = balkfm.347.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_new_captive_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_border_event_cooldown_var
+		}
+		balkfm_mon_captured_nobles_value < 4
+	}
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_border_event_cooldown_var
+			months = 8
+		}
+		balkfm_generate_captive_effect = yes
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_captive_var
+			}
+			save_scope_as = balkfm_new_captive_scope
+		}
+	}
+	
+	option = { # Let Them Go
+		name = balkfm.347.a
+		default_option = yes
+		scope:balkfm_new_captive_scope = {
+			free_character_from_void = yes
+		}
+		c:TUR = {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+	}
+	
+	option = { # Lock them up
+		name = balkfm.347.b
+		scope:balkfm_new_captive_scope = {
+			remove_variable = balkfm_captive_var
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+
 }
 
-balkfm.348 = { # Headtaking Renounced
+balkfm.348 = { # Negociations on Headtaking
+	type = country_event
+	placement = scope:balkfm_headtaking_country_scope
+	
+	title = balkfm.348.t
+	desc = {
+		triggered_desc = {
+			desc = balkfm.348.d1
+			trigger = {
+				NOR = {
+					has_global_variable = balkfm_headtaking_rejected
+					has_global_variable = balkfm_headtaking_accepted
+				}
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.348.d2
+			trigger = {
+				has_global_variable = balkfm_headtaking_rejected
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.348.d3
+			trigger = {
+				has_global_variable = balkfm_headtaking_accepted
+			}
+		}
+	}
+	flavor = balkfm.348.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_headtaking_event_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_renounce_headtaking_button
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			c:MON = {
+				save_scope_as = balkfm_headtaking_country_scope
+				ruler = {
+					save_scope_as = balkfm_headtaking_ruler_scope
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:MON = this
+			}
+			c:TUR = {
+				save_scope_as = balkfm_headtaking_country_scope
+				ruler = {
+					save_scope_as = balkfm_headtaking_ruler_scope
+				}
+			}
+		}
+	}
+	
+	option = { # For MON, headtaking offer rejected, retain headtaking
+		name = balkfm.348.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_retained_headtaking
+			months = normal_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_rejected
+	}
+	
+	option = { # For MON, headtaking offer rejected, abolish unilaterally
+		name = balkfm.348.b
+		remove_modifier = modifier_balkfm_practicing_headtaking
+		add_modifier = {
+			name = modifier_balkfm_unilaterally_abolished_headtaking
+			months = long_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_rejected
+	}
+	
+	option = { # For MON, headtaking offer accepted
+		name = balkfm.348.c
+		remove_modifier = modifier_balkfm_practicing_headtaking
+		add_modifier = {
+			name = modifier_balkfm_abolished_headtaking
+			months = normal_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_accepted
+	}
+	
+	option = { # For TUR, reject headtaking offer
+		name = balkfm.348.e
+		add_modifier = {
+			name = modifier_balkfm_retained_headtaking
+			months = long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+		set_global_variable = balkfm_headtaking_rejected
+		c:MON = {
+			trigger_event = {
+				id = balkfm.348
+			}
+		}
+	}
+	
+	option = { # For TUR, accept headtaking offer
+		name = balkfm.348.g
+		add_modifier = {
+			name = modifier_balkfm_abolished_headtaking
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = small_radicals
+		}
+		add_radicals = {
+			strata = rich
+			culture = cu:turkish
+			value = small_radicals
+		}
+		set_global_variable = balkfm_headtaking_accepted
+		c:MON = {
+			trigger_event = {
+				id = balkfm.348
+			}
+		}
+	}
 	
 }
 
 balkfm.349 = { # Montenegro Offers Ransom/Ottoman Noble Ransomed
+	type = country_event
+	placement = root
+	
+	title = {
+		triggered_desc = {
+			desc = balkfm.349.t1
+			trigger = {
+				c:TUR = this
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.349.t2
+			trigger = {
+				c:TUR != this
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = balkfm.349.d1
+			trigger = {
+				c:TUR = this
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.349.d2
+			trigger = {
+				c:TUR != this
+			}
+		}
+	}
+	flavor = {
+		triggered_desc = {
+			desc = balkfm.349.f1
+			trigger = {
+				c:TUR = this
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.349.f2
+			trigger = {
+				c:TUR != this
+			}
+		}
+	}
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_captive_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_captive sguis
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_captive_event_target
+			}
+			save_scope_as = balkfm_captive_scope
+		}
+	}
+	
+	option = { # Option for Montenegro
+		name = balkfm.349.a
+		default_option = yes
+		trigger = {
+			c:TUR != this
+		}
+		if = {
+			limit = {
+				has_global_variable = balkfm_ransom_accepted
+			}
+			scope:balkfm_captive_scope = {
+				free_character_from_void = yes
+			}
+			remove_global_variable = balkfm_ransom_accepted
+		}
+		if = {
+			limit = {
+				has_global_variable = balkfm_ransom_refused
+			}
+			scope:balkfm_captive_scope = {
+				free_character_from_void = yes
+			}
+			remove_global_variable = balkfm_ransom_refused
+		}
+	}
+	
+	option = { # Post Bail
+		name = balkfm.349.b
+		trigger = {
+			c:TUR = this
+		}
+		add_radicals = {
+			strata = poor
+			culture = cu:turkish
+			value = small_radicals
+		}
+		add_modifier = {
+			name = modifier_balkfm_accepted_ransom
+			months = short_modifier_time
+		}
+		set_global_variable = balkfm_ransom_accepted
+		ai_chance = {
+			base = 8
+			modifier = {
+				trigger = {
+				}
+				add = 0
+			}
+		}
+	}
+	
+	option = { # Uhh, not our problem
+		name = balkfm.349.c
+		trigger = {
+			c:TUR = this
+		}
+		add_radicals = {
+			strata = rich
+			culture = cu:turkish
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_balkfm_refused_ransom
+			months = short_modifier_time
+
+		}
+		set_global_variable = balkfm_ransom_refused
+		ai_chance = {
+			base = 2
+			modifier = {
+				trigger = {
+				}
+				add = 0
+			}
+		}
+	}
 	
 }
 
@@ -2810,10 +3218,9 @@ balkfm.350 = { # The Ottoman Frontier
 	option = {
 		name = balkfm.350.a
 		default_option = yes
-		show_as_tooltip = {
-			add_modifier = modifier_balkfm_border_feud
-		}
 	}
+	
+	orphan = yes
 	
 }
 
@@ -2866,10 +3273,178 @@ balkfm.354 = { # Montenegrin Tribe Rebels
 }
 
 balkfm.355 = { # Negociations Over Cattaro
+	type = country_event
+	placement = root
+	
+	title = balkfm.355.t
+	desc = balkfm.355.d
+	flavor = balkfm.355.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_negociate_kotor_button
+	}
+	
+	cancellation_trigger = {
+		NOR = {
+			is_subject_of = c:AUS
+			is_in_same_power_bloc = c:AUS
+			has_diplomatic_pact = { 
+				who = c:AUS 
+				type = alliance
+			}
+		}
+	}
+	
+	immediate = {
+		c:AUS = {
+			save_scope_as = austria_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.355.a
+		default_option = yes
+		c:AUS = {
+			every_scope_state = {
+				limit = {
+					state_region = s:STATE_MONTENEGRO
+				}
+				set_state_owner = root
+			}
+		}
+	}
 	
 }
 
 balkfm.356 = { # Tribal Annexation
+	type = country_event
+	placement = root
+	
+	title = balkfm.356.t
+	desc = balkfm.356.d
+	flavor = balkfm.356.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_annex_tribe_button
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.356.1
+		trigger = {
+			c:MON_CEN ?= {
+				NOT = {
+					is_subject_of = root
+				}
+			}
+		}
+		create_diplomatic_pact = {
+			country = c:MON_CEN
+			type = protectorate
+		}
+	}
+	
+	option = {
+		name = balkfm.356.2
+		trigger = {
+			c:MON_NIK ?= {
+				NOT = {
+					is_subject_of = root
+				}
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		create_diplomatic_pact = {
+			country = c:MON_NIK
+			type = protectorate
+		}
+	}
+	
+	option = {
+		name = balkfm.356.3
+		trigger = {
+			c:MON_POD ?= {
+				NOT = {
+					is_subject_of = root
+				}
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		create_diplomatic_pact = {
+			country = c:MON_POD
+			type = protectorate
+		}
+	}
+	
+	option = {
+		name = balkfm.356.4
+		trigger = {
+			c:MON_PLJ ?= {
+				NOT = {
+					is_subject_of = root
+				}
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		create_diplomatic_pact = {
+			country = c:MON_PLJ
+			type = protectorate
+		}
+	}
+	
+	option = {
+		name = balkfm.356.5
+		trigger = {
+			c:MON_KOT ?= {
+				NOT = {
+					is_subject_of = root
+				}
+				relations:root >= relations_threshold:amicable
+			}
+		}
+		create_diplomatic_pact = {
+			country = c:MON_KOT
+			type = protectorate
+		}
+	}
+	
+	option = {
+		name = balkfm.356.a
+		default_option = yes
+	}
+	
+	after = {
+		remove_variable = balkfm_annexing_tribe
+	}
 	
 }
 

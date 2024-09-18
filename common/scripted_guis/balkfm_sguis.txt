@@ -27,10 +27,20 @@ balkfm_captive_1_sgui = {
 	scope = country
 	
 	is_shown = {
-		exists = var:balkfm_captive_1_var
+		has_variable = balkfm_captive_1_var
 	}
+}
+	
+balkfm_ransom_captive_1_sgui = {
+	scope = country
 	
 	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_1_var
+			}
+		}
 		NOR = {
 			has_modifier = modifier_balkfm_ransomed_noble
 			has_modifier = modifier_balkfm_ransom_failed
@@ -38,6 +48,9 @@ balkfm_captive_1_sgui = {
 	}
 	
 	effect = {
+		var:balkfm_captive_1_var = {
+			set_variable = balkfm_captive_event_target
+		}
 		c:TUR ?= {
 			trigger_event = {
 				id = balkfm.349 # Montenegro Offers Ransom
@@ -45,16 +58,57 @@ balkfm_captive_1_sgui = {
 		}
 	}
 	
+}
+
+balkfm_execute_captive_1_sgui = {
+	scope = country
+
+	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_1_var
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_executed_noble
+		}
+	}
+	
+	effect = {
+		var:balkfm_captive_1_var = {
+			set_variable = balkfm_captive_event_target
+		}
+		trigger_event = {
+			id = balkfm.346 # Ottoman Noble Executed
+		}
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_balkfm_executed_noble
+				months = normal_modifier_time
+			}
+		}
+	}
 }
 
 balkfm_captive_2_sgui = {
 	scope = country
 	
 	is_shown = {
-		exists = var:balkfm_captive_2_var
+		has_variable = balkfm_captive_2_var
 	}
+}
+	
+balkfm_ransom_captive_2_sgui = {
+	scope = country
 	
 	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_2_var
+			}
+		}
 		NOR = {
 			has_modifier = modifier_balkfm_ransomed_noble
 			has_modifier = modifier_balkfm_ransom_failed
@@ -62,6 +116,9 @@ balkfm_captive_2_sgui = {
 	}
 	
 	effect = {
+		var:balkfm_captive_2_var = {
+			set_variable = balkfm_captive_event_target
+		}
 		c:TUR ?= {
 			trigger_event = {
 				id = balkfm.349 # Montenegro Offers Ransom
@@ -69,16 +126,57 @@ balkfm_captive_2_sgui = {
 		}
 	}
 	
+}
+
+balkfm_execute_captive_2_sgui = {
+	scope = country
+
+	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_2_var
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_executed_noble
+		}
+	}
+	
+	effect = {
+		var:balkfm_captive_2_var = {
+			set_variable = balkfm_captive_event_target
+		}
+		trigger_event = {
+			id = balkfm.346 # Ottoman Noble Executed
+		}
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_balkfm_executed_noble
+				months = normal_modifier_time
+			}
+		}
+	}
 }
 
 balkfm_captive_3_sgui = {
 	scope = country
 	
 	is_shown = {
-		exists = var:balkfm_captive_3_var
+		has_variable = balkfm_captive_3_var
 	}
+}
+	
+balkfm_ransom_captive_3_sgui = {
+	scope = country
 	
 	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_3_var
+			}
+		}
 		NOR = {
 			has_modifier = modifier_balkfm_ransomed_noble
 			has_modifier = modifier_balkfm_ransom_failed
@@ -86,6 +184,9 @@ balkfm_captive_3_sgui = {
 	}
 	
 	effect = {
+		var:balkfm_captive_3_var = {
+			set_variable = balkfm_captive_event_target
+		}
 		c:TUR ?= {
 			trigger_event = {
 				id = balkfm.349 # Montenegro Offers Ransom
@@ -93,16 +194,57 @@ balkfm_captive_3_sgui = {
 		}
 	}
 	
+}
+
+balkfm_execute_captive_3_sgui = {
+	scope = country
+
+	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_3_var
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_executed_noble
+		}
+	}
+	
+	effect = {
+		var:balkfm_captive_3_var = {
+			set_variable = balkfm_captive_event_target
+		}
+		trigger_event = {
+			id = balkfm.346 # Ottoman Noble Executed
+		}
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_balkfm_executed_noble
+				months = normal_modifier_time
+			}
+		}
+	}
 }
 
 balkfm_captive_4_sgui = {
 	scope = country
 	
 	is_shown = {
-		exists = var:balkfm_captive_4_var
+		has_variable = balkfm_captive_4_var
 	}
+}
+	
+balkfm_ransom_captive_4_sgui = {
+	scope = country
 	
 	is_valid = {
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_4_var
+			}
+		}
 		NOR = {
 			has_modifier = modifier_balkfm_ransomed_noble
 			has_modifier = modifier_balkfm_ransom_failed
@@ -110,6 +252,9 @@ balkfm_captive_4_sgui = {
 	}
 	
 	effect = {
+		var:balkfm_captive_4_var = {
+			set_variable = balkfm_captive_event_target
+		}
 		c:TUR ?= {
 			trigger_event = {
 				id = balkfm.349 # Montenegro Offers Ransom
@@ -119,27 +264,33 @@ balkfm_captive_4_sgui = {
 	
 }
 
-###########################
-# TRIBAL ANNEXATION SGUIS #
-###########################
-
-balkfm_annexation_window_sgui = {
+balkfm_execute_captive_4_sgui = {
 	scope = country
-	
-	is_shown = {
-		has_variable = balkfm_tribal_annexation_window
-		var:balkfm_tribal_annexation_window > 0
-	}
-	
+
 	is_valid = {
-		always = yes
-	}
-	
-	effect = {
-		set_variable = {
-			name = balkfm_tribal_annexation_window
-			value = 0
+		custom_tooltip = {
+			text = balkfm_has_captive_tt
+			hidden_trigger = {
+				has_variable = balkfm_captive_4_var
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_executed_noble
 		}
 	}
 	
+	effect = {
+		var:balkfm_captive_4_var = {
+			set_variable = balkfm_captive_event_target
+		}
+		trigger_event = {
+			id = balkfm.346 # Ottoman Noble Executed
+		}
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_balkfm_executed_noble
+				months = normal_modifier_time
+			}
+		}
+	}
 }
