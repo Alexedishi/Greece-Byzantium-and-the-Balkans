@@ -194,7 +194,7 @@ je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unificati
 #####################
 
 je_balkfm_mon_prince_bishopric = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
+	icon = "gfx/interface/icons/event_icons/event_petrovic.dds"
 	
 	group = je_group_balkfm_montenegro
 	
@@ -322,7 +322,7 @@ je_balkfm_mon_military_reform = {
 }
 
 je_balkfm_mon_black_mountain = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro2.dds"
+	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
 	
 	group = je_group_balkfm_montenegro
 	
@@ -411,50 +411,47 @@ je_balkfm_mon_black_mountain = {
 		effect = {
 			balkfm_mon_determine_next_province_effect = yes
 			balkfm_update_captive_variables_effect = yes
-			set_variable = {
-				name = balkfm_border_progress_var
-				value = balkfm_border_progress_value
+			set_global_variable = {
+				name = balkfm_mon_border_control_var
+				value = balkfm_border_control_value
+			}
+			set_global_variable = {
+				name = balkfm_mon_border_progress_var
+				value = balkfm_mon_border_progress_value
+			}
+			set_global_variable = {
+				name = balkfm_total_border_progress_var
+				value = balkfm_total_border_progress_value
 			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			set_variable = {
-				name = balkfm_border_progress_var
-				value = balkfm_border_progress_value
-			}
 			change_global_variable = {
 				name = balkfm_border_influence_var
-				add = var:balkfm_border_progress_var
+				add = var:balkfm_total_border_progress_var
 			}
 			clamp_global_variable = {
 				name = balkfm_border_influence_var
 				max = 1000
 				min = 0
 			}
-			set_bar_progress = {
-				name = balkfm_mon_border_progress_bar
-				value = global_var:balkfm_border_influence_var
-			}
+			balkfm_update_border_progressbar_effect = yes
 		}
 		events = {
-#			balkfm.351 # Osman Pasha Attacks!
-#			balkfm.352 # Omer Pasha Invades!
-#			balkfm.353 # A Close Shave
-#			balkfm.357 # Country Gains Ground
+			balkfm.355 # Montenegrin Tribe Rebels
+			balkfm.349 # Montenegro Gains Ground
+#			balkfm.350 # Osman Pasha Attacks!
+#			balkfm.351 # Omer Pasha Invades!
 		}
 		random_events = {
-			400 = 0
-#			5 = balkfm.340 # Cross Border Incursion
-#			5 = balkfm.341 # Border Villages Burned
-#			5 = balkfm.342 # Border Incursion Repelled
-#			5 = balkfm.343 # Tribal Leader Evades Taxation
-#			5 = balkfm.344 # Village Skirmish Escalates
-#			5 = balkfm.345 # Montenegrin Folk Hero Killed
-#			5 = balkfm.346 # 
-#			5 = balkfm.347 # Ottoman Noble Captured
-#			5 = balkfm.354 # Montenegrin Tribe Rebels
+			200 = 0
+			20 = balkfm.340 # Montenegro Crosses the Border
+			5 = balkfm.341 # Border Villages Burned (MON)
+			5 = balkfm.342 # Village Skirmish Escalates (MON)
+			5 = balkfm.343 # Border Incursion Repelled (MON)
+			5 = balkfm.348 # Tribal Leader Evades Taxation
 		}
 	}
 	
@@ -500,7 +497,7 @@ je_balkfm_mon_ali_pasha = {
 }
 
 je_balkfm_mon_nationalism = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
+	icon = "gfx/interface/icons/event_icons/event_montenegro2.dds"
 	
 	group = je_group_balkfm_montenegro
 	

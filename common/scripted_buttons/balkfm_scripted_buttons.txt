@@ -300,20 +300,24 @@ balkfm_reinforce_border_button = {
 	}
 	
 	selected = {
-		has_variable = balkfm_reinforce_border_var
+		has_modifier = modifier_balkfm_fortifying_border
 	}
 	
 	effect = {
-		custom_tooltip = balkfm_reinforce_border_tt
-		remove_variable = balkfm_border_raid_var
 		if = {
 			limit = {
-				has_variable = balkfm_reinforce_border_var
+				has_modifier = modifier_balkfm_sponsoring_raids
 			}
-			remove_variable = balkfm_reinforce_border_var
+			remove_modifier = modifier_balkfm_sponsoring_raids
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_fortifying_border
+			}
+			remove_modifier = modifier_balkfm_fortifying_border
 		}
 		else = {
-			set_variable = balkfm_reinforce_border_var
+			add_modifier = modifier_balkfm_fortifying_border
 		}
 	}
 	
@@ -338,20 +342,24 @@ balkfm_border_raid_button = {
 	}
 	
 	selected = {
-		has_variable = balkfm_border_raid_var
+		has_modifier = modifier_balkfm_sponsoring_raids
 	}
 	
 	effect = {
-		custom_tooltip = balkfm_border_raid_tt
-		remove_variable = balkfm_reinforce_border_var
 		if = {
 			limit = {
-				has_variable = balkfm_border_raid_var
+				has_modifier = modifier_balkfm_fortifying_border
 			}
-			remove_variable = balkfm_border_raid_var
+			remove_modifier = modifier_balkfm_fortifying_border
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_sponsoring_raids
+			}
+			remove_modifier = modifier_balkfm_sponsoring_raids
 		}
 		else = {
-			set_variable = balkfm_border_raid_var
+			add_modifier = modifier_balkfm_sponsoring_raids
 		}
 	}
 	
@@ -402,7 +410,7 @@ balkfm_annex_tribe_button = {
 	
 	effect = {
 		trigger_event = {
-			id = balkfm.356 # Tribal Annexation
+			id = balkfm.366 # Tribal Annexation
 		}
 		set_variable = balkfm_annexing_tribe
 	}
@@ -493,7 +501,7 @@ balkfm_renounce_headtaking_button = {
 	effect = {
 		c:TUR = {
 			trigger_event = {
-				id = balkfm.348 # Headtaking Renounced
+				id = balkfm.357 # Negociations on Headtaking (TUR)
 				days = { 7 14 }
 			}
 		}
@@ -542,7 +550,7 @@ balkfm_negociate_kotor_button = {
 	
 	effect = {
 		trigger_event = {
-			id = balkfm.355 # Negociations Over Cattaro
+			id = balkfm.367 # Negociations Over Cattaro
 		}
 		set_variable = balkfm_negociated_kotor
 	}

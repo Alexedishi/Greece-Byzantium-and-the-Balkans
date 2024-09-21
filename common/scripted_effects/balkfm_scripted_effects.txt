@@ -324,7 +324,7 @@ balkfm_mon_determine_next_province_effect = {
 			}
 		}
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 1
 		}
 	}
@@ -338,7 +338,7 @@ balkfm_mon_determine_next_province_effect = {
 			}
 		}
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 2
 		}
 	}
@@ -355,7 +355,7 @@ balkfm_mon_determine_next_province_effect = {
 			}
 		}
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 3
 		}
 	}
@@ -375,7 +375,7 @@ balkfm_mon_determine_next_province_effect = {
 			}
 		}
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 4
 		}
 	}
@@ -398,16 +398,19 @@ balkfm_mon_determine_next_province_effect = {
 			}
 		}
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 5
 		}
 	}
 	else = {
 		set_global_variable = {
-			name = balkfm_next_province_var
+			name = balkfm_mon_next_province_var
 			value = 0
 		}
 	}
+}
+
+balkfm_tur_determine_next_province_effect = {
 }
 
 balkfm_generate_captive_effect = {
@@ -533,17 +536,96 @@ balkfm_update_captive_variables_effect = {
 		}
 	}
 }
-	
 
+balkfm_minor_border_progress_gain_effect = {
+	custom_tooltip = balkfm_border_influence_gain_50_tt
+	if = {
+		limit = {
+			c:MON = this
+		}
+		change_global_variable = {
+			name = balkfm_border_influence_var
+			add = 50
+		}
+	}
+	if = {
+		limit = {
+			c:TUR = this
+		}
+		change_global_variable = {
+			name = balkfm_border_influence_var
+			subtract = 50
+		}
+	}
+	clamp_global_variable = {
+		name = balkfm_border_influence_var
+		max = 1000
+		min = 0
+	}
+}
+
+balkfm_minor_border_progress_loss_effect = {
+	custom_tooltip = balkfm_border_influence_lose_50_tt
+	if = {
+		limit = {
+			c:MON = this
+		}
+		change_global_variable = {
+			name = balkfm_border_influence_var
+			subtract = 50
+		}
+	}
+	if = {
+		limit = {
+			c:TUR = this
+		}
+		change_global_variable = {
+			name = balkfm_border_influence_var
+			add = 50
+		}
+	}
+	clamp_global_variable = {
+		name = balkfm_border_influence_var
+		max = 1000
+		min = 0
+	}
+}
+
+balkfm_update_border_progressbar_effect = {
+	c:MON = {
+		je:je_balkfm_mon_black_mountain = {
+			set_bar_progress = {
+				name = balkfm_mon_border_progress_bar
+				value = global_var:balkfm_border_influence_var
+			}
+		}
+	}
+	c:TUR = {
+		je:je_turkfm_tur_karadag = {
+			set_bar_progress = {
+				name = balkfm_mon_border_progress_bar
+				value = global_var:balkfm_border_influence_var
+			}
+		}
+	}
+}
+	
 balkfm_border_cleanup_effect = {
+	remove_global_variable = balkfm_mon_border_control_var
+	remove_global_variable = balkfm_mon_border_progress_var
+	remove_global_variable = balkfm_tur_border_control_var
+	remove_global_variable = balkfm_tur_border_progress_var
+	remove_global_variable = balkfm_total_border_progress_var
 	remove_global_variable = balkfm_border_influence_var
-	remove_global_variable = balkfm_next_province_var
-	remove_global_variable = balkfm_border_progress_var
+	remove_global_variable = balkfm_mon_next_province_var
+	remove_global_variable = balkfm_tur_next_province_var
+
 	remove_variable = balkfm_view_captives_var
 	remove_variable = balkfm_captive_1_var
 	remove_variable = balkfm_captive_2_var
 	remove_variable = balkfm_captive_3_var
 	remove_variable = balkfm_captive_4_var
+	
 	remove_modifier = modifier_balkfm_practicing_headtaking
 }
 

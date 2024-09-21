@@ -39,12 +39,109 @@ balkfm_construction_points_value = { # Ripped from LRoAI
 
 ## MONTENEGRO VALUES ##
 
-balkfm_border_progress_value = {
+balkfm_mon_border_progress_value = {
 	value = 0
 	add = {
 		desc = balkfm_value_from_base
 		value = 1
 	}
+	add = {
+		desc = balkfm_value_from_bishopric_journals
+		value = {
+			if = {
+				limit = {
+					has_variable = balkfm_mon_soc_completed
+				}
+				add = 1
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_mon_gov_completed
+				}
+				add = 1
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_mon_mil_completed
+				}
+				add = 1
+			}
+		}
+	}
+	add = {
+		desc = balkfm_value_from_capital_infrastructure
+		value = {
+			add = root.capital.relative_infrastructure
+			divide = 10
+		}
+	}
+	add = {
+		desc = balkfm_value_from_standing_army
+		value = {
+			add = root.army_power_projection
+			divide = 10
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_ransomed_noble
+		}
+		add = {
+			desc = balkfm_value_from_ransoming_nobles
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			any_country = {
+				OR = {
+					has_diplomatic_pact = {
+						who = root
+						type = alliance
+					}
+					has_diplomatic_pact = {
+						who = root
+						type = defensive_pact
+					}
+				}
+				has_diplomatic_pact = {
+					who = c:TUR
+					type = rivalry
+				}
+			}
+		}
+		add = {
+			desc = balkfm_value_from_diplomatic_pacts
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			is_in_power_bloc = yes
+			power_bloc = {
+				power_bloc_leader = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = rivalry
+					}
+				}
+			}
+		}
+		add = {
+			desc = balkfm_value_from_power_bloc
+			value = 0
+		}
+	}
+}
+
+balkfm_tur_border_progress_value = {
+	value = 0
+}
+
+balkfm_total_border_progress_value = {
+	value = 0
+	add = balkfm_mon_border_progress_value
+	subtract = balkfm_tur_border_progress_value
 }
 
 balkfm_border_control_value = {

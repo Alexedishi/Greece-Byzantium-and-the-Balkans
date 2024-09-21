@@ -96,3 +96,126 @@
 	weight = 100
 	
 }
+
+################################
+# BALKAN NATIONALIST MOVEMENTS #
+################################
+
+je_turkfm_tur_karadag = {
+# This journal's content is shared with je_balkfm_mon_black_mountain; all calculations are done in that journal and posted to global variables
+# All scripting outside of this journal is handled by balkfm; this is for ease of scripting
+
+	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
+	
+	group = je_group_turkfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	scripted_progress_bar = balkfm_mon_border_progress_bar
+	
+	scripted_button = balkfm_reinforce_border_button
+	scripted_button = balkfm_border_raid_button
+	
+	complete = {
+		OR = {
+			owns_entire_state_region = STATE_MONTENEGRO
+			c:MON = {
+				is_subject_of = root
+			}
+			is_in_same_power_bloc = c:MON
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.364 # The Black Mountain Subdued
+		}
+		balkfm_border_cleanup_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_turkfm_tur_karadag_fail_tt
+				hidden_trigger = {
+					NOT = {
+						any_scope_state = {
+							state_region = s:STATE_MONTENEGRO
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = balkfm.363 # The Black Mountain Lost
+		}
+		balkfm_border_cleanup_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	invalid = {
+		OR = {
+			hidden_trigger = {
+				has_global_variable = balkfm_border_conflict_resolved
+			}
+			NOT = {
+				exists = c:MON
+			}
+		}
+	}
+	
+	on_invalid = {
+		balkfm_border_cleanup_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_tur_determine_next_province_effect = yes
+			set_global_variable = {
+				name = balkfm_tur_border_control_var
+				value = balkfm_border_control_value
+			}
+			set_global_variable = {
+				name = balkfm_tur_border_progress_var
+				value = balkfm_tur_border_progress_value
+			}
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			clamp_global_variable = {
+				name = balkfm_border_influence_var
+				max = 1000
+				min = 0
+			}
+		}
+		events = {
+			balkfm.359 # Ottomans Gain Ground
+		}
+		random_events = {
+			200 = 0
+			20 = balkfm.350 # Ottomans Cross the Border
+			5 = balkfm.351 # Border Villages Burned (TUR)
+			5 = balkfm.352 # Village Skirmish Escalates (TUR)
+			5 = balkfm.353 # Border Incursion Repelled (TUR)
+			5 = balkfm.358 # Tribal Leader Seeks Aid
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_turkfm_tur_karadag_status
+		}
+	}
+	
+	weight = 1000
+	
+}
