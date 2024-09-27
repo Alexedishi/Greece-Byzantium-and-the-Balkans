@@ -787,7 +787,96 @@ balkfm_minor_border_progress_loss_effect = {
 }
 
 balkfm_create_tribal_rebellion_effect = {
-
+	if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 1
+		}
+		create_country = {
+			tag = MON_CEN
+			origin = this
+			province = p:x8C6292 # Cetinje
+			on_created = {
+				set_variable = balkfm_tribal_rebel_var
+			}
+		}
+		balkfm_tur_determine_next_province_effect = yes
+		c:MON = {
+			balkfm_mon_determine_next_province_effect = yes
+			post_notification = notification_balkfm_tribe_rebellion
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 2
+		}
+		create_country = {
+			tag = MON_NIK
+			origin = this
+			province = p:xF5F6C2 # Niksic
+			on_created = {
+				set_variable = balkfm_tribal_rebel_var
+			}
+		}
+		balkfm_tur_determine_next_province_effect = yes
+		c:MON = {
+			balkfm_mon_determine_next_province_effect = yes
+			post_notification = notification_balkfm_tribe_rebellion
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 3
+		}
+		create_country = {
+			tag = MON_POD
+			origin = this
+			province = p:x446E84 # Podgorica
+			on_created = {
+				set_variable = balkfm_tribal_rebel_var
+			}
+		}
+		balkfm_tur_determine_next_province_effect = yes
+		c:MON = {
+			balkfm_mon_determine_next_province_effect = yes
+			post_notification = notification_balkfm_tribe_rebellion
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 4
+		}
+		create_country = {
+			tag = MON_PLJ
+			origin = this
+			province = p:xA12F82 # Pljevla
+			on_created = {
+				set_variable = balkfm_tribal_rebel_var
+			}
+		}
+		balkfm_tur_determine_next_province_effect = yes
+		c:MON = {
+			balkfm_mon_determine_next_province_effect = yes
+			post_notification = notification_balkfm_tribe_rebellion
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 5
+		}
+		create_country = {
+			tag = MON_KOT
+			origin = this
+			province = p:x90A0E0 # Kotor
+			on_created = {
+				set_variable = balkfm_tribal_rebel_var
+			}
+		}
+		balkfm_tur_determine_next_province_effect = yes
+		c:MON = {
+			balkfm_mon_determine_next_province_effect = yes
+			post_notification = notification_balkfm_tribe_rebellion
+		}
+	}
 }
 
 balkfm_update_border_progressbar_effect = {

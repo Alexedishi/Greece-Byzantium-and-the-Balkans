@@ -109,39 +109,39 @@ namespace = balkfm
 #	339 - Ali Pasha's Demise
 
 #340-349 - Montenegro Border Incursion Events
-#	340 - ##Montenegro Crosses the Border
-#	341 - ##Border Villages Burned (MON)
-#	342 - ##Village Skirmish Escalates (MON)
-#	343 - ##Border Incursion Repelled (MON)
-#	344 - ##Muslim Population Massacred
-#	345 - ##Montenegrin Folk Hero Killed
-#	346 - ##Ottoman Noble Captured
-#	347 - ##Negociations on Headtaking (MON)
-#	348 - ##Tribal Leader Evades Taxation
-#	349 - ##Montenegro Gains Ground
+#	340 - Montenegro Crosses the Border
+#	341 - Border Villages Burned (MON)
+#	342 - Village Skirmish Escalates (MON)
+#	343 - Border Incursion Repelled (MON)
+#	344 - Muslim Population Massacred
+#	345 - Montenegrin Folk Hero Killed
+#	346 - Ottoman Noble Captured
+#	347 - Negociations on Headtaking (MON)
+#	348 - Tribal Leader Evades Taxation
+#	349 - Montenegro Gains Ground
 
-#340-349 - Ottoman Border Incursion Events
-#	350 - ##Ottomans Cross the Border
-#	351 - ##Border Villages Burned (TUR)
-#	352 - ##Village Skirmish Escalates (TUR)
-#	353 - ##Border Incursion Repelled (TUR)
-#	354 - ##Orthodox Population Massacred
-#	355 - ##Montenegro Offers Ransom
-#	356 - ##Ottoman Noble Beheaded
-#	357 - ##Negociations on Headtaking (TUR)
-#	358 - ##Tribal Leader Seeks Aid (TUR)
-#	359 - ##Ottomans Gain Ground
+#350-359 - Ottoman Border Incursion Events
+#	350 - Ottomans Cross the Border
+#	351 - Border Villages Burned (TUR)
+#	352 - Village Skirmish Escalates (TUR)
+#	353 - Border Incursion Repelled (TUR)
+#	354 - Orthodox Population Massacred
+#	355 - Montenegro Offers Ransom
+#	356 - Ottoman Noble Beheaded
+#	357 - Negociations on Headtaking (TUR)
+#	358 - Tribal Leader Seeks Aid (TUR)
+#	359 - Ottomans Gain Ground
 
 #360-369 - Border Conflict Narrative Events
 #	360 - ##Osman Pasha Attacks!
 #	361 - ##Omer Pasha Invades!
-#	362 - ##Ottoman Noble Ransom Event (MON) <--ran out of room in Block 34
-#	363 - ##The Black Mountain Lost
-#	364 - ##The Black Mountain Subdued
-#	365 - ##Montenegrin Tribe Rebels
-#	366 - ##Tribal Annexation
+#	362 - Ottoman Noble Ransom Event (MON) <--ran out of room in Block 34
+#	363 - The Black Mountain Lost
+#	364 - The Black Mountain Subdued
+#	365 - Montenegrin Tribe Rebels
+#	366 - Tribal Annexation
 #	367 - Negociations Over Cattaro
-#	368 - ##International Indifference
+#	368 - International Indifference
 #	369 - The Lands of Montenegro
 
 #380-389 - Montenegrin Nationalism
@@ -2907,7 +2907,7 @@ balkfm.342 = { # Village Skirmish Escalates ( Montenegro Defending Village )
 	}
 	
 	option = { # Dig In
-		name = balkfm.344.a
+		name = balkfm.342.a
 		default_option = yes
 		random_list = {
 			5 = {
@@ -2999,7 +2999,7 @@ balkfm.342 = { # Village Skirmish Escalates ( Montenegro Defending Village )
 	}
 	
 	option = { # Fall Back
-		name = balkfm.344.b
+		name = balkfm.342.b
 		balkfm_minor_border_progress_loss_effect = yes
 		add_radicals = {
 			culture = cu:serb
@@ -3519,20 +3519,326 @@ balkfm.350 = { # Ottomans Cross the Border
 	
 }
 
-balkfm.351 = { # Border Villages Burned (TUR)
-	orphan = yes
+balkfm.351 = { # Border Villages Burned (Turkish Incursion)
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		has_global_variable = balkfm_border_incursion_var
+		NOT = {
+			has_global_variable = balkfm_border_event_cooldown_var
+		}
+		has_variable = balkfm_incursion_var
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = balkfm_border_incursion_var
+		}
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = balkfm_border_event_cooldown_var
+			months = 10
+		}
+		s:STATE_MONTENEGRO = {
+			add_devastation = 5
+			every_scope_state = {
+				add_radicals_in_state = {
+					value = small_radicals
+				}
+			}
+		}
+		balkfm_minor_border_progress_gain_effect = yes
+		balkfm_update_border_progressbar_effect = yes
+		every_country = {
+			limit = {
+				has_state_in_state_region = STATE_MONTENEGRO
+			}
+			post_notification = notification_balkfm_villages_burned
+		}
+	}
 }
 
-balkfm.352 = { # Village Skirmish Escalates (TUR)
-	orphan = yes
+balkfm.352 = { # Village Skirmish Escalates (Ottomans Defending Village
+	type = country_event
+	placement = root
+	
+	title = balkfm.352.t
+	desc = balkfm.352.d
+	flavor = balkfm.352.f
+	
+	event_image = {
+		video = "middleeast_battlefield_trenches"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = balkfm_border_incursion_var
+		NOR = {
+			has_global_variable = balkfm_border_event_cooldown_var
+			has_variable = balkfm_incursion_var
+		}
+		c:MON = {
+			has_variable = balkfm_incursion_var
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = balkfm_border_incursion_var
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = balkfm_border_event_cooldown_var
+			months = 10
+		}
+	}
+	
+	option = { # Dig In
+		name = balkfm.352.a
+		default_option = yes
+		random_list = {
+			5 = {
+				modifier = {
+					if = {
+						limit = {
+							has_modifier = modifier_balkfm_fortifying_border
+						}
+						add = 10
+					}
+				}
+				trigger_event = {
+					id = balkfm.345  # Montenegrin Folk Hero Killed
+					days = 15
+				}
+				c:MON = {
+					post_notification = notification_balkfm_folk_hero_killed
+				}
+			}
+			5 = {
+				c:MON = {
+					trigger_event = {
+						id = balkfm.354 # Orthodox Population Massacred
+						days = 15
+					}
+				}
+				every_country = {
+					limit = {
+						OR = {
+							country_has_state_religion = rel:catholic
+							country_has_state_religion = rel:orthodox
+						}
+					}
+					post_notification = notification_balkfm_orthodox_massacre
+				}
+			}
+			0 = {
+				modifier = {
+					if = {
+						limit = {
+							army_size >= 4
+						}
+						add = 50
+					}
+					if = {
+						limit = {
+							has_modifier = modifier_balkfm_fortifying_border
+						}
+						add = 25
+					}
+				}
+				post_notification = notification_balkfm_village_stalemate
+				c:MON = {
+					post_notification = notification_balkfm_village_stalemate
+					add_modifier = {
+						name = modifier_balkfm_village_stalemate
+						months = 6
+						is_decaying = yes
+					}
+				}
+				s:STATE_MONTENEGRO = {
+					add_devastation = 5
+					every_scope_state = {
+						add_radicals_in_state = {
+							value = small_radicals
+						}
+					}
+				}
+			}
+			0 = {
+				modifier = {
+					if = {
+						limit = {
+							has_modifier = modifier_balkfm_sponsoring_raids
+						}
+						add = 10
+					}
+				}
+				trigger_event = {
+					id = balkfm.346 # Ottoman Noble Captured
+					days = 15
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_balkfm_village_stalemate
+			months = 6
+		}
+	}
+	
+	option = { # Fall Back
+		name = balkfm.352.b
+		balkfm_minor_border_progress_loss_effect = yes
+		add_radicals = {
+			culture = cu:serb
+			value = small_radicals
+		}
+		c:MON = {
+			post_notification = notification_balkfm_village_captured
+		}
+	}
+	
 }
 
-balkfm.353 = { # Border Incursion Repelled (TUR)
-	orphan = yes
+balkfm.353 = { # Border Incursion Repelled (Ottomans Defending Montenegrin Incursion)
+	type = country_event
+	placement = root
+	
+	title = balkfm.343.t
+	desc = balkfm.343.d
+	flavor = balkfm.343.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = balkfm_border_incursion_var
+		NOT = {
+			has_global_variable = balkfm_border_event_cooldown_var
+		}
+		c:MON = {
+			has_variable = balkfm_incursion_var
+		}
+		has_modifier = modifier_balkfm_fortifying_border
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = balkfm_border_incursion_var
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = balkfm_border_event_cooldown_var
+			years = 2
+		}
+		remove_global_variable = balkfm_border_incursion_var
+		c:MON = {
+			post_notification = notification_balkfm_incursion_repelled
+			remove_variable = balkfm_incursion_var
+		}
+	}
+	
+	option = {
+		name = balkfm.343.a
+		default_option = yes
+	}
+	
 }
 
 balkfm.354 = { # Orthodox Population Massacred
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.354.t
+	desc = balkfm.354.d
+	flavor = balkfm.354.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.352
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = balkfm_border_incursion_var
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Put a Stop to It
+		name = balkfm.354.a
+		default_option = yes
+		s:STATE_MONTENEGRO = {
+			add_devastation = 5
+		}
+		change_relations = {
+			country = c:MON
+			value = -10
+		}
+		every_country = {
+			limit = {
+				has_state_in_state_region = STATE_MONTENEGRO
+			}
+			post_notification = notification_balkfm_orthodox_massacre
+		}
+	}
+	
+	option = { # Commit to the Atrocity
+		name = balkfm.354.b
+		s:STATE_MONTENEGRO = {
+			add_devastation = 5
+		}
+		create_incident = {
+			country = c:MON
+			value = 10
+		}
+		every_country = {
+			limit = {
+				has_state_in_state_region = STATE_MONTENEGRO
+			}
+			post_notification = notification_balkfm_orthodox_massacre
+		}
+		add_modifier = {
+			name = modifier_balkfm_massacred_minorities
+			months = normal_modifier_time
+		}
+	}
 }
 
 balkfm.355 = { # Montenegro Offers Ransom
@@ -3743,7 +4049,58 @@ balkfm.357 = { # Negociations on Headtaking (TUR)
 }
 
 balkfm.358 = { # Tribal Leader Seeks Aid (TUR)
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.358.t
+	desc = balkfm.358.d
+	flavor = balkfm.358.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_global_variable = balkfm_border_incursion_var
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+		}
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+	}
+	
+	option = { # F the poors
+		name = balkfm.358.a
+		default_option = yes
+		balkfm_minor_border_progress_loss_effect = yes
+	}
+	
+	option = { # Give Aid
+		name = balkfm.358.b
+		add_modifier = {
+			name = modifier_balkfm_providing_aid
+			months = normal_modifier_time
+		}
+		balkfm_minor_border_progress_gain_effect = yes
+	}
 }
 
 balkfm.359 = { # Ottomans Gain Ground
@@ -3909,15 +4266,87 @@ balkfm.362 = { # Ottoman Noble Ransom Event
 			name = modifier_balkfm_executed_noble
 			months = normal_modifier_time
 		}
+		remove_global_variable = balkfm_ransom_refused
 	}
 }
 
 balkfm.363 = { # The Black Mountain Lost
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.363.t
+	desc = balkfm.363.d
+	flavor = balkfm.363.f
+	
+	event_image = {
+		video = "ep1_transfer_of_authority"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tur_karadag
+	}
+	
+	immediate = {
+		c:MON = {
+			save_scope_as = montenegro_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.363.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_lost_karadag
+			months = long_modifier_time
+		}
+	}
+	
 }
 
 balkfm.364 = { # The Black Mountain Subdued
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.364.t
+	desc = balkfm.364.d
+	flavor = balkfm.364.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tur_karadag
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.364.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_reclaimed_karadag
+			months = long_modifier_time
+		}
+	}
+	
 }
 
 balkfm.365 = { # Montenegrin Tribe Rebels (Fired From TUR Scope)
@@ -3954,7 +4383,7 @@ balkfm.365 = { # Montenegrin Tribe Rebels (Fired From TUR Scope)
 			limit = {
 				has_variable = balkfm_tribal_rebel_var
 			}
-			save_scope_as = bakfm_tribal_rebel_scope
+			save_scope_as = balkfm_tribal_rebel_scope
 		}
 	}
 	
@@ -3962,14 +4391,19 @@ balkfm.365 = { # Montenegrin Tribe Rebels (Fired From TUR Scope)
 		name = balkfm.365.a
 		default_option = yes
 		create_bidirectional_truce = {
-			country = scope:bakfm_tribal_rebel_scope
-			months = 12
+			country = scope:balkfm_tribal_rebel_scope
+			months = 24
 		}
 		c:MON ?= {
 			post_notification = notification_balkfm_tribe_rebellion
 		}
 	}
 	
+	after = {
+		scope:balkfm_tribal_rebel_scope = {
+			remove_variable = balkfm_tribal_rebel_var
+		}
+	}
 
 }
 
