@@ -41,10 +41,8 @@ balkfm_construction_points_value = { # Ripped from LRoAI
 
 balkfm_mon_border_progress_value = {
 	value = 0
-	add = {
-		desc = balkfm_value_from_base
-		value = 1
-	}
+	
+	# Sources
 	add = {
 		desc = balkfm_value_from_bishopric_journals
 		value = {
@@ -73,6 +71,7 @@ balkfm_mon_border_progress_value = {
 		value = {
 			add = root.capital.relative_infrastructure
 			divide = 10
+			max = 10 # to prevent abuse
 		}
 	}
 	add = {
@@ -80,6 +79,7 @@ balkfm_mon_border_progress_value = {
 		value = {
 			add = root.army_power_projection
 			divide = 10
+			max = 100 # lol
 		}
 	}
 	if = {
@@ -88,6 +88,24 @@ balkfm_mon_border_progress_value = {
 		}
 		add = {
 			desc = balkfm_value_from_ransoming_nobles
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_executed_noble
+		}
+		add = {
+			desc = balkfm_value_from_beheading_noble
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_skulduggery
+		}
+		add = {
+			desc = balkfm_value_from_skulduggery
 			value = 1
 		}
 	}
@@ -129,13 +147,103 @@ balkfm_mon_border_progress_value = {
 		}
 		add = {
 			desc = balkfm_value_from_power_bloc
-			value = 0
+			value = 5
 		}
 	}
+	
+	#Penalities
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_tolerated_abuses
+		}
+		subtract = {
+			desc = balkfm_value_from_tolerating_abuses
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_display_of_poverty
+		}
+		subtract = {
+			desc = balkfm_value_from_poverty_display
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+		subtract = {
+			desc = balkfm_value_from_recent_annexation
+			value = 2
+		}
+	}
+	
 }
 
 balkfm_tur_border_progress_value = {
 	value = 0
+	
+	#Sources
+	if = {
+		limit = {
+			NOT = {
+				has_journal_entry = je_sick_man_main
+			}
+		}
+		add = {
+			desc = balkfm_value_from_sick_man
+			value = 4
+		}
+	}
+	if = {
+		limit = {
+			has_variable = sick_man_var
+		}
+		add = {
+			desc = balkfm_value_from_tanzimat_progress
+			value = var:sick_man_var
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_providing_aid
+		}
+		add = {
+			desc = balkfm_value_from_aid
+			value = 3
+		}
+	}
+	
+	#Penalities
+	if = {
+		limit = {
+			has_journal_entry = je_sick_man_main
+		}
+		subtract = {
+			desc = balkfm_value_from_sick_man
+			value = 4
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_accepted_ransom
+		}
+		subtract = {
+			desc = balkfm_value_from_ransoming_nobles
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+		subtract = {
+			desc = balkfm_value_from_recent_annexation
+			value = 2
+		}
+	}
 }
 
 balkfm_total_border_progress_value = {

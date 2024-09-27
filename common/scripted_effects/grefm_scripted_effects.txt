@@ -705,6 +705,55 @@ grefm_setup_samos_effect = { # Laws copied over from Greece; the two countries w
 	create_character = {
 		template = template_grefm_bogoridi_stefan
 	}
+	
+	capital = {
+		create_building = {
+			building = "building_vineyard_plantation"
+			add_ownership = {
+				building = {
+					type = "building_manor_house"
+					country = "c:SAMO"
+					levels = 1
+					region = "STATE_EAST_AEGEAN_ISLANDS"
+				}
+			}
+			reserves = 1
+			activate_production_methods = {
+				"default_building_vineyard_plantation"
+				"pm_road_carts"
+			}
+		}
+		create_building = {
+			building = "building_wheat_farm"
+			add_ownership = {
+				building = {
+					type = "building_manor_house"
+					country = "c:SAMO"
+					levels = 1
+					region = "STATE_EAST_AEGEAN_ISLANDS"
+				}
+			}
+			reserves = 1
+			activate_production_methods = {
+				"pm_simple_farming"
+				"pm_no_secondary"
+				"pm_tools_disabled"
+			}
+		}
+		create_building = {
+			building = "building_port"
+			add_ownership = {
+				country = {
+					country = "c:SAMO"
+					levels = 1
+				}
+			}
+			reserves = 1
+			activate_production_methods={
+				"pm_anchorage"
+			}
+		}
+	}
 }
 
 grefm_initialize_samos_variables_effect = {

@@ -297,6 +297,14 @@ balkfm_reinforce_border_button = {
 	}
 	
 	possible = {
+		custom_tooltip = {
+			text = balkfm_border_policy_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_border_timeout_var
+				}
+			}
+		}
 	}
 	
 	selected = {
@@ -318,7 +326,17 @@ balkfm_reinforce_border_button = {
 		}
 		else = {
 			add_modifier = modifier_balkfm_fortifying_border
+			custom_tooltip = {
+				text = balkfm_border_policy_tt2
+				hidden_effect = {
+					set_variable = {
+						name = balkfm_border_timeout_var
+						years = 2
+					}
+				}
+			}
 		}
+		
 	}
 	
 	ai_chance = {
@@ -339,6 +357,37 @@ balkfm_border_raid_button = {
 	}
 	
 	possible = {
+		custom_tooltip = {
+			text = balkfm_border_policy_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_border_timeout_var
+				}
+			}
+		}
+		trigger_if = { # Can still back off if a truce is imposed
+			limit = {
+				NOT = {
+					has_modifier = modifier_balkfm_sponsoring_raids
+				}
+			}
+			NOT = {
+				has_truce_with = c:TUR
+			}
+		}
+		trigger_if = { # Cannot back off if you have an ongoing incursion; withdraw your raiders first
+			limit = {
+				has_modifier = modifier_balkfm_sponsoring_raids
+			}
+			custom_tooltip = {
+				text = balkfm_not_incursing_tt
+				hidden_trigger = {
+					NOT = {
+						has_variable = balkfm_incursion_var
+					}
+				}
+			}
+		}
 	}
 	
 	selected = {
@@ -360,6 +409,15 @@ balkfm_border_raid_button = {
 		}
 		else = {
 			add_modifier = modifier_balkfm_sponsoring_raids
+			custom_tooltip = {
+				text = balkfm_border_policy_tt2
+				hidden_effect = {
+					set_variable = {
+						name = balkfm_border_timeout_var
+						years = 2
+					}
+				}
+			}
 		}
 	}
 	
@@ -369,6 +427,90 @@ balkfm_border_raid_button = {
 			trigger = {}
 			add = 0
 		}
+	}
+}
+
+balkfm_mon_claim_land_button = {
+	name = "balkfm_mon_claim_land_button"
+	desc = "balkfm_mon_claim_land_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_mon_claim_land_tt
+			hidden_trigger = {
+				global_var:balkfm_border_influence_var > 800
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = balkfm_mon_next_province_tt
+			hidden_effect = {
+				balkfm_mon_determine_next_province_effect = yes
+			}
+		}
+		trigger_event = {
+			id = balkfm.349 # Montenegro Gains Ground
+		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.349 # Montenegro Gains Ground
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+balkfm_tur_claim_land_button = {
+	name = "balkfm_tur_claim_land_button"
+	desc = "balkfm_tur_claim_land_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_tur_claim_land_tt
+			hidden_trigger = {
+				global_var:balkfm_border_influence_var < 200
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = balkfm_tur_next_province_tt
+			hidden_effect = {
+				balkfm_mon_determine_next_province_effect = yes
+			}
+		}
+		trigger_event = {
+			id = balkfm.359 # Ottomans Gain Ground
+		}
+		c:MON = {
+			trigger_event = {
+				id = balkfm.359 # Ottomans Gain Ground
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 100
 	}
 }
 

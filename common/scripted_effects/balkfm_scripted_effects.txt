@@ -210,108 +210,25 @@ balkfm_set_up_montenegro = {
 
 balkfm_create_ali_pasha_characters = {
 	create_character = {
-		# Ali Pasha Rizvanbegović, vizier of the Herzegovina Eyalet from 1833 to 1851
-		first_name = Ali
-		last_name = Rizvanbegovic
-		historical = yes
-		age = 53 # born 1783
-		dna = mr_bos_rizvanbegovic_ali_pasha
-		culture = cu:serb
-		religion = rel:sunni
-		interest_group = ig_landowners
-		ideology = ideology_moderate
-		traits = {
-			pious
-			arrogant
-		}
-		on_created = {
-			set_variable = balkfm_is_ali_pasha
-			place_character_in_void = 500
-		}
+		template = template_balkfm_rizvanbegovic_ali
 	}
 	create_character = {
-		# Osman Pasha Skopljak, vizier of the Scutari Eyalet
-		first_name = Osman
-		last_name = Skopljak
-		historical = yes
-		age = 30 # no English source found documenting age
-		culture = cu:serb
-		religion = rel:sunni
-		interest_group = ig_landowners
-		ideology = ideology_moderate
-		traits = {
-			pious
-			arrogant
-		}
-		on_created = {
-			set_variable = balkfm_is_osman_skopljak
-			place_character_in_void = 500
-		}
-	}
-	create_character = {
-		# Smaïl-aga Čengić, Ottoman lord in Bosnia, killed on the orders of the Bishop
-		first_name = Smail
-		last_name = Cengic
-		historical = yes
-		age = 56 # born 1780
-		culture = cu:serb
-		religion = rel:sunni
-		interest_group = ig_landowners
-		ideology = ideology_moderate
-		traits = {
-			arrogant
-			war_criminal
-		}
-		on_created = {
-			set_variable = balkfm_is_smail_aga
-			place_character_in_void = 500
-		}
-	}
-	create_character = {
-		# Ömer Pasha Lütfi, military commander in Bosnia 1850-1852, executed Ali Pasha in 1850.
-		first_name = Omer
-		last_name = Latas
-		historical = yes
-		age = 30 # born 1806
-		dna = mr_tur_lufti_omer_pasha
-		culture = cu:serb
-		religion = rel:orthodox
-		interest_group = ig_armed_forces
-		ideology = ideology_moderate
-		traits = {
-			arrogant
-		}
-		on_created = {
-			set_variable = balkfm_is_omar_pasha
-			place_character_in_void = 500
-		}
+		template = template_balkfm_cengic_smail
 	}
 }
 
 balkfm_save_ali_pasha_scopes = {
 	random_character_in_void = {
 		limit = {
-			has_variable = balkfm_is_ali_pasha
+			has_template = template_balkfm_rizvanbegovic_ali
 		}
 		save_scope_as = ali_pasha_scope
 	}
 	random_character_in_void = {
 		limit = {
-			has_variable = balkfm_is_osman_skopljak
-		}
-		save_scope_as = osman_skopljak_scope
-	}
-	random_character_in_void = {
-		limit = {
-			has_variable = balkfm_is_smail_aga
+			has_template = template_balkfm_cengic_smail
 		}
 		save_scope_as = smail_aga_scope
-	}
-	random_character_in_void = {
-		limit = {
-			has_variable = balkfm_is_omar_pasha
-		}
-		save_scope_as = omar_pasha_scope
 	}
 }
 
@@ -325,7 +242,7 @@ balkfm_mon_determine_next_province_effect = {
 		}
 		set_global_variable = {
 			name = balkfm_mon_next_province_var
-			value = 1
+			value = 1 # Cetinje
 		}
 	}
 	else_if = {
@@ -339,7 +256,7 @@ balkfm_mon_determine_next_province_effect = {
 		}
 		set_global_variable = {
 			name = balkfm_mon_next_province_var
-			value = 2
+			value = 2 # Niksic
 		}
 	}
 	else_if = {
@@ -356,7 +273,7 @@ balkfm_mon_determine_next_province_effect = {
 		}
 		set_global_variable = {
 			name = balkfm_mon_next_province_var
-			value = 3
+			value = 3 # Podgorica
 		}
 	}
 	else_if = {
@@ -376,7 +293,7 @@ balkfm_mon_determine_next_province_effect = {
 		}
 		set_global_variable = {
 			name = balkfm_mon_next_province_var
-			value = 4
+			value = 4 # Pljevla
 		}
 	}
 	else_if = {
@@ -399,7 +316,7 @@ balkfm_mon_determine_next_province_effect = {
 		}
 		set_global_variable = {
 			name = balkfm_mon_next_province_var
-			value = 5
+			value = 5 # Kotor
 		}
 	}
 	else = {
@@ -411,6 +328,284 @@ balkfm_mon_determine_next_province_effect = {
 }
 
 balkfm_tur_determine_next_province_effect = {
+	# Still gross, but in somewhat reverse order
+	if = {
+		limit = {
+			p:xA12F82 = { # Pljevla
+				owner != root
+			}
+		}
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 4 # Pljevla
+		}
+	}
+	else_if = {
+		limit = {
+			p:xA12F82 = { # Pljevla
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner != root
+			}
+		}
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 3 # Podgorica
+		}
+	}
+	else_if = {
+		limit = {
+			p:xA12F82 = { # Pljevla
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner != root
+			}
+		}
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 2 # Niksic
+		}
+	}
+	else_if = {
+		limit = {
+			p:xA12F82 = { # Pljevla
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner = root
+			}
+			p:x8C6292 = { # Cetinje
+				owner != root
+			}
+		}
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 1 # Cetinje
+		}
+	}
+	else_if = {
+		limit = {
+			p:xA12F82 = { # Pljevla
+				owner = root
+			}
+			p:x446E84 = { # Podgorica
+				owner = root
+			}
+			p:xF5F6C2 = { # Niksic
+				owner = root
+			}
+			p:x8C6292 = { # Cetinje
+				owner = root
+			}
+			p:x90A0E0 = { # Kotor
+				owner != root
+			}
+		}
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 5 # Kotor
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = balkfm_tur_next_province_var
+			value = 0
+		}
+	}
+}
+
+balkfm_mon_claim_next_province_effect = {
+	if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 1
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x8C6292 # Cetinje
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 1 # Cetinje
+		}
+		balkfm_mon_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 2
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					xF5F6C2 # Niksic
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 2 # Niksic
+		}
+		balkfm_mon_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 3
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x446E84 # Podgorica
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 3 # Podgorica
+		}
+		balkfm_mon_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 4
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					xA12F82 # Pljevla
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 4  # Pljevla
+		}
+		balkfm_mon_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_mon_next_province_var = 5
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x90A0E0 # Kotor
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 5 # Kotor
+		}
+		balkfm_mon_determine_next_province_effect = yes
+	}
+}
+
+balkfm_tur_claim_next_province_effect = {
+	if = {
+		limit = {
+			global_var:balkfm_tur_next_province_var = 1
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x8C6292 # Cetinje
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 1 # Cetinje
+		}
+		balkfm_tur_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_tur_next_province_var = 2
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					xF5F6C2 # Niksic
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 2 # Niksic
+		}
+		balkfm_tur_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_tur_next_province_var = 3
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x446E84 # Podgorica
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 3 # Podgorica
+		}
+		balkfm_tur_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_tur_next_province_var = 4
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					xA12F82 # Pljevla
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 4  # Pljevla
+		}
+		balkfm_tur_determine_next_province_effect = yes
+	}
+	else_if = {
+		limit = {
+			global_var:balkfm_tur_next_province_var = 5
+		}
+		s:STATE_MONTENEGRO = {
+			set_owner_of_provinces = {
+				country = root
+				provinces = {
+					x90A0E0 # Kotor
+				}
+			}
+		}
+		set_global_variable = {
+			name = balkfm_claimed_province_var
+			value = 5 # Kotor
+		}
+		balkfm_tur_determine_next_province_effect = yes
+	}
 }
 
 balkfm_generate_captive_effect = {
@@ -589,6 +784,10 @@ balkfm_minor_border_progress_loss_effect = {
 		max = 1000
 		min = 0
 	}
+}
+
+balkfm_create_tribal_rebellion_effect = {
+
 }
 
 balkfm_update_border_progressbar_effect = {

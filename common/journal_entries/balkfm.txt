@@ -343,8 +343,9 @@ je_balkfm_mon_black_mountain = {
 	
 	scripted_button = balkfm_reinforce_border_button
 	scripted_button = balkfm_border_raid_button
-	scripted_button = balkfm_annex_tribe_button
 	scripted_button = balkfm_view_captives_button
+	scripted_button = balkfm_claim_land_button
+	scripted_button = balkfm_annex_tribe_button
 	scripted_button = balkfm_renounce_headtaking_button
 	scripted_button = balkfm_negociate_kotor_button	
 	
@@ -359,7 +360,7 @@ je_balkfm_mon_black_mountain = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.359 # The Lands of Montenegro
+			id = balkfm.369 # The Lands of Montenegro
 		}
 		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
@@ -391,7 +392,7 @@ je_balkfm_mon_black_mountain = {
 	
 	on_fail = {
 		trigger_event = {
-			id = balkfm.358 # International Indifference
+			id = balkfm.368 # International Indifference
 		}
 		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
@@ -441,9 +442,6 @@ je_balkfm_mon_black_mountain = {
 		}
 		events = {
 			balkfm.355 # Montenegrin Tribe Rebels
-			balkfm.349 # Montenegro Gains Ground
-#			balkfm.350 # Osman Pasha Attacks!
-#			balkfm.351 # Omer Pasha Invades!
 		}
 		random_events = {
 			200 = 0
@@ -472,6 +470,10 @@ je_balkfm_mon_ali_pasha = {
 	
 	should_be_pinned_by_default = yes
 	
+	modifiers_while_active = {
+		modifier_balkfm_ali_pasha
+	}
+	
 	complete = {
 		custom_tooltip = {
 			text = je_balkfm_mon_ali_pasha_tt
@@ -488,8 +490,16 @@ je_balkfm_mon_ali_pasha = {
 		}
 	}
 	
-	modifiers_while_active = {
-		modifier_balkfm_ali_pasha
+	invalid = {
+		hidden_trigger = {
+			has_global_variable = balkfm_ali_pasha_greenlight
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.332 # Knives in the Dark
+		}
 	}
 	
 	weight = 400
