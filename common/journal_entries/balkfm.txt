@@ -530,27 +530,23 @@ je_balkfm_mon_nationalism = {
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-		c:MON ?= this
-	}
-	
-	possible = {
-		has_technology_researched = nationalism
-	}
-	
 	immediate = {
-		trigger_event = {
-			id = balkfm.380 # The Montenegrin Identity
-		}
 	}
 	
 	scripted_button = balkfm_mon_principality_button
 	scripted_button = balkfm_mon_kingdom_button
 	
 	complete = {
+		has_modifier = balkfm_mon_kingdom_button
 	}
 	
 	on_complete = {
+	}
+	
+	invalid = {
+		NOT = {
+			c:MON ?= this
+		}
 	}
 	
 	weight = 1000

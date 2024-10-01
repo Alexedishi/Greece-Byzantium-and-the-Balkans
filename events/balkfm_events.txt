@@ -1381,6 +1381,15 @@ balkfm.201 = { # Jugoslavism (MON)
 #		balkfm_sad_yugoslavs = yes
 #	}
 
+	after = {
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.380 # Montenegrin Nationalism
+				days = 60
+			}
+		}
+	}
+
 }
 
 balkfm.202 = { # The Draft (SER)
@@ -4795,6 +4804,7 @@ balkfm.380 = { # The Black Mountain
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by balkfm.201
 	}
 	
 	immediate = {
@@ -4803,6 +4813,9 @@ balkfm.380 = { # The Black Mountain
 	option = {
 		name = balkfm.380.a
 		default_option = yes
+		add_journal_entry = {
+			type = je_balkfm_mon_nationalism
+		}
 	}
 
 }
