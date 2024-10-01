@@ -752,7 +752,7 @@ balkfm_mon_kingdom_button = {
 	name = "balkfm_mon_kingdom_button"
 	desc = "balkfm_mon_kingdom_button_desc"
 	
-	visiblee = {
+	visible = {
 		has_modifier = modifier_balkfm_declared_principality
 		NOT = {
 			has_modifier = modifier_balkfm_declared_kingdom
@@ -760,6 +760,7 @@ balkfm_mon_kingdom_button = {
 	}
 	
 	possible = {
+		owns_entire_state_region = STATE_MONTENEGRO
 		custom_tooltip = {
             text = balkfm_mon_elevation_buttons_tt
 			NOT = {
@@ -782,6 +783,7 @@ balkfm_mon_kingdom_button = {
 			id = balkfm.320 # The Kingdom of Montenegro
 		}
 		hidden_effect = {
+			remove_modifier = modifier_balkfm_declared_principality
 			add_modifier = modifier_balkfm_declared_kingdom
 		}
 	}

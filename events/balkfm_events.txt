@@ -87,17 +87,17 @@ namespace = balkfm
 #	302 - Centralized Administration
 #	303 - A Professional Outfit
 #	304 - ##The Palace of the Tsar
-#	305 - An Intractable Illness
-#	306 - The Passing of the Bishop
-#	307 -
-#	308 -
+#	305 - OPEN
+#	306 - OPEN
+#	307 - ##An Intractable Illness
+#	308 - ##The Passing of the Bishop
 #	309 - ##The Light of Modernity
 
 #310-319 - Secularization of Montenegro Events
-#	310 - ##The Principality of Montenegro
+#	310 - The Principality of Montenegro
 
 #320-329 - The Kingdom Era Event
-#	320 - ##The Kingdom of Montenegro
+#	320 - The Kingdom of Montenegro
 
 #330-339 - The Wrath of Ali Pasha Events
 #	330 - The Battle of Grahovo
@@ -1867,7 +1867,6 @@ balkfm.300 = { # A Feudal Relic
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
-		set_variable = balkfm_feudal_relic
 	}
 	
 	option = {
@@ -1910,7 +1909,7 @@ balkfm.300 = { # A Feudal Relic
 
 }
 
-balkfm.301 = { # The Light of Modernity
+balkfm.301 = { # Advancing From Tradition
 	type = country_event
 	placement = root
 	
@@ -2024,6 +2023,60 @@ balkfm.303 = { # A Professional Outfit
 
 }
 
+balkfm.304 = { # 
+	orphan = yes
+}
+
+balkfm.305 = { # 
+	orphan = yes
+}
+
+balkfm.306 = { # 
+	orphan = yes
+}
+
+balkfm.307 = { # An Intractable Illness
+	orphan = yes
+}
+
+balkfm.308 = { # The Passing of the Bishop
+	orphan = yes
+}
+
+balkfm.309 = { # The Light of Modernity
+	type = country_event
+	placement = root
+	
+	title = balkfm.309.t
+	desc = balkfm.309.d
+	flavor = balkfm.309.f
+	
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_mon_prince_bishopric
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.309.a
+		default_option = yes
+	}
+
+}
+
 ## THE PRINCIPALITY ERA ##
 
 balkfm.310 = { # The Principality of Montenegro
@@ -2047,22 +2100,81 @@ balkfm.310 = { # The Principality of Montenegro
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by balkfm_mon_principality_button
 	}
 	
 	immediate = {
-		remove_variable = balkfm_feudal_relic
 	}
 	
 	option = {
 		name = balkfm.310.a
 		default_option = yes
-		custom_tooltip = balkfm_content_planned
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_declared_principality
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				has_journal_entry = je_balkfm_mon_black_mountain
+			}
+			balkfm_minor_border_progress_gain_effect = yes
+		}
 	}
 
 }
 
 ## THE KINGDOM ERA ##
 
+
+balkfm.320 = { # The Principality of Montenegro
+	type = country_event
+	placement = root
+	
+	title = balkfm.320.t
+	desc = balkfm.320.d
+	flavor = balkfm.320.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_mon_kingdom_button
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.320.a
+		default_option = yes
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_declared_kingdom
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				has_journal_entry = je_balkfm_mon_black_mountain
+			}
+			balkfm_minor_border_progress_gain_effect = yes
+		}
+	}
+
+}
 
 ## THE WRATH OF ALI PASHA ##
 
@@ -3565,7 +3677,7 @@ balkfm.351 = { # Border Villages Burned (Turkish Incursion)
 	}
 }
 
-balkfm.352 = { # Village Skirmish Escalates (Ottomans Defending Village
+balkfm.352 = { # Village Skirmish Escalates (Ottomans Defending Village)
 	type = country_event
 	placement = root
 	
@@ -3633,7 +3745,7 @@ balkfm.352 = { # Village Skirmish Escalates (Ottomans Defending Village
 			5 = {
 				c:MON = {
 					trigger_event = {
-						id = balkfm.354 # Orthodox Population Massacred
+						id = balkfm.344 # Muslim Population Massacred
 						days = 15
 					}
 				}
@@ -3651,7 +3763,7 @@ balkfm.352 = { # Village Skirmish Escalates (Ottomans Defending Village
 				modifier = {
 					if = {
 						limit = {
-							army_size >= 4
+							is_diplomatic_play_committed_participant = no
 						}
 						add = 50
 					}
