@@ -233,8 +233,13 @@ je_balkfm_mon_prince_bishopric = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.310 # The Principality of Montenegro
+			id = balkfm.309 # The Light of Modernity
 		}
+		set_variable = balkfm_prince_bishopric_completed
+	}
+	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
 	}
 	
 	status_desc = {
@@ -267,6 +272,10 @@ je_balkfm_mon_societal_reform = {
 		}
 	}
 	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
+	}
+	
 	weight = 500
 
 }
@@ -294,6 +303,10 @@ je_balkfm_mon_administration = {
 		}
 	}
 	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
+	}
+	
 	weight = 500
 
 }
@@ -315,6 +328,10 @@ je_balkfm_mon_military_reform = {
 		trigger_event = {
 			id = balkfm.303 # A Professional Outfit
 		}
+	}
+	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
 	}
 	
 	weight = 500
@@ -514,22 +531,21 @@ je_balkfm_mon_nationalism = {
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
-#		c:MON ?= this
+		c:MON ?= this
 	}
 	
 	possible = {
-#		NOR = {
-#			has_journal_entry = je_balkfm_mon_black_mountain
-#			owns_entire_state_region = STATE_MONTENEGRO
-#		}
-#		has_technology_researched = nationalism
+		has_technology_researched = nationalism
 	}
 	
 	immediate = {
 		trigger_event = {
-			id = balkfm.380
+			id = balkfm.380 # The Montenegrin Identity
 		}
 	}
+	
+	scripted_button = balkfm_mon_principality_button
+	scripted_button = balkfm_mon_kingdom_button
 	
 	complete = {
 	}
