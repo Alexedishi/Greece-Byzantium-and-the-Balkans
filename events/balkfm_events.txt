@@ -86,12 +86,12 @@ namespace = balkfm
 #	301 - Advancing From Tradition
 #	302 - Centralized Administration
 #	303 - A Professional Outfit
-#	304 - ##The Palace of the Tsar
-#	305 - OPEN
+#	304 - The Court of the Tsar
+#	305 - The Mountain Wreath
 #	306 - OPEN
-#	307 - ##An Intractable Illness
-#	308 - ##The Passing of the Bishop
-#	309 - ##The Light of Modernity
+#	307 - An Intractable Illness
+#	308 - The Passing of the Bishop
+#	309 - The Light of Modernity
 
 #310-319 - Secularization of Montenegro Events
 #	310 - The Principality of Montenegro
@@ -147,9 +147,11 @@ namespace = balkfm
 #	368 - International Indifference
 #	369 - The Lands of Montenegro
 
-#380-389 - Montenegrin Nationalism
+#380-389 - Montenegrin Nationalism Events
 #	380 - ##The Montenegrin Identity
 
+#390-399 - Montenegro Technical Events
+#	390 - [TECH] Creates Historical Heirs
 
 ##  #BALK4  SERBIA FLAVOR  Events  400-499  ##
 
@@ -2032,12 +2034,111 @@ balkfm.303 = { # A Professional Outfit
 
 }
 
-balkfm.304 = { # 
-	orphan = yes
+balkfm.304 = { # The Court of the Tsar
+	type = country_event
+	placement = root
+	
+	title = balkfm.304.t
+	desc = balkfm.304.d
+	flavor = balkfm.304.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_visit_tsar_button
+	}
+	
+	immediate = {
+		c:RUS = {
+			save_scope_as = russia_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.304.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_tsar_approval
+			months = normal_modifier_time
+		}
+		change_relations = {
+			country = c:RUS
+			value = 10
+		}
+	}
+
 }
 
-balkfm.305 = { # 
-	orphan = yes
+balkfm.305 = { # The Mountain Wreath
+	type = country_event
+	placement = root
+	
+	title = balkfm.305.t
+	desc = balkfm.305.d
+	flavor = balkfm.305.f
+	
+	event_image = {
+		video = "ep1_printing_press"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		morgenrote_is_active = no
+		NOT = {
+			has_global_variable = balkfm_mountain_wreath_published
+		}
+		NOR = {
+			has_technology_researched = nationalism
+			has_technology_researched = pan-nationalism
+		}
+		has_technology_researched = mass_communication
+		has_technology_researched = international_relations
+	}
+	
+	immediate = {
+		set_global_variable = balkfm_mountain_wreath_published
+	}
+	
+	option = {
+		name = balkfm.305.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					has_technology_researched = nationalism
+				}
+			}
+			add_technology_progress = {
+				progress = 5000 
+				technology = nationalism
+			}
+		}
+		else = {
+			add_technology_progress = {
+				progress = 10000
+				technology = pan-nationalism
+			}
+		}
+		custom_tooltip = balkfm.305.tt
+	}
+	
 }
 
 balkfm.306 = { # 
@@ -2045,11 +2146,110 @@ balkfm.306 = { #
 }
 
 balkfm.307 = { # An Intractable Illness
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.307.t
+	desc = balkfm.307.d
+	flavor = balkfm.307.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_ruler_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		ruler = {
+			has_template = template_balkfm_petrovic_petar
+			NOT = {
+				has_modifier = modifier_balkfm_tuberculosis
+			}
+		}
+		year >= 1849
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			ruler = {
+				has_template = template_balkfm_petrovic_petar
+			}
+		}
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.307.a
+		default_option = yes
+		scope:balkfm_ruler_scope = {
+			add_modifier = modifier_balkfm_tuberculosis
+		}
+	}
+
 }
 
 balkfm.308 = { # The Passing of the Bishop
-	orphan = yes
+	type = country_event
+	placement = root
+	
+	title = balkfm.308.t
+	desc = balkfm.308.d
+	flavor = balkfm.308.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_ruler_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		ruler = {
+			has_template = template_balkfm_petrovic_petar
+			has_modifier = modifier_balkfm_tuberculosis
+		}
+		year >= 1851
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			ruler = {
+				has_template = template_balkfm_petrovic_petar
+			}
+		}
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.308.a
+		default_option = yes
+		scope:balkfm_ruler_scope = {
+			kill_character = yes
+		}
+	}
+
 }
 
 balkfm.309 = { # The Light of Modernity
@@ -2082,6 +2282,13 @@ balkfm.309 = { # The Light of Modernity
 	option = {
 		name = balkfm.309.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_modern_state
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = medium_radicals
+		}
 	}
 
 }
@@ -2136,7 +2343,6 @@ balkfm.310 = { # The Principality of Montenegro
 }
 
 ## THE KINGDOM ERA ##
-
 
 balkfm.320 = { # The Principality of Montenegro
 	type = country_event
@@ -4819,6 +5025,130 @@ balkfm.380 = { # The Black Mountain
 	}
 
 }
+
+
+#### MONTENEGRO TECHNICAL EVENTS ####
+
+balkfm.390 = { # [TECH] Creates Historical Heirs
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				ruler = {
+					has_template = template_balkfm_petrovic_danilo
+				}
+				NOR = {
+					has_variable = balkfm_heir_nikola_spawned
+					exists = heir
+				}
+			}
+			AND = {
+				ruler = {
+					has_template = template_balkfm_petrovic_danilo
+				}
+				NOR = {
+					has_variable = template_balkfm_petrovic_nikola
+					exists = heir
+				}
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				ruler = {
+					has_template = template_balkfm_petrovic_danilo
+				}
+			}
+			create_character = {
+				template = template_balkfm_petrovic_nikola
+			}
+			set_variable = balkfm_heir_nikola_spawned
+		}
+		if = {
+			limit = {
+				ruler = {
+					has_variable = template_balkfm_petrovic_nikola
+				}
+			}
+			create_character = {
+				template = template_balkfm_petrovic_danilo_II
+			}
+			set_variable = balkfm_heir_danilo_spawned
+		}
+	}
+
+}
+
+balkfm.399 = { # [MEME] The Great Montenegrivation
+	type = country_event
+	placement = root
+	
+	title = balkfm.399.t
+	desc = balkfm.399.d
+	flavor = balkfm.399.f
+	
+	event_image = {
+		video = "balkfm_great_montenegrivation"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		#
+	}
+	
+	cancellation_trigger = {
+		has_modifier = modifier_balkfm_declared_kingdom
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.399.a
+		default_option = yes
+		custom_tooltip = {
+			text = balkfm.339.tt
+			hidden_effect = {
+				random_list = {
+					5 = {
+						add_modifier = modifier_balkfm_more_rakija
+						post_notification = notification_balkfm_more_rakija
+					}
+					5 = {
+						add_modifier = modifier_balkfm_fresh_compot
+						post_notification = notification_balkfm_fresh_compot
+					}
+					5 = {
+						add_modifier = modifier_balkfm_tasty_cevapcici
+						post_notification = notification_balkfm_tasty_cevapcici
+					}
+					5 = {
+						add_modifier = modifier_balkfm_hot_kasa
+						post_notification = notification_balkfm_hot_kasa
+					}
+					5 = {
+						add_modifier = modifier_balkfm_scored_sutlijas
+						post_notification = notification_balkfm_scored_sutlijas
+					}
+				}
+			}
+		}
+	}
+
+}
+
 
 #############################################
 ## #BALK4	SERBIA FLAVOR	Events 400-499 ##

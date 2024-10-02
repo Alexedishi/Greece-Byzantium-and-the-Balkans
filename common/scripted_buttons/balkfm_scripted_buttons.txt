@@ -702,6 +702,31 @@ balkfm_negociate_kotor_button = {
 	}
 }
 
+balkfm_visit_tsar_button = {
+	name = "balkfm_visit_tsar_button"
+	desc = "balkfm_visit_tsar_button_desc"
+	
+	visible = {
+		NOT = {
+			has_variable = balkfm_visited_tsar
+		}
+	}
+	
+	possible = {
+		c:RUS ?= {
+			relations:root >= relations_threshold:amicable
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.304 # The Court of the Tsar
+		}
+		set_variable = balkfm_visited_tsar
+	}
+	
+}
+
 balkfm_mon_principality_button = {
 	name = "balkfm_mon_principality_button"
 	desc = "balkfm_mon_principality_button_desc"

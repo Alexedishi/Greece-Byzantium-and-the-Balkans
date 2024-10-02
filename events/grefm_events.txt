@@ -4936,7 +4936,7 @@ grefm.123 = { # the women's council
 		grefm_create_feminism_characters = yes
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_kalliroi
+				has_template = template_grefm_parren_kalliroi
 			}
 			save_scope_as = kalliroi_scope
 		}
@@ -4947,6 +4947,19 @@ grefm.123 = { # the women's council
 		default_option = yes
 		custom_tooltip = {
 			text= grefm.123.tt
+		}
+		if = {
+			limit = {
+				empty_agitator_slots < 1
+			}
+			add_modifier = {
+				name = modifier_grefm_agitator_slot
+				months = 60
+			}
+		}
+		scope:kalliroi_scope = {
+			add_character_role = agitator
+			free_character_from_void = yes
 		}
 	}
 	
@@ -4987,7 +5000,13 @@ grefm.124 = { # national council of greek women
 	immediate = {
 		random_character_in_void = {
 			limit = {
-				has_variable = grefm_is_theodoropoulou
+				has_template = template_grefm_parren_kalliroi
+			}
+			save_scope_as = kalliroi_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_grefm_theodoropoulou_avra
 			}
 			save_scope_as = theodoropoulou_scope
 		}
@@ -4999,8 +5018,17 @@ grefm.124 = { # national council of greek women
 		trigger = {
 			empty_agitator_slots >= 1
 		}
+		if = {
+			limit = {
+				empty_agitator_slots < 1
+			}
+			add_modifier = {
+				name = modifier_grefm_agitator_slot
+				months = 60
+			}
+		}
 		scope:theodoropoulou_scope = {
-			transfer_character = this
+			free_character_from_void = yes
 			add_character_role = agitator
 		}
 		add_modifier = {
