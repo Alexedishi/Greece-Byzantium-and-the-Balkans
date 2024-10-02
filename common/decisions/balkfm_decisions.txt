@@ -52,3 +52,40 @@ balkfm_clear_construction_modifiers_decision = {
 		base = 100
 	}
 }
+
+balkfm_great_montenegrivation_decision = {
+	is_shown = {
+		ruler = {
+			has_template = template_balkfm_petrovic_nikola
+		}
+		month = 6
+		NOR = {
+			has_modifier = modifier_balkfm_more_rakija
+			has_modifier = modifier_balkfm_fresh_compot
+			has_modifier = modifier_balkfm_tasty_cevapcici
+			has_modifier = modifier_balkfm_hot_kasa
+			has_modifier = modifier_balkfm_scored_sutlijas
+		}
+	}
+	
+	possible = {
+		exists = root
+		NOT = {
+			has_variable = balkfm_montenegrivation_var
+		}
+		enacting_any_law = no
+		is_diplomatic_play_committed_participant = no
+		is_at_war = no
+	}
+	
+	when_taken = {
+		trigger_event = {
+			id = balkfm.399 # The Great Montenegrivation
+		}
+		set_variable = balkfm_montenegrivation_var
+	}
+	
+	ai_chance = {
+		base = -1
+	}
+}
