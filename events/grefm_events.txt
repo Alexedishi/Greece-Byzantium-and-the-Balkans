@@ -194,6 +194,7 @@ namespace = grefm
 
 #280-289 - Roman Revanchism Events
 #	280 - ##The Legacy of Romanía
+#	281 - ##The Themata of Anatolia
 
 #290-299 - Greek Cultural Syncretism Events
 #	290 - The Fate of the Turks
@@ -7725,7 +7726,74 @@ grefm.274 = { # A Greek Domain
 
 
 #### RHOMANIAN REVANCHISM EVENTS ####
-grefm.280 = { # The Legacy of Rhomania
+grefm.280 = { # The Legacy of Romanía
+	type = country_event
+	placement = root
+	
+	title = grefm.280.t
+	desc = grefm.280.d
+	flavor = grefm.280.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by 
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.280.a
+		default_option = yes
+		if = {
+			limit = {
+				c:THE ?= this
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_CRIMEA
+						owns_entire_state_region = STATE_CRIMEA
+					}
+				}
+				s:STATE_CRIMEA = {
+					add_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:TRB ?= this
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_TRABZON
+						owns_entire_state_region = STATE_TRABZON
+					}
+				}
+				s:STATE_TRABZON = {
+					add_claim = ROOT
+				}
+			}
+		}
+		##TODO Add Cappadoccia effect one tag is ready
+	}
+
+}
+
+grefm.281 = { # The Themata of Anatolia
 	orphan = yes
 }
 
