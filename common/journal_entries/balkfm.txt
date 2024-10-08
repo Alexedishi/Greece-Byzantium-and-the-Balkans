@@ -341,6 +341,20 @@ je_balkfm_mon_military_reform = {
 }
 
 je_balkfm_mon_black_mountain = {
+# This journal is unfortunately more convoluted than I would like and uses a system of global variables to ensure values are passed between MON and TUR
+# Next province variables are handled in root scopes to simplify scripting
+# Monthly progress variables are stored locally
+# The following global variables are used:
+	## balkfm_mon_next_province_var -> stores the next province for MON to claim
+	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
+	## balkfm_border_influence_var -> stores the value for the journal progressbar
+	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
+# The following local variables are used:
+	## balkfm_border_control_var -> tracks number of controlled provinces
+	## balkfm_mon_border_progress_var -> cached for performance
+	## balkfm_tur_border_progress_var -> cached for performance
+	## balkfm_total_border_progress_var -> cached for performance
+	
 	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
 	
 	group = je_group_balkfm_montenegro
@@ -352,6 +366,11 @@ je_balkfm_mon_black_mountain = {
 			name = balkfm_view_captives_var
 			value = 0
 		}
+		set_variable = {
+			name = balkfm_border_control_var
+			value = balkfm_border_control_value
+		}
+		balkfm_update_progress_variables_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -431,17 +450,10 @@ je_balkfm_mon_black_mountain = {
 		effect = {
 			balkfm_mon_determine_next_province_effect = yes
 			balkfm_update_captive_variables_effect = yes
-			set_global_variable = {
-				name = balkfm_mon_border_control_var
+			balkfm_update_progress_variables_effect = yes
+			set_variable = {
+				name = balkfm_border_control_var
 				value = balkfm_border_control_value
-			}
-			set_global_variable = {
-				name = balkfm_mon_border_progress_var
-				value = balkfm_mon_border_progress_value
-			}
-			set_global_variable = {
-				name = balkfm_total_border_progress_var
-				value = balkfm_total_border_progress_value
 			}
 		}
 	}

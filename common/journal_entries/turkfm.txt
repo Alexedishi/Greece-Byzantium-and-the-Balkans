@@ -102,8 +102,18 @@
 ################################
 
 je_turkfm_tur_karadag = {
-# This journal's content is shared with je_balkfm_mon_black_mountain; all calculations are done in that journal and posted to global variables
-# All scripting outside of this journal is handled by balkfm; this is for ease of maintenance
+# This journal's content is shared with je_balkfm_mon_black_mountain; majority of the scripting is handled by that journal
+# Some variables are set locally to minimize the complexity of the scripted effects/script values
+# The following global variables are used:
+	## balkfm_mon_next_province_var -> stores the next province for MON to claim
+	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
+	## balkfm_border_influence_var -> stores the value for the journal progressbar
+	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
+# The following local variables are used:
+	## balkfm_border_control_var -> tracks number of controlled provinces
+	## balkfm_mon_border_progress_var -> cached for performance
+	## balkfm_tur_border_progress_var -> cached for performance
+	## balkfm_total_border_progress_var -> cached for performance
 
 	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
 	
@@ -112,6 +122,11 @@ je_turkfm_tur_karadag = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = balkfm_border_control_var
+			value = balkfm_border_control_value
+		}
+		balkfm_update_progress_variables_effect = yes
 	}
 	
 	scripted_progress_bar = balkfm_mon_border_progress_bar
@@ -158,7 +173,6 @@ je_turkfm_tur_karadag = {
 			id = balkfm.363 # The Black Mountain Lost
 		}
 		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
 	invalid = {
@@ -179,24 +193,15 @@ je_turkfm_tur_karadag = {
 	on_weekly_pulse = {
 		effect = {
 			balkfm_tur_determine_next_province_effect = yes
-			set_global_variable = {
-				name = balkfm_tur_border_control_var
+			set_variable = {
+				name = balkfm_border_control_var
 				value = balkfm_border_control_value
-			}
-			set_global_variable = {
-				name = balkfm_tur_border_progress_var
-				value = balkfm_tur_border_progress_value
 			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			clamp_global_variable = {
-				name = balkfm_border_influence_var
-				max = 1000
-				min = 0
-			}
 		}
 		events = {
 		}

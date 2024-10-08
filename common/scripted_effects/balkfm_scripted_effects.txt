@@ -179,7 +179,7 @@ balkfm_happy_yugoslavs = {
 }
 
 ## MONTENEGRO EFFECTS ##
-balkfm_set_up_montenegro = {
+balkfm_set_up_montenegro_effect = {
 	ig:ig_landowners = {
 		leader = {
 			set_ideology = ideology:ideology_royalist
@@ -232,12 +232,73 @@ balkfm_save_ali_pasha_scopes = {
 	}
 }
 
+balkfm_initialize_border_variables = {
+	set_variable = {
+		name = balkfm_border_control_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_mon_border_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_tur_border_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = balkfm_total_border_progress_var
+		value = 0
+	}
+}
+
+balkfm_update_progress_variables_effect = {
+	c:MON = {
+		set_variable = {
+			name = balkfm_mon_border_control_var
+			value = balkfm_border_control_value
+		}
+		set_variable = {
+			name = balkfm_mon_border_progress_var
+			value = balkfm_mon_border_progress_value
+		}
+		set_variable = {
+			name = balkfm_tur_border_progress_var
+			value = balkfm_mon_border_progress_value
+		}
+		set_variable = {
+			name = balkfm_total_border_progress_var
+			value = balkfm_total_border_progress_value
+		}
+	}
+	c:TUR = {
+		set_variable = {
+			name = balkfm_mon_border_control_var
+			value = balkfm_border_control_value
+		}
+		set_variable = {
+			name = balkfm_mon_border_progress_var
+			value = balkfm_mon_border_progress_value
+		}
+		set_variable = {
+			name = balkfm_tur_border_progress_var
+			value = balkfm_mon_border_progress_value
+		}
+		set_variable = {
+			name = balkfm_total_border_progress_var
+			value = balkfm_total_border_progress_value
+		}
+	}
+}
+	
 balkfm_mon_determine_next_province_effect = {
 	# This is gross, but the province iterator doesn't interate (and would probably be less efficient than this scripting)
 	if = {
 		limit = {
 			p:x8C6292 = { # Cetinje
-				owner != root
+				AND = {
+					owner != root
+					owner = c:TUR
+				}
 			}
 		}
 		set_global_variable = {
@@ -251,7 +312,10 @@ balkfm_mon_determine_next_province_effect = {
 				owner = root
 			}
 			p:xF5F6C2 = { # Niksic
-				owner != root
+				AND = {
+					owner != root
+					owner = c:TUR
+				}
 			}
 		}
 		set_global_variable = {
@@ -268,7 +332,10 @@ balkfm_mon_determine_next_province_effect = {
 				owner = root
 			}
 			p:x446E84 = { # Podgorica
-				owner != root
+				AND = {
+					owner != root
+					owner = c:TUR
+				}
 			}
 		}
 		set_global_variable = {
@@ -288,7 +355,10 @@ balkfm_mon_determine_next_province_effect = {
 				owner = root
 			}
 			p:xA12F82 = { # Pljevla
-				owner != root
+				AND = {
+					owner != root
+					owner = c:TUR
+				}
 			}
 		}
 		set_global_variable = {
@@ -311,7 +381,10 @@ balkfm_mon_determine_next_province_effect = {
 				owner = root
 			}
 			p:x90A0E0 = { # Kotor
-				owner != root
+				AND = {
+					owner != root
+					owner = c:TUR
+				}
 			}
 		}
 		set_global_variable = {
@@ -332,7 +405,10 @@ balkfm_tur_determine_next_province_effect = {
 	if = {
 		limit = {
 			p:xA12F82 = { # Pljevla
-				owner != root
+				AND = {
+					owner != root
+					owner = c:MON
+				}
 			}
 		}
 		set_global_variable = {
@@ -346,7 +422,10 @@ balkfm_tur_determine_next_province_effect = {
 				owner = root
 			}
 			p:x446E84 = { # Podgorica
-				owner != root
+				AND = {
+					owner != root
+					owner = c:MON
+				}
 			}
 		}
 		set_global_variable = {
@@ -363,7 +442,10 @@ balkfm_tur_determine_next_province_effect = {
 				owner = root
 			}
 			p:xF5F6C2 = { # Niksic
-				owner != root
+				AND = {
+					owner != root
+					owner = c:MON
+				}
 			}
 		}
 		set_global_variable = {
@@ -383,7 +465,10 @@ balkfm_tur_determine_next_province_effect = {
 				owner = root
 			}
 			p:x8C6292 = { # Cetinje
-				owner != root
+				AND = {
+					owner != root
+					owner = c:MON
+				}
 			}
 		}
 		set_global_variable = {
@@ -406,7 +491,10 @@ balkfm_tur_determine_next_province_effect = {
 				owner = root
 			}
 			p:x90A0E0 = { # Kotor
-				owner != root
+				AND = {
+					owner != root
+					owner = c:MON
+				}
 			}
 		}
 		set_global_variable = {
@@ -435,11 +523,6 @@ balkfm_mon_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 1 # Cetinje
-		}
-		balkfm_mon_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -453,11 +536,6 @@ balkfm_mon_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 2 # Niksic
-		}
-		balkfm_mon_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -471,11 +549,6 @@ balkfm_mon_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 3 # Podgorica
-		}
-		balkfm_mon_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -489,11 +562,6 @@ balkfm_mon_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 4  # Pljevla
-		}
-		balkfm_mon_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -507,11 +575,6 @@ balkfm_mon_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 5 # Kotor
-		}
-		balkfm_mon_determine_next_province_effect = yes
 	}
 }
 
@@ -528,11 +591,6 @@ balkfm_tur_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 1 # Cetinje
-		}
-		balkfm_tur_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -546,11 +604,6 @@ balkfm_tur_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 2 # Niksic
-		}
-		balkfm_tur_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -564,11 +617,6 @@ balkfm_tur_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 3 # Podgorica
-		}
-		balkfm_tur_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -582,11 +630,6 @@ balkfm_tur_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 4  # Pljevla
-		}
-		balkfm_tur_determine_next_province_effect = yes
 	}
 	else_if = {
 		limit = {
@@ -600,11 +643,6 @@ balkfm_tur_claim_next_province_effect = {
 				}
 			}
 		}
-		set_global_variable = {
-			name = balkfm_claimed_province_var
-			value = 5 # Kotor
-		}
-		balkfm_tur_determine_next_province_effect = yes
 	}
 }
 
@@ -788,6 +826,33 @@ balkfm_minor_border_progress_loss_effect = {
 	balkfm_update_border_progressbar_effect = yes
 }
 
+balkfm_save_border_conflict_scopes_effect = {
+	# Montenegrin Incursion
+	if = {
+		limit = {
+			global_var:balkfm_border_incursion_var = 1
+		}
+		c:MON = {
+			save_scope_as = balkfm_border_attacker_scope
+		}
+		c:TUR = {
+			save_scope_as = balkfm_border_defender_scope
+		}
+	}
+	# Ottoman Incursion
+	else_if = {
+		limit = {
+			global_var:balkfm_border_incursion_var = 2
+		}
+		c:MON = {
+			save_scope_as = balkfm_border_defender_scope
+		}
+		c:TUR = {
+			save_scope_as = balkfm_border_attacker_scope
+		}
+	}
+}
+
 balkfm_create_tribal_rebellion_effect = {
 	if = {
 		limit = {
@@ -901,22 +966,34 @@ balkfm_update_border_progressbar_effect = {
 }
 	
 balkfm_border_cleanup_effect = {
-	remove_global_variable = balkfm_mon_border_control_var
-	remove_global_variable = balkfm_mon_border_progress_var
-	remove_global_variable = balkfm_tur_border_control_var
-	remove_global_variable = balkfm_tur_border_progress_var
-	remove_global_variable = balkfm_total_border_progress_var
+	set_global_variable = balkfm_border_conflict_resolved
 	remove_global_variable = balkfm_border_influence_var
 	remove_global_variable = balkfm_mon_next_province_var
 	remove_global_variable = balkfm_tur_next_province_var
-
-	remove_variable = balkfm_view_captives_var
-	remove_variable = balkfm_captive_1_var
-	remove_variable = balkfm_captive_2_var
-	remove_variable = balkfm_captive_3_var
-	remove_variable = balkfm_captive_4_var
+	remove_global_variable = balkfm_border_incursion_var
+	remove_global_variable = balkfm_border_event_cooldown_var
 	
-	remove_modifier = modifier_balkfm_practicing_headtaking
+	c:MON ?={
+		remove_variable = balkfm_border_control_var
+		remove_variable = balkfm_mon_border_progress_var
+		remove_variable = balkfm_tur_border_progress_var
+		remove_variable = balkfm_total_border_progress_var
+		remove_variable = balkfm_view_captives_var
+		remove_variable = balkfm_captive_1_var
+		remove_variable = balkfm_captive_2_var
+		remove_variable = balkfm_captive_3_var
+		remove_variable = balkfm_captive_4_var
+		remove_modifier = modifier_balkfm_practicing_headtaking
+	}
+	
+	c:TUR ?={
+		remove_variable = balkfm_border_control_var
+		remove_variable = balkfm_mon_border_progress_var
+		remove_variable = balkfm_tur_border_progress_var
+		remove_variable = balkfm_total_border_progress_var
+		remove_modifier = modifier_balkfm_practicing_headtaking
+	}
+	
 }
 
 ## SERBIA EFFECTS ##
