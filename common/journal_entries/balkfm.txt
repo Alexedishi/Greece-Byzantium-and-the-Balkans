@@ -341,6 +341,95 @@ je_balkfm_mon_military_reform = {
 }
 
 je_balkfm_mon_black_mountain = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	group = je_group_balkfm_montenegro
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = balkfm_border_conflict_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_next_province_var
+			value = 2
+		}
+		set_variable = {
+			name = balkfm_view_captives_var
+			value = 0
+		}
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_border_feud
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_mon_black_mountain_complete_tt
+			hidden_trigger = {
+				balkfm_mon_border_value >= 5
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.359 # The Lands of Montenegro
+		}
+		balkfm_clean_up_border_variables_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_mon_black_mountain_fail_tt
+				hidden_trigger = {
+					NOT = {
+						any_scope_state = {
+							state_region = s:STATE_MONTENEGRO
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				exists = c:TUR
+			}
+			OR = {
+				is_subject_of = c:TUR
+				is_in_same_power_bloc = c:TUR
+			}
+		}
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = balkfm.358 # International Indifference
+		}
+		balkfm_clean_up_border_variables_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_border_conflict_resolved
+		}
+	}
+	
+	on_invalid = {
+		balkfm_clean_up_border_variables_effect = yes
+	}
+	
+	weight = 1000
+	
+}
+
+je_balkfm_mon_black_mountain_new = {
 # This journal is unfortunately more convoluted than I would like and uses a system of global variables to ensure values are passed between MON and TUR
 # Next province variables are handled in root scopes to simplify scripting
 # Monthly progress variables are stored locally
@@ -476,11 +565,11 @@ je_balkfm_mon_black_mountain = {
 		}
 		random_events = {
 			200 = 0
-			20 = balkfm.340 # Montenegro Crosses the Border
-			5 = balkfm.341 # Border Villages Burned (MON)
-			5 = balkfm.342 # Village Skirmish Escalates (MON)
-			5 = balkfm.343 # Border Incursion Repelled (MON)
-			5 = balkfm.348 # Tribal Leader Evades Taxation
+			20 = balkfm.348 # Country Crosses the Border (Attacker)
+			5 = balkfm.341 # Border Villages Burned (Defender Event)
+			5 = balkfm.342 # Village Skirmish Escalates (Defender Event)
+			5 = balkfm.343 # Border Incursion Repelled (Defender Event)
+			5 = balkfm.356 # Tribe Evades Taxation/Requests Aid
 		}
 	}
 	
@@ -552,6 +641,7 @@ je_balkfm_mon_nationalism = {
 	
 	complete = {
 		has_modifier = modifier_balkfm_declared_kingdom
+		
 	}
 	
 	on_complete = {

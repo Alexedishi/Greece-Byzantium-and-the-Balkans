@@ -1384,14 +1384,14 @@ balkfm.201 = { # Jugoslavism (MON)
 #		balkfm_sad_yugoslavs = yes
 #	}
 
-	after = {
-		hidden_effect = {
-			trigger_event = {
-				id = balkfm.380 # Montenegrin Nationalism
-				days = 60
-			}
-		}
-	}
+#	after = {
+#		hidden_effect = {
+#			trigger_event = {
+#				id = balkfm.380 # Montenegrin Nationalism
+#				days = 60
+#			}
+#		}
+#	}
 
 }
 
@@ -2447,7 +2447,7 @@ balkfm.330 = { # The Battle of Grahovo
 				name = modifier_balkfm_ali_pasha
 			}
 		}
-		balkfm_minor_border_progress_loss_effect = yes
+#		balkfm_minor_border_progress_loss_effect = yes
 		c:TUR = {
 			post_notification = notification_balkfm_folk_hero_killed
 		}
@@ -2516,7 +2516,7 @@ balkfm.331 = { # Negociations At Humac
 				}
 			}
 		}
-		balkfm_minor_border_progress_loss_effect = yes
+#		balkfm_minor_border_progress_loss_effect = yes
 		set_global_variable = balkfm_humac_happened
 		ai_chance = {
 			base = 100
@@ -2535,7 +2535,7 @@ balkfm.331 = { # Negociations At Humac
 			type = dp_return_state
 			target_state = s:STATE_MONTENEGRO.region_state:TUR
 		}
-		balkfm_minor_border_progress_gain_effect = yes
+#		balkfm_minor_border_progress_gain_effect = yes
 		custom_tooltip = balkfm.331.tt
 		ai_chance = {
 			base = 1 # MON really shouldn't go full Rambo
@@ -2594,7 +2594,7 @@ balkfm.332 = { # Knives in the Dark
 			name = modifier_balkfm_tolerated_abuses
 			months = short_modifier_time
 		}
-		balkfm_minor_border_progress_loss_effect = yes
+#		balkfm_minor_border_progress_loss_effect = yes
 		ai_chance = {
 			base = 0
 		}
@@ -2732,7 +2732,7 @@ balkfm.334 = { # The Demise of Smaïl-aga
 			strata = poor
 			value = small_radicals
 		}
-		balkfm_minor_border_progress_gain_effect = yes
+#		balkfm_minor_border_progress_gain_effect = yes
 
 	}
 	
@@ -2788,7 +2788,7 @@ balkfm.335 = { # Unintended Consequences
 			id = balkfm.336 # Duplicitous Diplomacy
 			days = 90
 		}
-		balkfm_minor_border_progress_loss_effect = yes
+#		balkfm_minor_border_progress_loss_effect = yes
 	}
 	
 	option = { # expose the truth
@@ -2802,7 +2802,7 @@ balkfm.335 = { # Unintended Consequences
 			months = normal_modifier_time
 			is_decaying = yes
 		}
-		balkfm_minor_border_progress_gain_effect = yes
+#		balkfm_minor_border_progress_gain_effect = yes
 	}
 
 }
@@ -3097,7 +3097,7 @@ balkfm.339 = { # Ali Pasha's Demise
 		scope:ali_pasha_scope = {
 			kill_character = yes
 		}
-		balkfm_minor_border_progress_gain_effect = yes
+#		balkfm_minor_border_progress_gain_effect = yes
 		set_global_variable = balkfm_ali_pasha_waxed
 	}
 
@@ -3105,7 +3105,7 @@ balkfm.339 = { # Ali Pasha's Demise
 
 ## BORDER CONFLICT INCURSION EVENTS ##
 
-balkfm.340 = { # Border Incursion Repelled (Attacker Event)
+balkfm.340 = { # Border Incursion Repelled (Attacker Variant)
 	type = country_event
 	placement = root
 	
@@ -3165,7 +3165,7 @@ balkfm.340 = { # Border Incursion Repelled (Attacker Event)
 
 }
 
-balkfm.341 = { # Border Villages Burned
+balkfm.341 = { # Border Villages Burned (Defender Event)
 	type = country_event
 	placement = root
 	hidden = yes
@@ -3220,12 +3220,25 @@ balkfm.341 = { # Border Villages Burned
 
 }
 
-balkfm.342 = { # Village Skirmish Escalates (Country Defending Incursion)
+balkfm.342 = { # Village Skirmish Escalates (Defender Event)
 	type = country_event
 	placement = root
 	
 	title = balkfm.342.t
-	desc = balkfm.342.d
+	desc = {
+		triggered_desc = {
+			desc = balkfm.342.d1
+			trigger = {	
+				c:MON = this
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.342.d2
+			trigger = {	
+				c:TUR = this
+			}
+		}
+	}
 	flavor = balkfm.342.f
 	
 	event_image = {
@@ -3368,7 +3381,7 @@ balkfm.342 = { # Village Skirmish Escalates (Country Defending Incursion)
 		}
 	}
 	
-	option = {
+	option = { # Fall Back
 		name = balkfm.342.b
 		trigger = {
 			c:MON = this
@@ -3385,7 +3398,7 @@ balkfm.342 = { # Village Skirmish Escalates (Country Defending Incursion)
 	
 	## Ottoman Defender Options ##
 	
-	option = {
+	option = { # Dig In
 		name = balkfm.342.a
 		trigger = {
 			c:TUR = this
@@ -3467,9 +3480,11 @@ balkfm.342 = { # Village Skirmish Escalates (Country Defending Incursion)
 						add = 10
 					}
 				}
-				trigger_event = {
-					id = balkfm.346 # Ottoman Noble Captured
-					days = 15
+				c:MON = {
+					trigger_event = {
+						id = balkfm.346 # Ottoman Noble Captured
+						days = 15
+					}
 				}
 			}
 		}
@@ -3479,7 +3494,7 @@ balkfm.342 = { # Village Skirmish Escalates (Country Defending Incursion)
 		}
 	}
 	
-	option = {
+	option = { # Fall Back
 		name = balkfm.342.b
 		trigger = {
 			c:TUR = this
@@ -3545,7 +3560,7 @@ balkfm.343 = { # Border Incursion Repelled (Defender Event)
 		balkfm_save_border_conflict_scopes_effect = yes
 		scope:balkfm_border_attacker_scope = {
 			trigger_event = {
-				id = balkfm.340 # Border Incursion Repelled (Attacker Event)
+				id = balkfm.340 # Border Incursion Repelled (Attacker Variant)
 			}
 		}
 		set_global_variable = {
@@ -3639,6 +3654,22 @@ balkfm.344 = { # Minority Population Massacred (Attacker Event)
 	
 	immediate = {
 		balkfm_save_border_conflict_scopes_effect = yes
+		if = {
+			limit = {
+				c:MON = this
+			}
+			cu:turkish = {
+				save_scope_as = balkfm_minority_culture
+			}
+		}
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			cu:serb = {
+				save_scope_as = balkfm_minority_culture
+			}
+		}
 	}
 	
 	option = { # Put a Stop to It
@@ -3790,14 +3821,15 @@ balkfm.346 = { # Ottoman Noble Captured
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_variable = balkfm_border_event_cooldown_var
-		}
 		balkfm_mon_captured_nobles_value < 4
 	}
 	
 	cancellation_trigger = {
 		has_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	cooldown = {
+		years = 2
 	}
 	
 	immediate = {
@@ -3920,7 +3952,7 @@ balkfm.348 = { # Country Crosses the Border (Attacker)
 	option = {
 		name = balkfm.348.a
 		default_option = yes
-		custom_tooltip = balkfm_border_incursion_attacker_tt
+		custom_tooltip = balkfm.348.tt
 	}
 
 }
@@ -3960,7 +3992,7 @@ balkfm.349 = { # Country Crosses the Border (Defender)
 	option = {
 		name = balkfm.349.a
 		default_option = yes
-		custom_tooltip = balkfm_border_incursion_defender_tt
+		custom_tooltip = balkfm.349.tt
 	}
 
 }
@@ -4472,7 +4504,7 @@ balkfm.356 = { # Tribe Evades Taxation/Requests Aid
 			}
 		}
 	}
-	flavor = balkfm.356.f
+	flavor = balkfm.356.f1
 	
 	event_image = {
 		video = "rp1_social_banditry"
@@ -4611,6 +4643,7 @@ balkfm.357 = { # Tribal Annexation
 				NOT = {
 					is_subject_of = root
 				}
+				relations:root >= relations_threshold:amicable
 			}
 		}
 		create_diplomatic_pact = {
@@ -5048,6 +5081,8 @@ balkfm.380 = { # The Black Mountain
 			type = je_balkfm_mon_nationalism
 		}
 	}
+	
+	orphan = yes
 
 }
 
