@@ -8,6 +8,176 @@
 		add_state_trait = balkfm_state_trait_black_mountain
 	}
 	
+### Homeland Setup ###
+
+### Country Creation ###
+	create_country = {
+		tag = SAMO
+		origin = c:TUR
+		province = p:xC56452
+	}
+	c:SAMO = {
+		grefm_setup_samos_effect = yes
+	}
+	
+### Culture Setup ###
+	
+### Global Variable Setup ###
+	
+	# eqfm Tension Variables
+	set_global_variable = {
+		name = eqfm_tension_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_greek_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_serb_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bulgarian_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_bosniak_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_nationalism_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_accelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_culture_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eqfm_religion_var
+		value = 0
+	}
+	
+	# Crete Revolt Momentum Variables
+	set_global_variable = {
+		name = grefm_crete_revolt_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_progress_var
+		value = 0
+	}	
+	set_global_variable = {
+		name = grefm_crete_radicals_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_accelerate_var
+		value = 0
+	}
+	set_global_variable = {
+		name = grefm_crete_nationalism_var
+		value = 0
+	}
+	
+	# eocfm Variables
+	set_global_variable = {
+		name = eocfm_council_var
+		value = 0
+	}
+	set_global_variable = {
+		name = eocfm_crusade_counter
+		value = 0
+	}
+	set_global_variable = {
+		name = eocfm_deposition_counter
+		value = 0
+	}
+	
+### Diplomacy Setup ###
+	c:GRE = {
+		set_secret_goal = {
+			country = c:SAMO
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:ION
+			secret_goal = befriend
+		}
+	}
+	
+	c:ION = {
+		set_secret_goal = {
+			country = c:SAMO
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}
+	
+	c:SAMO = {
+		set_secret_goal = {
+			country = c:ION
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}
+	
+	c:TUR = {
+		create_diplomatic_pact = {
+			country = c:SAMO
+			type = protectorate
+		}
+		set_secret_goal = { # This should help to avoid getting bullied at game start
+			country = c:SAMO
+			secret_goal = befriend
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = antagonize
+		}
+	}
+	
+	c:GBR ?= {
+		create_diplomatic_pact = {
+			country = c:GRE
+			type = guarantee_independence
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}
+	c:FRA ?= {
+		create_diplomatic_pact = {
+			country = c:GRE
+			type = guarantee_independence
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}
+	c:RUS ?= {
+		create_diplomatic_pact = {
+			country = c:GRE
+			type = guarantee_independence
+		}
+		set_secret_goal = {
+			country = c:GRE
+			secret_goal = befriend
+		}
+	}	
+	
 ### Specific Country Setups ###	
 	c:GRE = {
 		grefm_initialize_bavarocracy_variables_effect = yes
@@ -195,79 +365,4 @@
 		}
 	}
 	
-### Variables ###
-	
-	# eqfm Tension Variables
-	set_global_variable = {
-		name = eqfm_tension_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_greek_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_serb_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_bulgarian_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_bosniak_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_nationalism_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_accelerate_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_culture_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_religion_var
-		value = 0
-	}
-	
-	# Crete Revolt Momentum Variables
-	set_global_variable = {
-		name = grefm_crete_revolt_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_progress_var
-		value = 0
-	}	
-	set_global_variable = {
-		name = grefm_crete_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_accelerate_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_nationalism_var
-		value = 0
-	}
-	
-	# eocfm Variables
-	set_global_variable = {
-		name = eocfm_council_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eocfm_crusade_counter
-		value = 0
-	}
-	set_global_variable = {
-		name = eocfm_deposition_counter
-		value = 0
-	}
 }
