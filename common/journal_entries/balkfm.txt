@@ -348,17 +348,9 @@ je_balkfm_mon_black_mountain = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_variable = {
-			name = balkfm_border_conflict_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_next_province_var
-			value = 2
-		}
-		set_variable = {
-			name = balkfm_view_captives_var
-			value = 0
+		set_global_variable = {
+			name = balkfm_mon_border_control_var
+			value = balkfm_border_control_value
 		}
 	}
 	
@@ -369,17 +361,15 @@ je_balkfm_mon_black_mountain = {
 	complete = {
 		custom_tooltip = {
 			text = je_balkfm_mon_black_mountain_complete_tt
-			hidden_trigger = {
-				balkfm_mon_border_value >= 5
-			}
+			owns_entire_state_region = STATE_MONTENEGRO
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.359 # The Lands of Montenegro
+			id = balkfm.369 # The Lands of Montenegro
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
@@ -409,9 +399,9 @@ je_balkfm_mon_black_mountain = {
 	
 	on_fail = {
 		trigger_event = {
-			id = balkfm.358 # International Indifference
+			id = balkfm.368 # International Indifference
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
@@ -422,7 +412,23 @@ je_balkfm_mon_black_mountain = {
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
+	}
+	
+	
+	on_weekly_pulse = {
+		effect = {
+			set_global_variable = {
+				name = balkfm_mon_border_control_var
+				value = balkfm_border_control_value
+			}
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_mon_black_mountain_status
+		}
 	}
 	
 	weight = 1000
@@ -434,10 +440,12 @@ je_balkfm_mon_black_mountain_new = {
 # Next province variables are handled in root scopes to simplify scripting
 # Monthly progress variables are stored locally
 # The following global variables are used:
-	## balkfm_mon_next_province_var -> stores the next province for MON to claim
-	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
 	## balkfm_border_influence_var -> stores the value for the journal progressbar
 	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
+	## balkfm_mon_border_control_var -> stores the number of provinces controled by MON
+	## balkfm_tur_border_control_var -> stores the number of provinces controled by TUR
+	## balkfm_mon_next_province_var -> stores the next province for MON to claim
+	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
 # The following local variables are used:
 	## balkfm_border_control_var -> tracks number of controlled provinces
 	## balkfm_mon_border_progress_var -> cached for performance
@@ -451,13 +459,10 @@ je_balkfm_mon_black_mountain_new = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		add_modifier = modifier_balkfm_practicing_headtaking
 		set_variable = {
 			name = balkfm_view_captives_var
 			value = 0
-		}
-		set_variable = {
-			name = balkfm_border_control_var
-			value = balkfm_border_control_value
 		}
 		balkfm_update_progress_variables_effect = yes
 	}
@@ -540,10 +545,6 @@ je_balkfm_mon_black_mountain_new = {
 			balkfm_mon_determine_next_province_effect = yes
 			balkfm_update_captive_variables_effect = yes
 			balkfm_update_progress_variables_effect = yes
-			set_variable = {
-				name = balkfm_border_control_var
-				value = balkfm_border_control_value
-			}
 		}
 	}
 	

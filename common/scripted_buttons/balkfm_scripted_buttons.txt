@@ -382,8 +382,21 @@ balkfm_border_raid_button = {
 			custom_tooltip = {
 				text = balkfm_not_incursing_tt
 				hidden_trigger = {
-					NOT = {
-						has_variable = balkfm_incursion_var
+					trigger_if = {
+						limit = {
+							c:MON = this
+						}
+						NOT = {
+							global_var:balkfm_border_incursion_var = 1
+						}
+					}
+					trigger_if = {
+						limit = {
+							c:TUR = this
+						}
+						NOT = {
+							global_var:balkfm_border_incursion_var = 2
+						}
 					}
 				}
 			}

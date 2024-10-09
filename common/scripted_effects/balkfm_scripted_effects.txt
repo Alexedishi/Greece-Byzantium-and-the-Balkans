@@ -205,7 +205,6 @@ balkfm_set_up_montenegro_effect = {
 			set_ideology = ideology:ideology_traditionalist
 		}
 	}
-	add_modifier = modifier_balkfm_practicing_headtaking
 }
 
 balkfm_create_ali_pasha_characters = {
@@ -232,11 +231,7 @@ balkfm_save_ali_pasha_scopes = {
 	}
 }
 
-balkfm_initialize_border_variables = {
-	set_variable = {
-		name = balkfm_border_control_var
-		value = 0
-	}
+balkfm_initialize_border_variables_effect = {
 	set_variable = {
 		name = balkfm_mon_border_progress_var
 		value = 0
@@ -253,7 +248,7 @@ balkfm_initialize_border_variables = {
 
 balkfm_update_progress_variables_effect = {
 	c:MON = {
-		set_variable = {
+		set_global_variable = {
 			name = balkfm_mon_border_control_var
 			value = balkfm_border_control_value
 		}
@@ -271,8 +266,8 @@ balkfm_update_progress_variables_effect = {
 		}
 	}
 	c:TUR = {
-		set_variable = {
-			name = balkfm_mon_border_control_var
+		set_global_variable = {
+			name = balkfm_tur_border_control_var
 			value = balkfm_border_control_value
 		}
 		set_variable = {
@@ -968,13 +963,14 @@ balkfm_update_border_progressbar_effect = {
 balkfm_border_cleanup_effect = {
 	set_global_variable = balkfm_border_conflict_resolved
 	remove_global_variable = balkfm_border_influence_var
+	remove_global_variable = balkfm_mon_border_control_var
+	remove_global_variable = balkfm_tur_border_control_var
 	remove_global_variable = balkfm_mon_next_province_var
 	remove_global_variable = balkfm_tur_next_province_var
 	remove_global_variable = balkfm_border_incursion_var
 	remove_global_variable = balkfm_border_event_cooldown_var
 	
 	c:MON ?={
-		remove_variable = balkfm_border_control_var
 		remove_variable = balkfm_mon_border_progress_var
 		remove_variable = balkfm_tur_border_progress_var
 		remove_variable = balkfm_total_border_progress_var
@@ -987,7 +983,6 @@ balkfm_border_cleanup_effect = {
 	}
 	
 	c:TUR ?={
-		remove_variable = balkfm_border_control_var
 		remove_variable = balkfm_mon_border_progress_var
 		remove_variable = balkfm_tur_border_progress_var
 		remove_variable = balkfm_total_border_progress_var

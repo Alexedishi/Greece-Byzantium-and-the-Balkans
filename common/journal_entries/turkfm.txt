@@ -69,6 +69,10 @@
 		random_events = {
 		}
 		effect = {
+			set_global_variable = {
+				name = balkfm_tur_border_control_var
+				value = balkfm_border_control_value
+			}
 		}
 	}
 	
@@ -122,8 +126,9 @@ je_turkfm_tur_karadag = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_variable = {
-			name = balkfm_border_control_var
+		add_modifier = modifier_balkfm_practicing_headtaking
+		set_global_variable = {
+			name = balkfm_tur_border_control_var
 			value = balkfm_border_control_value
 		}
 		balkfm_update_progress_variables_effect = yes
@@ -193,10 +198,6 @@ je_turkfm_tur_karadag = {
 	on_weekly_pulse = {
 		effect = {
 			balkfm_tur_determine_next_province_effect = yes
-			set_variable = {
-				name = balkfm_border_control_var
-				value = balkfm_border_control_value
-			}
 		}
 	}
 	
