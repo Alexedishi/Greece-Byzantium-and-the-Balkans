@@ -126,13 +126,13 @@ namespace = eocfm
 #	180 - Traditionalists March in Capital (Stall Event)
 #	181 - A Church for the Nation (Progress Event)
 #	182 - Minority Adherents Seek Protections (Debate Event)
-#	183 - ##Patriarch Denounces Schism (Stall Event)
+#	183 - Patriarch Denounces Schism (Stall Event)
 #	184 - Liturgical Language (Debate Event)
 #	185 - Ecclesiatic Purges (Advance Event)
 #	186 - Promoting Local Bishops (Advance Event)
-#	187 - ##Monastic Brawls (Stall Event)
-#	188 - ##
-#	189 - ##
+#	187 - Monastic Brawls (Stall Event)
+#	188 - Agitator Condemns Schism (Stall Event)
+#	189 - Prominent Priest Assassinated (Stall Event)
 
 #190-199 - Ecumenical Orthodox Technical Events
 #	190 - [TECH] Removes Lex Animata
@@ -4066,6 +4066,8 @@ balkfm.180 = { # Traditionalists March in Capital (Stall Event)
 	desc = balkfm.180.d
 	flavor = balkfm.180.f
 	
+#	category = eocfm_schism
+	
 	event_image = {
 		video = "europenorthamerica_political_extremism"
 	}
@@ -4299,8 +4301,9 @@ balkfm.183 = { # Patriarch Denounces Schism (Stall Event)
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
+		NOR = {
 			has_variable = eocfm_schism_event_cooldown_var
+			has_modifier = modifier_eocfm_schism_denounced
 		}
 		eocfm_has_low_relations_with_any_patriarch_trigger = yes
 		var:eocfm_schism_var > 30
@@ -4311,7 +4314,7 @@ balkfm.183 = { # Patriarch Denounces Schism (Stall Event)
 	}
 	
 	cooldown = {
-		years = 1
+		years = 4
 	}
 	
 	immediate = {
@@ -4323,16 +4326,37 @@ balkfm.183 = { # Patriarch Denounces Schism (Stall Event)
 		eocfm_save_event_patriarch_effect = yes
 	}
 	
-	option = { # 
+	option = { # Tell him to buzz off
 		name = balkfm.183.a
 		default_option = yes
-		add_modifier = modifier_eocfm_schism_denounced
-		
+		add_modifier = {
+			name = modifier_eocfm_schism_denounced
+			months = normal_modifier_time
+		}
+		eocfm_decrease_patriarch_opinion_effect = yes
+		custom_tooltip = {
+			text = eocfm_schism_gain_6_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 6
+			}
+		}
 	}
 	
-	option = { # 
+	option = { # Tell him you're actually a really good boy
 		name = balkfm.183.b
-		add_modifier = modifier_eocfm_schism_denounced
+		add_modifier = {
+			name = modifier_eocfm_schism_denounced
+			months = normal_modifier_time
+		}
+		eocfm_increase_patriarch_opinion_effect = yes
+		custom_tooltip = {
+			text = eocfm_schism_gain_6_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 6
+			}
+		}
 		
 	}
 	
@@ -4640,6 +4664,190 @@ eocfm.187 = { # Monastic Brawls (Stall Event)
 
 }
 
+balkfm.188 = { # Agitator Condemns Schism (Stall Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.188.t
+	desc = balkfm.188.d
+	flavor = balkfm.188.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		any_scope_character = {
+			has_role = agitator
+			OR = {
+				law_stance = {
+					law = law_type:law_state_religion
+					value > neutral
+				}
+				law_stance = {
+					law = law_type:law_theocracy
+					value > neutral
+				}
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			has_variable = eocfm_is_autocephalous
+			scope:eocfm_denouncing_agitator_scope = {
+				is_character_alive = no
+			}
+			NOT = {
+				exists = scope:eocfm_denouncing_agitator_scope
+			}
+		}
+	}
+	
+	cooldown = {
+		years = 10
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+		random_scope_character = {
+			limit = {
+				has_role = agitator
+				OR = {
+					law_stance = {
+						law = law_type:law_state_religion
+						value > neutral
+					}
+					law_stance = {
+						law = law_type:law_theocracy
+						value > neutral
+					}
+				}
+			}
+			save_scope_as = eocfm_denouncing_agitator_scope
+		}
+	}
+	
+	option = { # Let Him Speak
+		name = balkfm.188.a
+		default_option = yes
+		add_modifier = modifier_eocfm_agitator_delay
+		custom_tooltip = {
+			text = eocfm_schism_lose_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 12
+			}
+		}
+	}
+	
+	option = { # Kick Him in the Nuts
+		name = balkfm.188.b
+		scope:eocfm_denouncing_agitator_scope = {
+			add_modifier = modifier_eocfm_popular_speaker
+		}
+		add_modifier = {
+			name = modifier_eocfm_muzzled_agitator
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+
+}
+
+balkfm.189 = { # Prominent Priest Assassinated (Stall Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.189.t
+	desc = balkfm.189.d
+	flavor = balkfm.189.f
+	
+	event_image = {
+		video = "southamerica_public_figure_assassination"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		var:eocfm_schism_var > 100
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+	}
+	
+	option = { # Hunt Down the Killer
+		name = balkfm.189.a
+		default_option = yes
+		add_modifier = modifier_eocfm_protecting_bishops
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_elder_assassinated
+				months = normal_modifier_time
+			}
+		}
+	}
+	
+	option = { # Turn a Blind Eye
+		name = balkfm.189.b
+		custom_tooltip = {
+			text = eocfm_schism_lose_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 12
+			}
+		}
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_eocfm_elder_assassinated
+				months = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = large_radicals
+		}
+	}
+
+}
 
 #### ECUMENICAL ORTHODOX TECHNICAL EVENTS ####
 
