@@ -2066,16 +2066,24 @@ je_balkfm_bul_bulgarian_exarchate = {
 		}
 	}
 	
-	on_monthly_pulse = {
+	on_monthly_pulse = { # This is a replica of eocfm_schism_monthly_pulse
 		random_events = {
-			200 = 0
-			5 = balkfm.565 # Liturgical Language
-			5 = balkfm.566 # Ecclesiatic Purges
+			chance_of_no_event = 75
+			10 = eocfm.180 # Traditionalists March in Capital (Stall Event)
+			10 = eocfm.181 # A Church for the Nation (Progress Event)
+			10 = eocfm.182 # Minority Adherents Seek Protections (Debate Event)
+			10 = eocfm.183 # Patriarch Denounces Schism (Stall Event)
+			10 = eocfm.184 # Liturgical Language (Debate Event)
+			10 = eocfm.185 # Ecclesiatic Purges (Advance Event)
+			10 = eocfm.186 # Promoting Local Bishops (Advance Event)
+			10 = eocfm.187 # Monastic Brawls (Stall Event)
+#			10 = eocfm.188 # 
+#			10 = eocfm.189 # 
 		}
 		effect = {
 			change_variable = {
 				name = eocfm_schism_var
-				add = balkfm_schism_progress_value
+				add = eocfm_schism_progress_value
 			}
 		}
 	}
@@ -2085,7 +2093,7 @@ je_balkfm_bul_bulgarian_exarchate = {
 	}
 
 	goal_add_value = {
-		value = 1000
+		value = 400
 	}
 
 	progressbar = yes

@@ -121,7 +121,18 @@ namespace = eocfm
 #170-179 - Miscellaneous Patriarch Events
 #	170 - Patriarch Condemns Immorality
 #	171 - Theological Dispute with Patriarch
-#	172 - ##
+
+#180-189 - Schism Events
+#	180 - Traditionalists March in Capital (Stall Event)
+#	181 - A Church for the Nation (Progress Event)
+#	182 - Minority Adherents Seek Protections (Debate Event)
+#	183 - ##Patriarch Denounces Schism (Stall Event)
+#	184 - Liturgical Language (Debate Event)
+#	185 - Ecclesiatic Purges (Advance Event)
+#	186 - Promoting Local Bishops (Advance Event)
+#	187 - ##Monastic Brawls (Stall Event)
+#	188 - ##
+#	189 - ##
 
 #190-199 - Ecumenical Orthodox Technical Events
 #	190 - [TECH] Removes Lex Animata
@@ -1444,8 +1455,8 @@ eocfm.107 = { # Autocephaly Completion Technical Event
 	
 	immediate = {
 		remove_variable = eocfm_schism_var
-		remove_modifier = modifier_eocfm_schismatic
 		set_variable = eocfm_is_autocephalous
+		eocfm_schism_cleanup_effect = yes
 		if = {
 			limit = {
 				c:GRE ?= this
@@ -4044,6 +4055,591 @@ eocfm.171 = { # Theological Dispute with Patriarch
 	}
 
 }
+
+#### SCHISM EVENTS ####
+
+balkfm.180 = { # Traditionalists March in Capital (Stall Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.180.t
+	desc = balkfm.180.d
+	flavor = balkfm.180.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		var:eocfm_schism_var > 30
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+	}
+	
+	option = { # Ignore these Losers
+		name = balkfm.180.a
+		default_option = yes
+		add_modifier = modifier_eocfm_ignored_dissent
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Slow Down the Process
+		name = balkfm.180.b
+		custom_tooltip = {
+			text = eocfm_schism_lose_24_tt
+			hidden_effect = {
+				change_variable = {
+					name = eocfm_schism_var
+					subtract = 24
+				}
+			}
+		}
+		add_modifier = modifier_eocfm_conceded_to_traditionalists
+		add_loyalists = {
+			pop_type = clergymen
+			value = small_radicals
+		}
+	}
+
+}
+
+balkfm.181 = { # A Church for the Nation (Progress Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.181.t
+	desc = balkfm.181.d
+	flavor = balkfm.181.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		NOR = {
+			has_modifier = modifier_eocfm_nationalist_church
+			has_modifier = modifier_eocfm_sidelined_church
+		}
+		var:eocfm_schism_var > 90
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+	}
+	
+	option = { # Adopt Nationalist Dogma
+		name = balkfm.181.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_nationalist_church
+			months = long_modifier_time
+		}
+	}
+	
+	option = { # Sideline the Church
+		name = balkfm.181.b
+		add_modifier = {
+			name = modifier_eocfm_sidelined_church
+			months = long_modifier_time
+		}
+	}
+
+}
+
+balkfm.182 = { # Minority Adherents Seek Protections (Debate Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.182.t
+	desc = balkfm.182.d
+	flavor = balkfm.182.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		any_scope_pop = {
+			OR = {
+				religion = rel:sunni
+				religion = rel:shiite
+				religion = rel:jewish
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+		random_scope_pop = {
+			limit = { 
+				OR = {
+					religion = rel:sunni
+					religion = rel:shiite
+					religion = rel:jewish
+				}
+			}
+			religion = {
+				save_scope_as = eocfm_minority_religion_scope
+			}
+		}
+	}
+	
+	option = { # Grant Them Protections
+		name = balkfm.182.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_minority_protections
+			months = long_modifier_time
+		}
+		add_radicals = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+	}
+	
+	option = { # Orthodoxy or Bust
+		name = balkfm.182.b
+		add_modifier = {
+			name = modifier_eocfm_orthodox_supremacy
+			months = long_modifier_time
+		}
+		add_radicals = {
+			religion = scope:eocfm_minority_religion_scope
+			value = large_radicals
+		}
+	}
+
+}
+
+balkfm.183 = { # Patriarch Denounces Schism (Stall Event)
+	type = country_event
+	placement = root
+	
+	title = balkfm.183.t
+	desc = balkfm.183.d
+	flavor = balkfm.183.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		eocfm_has_low_relations_with_any_patriarch_trigger = yes
+		var:eocfm_schism_var > 30
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 1
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+		eocfm_select_random_schism_condemnation_seat_effect = yes
+		eocfm_save_event_patriarch_effect = yes
+	}
+	
+	option = { # 
+		name = balkfm.183.a
+		default_option = yes
+		add_modifier = modifier_eocfm_schism_denounced
+		
+	}
+	
+	option = { # 
+		name = balkfm.183.b
+		add_modifier = modifier_eocfm_schism_denounced
+		
+	}
+	
+	after = {
+		eocfm_remove_seat_event_variables_effect = yes
+	}
+
+}
+
+eocfm.184 = { # Liturgical Language (Debate Event)
+	type = country_event
+	placement = root
+	
+	title = eocfm.184.t
+	desc = eocfm.184.d
+	flavor = eocfm.184.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_variable = eocfm_language_disputed
+			has_variable = eocfm_schism_event_cooldown_var
+			country_has_primary_culture = cu:hellene
+		}
+		has_technology_researched = mass_communication
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	immediate = {
+		set_variable = eocfm_language_disputed
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+		random_primary_culture = {
+			save_scope_as = eocfm_primary_culture_scope
+		}
+	}
+	
+	option = { # Local Language or Bust
+		name = eocfm.184.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_eocfm_local_language
+			months = very_long_modifier_time
+		}
+		add_loyalists = {
+			culture = scope:eocfm_primary_culture_scope
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = eocfm_schism_gain_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 12
+			}
+		}
+	}
+	
+	option = { # Ehh, we simp for Greek here
+		name = eocfm.184.b
+		add_modifier = {
+			name = modifier_eocfm_greek_language
+			months = very_long_modifier_time
+		}
+		add_loyalists = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = scope:eocfm_primary_culture_scope
+			value = medium_radicals
+		}
+	}
+
+}
+
+eocfm.185 = { # Ecclesiatic Purges (Advance Event)
+	type = country_event
+	placement = root
+	
+	title = eocfm.185.t
+	desc = eocfm.185.d
+	flavor = eocfm.185.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_variable = eocfm_ecclesiarchy_purge_considered
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+		has_technology_researched = central_archives
+		has_variable = eocfm_language_disputed
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	immediate = {
+		set_variable = eocfm_ecclesiarchy_purge_considered
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+		random_primary_culture = {
+			save_scope_as = eocfm_primary_culture_scope
+		}
+	}
+	
+	option = { # Kick out the Greeks
+		name = eocfm.185.a
+		default_option = yes
+		add_modifier = modifier_eocfm_purged_ecclesiarchy
+		add_radicals = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+		custom_tooltip = {
+			text = eocfm_schism_gain_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 12
+			}
+		}
+	}
+	
+	option = { # Retain the Greeks
+		name = eocfm.185.b
+		add_modifier = modifier_eocfm_retained_ecclesiarchy
+		add_radicals = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = eocfm_schism_lose_24_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 24
+			}
+		}
+	}
+
+}
+
+eocfm.186 = { # Promoting Local Bishops (Advance Event)
+	type = country_event
+	placement = root
+	
+	title = eocfm.186.t
+	desc = eocfm.186.d
+	flavor = eocfm.186.f
+	
+	event_image = {
+		video = "southamerica_christianity"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+	}
+	
+	option = { # Fast Track New Bishops
+		name = eocfm.186.a
+		default_option = yes
+		add_modifier = modifier_eocfm_fast_tracking_bishops
+		custom_tooltip = {
+			text = eocfm_schism_gain_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				add = 12
+			}
+		}
+	}
+	
+	option = { # Ensure Adequate Training
+		name = eocfm.186.b
+		add_modifier = {
+			name = modifier_eocfm_disciplined_clergy
+			months = very_long_modifier_time
+		}
+	}
+
+}
+
+eocfm.187 = { # Monastic Brawls (Stall Event)
+	type = country_event
+	placement = root
+	
+	title = eocfm.187.t
+	desc = eocfm.187.d
+	flavor = eocfm.187.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = eocfm_schism_event_cooldown_var
+		}
+	}
+	
+	cancellation_trigger = {
+		has_variable = eocfm_is_autocephalous
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		set_variable = {
+			name = eocfm_schism_event_cooldown_var
+			months = 3
+		}
+	}
+	
+	option = { # This should be a paid event
+		name = eocfm.187.a
+		default_option = yes
+		add_modifier = modifier_eocfm_monk_smackdown_tolerated
+	}
+	
+	option = { # Break up the fighting
+		name = eocfm.187.b
+		add_modifier = modifier_eocfm_monk_smackdown_stopped
+		custom_tooltip = {
+			text = eocfm_schism_lose_12_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 12
+			}
+		}
+		add_radicals = {
+			pop_type = clergymen
+			value = medium_radicals
+		}
+	}
+
+}
+
 
 #### ECUMENICAL ORTHODOX TECHNICAL EVENTS ####
 

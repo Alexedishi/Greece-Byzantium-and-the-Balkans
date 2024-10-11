@@ -1467,6 +1467,52 @@ eocfm_select_random_condemnation_seat_effect = {
 	}
 }
 
+eocfm_select_random_schism_condemnation_seat_effect = {
+	random_list = {
+		5 = {
+			trigger = {
+				any_country = {
+					has_variable = eocfm_controls_rome
+					country_has_state_religion = rel:orthodox
+				}
+				var:eocfm_rome_relations_var < 20
+			}
+			set_variable = eocfm_rome_event_var
+		
+		}
+		5 = {
+			trigger = {
+				var:eocfm_constantinople_relations_var < 20
+			}
+			set_variable = eocfm_constantinople_event_var
+		}
+		5 = {
+			trigger = {
+				var:eocfm_antioch_relations_var < 20
+			}
+			set_variable = eocfm_antioch_event_var
+		}
+		5 = {
+			trigger = {
+				var:eocfm_jerusalem_relations_var < 20
+			}
+			set_variable = eocfm_jerusalem_event_var
+		}
+		5 = {
+			trigger = {
+				var:eocfm_alexandria_relations_var < 20
+			}
+			set_variable = eocfm_alexandria_event_var
+		}
+		5 = {
+			trigger = {
+				var:eocfm_moscow_relations_var < 20
+			}
+			set_variable = eocfm_moscow_event_var
+		}
+	}
+}
+
 eocfm_save_event_patriarch_effect = {
 	if = {
 		limit = {
@@ -1976,6 +2022,27 @@ eocfm_remove_icon_modifiers_effect = {
 	remove_modifier ?= modifier_eocfm_icon_paul_of_thebes
 	remove_modifier ?= modifier_eocfm_icon_issac_the_syrian
 	remove_modifier ?= modifier_eocfm_icon_basil_megas
+}
+
+eocfm_schism_cleanup_effect = {
+	# This effect will not adjust the schism or autocephaly variables; those are explicitly handled by eocfm.107
+	remove_modifier = modifier_eocfm_schismatic
+	remove_modifier = modifier_eocfm_ignored_dissent
+	remove_modifier = modifier_eocfm_conceded_to_traditionalists
+	remove_modifier = modifier_eocfm_schism_denounced
+	remove_modifier = modifier_eocfm_purged_ecclesiarchy
+	remove_modifier = modifier_eocfm_retained_ecclesiarchy
+	remove_modifier = modifier_eocfm_fast_tracking_bishops
+	remove_modifier = 
+	remove_modifier = 
+	remove_modifier = 
+	remove_modifier = 
+	remove_modifier = 
+	
+	remove_variable = eocfm_language_disputed
+	remove_variable = eocfm_ecclesiarchy_purge_considered
+	remove_variable = 
+	remove_variable = 
 }
 
 eocfm_remove_intregration_variables_effect = {

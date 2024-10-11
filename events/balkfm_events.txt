@@ -249,8 +249,8 @@ namespace = balkfm
 #	562 - Ecclesiatic Hostility
 #	563 - An Orthodox Heir
 #	564 - Restoring the Exarchate
-#	565 - Liturgical Language
-#	566 - Ecclesiatic Purges
+#	565 - Liturgical Language >> export to EOCFM
+#	566 - Ecclesiatic Purges >> export to EOCFM
 #	567 - OPEN
 #	568 - OPEN
 #	569 - The Exarchate of Bulgaria
@@ -10244,132 +10244,12 @@ balkfm.564 = { # Restoring the Exarchate
 
 }
 
-balkfm.565 = { # Liturgical Language
-	type = country_event
-	placement = root
-	
-	title = balkfm.565.t
-	desc = balkfm.565.d
-	flavor = balkfm.565.f
-	
-	event_image = {
-		video = "middleeast_courtroom_upheaval"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = {
-			has_variable = balkfm_language_disputed
-		}
-		var:eocfm_schism_var >= 100
-		has_technology_researched = mass_communication
-	}
-	
-	cancellation_trigger = {
-		NOT = {
-			has_journal_entry = je_balkfm_bul_bulgarian_exarchate
-		}
-	}
-	
-	immediate = {
-		set_variable = balkfm_language_disputed
-	}
-	
-	option = { # Bulgarian or bust
-		name = balkfm.565.a
-		default_option = yes
-		add_loyalists = {
-			culture = cu:bulgarian
-			value = medium_radicals
-		}
-		add_radicals = {
-			culture = cu:greek
-			value = medium_radicals
-		}
-		custom_tooltip = {
-			text = balkfm_exarchate_advance_100_tt
-			change_variable = {
-				name = eocfm_schism_var
-				add = 100
-			}
-		}
-	}
-	
-	option = { # Ehh, we're soyboys
-		name = balkfm.565.b
-		add_loyalists = {
-			culture = cu:greek
-			value = medium_radicals
-		}
-		add_radicals = {
-			culture = cu:bulgarian
-			value = medium_radicals
-		}
-		custom_tooltip = {
-			text = balkfm_exarchate_regress_100_tt
-			change_variable = {
-				name = eocfm_schism_var
-				subtract = 100
-			}
-		}
-	}
-
+balkfm.565 = { # OPEN
+	orphan = yes
 }
 
-balkfm.566 = { # Ecclesiatic Purges
-	type = country_event
-	placement = root
-	
-	title = balkfm.566.t
-	desc = balkfm.566.d
-	flavor = balkfm.566.f
-	
-	event_image = {
-		video = "middleeast_courtroom_upheaval"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = {
-			has_variable = balkfm_ecclesiarchy_purged
-		}
-		var:eocfm_schism_var >= 500
-		has_technology_researched = central_archives
-	}
-	
-	cancellation_trigger = {
-		NOT = {
-			has_journal_entry = je_balkfm_bul_bulgarian_exarchate
-		}
-	}
-	
-	immediate = {
-		set_variable = balkfm_ecclesiarchy_purged
-	}
-	
-	option = {
-		name = balkfm.566.a
-		default_option = yes
-	}
-	
-	option = {
-		name = balkfm.566.b
-	}
-
+balkfm.566 = { # OPEN
+	orphan = yes
 }
 
 balkfm.567 = { # OPEN
@@ -10407,6 +10287,7 @@ balkfm.569 = { # The Exarchate of Bulgaria
 	immediate = {
 		remove_variable = eocfm_schism_var
 		set_variable = eocfm_is_autocephalous
+		eocfm_schism_cleanup_effect = yes
 	}
 	
 	option = {

@@ -591,7 +591,16 @@ balkfm_battenburg_support_value = {
 # Generally, it should be hard to get this above 5 while retaining liberal laws
 	value = 0
 	
-	# Russia relations check
+	## Sources ##
+	if = {
+		limit ={
+			is_in_same_power_bloc = c:RUS
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_russian_bloc
+		}
+	}
 	if = {
 		limit = {
 			c:RUS = {
@@ -603,28 +612,6 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_good_russian_relations
 		}
 	}
-	else_if = {
-		limit = {
-			c:RUS = {
-				relations:root < relations_threshold:neutral
-			}
-		}
-		subtract = {
-			value = 1
-			desc = balkfm_bul_from_bad_russian_relations
-		}
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_balkfm_russian_attaches
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_russian_attaches
-		}
-	}
-	
-	# Landowners power check
 	if = { 
 		limit = {
 			AND = {
@@ -639,8 +626,82 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_powerful_landowners_in_gov
 		}
 	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_russian_attaches
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_russian_attaches
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_protected_speech
+				has_law = law_type:law_right_of_assembly
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_good_speech_laws
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_railways_built
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_building_railways
+	}
+	if = {
+		limit = {
+			OR = {
+				has_variable = eocfm_schism_var
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_autocephaly
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_brigandage_completed
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_brigandage_completed
+		}
+	}
 	
-	# Military power check
+	## PENALTIES ##
+	
+	if = {
+		limit = {
+			is_in_power_bloc = yes
+			power_bloc_leader = {
+				c:RUS != this
+			}
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_non_russian_bloc
+		}
+	}
+	if = {
+		limit = {
+			c:RUS = {
+				relations:root < relations_threshold:neutral
+			}
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_bad_russian_relations
+		}
+	}
 	if = {
 		limit = {
 			AND = {
@@ -655,21 +716,7 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_powerful_military_not_in_gov
 		}
 	}
-	
-	# Freedom of the press check (balkfm.501)
 	if = {
-		limit = {
-			OR = {
-				has_law = law_type:law_protected_speech
-				has_law = law_type:law_right_of_assembly
-			}
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_good_speech_laws
-		}
-	}
-	else_if = {
 		limit = {
 			OR = {
 				has_law = law_type:law_censorship
@@ -681,8 +728,6 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_bad_speech_laws
 		}
 	}
-	
-	# Autocracy check (balkfm.502)
 	if = {
 		limit = {
 			OR = {
@@ -695,24 +740,17 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_no_voting
 		}
 	}
-	
-	# Brigandage check (balkfm.510/511)
 	if = {
 		limit = {
-			has_variable = balkfm_brigandage_completed
+			AND = {
+				owns_entire_state_region = STATE_BULGARIA
+				country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
 		}
-		add = {
+		subtract = {
 			value = 1
-			desc = balkfm_bul_from_brigandage_completed
+			desc = balkfm_bul_from_controlling_rumelia
 		}
-	}
-	
-	# Railways check (balkfm.512/513/514)
-	if = {
-		limit = {
-			has_variable = balkfm_railways_built
-		}
-		add = 1
 	}
 	if = {
 		limit = {
@@ -721,34 +759,6 @@ balkfm_battenburg_support_value = {
 		subtract = {
 			value = 1
 			desc = balkfm_bul_from_railways_buyout
-		}
-	}
-	
-	# Rumelia check (balkfm.581)
-	if = {
-		limit = {
-			AND = {
-				owns_entire_state_region = STATE_BULGARIA
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-			}
-		}
-		subtract = {
-			value = 1
-			desc = balkfm_bul_from_controlling_rumelia
-		}
-	}
-	
-	# Schism check (balkfm.560)
-	if = {
-		limit = {
-			OR = {
-				has_variable = eocfm_schism_var
-				has_variable = eocfm_is_autocephalous
-			}
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_autocephaly
 		}
 	}
 	
@@ -874,19 +884,6 @@ balkfm_revivalism_progress_value = {
 			value = 10
 			desc = balkfm_bul_from_autocephaly
 		}
-	}
-	round = 0.01
-}
-
-balkfm_schism_progress_value = {
-	value = 0
-	add = {
-		value = balkfm_intelligentsia_devout_value
-		desc = balkfm_bul_from_devout_influence
-	}
-	add = {
-		value = balkfm_ottoman_relations_value
-		desc = balkfm_bul_from_ottoman_relations
 	}
 	round = 0.01
 }
