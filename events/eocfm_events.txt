@@ -4601,7 +4601,7 @@ eocfm.186 = { # Promoting Local Bishops (Advance Event)
 
 eocfm.187 = { # Monastic Brawls (Stall Event)
 	type = country_event
-	placement = root
+	placement = scope:eocfm_monk_fight_state_scope
 	
 	title = eocfm.187.t
 	desc = eocfm.187.d
@@ -4638,12 +4638,22 @@ eocfm.187 = { # Monastic Brawls (Stall Event)
 			name = eocfm_schism_event_cooldown_var
 			months = 3
 		}
+		random_scope_state = {
+			save_scope_as = eocfm_monk_fight_state_scope
+		}
 	}
 	
 	option = { # This should be a paid event
 		name = eocfm.187.a
 		default_option = yes
 		add_modifier = modifier_eocfm_monk_smackdown_tolerated
+		custom_tooltip = {
+			text = eocfm_schism_lose_24_tt
+			change_variable = {
+				name = eocfm_schism_var
+				subtract = 24
+			}
+		}
 	}
 	
 	option = { # Break up the fighting
@@ -4757,6 +4767,13 @@ balkfm.188 = { # Agitator Condemns Schism (Stall Event)
 	
 	option = { # Kick Him in the Nuts
 		name = balkfm.188.b
+		trigger = {
+			NOR = {
+				has_law = law_type:law_protected_speech
+				has_law = law_type:law_right_of_assembly
+			}
+		}
+		show_as_unavailable = yes
 		scope:eocfm_denouncing_agitator_scope = {
 			add_modifier = modifier_eocfm_popular_speaker
 		}
