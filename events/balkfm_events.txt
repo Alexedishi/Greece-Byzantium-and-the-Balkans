@@ -95,7 +95,7 @@ namespace = balkfm
 
 #310-319 - Secularization of Montenegro Events
 #	310 - The Principality of Montenegro
-#	311 - ##Old Rivalries <- Danilo takes the throne
+#	311 - Old Rivalries
 #	312 - ##A Hostile Court <-Danilo replaces IG leaders
 #	313 - ##Blood Revenge <- Danilo gets shot
 #	314 - ##The Little Rabbit <- Nikola takes the throne // dont forget to add Mirko as a general
@@ -1883,6 +1883,10 @@ balkfm.300 = { # A Feudal Relic
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
+		set_variable = {
+			name = balkfm_mon_illness_var
+			years = { 12 14 } # Petar got 13 years, this provides a random range
+		}
 	}
 	
 	option = {
@@ -2183,7 +2187,9 @@ balkfm.307 = { # An Intractable Illness
 				has_modifier = modifier_balkfm_tuberculosis
 			}
 		}
-		year >= 1849
+		NOT = {
+			has_variable = balkfm_mon_illness_var
+		}
 	}
 	
 	cancellation_trigger = {
@@ -2197,6 +2203,10 @@ balkfm.307 = { # An Intractable Illness
 	immediate = {
 		ruler = {
 			save_scope_as = balkfm_ruler_scope
+		}
+		set_variable = {
+			name = balkfm_mon_illness_var
+			years = { 2 3 } # Petar had 2 years IRL
 		}
 	}
 	
@@ -2236,7 +2246,9 @@ balkfm.308 = { # The Passing of the Bishop
 			has_template = template_balkfm_petrovic_petar
 			has_modifier = modifier_balkfm_tuberculosis
 		}
-		year >= 1851
+		NOT = {
+			has_variable = balkfm_mon_illness_var
+		}
 	}
 	
 	cancellation_trigger = {
@@ -2251,6 +2263,7 @@ balkfm.308 = { # The Passing of the Bishop
 		ruler = {
 			save_scope_as = balkfm_ruler_scope
 		}
+		set_variable = balkfm_mon_illness_var
 	}
 	
 	option = {
@@ -2258,6 +2271,10 @@ balkfm.308 = { # The Passing of the Bishop
 		default_option = yes
 		scope:balkfm_ruler_scope = {
 			kill_character = yes
+		}
+		trigger_event = {
+			id = balkfm.311 # Old Rivalries
+			days = 30
 		}
 	}
 
@@ -2360,6 +2377,44 @@ balkfm.310 = { # The Principality of Montenegro
 		}
 	}
 
+}
+
+balkfm.311 = { # Old Rivalries
+	type = country_event
+	placement = root
+	
+	title = balkfm.311.t
+	desc = balkfm.311.d
+	flavor = balkfm.311.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.308
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.311.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_inexperienced_ruler
+			months = normal_modifier_time
+			is_decaying = yes
+		}
+	}
 }
 
 ## THE KINGDOM ERA ##
