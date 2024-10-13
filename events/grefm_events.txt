@@ -7106,7 +7106,7 @@ grefm.206 = { # The Language Question
 	
 }
 
-grefm.207 = { # a national language
+grefm.207 = { # A National Language
 	type = country_event
 	placement = root
 	
@@ -7127,6 +7127,13 @@ grefm.207 = { # a national language
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by grefm_declare_national_language_button
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_national_language
+		}
 	}
 	
 	immediate = {
@@ -7135,6 +7142,11 @@ grefm.207 = { # a national language
 	option = { # listen to the people, go Demotic
 		name = grefm.207.a
 		default_option = yes
+		trigger = {
+			je:je_grefm_national_language = {
+				"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
+			}
+		}
 		add_loyalists = {
 			strata = poor
 			value = medium_radicals
@@ -7147,11 +7159,17 @@ grefm.207 = { # a national language
 			name = modifier_grefm_embraced_demotic_greek
 			months = very_long_modifier_time
 		}
-		set_variable = grefm_greek_language_solved
+		set_variable = grefm_greek_language_demotic
+		remove_variable = grefm_language_var
 	}
 
 	option = { # keep it classy with Katharevousa
 		name = grefm.207.b
+		trigger = {
+			je:je_grefm_national_language = {
+				"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
+			}
+		}
 		add_loyalists = {
 			strata = rich
 			value = medium_radicals
@@ -7164,13 +7182,16 @@ grefm.207 = { # a national language
 			name = modifier_grefm_enforced_katharevousa
 			months = very_long_modifier_time
 		}
-		set_variable = grefm_greek_language_solved
+		set_variable = grefm_greek_language_katharevousa
+		remove_variable = grefm_language_var
 	}
 	
 	option = { # the Khoine choice for the Orthodox boys
 		name = grefm.207.c
 		trigger = {
-			has_law = law_type:law_theocracy
+			je:je_grefm_national_language = {
+				"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
+			}
 		}
 		add_loyalists = {
 			religion = rel:orthodox
@@ -7180,7 +7201,22 @@ grefm.207 = { # a national language
 			name = modifier_grefm_enshrined_khoine
 			months = very_long_modifier_time
 		}
-		set_variable = grefm_greek_language_solved
+		set_variable = grefm_greek_language_khoine
+		remove_variable = grefm_language_var
+	}
+	
+	option = { # Fallback option
+		name = grefm.207.e
+		trigger = {
+			je:je_grefm_national_language = {
+				NOR = {
+					"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
+					"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
+					"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
+				}
+			}
+		}
+		remove_variable = grefm_language_var
 	}
 	
 }

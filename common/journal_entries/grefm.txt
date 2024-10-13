@@ -1326,6 +1326,8 @@ je_grefm_hellenic_nationalism = {
 	
 #	scripted_progress_bar = grefm_nationalism_progress_bar
 
+#	scripted_button = grefm_embrace_national_identity_button
+
 	complete = {
 		has_technology_researched = pan-nationalism
 		custom_tooltip = {
@@ -1352,6 +1354,11 @@ je_grefm_hellenic_nationalism = {
 		trigger_event = {
 			id = grefm.209 # The Greek Ethnogenesis
 		}
+		set_variable = grefm_nationalism_complete
+	}
+	
+	invalid = {
+		has_variable = grefm_nationalism_complete
 	}
 	
 	weight = 3000 # third billing, behind je_grefm_megali_idea
@@ -1415,30 +1422,28 @@ je_grefm_national_language = {
 	scripted_progress_bar = grefm_katharevousa_progress_bar
 	scripted_progress_bar = grefm_khoine_progress_bar
 	
+	scripted_button = grefm_declare_national_language_button
+	
 	complete = {
 		has_law = law_type:law_compulsory_primary_school
 		institution_investment_level = {
 			institution = institution_schools
 			value >= 3
 		}
-		scope:journal_entry = {
-			custom_tooltip = {
-				text = je_grefm_national_language_complete_tt
-				hidden_trigger = {
-					OR = {
-						"scripted_bar_progress(grefm_dimotiki_progress_bar)" > 100
-						"scripted_bar_progress(grefm_katharevousa_progress_bar)" > 100
-						"scripted_bar_progress(grefm_khoine_progress_bar)" > 100
-					}
+		custom_tooltip = {
+			text = je_grefm_national_language_complete_tt
+			hidden_trigger = {
+				OR = {
+					has_variable = grefm_greek_language_demotic
+					has_variable = grefm_greek_language_katharevousa
+					has_variable = grefm_greek_language_khoine
 				}
 			}
 		}
 	}
 	
 	on_complete = {
-		trigger_event = {
-			id = grefm.207 # A National Language
-		}
+		set_variable = grefm_greek_language_solved
 	}
 	
 	weight = 2997
