@@ -1389,12 +1389,12 @@ balkfm.201 = { # Jugoslavism (MON)
 #	}
 
 	after = {
-		hidden_effect = {
-			trigger_event = {
-				id = balkfm.380 # Montenegrin Nationalism
-				days = 60
-			}
-		}
+#		hidden_effect = {
+#			trigger_event = {
+#				id = balkfm.380 # Montenegrin Nationalism
+#				days = 60
+#			}
+#		}
 	}
 
 }
@@ -2273,7 +2273,7 @@ balkfm.308 = { # The Passing of the Bishop
 			kill_character = yes
 		}
 		trigger_event = {
-			id = balkfm.311 # Old Rivalries
+			id = balkfm.310 # Old Rivalries
 			days = 30
 		}
 	}
@@ -2314,57 +2314,7 @@ balkfm.309 = { # The Light of Modernity
 			name = modifier_balkfm_modern_state
 			months = long_modifier_time
 		}
-		hidden_effect = { # This is to insulate from the effects of losing the Spartan Existence modifier
-			every_scope_state = {
-				add_modifier = {
-					name = modifier_balkfm_modern_adaptation
-					months = normal_modifier_time
-					is_decaying = yes
-				}
-			}
-		}
-		add_loyalists = {
-			value = medium_radicals
-		}
-	}
-
-}
-
-## THE PRINCIPALITY ERA ##
-
-balkfm.310 = { # The Principality of Montenegro
-	type = country_event
-	placement = root
-	
-	title = balkfm.310.t
-	desc = balkfm.310.d
-	flavor = balkfm.310.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by balkfm_mon_principality_button
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.310.a
-		default_option = yes
-		show_as_tooltip = {
-			add_modifier = modifier_balkfm_declared_principality
-		}
+		
 		add_loyalists = {
 			culture = cu:serb
 			value = medium_radicals
@@ -2375,17 +2325,28 @@ balkfm.310 = { # The Principality of Montenegro
 			}
 			balkfm_minor_border_progress_gain_effect = yes
 		}
+		hidden_effect = { # Insulates from losing the Spartan Existence modifier
+			every_scope_state = {
+				add_modifier = {
+					name = modifier_balkfm_modern_adaptation
+					months = normal_modifier_time
+					is_decaying = yes
+				}
+			}
+		}
 	}
 
 }
 
-balkfm.311 = { # Old Rivalries
+## THE PRINCIPALITY ERA ##
+
+balkfm.310 = { # Old Rivalries
 	type = country_event
 	placement = root
 	
-	title = balkfm.311.t
-	desc = balkfm.311.d
-	flavor = balkfm.311.f
+	title = balkfm.310.t
+	desc = balkfm.310.d
+	flavor = balkfm.310.f
 	
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
@@ -2407,7 +2368,7 @@ balkfm.311 = { # Old Rivalries
 	}
 	
 	option = {
-		name = balkfm.311.a
+		name = balkfm.310.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_inexperienced_ruler
@@ -2419,7 +2380,7 @@ balkfm.311 = { # Old Rivalries
 
 ## THE KINGDOM ERA ##
 
-balkfm.320 = { # The Principality of Montenegro
+balkfm.320 = { # The Kingdom of Montenegro
 	type = country_event
 	placement = root
 	
@@ -2449,9 +2410,7 @@ balkfm.320 = { # The Principality of Montenegro
 	option = {
 		name = balkfm.320.a
 		default_option = yes
-		show_as_tooltip = {
-			add_modifier = modifier_balkfm_declared_kingdom
-		}
+		add_modifier = modifier_balkfm_declared_kingdom
 		add_loyalists = {
 			culture = cu:serb
 			value = medium_radicals
@@ -2462,6 +2421,7 @@ balkfm.320 = { # The Principality of Montenegro
 			}
 			balkfm_minor_border_progress_gain_effect = yes
 		}
+		remove_variable = balkfm_tier_promotion_var
 	}
 
 }
@@ -5156,6 +5116,8 @@ balkfm.380 = { # The Black Mountain
 			type = je_balkfm_mon_nationalism
 		}
 	}
+
+	orphan = yes
 
 }
 

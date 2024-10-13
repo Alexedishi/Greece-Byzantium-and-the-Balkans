@@ -53,6 +53,48 @@ balkfm_clear_construction_modifiers_decision = {
 	}
 }
 
+balkfm_mon_declare_kingdom_decision = {
+	is_shown = {
+		has_modifier = modifier_balkfm_declared_principality
+		NOR = {
+			has_modifier = modifier_balkfm_declared_kingdom
+			has_journal_entry = je_balkfm_mon_nationalism
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_MONTENEGRO
+		custom_tooltip = {
+            text = balkfm_mon_elevation_buttons_tt
+			NOT = {
+		        any_country = {
+		            country_rank >= rank_value:great_power
+					OR = {
+						country_has_state_religion = rel:catholic
+						country_has_state_religion = rel:orthodox
+					}
+		            NOT = { has_war_with = ROOT }
+		            has_interest_marker_in_region = ROOT.capital.region
+		            relations:root < 0
+		        }
+	        }
+        }
+		is_diplomatic_play_committed_participant = no
+		is_subject = no
+		country_rank > rank_value:insignificant_power
+	}
+	
+	effect = {
+		remove_modifier = modifier_balkfm_declared_principality
+		add_modifier = modifier_balkfm_declared_kingdom
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+	
+}
+
 balkfm_great_montenegrivation_decision = {
 	is_shown = {
 		ruler = {

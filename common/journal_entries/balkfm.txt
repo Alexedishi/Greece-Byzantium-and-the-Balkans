@@ -208,11 +208,9 @@ je_balkfm_mon_prince_bishopric = {
 	}
 	
 	scripted_button = balkfm_visit_tsar_button
+	scripted_button = balkfm_mon_principality_button
 	
 	complete = {
-		NOT = {
-			has_law = law_type:law_theocracy
-		}
 		custom_tooltip = {
 			text = je_balkfm_mon_prince_bishopric_tt1
 			hidden_trigger = {
@@ -229,6 +227,12 @@ je_balkfm_mon_prince_bishopric = {
 			text = je_balkfm_mon_prince_bishopric_tt3
 			hidden_trigger = {
 				has_variable = balkfm_mon_mil_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_balkfm_mon_prince_bishopric_tt4
+			hidden_trigger = {
+				has_modifier = modifier_balkfm_declared_principality
 			}
 		}
 	}
@@ -637,7 +641,6 @@ je_balkfm_mon_nationalism = {
 	immediate = {
 	}
 	
-	scripted_button = balkfm_mon_principality_button
 	scripted_button = balkfm_mon_kingdom_button
 	
 	complete = {
