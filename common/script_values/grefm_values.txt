@@ -460,6 +460,18 @@ grefm_crete_progress_value = {
 	add = global_var:grefm_crete_radicals_var
 	add = global_var:grefm_crete_accelerate_var
 	add = global_var:grefm_crete_nationalism_var
+	if = {
+		limit = {
+			c:CRE ?= {
+				OR = {
+					is_subject_type = subject_type_protectorate
+					is_subject_type = subject_type_tributary
+				}
+			}
+		}
+		multiply = 0
+		add = -5
+	}
 }
 
 ## Ionian Jewry Values ##

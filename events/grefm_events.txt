@@ -10925,6 +10925,71 @@ grefm.523 = { # Language Bans in Crete
 	orphan = yes
 }
 
+grefm.528 = { # Crete Seeks Greater Autonomy
+	type = country_event
+	placement = root
+	
+	title = grefm.529.t
+	desc = grefm.529.d
+	flavor = grefm.529.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		global_var:grefm_crete_revolt_var >= 200
+		c:CRE ?= {
+			is_subject_of = root
+			NOR = {
+				is_subject_type = subject_type_protectorate
+				is_subject_type = subject_type_tributary
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = grefm_crete_revolt_var
+			value = 0
+		}
+		c:CRE = {
+			save_scope_as = crete_scope
+		}
+	}
+	
+	option = { # Give In
+		name = grefm.528.a
+		default_option = yes
+		c:CRE = {
+			increase_autonomy = yes
+		}
+		add_modifier = {
+			name = modifier_grefm_autonomy_denied
+			months = normal_modifier_time
+		}
+	}
+	
+	option = {
+		name = grefm.528.b
+		c:CRE = {
+			add_modifier = {
+				name = modifier_grefm_autonomy_granted
+				months = normal_modifier_time
+			}
+		}
+	}
+	
+}	
+
 grefm.529 = { # Crete Revolts Again (TUR/EGY)
 	type = country_event
 	placement = root

@@ -1929,6 +1929,7 @@ je_grefm_greek_separatism_sub = {
 			grefm.596 # The Cypriot Revolt (TUR/EGY)
 			grefm.597 # The Macedonian Revolt (TUR/EGY)
 			grefm.598 # The Smyrna Revolt (TUR/EGY)
+			grefm.528 # Crete Seeks Greater Autonomy
 			grefm.529 # Crete Revolts Again (TUR/EGY)
 		}
 	}
@@ -1937,7 +1938,21 @@ je_grefm_greek_separatism_sub = {
 		triggered_desc = {
 			desc = je_grefm_greek_separatism_crete_tt
 			trigger = {
-				has_state_in_state_region = STATE_CRETE
+				OR = {
+					AND = {
+						has_state_in_state_region = STATE_CRETE
+						NOT = {
+							exists = c:CRE
+						}
+					}
+					c:CRE ?= {
+						is_subject_of = root
+						NOR = {
+							is_subject_type = subject_type_protectorate
+							is_subject_type = subject_type_tributary
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2201,6 +2216,7 @@ je_grefm_black_sea = {
 	immediate = {
 		trigger_event = {
 			id = grefm.310 # The Shores of the Hospitable Sea
+			days = 15
 		}
 	}
 	
@@ -2236,6 +2252,7 @@ je_grefm_magna_graecia = {
 	immediate = {
 		trigger_event = {
 			id = grefm.312 # The Lands of Magna Graecia
+			days = 15
 		}
 	}
 	
