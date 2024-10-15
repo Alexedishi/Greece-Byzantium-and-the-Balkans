@@ -1468,47 +1468,86 @@ eocfm_select_random_condemnation_seat_effect = {
 }
 
 eocfm_select_random_schism_condemnation_seat_effect = {
-	random_list = {
-		5 = {
-			trigger = {
-				any_country = {
-					has_variable = eocfm_controls_rome
-					country_has_state_religion = rel:orthodox
+	if = {
+		limit = {
+			country_has_state_religion = rel:orthodox
+		}
+		random_list = {
+			5 = {
+				trigger = {
+					any_country = {
+						has_variable = eocfm_controls_rome
+						country_has_state_religion = rel:orthodox
+					}
+					var:eocfm_rome_relations_var < 20
 				}
-				var:eocfm_rome_relations_var < 20
+				set_variable = eocfm_rome_event_var
+			
 			}
-			set_variable = eocfm_rome_event_var
-		
+			5 = {
+				trigger = {
+					var:eocfm_constantinople_relations_var < 20
+				}
+				set_variable = eocfm_constantinople_event_var
+			}
+			5 = {
+				trigger = {
+					var:eocfm_antioch_relations_var < 20
+				}
+				set_variable = eocfm_antioch_event_var
+			}
+			5 = {
+				trigger = {
+					var:eocfm_jerusalem_relations_var < 20
+				}
+				set_variable = eocfm_jerusalem_event_var
+			}
+			5 = {
+				trigger = {
+					var:eocfm_alexandria_relations_var < 20
+				}
+				set_variable = eocfm_alexandria_event_var
+			}
+			5 = {
+				trigger = {
+					var:eocfm_moscow_relations_var < 20
+				}
+				set_variable = eocfm_moscow_event_var
+			}
 		}
-		5 = {
-			trigger = {
-				var:eocfm_constantinople_relations_var < 20
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				country_has_state_religion = rel:orthodox
 			}
-			set_variable = eocfm_constantinople_event_var
 		}
-		5 = {
-			trigger = {
-				var:eocfm_antioch_relations_var < 20
+		random_list = {
+			5 = {
+				trigger = {
+					any_country = {
+						has_variable = eocfm_controls_rome
+						country_has_state_religion = rel:orthodox
+					}
+				}
+				set_variable = eocfm_rome_event_var
+			
 			}
-			set_variable = eocfm_antioch_event_var
-		}
-		5 = {
-			trigger = {
-				var:eocfm_jerusalem_relations_var < 20
+			5 = {
+				set_variable = eocfm_constantinople_event_var
 			}
-			set_variable = eocfm_jerusalem_event_var
-		}
-		5 = {
-			trigger = {
-				var:eocfm_alexandria_relations_var < 20
+			5 = {
+				set_variable = eocfm_antioch_event_var
 			}
-			set_variable = eocfm_alexandria_event_var
-		}
-		5 = {
-			trigger = {
-				var:eocfm_moscow_relations_var < 20
+			5 = {
+				set_variable = eocfm_jerusalem_event_var
 			}
-			set_variable = eocfm_moscow_event_var
+			5 = {
+				set_variable = eocfm_alexandria_event_var
+			}
+			5 = {
+				set_variable = eocfm_moscow_event_var
+			}
 		}
 	}
 }

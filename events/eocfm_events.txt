@@ -4305,7 +4305,10 @@ eocfm.183 = { # Patriarch Denounces Schism (Stall Event)
 			has_variable = eocfm_schism_event_cooldown_var
 			has_modifier = modifier_eocfm_schism_denounced
 		}
-		eocfm_has_low_relations_with_any_patriarch_trigger = yes
+		OR = {
+			eocfm_has_low_relations_with_any_patriarch_trigger = yes
+			has_journal_entry = je_balkfm_bul_bulgarian_exarchate
+		}
 		var:eocfm_schism_var > 30
 	}
 	
@@ -4322,6 +4325,7 @@ eocfm.183 = { # Patriarch Denounces Schism (Stall Event)
 			name = eocfm_schism_event_cooldown_var
 			months = 3
 		}
+		eocfm_update_patriarch_variables_effect = yes
 		eocfm_select_random_schism_condemnation_seat_effect = yes
 		eocfm_save_event_patriarch_effect = yes
 	}
