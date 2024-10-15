@@ -1302,7 +1302,7 @@ je_grefm_venizelism_constitution = {
 ################################
 
 je_grefm_hellenic_nationalism = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	group = je_group_grefm_nationalism
 	
@@ -1367,7 +1367,7 @@ je_grefm_hellenic_nationalism = {
 
 
 je_grefm_roman_nationalism = {
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	group = je_group_grefm_nationalism
 	
@@ -1399,7 +1399,7 @@ je_grefm_roman_nationalism = {
 }
 
 je_grefm_national_language = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	icon = "gfx/interface/icons/event_icons/tutorial_icon.dds"
 	
 	group = je_group_grefm_nationalism
 	
@@ -1778,7 +1778,7 @@ je_grefm_greater_greece = {
 }
 
 je_grefm_greek_separatism_main = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_grefm_megali_idea
 	
@@ -1941,16 +1941,9 @@ je_grefm_greek_separatism_sub = {
 				OR = {
 					AND = {
 						has_state_in_state_region = STATE_CRETE
-						NOT = {
-							exists = c:CRE
-						}
 					}
 					c:CRE ?= {
 						is_subject_of = root
-						NOR = {
-							is_subject_type = subject_type_protectorate
-							is_subject_type = subject_type_tributary
-						}
 					}
 				}
 			}
