@@ -159,6 +159,7 @@ namespace = balkfm
 
 ##  #BALK4  SERBIA FLAVOR  Events  400-499  ##
 
+##////////////////////////////////////////##
 #400-499 - Serbia Until the Great Eastern Crisis
 #	400 - Mileta's Rebellion
 #	401 - A Constitution Imposed
@@ -179,14 +180,67 @@ namespace = balkfm
 #	414 - Austria/Russia Requests Primacy
 #	415 - National Desires
 #	416 - The Blood Feud
+##////////////////////////////////////////##
 
-#470-479 - Diplomatic Events
-#	470 - Disruptive Influence
+#400-409 - The Pricipality Era Events
+#	400 - Mileta's Rebellion
+#	401 - A Constitution Imposed
+#	402 - An Inexperienced Ruler
+#	403 - //
+#	404 - The Blood Feud >> 403
+#	405 - //
+#	406 - //
+#	407 - //
+#	408 - //
+#	409 - //
+
+#410-419 - The Defenders of the Consitution Events
+#	403>>410 - Defenders of the Constitution
+#	411 - //
+#	412 - //
+#	413 - //
+#	414 - //
+#	407>415 - Stately Foundation Established
+#	408>416 - Civil Code Implemented
+#	409>417 - Economic System Reformed
+#	406>418 - Absent Reform
+#	405>419 - Serbia Reforged
+
+#420-429 - Dynastic Rivalry Mechnical Events
+#	412>420 - Plague Outbreak!
+#	413>421 - Abusive Garrison
+#	422 - OPEN
+#	423 - OPEN
+#	424 - OPEN
+#	425 - OPEN
+#	426 - OPEN
+#	427 - OPEN
+#	428 - OPEN
+#	429 - OPEN
+
+#430-439 - Dynastic Rivalry Narrative Events
+#	410>430 - House Karađorđević Takes the Throne
+#	411>431 - House Obrenović Takes the Throne
+#	414>432 - Austria/Russia Requests Primacy
+#	433 - OPEN
+#	434 - OPEN
+#	435 - OPEN
+#	436 - OPEN
+#	437 - OPEN
+#	438 - OPEN
+#	419>439 - Hereditary Monarchy Secured
+
+#440-449 - The Kingdom Era Events
+#	440 -  OPEN
 
 #480-489 - Serbian Nationalism
 #	480 - The Serbian Heartlands
-#	481 - Greater Serbia
-#	482 - The Serbian Empire
+#	481 - Greater Serbia >> 488
+#	482 - The Serbian Empire >> 489
+
+#490-499 - Miscellaneous & Technical Events
+#	470>>490 - Disruptive Influence
+
 
 ##  #BALK5  BULGARIA FLAVOR  Events 500-599  ##
 
@@ -2150,7 +2204,7 @@ balkfm.305 = { # The Mountain Wreath
 				technology = pan-nationalism
 			}
 		}
-		custom_tooltip = balkfm.305.tt
+#		custom_tooltip = balkfm.305.tt	##TODO Add notification for Balkans that the Mountain Wreath has been published
 	}
 	
 }
@@ -2261,6 +2315,9 @@ balkfm.308 = { # The Passing of the Bishop
 	immediate = {
 		ruler = {
 			save_scope_as = balkfm_ruler_scope
+		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
 		}
 		set_variable = balkfm_mon_illness_var
 	}
@@ -2746,11 +2803,11 @@ balkfm.334 = { # The Demise of Smaïl-aga
 			country = c:TUR
 			value = 5
 		}
-		c:TUR = {
-			trigger_event = {
-				id = balkfm.356 # Ottoman Noble Beheaded
-			}
-		}
+#		c:TUR = {
+#			trigger_event = {
+#				id = balkfm.354 # Ottoman Noble Beheaded
+#			}
+#		}
 		add_loyalists = {
 			strata = poor
 			value = small_radicals
