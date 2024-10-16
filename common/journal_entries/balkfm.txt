@@ -2,7 +2,7 @@
 # YUGOSLAVISM #
 ###############
 
-je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for most Slavic tags
+je_balkfm_nacertanije = {
 	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	group = je_group_balkfm_yugoslavism
@@ -38,18 +38,9 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_global_variable = balkfm_yugoslavism_started
-				}
-			}
-			balkfm_initialize_yugoslavism_effect = yes
+		trigger_event = {
+			id = balkfm.200 # Yugoslavism Starter Event
 		}
-		else = {
-			balkfm_update_yugoslav_leader_scope = yes
-		}
-		balkfm_yugoslav_starter_event_effect = yes
 	}
 	
 	scripted_button = balkfm_form_yugoslavia_button
@@ -149,7 +140,7 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 	on_monthly_pulse = {
 		random_events = {
 			180 = 0
-			20 = balkfm.203 # Yugoslav Breakaways Seek Union!
+			20 = balkfm.206 # Yugoslav Breakaways Seek Union!
 			5 = balkfm.207 # Yugoslav Annexation
 		}
 	}

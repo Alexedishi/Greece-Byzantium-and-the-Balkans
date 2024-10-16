@@ -70,38 +70,6 @@ balkfm_initialize_yugoslavism_effect = {
 	}
 }
 
-balkfm_yugoslav_starter_event_effect = {
-	if = {
-		limit = {
-			c:MON ?= this
-		}
-		trigger_event = {
-			id = balkfm.201 # Jugoslavism
-		}
-	}
-	else_if = {
-		limit = {
-			c:SER ?= this
-		}
-		trigger_event = {
-			id = balkfm.202 # "The Draft"
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = balkfm_texas_left
-		}
-		trigger_event = {
-			id = balkfm.203 #
-		}
-	}	
-	else = {
-		trigger_event = {
-			id = balkfm.200 # Illyrian Sentiment
-		}
-	}
-}
-
 balkfm_determine_yugoslav_leader_effect = {
 	ordered_country = {
 		limit = {
