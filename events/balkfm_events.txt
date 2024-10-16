@@ -85,7 +85,7 @@ namespace = balkfm
 #	200 - Illyrian Sentiment (Generic)
 #	201 - Jugoslavism (Montenegro)
 #	202 - "The Draft" (Serbia)
-#	203 - 
+#	203 - ##Bulgaria Event
 #	204 - 
 #	205 - //
 #	206 - //
@@ -11098,9 +11098,6 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 		name = balkfm.585.b
 		default_option = yes
 		change_tag = TSAR
-		add_journal_entry = {
-			type = je_balkfm_nacertanije_alternate
-		}
 		every_state_region = {
 			limit = {
 				OR = {
@@ -11112,6 +11109,12 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 				}
 			}
 			add_claim = ROOT
+		}
+		custom_tooltip = {
+			text = balkfm.585.tt
+			hidden_effect = {
+				set_variable = balkfm_texas_left
+			}
 		}
 	}
 
