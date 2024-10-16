@@ -114,7 +114,7 @@ grefm_annex_epirus_decision = {
 		custom_tooltip = treaty_of_eprius_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.221 # EPI Annexation
+				id = grefm.581 # EPI Annexation
 				days = 0
 				popup = yes
 			}
@@ -156,49 +156,7 @@ grefm_annex_cyprus_decision = {
 		custom_tooltip = treaty_of_cyprus_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.222 # CYP Annexation
-				days = 0
-				popup = yes
-			}
-		}
-	}
-
-	ai_chance = {
-		base = 10
-	}
-}
-
-grefm_annex_macedonia_decision = {
-	is_shown = {
-		NOT = { has_variable = grefm_macedonia_var }
-		country_has_primary_culture = cu:greek
-		is_subject = no
-		exists = c:MAC
-		c:MAC = {
-			is_subject = no
-			is_player = no
-			NOT = { is_subject_of = ROOT }
-		}
-	}
-
-	possible = {
-		is_at_war = no
-		has_technology_researched = nationalism
-		c:MAC = {
-			relations:root >= relations_threshold:cordial
-			is_at_war = no
-		}
-		c:MAC = {
-			NOT = { has_truce_with = ROOT }
-		}
-	}
-
-	when_taken = {
-		set_variable = grefm_macedonia_var
-		custom_tooltip = treaty_of_macedonia_event_tt
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.224 # MAC Annexation
+				id = grefm.582 # CYP Annexation
 				days = 0
 				popup = yes
 			}
@@ -242,7 +200,7 @@ grefm_annex_crete_decision = {
 		custom_tooltip = treaty_of_crete_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.223 # CRE Annexation
+				id = grefm.583 # CRE Annexation
 				days = 0
 				popup = yes
 			}
@@ -253,4 +211,46 @@ grefm_annex_crete_decision = {
 		base = 10
 	}
 	
+}
+
+grefm_annex_macedonia_decision = {
+	is_shown = {
+		NOT = { has_variable = grefm_macedonia_var }
+		country_has_primary_culture = cu:greek
+		is_subject = no
+		exists = c:MAC
+		c:MAC = {
+			is_subject = no
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		c:MAC = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+		}
+		c:MAC = {
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = grefm_macedonia_var
+		custom_tooltip = treaty_of_macedonia_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.584 # MAC Annexation
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
 }

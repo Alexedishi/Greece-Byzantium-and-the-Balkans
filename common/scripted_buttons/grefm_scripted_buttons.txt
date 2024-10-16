@@ -130,6 +130,53 @@ grefm_philhellenic_loan_button = {
 	
 }
 
+#### NATIONALISM BUTTONS ####
+
+# grefm_embrace_national_identity_button
+
+grefm_declare_national_language_button = {
+	name = "grefm_declare_national_language_button"
+	desc = "grefm_declare_national_language_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = grefm_declare_national_language_button_tt
+			hidden_trigger = {
+				je:je_grefm_national_language = {
+					OR = {
+						"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
+						"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
+						"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
+					}
+				}
+			}
+		}
+		hidden_trigger = {
+			NOR = {
+				has_variable = grefm_language_var
+				has_variable = grefm_greek_language_demotic
+				has_variable = grefm_greek_language_katharevousa
+				has_variable = grefm_greek_language_khoine
+			}
+		}
+	}
+	
+	selected = {
+		has_variable = grefm_language_var
+	}
+	
+	effect = {
+		trigger_event = {
+			id = grefm.207 # A National Language
+		}
+		set_variable = grefm_language_var
+	}
+}
+
 # REVOLT BUTTONS #
 grefm_epirus_support_button = {
 	name = "grefm_epirus_support_button"
@@ -292,7 +339,7 @@ grefm_epirus_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -473,7 +520,7 @@ grefm_macedonia_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -653,7 +700,7 @@ grefm_skopia_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -843,7 +890,7 @@ grefm_smyrna_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -1022,7 +1069,7 @@ grefm_cyprus_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -1199,7 +1246,7 @@ grefm_crete_provoke_button = {
 					}
 				}
 				trigger_event = {
-					id = grefm.211 # Greek Provocations in State (GRE)
+					id = grefm.591 # Greek Provocations in State (GRE)
 					popup = yes
 				}
 				random_country = {
@@ -1207,7 +1254,7 @@ grefm_crete_provoke_button = {
 						owns_entire_state_region = STATE_CRETE
 					}
 					trigger_event = {
-						id = grefm.259 # Crete Revolts Again
+						id = grefm.529 # Crete Revolts Again
 					}
 				}
 			}

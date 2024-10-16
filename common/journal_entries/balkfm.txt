@@ -194,7 +194,7 @@ je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unificati
 #####################
 
 je_balkfm_mon_prince_bishopric = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
+	icon = "gfx/interface/icons/event_icons/event_petrovic.dds"
 	
 	group = je_group_balkfm_montenegro
 	
@@ -203,40 +203,57 @@ je_balkfm_mon_prince_bishopric = {
 	immediate = {
 	}
 	
+	modifiers_while_active = {
+		modifier_balkfm_spartan_existence
+	}
+	
+	scripted_button = balkfm_visit_tsar_button
+	scripted_button = balkfm_mon_principality_button
+	
 	complete = {
-		NOT = { has_law = law_type:law_theocracy }
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishopric_tt1
+			text = je_balkfm_mon_prince_bishopric_tt1
 			hidden_trigger = {
 				has_variable = balkfm_mon_soc_completed
 			}
 		}
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishopric_tt2
+			text = je_balkfm_mon_prince_bishopric_tt2
 			hidden_trigger = {
 				has_variable = balkfm_mon_gov_completed
 			}
 		}
 		custom_tooltip = {
-			text = balkfm_mon_prince_bishopric_tt3
+			text = je_balkfm_mon_prince_bishopric_tt3
 			hidden_trigger = {
 				has_variable = balkfm_mon_mil_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_balkfm_mon_prince_bishopric_tt4
+			hidden_trigger = {
+				OR = {
+					has_modifier = modifier_balkfm_declared_principality
+					has_modifier = modifier_balkfm_declared_kingdom
+				}
 			}
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.310 # The Principality of Montenegro
+			id = balkfm.309 # The Light of Modernity
 		}
+		set_variable = balkfm_prince_bishopric_completed
+	}
+	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
 	}
 	
 	status_desc = {
 		triggered_desc = {
-			desc = je_balkfm_mon_prince_bishopric
-			trigger = {
-				always = yes
-			}
+			desc = je_balkfm_mon_prince_bishopric_status
 		}
 	}
 	
@@ -262,6 +279,10 @@ je_balkfm_mon_societal_reform = {
 		trigger_event = {
 			id = balkfm.301 # The Light of Modernity
 		}
+	}
+	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
 	}
 	
 	weight = 500
@@ -291,6 +312,10 @@ je_balkfm_mon_administration = {
 		}
 	}
 	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
+	}
+	
 	weight = 500
 
 }
@@ -305,90 +330,21 @@ je_balkfm_mon_military_reform = {
 	
 	complete = {
 		NOT = { has_law = law_type:law_peasant_levies }
-		army_size >= 5
+		army_size >= 4
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.304 # A Professional Outfit
+			id = balkfm.303 # A Professional Outfit
 		}
+	}
+	
+	invalid = {
+		has_variable = balkfm_prince_bishopric_completed
 	}
 	
 	weight = 500
 
-}
-
-je_balkfm_mon_benefactor = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
-	
-	group = je_group_balkfm_montenegro
-	
-	complete = {
-		OR = {
-			trigger_if = {
-				limit = {
-					exists = c:RUS
-				}
-				custom_tooltip = {
-					text = je_balkfm_mon_benefactor_rus_tt
-					hidden_trigger = {
-						OR = {
-							has_diplomatic_pact = {
-								who = c:RUS
-								type = defensive_pact
-							}
-							has_diplomatic_pact = {
-								who = c:RUS
-								type = alliance
-							}
-							is_subject_of = c:RUS
-							is_in_same_power_bloc = c:RUS
-						}
-					}
-				}
-			}
-			trigger_if = {
-				limit = {
-					exists = c:AUS
-				}
-				custom_tooltip = {
-					text = je_balkfm_mon_benefactor_aus_tt
-					hidden_trigger = {
-						hidden_trigger = {
-							OR = {
-								has_diplomatic_pact = {
-									who = c:AUS
-									type = defensive_pact
-								}
-								has_diplomatic_pact = {
-									who = c:AUS
-									type = alliance
-								}
-								is_subject_of = c:AUS
-								is_in_same_power_bloc = c:AUS
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	on_complete = {
-		random_country = {
-			limit = {
-				has_subject_relation_with = c:MON
-			}
-			set_variable = balkfm_benefactor_var
-		}
-	}
-
-	invalid = {
-		hidden_trigger = {
-			NOT = { has_variable = balkfm_feudal_relic }
-		}
-	}
-	
 }
 
 je_balkfm_mon_black_mountain = {
@@ -399,17 +355,9 @@ je_balkfm_mon_black_mountain = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_variable = {
-			name = balkfm_border_conflict_var
-			value = 0
-		}
-		set_variable = {
-			name = balkfm_next_province_var
-			value = 2
-		}
-		set_variable = {
-			name = balkfm_view_captives_var
-			value = 0
+		set_global_variable = {
+			name = balkfm_mon_border_control_var
+			value = balkfm_border_control_value
 		}
 	}
 	
@@ -417,30 +365,18 @@ je_balkfm_mon_black_mountain = {
 		modifier_balkfm_border_feud
 	}
 	
-#	scripted_progress_bar = balkfm_mon_border_progress_bar
-	
-#	scripted_button = balkfm_reinforce_border_button
-#	scripted_button = balkfm_border_raid_button
-#	scripted_button = balkfm_ransom_noble_button
-#	scripted_button = balkfm_view_captives_button
-#	scripted_button = balkfm_renounce_headtaking_button
-#	scripted_button = balkfm_negociate_kotor_button
-#	scripted_button = balkfm_subjugate_montenegro_button
-	
 	complete = {
 		custom_tooltip = {
 			text = je_balkfm_mon_black_mountain_complete_tt
-			hidden_trigger = {
-				balkfm_mon_border_value >= 5
-			}
+			owns_entire_state_region = STATE_MONTENEGRO
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.359 # The Lands of Montenegro
+			id = balkfm.369 # The Lands of Montenegro
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
@@ -470,9 +406,9 @@ je_balkfm_mon_black_mountain = {
 	
 	on_fail = {
 		trigger_event = {
-			id = balkfm.358 # International Indifference
+			id = balkfm.368 # International Indifference
 		}
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
@@ -483,39 +419,172 @@ je_balkfm_mon_black_mountain = {
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_border_variables_effect = yes
+		balkfm_border_cleanup_effect = yes
 	}
+	
 	
 	on_weekly_pulse = {
 		effect = {
-#			balkfm_mon_determine_next_province_effect = yes
-		}
-	}
-	
-	on_monthly_pulse = {
-		events = {
-#			balkfm.351 # Osman Pasha Attacks!
-#			balkfm.352 # Omer Pasha Invades!
-		}
-		random_events = {
-			400 = 0
-#			5 = balkfm.340 # Cross Border Incursion
-#			5 = balkfm.341 # Border Villages Burned
-#			5 = balkfm.342 # Border Incursion Repelled
-#			5 = balkfm.343 #
-#			5 = balkfm.344 #
+			set_global_variable = {
+				name = balkfm_mon_border_control_var
+				value = balkfm_border_control_value
+			}
 		}
 	}
 	
 	status_desc = {
-#		first_valid = {
-#			triggered_desc = {
-#				desc = je_balkfm_mon_black_mountain_status
-#				trigger = {
-#					always = yes
-#				}
-#			}
-#		}
+		triggered_desc = {
+			desc = je_balkfm_mon_black_mountain_status
+		}
+	}
+	
+	weight = 1000
+	
+}
+
+je_balkfm_mon_black_mountain_new = {
+# This journal is unfortunately more convoluted than I would like and uses a system of global variables to ensure values are passed between MON and TUR
+# Next province variables are handled in root scopes to simplify scripting
+# Monthly progress variables are stored locally
+# The following global variables are used:
+	## balkfm_border_influence_var -> stores the value for the journal progressbar
+	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
+	## balkfm_mon_border_control_var -> stores the number of provinces controled by MON
+	## balkfm_tur_border_control_var -> stores the number of provinces controled by TUR
+	## balkfm_mon_next_province_var -> stores the next province for MON to claim
+	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
+# The following local variables are used:
+	## balkfm_border_control_var -> tracks number of controlled provinces
+	## balkfm_mon_border_progress_var -> cached for performance
+	## balkfm_tur_border_progress_var -> cached for performance
+	## balkfm_total_border_progress_var -> cached for performance
+	
+	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
+	
+	group = je_group_balkfm_montenegro
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		add_modifier = modifier_balkfm_practicing_headtaking
+		set_variable = {
+			name = balkfm_view_captives_var
+			value = 0
+		}
+		balkfm_update_progress_variables_effect = yes
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_border_feud
+	}
+	
+	scripted_progress_bar = balkfm_mon_border_progress_bar
+	
+	scripted_button = balkfm_reinforce_border_button
+	scripted_button = balkfm_border_raid_button
+	scripted_button = balkfm_view_captives_button
+	scripted_button = balkfm_mon_claim_land_button
+	scripted_button = balkfm_annex_tribe_button
+	scripted_button = balkfm_renounce_headtaking_button
+	scripted_button = balkfm_negociate_kotor_button	
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_mon_black_mountain_complete_tt
+			hidden_trigger = {
+				balkfm_border_control_value >= 5
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.369 # The Lands of Montenegro
+		}
+		balkfm_border_cleanup_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_mon_black_mountain_fail_tt
+				hidden_trigger = {
+					NOT = {
+						any_scope_state = {
+							state_region = s:STATE_MONTENEGRO
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				exists = c:TUR
+			}
+			OR = {
+				is_subject_of = c:TUR
+				is_in_same_power_bloc = c:TUR
+			}
+		}
+	}
+	
+	on_fail = {
+		trigger_event = {
+			id = balkfm.368 # International Indifference
+		}
+		balkfm_border_cleanup_effect = yes
+		set_global_variable = balkfm_border_conflict_resolved
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_global_variable = balkfm_border_conflict_resolved
+		}
+	}
+	
+	on_invalid = {
+		balkfm_border_cleanup_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			balkfm_mon_determine_next_province_effect = yes
+			balkfm_update_captive_variables_effect = yes
+			balkfm_update_progress_variables_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_global_variable = {
+				name = balkfm_border_influence_var
+				add = var:balkfm_total_border_progress_var
+			}
+			clamp_global_variable = {
+				name = balkfm_border_influence_var
+				max = 1000
+				min = 0
+			}
+			balkfm_update_border_progressbar_effect = yes
+		}
+		events = {
+			balkfm.355 # Montenegrin Tribe Rebels
+		}
+		random_events = {
+			200 = 0
+			20 = balkfm.348 # Country Crosses the Border (Attacker)
+			5 = balkfm.341 # Border Villages Burned (Defender Event)
+			5 = balkfm.342 # Village Skirmish Escalates (Defender Event)
+			5 = balkfm.343 # Border Incursion Repelled (Defender Event)
+			5 = balkfm.356 # Tribe Evades Taxation/Requests Aid
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_mon_black_mountain_status
+		}
 	}
 	
 	weight = 1000
@@ -528,6 +597,10 @@ je_balkfm_mon_ali_pasha = {
 	group = je_group_balkfm_montenegro
 	
 	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_balkfm_ali_pasha
+	}
 	
 	complete = {
 		custom_tooltip = {
@@ -545,8 +618,16 @@ je_balkfm_mon_ali_pasha = {
 		}
 	}
 	
-	modifiers_while_active = {
-		modifier_balkfm_ali_pasha
+	invalid = {
+		hidden_trigger = {
+			has_global_variable = balkfm_ali_pasha_greenlight
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			balkfm.332 # Knives in the Dark
+		}
 	}
 	
 	weight = 400
@@ -554,34 +635,31 @@ je_balkfm_mon_ali_pasha = {
 }
 
 je_balkfm_mon_nationalism = {
-	icon = "gfx/interface/icons/event_icons/event_montenegro_major.dds"
+	icon = "gfx/interface/icons/event_icons/event_montenegro2.dds"
 	
 	group = je_group_balkfm_montenegro
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-#		c:MON ?= this
-	}
-	
-	possible = {
-#		NOR = {
-#			has_journal_entry = je_balkfm_mon_black_mountain
-#			owns_entire_state_region = STATE_MONTENEGRO
-#		}
-#		has_technology_researched = nationalism
-	}
-	
 	immediate = {
-		trigger_event = {
-			id = balkfm.380
-		}
 	}
+	
+	scripted_button = balkfm_mon_kingdom_button
 	
 	complete = {
+		has_modifier = modifier_balkfm_declared_kingdom
 	}
 	
 	on_complete = {
+		trigger_event = {
+			id = balkfm.320 # The Kingdom of Montenegro
+		}
+	}
+	
+	invalid = {
+		NOT = {
+			c:MON ?= this
+		}
 	}
 	
 	weight = 1000
@@ -1991,21 +2069,29 @@ je_balkfm_bul_bulgarian_exarchate = {
 	on_invalid = {
 		clamp_variable = {
 			name = eocfm_schism_var
-			max = 60
+			max = 100
 			min = 0
 		}
 	}
 	
-	on_monthly_pulse = {
+	on_monthly_pulse = { # This is a replica of eocfm_schism_monthly_pulse
 		random_events = {
-			200 = 0
-			5 = balkfm.565 # Liturgical Language
-			5 = balkfm.566 # Ecclesiatic Purges
+			chance_of_no_event = 90
+			10 = eocfm.180 # Traditionalists March in Capital (Stall Event)
+			10 = eocfm.181 # A Church for the Nation (Progress Event)
+			10 = eocfm.182 # Minority Adherents Seek Protections (Debate Event)
+			10 = eocfm.183 # Patriarch Denounces Schism (Stall Event)
+			10 = eocfm.184 # Liturgical Language (Debate Event)
+			10 = eocfm.185 # Ecclesiatic Purges (Advance Event)
+			10 = eocfm.186 # Promoting Local Bishops (Advance Event)
+			10 = eocfm.187 # Monastic Brawls (Stall Event)
+			10 = eocfm.188 # Agitator Condemns Schism (Stall Event)
+			10 = eocfm.189 # Prominent Priest Assassinated (Stall Event)
 		}
 		effect = {
 			change_variable = {
 				name = eocfm_schism_var
-				add = balkfm_schism_progress_value
+				add = eocfm_schism_progress_value
 			}
 		}
 	}
@@ -2015,7 +2101,7 @@ je_balkfm_bul_bulgarian_exarchate = {
 	}
 
 	goal_add_value = {
-		value = 1000
+		value = 400
 	}
 
 	progressbar = yes

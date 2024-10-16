@@ -1,4 +1,57 @@
-﻿grefm_dimotiki_progress_bar = {
+﻿grefm_nationalism_progress_bar = {
+	name = "grefm_nationalism_progress_bar"
+	desc = "grefm_nationalism_progress_bar_desc1"
+	second_desc = "grefm_nationalism_progress_bar_desc2"
+	
+	double_sided_bad = yes
+	
+	monthly_progress = {
+		## Hellenic Progress ##
+		add = {
+			desc = grefm_progress_from_intelligentsia_clout
+			value = owner.ig:ig_intelligentsia.ig_clout
+		}
+		if = {
+			limit = {
+				has_variable = grefm_greek_language_katharevousa
+			}
+			add = {
+				desc = grefm_progress_from_katharevousa
+				value = owner.literacy_rate
+			}
+		}
+		
+		## Roman Progress ##
+		subtract = {
+			desc = "grefm_progress_from_rural_folk_clout"
+			value = owner.ig:ig_rural_folk.ig_clout
+		}
+		if = {
+			limit = {
+				has_variable = grefm_greek_language_demotic
+			}
+			subtract = {	
+				desc = grefm_progress_from_demotic
+				value = owner.literacy_rate
+			}
+		}
+		if = {
+			limit = {
+				has_variable = grefm_greek_language_khoine
+			}
+			subtract = {
+				desc = grefm_progress_from_khoine
+				value = owner.literacy_rate
+			}
+		}
+	}
+	
+	start_value = 500
+	min_value = 0
+	max_value = 1000
+}
+
+grefm_dimotiki_progress_bar = {
 	name = "grefm_dimotiki_progress_bar"
 	desc = "grefm_dimotiki_progress_bar_desc"
 
@@ -6,15 +59,15 @@
 	
 	monthly_progress = {
 		add = {
-			desc = "grefm_from_literacy"
+			desc = grefm_progress_from_literacy_rate
 			value = owner.literacy_rate
 		}
 		add = {
-			desc = "grefm_from_rural_folk_clout"
+			desc = grefm_progress_from_rural_folk_clout
 			value = owner.ig:ig_rural_folk.ig_clout
 		}
 		subtract = {
-			desc = "grefm_from_language_friction"
+			desc = grefm_progress_from_language_friction
 			value = grefm_language_decay_value
 		}
 	}
@@ -32,15 +85,15 @@ grefm_katharevousa_progress_bar = {
 
 	monthly_progress = {
 		add = {
-			desc = "grefm_from_intelligenstia_clout"
+			desc = grefm_progress_from_intelligentsia_clout
 			value = owner.ig:ig_intelligentsia.ig_clout
 		}
 		add = {
-			desc = "grefm_from_universities"
+			desc = grefm_progress_from_universities
 			value = grefm_university_count_value
 		}
 		subtract = {
-			desc = "grefm_from_language_friction"
+			desc = grefm_progress_from_language_friction
 			value = grefm_language_decay_value
 		}
 	}
@@ -58,11 +111,11 @@ grefm_khoine_progress_bar = {
 
 	monthly_progress = {
 		add = {
-			desc = "grefm_from_landowners_clout"
+			desc = grefm_progress_from_landowners_clout
 			value = owner.ig:ig_landowners.ig_clout
 		}
 		add = {
-			desc = "grefm_from_devout_clout"
+			desc = grefm_from_devout_clout
 			value = owner.ig:ig_devout.ig_clout
 		}
 		if = {
@@ -72,7 +125,7 @@ grefm_khoine_progress_bar = {
 				}
 			}
 			add = {
-				desc = "grefm_from_theocracy"
+				desc = grefm_progress_from_theocracy
 				value = 1
 			}
 		}
@@ -86,12 +139,12 @@ grefm_khoine_progress_bar = {
 				}
 			}
 			subtract = {
-				desc = "grefm_from_hostile_religious_policy"
+				desc = grefm_progress_from_hostile_religious_policy
 				value = 1
 			}
 		}
 		subtract = {
-			desc = "grefm_from_language_friction"
+			desc = grefm_progress_from_language_friction
 			value = grefm_language_decay_value
 		}
 	}

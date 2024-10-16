@@ -39,7 +39,223 @@ balkfm_construction_points_value = { # Ripped from LRoAI
 
 ## MONTENEGRO VALUES ##
 
-balkfm_mon_border_value = {
+balkfm_mon_border_progress_value = {
+	value = 0
+	
+	c:MON = { # We scope to Mon so this can get saved to a local value
+		# Sources
+		add = {
+			desc = balkfm_value_from_bishopric_journals
+			value = {
+				if = {
+					limit = {
+						has_variable = balkfm_mon_soc_completed
+					}
+					add = 1
+				}
+				if = {
+					limit = {
+						has_variable = balkfm_mon_gov_completed
+					}
+					add = 1
+				}
+				if = {
+					limit = {
+						has_variable = balkfm_mon_mil_completed
+					}
+					add = 1
+				}
+			}
+		}
+		add = {
+			desc = balkfm_value_from_capital_infrastructure
+			value = {
+				add = root.capital.relative_infrastructure
+				divide = 10
+				max = 10 # to prevent abuse
+			}
+		}
+		add = {
+			desc = balkfm_value_from_standing_army
+			value = {
+				add = root.army_power_projection
+				divide = 10
+				max = 100 # lol
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_ransomed_noble
+			}
+			add = {
+				desc = balkfm_value_from_ransoming_nobles
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_executed_noble
+			}
+			add = {
+				desc = balkfm_value_from_beheading_noble
+				value = 2
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_skulduggery
+			}
+			add = {
+				desc = balkfm_value_from_skulduggery
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = {
+						has_diplomatic_pact = {
+							who = root
+							type = alliance
+						}
+						has_diplomatic_pact = {
+							who = root
+							type = defensive_pact
+						}
+					}
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = rivalry
+					}
+				}
+			}
+			add = {
+				desc = balkfm_value_from_diplomatic_pacts
+				value = 5
+			}
+		}
+		if = {
+			limit = {
+				is_in_power_bloc = yes
+				power_bloc = {
+					power_bloc_leader = {
+						has_diplomatic_pact = {
+							who = c:TUR
+							type = rivalry
+						}
+					}
+				}
+			}
+			add = {
+				desc = balkfm_value_from_power_bloc
+				value = 5
+			}
+		}
+		
+		#Penalities
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_tolerated_abuses
+			}
+			subtract = {
+				desc = balkfm_value_from_tolerating_abuses
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_display_of_poverty
+			}
+			subtract = {
+				desc = balkfm_value_from_poverty_display
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_annexed_tribe
+			}
+			subtract = {
+				desc = balkfm_value_from_recent_annexation
+				value = 2
+			}
+		}
+	}
+}
+
+balkfm_tur_border_progress_value = {
+	value = 0
+	
+	c:TUR = { # We scope to TUR so this can get saved to a local value
+		#Sources
+		if = {
+			limit = {
+				NOT = {
+					has_journal_entry = je_sick_man_main
+				}
+			}
+			add = {
+				desc = balkfm_value_from_sick_man
+				value = 4
+			}
+		}
+		if = {
+			limit = {
+				has_variable = sick_man_var
+			}
+			add = {
+				desc = balkfm_value_from_tanzimat_progress
+				value = var:sick_man_var
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_providing_aid
+			}
+			add = {
+				desc = balkfm_value_from_aid
+				value = 3
+			}
+		}
+
+		#Penalities
+		if = {
+			limit = {
+				has_journal_entry = je_sick_man_main
+			}
+			subtract = {
+				desc = balkfm_value_from_sick_man
+				value = 4
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_accepted_ransom
+			}
+			subtract = {
+				desc = balkfm_value_from_ransoming_nobles
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_annexed_tribe
+			}
+			subtract = {
+				desc = balkfm_value_from_recent_annexation
+				value = 2
+			}
+		}
+	}
+}
+
+balkfm_total_border_progress_value = {
+	value = 0
+	add = balkfm_mon_border_progress_value
+	subtract = balkfm_tur_border_progress_value
+}
+
+balkfm_border_control_value = {
 	value = 0
 	if = {
 		limit = {
@@ -102,7 +318,11 @@ balkfm_mon_captured_nobles_value = {
 	value = 0
 	every_character_in_void = {
 		limit = {
-			has_variable = balkfm_captured_noble_var
+			OR = {
+				has_template = template_balkfm_captive_bosnian
+				has_template = template_balkfm_captive_albanian
+				has_template = template_balkfm_captive_serbian
+			}
 		}
 		add = 1
 	}
@@ -371,7 +591,16 @@ balkfm_battenburg_support_value = {
 # Generally, it should be hard to get this above 5 while retaining liberal laws
 	value = 0
 	
-	# Russia relations check
+	## Sources ##
+	if = {
+		limit ={
+			is_in_same_power_bloc = c:RUS
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_russian_bloc
+		}
+	}
 	if = {
 		limit = {
 			c:RUS = {
@@ -383,28 +612,6 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_good_russian_relations
 		}
 	}
-	else_if = {
-		limit = {
-			c:RUS = {
-				relations:root < relations_threshold:neutral
-			}
-		}
-		subtract = {
-			value = 1
-			desc = balkfm_bul_from_bad_russian_relations
-		}
-	}
-	if = {
-		limit = {
-			has_modifier = modifier_balkfm_russian_attaches
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_russian_attaches
-		}
-	}
-	
-	# Landowners power check
 	if = { 
 		limit = {
 			AND = {
@@ -419,8 +626,83 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_powerful_landowners_in_gov
 		}
 	}
+	if = {
+		limit = {
+			has_modifier = modifier_balkfm_russian_attaches
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_russian_attaches
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_protected_speech
+				has_law = law_type:law_right_of_assembly
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_good_speech_laws
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_railways_built
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_building_railways
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_variable = eocfm_schism_var
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_autocephaly
+		}
+	}
+	if = {
+		limit = {
+			has_variable = balkfm_brigandage_completed
+		}
+		add = {
+			value = 1
+			desc = balkfm_bul_from_brigandage_completed
+		}
+	}
 	
-	# Military power check
+	## PENALTIES ##
+	
+	if = {
+		limit = {
+			is_in_power_bloc = yes
+			power_bloc_leader = {
+				c:RUS != this
+			}
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_non_russian_bloc
+		}
+	}
+	if = {
+		limit = {
+			c:RUS = {
+				relations:root < relations_threshold:neutral
+			}
+		}
+		subtract = {
+			value = 1
+			desc = balkfm_bul_from_bad_russian_relations
+		}
+	}
 	if = {
 		limit = {
 			AND = {
@@ -435,21 +717,7 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_powerful_military_not_in_gov
 		}
 	}
-	
-	# Freedom of the press check (balkfm.501)
 	if = {
-		limit = {
-			OR = {
-				has_law = law_type:law_protected_speech
-				has_law = law_type:law_right_of_assembly
-			}
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_good_speech_laws
-		}
-	}
-	else_if = {
 		limit = {
 			OR = {
 				has_law = law_type:law_censorship
@@ -461,8 +729,6 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_bad_speech_laws
 		}
 	}
-	
-	# Autocracy check (balkfm.502)
 	if = {
 		limit = {
 			OR = {
@@ -475,24 +741,17 @@ balkfm_battenburg_support_value = {
 			desc = balkfm_bul_from_no_voting
 		}
 	}
-	
-	# Brigandage check (balkfm.510/511)
 	if = {
 		limit = {
-			has_variable = balkfm_brigandage_completed
+			AND = {
+				owns_entire_state_region = STATE_BULGARIA
+				country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
 		}
-		add = {
+		subtract = {
 			value = 1
-			desc = balkfm_bul_from_brigandage_completed
+			desc = balkfm_bul_from_controlling_rumelia
 		}
-	}
-	
-	# Railways check (balkfm.512/513/514)
-	if = {
-		limit = {
-			has_variable = balkfm_railways_built
-		}
-		add = 1
 	}
 	if = {
 		limit = {
@@ -501,34 +760,6 @@ balkfm_battenburg_support_value = {
 		subtract = {
 			value = 1
 			desc = balkfm_bul_from_railways_buyout
-		}
-	}
-	
-	# Rumelia check (balkfm.581)
-	if = {
-		limit = {
-			AND = {
-				owns_entire_state_region = STATE_BULGARIA
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-			}
-		}
-		subtract = {
-			value = 1
-			desc = balkfm_bul_from_controlling_rumelia
-		}
-	}
-	
-	# Schism check (balkfm.560)
-	if = {
-		limit = {
-			OR = {
-				has_variable = eocfm_schism_var
-				has_variable = eocfm_is_autocephalous
-			}
-		}
-		add = {
-			value = 1
-			desc = balkfm_bul_from_autocephaly
 		}
 	}
 	
@@ -652,21 +883,8 @@ balkfm_revivalism_progress_value = {
 		}
 		add = {
 			value = 10
-			desc = balkfm_bul_from_autocephaly
+			desc = balkfm_bul_from_exarchate
 		}
-	}
-	round = 0.01
-}
-
-balkfm_schism_progress_value = {
-	value = 0
-	add = {
-		value = balkfm_intelligentsia_devout_value
-		desc = balkfm_bul_from_devout_influence
-	}
-	add = {
-		value = balkfm_ottoman_relations_value
-		desc = balkfm_bul_from_ottoman_relations
 	}
 	round = 0.01
 }
@@ -690,7 +908,7 @@ balkfm_ottoman_relations_value = {
 			value = relations:root	
 		}
 	}
-	multiply = 0.1
+	multiply = 0.01
 }
 
 ## ROMANIA VALUES ##

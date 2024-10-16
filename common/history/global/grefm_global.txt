@@ -1,6 +1,5 @@
-﻿GLOBAL = { # general mod setup
-### General Setup ###
-	# State Traits
+﻿GLOBAL = {
+### State Trait Setup ###
 	s:STATE_EASTERN_THRACE = {
 		add_state_trait = balkfm_state_trait_golden_horn
 	}
@@ -9,6 +8,103 @@
 	}
 	
 ### Homeland Setup ###
+	every_state_region = {
+		limit = {
+			is_homeland = cu:greek
+		}
+		remove_homeland = cu:greek
+	}
+	s:STATE_ALBANIA = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_SKOPIA = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_NORTHERN_THRACE = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_PELOPONNESE = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_IONIAN_ISLANDS = {
+		add_homeland = cu:hellene
+		add_homeland = cu:romaniote
+	}
+	s:STATE_ATTICA = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_THESSALIA = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_MACEDONIA = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_WESTERN_THRACE = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_CRETE = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_WEST_AEGEAN_ISLANDS = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_EASTERN_THRACE = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_HUDAVENDIGAR = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_AYDIN = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_CYPRUS = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_EAST_AEGEAN_ISLANDS = {
+		add_homeland = cu:hellene
+	}
+	s:STATE_KONYA = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_ANKARA = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_ADANA = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_KASTAMONU = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_DIYARBAKIR = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_TRABZON = {
+		add_homeland = cu:rhomaios
+	}
+	s:STATE_ERZURUM = {
+		add_homeland = cu:rhomaios
+	}
+#	s:STATE_TRANSJORDAN = {
+#		add_homeland = cu:rhomaios
+#	}
+#	s:STATE_PALESTINE = {
+#		add_homeland = cu:rhomaios
+#	}
+#	s:STATE_LEBANON = {
+#		add_homeland = cu:rhomaios
+#	}
+#	s:STATE_SYRIA = {
+#		add_homeland = cu:rhomaios
+#	}
+#	s:STATE_ALEPPO = {
+#		add_homeland = cu:rhomaios
+#	}
+#	s:STATE_UPPER_EGYPT = {
+#		add_homeland = cu:rhomaios
+#	}
+	s:STATE_CRIMEA = {
+		add_homeland = cu:urum
+	}
 
 ### Country Creation ###
 	create_country = {
@@ -21,6 +117,81 @@
 	}
 	
 ### Culture Setup ###
+	every_state = {
+		limit = {
+			state_is_demotic_greek = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			change_pop_culture = {
+				target = cu:hellene
+				value = 1
+			}
+		}
+	}
+	every_state = {
+		limit = {
+			state_is_demotic_greek = no
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = greek
+			}
+			change_pop_culture = {
+				target = cu:rhomaios
+				value = 1
+			}
+		}
+	}
+	s:STATE_CRIMEA = {
+		every_scope_state = {
+			every_scope_pop = {
+				limit = {
+					has_pop_culture = rhomaios
+				}
+				change_pop_culture = {
+					target = cu:urum
+					value = 1
+				}
+			}
+		}
+	}
+	every_country = {
+		limit = {
+			country_has_primary_culture = cu:greek
+		}
+		add_primary_culture = cu:hellene
+		remove_primary_culture = cu:greek
+	}
+	
+	every_state = {
+		limit = {
+			state_is_demotic_greek = yes
+		}
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = sephardic
+			}
+			change_pop_culture = {
+				target = cu:romaniote
+				value = 0.10 # this value will change pending more research
+			}
+		}
+	}
+	
+	c:ION = {
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = sephardic
+			}
+			change_pop_culture = {
+				target = cu:romaniote
+				value = 1
+			}
+		}
+	}
 	
 ### Global Variable Setup ###
 	
@@ -84,6 +255,36 @@
 		value = 0
 	}
 	
+	# Border Conflict Variables
+	set_global_variable = {
+		name = balkfm_border_influence_var
+		value = 500
+	}
+	set_global_variable = {
+		name = balkfm_mon_border_control_var
+		value = 1
+	}
+	set_global_variable = {
+		name = balkfm_tur_border_control_var
+		value = 3
+	}
+	set_global_variable = {
+		name = balkfm_mon_next_province_var
+		value = 2
+	}
+	set_global_variable = {
+		name = balkfm_tur_next_province_var
+		value = 1
+	}
+	set_global_variable = {
+		name = balkfm_border_incursion_var
+		value = 0
+	}
+	set_global_variable = { # Blocking for balkfm.330
+		name = balkfm_border_event_cooldown_var
+		months = 14
+	}
+  
 	# eocfm Variables
 	set_global_variable = {
 		name = eocfm_council_var
@@ -176,7 +377,7 @@
 			country = c:GRE
 			secret_goal = befriend
 		}
-	}	
+	}
 	
 ### Specific Country Setups ###	
 	c:GRE = {
@@ -228,15 +429,13 @@
 	}
 	
 	c:MON = {
-		balkfm_set_up_montenegro = yes
+		balkfm_set_up_montenegro_effect = yes
+		balkfm_initialize_border_variables_effect = yes
 		trigger_event = {
 			id = balkfm.300 # A Feudal Relic
 		}
 		add_journal_entry = {
 			type = je_balkfm_mon_prince_bishopric
-		}
-		trigger_event = {
-			id = balkfm.350 # The Ottoman Frontier
 		}
 		add_journal_entry = {
 			type = je_balkfm_mon_black_mountain
@@ -302,9 +501,17 @@
 	}
 	
 	c:TUR ?= {
+		balkfm_initialize_border_variables_effect = yes
 		trigger_event = {
 			id = eqfm.001 # The Eastern Question
 			days = 1
+		}
+#		add_journal_entry = {
+#			type = je_turkfm_tur_karadag
+#		}
+		set_variable = {
+			name = balkfm_border_timeout_var
+			years = 1
 		}
 #		trigger_event = {
 #			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
@@ -364,5 +571,4 @@
 			value = 0
 		}
 	}
-	
 }

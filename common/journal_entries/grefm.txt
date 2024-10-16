@@ -1297,350 +1297,39 @@ je_grefm_venizelism_constitution = {
 
 }
 
+################################
+# GREEK NATIONALISM / IDENTITY #
+################################
 
-###################
-# THE MEGALI IDEA #
-###################
-
-je_grefm_megali_idea = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+je_grefm_hellenic_nationalism = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_grefm_megali_idea
-	
-	should_be_pinned_by_default = yes
-
-	is_shown_when_inactive = {
-		country_has_primary_culture = cu:greek
-		NOR = { 
-			has_global_variable = has_formed_byz
-			has_global_variable = grefm_megali_idea_complete
-		}
-	}
-
-	possible = {
-		has_technology_researched = nationalism
-	}
-
-	immediate = {
-		trigger_event = {
-			id = grefm.201 # The Megali Idea
-		}
-	}
-	
-	scripted_button = grefm_ionian_enosis_button
-	scripted_button = grefm_ionian_enosis_alternate_button
-	scripted_button = grefm_samos_enosis_button
-
-	complete = {
-		is_subject = no
-		owns_entire_state_region = STATE_EASTERN_THRACE
-		calc_true_if = {
-			amount >= 10
-			owns_entire_state_region = STATE_ATTICA
-			owns_entire_state_region = STATE_THESSALIA
-			owns_entire_state_region = STATE_MACEDONIA
-			owns_entire_state_region = STATE_SKOPIA
-			owns_entire_state_region = STATE_WESTERN_THRACE
-			owns_entire_state_region = STATE_NORTHERN_THRACE
-			owns_entire_state_region = STATE_HUDAVENDIGAR
-			owns_entire_state_region = STATE_AYDIN
-			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_CRETE
-			owns_entire_state_region = STATE_IONIAN_ISLANDS
-		}
-	}
-
-	on_complete = {
-		trigger_event = { 
-			id = grefm.202 # The Future of Greece
-		}
-		custom_tooltip = je_grefm_megali_idea_complete_tt
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_variable = byzfm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
-			}
-		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
-	}
-
-	weight = 4000 # second up to je_grefm_bavarocracy_main
-
-}
-
-je_grefm_greater_greece = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
-	
-	group = je_group_grefm_megali_idea
-	
-	should_be_pinned_by_default = yes
-
-	is_shown_when_inactive = {
-	}
-	
-	possible = {
-		has_technology_researched = pan-nationalism
-	}
-	
-	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.204 # greater greece
-			}
-		}
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_grefm_greater_greece_tt
-			hidden_trigger = {
-				owns_entire_state_region = STATE_EASTERN_THRACE
-				owns_entire_state_region = STATE_ATTICA
-				owns_entire_state_region = STATE_THESSALIA
-				owns_entire_state_region = STATE_MACEDONIA
-				owns_entire_state_region = STATE_SKOPIA
-				owns_entire_state_region = STATE_WESTERN_THRACE
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-				owns_entire_state_region = STATE_HUDAVENDIGAR
-				owns_entire_state_region = STATE_AYDIN
-				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_ALBANIA
-			}
-		}
-		owns_entire_state_region = STATE_CRETE
-		owns_entire_state_region = STATE_IONIAN_ISLANDS
-		owns_entire_state_region = STATE_CYPRUS
-		owns_entire_state_region = STATE_KASTAMONU
-		owns_entire_state_region = STATE_TRABZON
-		owns_entire_state_region = STATE_ADANA
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = grefm.204 # A Greek Dominion
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = grefm_weaksauce
-		}
-	}
-	
-	weight = 2000 # will fall in behind je_grefm_greek_nationalism
-	
-}
-
-je_grefm_greek_separatism_main = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
-	
-	group = je_group_grefm_megali_idea
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
-		country_has_primary_culture = cu:greek
+		country_has_primary_culture = cu:hellene
 	}
-	
+
 	possible = {
-		is_subject = no
 		has_technology_researched = mass_communication
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = grefm_separatism_received
-				}
-			}
-			trigger_event = {
-				id = grefm.210 # Greek Separatism
-			}
-		}
-		set_variable = grefm_separatism_received
-	}
-	
-	scripted_button = grefm_epirus_support_button
-	scripted_button = grefm_epirus_cease_button
-	scripted_button = grefm_epirus_provoke_button
-	
-	scripted_button = grefm_macedonia_support_button
-	scripted_button = grefm_macedonia_cease_button
-	scripted_button = grefm_macedonia_provoke_button
-	
-	scripted_button = grefm_skopia_support_button
-	scripted_button = grefm_skopia_cease_button
-	scripted_button = grefm_skopia_provoke_button
-	
-	scripted_button = grefm_smyrna_support_button
-	scripted_button = grefm_smyrna_cease_button
-	scripted_button = grefm_smyrna_provoke_button	
-	
-	scripted_button = grefm_cyprus_support_button
-	scripted_button = grefm_cyprus_cease_button
-	scripted_button = grefm_cyprus_provoke_button
-	
-	scripted_button = grefm_crete_support_button
-	scripted_button = grefm_crete_cease_button
-	scripted_button = grefm_crete_provoke_button
-	
-	complete = {
-		owns_entire_state_region = STATE_ALBANIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_AYDIN
-		owns_entire_state_region = STATE_CRETE
-		owns_entire_state_region = STATE_CYPRUS
-	}
-	
-	on_complete = {
-		hidden_effect = {
-			grefm_clean_up_separatism_effect = yes
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = grefm_weaksauce
-		}
-	}
-	
-	on_invalid = {
-		hidden_effect = {
-			grefm_clean_up_separatism_effect = yes
-		}
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			grefm_calculate_separatism_variables_effect = yes
-			grefm_check_separatism_modifiers_effect = yes
-		}
-	}
-	
-	on_monthly_pulse = {
-		effect = {
-			grefm_monthly_greek_separatism_effect = yes
-		}
-	}
-	
-	status_desc = {
-		triggered_desc = {
-			desc = je_grefm_greek_separatism_crete_tt
-			trigger = {
-				NOT = {
-					owns_entire_state_region = STATE_CRETE
-				}
-			}
-		}
-	}
-	
-	weight = 1000 # will fall in behind je_grefm_greater_greece
-	
-}
-
-je_grefm_greek_separatism_sub = {
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	group = je_group_grefm_nationalism
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = grefm_separatism_received
-				}
-			}
-			trigger_event = {
-				id = grefm.210 # Greek Separatism
-			}
-		}
-		set_variable = grefm_separatism_received
-	}
-	
-	complete = {
-		has_law = law_type:law_multicultural
-	}
-	
-	fail = {
-		NOR = {
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_MACEDONIA
-			owns_entire_state_region = STATE_SKOPIA
-			owns_entire_state_region = STATE_AYDIN
-			owns_entire_state_region = STATE_CRETE
-			owns_entire_state_region = STATE_CYPRUS
-		}
-	}
-	
-	on_monthly_pulse = {
-		events = {
-			grefm.214 # The Makedonijan Revolt (TUR/EGY)
-			grefm.215 # The Epirote Revolt (TUR/EGY)
-			grefm.216 # The Cypriot Revolt (TUR/EGY)
-			grefm.217 # The Macedonian Revolt (TUR/EGY)
-			grefm.218 # The Smyrna Revolt (TUR/EGY)
-			grefm.259 # Crete Revolts Again (TUR/EGY)
-		}
-	}
-	
-	status_desc = {
-		triggered_desc = {
-			desc = je_grefm_greek_separatism_crete_tt
-			trigger = {
-				has_state_in_state_region = STATE_CRETE
-			}
-		}
-	}
-	
-	weight = 100
-	
-}
-
-#####################
-# GREEK NATIONALISM #
-#####################
-
-je_grefm_greek_nationalism = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
-	
-	group = je_group_grefm_nationalism
-	
-	should_be_pinned_by_default = yes
-	
-	is_shown_when_inactive = {
-		country_has_primary_culture = cu:greek
-	}
-
-	possible = {
-		has_technology_researched = academia
-		owns_entire_state_region = STATE_ATTICA
-	}
-	
-	immediate = {
 		hidden_effect = {
 			trigger_event = {
-				id = grefm.240 # what is a greek 
+				id = grefm.200 # The Hellenic Question
 			}
 		}
 	}
+	
+#	scripted_progress_bar = grefm_nationalism_progress_bar
+
+#	scripted_button = grefm_embrace_national_identity_button
 
 	complete = {
-		has_technology_researched = nationalism
+		has_technology_researched = pan-nationalism
 		custom_tooltip = {
 			text = je_grefm_greek_nationalism_tt1
 			hidden_trigger = {
@@ -1663,11 +1352,101 @@ je_grefm_greek_nationalism = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.249 # greek ethnogenesis
+			id = grefm.209 # The Greek Ethnogenesis
 		}
+		set_variable = grefm_nationalism_complete
+	}
+	
+	invalid = {
+		has_variable = grefm_nationalism_complete
 	}
 	
 	weight = 3000 # third billing, behind je_grefm_megali_idea
+
+}
+
+
+je_grefm_roman_nationalism = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_grefm_nationalism
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:rhomaios
+	}
+	
+	possible = {
+		has_technology_researched = mass_communication
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.280 # The Legacy of Rhomania
+		}
+	}
+	
+	complete = {
+		always = no ##TODO completion trigger
+	}
+	
+	on_complete = {
+	}
+	
+	weight = 2000
+	
+}
+
+je_grefm_national_language = {
+	icon = "gfx/interface/icons/event_icons/tutorial_icon.dds"
+	
+	group = je_group_grefm_nationalism
+	
+	is_shown_when_inactive = {
+		has_journal_entry = je_grefm_hellenic_nationalism
+	}
+
+	possible = {
+		has_technology_researched = empiricism
+		literacy_rate > 0.20
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.206 # The Language Question
+		}
+	}
+	
+	scripted_progress_bar = grefm_dimotiki_progress_bar
+	scripted_progress_bar = grefm_katharevousa_progress_bar
+	scripted_progress_bar = grefm_khoine_progress_bar
+	
+	scripted_button = grefm_declare_national_language_button
+	
+	complete = {
+		has_law = law_type:law_compulsory_primary_school
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 3
+		}
+		custom_tooltip = {
+			text = je_grefm_national_language_complete_tt
+			hidden_trigger = {
+				OR = {
+					has_variable = grefm_greek_language_demotic
+					has_variable = grefm_greek_language_katharevousa
+					has_variable = grefm_greek_language_khoine
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		set_variable = grefm_greek_language_solved
+	}
+	
+	weight = 2997
 }
 
 je_grefm_archaeology = {
@@ -1679,11 +1458,16 @@ je_grefm_archaeology = {
 	
 	is_shown_when_inactive = {
 		morgenrote_is_active = no
-		has_journal_entry = je_grefm_greek_nationalism
+		OR = {
+			has_journal_entry = je_grefm_hellenic_nationalism
+			has_journal_entry = je_grefm_roman_nationalism
+		}
 	}
 
 	possible = {
-		has_technology_researched = romanticism
+		any_scope_building = {
+			is_building_type = building_university
+		}
 	}
 	
 	immediate = {
@@ -1803,110 +1587,371 @@ je_grefm_active_excavation = {
 	
 }
 
-je_grefm_national_language = {
+je_grefm_grecoturkism = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	group = je_group_grefm_nationalism
+	group = je_group_grefm_content
 	
+	modifiers_while_active = {
+		modifier_grefm_turkish_integration
+	}
+	
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = grefm.293 # Greco-Turkish Relations
+		}
+		show_as_tooltip = {
+			add_primary_culture = cu:turkish
+		}
+		set_variable = grefm_turkeytime # enables grefm.900
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = grefm_turkish_integration_var
+				add = 1
+			}
+		}
+	}
+		
+	
+	current_value = {
+		value = root.var:grefm_turkish_integration_var
+	}
+
+	goal_add_value = {
+		value = 240
+	}
+
+	progressbar = yes
+
+	weight = 1000
+	
+}
+
+####################
+# GREEK REVANCHISM #
+####################
+
+je_grefm_megali_idea = {
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+
 	is_shown_when_inactive = {
-		has_journal_entry = je_grefm_greek_nationalism
+		country_has_primary_culture = cu:hellene
+		NOR = { 
+			has_global_variable = has_formed_byz
+			has_global_variable = grefm_megali_idea_complete
+		}
 	}
 
 	possible = {
+		has_technology_researched = nationalism
+	}
+
+	immediate = {
+		trigger_event = {
+			id = grefm.271 # The Megali Idea
+		}
+	}
+	
+	scripted_button = grefm_ionian_enosis_button
+	scripted_button = grefm_ionian_enosis_alternate_button
+	scripted_button = grefm_samos_enosis_button
+
+	complete = {
+		is_subject = no
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_PELOPONNESE
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = grefm.272 # The Future of Greece
+		}
+		custom_tooltip = je_grefm_megali_idea_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = byzfm_weaksauce
+				has_global_variable = has_formed_byz
+				has_global_variable = grefm_megali_idea_complete
+			}
+		}
+	}
+	
+	on_invalid = {
+		set_variable = grefm_tzatzikisauce
+	}
+
+	weight = 4000 # second up to je_grefm_bavarocracy_main
+
+}
+
+je_grefm_greater_greece = {
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+
+	is_shown_when_inactive = {
+	}
+	
+	possible = {
+#		has_technology_researched = pan-nationalism
+	}
+	
+	immediate = {
+#		trigger_event = {
+#			id = grefm.273 # The Lands of Greater Greece
+#		}
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_greater_greece_tt
+			hidden_trigger = {
+				owns_entire_state_region = STATE_EASTERN_THRACE
+				owns_entire_state_region = STATE_ATTICA
+				owns_entire_state_region = STATE_THESSALIA
+				owns_entire_state_region = STATE_MACEDONIA
+				owns_entire_state_region = STATE_SKOPIA
+				owns_entire_state_region = STATE_WESTERN_THRACE
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+				owns_entire_state_region = STATE_HUDAVENDIGAR
+				owns_entire_state_region = STATE_AYDIN
+				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_ALBANIA
+			}
+		}
+		owns_entire_state_region = STATE_CRETE
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
+		owns_entire_state_region = STATE_CYPRUS
+		owns_entire_state_region = STATE_KASTAMONU
+		owns_entire_state_region = STATE_TRABZON
+		owns_entire_state_region = STATE_ADANA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.274 # The Greek Realm
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_weaksauce
+		}
+	}
+	
+	weight = 2000 # will fall in behind je_grefm_hellenic_nationalism
+	
+}
+
+je_grefm_greek_separatism_main = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:hellene
+	}
+	
+	possible = {
+		is_subject = no
 		has_technology_researched = mass_communication
 	}
 	
 	immediate = {
-		trigger_event = {
-			id = grefm.241 # The Language Question
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_separatism_received
+				}
+			}
+			trigger_event = {
+				id = grefm.590 # Greek Separatism
+			}
+		}
+		set_variable = grefm_separatism_received
+	}
+	
+	scripted_button = grefm_epirus_support_button
+	scripted_button = grefm_epirus_cease_button
+	scripted_button = grefm_epirus_provoke_button
+	
+	scripted_button = grefm_macedonia_support_button
+	scripted_button = grefm_macedonia_cease_button
+	scripted_button = grefm_macedonia_provoke_button
+	
+	scripted_button = grefm_skopia_support_button
+	scripted_button = grefm_skopia_cease_button
+	scripted_button = grefm_skopia_provoke_button
+	
+	scripted_button = grefm_smyrna_support_button
+	scripted_button = grefm_smyrna_cease_button
+	scripted_button = grefm_smyrna_provoke_button	
+	
+	scripted_button = grefm_cyprus_support_button
+	scripted_button = grefm_cyprus_cease_button
+	scripted_button = grefm_cyprus_provoke_button
+	
+	scripted_button = grefm_crete_support_button
+	scripted_button = grefm_crete_cease_button
+	scripted_button = grefm_crete_provoke_button
+	
+	complete = {
+		owns_entire_state_region = STATE_ALBANIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_SKOPIA
+		owns_entire_state_region = STATE_AYDIN
+		owns_entire_state_region = STATE_CRETE
+		owns_entire_state_region = STATE_CYPRUS
+	}
+	
+	on_complete = {
+		hidden_effect = {
+			grefm_clean_up_separatism_effect = yes
 		}
 	}
 	
-	scripted_progress_bar = grefm_dimotiki_progress_bar
-	scripted_progress_bar = grefm_katharevousa_progress_bar
-	scripted_progress_bar = grefm_khoine_progress_bar
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_weaksauce
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			grefm_clean_up_separatism_effect = yes
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			grefm_calculate_separatism_variables_effect = yes
+			grefm_check_separatism_modifiers_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		effect = {
+			grefm_monthly_greek_separatism_effect = yes
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_grefm_greek_separatism_crete_tt
+			trigger = {
+				NOT = {
+					owns_entire_state_region = STATE_CRETE
+				}
+			}
+		}
+	}
+	
+	weight = 1000 # will fall in behind je_grefm_greater_greece
+	
+}
+
+je_grefm_greek_separatism_sub = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	group = je_group_grefm_nationalism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_variable = grefm_separatism_received
+				}
+			}
+			trigger_event = {
+				id = grefm.290 # Greek Separatism
+			}
+		}
+		set_variable = grefm_separatism_received
+	}
 	
 	complete = {
-		has_law = law_type:law_compulsory_primary_school
-		institution_investment_level = {
-			institution = institution_schools
-			value >= 3
+		has_law = law_type:law_multicultural
+	}
+	
+	fail = {
+		NOR = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_CYPRUS
 		}
-		scope:journal_entry = {
-			custom_tooltip = {
-				text = je_grefm_national_language_complete_tt
-				hidden_trigger = {
-					OR = {
-						"scripted_bar_progress(grefm_dimotiki_progress_bar)" > 100
-						"scripted_bar_progress(grefm_katharevousa_progress_bar)" > 100
-						"scripted_bar_progress(grefm_khoine_progress_bar)" > 100
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			grefm.594 # The Makedonijan Revolt (TUR/EGY)
+			grefm.595 # The Epirote Revolt (TUR/EGY)
+			grefm.596 # The Cypriot Revolt (TUR/EGY)
+			grefm.597 # The Macedonian Revolt (TUR/EGY)
+			grefm.598 # The Smyrna Revolt (TUR/EGY)
+			grefm.528 # Crete Seeks Greater Autonomy
+			grefm.529 # Crete Revolts Again (TUR/EGY)
+		}
+	}
+	
+	status_desc = {
+		triggered_desc = {
+			desc = je_grefm_greek_separatism_crete_tt
+			trigger = {
+				OR = {
+					AND = {
+						has_state_in_state_region = STATE_CRETE
+					}
+					c:CRE ?= {
+						is_subject_of = root
 					}
 				}
 			}
 		}
 	}
 	
-	on_complete = {
-		trigger_event = {
-			id = grefm.242 # A National Language
-		}
-	}
+	weight = 100
 	
-	weight = 2997
-}
-
-je_grefm_the_womens_journal = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	group = je_group_grefm_content
-	
-	should_be_pinned_by_default = yes
-	
-	is_shown_when_inactive = {
-		country_has_primary_culture = cu:greek
-		owns_entire_state_region = STATE_ATTICA
-		has_technology_researched = egalitarianism
-	}
-
-	possible = {
-		has_technology_researched = feminism
-		NOT = { has_law = law_type:law_no_womens_rights }
-	}
-	
-	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.123 # the womens journal
-			}
-		}
-	}
-	
-	complete = {
-		OR = {
-			has_law = law_type:law_women_in_the_workplace
-			has_law = law_type:law_womens_suffrage
-		}
-		NOT = { has_law = law_type:law_child_labor_allowed }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = grefm.124 # National Council of Greek Women
-		}
-	}
-	
-	fail = {
-		has_law = law_type:law_no_womens_rights
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = grefm_feminism_rejected
-		}
-	}
-	
-	weight = 2996
-
 }
 	
 #############################
@@ -2164,6 +2209,7 @@ je_grefm_black_sea = {
 	immediate = {
 		trigger_event = {
 			id = grefm.310 # The Shores of the Hospitable Sea
+			days = 15
 		}
 	}
 	
@@ -2199,6 +2245,7 @@ je_grefm_magna_graecia = {
 	immediate = {
 		trigger_event = {
 			id = grefm.312 # The Lands of Magna Graecia
+			days = 15
 		}
 	}
 	
@@ -2334,51 +2381,58 @@ je_grefm_alexandria_susiana = {
 # OTHER FLAVOR #
 ################
 
-je_grefm_grecoturkism = {
+je_grefm_the_womens_journal = {
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	group = je_group_grefm_content
 	
-	modifiers_while_active = {
-		modifier_grefm_turkish_integration
-	}
+	should_be_pinned_by_default = yes
 	
-	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:hellene
+		owns_entire_state_region = STATE_ATTICA
+		has_technology_researched = egalitarianism
 	}
 
-	on_complete = {
-		trigger_event = { 
-			id = grefm.265 # Greco-Turkish Relations
-		}
-		show_as_tooltip = {
-			add_primary_culture = cu:turkish
-		}
-		set_variable = grefm_turkeytime # enables grefm.900
+	possible = {
+		has_technology_researched = feminism
+		NOT = { has_law = law_type:law_no_womens_rights }
 	}
 	
-	on_monthly_pulse = {
-		effect = {
-			change_variable = {
-				name = grefm_turkish_integration_var
-				add = 1
+	immediate = {
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.123 # the womens journal
 			}
 		}
 	}
-		
 	
-	current_value = {
-		value = root.var:grefm_turkish_integration_var
+	complete = {
+		OR = {
+			has_law = law_type:law_women_in_the_workplace
+			has_law = law_type:law_womens_suffrage
+		}
+		NOT = { has_law = law_type:law_child_labor_allowed }
 	}
-
-	goal_add_value = {
-		value = 240
-	}
-
-	progressbar = yes
-
-	weight = 1000
 	
+	on_complete = {
+		trigger_event = {
+			id = grefm.124 # National Council of Greek Women
+		}
+	}
+	
+	fail = {
+		has_law = law_type:law_no_womens_rights
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_feminism_rejected
+		}
+	}
+	
+	weight = 2996
+
 }
 
 je_grefm_corinth_canal_survey = {
@@ -2683,7 +2737,7 @@ je_grefm_ion_jewry = {
 					var:grefm_samos_loyalist_jews_var >= 0.75
 				}
 			}
-			cu:sephardic = {
+			cu:romaniote = {
 				NOT = {
 					culture_is_discriminated_in = root
 				}

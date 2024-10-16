@@ -297,23 +297,46 @@ balkfm_reinforce_border_button = {
 	}
 	
 	possible = {
+		custom_tooltip = {
+			text = balkfm_border_policy_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_border_timeout_var
+				}
+			}
+		}
 	}
 	
 	selected = {
-		has_variable = balkfm_reinforce_border_var
+		has_modifier = modifier_balkfm_fortifying_border
 	}
 	
 	effect = {
-		remove_variable = balkfm_border_raid_var
 		if = {
 			limit = {
-				has_variable = balkfm_reinforce_border_var
+				has_modifier = modifier_balkfm_sponsoring_raids
 			}
-			remove_variable = balkfm_reinforce_border_var
+			remove_modifier = modifier_balkfm_sponsoring_raids
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_fortifying_border
+			}
+			remove_modifier = modifier_balkfm_fortifying_border
 		}
 		else = {
-			set_variable = balkfm_reinforce_border_var
+			add_modifier = modifier_balkfm_fortifying_border
+			custom_tooltip = {
+				text = balkfm_border_policy_tt2
+				hidden_effect = {
+					set_variable = {
+						name = balkfm_border_timeout_var
+						years = 2
+					}
+				}
+			}
 		}
+		
 	}
 	
 	ai_chance = {
@@ -334,23 +357,217 @@ balkfm_border_raid_button = {
 	}
 	
 	possible = {
+		custom_tooltip = {
+			text = balkfm_border_policy_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_border_timeout_var
+				}
+			}
+		}
+		trigger_if = { # Can still back off if a truce is imposed
+			limit = {
+				NOT = {
+					has_modifier = modifier_balkfm_sponsoring_raids
+				}
+			}
+			NOT = {
+				has_truce_with = c:TUR
+			}
+		}
+		trigger_if = { # Cannot back off if you have an ongoing incursion; withdraw your raiders first
+			limit = {
+				has_modifier = modifier_balkfm_sponsoring_raids
+			}
+			custom_tooltip = {
+				text = balkfm_not_incursing_tt
+				hidden_trigger = {
+					trigger_if = {
+						limit = {
+							c:MON = this
+						}
+						NOT = {
+							global_var:balkfm_border_incursion_var = 1
+						}
+					}
+					trigger_if = {
+						limit = {
+							c:TUR = this
+						}
+						NOT = {
+							global_var:balkfm_border_incursion_var = 2
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	selected = {
-		has_variable = balkfm_border_raid_var
+		has_modifier = modifier_balkfm_sponsoring_raids
 	}
 	
 	effect = {
-		remove_variable = balkfm_reinforce_border_var
 		if = {
 			limit = {
-				has_variable = balkfm_border_raid_var
+				has_modifier = modifier_balkfm_fortifying_border
 			}
-			remove_variable = balkfm_border_raid_var
+			remove_modifier = modifier_balkfm_fortifying_border
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_sponsoring_raids
+			}
+			remove_modifier = modifier_balkfm_sponsoring_raids
 		}
 		else = {
-			set_variable = balkfm_border_raid_var
+			add_modifier = modifier_balkfm_sponsoring_raids
+			custom_tooltip = {
+				text = balkfm_border_policy_tt2
+				hidden_effect = {
+					set_variable = {
+						name = balkfm_border_timeout_var
+						years = 2
+					}
+				}
+			}
 		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
+
+balkfm_mon_claim_land_button = {
+	name = "balkfm_mon_claim_land_button"
+	desc = "balkfm_mon_claim_land_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_mon_claim_land_tt
+			hidden_trigger = {
+				global_var:balkfm_border_influence_var > 800
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = balkfm_mon_next_province_tt
+			hidden_effect = {
+				balkfm_mon_determine_next_province_effect = yes
+			}
+		}
+		trigger_event = {
+			id = balkfm.358 # Montenegro Gains Ground
+		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.358 # Montenegro Gains Ground
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+balkfm_tur_claim_land_button = {
+	name = "balkfm_tur_claim_land_button"
+	desc = "balkfm_tur_claim_land_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = balkfm_tur_claim_land_tt
+			hidden_trigger = {
+				global_var:balkfm_border_influence_var < 200
+			}
+		}
+		NOT = {
+			has_modifier = modifier_balkfm_annexed_tribe
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = balkfm_tur_next_province_tt
+			hidden_effect = {
+				balkfm_mon_determine_next_province_effect = yes
+			}
+		}
+		trigger_event = {
+			id = balkfm.359 # Ottomans Gain Ground
+		}
+		c:MON = {
+			trigger_event = {
+				id = balkfm.359 # Ottomans Gain Ground
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+balkfm_annex_tribe_button = {
+	name = "balkfm_annex_tribe_button"
+	desc = "balkfm_annex_tribe_button_desc"
+	
+	visible = {
+		OR = {
+			exists = c:MON_CEN
+			exists = c:MON_NIK
+			exists = c:MON_POD
+			exists = c:MON_PLJ
+			exists = c:MON_KOT
+		}
+	}
+	
+	possible = {
+		any_country = {
+			custom_tooltip = {
+				text = balkfm_annex_tribe_tt
+				OR = {
+					c:MON_CEN ?= this
+					c:MON_NIK ?= this
+					c:MON_POD ?= this
+					c:MON_PLJ ?= this
+					c:MON_KOT ?= this
+				}
+			}
+			is_subject = no
+			is_in_power_bloc = no
+			relations:root >= relations_threshold:amicable
+		}
+		NOR = {
+			has_modifier = modifier_balkfm_annexed_tribe
+			has_variable = balkfm_annexing_tribe
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.357 # Tribal Annexation
+		}
+		set_variable = balkfm_annexing_tribe
 	}
 	
 	ai_chance = {
@@ -378,7 +595,7 @@ balkfm_view_captives_button = {
 		custom_tooltip = {
 			text = balkfm_view_captives_tt1
 			hidden_trigger = {
-				balkfm_mon_captured_nobles_value > 0
+				balkfm_mon_captured_nobles_value >= 0
 			}
 		}
 	}
@@ -387,6 +604,7 @@ balkfm_view_captives_button = {
 		custom_tooltip = {
 			text = balkfm_view_captives_tt2
 			hidden_effect = {
+				balkfm_update_captive_variables_effect = yes
 				if = {
 					limit = {
 						var:balkfm_view_captives_var = 1
@@ -415,44 +633,6 @@ balkfm_view_captives_button = {
 	}
 }
 
-balkfm_ransom_noble_button = {
-	name = "balkfm_ransom_noble_button"
-	desc = "balkfm_ransom_noble_button_desc"
-	
-	visible = {
-		always = yes
-	}
-	
-	possible = {
-		custom_tooltip = {
-			text = balkfm_ransom_noble_tt1
-			hidden_trigger = {
-				balkfm_mon_captured_nobles_value > 0
-			}
-		}
-		NOR = {
-			has_modifier = modifier_balkfm_ransomed_noble
-			has_modifier = modifier_balkfm_ransom_failed
-		}
-	}
-	
-	effect = {
-		c:TUR ?= {
-			trigger_event = {
-				id = balkfm.348 # Montenegro Offers Ransom
-			}
-		}
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
-	}
-}
-
 balkfm_renounce_headtaking_button = {
 	name = "balkfm_renounce_headtaking_button"
 	desc = "balkfm_renounce_headtaking_button_desc"
@@ -463,16 +643,28 @@ balkfm_renounce_headtaking_button = {
 	
 	possible = {
 		has_modifier = modifier_balkfm_practicing_headtaking
+		custom_tooltip = {
+			text = balkfm_renounce_headtaking_tt1
+			hidden_trigger = {
+				NOT = {
+					has_variable = balkfm_negociated_headtaking
+				}
+			}
+		}
 	}
 	
 	effect = {
-		remove_modifier = modifier_balkfm_practicing_headtaking
 		c:TUR = {
 			trigger_event = {
-				id = balkfm.345 # Headtaking Renounced
+				id = balkfm.350 # Negociations on Headtaking (TUR)
+				days = { 7 14 }
 			}
 		}
-		custom_tooltip = balkfm_renounce_headtaking_tt
+		custom_tooltip = balkfm_renounce_headtaking_tt2
+		set_variable = {
+			name = balkfm_negociated_headtaking
+			years = 10
+		}
 	}
 	
 	ai_chance = {
@@ -492,6 +684,9 @@ balkfm_negociate_kotor_button = {
 		c:AUS ?= {
 			has_state_in_state_region = STATE_MONTENEGRO
 		}
+		NOT = {
+			has_variable = balkfm_negociated_kotor
+		}
 	}
 	
 	possible = {
@@ -510,16 +705,126 @@ balkfm_negociate_kotor_button = {
 	
 	effect = {
 		trigger_event = {
-			id = balkfm.355 # Negociations Over Cattaro
+			id = balkfm.365 # Negociations Over Cattaro
 		}
+		set_variable = balkfm_negociated_kotor
 	}
 	
 	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
+		base = 100
+	}
+}
+
+balkfm_visit_tsar_button = {
+	name = "balkfm_visit_tsar_button"
+	desc = "balkfm_visit_tsar_button_desc"
+	
+	visible = {
+		NOT = {
+			has_variable = balkfm_visited_tsar
 		}
+		ruler = {
+			has_template = template_balkfm_petrovic_petar
+		}
+	}
+	
+	possible = {
+		c:RUS ?= {
+			relations:root >= relations_threshold:amicable
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = balkfm.304 # The Court of the Tsar
+		}
+		set_variable = balkfm_visited_tsar
+	}
+	
+}
+
+balkfm_mon_principality_button = {
+	name = "balkfm_mon_principality_button"
+	desc = "balkfm_mon_principality_button_desc"
+	
+	visible = {
+		NOR = {
+			has_modifier = modifier_balkfm_declared_principality
+			has_modifier = modifier_balkfm_declared_kingdom
+		}
+	}
+	
+	possible = {
+		NOT = {
+			has_law = law_type:law_theocracy
+		}
+        custom_tooltip = {
+            text = balkfm_mon_elevation_buttons_tt
+			NOT = {
+		        any_country = {
+		            country_rank >= rank_value:great_power
+					OR = {
+						country_has_state_religion = rel:catholic
+						country_has_state_religion = rel:orthodox
+					}
+		            NOT = { has_war_with = ROOT }
+		            has_interest_marker_in_region = ROOT.capital.region
+		            relations:root < 0
+		        }
+	        }
+        }
+		is_diplomatic_play_committed_participant = no
+	}
+	
+	effect = {
+		add_modifier = modifier_balkfm_declared_principality
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+balkfm_mon_kingdom_button = {
+	name = "balkfm_mon_kingdom_button"
+	desc = "balkfm_mon_kingdom_button_desc"
+	
+	visible = {
+		has_modifier = modifier_balkfm_declared_principality
+		NOT = {
+			has_modifier = modifier_balkfm_declared_kingdom
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_MONTENEGRO
+		custom_tooltip = {
+            text = balkfm_mon_elevation_buttons_tt
+			NOT = {
+		        any_country = {
+		            country_rank >= rank_value:great_power
+					OR = {
+						country_has_state_religion = rel:catholic
+						country_has_state_religion = rel:orthodox
+					}
+		            NOT = { has_war_with = ROOT }
+		            has_interest_marker_in_region = ROOT.capital.region
+		            relations:root < 0
+		        }
+	        }
+        }
+		is_diplomatic_play_committed_participant = no
+		is_subject = no
+		country_rank > rank_value:insignificant_power
+	}
+	
+	effect = {
+		remove_modifier = modifier_balkfm_declared_principality
+		add_modifier = modifier_balkfm_declared_kingdom
+	}
+	
+	ai_chance = {
+		base = 100
 	}
 }
 
@@ -996,6 +1301,11 @@ balkfm_uplift_rumelia_button = {
 	}
 	
 	effect = {
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
+		}
 		trigger_event = {
 			id = balkfm.578 # Eastern Rumelia Rebels!
 		}
