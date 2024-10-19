@@ -307,3 +307,152 @@ Fixes/Adjustments:
 -14 Regions journal will be available immediately after forming BYZ/ERE
 -Option to Elect a member of House Ypsilantis to the greek throne has been switched to always appear
 -Option to abolish the monarchy in "An Elected Monarch" will enact Parliamentary Republic instead of Presidential. It still requires Egalitarianism to appear.
+
+--Update 2.1.6--
+Fixes/Adjustments:
+-Building the Peles Castle will now correctly remove the construction penalties
+-Added a fallback decision to remove the modifiers incase they get stuck
+-Peles Castle decision now correctly checks to make sure the castle exists
+
+
+--Update 2.2-- "Stambolov"
+--New Additions:
+-Content for the Reign of Ferdinand I / Stambolovism
+-Event for the University of Belgrade
+-Minor Flavor for Eastern Rumelia's governor-generals
+-4 New journals and over a dozen events for the "Xenocracy" in the Ionian Islands
+-Added the Principality of Samos for an additional cursed start along with the event chain "Samos in Submission"
+-New "Imperial Ambition" journals for the Revenge of the Greeks Path and the Bulgarian Empire
+--Teardown of Orthodox Content taking advantage of the new Scripted Widgets:
+-Removed Eastern Orthodox journals and replaced them with a new widget
+-Removed all eocfm scripted_buttons and replicated their functionality with the widget
+-Removed all eocfm annexation decisions (these run contrary to the ethos of Sphere of Influence)
+-New Seat Integration events/actions, Autocephaly events, and events for Unifying the Church
+
+Balancing/Adjustments:
+-Greece, Montenegro, Serbia, and Romania now start with their initial journals assigned (Ionian Islands, Samos, and Silistra have this by design as well)
+-Bavarocracy journal now uses script values instead of variables and custom loc
+-Added scripted progressbars to the Greek Language Journal for each dialect
+-Adjusted Byzantium path variables for increased flexibility to give more tags access to forming Byzantium in the future
+-Added several new toast messages for eocfm events/actions
+-Adjusted triggers for the Rumelian union/annexation buttons
+-Added alternate "Declare Tsardom" button and event incase Bulgaria is already independent
+-Only political leaders will contribute their popularity to the Dacianism/Junimism debate
+
+Fixes:
+-Added missing OR in eocfm_is_integrating_seat_trigger
+-Finally nailed down a local/global variable mismatch preventing the Turkish Homeland events
+-Romanian 1848 variables are correctly initialized
+-Fixed nasty typo in eocfm script value
+-"Commission Icon" button will not get stuck greyed out for the entire game anymore
+
+Event Relocations/Adjustments:
+**Nearly all eocfm events realigned**
+je_ecofm_patriarch_authority -> deleted
+je_eocfm_autocephaly -> deleted
+je_eocfm_integrating_seat -> deleted
+eocfm.002 -> eocfm.031
+eocfm.003 -> eocfm.010
+eocfm.004 -> eocfm.011
+eocfm.005 -> eocfm.040
+eocfm.006 -> eocfm.012
+eocfm.010 -> deleted
+eocfm.011 -> eocfm.004
+eocfm.012 -> eocfm.003
+eocfm.03X -> eocfm.12X
+eocfm.040 -> eocfm.101
+eocfm.041 -> eocfm.102
+eocfm.042 -> eocfm.103
+eocfm.043 -> eocfm.104
+eocfm.044 -> eocfm.105
+eocfm.045 -> eocfm.106
+eocfm.050 -> deleted
+eocfm.051 -> deleted
+eocfm.052 -> eocfm.141
+eocfm.053 -> eocfm.142
+eocfm.060 -> eocfm.130
+eocfm.061 -> eocfm.131
+eocfm.062 -> eocfm.132
+eocfm.901 -> deleted
+eocfm_decisions.txt -> deleted
+
+**Several balkfm events relocated into byzfm to simplify script maintenance**
+je_balkfm_bul_megali_idea -> je_byzfm_bul_megali_idea
+je_balkfm_bul_restoration -> deleted
+je_balkfm_rom_megali_idea -> je_byzfm_rom_megali_idea
+je_balkfm_rom_restoration -> deleted
+je_balkfm_rome_of_the_east -> deleted
+balkfm.570 -> byzfm.392
+balkfm.571 -> byzfm.393
+balkfm.572 -> deleted
+balkfm.673 -> byzfm.394
+balkfm.674 -> byzfm.395
+balkfm.675 -> byzfm.396
+balkfm.676 -> byzfm.397
+balkfm.677 -> deleted
+balkfm.678 -> deleted
+balkfm.679 -> deleted
+
+**Other relocations**
+balkfm.340 -> balkfm.350
+balkfm.341 -> balkfm.351
+
+**Morgenröte-specific events pulled into their own file, these wlll be overwritten by an upcoming compatch. These are no longer present in base GBBF!**
+grefm.800 -> balkfm_mgr.001
+grefm.801 -> balkfm_mgr.002
+balkfm.390 -> balkfm_mgr.300
+balkfm.391 -> balkfm_mgr.301
+balkfm.392 -> balkfm.mgr.302
+
+**The following journals have been moved into their own file with no changes in loc
+je_grefm_archaeology_mgr
+je_balkfm_mon_philosopher_bishop
+je_balkfm_mon_epic
+
+--Update 2.2.1--
+New Additions:
+-Added new building "Mountain Roads" for Montenegro.
+-Phase I of "Black Mountain" journal rebuild complete.
+-Added new state trait to Montenegro.
+
+Fixes:
+-Shrunk down margins in eocfm widget for lower resolutions.
+
+Misc:
+-Added script values, scripted buttons, and initial scripted effects for the Border Conflict.
+
+--Update 2.2.2--
+Fixes:
+-Samos history and diplomatic history moved to GLOBAL to fix CTD with ANZFP mod
+
+--Update 2.2.3--
+New Additions:
+-Split Greek culture into Hellene, Rhomaios, & Urum as a first phase for Greek identity content; this is region based for now, with the Demotic Greek space receiving Hellenes, Crimea Urums, and the rest Rhomaios
+-New Journal "Montenegrin Nationalism" to assert represent the Declarations of the Principality and Kingdom of Montenegro
+-Added 10 random events that can occur while seeking autocephaly
+
+Balancing/Adjustments:
+-Homeland states adjusted for the new cultures
+-grefm monthly pulse now uses Hellene culture
+-Megali Idea journal is now gated behind Hellene culture (A Rhomaios variant is coming soon)
+-All custom Greek tags switched to be either Hellene or Rhomaios
+-Theodoro also has Urum as primary
+-Replaced Sephardic culture with Romaniote in the Ionian Islands
+-Increased Greece's starting tech tier
+-Reduced Montenegro's starting tech tier
+-Greek Feminism characters can now be recruited as agitators
+-Reduced the progressbar requirement for the Bulgarian Exarchate from 1000 to 400
+-Increased base autocephaly progress from 1 to 2
+-Autocephaly monthly progress is no longer fixed and can be affected by choices during autocephaly events
+-Adjusted the presentation of tooltips and script value descriptions for the Battenburg Monarchy journal to better show what contributes to the script value
+
+Fixes:
+-Fixed missing trigger for grefm.314 in grefm.307
+-Fixed broken/looping event triggers in the Revenge of the Greeks sub-journals/events
+-Corrected reversed option effects in eocfm.030 "The Struggle of the Clergy"
+-Fixed an incorrect Custom Loc type in eocfm.150 "Ecumenical Financing"
+-Fixed CTD when clicking balkfm_uplift_rumelia_button due to event not roping in TUR to create ERUM
+-Lots of small typos in loc
+
+Notes:
+-"Depose Ecumenical Patriarch" button will be disabled if you control Constantinople. This is temporary pending a planned expansion to the Ecumenical Patriarchate.

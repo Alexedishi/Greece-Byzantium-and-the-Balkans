@@ -75,7 +75,7 @@ namespace = balkfm
 #	204 - OPEN
 #	205 - OPEN
 #	206 - Yugoslav Breakaways Seek Union!
-#	207 - Yugoslav Annexation
+#	207 - Yugoslav Annexation // Yugoslav Union
 #	208 - Yugoslavism Fizzles Out
 #	209 - The Birth of Yugoslavia
 
@@ -439,17 +439,23 @@ namespace = balkfm
 #	800 - ##The Children of the Eagles
 
 
-##  #BALK9  SLOVENIA / CROATIA / TRIUNE KINGDOM EVENTS  Events  900-999  ##
+##  #BALK9  CROATIA EVENTS  Events  900-999  ##
 
-#900-909 - OPEN
-#	900 - ##The Croatian State Rises
+#900-909 - The Croatian Question Narrative Events
+#	900 - ##Illyrian Sentiment
 
-#910-919 - OPEN
-#	910 - ##The Slovene State Rises
+#910-919 - The Croatian Question Mechnical Events
+#	910 - ##Croat Autonomy Event
 
-#980-989 - Triune Kingdom EVENTS
+#980-989 - Triune Kingdom Events
 #	980 - The Triune Dream
 #	981 - Restoration of the Triune Kingdom
+
+
+##  #BALK10  SLOVENIA EVENTS  Events  1000-1099  ##
+
+#1000-1009 - OPEN
+#	1000 - OPEN
 
 ############################
 
@@ -1485,7 +1491,7 @@ balkfm.200 = { # Yugoslavism Starter Event
 			else_if = {
 				limit = {
 					OR = {
-						country_has_primary_culture = cu:slovene
+#						country_has_primary_culture = cu:slovene
 						country_has_primary_culture = cu:croat
 					}
 				}
@@ -14639,6 +14645,7 @@ balkfm.980 = { # The Triune Dream
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by balkfm.200
 	}
 	
 	immediate = {
@@ -14654,18 +14661,7 @@ balkfm.980 = { # The Triune Dream
 		name = balkfm.980.a
 		default_option = yes
 		add_journal_entry = {
-			type = je_balkfm_triune_restoration
-		}
-		if = {
-			limit = {
-				NOR = {
-					has_claim = s:STATE_SLOVENIA
-					owns_entire_state_region = STATE_SLOVENIA
-				}
-			}
-			s:STATE_SLOVENIA = {
-				add_claim = ROOT
-			}
+			type = je_balkfm_cro_triune_restoration
 		}
 		if = {
 			limit = {
@@ -14737,23 +14733,10 @@ balkfm.981 = { # Restoration of the Triune Kingdom
 			name = modifier_balkfm_triune_resurgence
 			months = long_modifier_time
 		}
-		if = {
-			limit = {
-				NOT = {
-					country_has_primary_culture = cu:croat
-				}
-			}
-			add_primary_culture = cu:croat
+		add_loyalists = {
+			culture = cu:croat
+			value = medium_radicals
 		}
-		if = {
-			limit = {
-				NOT = {
-					country_has_primary_culture = cu:slovene
-				}
-			}
-			add_primary_culture = cu:slovene
-		}
-		balkfm_happy_yugoslavs = yes
 	}
 
 }

@@ -3124,14 +3124,67 @@ je_balkfm_peles_castle = {
 ###########
 
 
-######################
-# SLOVENIA / CROATIA #
-######################
+##################
+# CROATIA FLAVOR #
+##################
 
-je_balkfm_triune_restoration = {
+je_balkfm_cro_croation_question = {
+	icon = "gfx/interface/icons/event_icons/event_croatia.dds"
+	
+	group = je_group_balkfm_croatia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+#	scripted_button = croatia_autonomy_button
+#	scripted_button = slavonia_autonomy_button
+#	scripted_button = dalmatia_autonomy_button
+	
+	complete = {
+		custom_tooltip = {
+			text = je_balkfm_cro_croation_question_complete
+			hidden_trigger = {
+				exists = c:CRO
+			}
+		}
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+		NOR = {
+			country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+			country_or_subject_owns_entire_state_region = STATE_CROATIA
+			country_or_subject_owns_entire_state_region = STATE_DALMATIA
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	invalid = {
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_cro_triune_restoration = {
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
-	group = je_group_balkfm_triune
+	group = je_group_balkfm_croatia
 	
 	should_be_pinned_by_default = yes
 	
@@ -3140,7 +3193,7 @@ je_balkfm_triune_restoration = {
 	
 	complete = {
 		custom_tooltip = {
-			text = je_balkfm_triune_restoration_tt
+			text = je_balkfm_cro_triune_restoration_complete
 			hidden_trigger = {
 				c:TRIU ?= this
 			}
