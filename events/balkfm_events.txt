@@ -69,15 +69,15 @@ namespace = balkfm
 
 #200-209 - Yugoslavian Unification Narrative Events
 #	200 - Yugoslavism Starter Event
-#	201 - OPEN
-#	202 - OPEN
+#	201 - The Mountain Wreath (General Variant)
+#	202 - Vienna Literary Agreement (Slavic Variant)
 #	203 - OPEN
 #	204 - OPEN
 #	205 - OPEN
 #	206 - Yugoslav Breakaways Seek Union!
 #	207 - Yugoslav Annexation // Yugoslav Union
 #	208 - Yugoslavism Fizzles Out
-#	209 - The Birth of Yugoslavia
+#	209 - //Yugoslavia Creation Event
 
 #210-219 - Yugoslavian Unification Mechnical Events
 #	210 - Yugoslavist Agitation (Agitator Event)
@@ -99,7 +99,7 @@ namespace = balkfm
 #	302 - Centralized Administration
 #	303 - A Professional Outfit
 #	304 - The Court of the Tsar
-#	305 - The Mountain Wreath
+#	305 - The Mountain Wreath (Montenegrin Variant)
 #	306 - OPEN
 #	307 - An Intractable Illness
 #	308 - The Passing of the Bishop
@@ -441,15 +441,24 @@ namespace = balkfm
 
 ##  #BALK9  CROATIA EVENTS  Events  900-999  ##
 
-#900-909 - The Croatian Question Narrative Events
-#	900 - ##Illyrian Sentiment
+#900-909 - Croatian National Awakening Events
+#	900 - Illyrian Sentiment
+#	901 - An Austro-Slavic Proposal
+#	902 - Vienna Literary Agreement (Austrian Variant)
+#	903 - OPEN
+#	904 - OPEN
+#	905 - OPEN
+#	906 - OPEN
+#	907 - OPEN
+#	908 - ##Croatian–Hungarian Settlement
+#	909 - ##
 
-#910-919 - The Croatian Question Mechnical Events
-#	910 - ##Croat Autonomy Event
+#910-919 - OPEN
+#	910 - OPEN
 
 #980-989 - Triune Kingdom Events
 #	980 - The Triune Dream
-#	981 - Restoration of the Triune Kingdom
+#	981 - Restoration of the Triune Kingdom.0
 
 
 ##  #BALK10  SLOVENIA EVENTS  Events  1000-1099  ##
@@ -1506,13 +1515,152 @@ balkfm.200 = { # Yugoslavism Starter Event
 	
 }
 
-balkfm.201 = { # OPEN
-	orphan = yes
+balkfm.201 = { # The Mountain Wreath (General Variant)
+	type = country_event
+	placement = root
+	
+	title = balkfm.201.t
+	desc = {
+		triggered_desc = {
+			desc = balkfm.201.d1
+			trigger = {
+				balkfm_has_yugoslav_culture_trigger = yes
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.201.d2
+			trigger = {
+				balkfm_has_yugoslav_culture_trigger = no
+			}
+		}
+	}
+	flavor = balkfm.201.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.305
+	}
+	
+	cancellation_trigger = {
+		trigger_if = {
+			limit = {
+				balkfm_has_yugoslav_culture_trigger = yes
+			}
+			has_technology_researched = nationalism
+		}
+	}
+	
+	immediate = {
+		c:MON = {
+			save_scope_as = montenegro_scope
+		}
+	}
+	
+	option = { # Yugoslav Option
+		name = balkfm.202.a
+		default_option = yes
+		trigger = {
+			balkfm_has_yugoslav_culture_trigger = yes
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_technology_researched = nationalism
+				}
+			}
+			add_technology_progress = {
+				progress = 5000 
+				technology = nationalism
+			}
+		}
+		else = {
+			add_technology_progress = {
+				progress = 10000
+				technology = pan-nationalism
+			}
+		}
+		balkfm_happy_yugoslavs_effect = yes
+	}
+	
+	option = {
+		name = balkfm.202.b
+		trigger = {
+			balkfm_has_yugoslav_culture_trigger = no
+		}
+		balkfm_sad_yugoslavs_effect = yes
+	}
+
 }
 
-balkfm.202 = { # OPEN
-	orphan = yes
+balkfm.202 = { # Vienna Literary Agreement (Slavic Variant)
+	type = country_event
+	placement = root
+	
+	title = balkfm.202.t
+	desc = balkfm.202.d
+	flavor = balkfm.202.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.902
+	}
+	
+	cancellation_trigger = {
+		has_technology_researched = nationalism
+	}
+	
+	immediate = {
+		c:AUS = {
+			save_scope_as = austria_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.202.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					has_technology_researched = nationalism
+				}
+			}
+			add_technology_progress = {
+				progress = 5000 
+				technology = nationalism
+			}
+		}
+		else = {
+			add_technology_progress = {
+				progress = 10000
+				technology = pan-nationalism
+			}
+		}
+	}
+
 }
+
 
 balkfm.203 = { # OPEN
 	orphan = yes
@@ -2211,7 +2359,20 @@ balkfm.305 = { # The Mountain Wreath
 				technology = pan-nationalism
 			}
 		}
-#		custom_tooltip = balkfm.305.tt	##TODO Add notification for Balkans that the Mountain Wreath has been published
+		every_country = {
+			limit = {
+				c:MON != this
+				OR = {
+					balkfm_has_yugoslav_culture_trigger = yes
+					c:AUS ?= this
+					c:TUR ?= this
+				}
+			}
+			trigger_event = {
+				id = balkfm.201 # The Mountain Wreath (General Variant)
+			}
+		}
+		custom_tooltip = balkfm_yugoslav_nationalism_boost_tt
 	}
 	
 }
@@ -14623,6 +14784,190 @@ balkfm.689 = { # The Reunification of Romania
 ##########################################################################
 ##	#BALK9	SLOVENIA / CROATIA / TRIUNE KINGDOM EVENTS	Events 900-999	##
 ##########################################################################
+
+#### CROATIAN NATIONAL AWAKENING EVENTS ####
+
+balkfm.900 = { # Illyrian Sentiment
+	type = country_event
+	placement = root
+	
+	title = balkfm.900.t
+	desc = balkfm.900.d
+	flavor = balkfm.900.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_draskovic_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_croatia.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_cro_croation_question
+		}
+	}
+	
+	immediate = {
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_draskovic_janko
+			}
+			save_scope_as = balkfm_draskovic_scope
+		}
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = balkfm_metternich_scope
+			}
+		}
+	}
+	
+	option = {
+		name = balkfm.900.a
+		default_option = yes
+		every_scope_state = {
+			limit = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+			add_modifier = modifier_balkfm_croatian_revivalism
+		}
+		add_radicals = {
+			culture = cu:croat
+			value = medium_radicals
+		}
+	}
+
+}
+
+balkfm.901 = { # An Austro-Slavic Proposal
+	type = country_event
+	placement = root
+	
+	title = balkfm.901.t
+	desc = balkfm.901.d
+	flavor = balkfm.901.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_austro_slavic_proposal_var
+		}
+		has_technology_researched = nationalism
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_cro_croation_question
+		}
+	}
+	
+	immediate = {
+		set_variable = balkfm_austro_slavic_proposal_var
+	}
+	
+	option = { # Support the Proposal
+		name = balkfm.901.a
+		default_option = yes
+		add_radicals = {
+			culture = cu:hungarian
+			value = medium_radicals
+		}
+		balkfm_happy_yugoslavs_effect = yes
+	}
+	
+	option = { # Oppose the Proposal
+		name = balkfm.901.b
+		add_loyalists = {
+			culture = cu:hungarian
+			value = medium_radicals
+		}
+		balkfm_sad_yugoslavs_effect = yes
+	}
+
+}
+
+balkfm.902 = { # Vienna Literary Agreement (Austrian Variant)
+	type = country_event
+	placement = root
+	
+	title = balkfm.902.t
+	desc = balkfm.902.d
+	flavor = balkfm.902.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = balkfm_nerds_in_vienna
+		}
+		has_technology_researched = nationalism
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_cro_croation_question
+		}
+	}
+	
+	immediate = {
+		set_variable = balkfm_nerds_in_vienna
+	}
+	
+	option = {
+		name = balkfm.902.a
+		default_option = yes
+		balkfm_sad_yugoslavs_effect = yes
+		every_country = {
+			limit = {
+				balkfm_has_yugoslav_culture_trigger = yes
+				NOT = {
+					has_technology_researched = nationalism
+				}
+			}
+			trigger_event = {
+				id = balkfm.202 # Vienna Literary Agreement
+			}
+		}
+		custom_tooltip = balkfm_yugoslav_nationalism_boost_tt
+	}
+
+}
+
+
+#### CROATIAN NATIONALISM EVENTS ####
 
 balkfm.980 = { # The Triune Dream
 	type = country_event

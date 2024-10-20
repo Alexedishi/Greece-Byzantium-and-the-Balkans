@@ -379,6 +379,22 @@
 		}
 	}
 	
+	c:AUS ?= {
+		add_journal_entry = {
+			type = je_balkfm_cro_croation_question
+		}
+		trigger_event = {
+			id = balkfm.900 # Illyrian Sentiment
+			days = { 15 45 }
+		}
+		create_character = {
+			template = template_balkfm_draskovic_janko
+			on_created = {
+				place_character_in_void = 260 # died in 1856
+			}
+		}
+	}
+	
 ### Specific Country Setups ###	
 	c:GRE = {
 		grefm_initialize_bavarocracy_variables_effect = yes

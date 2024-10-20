@@ -3139,14 +3139,21 @@ je_balkfm_cro_croation_question = {
 	}
 	
 #	scripted_button = croatia_autonomy_button
-#	scripted_button = slavonia_autonomy_button
-#	scripted_button = dalmatia_autonomy_button
 	
 	complete = {
-		custom_tooltip = {
-			text = je_balkfm_cro_croation_question_complete
-			hidden_trigger = {
-				exists = c:CRO
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_cro_croation_question_complete
+				hidden_trigger = {
+					c:CRO ?= {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			cu:croat = {
+				NOT = { 
+					culture_is_discriminated_in = ROOT # Complete independence was not a well-defined goal until after WWI; most reform attempts centered on trialist-like solutions until the collapse of the Empire allowed Yugoslavia to snap together
+				}
 			}
 		}
 	}
@@ -3155,10 +3162,11 @@ je_balkfm_cro_croation_question = {
 	}
 	
 	fail = {
-		NOR = {
-			country_or_subject_owns_entire_state_region = STATE_SLAVONIA
-			country_or_subject_owns_entire_state_region = STATE_CROATIA
-			country_or_subject_owns_entire_state_region = STATE_DALMATIA
+		cu:croat = {
+			culture_secession_progress = {
+				target = ROOT
+				value > 0.5
+			}
 		}
 	}
 	
@@ -3166,12 +3174,30 @@ je_balkfm_cro_croation_question = {
 	}
 	
 	invalid = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_cro_croation_question_invalid
+				NOT = {
+					any_scope_state = {
+						state_region = {
+							is_homeland = cu:croat
+						}
+					}
+				}
+			}
+			NOT = {
+				this = c:AUS
+			}
+		}
 	}
 	
 	on_monthly_pulse = {
 		events = {
 		}
 		random_events = {
+			chance_of_no_event = 75
+			5 = balkfm.901 # An Austro-Slavic Proposal
+			5 = balkfm.902 # Vienna Literary Agreement (Austrian Variant)
 		}
 		effect = {
 		}
@@ -3191,6 +3217,8 @@ je_balkfm_cro_triune_restoration = {
 	immediate = {
 	}
 	
+	scripted_button = balkfm_proclaim_triune_button
+	
 	complete = {
 		custom_tooltip = {
 			text = je_balkfm_cro_triune_restoration_complete
@@ -3198,7 +3226,6 @@ je_balkfm_cro_triune_restoration = {
 				c:TRIU ?= this
 			}
 		}
-		has_technology_researched = pan-nationalism
 	}
 	
 	on_complete = {
@@ -3212,11 +3239,12 @@ je_balkfm_cro_triune_restoration = {
 			OR = {
 				has_variable = balkfm_weaksauce
 				has_global_variable = has_formed_triu
+				NOT = {
+					c:CRO ?= this
+				}
 			}
 		}
 	}
-	
-	scripted_button = balkfm_proclaim_triune_button
 	
 	weight = 500
 	
