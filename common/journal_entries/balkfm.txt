@@ -3159,6 +3159,9 @@ je_balkfm_cro_croation_question = {
 	}
 	
 	on_complete = {
+		trigger_event = {
+			id = balkfm.909 # Croatian–Hungarian Settlement / Austro-Croatian Compromise
+		}
 	}
 	
 	fail = {
@@ -3171,6 +3174,10 @@ je_balkfm_cro_croation_question = {
 	}
 	
 	on_fail = {
+		set_variable = balkfm_croatian_question_failed
+		trigger_event = {
+			id = balkfm.909 # Croatian–Hungarian Settlement / Austro-Croatian Compromise
+		}
 	}
 	
 	invalid = {
@@ -3184,6 +3191,17 @@ je_balkfm_cro_croation_question = {
 			}
 			NOT = {
 				this = c:AUS
+			}
+			hidden_trigger = {
+				has_variable = balkfm_croatian_question_complete
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			every_scope_state = {
+				remove_modifier = modifier_balkfm_croatian_revivalism
 			}
 		}
 	}

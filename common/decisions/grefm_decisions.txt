@@ -80,7 +80,63 @@ grefm_lake_kopais_decision = {
 	}
 }
 
-#####		
+#####
+
+grefm_annex_hepatanese_decision = {
+	is_shown = {
+		NOT = { has_variable = ionian_islands_var }
+		country_has_primary_culture = cu:hellene
+		is_subject = no
+		exists = c:ION
+		c:ION = {
+			is_subject = yes
+			is_player = no
+			NOT = { is_subject_of = ROOT }
+			top_overlord = {
+				is_player = no
+			}
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		custom_tooltip = {
+			text = ionian_islands_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
+		c:ION = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			top_overlord = {
+				relations:root >= relations_threshold:cordial
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+
+	when_taken = {
+		set_variable = ionian_islands_var
+		custom_tooltip = treaty_of_london_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.580 # ION Annexation
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+}
+
 
 grefm_annex_epirus_decision = {
 	is_shown = {

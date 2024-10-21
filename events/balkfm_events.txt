@@ -450,8 +450,8 @@ namespace = balkfm
 #	905 - OPEN
 #	906 - OPEN
 #	907 - OPEN
-#	908 - ##Croatian–Hungarian Settlement
-#	909 - ##
+#	908 - OPEN
+#	909 - ##Croatian–Hungarian Settlement / Austro-Croatian Compromise
 
 #910-919 - OPEN
 #	910 - OPEN
@@ -14965,6 +14965,162 @@ balkfm.902 = { # Vienna Literary Agreement (Austrian Variant)
 			}
 		}
 		custom_tooltip = balkfm_yugoslav_nationalism_boost_tt
+	}
+
+}
+
+balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
+	type = country_event
+	placement = root
+	
+	title = {
+		triggered_desc = {
+			desc = balkfm.909.t1
+			trigger = {
+				country_has_primary_culture = cu:hungarian
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.909.t2
+			trigger = {
+				NOT = {
+					country_has_primary_culture = cu:hungarian
+				}
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = balkfm.909.d1
+			trigger = {
+				country_has_primary_culture = cu:hungarian
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.909.d2
+			trigger = {
+				NOT = {
+					country_has_primary_culture = cu:hungarian
+				}
+			}
+		}
+	}
+	flavor = balkfm.909.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_croatia.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_cro_croation_question
+	}
+	
+	immediate = {
+		set_variable = balkfm_croatian_question_complete
+	}
+	
+	## Croatian–Hungarian Settlement Options ##
+	
+	option = { # Success Option
+		name = balkfm.909.a1
+		default_option = yes
+		trigger = {
+			country_has_primary_culture = cu:hungarian
+			NOR = {
+				has_variable = balkfm_croatian_question_failed
+				c:CRO ?= {
+					is_subject_of = ROOT
+				}
+			}
+		}
+	}
+	
+	option = { # Success Option, if Croatia is a subject
+		name = balkfm.909.a2
+		default_option = yes
+		trigger = {
+			country_has_primary_culture = cu:hungarian
+			NOT = {
+				has_variable = balkfm_croatian_question_failed
+			}
+			c:CRO ?= {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	
+	option = { # Accept Compromise
+		name = balkfm.909.a3
+		trigger = {
+			country_has_primary_culture = cu:hungarian
+			has_variable = balkfm_croatian_question_failed
+		}
+	}
+	
+	option = { # Reject Compromise
+		name = balkfm.909.a4
+		trigger = {
+			country_has_primary_culture = cu:hungarian
+			has_variable = balkfm_croatian_question_failed
+		}
+	}
+	
+	## Austro-Croatian Compromise Options ##
+	
+	option = { # Success Option
+		name = balkfm.909.b1
+		default_option = yes
+		trigger = {
+			NOR = {
+				country_has_primary_culture = cu:hungarian
+				has_variable = balkfm_croatian_question_failed
+				c:CRO ?= {
+					is_subject_of = ROOT
+				}
+			}
+		}
+	}
+	
+	option = { # Success Option, if Croatia is a subject
+		name = balkfm.909.b2
+		default_option = yes
+		trigger = {
+			NOR = {
+				country_has_primary_culture = cu:hungarian
+				has_variable = balkfm_croatian_question_failed
+			}
+			c:CRO ?= {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	
+	option = { # Accept Compromise
+		name = balkfm.909.b3
+		trigger = {
+			NOT = {
+				country_has_primary_culture = cu:hungarian
+			}
+			has_variable = balkfm_croatian_question_failed
+		}
+	}
+	
+	option = { Reject Compromise
+		name = balkfm.909.b4
+		trigger = {
+			NOT = {
+				country_has_primary_culture = cu:hungarian
+			}
+			has_variable = balkfm_croatian_question_failed
+		}
 	}
 
 }
