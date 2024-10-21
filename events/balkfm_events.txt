@@ -603,7 +603,7 @@ balkfm.020 = { # Places Yugoslav Secession Variable
 	
 	trigger = {
 		is_secessionist = yes
-		balkfm_has_yugoslav_culture = yes
+		balkfm_has_yugoslav_culture_trigger = yes
 		NOT = { has_variable = balkfm_breakaway_var }
 	}
 
@@ -1520,20 +1520,7 @@ balkfm.201 = { # The Mountain Wreath (General Variant)
 	placement = root
 	
 	title = balkfm.201.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.201.d1
-			trigger = {
-				balkfm_has_yugoslav_culture_trigger = yes
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.201.d2
-			trigger = {
-				balkfm_has_yugoslav_culture_trigger = no
-			}
-		}
-	}
+	desc = balkfm.201.d
 	flavor = balkfm.201.f
 	
 	event_image = {
@@ -1594,7 +1581,7 @@ balkfm.201 = { # The Mountain Wreath (General Variant)
 	}
 	
 	option = {
-		name = balkfm.202.b
+		name = balkfm.201.b
 		trigger = {
 			balkfm_has_yugoslav_culture_trigger = no
 		}
@@ -1766,7 +1753,7 @@ balkfm.207 = { # Yugoslav Annexation
 	trigger = {
 		has_technology_researched = pan-nationalism
 		any_country = {
-			balkfm_has_yugoslav_culture = yes
+			balkfm_has_yugoslav_culture_trigger = yes
 			balkfm_is_annexation_candidate_trigger = yes
 			relations:root >= relations_threshold:cordial
 		}
@@ -1775,7 +1762,7 @@ balkfm.207 = { # Yugoslav Annexation
 	immediate = {
 		random_country = {
 			limit = {
-				balkfm_has_yugoslav_culture = yes
+				balkfm_has_yugoslav_culture_trigger = yes
 				balkfm_is_annexation_candidate_trigger = yes
 				relations:root >= relations_threshold:cordial
 			}
@@ -1830,7 +1817,7 @@ balkfm.208 = { # Yugoslavism Fizzles Out
 		NOT = { has_global_variable = has_formed_yug }
 		NOT = { has_variable = balkfm_yug_failure_var }
 		has_global_variable = balkfm_yugoslavism_started
-		balkfm_has_yugoslav_culture = yes
+		balkfm_has_yugoslav_culture_trigger = yes
 		NOT = {
 			any_country = {
 				has_journal_entry = je_balkfm_nacertanije
@@ -1846,7 +1833,7 @@ balkfm.208 = { # Yugoslavism Fizzles Out
 	option = {
 		name = balkfm.208.a
 		default_option = yes
-		balkfm_sad_yugoslavs = yes
+		balkfm_very_sad_yugoslavs_effect = yes
 	}
 
 }
@@ -1967,7 +1954,7 @@ balkfm.210 = { # Yugoslavist Agitation (Agitator Event)
 		}
 		show_as_tooltip = {
 			scope:balkfm_agitation_state_scope = {
-				balkfm_rile_up_yugoslavs = yes
+				balkfm_rile_up_yugoslavs_effect = yes
 			}
 		}
 	}
@@ -2016,7 +2003,7 @@ balkfm.211 = { # Yugoslavist Agitation (Target Event)
 		name = balkfm.211.a
 		default_option = yes
 		scope:balkfm_agitation_state_scope = {
-			balkfm_rile_up_yugoslavs = yes
+			balkfm_rile_up_yugoslavs_effect = yes
 		}
 	}
 
@@ -14859,13 +14846,14 @@ balkfm.901 = { # An Austro-Slavic Proposal
 	desc = balkfm.901.d
 	flavor = balkfm.901.f
 	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_borovsky_scope
 	
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
@@ -14886,6 +14874,18 @@ balkfm.901 = { # An Austro-Slavic Proposal
 	
 	immediate = {
 		set_variable = balkfm_austro_slavic_proposal_var
+		create_character = {
+			template = template_balkfm_borovsky_karel
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_borovsky_karel
+			}
+			save_scope_as = balkfm_borovsky_scope
+		}
 	}
 	
 	option = { # Support the Proposal
