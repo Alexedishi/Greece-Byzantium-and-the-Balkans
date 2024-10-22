@@ -2586,7 +2586,176 @@ balkfm.310 = { # Old Rivalries
 			months = normal_modifier_time
 			is_decaying = yes
 		}
+		hidden_effect = {
+			trigger_event = {
+				id = balkfm.311 # A Hostile Court
+				days = { 30 90 }
+			}
+		}
 	}
+}
+
+balkfm.311 = { # A Hostile Court
+	type = country_event
+	placement = root
+	
+	title = balkfm.311.t
+	desc = balkfm.311.d
+	flavor = balkfm.311.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.310
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			ruler = {
+				has_template = template_balkfm_petrovic_danilo
+			}
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Respect my Authoritay
+		name = balkfm.311.a
+		default_option = yes
+		
+		set_variable = {
+			name = balkfm_danilo_finna_get_shot
+			years = { 9 10 } # Reigned for just over 9 years
+		}
+		remove_variable = balkfm_mon_illness_var
+	}
+	
+	option = { # Be a BetaBoi
+		name = balkfm.311.b
+		remove_variable = balkfm_mon_illness_var
+	}
+
+}
+
+balkfm.312 = { # Blood Revenge
+	type = country_event
+	placement = root
+	
+	title = balkfm.312.t
+	desc = balkfm.312.d
+	flavor = balkfm.312.f
+	
+	event_image = {
+		video = "southamerica_public_figure_assassination"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		ruler = {
+			has_template = template_balkfm_petrovic_danilo
+			has_modifier = modifier_balkfm_replaced_court
+		}
+		NOR = {
+			has_variable = balkfm_danilo_finna_get_shot
+			has_variable = balkfm_mon_illness_var
+		}
+		
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			ruler = {
+				has_template = template_balkfm_petrovic_danilo
+			}
+		}
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+		heir = {
+			save_scope_as = balkfm_heir_scope
+		}
+		set_variable = balkfm_danilo_finna_get_shot
+	}
+	
+	option = {
+		name = balkfm.312.a
+		default_option = yes
+		scope:balkfm_ruler_scope = {
+			kill_character = yes
+		}
+		trigger_event = {
+			id = balkfm.313 # The Little Rabbit
+			days = 30
+		}
+		remove_variable = balkfm_danilo_finna_get_shot
+	}
+
+}
+
+balkfm.313 = { # The Little Rabbit
+	type = country_event
+	placement = root
+	
+	title = balkfm.313.t
+	desc = balkfm.313.d
+	flavor = balkfm.313.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_ruler_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			ruler = {
+				has_template = template_balkfm_petrovic_nikola
+			}
+		}
+	}
+	
+	immediate = {
+		ruler = {
+			save_scope_as = balkfm_ruler_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.313.a
+		default_option = yes
+	}
+
 }
 
 ## THE KINGDOM ERA ##
@@ -15023,6 +15192,16 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 		# triggered by je_balkfm_cro_croation_question
 	}
 	
+	cancellation_trigger = {
+		NOT = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+		}
+	}
+	
 	immediate = {
 		set_variable = balkfm_croatian_question_complete
 	}
@@ -15041,6 +15220,11 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 				}
 			}
 		}
+		add_primary_culture = cu:croat
+		add_loyalists = {
+			culture = cu:croat
+			value = large_radicals
+		}
 	}
 	
 	option = { # Success Option, if Croatia is a subject
@@ -15055,6 +15239,12 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 				is_subject_of = ROOT
 			}
 		}
+		c:CRO ?= {
+			add_modifier = {
+				name = modifier_balkfm_croatian_autonomy
+				months = long_modifier_time
+			}
+		}
 	}
 	
 	option = { # Accept Compromise
@@ -15063,6 +15253,20 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 			country_has_primary_culture = cu:hungarian
 			has_variable = balkfm_croatian_question_failed
 		}
+		add_primary_culture = cu:croat
+		add_loyalists = {
+			culture = cu:croat
+			value = large_radicals
+		}
+		add_radicals = {
+			value = large_radicals
+			culture = cu:hungarian
+			pop_type = aristocrats
+		}
+		add_modifier = {
+			name = dual_monarchy_compromise
+			months = very_long_modifier_time
+		}
 	}
 	
 	option = { # Reject Compromise
@@ -15070,6 +15274,21 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 		trigger = {
 			country_has_primary_culture = cu:hungarian
 			has_variable = balkfm_croatian_question_failed
+		}
+		add_radicals = {
+			value = very_large_radicals
+			culture = cu:croat
+		}
+		every_scope_state = {
+			limit = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+			add_modifier = {
+				name = modifier_balkfm_croatian_compromise_rejected
+				months = long_modifier_time
+			}
 		}
 	}
 	
@@ -15087,6 +15306,16 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 				}
 			}
 		}
+		add_primary_culture = cu:croat
+		add_loyalists = {
+			culture = cu:croat
+			value = large_radicals
+		}
+		add_radicals = {
+			value = large_radicals
+			culture = cu:hungarian
+			pop_type = aristocrats
+		}
 	}
 	
 	option = { # Success Option, if Croatia is a subject
@@ -15101,6 +15330,17 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 				is_subject_of = ROOT
 			}
 		}
+		c:CRO ?= {
+			add_modifier = {
+				name = modifier_balkfm_croatian_autonomy
+				months = long_modifier_time
+			}
+		}
+		add_radicals = {
+			value = large_radicals
+			culture = cu:hungarian
+			pop_type = aristocrats
+		}
 	}
 	
 	option = { # Accept Compromise
@@ -15111,6 +15351,25 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 			}
 			has_variable = balkfm_croatian_question_failed
 		}
+		add_primary_culture = cu:croat
+		add_loyalists = {
+			culture = cu:croat
+			value = large_radicals
+		}
+		add_radicals = {
+			value = large_radicals
+			culture = cu:south_german
+			pop_type = aristocrats
+		}
+		add_radicals = {
+			value = large_radicals
+			culture = cu:hungarian
+			pop_type = aristocrats
+		}
+		add_modifier = {
+			name = dual_monarchy_compromise
+			months = very_long_modifier_time
+		}
 	}
 	
 	option = { Reject Compromise
@@ -15120,6 +15379,26 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 				country_has_primary_culture = cu:hungarian
 			}
 			has_variable = balkfm_croatian_question_failed
+		}
+		add_radicals = {
+			value = very_large_radicals
+			culture = cu:croat
+		}
+		add_loyalists = {
+			value = large_radicals
+			culture = cu:hungarian
+			pop_type = aristocrats
+		}
+		every_scope_state = {
+			limit = {
+				state_region = {
+					is_homeland = cu:croat
+				}
+			}
+			add_modifier = {
+				name = modifier_balkfm_croatian_compromise_rejected
+				months = long_modifier_time
+			}
 		}
 	}
 
