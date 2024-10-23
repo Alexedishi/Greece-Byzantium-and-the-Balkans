@@ -108,7 +108,7 @@ namespace = grefm
 
 #110-119 - Technology Events
 #	110 - The Decline of the Heptanese School
-#	111 - Lake Kopais Event
+#	111 - OPEN
 #	112 - Lake Kopais Drained
 #	113 - A Citadel Emerges
 #	114 - Merchantile Rivalries
@@ -4402,45 +4402,8 @@ grefm.110 = { # decline of the heptanese school
 
 }
 
-grefm.111 = { # unlocks decision to being draining lake kopais
-	type = country_event
-	placement = root
-	
-	title = grefm.111.t
-	desc = grefm.111.d
-	flavor = grefm.111.f
-	
-	event_image = {
-		video = "middleeast_engineer_blueprint"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { has_global_variable = grefm_lake_kopais_var }
-		NOT = { has_variable = grefm_lake_kopais_option }
-		owns_entire_state_region = STATE_ATTICA
-		has_technology_researched = hydraulic_cranes
-	}
-	
-	immediate = {
-		set_variable = grefm_lake_kopais_option
-	}
-	
-	option = {
-		name = grefm.111.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm.111.tt
-		}
-	}
-
+grefm.111 = { # OPEN; used to enable Lake Kopais decision
+	orphan = yes
 }
 
 grefm.112 = { # lake kopais drained
