@@ -2633,7 +2633,9 @@ balkfm.311 = { # A Hostile Court
 	option = { # Respect my Authoritay
 		name = balkfm.311.a
 		default_option = yes
-		
+		ruler = {	
+			add_modifier = modifier_balkfm_replaced_court
+		}
 		set_variable = {
 			name = balkfm_danilo_finna_get_shot
 			years = { 9 10 } # Reigned for just over 9 years
@@ -2643,6 +2645,7 @@ balkfm.311 = { # A Hostile Court
 	
 	option = { # Be a BetaBoi
 		name = balkfm.311.b
+		add_modifier = modifier_balkfm_unanswered_feud
 		remove_variable = balkfm_mon_illness_var
 	}
 
@@ -2749,11 +2752,30 @@ balkfm.313 = { # The Little Rabbit
 		ruler = {
 			save_scope_as = balkfm_ruler_scope
 		}
+		create_character = {
+			template = template_balkfm_petrovic_mirko
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_petrovic_mirko
+			}
+			save_scope_as = balkfm_mirko_scope
+		}
 	}
 	
 	option = {
 		name = balkfm.313.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_educated_ruler
+			months = long_modifier_time
+		}
+		scope:balkfm_mirko_scope = {
+			set_as_interest_group_leader = yes
+		}
 	}
 
 }
@@ -15163,18 +15185,37 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 			desc = balkfm.909.d1
 			trigger = {
 				country_has_primary_culture = cu:hungarian
+				NOT = {
+					has_variable = balkfm_croatian_question_failed
+				}
 			}
 		}
 		triggered_desc = {
 			desc = balkfm.909.d2
 			trigger = {
-				NOT = {
+				NOR = {
 					country_has_primary_culture = cu:hungarian
+					has_variable = balkfm_croatian_question_failed
 				}
 			}
 		}
 	}
-	flavor = balkfm.909.f
+	flavor = {
+		triggered_desc = {
+			desc = balkfm.909.f1
+			trigger = {
+				NOT = {
+					has_variable = balkfm_croatian_question_failed
+				}
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.909.f2
+			trigger = {
+				has_variable = balkfm_croatian_question_failed
+			}
+		}
+	}
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -15193,11 +15234,14 @@ balkfm.909 = { # Croatian–Hungarian Settlement / Austro-Croatian Compromise
 	}
 	
 	cancellation_trigger = {
-		NOT = {
+		NOR = {
 			any_scope_state = {
 				state_region = {
 					is_homeland = cu:croat
 				}
+			}
+			c:CRO ?= {
+				is_subject_of = ROOT
 			}
 		}
 	}

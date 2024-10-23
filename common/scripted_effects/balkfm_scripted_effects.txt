@@ -386,6 +386,17 @@ balkfm_very_happy_yugoslavs_effect = {
 
 ## MONTENEGRO EFFECTS ##
 balkfm_set_up_montenegro_effect = {
+	every_interest_group = {
+		limit = {	
+			law_stance = {
+				law = law_type:law_monarchy
+				value < neutral
+			}
+		}
+		leader = {
+			set_ideology = ideology:ideology_moderate # non-punitive way to wipe out pro-theocracy and pro-democracy at game start
+		}
+	}
 	ig:ig_landowners = {
 		leader = {
 			set_ideology = ideology:ideology_royalist
@@ -393,7 +404,7 @@ balkfm_set_up_montenegro_effect = {
 	}
 	ig:ig_armed_forces = {
 		leader = {
-			set_ideology = ideology:ideology_jingoist
+			set_ideology = ideology:ideology_jingoist_leader
 		}
 	}
 	ig:ig_devout = {
@@ -2571,6 +2582,21 @@ balkfm_push_1866_variables_effect = {
 balkfm_cleanup_1866_variables_effect = {
 
 }
+
+
+## CROATIA EFFECTS ##
+
+balkfm_cleanup_croatian_modifiers_effect = {
+	hidden_effect = {
+		every_scope_state = {
+			limit = {
+				has_modifier = modifier_balkfm_croatian_revivalism
+			}
+			remove_modifier = modifier_balkfm_croatian_revivalism
+		}
+	}
+}
+
 
 ## TURK-SPLOSION EFFECTS ##
 balkfm_balkanize_effect = {
