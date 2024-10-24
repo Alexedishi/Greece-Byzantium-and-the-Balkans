@@ -2516,6 +2516,18 @@ balkfm.309 = { # The Light of Modernity
 	}
 	
 	immediate = {
+		create_character = {
+			template = template_balkfm_petrovic_pero
+			on_created = {
+				place_character_in_void = 24
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_petrovic_pero
+			}
+			save_scope_as = balkfm_pero_scope
+		}
 	}
 	
 	option = {
@@ -2551,7 +2563,7 @@ balkfm.309 = { # The Light of Modernity
 
 ## THE PRINCIPALITY ERA ##
 
-balkfm.310 = { # Old Rivalries
+balkfm.310 = { # The Little Rabbit
 	type = country_event
 	placement = root
 	
@@ -2603,14 +2615,16 @@ balkfm.311 = { # A Hostile Court
 	desc = balkfm.311.d
 	flavor = balkfm.311.f
 	
-	event_image = {
-		video = "middleeast_courtroom_upheaval"
-	}
+	gui_window = event_window_2char
+
+	left_icon = scope:balkfm_landowners_leader_scope
+	right_icon = scope:balkfm_pero_scope
 	
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
+	on_opened_soundeffect = "event:/SFX/Events/misc/2Characters"
+
 	duration = 3
 	
 	dlc = dlc_grefm
@@ -2628,6 +2642,17 @@ balkfm.311 = { # A Hostile Court
 	}
 	
 	immediate = {
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = balkfm_landowners_leader_scope
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_petrovic_pero
+			}
+			save_scope_as = balkfm_pero_scope
+		}
 	}
 	
 	option = { # Respect my Authoritay
@@ -2635,6 +2660,10 @@ balkfm.311 = { # A Hostile Court
 		default_option = yes
 		ruler = {	
 			add_modifier = modifier_balkfm_replaced_court
+			set_as_interest_group_leader = yes
+		}
+		scope:balkfm_landowners_leader_scope = {
+			exile_character = yes
 		}
 		set_variable = {
 			name = balkfm_danilo_finna_get_shot
@@ -2646,6 +2675,10 @@ balkfm.311 = { # A Hostile Court
 	option = { # Be a BetaBoi
 		name = balkfm.311.b
 		add_modifier = modifier_balkfm_unanswered_feud
+		scope:balkfm_pero_scope = {
+			set_as_interest_group_leader = yes
+			free_character_from_void = yes
+		}
 		remove_variable = balkfm_mon_illness_var
 	}
 
@@ -2680,7 +2713,9 @@ balkfm.312 = { # Blood Revenge
 			has_variable = balkfm_danilo_finna_get_shot
 			has_variable = balkfm_mon_illness_var
 		}
-		
+		c:AUS = {
+			relations:root < relations_threshold:cordial # the killer was rumored to be sponsored by the Austrian court
+		}
 	}
 	
 	cancellation_trigger = {
@@ -2708,7 +2743,7 @@ balkfm.312 = { # Blood Revenge
 			kill_character = yes
 		}
 		trigger_event = {
-			id = balkfm.313 # The Little Rabbit
+			id = balkfm.313 # A Worldly Leader
 			days = 30
 		}
 		remove_variable = balkfm_danilo_finna_get_shot
@@ -2716,7 +2751,7 @@ balkfm.312 = { # Blood Revenge
 
 }
 
-balkfm.313 = { # The Little Rabbit
+balkfm.313 = { # A Worldly Leader
 	type = country_event
 	placement = root
 	
