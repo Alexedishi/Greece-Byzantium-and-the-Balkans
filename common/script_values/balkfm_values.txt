@@ -871,7 +871,7 @@ balkfm_revivalism_progress_value = {
 	value = 0
 	add = {
 		value = root.literacy_rate
-		desc = balkfm_from_literacy
+		desc = balkfm_value_from_literacy
 	}
 	add = {
 		value = balkfm_intelligentsia_influence_value
@@ -884,6 +884,39 @@ balkfm_revivalism_progress_value = {
 		add = {
 			value = 10
 			desc = balkfm_bul_from_exarchate
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				is_subject_type = subject_type_puppet
+				is_subject_type = subject_type_vassal
+			}
+		}
+		add = {
+			value = 2
+			desc = balkfm_value_from_puppet_vassal
+		}	
+	}
+	if = {
+		limit = {
+			is_subject_type = subject_type_dominion
+		}
+		add = {	
+			value = 5
+			desc = balkfm_value_from_dominion
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				is_subject_type = subject_type_protectorate
+				is_subject_type = subject_type_tributary
+			}
+		}
+		add = {
+			value = 10
+			desc = balkfm_value_from_protectorate_tributary
 		}
 	}
 	round = 0.01

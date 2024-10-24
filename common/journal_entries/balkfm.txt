@@ -2,7 +2,7 @@
 # YUGOSLAVISM #
 ###############
 
-je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for most Slavic tags
+je_balkfm_nacertanije = {
 	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	group = je_group_balkfm_yugoslavism
@@ -15,69 +15,70 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 			country_has_primary_culture = cu:croat
 			country_has_primary_culture = cu:bosniak
 			country_has_primary_culture = cu:slovene
+			country_has_primary_culture = cu:bulgarian
 		}
 		NOR = { 
 			has_global_variable = has_formed_yug
 			has_global_variable = balkfm_yugoslavism_failed
+		}
+		trigger_if = { # BUL gets access to this journal via option in balkfm.585
+			limit = {
+				country_has_primary_culture = cu:bulgarian
+			}
+			has_variable = balkfm_texas_left
 		}
 	}
 	
 	possible = {
 		has_technology_researched = nationalism
 		is_subject = no
-		hidden_trigger = { # these are here to block nacertanije from opening before a tag has independence
+		hidden_trigger = { # blocks journal before a tag has independence
 			is_secessionist = no
 		}
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_global_variable = balkfm_yugoslavism_started
-				}
-			}
-			set_variable = balkfm_yugoslav_leader_var # first come, first serve
+		trigger_event = {
+			id = balkfm.200 # Yugoslavism Starter Event
 		}
-		balkfm_update_yugoslav_leader_scope = yes # avoids loc error in journal
-		if = {
-			limit = {
-				c:MON ?= this
-			}
-			trigger_event = {
-				id = balkfm.201 # Jugoslavism
-			}
-		}
-		else_if = {
-			limit = {
-				c:SER ?= this
-			}
-			trigger_event = {
-				id = balkfm.202 # "The Draft"
-			}
-		}
-		else = {
-			trigger_event = {
-				id = balkfm.200 # Illyrian Sentiment
-			}
-		}
-		set_global_variable = balkfm_yugoslavism_started
 	}
+	
+	scripted_button = balkfm_form_yugoslavia_button
+	scripted_button = balkfm_austrian_agitation_button
+	scripted_button = balkfm_ottoman_agitation_button
 	
 	complete = {
 		custom_tooltip = {
-			text = je_balkfm_nacertanije_tt
+			text = je_balkfm_nacertanije_complete_tt
 			hidden_trigger = {
 				c:YUG ?= this
 			}
 		}
-		has_technology_researched = pan-nationalism
+		trigger_if = {
+			limit = {
+				has_variable = balkfm_texas_left
+			}
+			owns_entire_state_region = STATE_BULGARIA
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_DOBRUDJA
+		}
 	}
 	
 	on_complete = {
-		trigger_event = {
-			id = balkfm.209 # The Birth of Yugoslavia
+		if = {
+			limit = {
+				has_variable = balkfm_texas_left
+			}
+			trigger_event = {
+				id = balkfm.587 # The Slavic Balkans
+			}
 		}
+		else = {
+			trigger_event = {
+				id = balkfm.209 # The Birth of Yugoslavia
+			}
+		}
+		balkfm_cleanup_yugoslavism_effect = yes
 	}
 	
 	fail = {
@@ -94,78 +95,43 @@ je_balkfm_nacertanije = { # This variant handles Yugoslavian Unification for mos
 		}
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = balkfm_weaksauce
-				has_global_variable = balkfm_yugoslavism_failed
-			}
-		}
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			balkfm_determine_yugoslav_leader = yes
-			balkfm_update_yugoslav_leader_scope = yes
-		}
-		events = {
-#			balkfm.204 # Yugoslav Uprising in X
-		}
-	}
-	
-	on_monthly_pulse = {
-		random_events = {
-			180 = 0
-			20 = balkfm.203 # Yugoslav Breakaways Seek Union!
-			5 = balkfm.207 # Yugoslav Annexation
-		}
-	}
-	
-	scripted_button = balkfm_form_yugoslavia_button
-	scripted_button = balkfm_austrian_agitation_button
-	scripted_button = balkfm_ottoman_agitation_button
-
-	weight = 2000
-	
-}
-
-je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unification for Bulgaria
-	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
-	
-	group = je_group_balkfm_yugoslavism
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-		custom_tooltip = {
-			text = je_balkfm_nacertanije_tt
-			hidden_trigger = {
-				c:YUG ?= this
-			}
-		}
-		has_technology_researched = pan-nationalism		
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_DOBRUDJA
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.587 # The Slavic Balkans
-		}
+	on_fail = {
+		balkfm_cleanup_yugoslavism_effect = yes
 	}
 	
 	invalid = {
 		OR = {
-			has_variable = balkfm_weaksauce
-			has_global_variable = balkfm_yugoslavism_failed
+			custom_tooltip = {
+				text = balkfm_yugoslavism_completed_tt
+				hidden_trigger = {
+					has_global_variable = has_formed_yug
+					NOT = {
+						c:YUG ?= this
+					}
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_yugoslavism_failed_tt
+				hidden_trigger = {
+					has_global_variable = balkfm_yugoslavism_failed
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_weaksauce_trigger_tt
+				hidden_trigger = {
+					has_variable = balkfm_weaksauce
+				}	
+			}
 		}
+	}
+	
+	on_invalid = {
+		balkfm_cleanup_yugoslavism_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_determine_yugoslav_leader = yes
-			balkfm_update_yugoslav_leader_scope = yes
+			balkfm_determine_yugoslav_leader_effect = yes
 		}
 		events = {
 #			balkfm.204 # Yugoslav Uprising in X
@@ -175,16 +141,18 @@ je_balkfm_nacertanije_alternate = { # This variant handles Yugoslavian Unificati
 	on_monthly_pulse = {
 		random_events = {
 			180 = 0
-			20 = balkfm.203 # Yugoslav Breakaways Seek Union!
+			20 = balkfm.206 # Yugoslav Breakaways Seek Union!
 			5 = balkfm.207 # Yugoslav Annexation
 		}
 	}
 	
-	scripted_button = balkfm_form_yugoslavia_button
-	scripted_button = balkfm_austrian_agitation_button
-	scripted_button = balkfm_ottoman_agitation_button
-	
-	weight = 500
+	status_desc = {
+		triggered_desc = {
+			desc = je_balkfm_nacertanije_status
+		}
+	}
+
+	weight = 2000
 	
 }
 	
@@ -204,6 +172,7 @@ je_balkfm_mon_prince_bishopric = {
 	}
 	
 	modifiers_while_active = {
+		modifier_balkfm_prince_bishopric
 		modifier_balkfm_spartan_existence
 	}
 	
@@ -1947,7 +1916,7 @@ je_balkfm_bul_national_awakening = {
 	}
 	
 	possible = {
-		has_technology_researched = nationalism
+		has_technology_researched = mass_communication
 	}
 	
 	immediate = {
@@ -3156,28 +3125,126 @@ je_balkfm_peles_castle = {
 ###########
 
 
-######################
-# SLOVENIA / CROATIA #
-######################
+##################
+# CROATIA FLAVOR #
+##################
 
-je_balkfm_triune_restoration = {
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+je_balkfm_cro_croation_question = {
+	icon = "gfx/interface/icons/event_icons/event_croatia.dds"
 	
-	group = je_group_balkfm_triune
+	group = je_group_balkfm_croatia
 	
 	should_be_pinned_by_default = yes
 	
 	immediate = {
 	}
 	
+#	scripted_button = croatia_autonomy_button
+	
+	complete = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_cro_croation_question_complete
+				hidden_trigger = {
+					c:CRO ?= {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			cu:croat = {
+				NOT = { 
+					culture_is_discriminated_in = ROOT # Complete independence was not a well-defined goal until after WWI; most reform attempts centered on trialist-like solutions until the collapse of the Empire allowed Yugoslavia to snap together
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.909 # Croatian–Hungarian Settlement / Austro-Croatian Compromise
+		}
+		balkfm_cleanup_croatian_modifiers_effect = yes
+	}
+	
+	fail = {
+		cu:croat = {
+			culture_secession_progress = {
+				target = ROOT
+				value > 0.5
+			}
+		}
+	}
+	
+	on_fail = {
+		set_variable = balkfm_croatian_question_failed
+		trigger_event = {
+			id = balkfm.909 # Croatian–Hungarian Settlement / Austro-Croatian Compromise
+		}
+		balkfm_cleanup_croatian_modifiers_effect = yes
+	}
+	
+	invalid = {
+		OR = {
+			NOT = {
+				any_scope_state = {
+					state_region = {
+						is_homeland = cu:croat
+					}
+				}
+			}
+			NOT = {
+				this = c:AUS
+			}
+			hidden_trigger = {
+				has_variable = balkfm_croatian_question_complete
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			every_scope_state = {
+				remove_modifier = modifier_balkfm_croatian_revivalism
+			}
+		}
+		balkfm_cleanup_croatian_modifiers_effect = yes
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+			chance_of_no_event = 75
+			5 = balkfm.901 # An Austro-Slavic Proposal
+			5 = balkfm.902 # Vienna Literary Agreement (Austrian Variant)
+		}
+		effect = {
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_cro_triune_restoration = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_balkfm_croatia
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	scripted_button = balkfm_proclaim_triune_button
+	
 	complete = {
 		custom_tooltip = {
-			text = je_balkfm_triune_restoration_tt
+			text = je_balkfm_cro_triune_restoration_complete
 			hidden_trigger = {
 				c:TRIU ?= this
 			}
 		}
-		has_technology_researched = pan-nationalism
 	}
 	
 	on_complete = {
@@ -3191,11 +3258,12 @@ je_balkfm_triune_restoration = {
 			OR = {
 				has_variable = balkfm_weaksauce
 				has_global_variable = has_formed_triu
+				NOT = {
+					c:CRO ?= this
+				}
 			}
 		}
 	}
-	
-	scripted_button = balkfm_proclaim_triune_button
 	
 	weight = 500
 	

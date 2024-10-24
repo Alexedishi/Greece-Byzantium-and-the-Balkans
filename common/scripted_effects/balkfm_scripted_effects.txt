@@ -44,37 +44,57 @@ balkfm_clean_up_construction_effect = {
 }
 
 ##YUGOSLAVIA EFFECTS ##
-balkfm_determine_yugoslav_leader = {
-	if = {
-		limit = {
-			has_variable = balkfm_yugoslav_leader_var
-		}
-		remove_variable = balkfm_yugoslav_leader_var
-	}
+balkfm_initialize_yugoslavism_effect = {
+	set_global_variable = balkfm_yugoslavism_started
 	ordered_country = {
 		limit = {
-			OR = {
-				has_journal_entry = je_balkfm_nacertanije
-				has_journal_entry = je_balkfm_nacertanije_alternate
-			}
+			has_journal_entry = je_balkfm_nacertanije
 		}
 		order_by = prestige
 		max = 1
 		check_range_bounds = no
-		set_variable = balkfm_yugoslav_leader_var
+		save_scope_as = balkfm_yugoslav_leader_scope
 	}
-}
-
-balkfm_update_yugoslav_leader_scope = {
-	random_country = {
-		limit = {
-			has_variable = balkfm_yugoslav_leader_var
+	scope:balkfm_yugoslav_leader_scope = {
+		set_global_variable = {
+			name = balkfm_yugoslav_leader_prestige_var
+			value = prestige
 		}
-		save_scope_as = yugoslav_leader_scope
+	}
+	set_variable = {
+		name = balkfm_yugoslav_leader_var
+		value = scope:balkfm_yugoslav_leader_scope
 	}
 }
 
-balkfm_rile_up_yugoslavs = {
+balkfm_determine_yugoslav_leader_effect = {
+	ordered_country = {
+		limit = {
+			has_journal_entry = je_balkfm_nacertanije
+		}
+		order_by = prestige
+		max = 1
+		check_range_bounds = no
+		save_scope_as = balkfm_yugoslav_leader_scope
+	}
+	scope:balkfm_yugoslav_leader_scope = {
+		set_global_variable = {
+			name = balkfm_yugoslav_leader_prestige_var
+			value = prestige
+		}
+	}
+	set_variable = {
+		name = balkfm_yugoslav_leader_var
+		value = scope:balkfm_yugoslav_leader_scope
+	}
+}
+
+balkfm_cleanup_yugoslavism_effect = {
+	remove_global_variable = balkfm_yugoslav_leader_prestige_var
+	remove_variable = balkfm_yugoslav_leader_var
+}
+
+balkfm_rile_up_yugoslavs_effect = {
 	if = {
 		limit = {
 			any_scope_pop = {
@@ -132,54 +152,251 @@ balkfm_rile_up_yugoslavs = {
 	}
 }
 
-balkfm_sad_yugoslavs = {
-	add_radicals = {
-		culture = cu:serb
-		value = large_radicals
+balkfm_sad_yugoslavs_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_radicals = {
+			culture = cu:serb
+			value = medium_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:croat
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_radicals = {
+			culture = cu:croat
+			value = medium_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:bosniak
-		value = large_radicals
-	}	
-	add_radicals = {
-		culture = cu:slovene
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_radicals = {
+			culture = cu:bosniak
+			value = medium_radicals
+		}
 	}
-	add_radicals = {
-		culture = cu:bulgarian
-		value = large_radicals
-	}	
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_radicals = {
+			culture = cu:slovene
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_radicals = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+	}
 }
 
-balkfm_happy_yugoslavs = {
-	add_loyalists = {
-		culture = cu:serb
-		value = large_radicals
+balkfm_very_sad_yugoslavs_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_radicals = {
+			culture = cu:serb
+			value = large_radicals
+		}
 	}
-	add_loyalists = {
-		culture = cu:croat
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_radicals = {
+			culture = cu:croat
+			value = large_radicals
+		}
 	}
-	add_loyalists = {
-		culture = cu:bosniak
-		value = large_radicals
-	}	
-	add_loyalists = {
-		culture = cu:slovene
-		value = large_radicals
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_radicals = {
+			culture = cu:bosniak
+			value = large_radicals
+		}
 	}
-	add_loyalists = {
-		culture = cu:bulgarian
-		value = large_radicals
-	}	
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_radicals = {
+			culture = cu:slovene
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_radicals = {
+			culture = cu:bulgarian
+			value = large_radicals
+		}
+	}
+}
+
+balkfm_happy_yugoslavs_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_loyalists = {
+			culture = cu:croat
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_loyalists = {
+			culture = cu:bosniak
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_loyalists = {
+			culture = cu:slovene
+			value = medium_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_loyalists = {
+			culture = cu:bulgarian
+			value = medium_radicals
+		}
+	}
+}
+
+balkfm_very_happy_yugoslavs_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_loyalists = {
+			culture = cu:croat
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_loyalists = {
+			culture = cu:bosniak
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_loyalists = {
+			culture = cu:slovene
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_loyalists = {
+			culture = cu:bulgarian
+			value = large_radicals
+		}
+	}
 }
 
 ## MONTENEGRO EFFECTS ##
 balkfm_set_up_montenegro_effect = {
+	every_interest_group = {
+		limit = {	
+			law_stance = {
+				law = law_type:law_monarchy
+				value < neutral
+			}
+		}
+		leader = {
+			set_ideology = ideology:ideology_moderate # non-punitive way to wipe out pro-theocracy and pro-democracy at game start
+		}
+	}
 	ig:ig_landowners = {
 		leader = {
 			set_ideology = ideology:ideology_royalist
@@ -187,7 +404,7 @@ balkfm_set_up_montenegro_effect = {
 	}
 	ig:ig_armed_forces = {
 		leader = {
-			set_ideology = ideology:ideology_jingoist
+			set_ideology = ideology:ideology_jingoist_leader
 		}
 	}
 	ig:ig_devout = {
@@ -2365,6 +2582,21 @@ balkfm_push_1866_variables_effect = {
 balkfm_cleanup_1866_variables_effect = {
 
 }
+
+
+## CROATIA EFFECTS ##
+
+balkfm_cleanup_croatian_modifiers_effect = {
+	hidden_effect = {
+		every_scope_state = {
+			limit = {
+				has_modifier = modifier_balkfm_croatian_revivalism
+			}
+			remove_modifier = modifier_balkfm_croatian_revivalism
+		}
+	}
+}
+
 
 ## TURK-SPLOSION EFFECTS ##
 balkfm_balkanize_effect = {

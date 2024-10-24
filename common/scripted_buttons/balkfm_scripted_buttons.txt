@@ -151,11 +151,12 @@ balkfm_form_yugoslavia_button = {
 	possible = { 
 	# This are the vanilla requirements to form YUG, just retooled as a button
 	# BUL players: if this aligns poorly with previous Bulgarian conquests, remember: you're the one pulling a texas left into Yugoslavism
+		has_technology_researched = pan-nationalism
 		is_subject = no
 		custom_tooltip = {
 			text = balkfm_form_yug_tt
 			hidden_trigger = {
-				has_variable = balkfm_yugoslav_leader_var
+				var:balkfm_yugoslav_leader_var = root
 			}
 		}
 		calc_true_if = {
@@ -188,7 +189,7 @@ balkfm_austrian_agitation_button = {
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland = yes
+				balkfm_is_yugoslav_homeland_trigger = yes
 			}
 		}
 	}
@@ -206,16 +207,16 @@ balkfm_austrian_agitation_button = {
 		c:AUS ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland = yes
+					balkfm_is_yugoslav_homeland_trigger = yes
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
+				id = balkfm.211 # Yugoslavist Agitation (Target Event)
 			}
 		}
 		trigger_event = {
-			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
+			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
 		}
 		remove_variable = balkfm_yugoslav_agitation_actor
 	}
@@ -241,7 +242,7 @@ balkfm_ottoman_agitation_button = {
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland = yes
+				balkfm_is_yugoslav_homeland_trigger = yes
 			}
 		}
 	}
@@ -259,16 +260,16 @@ balkfm_ottoman_agitation_button = {
 		c:TUR ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland = yes
+					balkfm_is_yugoslav_homeland_trigger = yes
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.206 # Yugoslavist Agitation (AUS/TUR)
+				id = balkfm.211 # Yugoslavist Agitation (Target Event)
 			}
 		}
 		trigger_event = {
-			id = balkfm.205 # Yugoslavist Agitation (Nacertanije)
+			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
 		}
 		remove_variable = balkfm_yugoslav_agitation_actor
 	}
@@ -1787,11 +1788,12 @@ balkfm_proclaim_triune_button = {
 	}
 	
 	possible = {
+		has_technology_researched = nationalism
 		is_subject = no
-		owns_entire_state_region = STATE_SLOVENIA
 		owns_entire_state_region = STATE_SLAVONIA
 		owns_entire_state_region = STATE_CROATIA
-		owns_entire_state_region = STATE_DALMATIA	
+		owns_entire_state_region = STATE_DALMATIA
+		owns_entire_state_region = STATE_ISTRIA
 	}
 	
 	effect = {
