@@ -2474,6 +2474,18 @@ balkfm.308 = { # The Passing of the Bishop
 		heir = {
 			save_scope_as = balkfm_heir_scope
 		}
+		create_character = {
+			template = template_balkfm_petrovic_pero
+			on_created = {
+				place_character_in_void = 24
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_balkfm_petrovic_pero
+			}
+			save_scope_as = balkfm_pero_scope
+		}
 		set_variable = balkfm_mon_illness_var
 	}
 	
@@ -2516,18 +2528,6 @@ balkfm.309 = { # The Light of Modernity
 	}
 	
 	immediate = {
-		create_character = {
-			template = template_balkfm_petrovic_pero
-			on_created = {
-				place_character_in_void = 24
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_template = template_balkfm_petrovic_pero
-			}
-			save_scope_as = balkfm_pero_scope
-		}
 	}
 	
 	option = {
