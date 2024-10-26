@@ -1245,9 +1245,10 @@ balkfm_update_dynasty_variables_effect = {
 		max = 500
 		min = 0
 	}
+	balkfm_update_leading_dynasty_effect = yes
 }
 
-balkfm_define_leading_dynasty_effect = {
+balkfm_update_leading_dynasty_effect = {
 	if = {
 		limit = {
 			balkfm_has_obrenovic_ruler_trigger = yes
@@ -1257,13 +1258,43 @@ balkfm_define_leading_dynasty_effect = {
 			value = var:balkfm_obrenovic_support_var
 		}
 	}
-	if = {
+	else_if = {
 		limit = {
 			balkfm_has_karadordevic_ruler_trigger = yes
 		}
 		set_variable = {
 			name = balkfm_leading_dynasty_var
 			value = var:balkfm_karadordevic_support_var
+		}
+	}
+}
+
+balkfm_monthly_maintenance_effect = {
+	if = {
+		limit = {
+			NOT = {
+				exists = heir
+			}
+			OR = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+		}
+		if = {
+			limit = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+			}
+			create_character = {
+				template = template_balkfm_karadordevic_dynamic_heir
+			}
+		}
+		else_if = {
+			limit = {
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+			create_character = {
+				template = template_balkfm_obrenovic_dynamic_heir
+			}
 		}
 	}
 }
@@ -1297,7 +1328,7 @@ balkfm_minor_dynasty_support_loss_effect = {
 			}
 		}
 	}
-	balkfm_define_leading_dynasty_effect = yes
+	balkfm_update_leading_dynasty_effect = yes
 }
 
 balkfm_minor_dynasty_support_gain_effect = {
@@ -1329,7 +1360,7 @@ balkfm_minor_dynasty_support_gain_effect = {
 			}
 		}
 	}
-	balkfm_define_leading_dynasty_effect = yes
+	balkfm_update_leading_dynasty_effect = yes
 }
 
 balkfm_cleanup_dynasty_variables_effect = {

@@ -330,7 +330,7 @@ balkfm_mon_captured_nobles_value = {
 
 ## SERBIA VALUES ###
 
-balkfm_obrenovic_progress_value = {
+balkfm_obrenovic_support_value = {
 	value = 0
 	
 	## Autocracy Check
@@ -500,7 +500,7 @@ balkfm_obrenovic_progress_value = {
 	
 }
 
-balkfm_karadordevic_progress_value = {
+balkfm_karadordevic_support_value = {
 	value = 0
 	
 	## Enfranchisment Check
@@ -714,21 +714,33 @@ balkfm_karadordevic_progress_value = {
 	round_to = 0.01
 }
 
+balkfm_obrenovic_progress_value = {
+	value = 0
+	add = balkfm_obrenovic_support_value
+	subtract = balkfm_karadordevic_support_value
+}
+
+balkfm_karadordevic_progress_value = {
+	value = 0
+	add = balkfm_karadordevic_support_value
+	subtract = balkfm_obrenovic_support_value
+}
+
 balkfm_dynastic_rivalry_progress_value = {
 	value = 0
 	if = {
 		limit = {
-			balkfm_obrenovic_progress_value > balkfm_karadordevic_progress_value
+			balkfm_obrenovic_support_value > balkfm_karadordevic_support_value
 		}
-		add = balkfm_obrenovic_progress_value
-		subtract = balkfm_karadordevic_progress_value
+		add = balkfm_obrenovic_support_value
+		subtract = balkfm_karadordevic_support_value
 	}
 	if = {
 		limit = {
-			balkfm_obrenovic_progress_value < balkfm_karadordevic_progress_value
+			balkfm_obrenovic_support_value < balkfm_karadordevic_support_value
 		}
-		add = balkfm_karadordevic_progress_value
-		subtract = balkfm_obrenovic_progress_value
+		add = balkfm_karadordevic_support_value
+		subtract = balkfm_obrenovic_support_value
 	}
 	round_to = 0.01
 }

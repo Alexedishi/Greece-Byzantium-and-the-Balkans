@@ -205,7 +205,7 @@ namespace = balkfm
 #	426 - OPEN
 #	427 - OPEN
 #	428 - OPEN
-#	429 - ##Heir Spawning Event [TECH]
+#	429 - OPEN
 
 #430-439 - Dynastic Rivalry Narrative Events
 #	410>>430 - House Karađorđević Takes the Throne
@@ -6394,40 +6394,8 @@ balkfm.428 = { # OPEN
 	orphan = yes
 }
 
-balkfm.429 = { # Heir Spawning Event [TECH]
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-		NOT = {
-			exists = heir
-		}
-		OR = {
-			balkfm_has_karadordevic_ruler_trigger = yes
-			balkfm_has_obrenovic_ruler_trigger = yes
-		}
-	}
-
-	immediate = {
-		if = {
-			limit = {
-				balkfm_has_karadordevic_ruler_trigger = yes
-			}
-			create_character = {
-				template = template_balkfm_karadordevic_dynamic_heir
-			}
-		}
-		else_if = {
-			limit = {
-				balkfm_has_obrenovic_ruler_trigger = yes
-			}
-			create_character = {
-				template = template_balkfm_obrenovic_dynamic_heir
-			}
-		}
-	}
-	
+balkfm.429 = { # OPEN
+	orphan = yes
 }
 
 #### DYNASTIC RIVALRY NARRATIVE EVENTS ####
