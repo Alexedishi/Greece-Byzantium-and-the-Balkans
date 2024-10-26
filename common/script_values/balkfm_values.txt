@@ -329,230 +329,408 @@ balkfm_mon_captured_nobles_value = {
 }
 
 ## SERBIA VALUES ###
-obrenovic_power_value = {
+
+balkfm_obrenovic_progress_value = {
 	value = 0
+	
+	## Autocracy Check
 	if = {
 		limit = {
 			has_law = law_type:law_autocracy
-			has_law = law_type:law_single_party_state
 		}
-		add = 2
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_autocracy
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_autocracy
+		}
 	}
 	else_if = {
 		limit = {
-			OR = {
-				has_law = law_type:law_oligarchy
-				has_law = law_type:law_technocracy
-			}
+			has_law = law_type:law_oligarchy
 		}
-		add = 1
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_oligarchy
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_oligarchy
+		}
 	}
 	else = {
-		subtract = 3 # because the obrenovics were famously autocractic
-	}
-}
-
-obrenovic_bureacracy_value = {
-	value = 0
-	if = {
-		limit = {
-			has_law = law_type:law_hereditary_bureaucrats
-		}
-		add = 2
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_elected_bureaucrats
-		}
-		subtract = 1
-	}
-	else = {
-		add = 1 # base progress for either side
-	}
-}
-
-obrenovic_security_value = {
-	value = 0
-	if = {
-		limit = {
-			has_law = law_type:law_secret_police
-		}
-		add = 2
-	}
-}
-
-obrenovic_land_value = {
-	value = 0
-	if = {
-		limit = {
-			has_law = law_type:law_serfdom
-		}
-		add = 2
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_tenant_farmers
-		}
-		add = 1
-	}
-	else = {
-		subtract = 2
-	}
-}
-
-obrenovic_austria_value = {
-	value = 0
-	if = {
-		limit = {
-			c:AUS ?= {
-				relations:root >= relations_threshold:amicable
+		subtract = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_autocracy
+								value > neutral
+							}
+							law_stance = {
+								law = law_type:law_oligarchy
+								value > neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
 			}
+			desc = balkfm_value_from_liberalism
 		}
-		add = 2
 	}
-	else_if = {
-		limit = {
-			c:AUS ?= {
-				relations:root = relations_threshold:cordial
-			}
-		}
-		add = 1
-	}
-	else_if = {
-		limit = {
-			c:AUS ?= {
-				relations:root = relations_threshold:poor
-			}
-		}
-		subtract = 1
-	}
-	else_if = {
-		limit = {
-			c:AUS ?= {
-				relations:root <= relations_threshold:cold
-			}
-		}
-		subtract = 2
-	}
-}
-
-
-obrenovic_progress_value = {
-	value = 0
-	add = var:obrenovic_power_var
-	add = var:obrenovic_bureacracy_var
-	add = var:obrenovic_security_var
-	add = var:obrenovic_land_var
-	add = var:obrenovic_austria_var
-}
-
-karadordevic_power_value = {
-	value = 0
+	
+	## Police Check
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_census_voting
-				has_law = law_type:law_universal_suffrage
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_dedicated_police
+				has_law = law_type:law_militarized_police
 			}
 		}
-		add = 2
+		add = {
+			value = institution:institution_police.investment
+			desc = balkfm_value_from_police_level
+		}
 	}
-	else_if = {
+	else = {
+		subtract = {
+			value = 2
+			desc = balkfm_value_from_no_police
+		}
+	}
+	
+	## Land Policy Check
+	
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_tenant_farmers
+			}
+		}
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_serfdom
+								value > neutral
+							}
+							law_stance = {
+								law = law_type:law_tenant_farmers
+								value > neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_land_conversativism
+		}
+	}
+	else = {
+		subtract = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_serfdom
+								value > neutral
+							}
+							law_stance = {
+								law = law_type:law_tenant_farmers
+								value > neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_land_reform
+		}
+	}
+	
+	## Austria Relations Check
+	
+	add = {
+		value = {
+			add = c:AUS.relations:root
+			divide = 10
+		}
+		desc = balkfm_value_from_aus_relations
+	}
+	
+	## Lobby Appeasement Check
+	
+	add = {
+		value = {
+			every_political_lobby = {
+				limit = {
+					is_political_lobby_type = lobby_pro_country
+					target = {
+						c:AUS ?= this
+					}
+				}
+				add = appeasement
+			}
+		}
+		desc = balkfm_value_from_aus_lobbies
+	}
+	
+	round_to = 0.01
+	
+}
+
+balkfm_karadordevic_progress_value = {
+	value = 0
+	
+	## Enfranchisment Check
+	
+	if = {
 		limit = {
 			OR = {
 				has_law = law_type:law_landed_voting
 				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
 			}
 		}
-		add = 1
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_landed_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_wealth_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_census_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_universal_suffrage
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_enfranchisment
+		}
+	}
+	else_if = {
+		limit = {
+			NOR = {
+				has_law = law_type:law_landed_voting
+				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		subtract = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_landed_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_wealth_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_census_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_universal_suffrage
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_disenfranchisment
+		}
+	}
+	
+	## Free Speech Check
+	
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_right_of_assembly
+				has_law = law_type:law_protected_speech
+			}
+		}
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_right_of_assembly
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_protected_speech
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_speech
+		}
 	}
 	else = {
-		subtract = 2
+		limit = {
+			NOR = {
+				has_law = law_type:law_right_of_assembly
+				has_law = law_type:law_protected_speech
+			}
+		}
+		subtract = {
+			value = {
+				every_interest_group = {
+					limit = {
+						law_stance = {
+							law = law_type:law_right_of_assembly
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_protected_speech
+							value > neutral
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_censorship
+		}
 	}
-}
-
-karadordevic_bureaucracy_value = {
-	value = 0
+	
+	## Land Policy Check
+	
 	if = {
 		limit = {
-			has_law = law_type:law_hereditary_bureaucrats
+			NOR = {
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_tenant_farmers
+			}
 		}
-		subtract = 2
-	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_appointed_bureaucrats
+		subtract = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_serfdom
+								value < neutral
+							}
+							law_stance = {
+								law = law_type:law_tenant_farmers
+								value < neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_land_conversativism
 		}
-		add = 1
 	}
 	else = {
-		add = 2
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_serfdom
+								value < neutral
+							}
+							law_stance = {
+								law = law_type:law_tenant_farmers
+								value < neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = balkfm_value_from_land_reform
+		}
 	}
+	
+	add = {
+		value = {
+			add = c:RUS.relations:root
+			divide = 10
+		}
+		desc = balkfm_value_from_rus_relations
+	}
+	
+	## Lobby Appeasement Check
+	
+	add = {
+		value = {
+			every_political_lobby = {
+				limit = {
+					is_political_lobby_type = lobby_pro_country
+					target = {
+						c:RUS ?= this
+					}
+				}
+				add = appeasement
+			}
+		}
+		desc = balkfm_value_from_rus_lobbies
+	}
+	
+	round_to = 0.01
 }
 
-karadordevic_security_value = {
+balkfm_dynastic_rivalry_progress_value = {
 	value = 0
 	if = {
 		limit = {
-			has_law = law_type:law_guaranteed_liberties
+			balkfm_obrenovic_progress_value > balkfm_karadordevic_progress_value
 		}
-		add = 2
+		add = balkfm_obrenovic_progress_value
+		subtract = balkfm_karadordevic_progress_value
 	}
-}
-
-karadordevic_land_value = {
-	value = 0
 	if = {
 		limit = {
-			has_law = law_type:law_serfdom
+			balkfm_obrenovic_progress_value < balkfm_karadordevic_progress_value
 		}
-		subtract = 2
+		add = balkfm_karadordevic_progress_value
+		subtract = balkfm_obrenovic_progress_value
 	}
-	else_if = {
-		limit = {
-			has_law = law_type:law_tenant_farmers
-		}
-		subtract = 1
-	}
-	else = {
-		add = 2
-	}
-}
-
-karadordevic_russia_value = {
-	value = 0
-	if = {
-		limit = {
-			c:RUS ?= {
-				relations:root >= relations_threshold:amicable
-			}
-		}
-		add = 2
-	}
-	else_if = {
-		limit = {
-			c:RUS ?= {
-				relations:root = relations_threshold:cordial
-			}
-		}
-		add = 1
-	}
-	else_if = {
-		limit = {
-			c:RUS ?= {
-				relations:root = relations_threshold:poor
-			}
-		}
-		subtract = 1
-	}
-	else_if = {
-		limit = {
-			c:RUS ?= {
-				relations:root <= relations_threshold:cold
-			}
-		}
-		subtract = 2
-	}
+	round_to = 0.01
 }
 
 karadordevic_conquest_value = {
@@ -573,16 +751,6 @@ karadordevic_conquest_value = {
 		}
 		add = 2
 	}
-}
-
-karadordevic_progress_value = {
-	value = 0
-	add = var:karadordevic_power_var
-	add = var:karadordevic_bureaucracy_var
-	add = var:karadordevic_security_var
-	add = var:karadordevic_land_var
-	add = var:karadordevic_russia_var
-	add = var:karadordevic_conquest_var
 }
 
 ## BULGARIA VALUES ##

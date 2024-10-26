@@ -1209,294 +1209,133 @@ balkfm_border_cleanup_effect = {
 }
 
 ## SERBIA EFFECTS ##
-balkfm_set_monarchism_variables = {
+balkfm_initialize_dynasty_variables_effect = {
 	set_variable = {
-		name = obrenovic_support_var
+		name = balkfm_obrenovic_support_var
 		value = 0
 	}
 	set_variable = {
-		name = karadordevic_support_var
+		name = balkfm_karadordevic_support_var
 		value = 0
 	}
 	set_variable = {
-		name = obrenovic_power_var
+		name = balkfm_leading_dynasty_var
 		value = 0
 	}
-	set_variable = {
-		name = obrenovic_bureacracy_var
-		value = 0
-	}
-	set_variable = {
-		name = obrenovic_security_var
-		value = 0
-	}
-	set_variable = {
-		name = obrenovic_land_var
-		value = 0
-	}
-	set_variable = {
-		name = obrenovic_austria_var
-		value = 0
-	}
-	set_variable = {
-		name = obrenovic_progress_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_power_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_bureaucracy_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_security_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_land_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_russia_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_conquest_var
-		value = 0
-	}
-	set_variable = {
-		name = karadordevic_progress_var
-		value = 0
-	}	
-	set_variable = {
-		name = ser_leading_dynasty_var
-		value = 0
-	}
-	set_variable = obrenovic_crowned_var
+	set_variable = balkfm_obrenovic_crowned_var
 	set_variable = balkfm_russia_consul_var
 }
 
-	
-balkfm_calculate_dynasty_support = {
-	set_variable = {
-		name = obrenovic_power_var
-		value = obrenovic_power_value
-	}
-	set_variable = {
-		name = obrenovic_bureacracy_var
-		value = obrenovic_bureacracy_value
-	}
-	set_variable = {
-		name = obrenovic_security_var
-		value = obrenovic_security_value
-	}
-	set_variable = {
-		name = obrenovic_land_var
-		value = obrenovic_land_value
-	}
-	set_variable = {
-		name = obrenovic_austria_var
-		value = obrenovic_austria_value
-	}
-	set_variable = {
-		name = obrenovic_progress_var
-		value = obrenovic_progress_value
-	}
-	
-	set_variable = {
-		name = karadordevic_power_var
-		value = karadordevic_power_value
-	}
-	set_variable = {
-		name = karadordevic_bureaucracy_var
-		value = karadordevic_bureaucracy_value
-	}
-	set_variable = {
-		name = karadordevic_security_var
-		value = karadordevic_security_value
-	}
-	set_variable = {
-		name = karadordevic_land_var
-		value = karadordevic_land_value
-	}
-	set_variable = {
-		name = karadordevic_russia_var
-		value = karadordevic_russia_value
-	}
-	set_variable = {
-		name = karadordevic_conquest_var
-		value = karadordevic_conquest_value
-	}
-	set_variable = {
-		name = karadordevic_progress_var
-		value = karadordevic_progress_value
-	}
-}
-
-balkfm_update_dynasty_variables = {
+balkfm_update_dynasty_variables_effect = {
 	change_variable = {
-		name = obrenovic_support_var
-		add = var:obrenovic_progress_var
+		name = balkfm_obrenovic_support_var
+		add = balkfm_obrenovic_progress_value
 	}
 	clamp_variable = {
-		name = obrenovic_support_var
+		name = balkfm_obrenovic_support_var
 		max = 500
 		min = 0
 	}
 	change_variable = {
-		name = karadordevic_support_var
-		add = var:karadordevic_progress_var
+		name = balkfm_karadordevic_support_var
+		add = balkfm_karadordevic_progress_value
 	}
 	clamp_variable = {
-		name = karadordevic_support_var
+		name = balkfm_karadordevic_support_var
 		max = 500
 		min = 0
 	}
 }
 
-
-balkfm_define_leading_dynasty = {
+balkfm_define_leading_dynasty_effect = {
 	if = {
 		limit = {
-			has_variable = obrenovic_crowned_var
+			balkfm_has_obrenovic_ruler_trigger = yes
 		}
 		set_variable = {
-			name = ser_leading_dynasty_var
-			value = var:obrenovic_support_var
+			name = balkfm_leading_dynasty_var
+			value = var:balkfm_obrenovic_support_var
 		}
 	}
 	if = {
 		limit = {
-			has_variable = karadordevic_crowned_var
+			balkfm_has_karadordevic_ruler_trigger = yes
 		}
 		set_variable = {
-			name = ser_leading_dynasty_var
-			value = var:karadordevic_support_var
+			name = balkfm_leading_dynasty_var
+			value = var:balkfm_karadordevic_support_var
 		}
 	}
 }
 
-balkfm_karadordevic_takeover = {
-	ruler = {
-		save_scope_as = balkfm_obrenovic_scope
-	}
-	heir = {
-		save_scope_as = balkfm_heir_scope
-	}
-	random_character_in_void = {
-		limit = {
-			has_variable = balkfm_karadordevic_tracker
-		}
-		save_scope_as = balkfm_karadordevic_scope
-	}
-	scope:balkfm_obrenovic_scope = {
-		set_variable = balkfm_obrenovic_tracker
-		place_character_in_void = 150 # characters will expire after 15 years
-	}
+balkfm_minor_dynasty_support_loss_effect = {
 	if = {
 		limit = {
-			exists = scope:balkfm_heir_scope
+			balkfm_has_obrenovic_ruler_trigger = yes
 		}
-		scope:balkfm_heir_scope = {
-			kill_character = yes # get better parents next time bub
-		}
-	}
-	if = {
-		limit = {
-			exists = scope:balkfm_karadordevic_scope
-		}
-		scope:balkfm_karadordevic_scope = {
-			set_character_as_ruler = yes
-		}
-	}
-	else = {
-		create_character = {
-			# dynamic Karađorđević
-			last_name = Karadordevic
-			historical = yes
-			age = 30
-			culture = cu:serb
-			traits = {
-				basic_political_operator
-			}
-			on_created = {
-				set_variable = balkfm_karadordevic_tracker
+		custom_tooltip = {
+			text = balkfm_obrenovic_minus_50
+			hidden_effect = {
+				change_variable = {
+					name = obrenovic_support_var
+					subtract = 50
+				}
 			}
 		}
 	}
-	remove_variable = obrenovic_crowned_var
-	set_variable = karadordevic_crowned_var
-	trigger_event = {
-		id = balkfm.410 # House Karađorđević Takes the Throne
-	}
-}
-	
-balkfm_obrenovic_takeover = {
-	ruler = {
-		save_scope_as = balkfm_karadordevic_scope
-	}
-	heir = {
-		save_scope_as = balkfm_heir_scope
-	}
-	random_character_in_void = {
+	else_if = {
 		limit = {
-			has_variable = balkfm_obrenovic_tracker
+			balkfm_has_karadordevic_ruler_trigger = yes
 		}
-		save_scope_as = balkfm_obrenovic_scope
-	}
-	scope:balkfm_karadordevic_scope = {
-		set_variable = balkfm_karadordevic_tracker
-		place_character_in_void = 150 # characters will expire after 15 years
-	}	
-	if = {
-		limit = {
-			exists = scope:balkfm_heir_scope
-		}
-		scope:balkfm_heir_scope = {
-			kill_character = yes # get better parents next time bub
-		}
-	}
-	if = {
-		limit = {
-			exists = scope:balkfm_obrenovic_scope
-		}
-		scope:balkfm_obrenovic_scope = {
-			set_character_as_ruler = yes
-		}
-	}
-	else = {
-		create_character = {
-			# dynamic Obrenović
-			last_name = "Obrenovic"
-			historical = yes
-			age = 30
-			culture = cu:serb
-			traits = {
-				basic_political_operator
-			}
-			on_created = {
-				set_variable = balkfm_obrenovic_tracker
+		custom_tooltip = {
+			text = balkfm_karadordevic_minus_50
+			hidden_effect = {
+				change_variable = {
+					name = karadordevic_support_var
+					subtract = 50
+				}
 			}
 		}
 	}
-	remove_variable = balkfm_kaykay_var
-	remove_variable = karadordevic_crowned_var
-	set_variable = obrenovic_crowned_var
-	trigger_event = {
-		id = balkfm.411 # House Obrenović Takes the Throne
-	}
+	balkfm_define_leading_dynasty_effect = yes
 }
 
-balkfm_clean_up_ser_monarchism = { # these are all unnessecary once JE is closed
-	remove_variable = obrenovic_support_var
-	remove_variable = karadordevic_support_var
-	remove_variable = obrenovic_progress_var
-	remove_variable = karadordevic_progress_var
-	remove_variable = ser_leading_dynasty_var
-	remove_variable = karadordevic_crowned_var
-	remove_variable = obrenovic_crowned_var
+balkfm_minor_dynasty_support_gain_effect = {
+	if = {
+		limit = {
+			balkfm_has_obrenovic_ruler_trigger = yes
+		}
+		custom_tooltip = {
+			text = balkfm_obrenovic_plus_50
+			hidden_effect = {
+				change_variable = {
+					name = obrenovic_support_var
+					add = 50
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			balkfm_has_karadordevic_ruler_trigger = yes
+		}
+		custom_tooltip = {
+			text = balkfm_karadordevic_plus_50
+			hidden_effect = {
+				change_variable = {
+					name = karadordevic_support_var
+					add = 50
+				}
+			}
+		}
+	}
+	balkfm_define_leading_dynasty_effect = yes
+}
+
+balkfm_cleanup_dynasty_variables_effect = {
+	remove_variable = balkfm_obrenovic_support_var
+	remove_variable = balkfm_karadordevic_support_var
+	remove_variable = balkfm_leading_dynasty_var
 }
 
 ## BULGARIA EFFECTS ##

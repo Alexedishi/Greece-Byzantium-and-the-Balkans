@@ -647,13 +647,15 @@ je_balkfm_ser_monarchism = {
 	should_be_pinned_by_default = yes	
 	
 	immediate = {
-		balkfm_set_monarchism_variables = yes
+		balkfm_define_leading_dynasty_effect = yes
 	}
+	
+	scripted_button = balkfm_cement_monarchy_button
 	
 	complete = {
 		has_law = law_type:law_monarchy
 		custom_tooltip = {
-			text = je_balkfm_ser_monarchism_tt
+			text = je_balkfm_ser_monarchism_complete_tt
 			hidden_trigger = {
 				has_variable = balkfm_ser_cement_poured
 			}
@@ -665,7 +667,7 @@ je_balkfm_ser_monarchism = {
 			id = balkfm.419 # Mandate Secured
 		}
 		hidden_effect = {
-			balkfm_clean_up_ser_monarchism = yes
+			balkfm_cleanup_dynasty_variables_effect = yes
 		}
 	}
 	
@@ -677,15 +679,13 @@ je_balkfm_ser_monarchism = {
 	
 	on_fail = {
 		hidden_effect = {
-			balkfm_clean_up_ser_monarchism = yes
+			balkfm_cleanup_dynasty_variables_effect = yes
 		}
 	}
 	
-	scripted_button = balkfm_cement_monarchy_button
-	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_calculate_dynasty_support = yes
+			balkfm_define_leading_dynasty_effect = yes
 		}
 	}
 	
@@ -702,27 +702,14 @@ je_balkfm_ser_monarchism = {
 			1 = balkfm.415 # National Desires
 		}
 		effect = {
-			balkfm_update_dynasty_variables = yes
-			balkfm_define_leading_dynasty = yes
+			balkfm_update_dynasty_variables_effect = yes
 		}
 	}
 	
 	on_yearly_pulse = {
-		effect = {
-			if = {
-				limit = {
-					var:ser_leading_dynasty_var < 1
-					has_variable = obrenovic_crowned_var
-				}
-				balkfm_karadordevic_takeover = yes
-			}
-			else_if = {
-				limit = {
-					var:ser_leading_dynasty_var < 1
-					has_variable = karadordevic_crowned_var
-				}
-				balkfm_obrenovic_takeover = yes
-			}
+		events = {
+			balkfm.430 # House Karađorđević Takes the Throne
+			balkfm.431 # House Obrenović Takes the Throne
 		}
 	}
 	
@@ -737,32 +724,32 @@ je_balkfm_ser_monarchism = {
 			triggered_desc = {
 				desc = je_balkfm_ser_monarchism_status_2
 				trigger = {
-					var:ser_leading_dynasty_var < 50
+					var:balkfm_leading_dynasty_var < 50
 				}
 			}
 			triggered_desc = {
 				desc = je_balkfm_ser_monarchism_status_3
 				trigger = {
-					var:obrenovic_support_var > var:karadordevic_support_var
+					var:balkfm_obrenovic_support_var > var:balkfm_karadordevic_support_var
 				}
 			}
 			triggered_desc = {
 				desc = je_balkfm_ser_monarchism_status_4
 				trigger = {
-					var:obrenovic_support_var < var:karadordevic_support_var
+					var:balkfm_obrenovic_support_var < var:balkfm_karadordevic_support_var
 				}
 			}
 			triggered_desc = {
 				desc = je_balkfm_ser_monarchism_status_5
 				trigger = {
-					var:obrenovic_support_var = var:karadordevic_support_var
+					var:balkfm_obrenovic_support_var = var:balkfm_karadordevic_support_var
 				}
 			}
 		}
 	}
 	
 	current_value = {
-		value = var:ser_leading_dynasty_var
+		value = var:balkfm_leading_dynasty_var
 	}
 	
 	goal_add_value = {
