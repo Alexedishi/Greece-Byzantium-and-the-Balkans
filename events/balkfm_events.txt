@@ -6394,8 +6394,42 @@ balkfm.428 = { # OPEN
 	orphan = yes
 }
 
-balkfm.422 = { # Heir Spawning Event [TECH]
-	orphan = yes
+balkfm.429 = { # Heir Spawning Event [TECH]
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOT = {
+			exists = heir
+		}
+		OR = {
+			balkfm_has_karadordevic_ruler_trigger = yes
+			balkfm_has_obrenovic_ruler_trigger = yes
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+			}
+			create_character = {
+				template = template_balkfm_karadordevic_dynamic
+				heir = yes
+			}
+		}
+		else_if = {
+			limit = {
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+			create_character = {
+				template = template_balkfm_obrenovic_dynamic
+				heir = yes
+			}
+		}
+	}
+	
 }
 
 #### DYNASTIC RIVALRY NARRATIVE EVENTS ####
