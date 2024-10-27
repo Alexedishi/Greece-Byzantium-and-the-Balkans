@@ -686,6 +686,8 @@ balkfm_karadordevic_support_value = {
 		}
 	}
 	
+	## Russia Relations Check
+	
 	add = {
 		value = {
 			add = c:RUS.relations:root
@@ -709,6 +711,35 @@ balkfm_karadordevic_support_value = {
 			}
 		}
 		desc = balkfm_value_from_rus_lobbies
+	}
+	
+	## Southern Serbia Control Check
+	# Alexander Karadordevic lost a huge chunk of his support for failing to secure Serbian gains after the Crimean War
+	if = {
+		limit = {
+			ruler = {
+				has_template = template_balkfm_karadordevic_aleksander
+			}
+			NOT = {
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		subtract = {
+			value = 2
+			desc = balkfm_value_from_weak_kaykay
+		}
+	}
+	else_if = {
+		limit = {
+			ruler = {
+				has_template = template_balkfm_karadordevic_aleksander
+			}
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		}
+		add = {
+			value = 2
+			desc = balkfm_value_from_strong_kaykay
+		}
 	}
 	
 	round_to = 0.01
@@ -743,26 +774,6 @@ balkfm_dynastic_rivalry_progress_value = {
 		subtract = balkfm_obrenovic_support_value
 	}
 	round_to = 0.01
-}
-
-karadordevic_conquest_value = {
-	value = 0
-	if = {
-		limit = {
-			NOT = {
-				owns_entire_state_region = STATE_SOUTHERN_SERBIA
-			}
-			has_variable = balkfm_kaykay_var
-		}
-		subtract = 2 # Alexander Karadordevic lost a huge chunk of his support for failing to secure Serbian gains after the Crimean War, this should hobble the karadordevic_progress_value until he gets the boot
-	}
-	else_if = {
-		limit = {
-			owns_entire_state_region = STATE_SOUTHERN_SERBIA
-			has_variable = balkfm_kaykay_var
-		}
-		add = 2
-	}
 }
 
 ## BULGARIA VALUES ##

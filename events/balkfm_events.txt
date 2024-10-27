@@ -175,29 +175,29 @@ namespace = balkfm
 #	400 - Mileta's Rebellion
 #	401 - A Constitution Imposed
 #	402 - An Inexperienced Ruler
-#	404>>403 - The Blood Feud
-#	404 - //
-#	405 - //
-#	406 - //
-#	407 - //
-#	408 - //
-#	409 - //
+#	403 - The Blood Feud
+#	404 - OPEN
+#	405 - OPEN
+#	406 - OPEN
+#	407 - OPEN
+#	408 - OPEN
+#	409 - OPEN
 
 #410-419 - The Defenders of the Consitution Events
-#	403>>410 - Defenders of the Constitution
-#	411 - //
-#	412 - //
-#	413 - //
-#	414 - //
-#	407>>415 - Stately Foundation Established
-#	408>>416 - Civil Code Implemented
-#	409>>417 - Economic System Reformed
-#	406>>418 - Absent Reform
-#	405>>419 - Serbia Reforged
+#	410 - Defenders of the Constitution
+#	411 - OPEN
+#	412 - OPEN
+#	413 - OPEN
+#	414 - OPEN
+#	415 - Stately Foundation Established
+#	416 - Civil Code Implemented
+#	417 - Economic System Reformed
+#	418 - Absent Reform
+#	419 - Serbia Reforged
 
 #420-429 - Dynastic Rivalry Mechnical Events
-#	412>>420 - Plague Outbreak!
-#	413>>421 - Abusive Garrison
+#	420 - Plague Outbreak!
+#	421 - Abusive Garrison
 #	422 - OPEN
 #	423 - OPEN
 #	424 - OPEN
@@ -208,16 +208,16 @@ namespace = balkfm
 #	429 - OPEN
 
 #430-439 - Dynastic Rivalry Narrative Events
-#	410>>430 - House Karađorđević Takes the Throne
-#	411>>431 - House Obrenović Takes the Throne
-#	414>>432 - Austria/Russia Requests Primacy
+#	430 - House Karađorđević Takes the Throne
+#	431 - House Obrenović Takes the Throne
+#	432 - Austria/Russia Requests Primacy
 #	433 - OPEN
 #	434 - OPEN
 #	435 - OPEN
 #	436 - OPEN
 #	437 - OPEN
-#	420>>438 - Cementing the Monarchy
-#	419>>439 - Hereditary Monarchy Secured
+#	438 - Cementing the Monarchy
+#	439 - Hereditary Monarchy Secured
 
 #440-449 - The Kingdom Era Events
 #	440 -  OPEN
@@ -228,7 +228,7 @@ namespace = balkfm
 #	482 - The Serbian Empire >> 489
 
 #490-499 - Miscellaneous & Technical Events
-#	470>>490 - Disruptive Influence
+#	490 - Disruptive Influence
 
 
 ##  #BALK5  BULGARIA FLAVOR  Events 500-599  ##
@@ -5692,8 +5692,6 @@ balkfm.400 = { # Mileta's Rebellion
 		c:TUR = {
 			save_scope_as = ottoman_scope
 		}
-		balkfm_calculate_dynasty_support = yes
-		balkfm_define_leading_dynasty = yes	
 		set_variable = balkfm_constitution_pending
 	}
 	
@@ -5701,11 +5699,9 @@ balkfm.400 = { # Mileta's Rebellion
 		name = balkfm.400.a
 		default_option = yes
 		trigger_event = {
-			id = balkfm.404 # The Blood Feud
+			id = balkfm.403 # The Blood Feud
 			days = 90
 		}
-		balkfm_calculate_dynasty_support = yes
-		balkfm_define_leading_dynasty = yes	
 	}
 
 }
@@ -5737,15 +5733,11 @@ balkfm.401 = { # A Constitution Imposed
 	
 	immediate = {
 		random_scope_character = {
-			limit = {
-				has_variable = is_milos_the_great
+			ruler = {
+				save_scope_as = milos_scope
 			}
-			save_scope_as = milos_scope
 		}
-		random_scope_character = {
-			limit = {
-				has_variable = is_prince_milan
-			}
+		heir = {
 			save_scope_as = milan_scope
 		}
 		remove_variable = balkfm_constitution_pending
@@ -5770,15 +5762,7 @@ balkfm.401 = { # A Constitution Imposed
 		activate_law = law_type:law_wealth_voting
 		activate_law = law_type:law_tenant_farmers
 		activate_law = law_type:law_appointed_bureaucrats
-		custom_tooltip = {
-			text = balkfm_obrenovic_minus_50
-			hidden_effect = {
-				change_variable = {
-					name = obrenovic_support_var
-					subtract = 50
-				}
-			}
-		}
+		balkfm_minor_dynasty_support_loss_effect = yes
 		trigger_event = {
 			id = balkfm.402 # An Inexperienced Ruler
 			days = 30
@@ -5787,10 +5771,6 @@ balkfm.401 = { # A Constitution Imposed
 			months = 1
 		}
 		set_variable = balkfm_milos_bailed_out
-	}
-	
-	after = {
-		balkfm_define_leading_dynasty = yes
 	}
 
 }
@@ -5819,16 +5799,19 @@ balkfm.402 = { # An Inexperienced Ruler
 	}
 	
 	immediate = {
+		create_character = {
+			template = template_balkfm_obrenovic_mihailo
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
 		random_character_in_void = {
 			limit = {
-				has_variable = is_prince_mihailo
+				has_template = template_balkfm_obrenovic_mihailo
 			}
 			save_scope_as = milhailo_scope
 		}
-		random_scope_character = {
-			limit = {
-				has_variable = is_prince_milan
-			}
+		ruler = {
 			save_scope_as = milan_scope
 		}
 	}
@@ -5843,19 +5826,7 @@ balkfm.402 = { # An Inexperienced Ruler
 			free_character_from_void = yes
 			set_character_as_ruler = yes
 		}
-		custom_tooltip = {
-			text = balkfm_obrenovic_minus_50
-			hidden_effect = {
-				change_variable = {
-					name = obrenovic_support_var
-					subtract = 50
-				}
-			}
-		}
-	}
-	
-	after = {
-		balkfm_define_leading_dynasty = yes
+		balkfm_minor_dynasty_support_loss_effect = yes
 	}
 
 }
@@ -5932,38 +5903,29 @@ balkfm.410 = { # In Defense of the Constitution
 		if = {
 			limit = {
 				any_scope_character = {
-					has_variable = is_prince_kaykay
+					has_template = template_balkfm_karadordevic_aleksander
 				}
 			}				
 			random_scope_character = {
 				limit = {
-					has_variable = is_prince_kaykay
+					has_template = template_balkfm_karadordevic_aleksander
 				}
 				save_scope_as = kaykay_scope
 			}
-			set_variable = balkfm_kaykay_var
 		}
 		else = {
 			create_character = {
-				# dynamic Karađorđević
-				last_name = Karadordevic
-				historical = yes
-				age = 30
-				culture = cu:serb
-				traits = {
-					basic_political_operator
-				}
+				template = template_balkfm_karadordevic_aleksander
 				on_created = {
-					set_variable = balkfm_karadordevic_tracker
+					place_character_in_void = 12
 				}
 			}
-			random_scope_character = {
+			random_character_in_void = {
 				limit = {
-					has_variable = balkfm_karadordevic_tracker
+					has_template = template_balkfm_karadordevic_aleksander
 				}
 				save_scope_as = kaykay_scope
-			}			
-			set_variable = balkfm_kaykay_var
+			}
 		}
 		remove_variable = balkfm_milos_bailed_out
 	}	
@@ -6002,6 +5964,10 @@ balkfm.410 = { # In Defense of the Constitution
 				}
 			}
 		}
+		set_variable = {
+			name = balkfm_leading_dynasty_var
+			value = 200
+		}
 		add_journal_entry = {
 			type = je_balkfm_ser_defenders
 		}
@@ -6014,12 +5980,6 @@ balkfm.410 = { # In Defense of the Constitution
 		add_journal_entry = {
 			type = je_balkfm_ser_economics
 		}
-		remove_variable = obrenovic_crowned_var
-		set_variable = karadordevic_crowned_var
-	}
-	
-	after = {
-		balkfm_define_leading_dynasty = yes
 	}
 
 }
@@ -6075,6 +6035,7 @@ balkfm.415 = { # Stately Foundation Established
 		add_loyalists = {
 			value = small_radicals
 		}
+		balkfm_minor_dynasty_support_gain_effect = yes
 		set_variable = balkfm_statism_completed
 	}
 
@@ -6116,6 +6077,7 @@ balkfm.416 = { # Civil Code Implemented
 		add_loyalists = {
 			value = small_radicals
 		}
+		balkfm_minor_dynasty_support_gain_effect = yes
 		set_variable = balkfm_civics_completed
 	}
 
@@ -6157,6 +6119,7 @@ balkfm.417 = { # Economic System Reformed
 		add_loyalists = {
 			value = small_radicals
 		}
+		balkfm_minor_dynasty_support_gain_effect = yes
 		set_variable = balkfm_economy_completed
 	}
 
@@ -6203,6 +6166,7 @@ balkfm.418 = { # Absent Reform
 			strata = poor
 			value = medium_radicals
 		}
+		balkfm_minor_dynasty_support_loss_effect = yes
 	}
 
 }
@@ -6243,6 +6207,7 @@ balkfm.419 = { # Serbia Reforged
 		add_loyalists = {
 			value = small_radicals
 		}
+		balkfm_minor_dynasty_support_gain_effect = yes
 	}
 
 }
@@ -6789,11 +6754,11 @@ balkfm.438 = { # Cementing the Monarchy
 	dlc = dlc_grefm
 	
 	trigger = {
-#		has_variable = In_need_of_new_driveway...
+		# triggered by balkfm_cement_monarchy_button
 	}
 	
 	immediate = {
-#		set_variable = ...anybody_know_a_good_cement_guy?
+#		set_variable = In_need_of_new_driveway... anybody_know_a_good_cement_guy?
 	}	
 	
 	option = {
@@ -6810,7 +6775,7 @@ balkfm.438 = { # Cementing the Monarchy
 #	}
 #
 #	after = {
-#		balkfm_pass_me_the_hookah = yes
+#		balkfm_pass_me_the_hookah_effect = yes
 #	}
 #
 }
@@ -6835,7 +6800,8 @@ balkfm.439 = { # Mandate Secured
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = { 
+		# triggered by je_balkfm_ser_monarchism
 	}
 	
 	immediate = {
