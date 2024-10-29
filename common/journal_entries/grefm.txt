@@ -324,7 +324,10 @@ je_grefm_brigandage = {
 	group = je_group_grefm_monarchism
 	
 	complete = {
-		has_law = law_type:law_dedicated_police
+		NOR = {
+			has_law = law_type:law_no_police
+			has_law = law_type:law_local_police
+		}
 		OR = {
 			institution_investment_level = {
 				institution = institution_police
@@ -391,7 +394,9 @@ je_grefm_civic_tradition = {
 	group = je_group_grefm_monarchism
 	
 	complete = {
-		NOT = { has_law = law_type:law_hereditary_bureaucrats }
+		NOT = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
 		ig:ig_landowners = {
 			is_powerful = no
 			is_insurrectionary = no
