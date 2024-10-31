@@ -1,5 +1,12 @@
-﻿je_turkfm_sick_man_main = {
-# This is the rebuilt "Sick Man" journal. The vanilla journal has been removed.
+﻿########################
+# THE EASTERN QUESTION #
+########################
+
+je_turkfm_sick_man_main = {
+	# This journal was once eqfm_main; this hosts the core logic for the Eastern Question
+	# Global variables are set from this scope and referenced elsewhere
+	
+
 	icon = "gfx/interface/icons/event_icons/event_fez.dds"
 	
 	group = je_group_turkfm_sick_man
@@ -13,15 +20,11 @@
 		modifier_turkfm_sick_man
 	}
 	
-	scripted_progress_bar = turkfm_sick_man_progress_bar
-	
-#	scripted_button = turkfm_start_tanzimat_button
-	
 	complete = {
 		custom_tooltip = {
-			text = je_turkfm_sick_man_complete_tt
+			text = je_turkfm_sick_man_main_complete
 			hidden_trigger = {
-				"scripted_bar_progress(turkfm_sick_man_progress_bar)" >= 1000
+				always = no
 			}
 		}
 	}
@@ -31,12 +34,6 @@
 	}
 	
 	fail = {
-		custom_tooltip = {
-			text = je_turkfm_sick_man_fail_tt
-			hidden_trigger = {
-				"scripted_bar_progress(turkfm_sick_man_progress_bar)" <= 0
-			}
-		}
 	}
 	
 	on_fail = {
@@ -44,23 +41,9 @@
 	}
 	
 	invalid = {
-		country_rank < rank_value:unrecognized_major_power
 	}
 	
 	on_invalid = {
-#		hidden_effect = {
-#			if = {
-#				limit = {
-#					has_global_variable = turkfm_sick_man_completed
-#				}
-#				turkfm_clean_up_sick_man_effect = yes
-#			}
-#			else = {
-#				trigger_event = {
-#					id = 
-#				}
-#			}
-#		}
 	}
 	
 	on_weekly_pulse = {
@@ -100,3 +83,30 @@
 	weight = 100
 	
 }
+
+je_turkfm_eastern_question = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_sick_man
+}
+
+############################################
+# THE REORGANIZATION OF THE OTTOMAN EMPIRE #
+############################################
+
+je_turkfm_tanzimat = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		
+	}
+
+}
+

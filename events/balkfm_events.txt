@@ -62,8 +62,23 @@ namespace = balkfm
 #	099 - Crisis Test Event
 
 
-##  #BALK1  OPEN  Events 100-109  ##
-##
+##  #BALK1  GENERAL BALKANS EVENTS  Events 100-109  ##
+
+#100-109 - Ottoman Legacy Narrative Events
+#	100 - An Ottoman Legacy
+#	101 - Tax Reform Complete
+#	102 - Land Reform Complete
+#	103 - Civic Reform Complete
+#	104 - Brigandage Complete
+#	105 - State Reform Complete
+#	106 - ##
+#	107 - ##
+#	108 - ##
+#	109 - ##
+
+#110-119 - Ottoman Legacy Mechnical Events
+#	110 - The Brigands Raid Again!
+#	111 - ##Blood Feud Escalates
 
 ##  #BALK2  YUGOSLAVIA FLAVOR  Events 200-299  ##
 
@@ -175,40 +190,28 @@ namespace = balkfm
 #	400 - Mileta's Rebellion
 #	401 - A Constitution Imposed
 #	402 - An Inexperienced Ruler
-#	403 - The Blood Feud
+#	403 - OPEN
 #	404 - OPEN
 #	405 - OPEN
 #	406 - OPEN
-#	407 - OPEN
-#	408 - OPEN
-#	409 - OPEN
+#	407 - Defenders of the Constitution
+#	408 - Absent Reform
+#	409 - Serbia Reforged
 
-#410-419 - The Defenders of the Consitution Events
-#	410 - Defenders of the Constitution
-#	411 - OPEN
-#	412 - OPEN
-#	413 - OPEN
-#	414 - OPEN
-#	415 - Stately Foundation Established
-#	416 - Civil Code Implemented
-#	417 - Economic System Reformed
-#	418 - Absent Reform
-#	419 - Serbia Reforged
-
-#420-429 - Dynastic Rivalry Events
-#	430>>420 - House Karađorđević Takes the Throne
-#	431>>421 - House Obrenović Takes the Throne
-#	432>>422 - Austria/Russia Requests Primacy
-#	420>>433 - Plague Outbreak!
-#	421>>423 - Abusive Garrison
+#410-419 - Dynastic Rivalry Events
+#	410 - House Karađorđević Takes the Throne
+#	411 - House Obrenović Takes the Throne
+#	412 - Austria/Russia Requests Primacy
+#	413 - Plague Outbreak!
+#	414 - Abusive Garrison
 #	425 - OPEN
 #	426 - OPEN
 #	427 - OPEN
-#	438>>428 - Cementing the Monarchy
-#	439>>429 - Hereditary Monarchy Secured
+#	418 - Cementing the Monarchy
+#	419 - Hereditary Monarchy Secured
 
-#440-449 - The Kingdom Era Events
-#	440 -  OPEN
+#420-429 - The Kingdom Era Events
+#	420 -  OPEN
 
 #480-489 - Serbian Nationalism
 #	480 - The Serbian Heartlands
@@ -1298,11 +1301,337 @@ balkfm.099 = { # Crisis Test Event
 }
 
 
-####################################
-##  #BALK1  OPEN  Events 100-109  ##
-####################################
+#######################################################
+##  #BALK1  GENERAL BALKANS EVENTS   Events 100-109  ##
+#######################################################
 
+#### OTTOMAN LEGACY NARRATIVE EVENTS ####
 
+balkfm.100 = { # An Ottoman Legacy
+	type = country_event
+	placement = root
+	
+	title = balkfm.100.t
+	desc = balkfm.100.d
+	flavor = balkfm.100.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.100.a
+		default_option = yes
+		custom_tooltip = balkfm.100.tt
+	}
+
+}
+
+balkfm.101 = { # Tax Reform Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.101.t
+	desc = balkfm.101.d
+	flavor = balkfm.101.f
+	
+	event_image = {
+		video = "######"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = ##########
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.101.a
+		default_option = yes
+		add_modifier = {
+			name = 
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+			strata = 
+		}
+	}
+
+}
+
+balkfm.102 = { # Land Reform Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.102.t
+	desc = balkfm.102.d
+	flavor = balkfm.102.f
+	
+	event_image = {
+		video = "southamerica_factory_opening"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_land_reform
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.102.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_modernized_agriculture
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = farmers
+			value = small_radicals
+		}
+	}
+
+}
+
+balkfm.103 = { # Civic Reform Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.103.t
+	desc = balkfm.103.d
+	flavor = balkfm.103.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_civic_reform
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.103.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_civic_tradition_established
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = bureaucrats
+			value = small_radicals
+		}
+	}
+
+}
+
+balkfm.104 = { # Brigandage Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.104.t
+	desc = balkfm.104.d
+	flavor = balkfm.104.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_brigandage
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.104.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_secured_order
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+			strata = poor
+		}
+		every_scope_state = {
+			limit = {
+				has_modifier = modifier_balkfm_brigandage
+			}
+			remove_modifier = modifier_balkfm_brigandage
+		}
+	}
+
+}
+
+balkfm.105 = { # State Reform Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.105.t
+	desc = balkfm.105.d
+	flavor = balkfm.105.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_state_reform
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.105.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_stately_foundation
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+			strata = middle
+		}
+	}
+
+}
+
+#### OTTOMAN LEGACY MECHANICAL EVENTS ####
+
+balkfm.110 = { # The Brigands Raid Again!
+	type = country_event
+	placement = scope:brigandage_state
+
+	title = balkfm.110.t
+	desc = balkfm.110.d
+	flavor = balkfm.110.f
+
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+
+	trigger = {
+		any_scope_state = {
+			NOT = { has_modifier = modifier_balkfm_brigandage }
+		}
+	}
+	
+	cancellation_trigger = {
+		NOR = {
+			has_journal_entry = je_balkfm_brigandage
+			has_journal_entry = je_grefm_brigandage
+		}
+	}
+	
+	cooldown = {
+		years = 3
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				NOT = { has_modifier = modifier_balkfm_brigandage }
+			}
+			save_scope_as = brigandage_state
+		}
+	}
+	
+	option = {
+		name = balkfm.110.a
+		default_option = yes
+		scope:brigandage_state = {
+			add_modifier = {
+				name = modifier_balkfm_brigandage
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+		if = {
+			limit = {
+				has_journal_entry = je_grefm_bavarocracy_main
+			}
+			custom_tooltip = {
+				text = je_grefm_bavarocracy_minus_50
+				change_variable = {
+					name = grefm_bavarocracy_var
+					add = -50
+				}
+			}
+		}
+	}
+	
+}
 
 #################################################
 ## #BALK2	YUGOSLAVISM FLAVOR	Events 200-299 ##
@@ -5821,49 +6150,13 @@ balkfm.402 = { # An Inexperienced Ruler
 
 }
 
-balkfm.403 = { # The Blood Feud
+balkfm.407 = { # Defenders of the Constitution
 	type = country_event
 	placement = root
 	
-	title = balkfm.403.t
-	desc = balkfm.403.d
-	flavor = balkfm.403.f
-	
-	event_image = {
-		video = "africa_leader_arguing"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.403.a
-		default_option = yes
-		custom_tooltip = balkfm.403.tt
-	}
-
-}
-
-#### DEFENDERS OF THE CONSTITUTION EVENTS ####
-
-balkfm.410 = { # In Defense of the Constitution
-	type = country_event
-	placement = root
-	
-	title = balkfm.410.t
-	desc = balkfm.410.d
-	flavor = balkfm.410.f
+	title = balkfm.407.t
+	desc = balkfm.407.d
+	flavor = balkfm.407.f
 	
 	event_image = {
 		video = "europenorthamerica_political_extremism"
@@ -5921,10 +6214,10 @@ balkfm.410 = { # In Defense of the Constitution
 	}	
 	
 	option = {
-		name = balkfm.410.a
+		name = balkfm.407.a
 		default_option = yes
 		custom_tooltip = {
-			text = balkfm.410.tt1
+			text = balkfm.407.tt1
 			hidden_effect = {
 				scope:mihailo_scope = {
 					place_character_in_void = 150 # characters will expire after 15 years
@@ -5946,7 +6239,7 @@ balkfm.410 = { # In Defense of the Constitution
 			}
 		}
 		custom_tooltip = {
-			text = balkfm.410.tt2
+			text = balkfm.407.tt2
 			hidden_effect = {
 				set_variable = {
 					name = karadordevic_support_var
@@ -5962,166 +6255,20 @@ balkfm.410 = { # In Defense of the Constitution
 			type = je_balkfm_ser_defenders
 		}
 		add_journal_entry = {
-			type = je_balkfm_ser_statism
+			type = je_balkfm_state_reform
 		}
-		add_journal_entry = {
-			type = je_balkfm_ser_civics
-		}
-		add_journal_entry = {
-			type = je_balkfm_ser_economics
-		}
+
 	}
 
 }
 
-balkfm.411 = { # OPEN
-	orphan = yes
-}
-
-balkfm.412 = { # OPEN
-	orphan = yes
-}
-balkfm.413 = { # OPEN
-	orphan = yes
-}
-
-balkfm.414 = { # OPEN
-	orphan = yes
-}
-
-balkfm.415 = { # Stately Foundation Established
+balkfm.408 = { # Absent Reform
 	type = country_event
 	placement = root
 	
-	title = balkfm.415.t
-	desc = balkfm.415.d
-	flavor = balkfm.415.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.415.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_stately_foundation
-			months = long_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-		}
-		balkfm_minor_dynasty_support_gain_effect = yes
-		set_variable = balkfm_statism_completed
-	}
-
-}
-
-balkfm.416 = { # Civil Code Implemented
-	type = country_event
-	placement = root
-	
-	title = balkfm.416.t
-	desc = balkfm.416.d
-	flavor = balkfm.416.f
-	
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.416.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_civil_code_established
-			months = long_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-		}
-		balkfm_minor_dynasty_support_gain_effect = yes
-		set_variable = balkfm_civics_completed
-	}
-
-}
-
-balkfm.417 = { # Economic System Reformed
-	type = country_event
-	placement = root
-	
-	title = balkfm.417.t
-	desc = balkfm.417.d
-	flavor = balkfm.417.f
-	
-	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.417.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_modernized_economics
-			months = long_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-		}
-		balkfm_minor_dynasty_support_gain_effect = yes
-		set_variable = balkfm_economy_completed
-	}
-
-}
-
-balkfm.418 = { # Absent Reform
-	type = country_event
-	placement = root
-	
-	title = balkfm.418.t
-	desc = balkfm.418.d
-	flavor = balkfm.418.f
+	title = balkfm.408.t
+	desc = balkfm.408.d
+	flavor = balkfm.408.f
 	
 	event_image = {
 		video = "europenorthamerica_political_extremism"
@@ -6142,7 +6289,7 @@ balkfm.418 = { # Absent Reform
 	}
 	
 	option = {
-		name = balkfm.418.a
+		name = balkfm.408.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_absent_reforms
@@ -6161,13 +6308,13 @@ balkfm.418 = { # Absent Reform
 
 }
 
-balkfm.419 = { # Serbia Reforged
+balkfm.409 = { # Serbia Reforged
 	type = country_event
 	placement = root
 	
-	title = balkfm.419.t
-	desc = balkfm.419.d
-	flavor = balkfm.419.f
+	title = balkfm.409.t
+	desc = balkfm.409.d
+	flavor = balkfm.409.f
 	
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
@@ -6188,7 +6335,7 @@ balkfm.419 = { # Serbia Reforged
 	}
 	
 	option = {
-		name = balkfm.419.a
+		name = balkfm.409.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_responsive_regime
@@ -6202,166 +6349,15 @@ balkfm.419 = { # Serbia Reforged
 
 }
 
-#### DYNASTIC RIVALRY MECHANICAL EVENTS ####
+#### DYNASTIC RIVALRY EVENTS ####
 
-balkfm.420 = { # Plague Outbreak!
+balkfm.410 = { # House Karađorđević Takes the Throne
 	type = country_event
 	placement = root
 	
-	title = balkfm.420.t
-	desc = balkfm.420.d
-	flavor = balkfm.420.f
-	
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { 
-			has_variable = balkfm_belgrade_plague_var
-		}
-		NOT = {
-			has_variable = balkfm_constitution_pending
-		}
-	}
-	
-	immediate = {
-		set_variable = balkfm_belgrade_plague_var
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
-	}	
-	
-	option = {
-		name = balkfm.420.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_mitigated_plague
-			months = short_modifier_time
-		}
-		change_relations = {
-			country = c:TUR
-			value = -20
-		}
-		create_diplomatic_catalyst = {
-			type = catalyst_relations_level_decreased
-			target = c:TUR
-		}
-	}
-	
-	option = {
-		name = balkfm.420.b
-		add_modifier = {
-			name = modifier_balkfm_plague_outbreak
-			months = short_modifier_time
-		}
-		balkfm_minor_dynasty_support_loss_effect = yes
-	}
-}
-
-balkfm.421 = { # Abusive Garrison
-	type = country_event
-	placement = root
-	
-	title = balkfm.421.t
-	desc = balkfm.421.d
-	flavor = balkfm.421.f
-	
-	event_image = {
-		video = "votp_cops_march"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_skull.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	cooldown = { 
-		years = 5
-	}
-	
-	option = {
-		name = balkfm.421.a
-		default_option = yes
-		add_loyalists = {
-			culture = cu:serb
-			value = small_radicals
-		}
-		change_relations = {
-			country = c:TUR
-			value = -20
-		}
-		create_diplomatic_catalyst = {
-			type = catalyst_diplomatic_incident
-			target = c:TUR
-		}
-	}
-	
-	option = {
-		name = balkfm.421.b
-		balkfm_minor_dynasty_support_loss_effect = yes
-	}
-
-}
-
-balkfm.422 = { # OPEN
-	orphan = yes
-}
-
-balkfm.423 = { # OPEN
-	orphan = yes
-}
-
-balkfm.424 = { # OPEN
-	orphan = yes
-}
-
-balkfm.425 = { # OPEN
-	orphan = yes
-}
-
-balkfm.426 = { # OPEN
-	orphan = yes
-}
-
-balkfm.427 = { # OPEN
-	orphan = yes
-}
-
-balkfm.428 = { # OPEN
-	orphan = yes
-}
-
-balkfm.429 = { # OPEN
-	orphan = yes
-}
-
-#### DYNASTIC RIVALRY NARRATIVE EVENTS ####
-
-balkfm.430 = { # House Karađorđević Takes the Throne
-	type = country_event
-	placement = root
-	
-	title = balkfm.430.t
-	desc = balkfm.430.d
-	flavor = balkfm.430.f
+	title = balkfm.410.t
+	desc = balkfm.410.d
+	flavor = balkfm.410.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -6422,7 +6418,7 @@ balkfm.430 = { # House Karađorđević Takes the Throne
 	}
 	
 	option = {
-		name = balkfm.430.a
+		name = balkfm.410.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_royal_turmoil
@@ -6461,13 +6457,13 @@ balkfm.430 = { # House Karađorđević Takes the Throne
 	
 }
 
-balkfm.431 = { # House Obrenović Takes the Throne
+balkfm.411 = { # House Obrenović Takes the Throne
 	type = country_event
 	placement = root
 	
-	title = balkfm.431.t
-	desc = balkfm.431.d
-	flavor = balkfm.431.f
+	title = balkfm.411.t
+	desc = balkfm.411.d
+	flavor = balkfm.411.f
 	
 	event_image = {
 		video = "votp_monarch_holding_court"
@@ -6528,7 +6524,7 @@ balkfm.431 = { # House Obrenović Takes the Throne
 	}
 	
 	option = {
-		name = balkfm.431.a
+		name = balkfm.411.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_royal_turmoil
@@ -6566,13 +6562,13 @@ balkfm.431 = { # House Obrenović Takes the Throne
 	
 }
 
-balkfm.432 = { # Austria/Russia Requests Primacy
+balkfm.412 = { # Austria/Russia Requests Primacy
 	type = country_event
 	placement = root
 	
-	title = balkfm.432.t
-	desc = balkfm.432.d
-	flavor = balkfm.432.f
+	title = balkfm.412.t
+	desc = balkfm.412.d
+	flavor = balkfm.412.f
 	
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
@@ -6639,7 +6635,7 @@ balkfm.432 = { # Austria/Russia Requests Primacy
 	}
 	
 	option = { # Retain Current Order of Precedence
-		name = balkfm.432.a 
+		name = balkfm.412.a 
 		default_option = yes
 		change_relations = {
 			country = scope:balkfm_consul_scope
@@ -6661,7 +6657,7 @@ balkfm.432 = { # Austria/Russia Requests Primacy
 	}
 	
 	option = { # Adopt New Order of Precedence
-		name = balkfm.432.b
+		name = balkfm.412.b
 		add_modifier = {
 			name = modifier_balkfm_diplomatic_disorder
 			months = short_modifier_time
@@ -6701,33 +6697,142 @@ balkfm.432 = { # Austria/Russia Requests Primacy
 
 }
 
-balkfm.433 = { # OPEN
-	orphan = yes
-}
-
-balkfm.434 = { # OPEN
-	orphan = yes
-}
-
-balkfm.435 = { # OPEN
-	orphan = yes
-}
-
-balkfm.436 = { # OPEN
-	orphan = yes
-}
-
-balkfm.437 = { # OPEN
-	orphan = yes
-}
-
-balkfm.438 = { # Cementing the Monarchy
+balkfm.413 = { # Plague Outbreak!
 	type = country_event
 	placement = root
 	
-	title = balkfm.438.t
-	desc = balkfm.438.d
-	flavor = balkfm.438.f
+	title = balkfm.413.t
+	desc = balkfm.413.d
+	flavor = balkfm.413.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = { 
+			has_variable = balkfm_belgrade_plague_var
+		}
+		NOT = {
+			has_variable = balkfm_constitution_pending
+		}
+	}
+	
+	immediate = {
+		set_variable = balkfm_belgrade_plague_var
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}	
+	
+	option = {
+		name = balkfm.413.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_mitigated_plague
+			months = short_modifier_time
+		}
+		change_relations = {
+			country = c:TUR
+			value = -20
+		}
+		create_diplomatic_catalyst = {
+			type = catalyst_relations_level_decreased
+			target = c:TUR
+		}
+	}
+	
+	option = {
+		name = balkfm.413.b
+		add_modifier = {
+			name = modifier_balkfm_plague_outbreak
+			months = short_modifier_time
+		}
+		balkfm_minor_dynasty_support_loss_effect = yes
+	}
+}
+
+balkfm.414 = { # Abusive Garrison
+	type = country_event
+	placement = root
+	
+	title = balkfm.414.t
+	desc = balkfm.414.d
+	flavor = balkfm.414.f
+	
+	event_image = {
+		video = "votp_cops_march"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	cooldown = { 
+		years = 5
+	}
+	
+	option = {
+		name = balkfm.414.a
+		default_option = yes
+		add_loyalists = {
+			culture = cu:serb
+			value = small_radicals
+		}
+		change_relations = {
+			country = c:TUR
+			value = -20
+		}
+		create_diplomatic_catalyst = {
+			type = catalyst_diplomatic_incident
+			target = c:TUR
+		}
+	}
+	
+	option = {
+		name = balkfm.414.b
+		balkfm_minor_dynasty_support_loss_effect = yes
+	}
+
+}
+
+balkfm.415 = { # OPEN
+	orphan = yes
+}
+
+balkfm.416 = { # OPEN
+	orphan = yes
+}
+
+balkfm.417 = { # OPEN
+	orphan = yes
+}
+
+balkfm.418 = { # Cementing the Monarchy
+	type = country_event
+	placement = root
+	
+	title = balkfm.418.t
+	desc = balkfm.418.d
+	flavor = balkfm.418.f
 	
 	event_image = {
 #		video = "unspecific_peasants_pouring_cement"
@@ -6752,7 +6857,7 @@ balkfm.438 = { # Cementing the Monarchy
 	}	
 	
 	option = {
-		name = balkfm.438.a
+		name = balkfm.418.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_balkfm_ser_pouring_cement
@@ -6760,7 +6865,7 @@ balkfm.438 = { # Cementing the Monarchy
 	}
 	
 #	option = {
-#		name = balkfm.438.cement
+#		name = balkfm.418.cement
 #		set_variable = balkfm_new_driveway_var
 #	}
 #
@@ -6770,13 +6875,13 @@ balkfm.438 = { # Cementing the Monarchy
 #
 }
 
-balkfm.439 = { # Mandate Secured
+balkfm.419 = { # Mandate Secured
 	type = country_event
 	placement = root
 	
-	title = balkfm.439.t
-	desc = balkfm.439.d
-	flavor = balkfm.439.f
+	title = balkfm.419.t
+	desc = balkfm.419.d
+	flavor = balkfm.419.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -6801,7 +6906,7 @@ balkfm.439 = { # Mandate Secured
 	}
 	
 	option = {
-		name = balkfm.439.a
+		name = balkfm.419.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_balkfm_mandate_secured_country

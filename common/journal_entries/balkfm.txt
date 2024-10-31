@@ -2,11 +2,231 @@
 # OTTOMAN LEGACY JOURNALS #
 ###########################
 
-# je_balkfm_tax_reform
-# je_balkfm_land_reform
-# je_balkfm_civic_tradition
-# je_balkfm_brigandage
+je_balkfm_tax_reform = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_balkfm_content
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_timar
+	}
+	
+	complete = {
+		OR = {
+			has_law = law_type:law_per_capita_based_taxation
+			has_law = law_type:law_proportional_taxation
+			has_law = law_type:law_graduated_taxation
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.101 # Tax Reform Complete
+		}
+		set_variable = balkfm_tax_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_tax_reform_complete
+		}
+	}
+	
+	on_invalid = {
+	}
 
+	weight = 100
+	
+}
+
+je_balkfm_land_reform = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_balkfm_content
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_outdated_argiculture
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_agrarianism
+		}
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
+		}
+		any_scope_building = {
+			count >= 10
+			is_building_type = building_wheat_farm
+			earnings >= 5
+			NOR = {
+				has_active_production_method = pm_simple_farming
+				has_active_production_method = pm_tools_disabled
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.102 # Land Reform Complete
+		}
+		set_variable = balkfm_land_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_land_reform_complete
+		}
+	}
+	
+	on_invalid = {
+	}
+
+	weight = 100
+	
+}
+
+je_balkfm_civic_reform = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+	
+	group = je_group_balkfm_content
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_poor_administration
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_hereditary_bureaucrats
+			has_law = law_type:law_no_schools
+		}
+		ig:ig_landowners = {
+			is_powerful = no
+			is_insurrectionary = no
+		}
+		bureaucracy >= 0 
+		approaching_bureaucracy_shortage = no
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.103 # Civic Reform Complete
+		}
+		set_variable = balkfm_civic_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_civic_reform_complete
+	}
+	
+	on_invalid = {
+	}
+
+	weight = 100
+	
+}
+
+je_balkfm_brigandage = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	group = je_group_balkfm_content
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_balkfm_insecure_countryside
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_no_police
+			has_law = law_type:law_local_police
+		}
+		institution_investment_level = {
+			institution = institution_police
+			value >= 3
+		}
+		NOT = {
+			any_scope_state = {
+				turmoil > 0.20
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.104 # Brigandage Complete
+		}
+		set_variable = balkfm_brigandage_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_brigandage_complete
+		}
+	}
+	
+	on_invalid = {
+	}
+	
+	on_monthly_pulse = {
+		random_events = {
+			chance_of_no_event = 95
+			5 = balkfm.110 # The Brigands Raid Again!
+#			5 = balkfm.111 # Blood Feud Escalates
+		}
+	}
+
+	weight = 100
+	
+}
+
+je_balkfm_state_reform = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_balkfm_content
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOR = { 
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+			has_law = law_type:law_hereditary_bureaucrats
+			has_law = law_type:law_peasant_levies
+		}
+	}
+
+	on_complete = {
+		trigger_event = {
+			id = balkfm.105 # State Reform Complete
+		}
+		set_variable = balkfm_state_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_state_reform_complete
+		}
+	}
+	
+	weight = 500
+	
+}
 
 ###############
 # YUGOSLAVISM #
@@ -818,15 +1038,15 @@ je_balkfm_ser_monarchism = {
 	on_monthly_pulse = {
 		events = {
 			balkfm.401 # Constitution Imposed
-			balkfm.410 # Defenders of the Constitution
-			balkfm.430 # House Karađorđević Takes the Throne
-			balkfm.431 # House Obrenović Takes the Throne
-			balkfm.432 # Austria/Russia Requests Primacy
+			balkfm.407 # Defenders of the Constitution
+			balkfm.410 # House Karađorđević Takes the Throne
+			balkfm.411 # House Obrenović Takes the Throne
+			balkfm.412 # Austria/Russia Requests Primacy
 		}
 		random_events = {
 			300 = 0
-			1 =	balkfm.420 # Plague Outbreak!
-			1 = balkfm.421 # Abusive Garrison
+			1 =	balkfm.413 # Plague Outbreak!
+			1 = balkfm.414 # Abusive Garrison
 		}
 		effect = {
 			balkfm_update_dynasty_variables_effect = yes
@@ -959,19 +1179,19 @@ je_balkfm_ser_defenders = {
 		custom_tooltip = {
 			text = je_balkfm_ser_defenders_tt1
 			hidden_trigger = {
-				has_variable = balkfm_statism_completed
+				has_variable = balkfm_state_reform_complete
 			}
 		}
 		custom_tooltip = {
 			text = je_balkfm_ser_defenders_tt2
 			hidden_trigger = {
-				has_variable = balkfm_civics_completed
+				has_variable = balkfm_civic_reform_complete
 			}
 		}
 		custom_tooltip = {
 			text = je_balkfm_ser_defenders_tt3
 			hidden_trigger = {
-				has_variable = balkfm_economy_completed
+				has_variable = balkfm_land_reform_complete
 			}
 		}
 	}
@@ -1005,104 +1225,6 @@ je_balkfm_ser_defenders = {
 	weight = 500
 	
 }
-
-je_balkfm_ser_statism = {
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	group = je_group_balkfm_serbia
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOR = { 
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_hereditary_bureaucrats
-			has_law = law_type:law_peasant_levies
-		}
-	}
-
-	on_complete = {
-		trigger_event = {
-			id = balkfm.415 # Stately Foundation Established
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_defenders_completed
-		}
-	}
-	
-	weight = 500
-	
-}
-
-je_balkfm_ser_civics = {
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	group = je_group_balkfm_serbia
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOR = {
-			has_law = law_type:law_serfdom
-			has_law = law_type:law_consumption_based_taxation
-			has_law = law_type:law_no_schools
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.416 # Civil Code Implemented
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_defenders_completed
-		}
-	}
-	
-	weight = 500
-	
-}
-		
-je_balkfm_ser_economics = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_balkfm_serbia
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOR = {
-			has_law = law_type:law_traditionalism
-			has_law = law_type:law_isolationism
-			has_law = law_type:law_consumption_based_taxation
-			has_law = law_type:law_land_based_taxation
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.417 # Economic System Reformed
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_defenders_completed
-		}
-	}
-	
-	weight = 500
-	
-}
-	
 
 je_balkfm_ser_serbian_heartlands = {
 	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
@@ -1370,53 +1492,6 @@ je_balkfm_bul_railways = {
 	
 	weight = 200
 	
-}
-
-je_balkfm_bul_brigandage = {
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	group = je_group_grefm_monarchism
-	
-	complete = {
-		NOT = {
-			has_law = law_type:law_no_police
-		}
-		OR = {
-			institution_investment_level = {
-				institution = institution_police
-				value >= 3
-			}
-			NOT = {
-				any_scope_state = {
-					turmoil > 0.20
-				}
-			}
-		}
-	}
-	
-	on_complete = { 
-		trigger_event = {
-			id = balkfm.511 # The End of the Brigands
-		}
-		custom_tooltip = balkfm_countercoup_add_1
-	}
-	
-	invalid = {
-		custom_tooltip = {
-			text = je_balkfm_alex_yeeted_tt
-			hidden_trigger = {
-				has_variable = balkfm_alex_yeeted
-			}
-		}
-	}
-	
-	modifiers_while_active = {
-		modifier_balkfm_brigandage
-	}
-	
-	weight = 200
-	
-	transferable = no	
 }
 
 je_balkfm_bul_stambolovism = {

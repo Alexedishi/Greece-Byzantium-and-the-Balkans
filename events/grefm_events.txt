@@ -50,7 +50,7 @@ namespace = grefm
 #	019 - The Return of the "Turk-Eater"
 
 #020-029 - Bavarocracy Support Events
-#	020 - The Brigands Raid Again
+#	020 - //
 #	021 - King Ludwig Visits Greece
 #	022 - Otto Departs for Bavaria
 #	023 - A Consort Fit for a Bavarian
@@ -1233,8 +1233,12 @@ grefm.012 = { # land reformation complete
 		name = grefm.012.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_grefm_land_tax_reformed
+			name = modifier_balkfm_modernized_agriculture
 			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = farmers
+			value = small_radicals
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_plus_100
@@ -1325,18 +1329,19 @@ grefm.014 = { # brigands suppressed
 	option = {
 		name = grefm.014.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_secured_order
+			months = normal_modifier_time
+		}
 		add_loyalists = {
 			value = small_radicals
-		}
-		add_modifier = {
-			name = modifier_grefm_secured_order
-			months = long_modifier_time
+			strata = poor
 		}
 		every_scope_state = {
 			limit = {
-				has_modifier = modifier_grefm_brigandage
+				has_modifier = modifier_balkfm_brigandage
 			}
-			remove_modifier = modifier_grefm_brigandage
+			remove_modifier = modifier_balkfm_brigandage
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_plus_100
@@ -1421,8 +1426,12 @@ grefm.016 = { # civic reform complete
 		name = grefm.016.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_grefm_civic_tradition_established
+			name = modifier_balkfm_civic_tradition_established
 			months = normal_modifier_time
+		}
+		add_loyalists = {
+			pop_type = bureaucrats
+			value = small_radicals
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_plus_100
@@ -1584,68 +1593,8 @@ grefm.019 = { # nikitas released from jail
 
 #### MONARCHY SUPPORT EVENTS ####
 
-grefm.020 = { # the brigands raid again
-	type = country_event
-	placement = scope:brigandage_state
-
-	title = grefm.020.t
-	desc = grefm.020.d
-	flavor = grefm.020.f
-
-	event_image = {
-		video = "rp1_social_banditry"
-	}
-
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = { # triggered by je_grefm_brigandage
-		year > 1838
-		any_scope_state = {
-			NOT = { has_modifier = modifier_grefm_brigandage }
-		}
-		var:grefm_the_brigands_raided_again < 1
-	}
-	
-	immediate = {
-		random_scope_state = {
-			limit = {
-				NOT = { has_modifier = modifier_grefm_brigandage }
-			}
-			save_scope_as = brigandage_state
-		}
-		change_variable = {
-			name = grefm_the_brigands_raided_again
-			add = 36 # three year cooldown
-		}
-	}
-	
-	option = {
-		name = grefm.020.a
-		default_option = yes
-		scope:brigandage_state = {
-			add_modifier = {
-				name = modifier_grefm_brigandage
-				months = normal_modifier_time
-			}
-			add_radicals_in_state = {
-				value = small_radicals
-			}
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_50
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = -50
-			}
-		}
-	}
-	
+grefm.020 = { # OPEN
+	orphan = yes
 }
 
 grefm.021 = { # King Ludwig Visits Greece

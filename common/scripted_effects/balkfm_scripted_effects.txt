@@ -43,6 +43,33 @@ balkfm_clean_up_construction_effect = {
 	}
 }
 
+balkfm_set_up_ottoman_legacies_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = balkfm_ottoman_legacies_started # There's a tiny corner case where Bulgaria can fire this effect twice
+			}
+		}
+#		add_journal_entry = {
+#			type = je_balkfm_tax_reform
+#		}
+		add_journal_entry = {
+			type = je_balkfm_land_reform
+		}
+		add_journal_entry = {
+			type = je_balkfm_civic_reform
+		}
+		add_journal_entry = {
+			type = je_balkfm_brigandage
+		}
+		trigger_event = {
+			id = balkfm.100 # An Ottoman Legacy
+			days = 15 # Provides a buffer from Day 1 events
+		}
+		set_variable = balkfm_ottoman_legacies_started
+	}
+}
+
 ##YUGOSLAVIA EFFECTS ##
 balkfm_initialize_yugoslavism_effect = {
 	set_global_variable = balkfm_yugoslavism_started
@@ -1292,7 +1319,7 @@ balkfm_update_leading_dynasty_effect = {
 	}
 }
 
-balkfm_monthly_maintenance_effect = {
+balkfm_dynasty_monthly_maintenance_effect = {
 	if = {
 		limit = {
 			NOT = {
@@ -1404,6 +1431,7 @@ balkfm_create_bulgaria = { # creates BUL, used for the Great Eastern Crisis
 			state = s:STATE_BULGARIA.region_state:TUR
 			on_created = {
 				balkfm_set_bulgarian_laws = yes
+				balkfm_set_up_ottoman_legacies_effect = yes
 			}
 		}
 	}
@@ -1465,6 +1493,7 @@ balkfm_create_bulgaria_test = { # creates BUL, followed by ERUM. Used for testin
 	c:BUL = {
 		balkfm_set_bulgarian_laws = yes
 		balkfm_create_bulgarian_characters = yes
+		balkfm_set_up_ottoman_legacies_effect = yes
 		trigger_event = {
 			id = balkfm.500 # The Golden Lion Awakens
 			days = 1 # or else the loc breaks
@@ -1507,6 +1536,7 @@ balkfm_set_up_rumelia = {
 	activate_law = law_type:law_no_police
 	activate_law = law_type:law_right_of_assembly
 	activate_law = law_type:law_slavery_banned
+	balkfm_set_up_ottoman_legacies_effect = yes
 }
 
 balkfm_create_battenburg_monarchy = {
@@ -1672,6 +1702,7 @@ balkfm_set_up_silistra_effect = {
 	add_journal_entry = {
 		type = je_balkfm_bul_silistra
 	}
+	balkfm_set_up_ottoman_legacies_effect = yes
 	c:TUR  = {
 		create_diplomatic_pact = {
 			country = c:SILI
