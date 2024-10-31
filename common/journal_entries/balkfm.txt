@@ -1021,7 +1021,10 @@ je_balkfm_ser_monarchism = {
 		custom_tooltip = {
 			text = je_balkfm_ser_monarchism_complete_tt
 			hidden_trigger = {
-				has_variable = balkfm_ser_cement_poured
+				OR = {
+					has_modifier = modifier_balkfm_obrenovic_succession
+					has_modifier = modifier_balkfm_karadordevic_succession
+				}
 			}
 		}
 	}
@@ -1178,7 +1181,7 @@ je_balkfm_ser_defenders = {
 	}
 	
 	on_invalid = {
-		set_variable = 
+		set_variable = balkfm_defenders_completed
 	}
 	
 	weight = 500
