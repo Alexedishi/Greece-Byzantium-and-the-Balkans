@@ -241,8 +241,8 @@ namespace = balkfm
 #	509 - The August Coup
 	
 #510-519 - Early Political Events
-#	510 - Insecure Backwaters
-#	511 - The End of the Brigands
+#	510 - //
+#	511 - //
 #	512 - Strategic Demands
 #	513 - Extortionate Pricing
 #	514 - The Bulgarian Railways
@@ -1351,16 +1351,16 @@ balkfm.101 = { # Tax Reform Complete
 	flavor = balkfm.101.f
 	
 	event_image = {
-		video = "######"
+		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
-	dlc = ##########
+	dlc = dlc_grefm
 	
 	trigger = {
 	}
@@ -1372,12 +1372,12 @@ balkfm.101 = { # Tax Reform Complete
 		name = balkfm.101.a
 		default_option = yes
 		add_modifier = {
-			name = 
+			name = modifier_balkfm_taxation_reformed
 			months = normal_modifier_time
 		}
 		add_loyalists = {
 			value = small_radicals
-			strata = 
+			strata = poor
 		}
 	}
 
@@ -6019,9 +6019,8 @@ balkfm.400 = { # Mileta's Rebellion
 	option = {
 		name = balkfm.400.a
 		default_option = yes
-		trigger_event = {
-			id = balkfm.403 # The Blood Feud
-			days = 90
+		show_as_tooltip = {
+			add_modifier = modifier_balkfm_dynastic_feud
 		}
 	}
 
@@ -6835,11 +6834,9 @@ balkfm.418 = { # Cementing the Monarchy
 	flavor = balkfm.418.f
 	
 	event_image = {
-#		video = "unspecific_peasants_pouring_cement"
 		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-#	icon = "gfx/interface/icons/event_icons/pouring_cement.dds"
 	icon = "gfx/interface/icons/event_icons/event_serbia.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -6853,26 +6850,25 @@ balkfm.418 = { # Cementing the Monarchy
 	}
 	
 	immediate = {
-#		set_variable = In_need_of_new_driveway... anybody_know_a_good_cement_guy?
 	}	
 	
 	option = {
 		name = balkfm.418.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_ser_pouring_cement
+		if = {
+			limit = {
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+			add_modifier = modifier_balkfm_obrenovic_succession
+		}
+		if = {
+			limit = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+			}
+			add_modifier = modifier_balkfm_karadordevic_succession
 		}
 	}
 	
-#	option = {
-#		name = balkfm.418.cement
-#		set_variable = balkfm_new_driveway_var
-#	}
-#
-#	after = {
-#		balkfm_pass_me_the_hookah_effect = yes
-#	}
-#
 }
 
 balkfm.419 = { # Mandate Secured
@@ -7198,12 +7194,6 @@ balkfm.500 = { # The Golden Lion Awakens
 		add_modifier = {
 			name = modifier_balkfm_national_awakening
 			months = normal_modifier_time
-		}
-		hidden_effect = {
-			trigger_event = {
-				id = balkfm.510 # Insecure Backwaters
-				days = 150
-			}
 		}
 		hidden_effect = {
 			trigger_event = {
@@ -7830,85 +7820,11 @@ balkfm.509 = { # The August Coup
 #### EARLY POLITICAL EVENTS ####
 
 balkfm.510 = { # Insecure Backwaters
-	type = country_event
-	placement = root
-	
-	title = balkfm.510.t
-	desc = balkfm.510.d
-	flavor = balkfm.510.f
-	
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by balkfm.500
-	}
-	
-	immediate = {
-	}	
-	
-	option = {
-		name = balkfm.510.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_bul_brigandage
-		}
-		show_as_tooltip = {
-			add_modifier = {
-				name = modifier_balkfm_brigandage
-			}
-		}
-	}
-
+	orphan = yes
 }
 
 balkfm.511 = { # The End of the Brigands
-	type = country_event
-	placement = root
-
-	title = balkfm.511.t
-	desc = balkfm.511.d
-	flavor = balkfm.511.f
-
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		set_variable = balkfm_brigandage_completed
-	}
-	
-	option = {
-		name = balkfm.511.a
-		default_option = yes
-		add_loyalists = {
-			value = small_radicals
-		}
-		add_modifier = {
-			name = modifier_balkfm_secured_order
-			months = long_modifier_time
-		}
-		custom_tooltip = balkfm_countercoup_add_2
-	}
+	orphan = yes
 
 }
 

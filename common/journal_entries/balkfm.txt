@@ -107,9 +107,8 @@ je_balkfm_civic_reform = {
 	}
 	
 	complete = {
-		NOR = {
+		NOT = {
 			has_law = law_type:law_hereditary_bureaucrats
-			has_law = law_type:law_no_schools
 		}
 		ig:ig_landowners = {
 			is_powerful = no
@@ -129,6 +128,7 @@ je_balkfm_civic_reform = {
 	invalid = {
 		hidden_trigger = {
 			has_variable = balkfm_civic_reform_complete
+		}
 	}
 	
 	on_invalid = {
@@ -180,6 +180,14 @@ je_balkfm_brigandage = {
 	}
 	
 	on_invalid = {
+		hidden_effect = {
+			every_scope_state = {
+				limit = {
+					has_modifier = modifier_balkfm_brigandage
+				}
+				remove_modifier = modifier_balkfm_brigandage
+			}
+		}
 	}
 	
 	on_monthly_pulse = {
@@ -1002,6 +1010,10 @@ je_balkfm_ser_monarchism = {
 	immediate = {
 	}
 	
+	modifiers_while_active = {
+		modifier_balkfm_dynastic_feud
+	}
+	
 	scripted_button = balkfm_cement_monarchy_button
 	
 	complete = {
@@ -1016,7 +1028,7 @@ je_balkfm_ser_monarchism = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.439 # Mandate Secured
+			id = balkfm.419 # Mandate Secured
 		}
 		hidden_effect = {
 			balkfm_cleanup_dynasty_variables_effect = yes
@@ -1050,7 +1062,7 @@ je_balkfm_ser_monarchism = {
 		}
 		effect = {
 			balkfm_update_dynasty_variables_effect = yes
-			balkfm_monthly_maintenance_effect = yes
+			balkfm_dynasty_monthly_maintenance_effect = yes
 		}
 	}
 	
@@ -1104,62 +1116,6 @@ je_balkfm_ser_monarchism = {
 
 }
 
-je_balkfm_ser_pouring_cement = {
-	icon = "gfx/interface/icons/event_icons/event_serbia_major1.dds"
-	
-	group = je_group_balkfm_serbia
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
-		}
-	}
-	
-	on_complete = {
-		set_variable = balkfm_ser_cement_poured
-		remove_variable = balkfm_pouring_cement_var
-	}
-	
-	fail = {
-		NOT = { has_law = law_type:law_monarchy }
-	}
-	
-	on_fail = {
-		remove_variable = balkfm_pouring_cement_var
-	}
-	
-	on_monthly_pulse = {
-		random_events = {
-			200 = 0
-		}
-		effect = {
-			change_variable = {
-				name = balkfm_pouring_cement_var
-				add = 1
-			}
-		}
-	}
-	
-	current_value = {
-		value = root.var:balkfm_pouring_cement_var
-	}
-
-	goal_add_value = {
-		add = 60 # 5 years if you avoid every negative option
-	}
-
-	progressbar = yes
-	
-	weight = 500
-	
-}
-
-
 je_balkfm_ser_defenders = {
 	icon = "gfx/interface/icons/event_icons/event_serbia_major2.dds"
 	
@@ -1198,7 +1154,7 @@ je_balkfm_ser_defenders = {
 	
 	on_complete = {
 		trigger_event = {
-			id = balkfm.419 # Serbia Reforged
+			id = balkfm.409 # Serbia Reforged
 		}
 		set_variable = balkfm_defenders_completed
 	}
@@ -1207,19 +1163,22 @@ je_balkfm_ser_defenders = {
 	
 	on_timeout = {
 		trigger_event = {
-			id = balkfm.418 # Absent Reform
+			id = balkfm.408 # Absent Reform
 		}
 		set_variable = balkfm_defenders_completed
 	}
 	
 	invalid = {
-		NOT = {
-			has_law = law_type:law_monarchy
+		OR = {
+			NOT = {
+				has_law = law_type:law_monarchy
+			}
+			has_variable = balkfm_defenders_completed
 		}
 	}
 	
 	on_invalid = {
-		set_variable = balkfm_defenders_completed
+		set_variable = 
 	}
 	
 	weight = 500

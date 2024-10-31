@@ -835,10 +835,7 @@ balkfm_cement_monarchy_button = {
 	desc = "balkfm_cement_monarchy_desc"
 
 	visible = {
-		NOR = {
-			has_variable = balkfm_pouring_cement_var
-			has_variable = balkfm_ser_cement_poured
-		}
+		always = yes
 	}
 	
 	possible = {
@@ -856,21 +853,30 @@ balkfm_cement_monarchy_button = {
 				}
 			}
 		}
+		custom_tooltip = {
+            text = balkfm_friend_with_all_great_powers_tt
+			hidden_trigger = {
+				any_country = {
+					country_rank >= rank_value:great_power
+					NOT = { c:TUR ?= this }
+					NOT = { has_war_with = ROOT }
+					has_interest_marker_in_region = ROOT.capital.region
+					relations:root > 0
+				}
+			}
+        }
+		hidden_trigger = {
+			NOT = {
+				has_variable = balkfm_cement_monarchy_var
+			}
+		}
 	}
 
 	effect = {
-		custom_tooltip = {
-			text = balkfm_cement_monarchy_tt3
-			hidden_effect = {
-				set_variable = {
-					name = balkfm_pouring_cement_var
-					value = 0
-				}
-			}
-		}
 		trigger_event = {
-			id = balkfm.438 # Cementing the Monarchy
+			id = balkfm.418 # Cementing the Monarchy
 		}
+		set_variable = balkfm_cement_monarchy_var
 	}
 }
 
