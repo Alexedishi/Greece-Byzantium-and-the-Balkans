@@ -64,9 +64,13 @@ je_balkfm_land_reform = {
 			has_law = law_type:law_tenant_farmers
 		}
 		any_scope_building = {
-			count >= 10
-			is_building_type = building_wheat_farm
-			earnings >= 5
+			filter = {
+				is_building_type = building_wheat_farm
+			}
+			count = all
+			level >= 10
+			weekly_profit > 5
+			occupancy >= 0.9
 			NOR = {
 				has_active_production_method = pm_simple_farming
 				has_active_production_method = pm_tools_disabled
@@ -109,6 +113,9 @@ je_balkfm_civic_reform = {
 	complete = {
 		NOT = {
 			has_law = law_type:law_hereditary_bureaucrats
+		}
+		ig:ig_intelligentsia = {
+			is_marginal = no
 		}
 		ig:ig_landowners = {
 			is_powerful = no
