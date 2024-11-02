@@ -217,10 +217,10 @@ namespace = balkfm
 #	480 - The Serbian Heartlands
 #	481 - Greater Serbia
 #	482 - The Serbian Empire
-#	483 - ##Society of Serbian Letters
-#	484 - ##May Assembly
-#	485 - ##The Vojvodina Uprising
-#	486 - ##The Serbian Voivodship
+#	483 - Society of Serbian Letters
+#	484 - May Assembly
+#	485 - The Vojvodina Uprising
+#	486 - The Serbian Voivodship
 
 #490-499 - Miscellaneous & Technical Events
 #	490 - Disruptive Influence
@@ -7061,6 +7061,363 @@ balkfm.482 = { # The Serbian Empire
 		}
 	}
 	
+}
+
+balkfm.483 = { # Society of Serbian Letters
+	type = country_event
+	placement = root
+	
+	title = balkfm.483.t
+	desc = balkfm.483.d
+	flavor = balkfm.483.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOR = {
+			has_variable = balkfm_serbian_letters_var
+			has_technology_researched = nationalism
+		}
+		has_technology_researched = mass_communication
+	}
+	
+	immediate = {
+		set_variable = balkfm_serbian_letters_var
+	}
+	
+	option = {
+		name = balkfm.483.a
+		default_option = yes
+		add_technology_progress = { 
+			progress = 5000
+			technology = nationalism
+		}
+	}
+
+}
+
+balkfm.484 = { # May Assembly
+	type = country_event
+	placement = root
+	
+	title = balkfm.484.t
+	desc = balkfm.484.d
+	flavor = balkfm.484.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_global_variable = balkfm_may_assembly_happened
+		}
+		OR = {
+			owns_entire_state_region = STATE_BANAT
+			owns_entire_state_region = STATE_DELVIDEK
+		}
+		any_scope_state ={
+			OR = {
+				state_region = STATE_BANAT
+				state_region = STATE_DELVIDEK
+			}
+			radical_fraction = {
+				culture = cu:serb
+				value >= 0.20
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_variable = balkfm_may_assembly_happened
+		if = {
+			limit = {
+				owns_entire_state_region = STATE_BANAT
+				owns_entire_state_region = STATE_DELVIDEK
+			}
+			create_country = {
+				tag = SER_VOJ
+				origin = this
+				state = s:STATE_BANAT.region_state:AUS
+				state = s:STATE_DELVIDEK.region_state:AUS
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_BANAT
+			}
+			create_country = {
+				tag = SER_VOJ
+				origin = this
+				state = s:STATE_BANAT.region_state:AUS
+			}
+		}
+		else = {
+			create_country = {
+				tag = SER_VOJ
+				origin = this
+				state = s:STATE_DELVIDEK.region_state:AUS
+			}
+		}
+		c:SER_VOJ = {
+			save_scope_as = vojvodina_scope
+		}
+	}
+	
+	option = { # Go Pound Sand
+		name = balkfm.484.a
+		default_option = yes
+		if = {
+			limit = {
+				c:SER_VOJ = {
+					owns_entire_state_region = STATE_BANAT
+					owns_entire_state_region = STATE_DELVIDEK
+				}
+			}
+			create_diplomatic_play = {
+				name = dp_vojvodina_uprising
+				target_state = s:STATE_BANAT.region_state:SER_VOJ
+				type = dp_annex_war
+				add_war_goal = {
+					holder = root
+					type = conquer_state
+					target_state = s:STATE_DELVIDEK.region_state:SER_VOJ
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				c:SER_VOJ = {
+					owns_entire_state_region = STATE_BANAT
+				}
+			}
+			create_diplomatic_play = {
+				name = dp_vojvodina_uprising
+				target_state = s:STATE_BANAT.region_state:SER_VOJ
+				type = dp_annex_war
+			}
+		}
+		else = {
+			create_diplomatic_play = {
+				name = dp_vojvodina_uprising
+				target_state = s:STATE_DELVIDEK.region_state:SER_VOJ
+				type = dp_annex_war
+			}
+		}
+		c:SER = {
+			trigger_event = {
+				id = balkfm.485 # The Vojvodina Uprising
+			}
+		}
+	}
+	
+	option = { # Grant Them Autonomy
+		name = balkfm.484.b
+		create_diplomatic_pact = {
+			country = c:SER_VOJ
+			type = personal_union
+		}
+		c:SER = {
+			trigger_event = {
+				id = balkfm.486 # The Serbian Voivodship
+			}
+		}
+	}
+
+}
+
+balkfm.485 = { # The Vojvodina Uprising
+	type = country_event
+	placement = root
+	
+	title = balkfm.485.t
+	desc = balkfm.485.d
+	flavor = balkfm.485.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.484
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = c:SER_VOJ
+		}
+	}
+	
+	immediate = {
+		c:SER_VOJ = {
+			save_scope_as = vojvodina_scope
+		}
+		random_diplomatic_play = {
+			limit = {
+				initiator = c:AUS
+				target = c:SER_VOJ
+			}
+			save_scope_as = vojvodina_uprising_scope
+		}
+	}
+	
+	option = { # Join the War
+		name = balkfm.485.a
+		default_option = yes
+		scope:vojvodina_uprising_scope = {
+			add_target_backers = root
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = very_large_radicals
+		}
+	}
+	
+	option = { # Provide Funding
+		name = balkfm.485.b
+		add_modifier = {
+			name = modifier_balkfm_aiding_vojvodina
+			months = short_modifier_time
+		}
+		scope:vojvodina_scope = {
+			add_modifier = {
+				name = modifier_balkfm_serbian_supporters
+				months = short_modifier_time
+			}
+		}
+		create_incident = {
+			target = c:AUS
+			value = 10
+		}
+	}
+	
+	option = { # Stay Neutral
+		name = balkfm.485.c
+		change_relations = {
+			country = scope:vojvodina_scope
+			value = -50
+		}
+		add_radicals = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+			custom_tooltip = {
+				text = balkfm_obrenovic_vojvodina_tt
+				hidden_effect = {
+					set_variable = balkfm_obrenovic_vojvodina_var
+				}
+			}
+		}
+		if = {
+			limit = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+			}
+			custom_tooltip = {
+				text = balkfm_karadordevic_vojvodina_tt
+				hidden_effect = {
+					set_variable = balkfm_karadordevic_vojvodina_var
+				}
+			}
+		}	
+	}
+
+}
+
+balkfm.486 = { # The Serbian Voivodship
+	type = country_event
+	placement = root
+	
+	title = balkfm.486.t
+	desc = balkfm.486.d
+	flavor = balkfm.486.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm.484
+	}
+	
+	cancellation_trigger = {
+		c:SER_VOJ ?= {
+			NOT = {
+				is_subject_of = c:AUS
+			}
+		}
+	}
+	
+	immediate = {
+		c:SER_VOJ = {
+			save_scope_as = vojvodina_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.486.a
+		default_option = yes
+		if = {
+			limit = {
+				balkfm_has_obrenovic_ruler_trigger = yes
+			}
+			custom_tooltip = {
+				text = balkfm_obrenovic_vojvodina_tt
+				hidden_effect = {
+					set_variable = balkfm_obrenovic_vojvodina_var
+				}
+			}
+		}
+		if = {
+			limit = {
+				balkfm_has_karadordevic_ruler_trigger = yes
+			}
+			custom_tooltip = {
+				text = balkfm_karadordevic_vojvodina_tt
+				hidden_effect = {
+					set_variable = balkfm_karadordevic_vojvodina_var
+				}
+			}
+		}
+	}
+
 }
 
 #### MISCELLANEOUS & TECHNICAL EVENTS ####
