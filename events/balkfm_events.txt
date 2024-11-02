@@ -7136,8 +7136,8 @@ balkfm.484 = { # May Assembly
 		}
 		any_scope_state ={
 			OR = {
-				state_region = STATE_BANAT
-				state_region = STATE_DELVIDEK
+				state_region = s:STATE_BANAT
+				state_region = s:STATE_DELVIDEK
 			}
 			radical_fraction = {
 				culture = cu:serb
@@ -7293,8 +7293,12 @@ balkfm.485 = { # The Vojvodina Uprising
 		}
 		random_diplomatic_play = {
 			limit = {
-				initiator = c:AUS
-				target = c:SER_VOJ
+				initiator = {
+					c:AUS = this
+				}
+				target = {
+					c:SER_VOJ = this
+				}
 			}
 			save_scope_as = vojvodina_uprising_scope
 		}
@@ -7304,7 +7308,13 @@ balkfm.485 = { # The Vojvodina Uprising
 		name = balkfm.485.a
 		default_option = yes
 		scope:vojvodina_uprising_scope = {
-			add_target_backers = root
+			add_target_backers = { root }
+		}
+		scope:vojvodina_scope = {
+			add_modifier = {
+				name = modifier_balkfm_serbian_supporters
+				months = short_modifier_time
+			}
 		}
 		add_loyalists = {
 			culture = cu:serb
@@ -7325,7 +7335,7 @@ balkfm.485 = { # The Vojvodina Uprising
 			}
 		}
 		create_incident = {
-			target = c:AUS
+			country = c:AUS
 			value = 10
 		}
 	}
@@ -7371,7 +7381,7 @@ balkfm.485 = { # The Vojvodina Uprising
 					set_variable = balkfm_karadordevic_vojvodina_var
 				}
 			}
-		}	
+		}
 	}
 
 }
