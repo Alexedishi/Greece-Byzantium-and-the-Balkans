@@ -399,7 +399,7 @@ balkfm_obrenovic_support_value = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_serfdom
+				has_law = law_type:law_local_police
 				has_law = law_type:law_dedicated_police
 				has_law = law_type:law_militarized_police
 			}
@@ -494,6 +494,31 @@ balkfm_obrenovic_support_value = {
 			}
 		}
 		desc = balkfm_value_from_aus_lobbies
+	}
+	
+	## Southern Serbia Control Check
+	# Alexander Karadordevic lost a huge chunk of his support for failing to secure Serbian gains after the Crimean War
+	if = {
+		limit = {
+			has_variable = balkfm_obrenovic_vojvodina_var
+			NOT = {
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+			}
+		}
+		subtract = {
+			value = 2
+			desc = balkfm_value_from_weak_kaykay
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = balkfm_karadordevic_vojvodina_var
+			owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		}
+		add = {
+			value = 2
+			desc = balkfm_value_from_strong_kaykay
+		}
 	}
 	
 	round_to = 0.01
@@ -717,9 +742,7 @@ balkfm_karadordevic_support_value = {
 	# Alexander Karadordevic lost a huge chunk of his support for failing to secure Serbian gains after the Crimean War
 	if = {
 		limit = {
-			ruler = {
-				has_template = template_balkfm_karadordevic_aleksander
-			}
+			has_variable = balkfm_karadordevic_vojvodina_var
 			NOT = {
 				owns_entire_state_region = STATE_SOUTHERN_SERBIA
 			}
@@ -731,9 +754,7 @@ balkfm_karadordevic_support_value = {
 	}
 	else_if = {
 		limit = {
-			ruler = {
-				has_template = template_balkfm_karadordevic_aleksander
-			}
+			has_variable = balkfm_karadordevic_vojvodina_var
 			owns_entire_state_region = STATE_SOUTHERN_SERBIA
 		}
 		add = {

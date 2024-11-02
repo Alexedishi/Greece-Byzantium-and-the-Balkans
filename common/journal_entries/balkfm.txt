@@ -67,14 +67,14 @@ je_balkfm_land_reform = {
 			filter = {
 				is_building_type = building_wheat_farm
 			}
-			count = all
-			level >= 10
-			weekly_profit > 5
-			occupancy >= 0.9
+			percent = 1
 			NOR = {
 				has_active_production_method = pm_simple_farming
 				has_active_production_method = pm_tools_disabled
 			}
+			level >= 10
+			weekly_profit > 5
+			occupancy >= 0.9
 		}
 	}
 	
@@ -1983,10 +1983,9 @@ je_balkfm_bul_silistra = {
 				exists = c:TUR
 				is_subject_of = c:TUR
 			}
-			NOR = {
-				is_subject_type = subject_type_puppet
-				is_subject_type = subject_type_dominion
-				is_subject_type = subject_type_vassal
+			OR = {
+				is_subject_type = subject_type_protectorate
+				is_subject_type = subject_type_tributary
 			}
 		}
 		custom_tooltip = {
