@@ -7180,11 +7180,23 @@ balkfm.484 = { # May Assembly
 		c:SER_VOJ = {
 			save_scope_as = vojvodina_scope
 		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = c:AUS
+			}
+			create_bidirectional_truce = {  
+				country = c:SER_VOJ  
+				months = 6
+			}
+		}
 	}
 	
 	option = { # Go Pound Sand
 		name = balkfm.484.a
 		default_option = yes
+		hidden_effect = {
+			end_truce = c:SER_VOJ
+		}
 		if = {
 			limit = {
 				c:SER_VOJ = {
@@ -7227,6 +7239,7 @@ balkfm.484 = { # May Assembly
 				id = balkfm.485 # The Vojvodina Uprising
 			}
 		}
+		change_infamy = -10
 	}
 	
 	option = { # Grant Them Autonomy
@@ -7326,6 +7339,16 @@ balkfm.485 = { # The Vojvodina Uprising
 		add_radicals = {
 			culture = cu:serb
 			value = medium_radicals
+		}
+		every_country = {
+			limit = {
+				country_rank >= rank_value:great_power
+				has_diplomatic_relevance = c:AUS
+			}
+			change_relations = {
+				country = c:SER
+				value = 15
+			}
 		}
 		if = {
 			limit = {
