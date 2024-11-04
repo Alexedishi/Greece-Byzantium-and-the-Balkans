@@ -835,17 +835,14 @@ balkfm_cement_monarchy_button = {
 	desc = "balkfm_cement_monarchy_desc"
 
 	visible = {
-		NOR = {
-			has_variable = balkfm_pouring_cement_var
-			has_variable = balkfm_ser_cement_poured
-		}
+		always = yes
 	}
 	
 	possible = {
 		custom_tooltip = {
 			text = balkfm_cement_monarchy_tt1
 			hidden_trigger = {
-				var:ser_leading_dynasty_var >= 500
+				var:balkfm_leading_dynasty_var >= 500
 			}
 		}
 		custom_tooltip = {
@@ -856,21 +853,30 @@ balkfm_cement_monarchy_button = {
 				}
 			}
 		}
+		custom_tooltip = {
+            text = balkfm_friend_with_all_great_powers_tt
+			hidden_trigger = {
+				any_country = {
+					country_rank >= rank_value:great_power
+					NOT = { c:TUR ?= this }
+					NOT = { has_war_with = ROOT }
+					has_interest_marker_in_region = ROOT.capital.region
+					relations:root > 0
+				}
+			}
+        }
+		hidden_trigger = {
+			NOT = {
+				has_variable = balkfm_cement_monarchy_var
+			}
+		}
 	}
 
 	effect = {
-		custom_tooltip = {
-			text = balkfm_cement_monarchy_tt3
-			hidden_effect = {
-				set_variable = {
-					name = balkfm_pouring_cement_var
-					value = 0
-				}
-			}
-		}
 		trigger_event = {
-			id = balkfm.420 # Cementing the Monarchy
+			id = balkfm.418 # Cementing the Monarchy
 		}
+		set_variable = balkfm_cement_monarchy_var
 	}
 }
 
@@ -885,9 +891,11 @@ balkfm_restore_serbia_button = {
 	
 	possible = {
 		custom_tooltip = {
-			text = je_balkfm_ser_monarchism_tt
+			text = je_balkfm_ser_monarchism_complete_tt
 			hidden_trigger = {
-				has_variable = balkfm_ser_cement_poured
+				NOT = {
+					has_journal_entry = je_balkfm_ser_monarchism
+				}
 			}
 		}
 		is_subject = no

@@ -395,6 +395,16 @@
 		}
 	}
 	
+### Lobbies Setup ###
+	c:SER = {
+		create_political_lobby= {
+			type = lobby_pro_country
+			target = c:AUS
+			add_interest_group = ig:ig_intelligentsia
+			add_interest_group = ig:ig_petty_bourgeoisie
+		}
+	}
+	
 ### Specific Country Setups ###	
 	c:GRE = {
 		grefm_initialize_bavarocracy_variables_effect = yes
@@ -459,7 +469,8 @@
 	}
 	
 	c:SER = {
-		balkfm_set_monarchism_variables = yes
+		balkfm_set_up_serbia_effect = yes
+		balkfm_initialize_dynasty_variables_effect = yes
 		trigger_event = {
 			id = balkfm.400 # Mileta's Rebellion
 		}
@@ -467,13 +478,18 @@
 			type = je_balkfm_ser_monarchism
 		}
 		change_variable = {
-			name = obrenovic_support_var
-			add = 150
+			name = balkfm_obrenovic_support_var
+			add = 400
 		}
 		change_variable = {
-			name = karadordevic_support_var
+			name = balkfm_karadordevic_support_var
 			add = 50
 		}
+		change_variable = {
+			name = balkfm_leading_dynasty_var
+			add = 400
+		}
+		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
 	c:MOL ?= {
@@ -491,6 +507,7 @@
 		trigger_event = {
 			id = balkfm.600 # The Lands of Stephen the Great
 		}
+		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
 	c:WAL ?= {
@@ -508,6 +525,7 @@
 		trigger_event = {
 			id = balkfm.610 # The Land Beyond the Snowy Mountains
 		}
+		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
 	c:RUS ?= {
@@ -523,7 +541,7 @@
 			days = 1
 		}
 #		add_journal_entry = {
-#			type = je_turkfm_tur_karadag
+#			type = je_balkfm_tur_karadag
 #		}
 		set_variable = {
 			name = balkfm_border_timeout_var

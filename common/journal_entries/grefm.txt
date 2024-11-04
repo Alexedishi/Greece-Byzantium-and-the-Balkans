@@ -69,19 +69,19 @@ je_grefm_bavarocracy_main = {
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_tt2
 			hidden_trigger = {
-				has_variable = grefm_land_reform_completed
+				has_variable = balkfm_land_reform_complete
 			}
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_tt3
 			hidden_trigger = {
-				has_variable = grefm_brigandage_completed
+				has_variable = balkfm_brigandage_complete
 			}
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_tt4
 			hidden_trigger = {
-				has_variable = grefm_civic_tradition_completed
+				has_variable = balkfm_civic_reform_complete
 			}
 		}
 	}
@@ -266,8 +266,16 @@ je_grefm_greek_constitution = {
 	}
 
 	invalid = {
-		NOT = {
-			has_law = law_type:law_monarchy 
+		OR = {
+			NOT = {
+				has_law = law_type:law_monarchy 
+			}
+			custom_tooltip = {
+				text = je_grefm_bavarocracy_completed_tt
+				hidden_trigger = {
+					has_variable = grefm_bavarocracy_completed
+				}
+			}
 		}
 	}
 
@@ -282,35 +290,65 @@ je_grefm_land_reform = {
 	
 	group = je_group_grefm_monarchism
 	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_outdated_argiculture
+	}
+	
 	complete = {
-		OR = {
-			has_law = law_type:law_homesteading
-			has_law = law_type:law_commercialized_agriculture
+		NOR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_agrarianism
 		}
-		OR = {
-			has_law = law_type:law_per_capita_based_taxation
-			has_law = law_type:law_proportional_taxation
-			has_law = law_type:law_graduated_taxation
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
+		}
+		any_scope_building = {
+			filter = {
+				is_building_type = building_wheat_farm
+			}
+			percent = 1
+			NOR = {
+				has_active_production_method = pm_simple_farming
+				has_active_production_method = pm_tools_disabled
+			}
+			level >= 10
+			weekly_profit > 5
+			occupancy >= 0.9
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.012
+			id = grefm.012 # The Great Land Reformation
 		}
 	}
 	
 	invalid = {
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_completed_tt
-			hidden_trigger = {
+		hidden_trigger = {
+			OR = {
 				has_variable = grefm_bavarocracy_completed
+				has_variable = balkfm_land_reform_complete
 			}
 		}
 	}
 	
-	modifiers_while_active = {
-		modifier_grefm_timar
+	on_invalid = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = balkfm_land_reform_complete
+					}
+				}
+				add_journal_entry = {
+					type = je_balkfm_land_reform
+				}
+			}
+		}
 	}
 
 	weight = 4998
@@ -323,8 +361,18 @@ je_grefm_brigandage = {
 	
 	group = je_group_grefm_monarchism
 	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_insecure_countryside
+	}
+	
 	complete = {
-		has_law = law_type:law_dedicated_police
+		NOR = {
+			has_law = law_type:law_no_police
+			has_law = law_type:law_local_police
+		}
 		OR = {
 			institution_investment_level = {
 				institution = institution_police
@@ -340,44 +388,39 @@ je_grefm_brigandage = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.014
+			id = grefm.014 # The End of the Brigands
 		}
 	}
 	
 	on_monthly_pulse = {
 		random_events = {
-			100 = 0
-			5 = grefm.020 # the brigands raid again
-		}
-		effect = {
-			if = {
-				limit = {
-					has_variable =  grefm_the_brigands_raided_again
-				}
-				change_variable = {
-					name = grefm_the_brigands_raided_again
-					add = -1
-				}
-				clamp_variable = { # just to avoid outlandish values
-					name = grefm_the_brigands_raided_again
-					max = 48 
-					min = 0 
-				}
-			}
+			chance_of_no_event = 95
+			5 = balkfm.110 # The Brigands Raid Again!
 		}
 	}
 	
 	invalid = {
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_completed_tt
-			hidden_trigger = {
+		hidden_trigger = {
+			OR = {
 				has_variable = grefm_bavarocracy_completed
+				has_variable = balkfm_brigandage_complete
 			}
 		}
 	}
 	
-	modifiers_while_active = {
-		modifier_grefm_insecure_countryside
+	on_invalid = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = balkfm_brigandage_complete
+					}
+				}
+				add_journal_entry = {
+					type = je_balkfm_brigandage
+				}
+			}
+		}
 	}
 	
 	weight = 4997
@@ -390,8 +433,20 @@ je_grefm_civic_tradition = {
 	
 	group = je_group_grefm_monarchism
 	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_poor_administration
+	}
+	
 	complete = {
-		NOT = { has_law = law_type:law_hereditary_bureaucrats }
+		NOT = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		ig:ig_intelligentsia = {
+			is_marginal = no
+		}
 		ig:ig_landowners = {
 			is_powerful = no
 			is_insurrectionary = no
@@ -402,21 +457,32 @@ je_grefm_civic_tradition = {
 		
 	on_complete = {
 		trigger_event = {
-			id = grefm.016
+			id = grefm.016 # An Honorable Regime
 		}
 	}
 	
 	invalid = {
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_completed_tt
-			hidden_trigger = {
+		hidden_trigger = {
+			OR = {
 				has_variable = grefm_bavarocracy_completed
+				has_variable = balkfm_civic_reform_complete
 			}
 		}
 	}
 	
-	modifiers_while_active = {
-		modifier_grefm_poor_administration
+	on_invalid = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = balkfm_civic_reform_complete
+					}
+				}
+				add_journal_entry = {
+					type = je_balkfm_civic_reform
+				}
+			}
+		}
 	}
 	
 	weight = 4996

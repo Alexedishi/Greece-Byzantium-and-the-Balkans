@@ -1,4 +1,7 @@
 ﻿l_english:
+ # stuff
+ # “ ”
+
  # journal entry groups
  je_group_balkfm_content: "Balkans Flavor Content"
  je_group_balkfm_yugoslavism: "Yugoslavism"
@@ -18,6 +21,18 @@
  je_balkfm_test_journal: "Big Phat Test Journal"
  je_balkfm_test_journal_reason: "This is literally here to test this:\n\n We have @eocfm_caesaropapism! #greece #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_test_journal_breakdown [GetPlayer.MakeScope.ScriptValue('eocfm_caesaropapism_capacity_value')]#!#! [concept_caesaropapism]."
  je_balkfm_test_journal_breakdown: "[Country.MakeScope.GetScriptValueDesc('eocfm_caesaropapism_capacity_value')]"
+ 
+ # General Balkans Content
+ je_balkfm_tax_reform: "Modernize Tax Codes"
+ je_balkfm_tax_reform_reason: "A leftover from Ottoman rule, taxation remains heavily land-based with the heaviest burden falling on those who work the fields. While preferred by the nobility, this system serves only to hold [ROOT.GetCountry.GetNameNoFormatting] back from its future."
+ je_balkfm_land_reform: "Reform Ottoman Land Practices"
+ je_balkfm_land_reform_reason: "As a result of centuries of stagnation under Ottoman rule, [ROOT.GetCountry.GetName] is a rural nation, sometimes even aggresively so. Leaders have demanded that the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] psuh forward efforts to raise the [ROOT.GetCountry.GetAdjectiveNoFormatting] people from their rural stations."
+ je_balkfm_civic_reform: "Establish Civic Tradition"
+ je_balkfm_civic_reform_reason: "Entrenched over the course of Ottoman rule, the landed gentry exploit the lack of constitutional structures to place persons friendly to them in power. This has resulted in rampant corruption at all levels of [ROOT.GetCountry.GetAdjectiveNoFormatting] society."
+ je_balkfm_brigandage: "Secure the Countryside"
+ je_balkfm_brigandage_reason: "In the wake of the Greek War of Independence, bandits have terrorized the Balkan countryside outside of the reach of the both the Ottoman and [ROOT.GetCountry.GetAdjectiveNoFormatting] governments. Across the region, people demand they be brought to justice."
+ je_balkfm_state_reform: "Organize the Administrative State"
+ je_balkfm_state_reform_reason: "[ROOT.GetCountry.GetName] emerged from Ottoman control with a state apparatus that can hardly be described as one. Reform-oriented leaders have demanded that the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] implement reforms to ensure proper administration of the [ROOT.GetCountry.GetAdjectiveNoFormatting] state."
  
  # Yugoslavia Content
  je_balkfm_nacertanije: "Načertanije"
@@ -60,6 +75,13 @@
  je_balkfm_mon_black_mountain_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_border_progress_value')]"
  je_balkfm_mon_black_mountain_complete_tt: "#bold Montenegro#! has reclaimed all lands in the #yellow Montenegro#! state region."
  je_balkfm_mon_black_mountain_fail_tt: "#bold Montenegro#! controls no lands in the #yellow Montenegro#! state region."
+ je_balkfm_tur_karadag: "The Vilayet of the Black Mountain"
+ je_balkfm_tur_karadag_reason: ""
+ je_balkfm_tur_karadag_status: "We control #bold [GetGlobalVariable('balkfm_tur_border_control_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
+ je_balkfm_tur_karadag_breakdown1: "[Country.MakeScope.GetScriptValueDesc('balkfm_border_control_value')]"
+ je_balkfm_tur_karadag_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_tur_border_progress_value')]"
+ je_balkfm_tur_karadag_complete_tt: "We have reclaimed all lands in the #yellow Montenegro#! state region."
+ je_balkfm_tur_karadag_fail_tt: "We control no lands in the #yellow Montenegro#! state region."
  je_balkfm_mon_ali_pasha: "The Wrath of Ali Pasha"
  je_balkfm_mon_ali_pasha_reason: "#yellow Montenegro#! has been set upon by the Vizier of Herzegovina, #yellow Ali Pasha Rizvanbegović#!. Determined to increase their influence in the eyes of the Porte, both Ali Pasha and #yellow Osman Pasha Skopljak#!, the Vizier of Scutari, have committed themselves to finally bringing Montenegro into the holdings of the #yellow Ottoman Empire#!. Every day, reports come in of new atrocities at our borders. It is all we can do to hold out against their aggression."
  je_balkfm_mon_ali_pasha_tt: "Montenegro has weathered #yellow Ali Pasha's#! aggression."
@@ -68,37 +90,25 @@
  
  # serbia content
  je_balkfm_ser_monarchism: "Dynastic Rivalry"
- je_balkfm_ser_monarchism_reason: "Unlike its Balkan peers, #yellow Serbia#! has retained a native nobility, instead of importing a European royal family. This has aided Serbia in the transition to self-rule. However, the country has found itself divided between the great Houses of the Austrian-aligned #yellow Obrenović#! Dynasty and the Russian-aligned #yellow Karađorđević#! Dynasty.\n\nHouse #yellow Obrenović#! will be #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_pos strengthened#! by conservatism and #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_neg weakened#! by liberalism. Likewise, House #yellow Karađorđević#! will be #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_pos strengthened#! by liberalism and #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_neg weakened#! by conservatism.\n\nHouse #yellow Obrenović#! currently has #bold [Country.MakeScope.Var('obrenovic_support_var').GetValue]#! #o Senate Support#!. Their support is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_values [Country.MakeScope.Var('obrenovic_progress_var').GetValue|+=]#! next month.\n\nHouse #yellow Karađorđević#! currently has #bold [Country.MakeScope.Var('karadordevic_support_var').GetValue]#! #o Senate Support#!. Their support is expected to change by#tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_values [Country.MakeScope.Var('karadordevic_progress_var').GetValue|+=]#! next month."
- je_balkfm_ser_obrenovic_pos: "The following conditions will #bold strenghten#! House #yellow Obrenović#!:\n•Having #yellow Autocracy#! enacted (#green +2#!).\n•Having #yellow Oligarchy#! or #yellow Technocracy#! enacted (#green +1#!).\n•Having #yellow Hereditary Bureaucracts#! enacted (#green +1#!).\n•Having #yellow Secret Police#! enacted (#green +2#!).\n•Having #yellow Serfdom#! enacted (#green +2#!).\n•Having #yellow Tenant Farmers#! (#green +1#!) enacted.\n•Having #green Amiable#! or better relations with #yellow Austria#! (#green +2#!).\n•Having #green Cordial#! relations with #yellow Austria#! (#green +1#!)."
- je_balkfm_ser_obrenovic_neg: "The following conditions will #bold weaken#! House #yellow Obrenović#!:\n•Having any #yellow Forms of Elections#! enacted (#red -3#!).\n•Having #yellow Elected Bureaucracts#! enacted (#red -1#!).\n•Not having #yellow Serfdom#! or #yellow Tenant Farmers#! enacted (#red -2#!).\n•Having #red Cold#! or worse relations with #yellow Austria#! (#red -2#!).\n•Having #red Poor#! relations with #yellow Austria#! (#red -1#!)."
- je_balkfm_ser_karadordevic_pos: "The following conditions will #bold strenghten#! House #yellow Karađorđević#!:\n•Having #yellow Census Voting#! or #yellow Universal Suffrage#! enacted (#green +2#!).\n•Having #yellow Landed Voting#! or #yellow Wealth Voting#! enacted (#green +1#!).\n•Having #yellow Elected Bureaucracts#! enacted (#green +2#!).\n•Having #yellow Guaranteed Liberties#! enacted (#green +2#!).\n•Having #green Amiable#! or better relations with #yellow Russia#! (#green +2#!).\n•Having #green Cordial#! relations with #yellow Russia#! (#green +1#!).\n•#yellow Alexander Karađorđević#! has liberated #yellow Southern Serbia#! (#green +2)."
- je_balkfm_ser_karadordevic_neg: "The following conditions will #bold weaken#! House #yellow Karađorđević#!:\n•Not having #yellow Any Forms of Election#! enacted (#red -2#!).\n•Having #yellow Hereditary Bureaucracts#! enacted (#red -2#!).\n•Having #yellow Serfdom#! enacted (#red -2#!).\n•Having #yellow Tenant Farmers#! enacted (#red -1#!).\n•Having #red Cold#! or worse relations with #yellow Russia#! (#red -2#!).\n•Having #red Poor#! relations with #yellow Russia#! (#red -1#!).\n•#yellow Alexander Karađorđević#! is Prince and we do not control #yellow Southern Serbia#! (#red -2#!)."
- je_balkfm_ser_obrenovic_values: "The expected change in support for #yellow House Obrenović#! is due to:\n#variable [Country.MakeScope.Var('obrenovic_power_var').GetValue|+=]#! from our current #yellow Distribution of Power#! Laws.\n#variable [Country.MakeScope.Var('obrenovic_bureacracy_var').GetValue|+=]#! from our current #yellow Bureaucracy#! Laws.\n#variable [Country.MakeScope.Var('obrenovic_security_var').GetValue|+=]#! from our current #yellow Internal Security#! Laws.\n#variable [Country.MakeScope.Var('obrenovic_land_var').GetValue|+=]#! from our current #yellow Land Reform#! Laws.\n#variable [Country.MakeScope.Var('obrenovic_austria_var').GetValue|+=]#! from our current relations with #yellow Austria#!."
- je_balkfm_ser_karadordevic_values: "The expected change in support for #yellow House Karađorđević#! is due to:\n#variable [Country.MakeScope.Var('karadordevic_power_var').GetValue|+=]#! from our current #yellow Distribution of Power#! Laws.\n#variable [Country.MakeScope.Var('karadordevic_bureaucracy_var').GetValue|+=]#! from our current #yellow Bureaucracy#! Laws.\n#variable [Country.MakeScope.Var('karadordevic_security_var').GetValue|+=]#! from our current #yellow Internal Security#! Laws.\n#variable [Country.MakeScope.Var('karadordevic_land_var').GetValue|+=]#! from our current #yellow Land Reform#! Laws \n#variable [Country.MakeScope.Var('karadordevic_russia_var').GetValue|+=]#! from our current relations with #yellow Russia#!.\n#variable [Country.MakeScope.Var('karadordevic_conquest_var').GetValue|+=]#! from #yellow Alexander Karađorđević#!'s efforts to secure #yellow Southern Serbia#!."
- 
- je_balkfm_ser_monarchism_tt: "Either dynasty has cemented their control over the throne."
+ je_balkfm_ser_monarchism_reason: "Unlike its Balkan peers, #yellow Serbia#! has retained a native nobility, instead of importing a European royal family. This has aided Serbia in the transition to self-rule. However, the country has found itself divided between the great Houses of the Austrian-aligned #yellow Obrenović#! Dynasty and the Russian-aligned #yellow Karađorđević#! Dynasty.\n$TOOLTIP_DELIMITER$\n•House #yellow Obrenović#! currently has #bold [Country.MakeScope.Var('balkfm_obrenovic_support_var').GetValue]#! #o Senate Support#!. They are expected to generate #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_breakdown [Country.MakeScope.ScriptValue('balkfm_obrenovic_support_value')|+=]#! support next month.\n•House #yellow Karađorđević#! currently has #bold [Country.MakeScope.Var('balkfm_karadordevic_support_var').GetValue]#! #o Senate Support#!. They are expected to generate #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_breakdown [Country.MakeScope.ScriptValue('balkfm_karadordevic_support_value')|+=]#! support next month.\n•[SCOPE.GetRootScope.GetCountry.GetCustom('balkfm_dynastic_rivalry_type')]\n$TOOLTIP_DELIMITER$\nHouse #yellow Obrenović#! will be #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_pos strengthened#! by conservatism and #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_obrenovic_neg weakened#! by liberalism. Likewise, House #yellow Karađorđević#! will be #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_pos strengthened#! by liberalism and #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_ser_karadordevic_neg weakened#! by conservatism."
+ je_balkfm_ser_obrenovic_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_obrenovic_support_value')]"
+ je_balkfm_ser_karadordevic_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_karadordevic_support_value')]" 
+ je_balkfm_ser_obrenovic_pos: "The following factors will #bold strengthen#! House #yellow Obrenović#!:\n•The [concept_clout] of pro-#yellow Autocracy#! or #yellow Oligarchy#! [Concept('concept_interest_group','$concept_interest_groups$')] if either law is enacted\n•Our [concept_investment_level] in the #yellow Law Enforcement#! [concept_institution]\n•The [concept_clout] of pro-#yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')] if either law is enacted\n•Having #green #bold positive#!#! [concept_relations] with #yellow Austria#!\n•Having #green #bold positive#!#! [concept_political_lobby_appeasement] of our pro-#yellow Austria#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]"
+ je_balkfm_ser_obrenovic_neg: "The following factors will #bold weaken#! House #yellow Obrenović#!:\n•The [concept_clout] of pro-#yellow Autocracy#! or #yellow Oligarchy#! [Concept('concept_interest_group','$concept_interest_groups$')] if any #yellow Voting Rights#! are enacted\n•Not having the #yellow Law Enforcement#! [concept_institution] active\n•The [concept_clout] of pro-#yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')] if #bold neither#! law is enacted\n•Having #red #bold negative#!#! [concept_relations] with #yellow Austria#!\n•Having #red #bold negative#!#! [concept_political_lobby_appeasement] of our pro-#yellow Austria#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]\n•House #yellow Obrenović#! has failed to support #yellow Vojvodina#!"
+ je_balkfm_ser_karadordevic_pos: "The following factors will #bold strengthen#! House #yellow Karađorđević#!:\n•The [concept_clout] of pro-#yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')] if any #yellow Voting Rights#! are enacted\n•The [concept_clout] of pro-#yellow Right of Assembly#! or #yellow Protected Speech#! [Concept('concept_interest_group','$concept_interest_groups$')] if either law is enacted\n•The [concept_clout] of anti-#yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')] if #bold neither#! law is enacted\n•Having #green #bold positive#!#! [concept_relations] with #yellow Russia#!\n•Having #green #bold positive#!#! [concept_political_lobby_appeasement] of our pro-#yellow Russia#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]"
+ je_balkfm_ser_karadordevic_neg: "The following factors will #bold weaken#! House #yellow Karađorđević#!:\n•The [concept_clout] of pro-#yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')] if #bold no#! #yellow Voting Rights#! are enacted\n•The [concept_clout] of pro-#yellow Right of Assembly#! or #yellow Protected Speech#! [Concept('concept_interest_group','$concept_interest_groups$')] if #bold neither#! law is enacted\n•The [concept_clout] of anti-#yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')] if either law is enacted\n•Having #red #bold negative#!#! [concept_relations] with #yellow Russia#!\n•Having #red #bold negative#!#! [concept_political_lobby_appeasement] of our pro-#yellow Russia#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]\n•House #yellow Karađorđević#! has failed to support #yellow Vojvodina#!"
+ je_balkfm_ser_monarchism_complete_tt: "Either dynasty has cemented their control over the throne."
  je_balkfm_ser_monarchism_status_1: "The #o Senate#! is drafting a constitution..."
  je_balkfm_ser_monarchism_status_2: "Control of the #o Senate#! is waning."
  je_balkfm_ser_monarchism_status_3: "House #yellow Obrenović#! has control of the #o Senate#!."
  je_balkfm_ser_monarchism_status_4: "House #yellow Karađorđević#! has control of the #o Senate#!."
  je_balkfm_ser_monarchism_status_5: "Control of the #o Senate#! is contested."
- je_balkfm_ser_monarchism_consolidation: "Cementing the Monarchy"
- je_balkfm_ser_monarchism_consolidation_reason: "With their dominion over the throne secure, the government has initiated the final steps towards establishing a hereditary monarchy in #yellow Serbia#!. While this process completes, the soon to be royal family should take care to not compromise their position."
- je_balkfm_ser_pouring_cement: "Cementing the Monarchy"
- je_balkfm_ser_pouring_cement_reason: "#yellow House#! [ROOT.GetCountry.GetRuler.GetLastName] has begun the process of cementing their claim to the Serbian throne as Hereditary monarchs. This process is fraught with trouble as both politicians and diplomats seek to influence the proceedings to their gain."
- je_balkfm_ser_pouring_cement_goal: "Wait for reforms to complete..."
 
  je_balkfm_ser_defenders: "Defenders of the Constitution"
  je_balkfm_ser_defenders_reason: "Determined to impose tangible limitations on royal privilege in [ROOT.GetCountry.GetName] 
- je_balkfm_ser_defenders_tt1: "Built a Bureaucratic Foundation"
- je_balkfm_ser_defenders_tt2: "Implemented a Civil Code"
- je_balkfm_ser_defenders_tt3: "Reformed our Economy"
- je_balkfm_ser_statism: "Stately Authority"
- je_balkfm_ser_statism_reason: "[ROOT.GetCountry.GetName] emerged from Ottoman rule with a state apparatus that can hardly be described as one. The #italic Defenders#! have imposed a mandate on the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] to implement reforms to ensure proper governance of the [ROOT.GetCountry.GetAdjectiveNoFormatting] state."
- je_balkfm_ser_civics: "The Civic Code"
- je_balkfm_ser_civics_reason: "[ROOT.GetCountry.GetName] is a rural nation, sometimes even aggresively so. The #italic Defenders#! have demanded that the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] psuh forward efforts to raise the [ROOT.GetCountry.GetAdjectiveNoFormatting] people from their rural stations."
- je_balkfm_ser_economics: "Outdated Economics"
- je_balkfm_ser_economics_reason: "[ROOT.GetCountry.GetName] has been isolated from the rest of Europe for generations. In the name of modernization, the #italic Defenders#! have pressed for reforms to accelerate [ROOT.GetCountry.GetNameNoFormatting]'s integration with European markets."
+ je_balkfm_ser_defenders_tt1: "Built an Administrative Foundation"
+ je_balkfm_ser_defenders_tt2: "Established a Civic Tradition"
+ je_balkfm_ser_defenders_tt3: "Reformed our Land Policies"
  
  je_balkfm_ser_serbian_heartlands: "The Serbian Heartlands"
  je_balkfm_ser_serbian_heartlands_reason: "[ROOT.GetCountry.GetName] exists only as a shadow of itself. Our nation has no future as long as the majority of our peoples remain under the thumb of foreign empires."
@@ -134,8 +144,6 @@
  je_balkfm_bul_royal_influence_status: "The Prince has visited Moscow"
  je_balkfm_bul_railways: "Bulgarian Railways"
  je_balkfm_bul_railways_reason: "Support from Russia hinges on the construction of stragetic rail connections to support their influence in the Balkans. Likewise, the British have conditioned their support on the Bulgarian state on buying out several English-operated lines in the region."
- je_balkfm_bul_brigandage: "Brigandage"
- je_balkfm_bul_brigandage_reason: "In the wake of the Greek War of Independence, bandits have terrorized the Balkan countryside outside of the reach of the central governments. Across the peninnsula, people demand they be brought to justice."
  
  je_balkfm_bul_stambolovism: "Stambolovism"
  je_balkfm_bul_stambolovism_reason: "The coronation of [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] [ROOT.GetCountry.GetRuler.GetFirstName] has done little to secure the faith of the Bulgarian people in the monarchy. Seeking to rememedy the damage done by the ousting of Prince Battenburg, Minister #yellow Stefan Stambolov#! and his supporters have put forward a plan to prove the worth of the [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle], lest [ROOT.GetCountry.GetName] find itself under direct control by one of the [Concept('concept_great_power', '$concept_great_powers$')].\n\nThe [ROOT.GetCountry.GetRuler.GetPrimaryRoleTitle] currently has #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_stambolovism_breakdown [Country.MakeScope.ScriptValue('balkfm_stambolovism_value')|+=]#! #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_bul_stambolovism_sources Legitimizing Factors#!
@@ -254,8 +262,8 @@
  
  
  # Croatian Flavor
- je_balkfm_cro_croation_question: "The Croatian Question"
- je_balkfm_cro_croation_question_reason: ""
+ je_balkfm_cro_croation_question: "The Matter of Croatia"
+ je_balkfm_cro_croation_question_reason: "Living along the southern borders of the Empire, the Croatian people have been under Habsburg rule for generations. Despite this, Croatian intellectuals have begun to push for the unification and autonomy of our Croatian lands."
  je_balkfm_cro_croation_question_complete: "#bold Croatia#! exists and is our [concept_subject]"
  je_balkfm_cro_croation_question_fail: ""
  je_balkfm_cro_triune_restoration: "Unification of the Triune Kingdom"
@@ -310,6 +318,8 @@
  balkfm_karadordevic_plus_50: "House #yellow Karađorđević#! gains 50 #o Senate Support#!."
  balkfm_karadordevic_plus_200: "House #yellow Karađorđević#! gains 200 #o Senate Support#!."
  balkfm_karadordevic_minus_50: "House #yellow Karađorđević#! loses 50 #o Senate Suppport#!."
+ balkfm_obrenovic_vojvodina_tt: "Until we take control of #yellow Vojvodina#!, House #yellow Obrenović#! will face reduced support."
+ balkfm_karadordevic_vojvodina_tt: "Until we take control of #yellow Vojvodina#!, House #yellow Karađorđević#! will face reduced support."
  
  balkfm_stamobolov_plus_1: "This will #bold #green increase#!#! legitimacy of the Prince by #bold 1#!."
  balkfm_stamobolov_plus_2: "This will #bold #green increase#!#! legitimacy of the Prince by #bold 2#!."
@@ -331,6 +341,21 @@
  balkfm_rom_amicable_or_better_relations_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has #bold amicable#! or better relations with another [GetCulture('romanian').GetName] country, and either both countries are independent or are subjects of the same overlord that can themselves have subjects."
  
  balkfm_content_planned: "#blue #bold This content will be added in the next update#!#!."
+ 
+ # custom loc
+ custom_balkfm_province_cetinje: "Cetinje"
+ custom_balkfm_province_niksic: "Nikšić"
+ custom_balkfm_province_podgorica: "Podgorica"
+ custom_balkfm_province_pljevla: "Pljevlja"
+ custom_balkfm_province_kotor: "Kotor"
+ 
+ custom_balkfm_dynastic_rivalry_obrenovic: "Overall #o Senate Support#! is expected to shift in favor of House #yellow Obrenović#! by #bold #greece +[Country.MakeScope.ScriptValue('balkfm_dynastic_rivalry_progress_value')]#!#! next month."
+ custom_balkfm_dynastic_rivalry_karadordevic: "Overall #o Senate Support#! is expected to shift in favor of House #yellow Karađorđević#! by #bold #greece [Country.MakeScope.ScriptValue('balkfm_dynastic_rivalry_progress_value')]#!#! next month."
+ custom_balkfm_dynastic_rivalry_neutral: "Overall #o Senate Support#! is #bold not#! expected to change next month."
+ 
+ custom_balkfm_protochronism_juninism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Junimism#!."
+ custom_balkfm_protochronism_dacianism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Dacianism#!."
+ custom_balkfm_protochronism_stall: "Nationalist sentiments currently do not favor either side."
  
  # notifications
  notification_notification_balkfm_megali_idea_name: "Bulgaria claims the Byzantine Mantle!"
@@ -501,6 +526,24 @@
  balkfm_mon_value_from_pljevlja: "From controlling Pljevlja"
  balkfm_mon_value_from_kotor: "From controlling Kotor"
  
+ balkfm_value_from_autocracy: "From the [concept_clout] of pro- #yellow Autocracy#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_oligarchy: "From the [concept_clout] of pro- #yellow Oligarchy#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_liberalism: "From the [concept_clout] of anti- #yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_police_level: "From our [Concept('concept_investment_level','$concept_investment_levels$')] in the #yellow Policing#! [concept_institution]"
+ balkfm_value_from_no_police: "From having #yellow No Police#! enacted"
+ balkfm_value_from_land_conversativism: "From the [concept_clout] of anti- #yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_land_reform: "From the [concept_clout] of anti- #yellow Serfdom#! or #yellow Tenant Farmers#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_aus_relations: "From our current [concept_relations] with #yellow Austria#!"
+ balkfm_value_from_aus_lobbies: "From the [concept_political_lobby_appeasement] of our pro- #yellow Austria#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]"
+ balkfm_value_from_enfranchisment: "From the [concept_clout] of pro- #yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_disenfranchisment: "From the [concept_clout] of pro- #yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_speech: "From the [concept_clout] of pro- #yellow Right of Assembly#! or #yellow Protected Speech#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_censorship: "From the [concept_clout] of pro- #yellow Right of Assembly#! or #yellow Protected Speech#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ balkfm_value_from_rus_relations: "From our current relations with #yellow Russia#!"
+ balkfm_value_from_rus_lobbies: "From the [concept_political_lobby_appeasement] of our pro- #yellow Russia#! [Concept('concept_political_lobby','$concept_political_lobbies_short$')]"
+ balkfm_value_from_weak_kaykay: "From #yellow Alexander Karađorđević#!'s inability to secure #yellow Southern Serbia#!."
+ balkfm_value_from_strong_kaykay: "From #yellow Alexander Karađorđević#!'s efforts to secure #yellow Southern Serbia#!."
+ 
  balkfm_bul_from_russian_bloc: "From being in the same [concept_power_bloc] as #yellow Russia#!"
  balkfm_bul_from_good_russian_relations: "From #bold #green cordial#! or better#! relations with Russia"
  balkfm_bul_from_powerful_landowners_in_gov: "From the [GetInterestGroupVariant('ig_landowners',GetPlayer).GetName] being [concept_powerful] and [concept_in_government]"
@@ -555,6 +598,8 @@
  MON_KOT: "Kotor"
  MON_KOT_ADJ: "Kotor"
  
+ SER_VOJ: "Vojvodina"
+ SER_VOJ_ADJ: "Vojvodinan"
  SRPS: "Serbian Empire"
  SRPS_ADJ: "Serbian"
  NISH: "Niš"
@@ -585,17 +630,44 @@
  modifier_balkfm_construction_2_desc: "Increased Monument Building"
  modifier_balkfm_construction_3: "Heavily Increased Monument Building"
  modifier_balkfm_construction_3_desc: "Heavily Increased Monument Building"
- 
- modifier_balkfm_nationalist_agitation: "Nationalist Agitation"
- modifier_balkfm_nationalist_agitation_desc: "Nationalist Agitation"
  modifier_balkfm_national_awakening: "National Awakening"
- modifier_balkfm_national_awakening_desc: "National Awakening" 
+ modifier_balkfm_national_awakening_desc: "National Awakening"
+ modifier_balkfm_chickenshit: "Spineless Leadership"
+ modifier_balkfm_chickenshit_desc: "Spineless Leadership"
  modifier_balkfm_popular_leader: "Popular Leader"
  modifier_balkfm_popular_leader_desc: "Popular Leader"
  modifier_balkfm_funding_national_university: "Funding National University"
  modifier_balkfm_funding_national_university_desc: "Funding National University"
  modifier_balkfm_blocked_building_university: "Blocked Building University"
  modifier_balkfm_blocked_building_university_desc: "Blocked Building University"
+ 
+ # Ottoman Legacy Modifiers
+ modifier_balkfm_timar: "Outdated Tax Code"
+ modifier_balkfm_timar_desc: "Outdated Tax Code"
+ modifier_balkfm_taxation_reformed: "Reformed Tax Code"
+ modifier_balkfm_taxation_reformed_desc: "Reformed Tax Code"
+ modifier_balkfm_outdated_argiculture: "Outdated Agriculture"
+ modifier_balkfm_outdated_argiculture_desc: "Outdated Agriculture"
+ modifier_balkfm_modernized_agriculture: "Modernized Agriculture"
+ modifier_balkfm_modernized_agriculture_desc: "Modernized Agriculture"
+ modifier_balkfm_poor_administration: "Poor Administration"
+ modifier_balkfm_poor_administration_desc: "Poor Administration"
+ modifier_balkfm_civic_tradition_established: "Civic Tradition Established"
+ modifier_balkfm_civic_tradition_established_desc: "Civic Tradition Established"
+ modifier_balkfm_insecure_countryside: "Insecure Countryside"
+ modifier_balkfm_insecure_countryside_desc: "Insecure Countryside"
+ modifier_balkfm_secured_order: "Secured Order"
+ modifier_balkfm_secured_order_desc: "Secured Order"
+ modifier_balkfm_stately_foundation: "Stately Foundation"
+ modifier_balkfm_stately_foundation_desc: "Stately Foundation"
+ modifier_balkfm_civil_code_established: "Civil Code Established"
+ modifier_balkfm_civil_code_established_desc: "Civil Code Established"
+ modifier_balkfm_modernized_economics: "Modernized Economics"
+ modifier_balkfm_modernized_economics_desc: "Modernized Economics"
+ 
+ # Yugoslavia Modifiers
+ modifier_balkfm_nationalist_agitation: "Nationalist Agitation"
+ modifier_balkfm_nationalist_agitation_desc: "Nationalist Agitation"
  
  # Montenegro Modifiers
  modifier_balkfm_prince_bishopric: "Prince-Bishopric"
@@ -710,6 +782,12 @@
  modifier_balkfm_scored_sutlijas_desc: "Scored Delicious Sutlijaš"
  
  # Serbia Modifiers
+ modifier_balkfm_dynastic_feud: "Dynastic Feud"
+ modifier_balkfm_dynastic_feud_desc: "Dynastic Feud"
+ modifier_balkfm_miletas_rebellion: "Mileta’s Rebellion"
+ modifier_balkfm_miletas_rebellion_desc: "Mileta’s Rebellion"
+ modifier_balkfm_defenders: "Defenders of the Constitution"
+ modifier_balkfm_defenders_desc: "Defenders of the Constitution"
  modifier_balkfm_mandate_secured_country: "Mandate Secured"
  modifier_balkfm_mandate_secured_country_desc: "Mandate Secured"
  modifier_balkfm_mandate_secured_leader: "Mandate Secured"
@@ -728,12 +806,14 @@
  modifier_balkfm_responsive_regime_desc: "Responsive Regime"
  modifier_balkfm_absent_reforms: "Absent Reforms"
  modifier_balkfm_absent_reforms_desc: "Absent Reforms"
- modifier_balkfm_stately_foundation: "Stately Foundation"
- modifier_balkfm_stately_foundation_desc: "Stately Foundation"
- modifier_balkfm_civil_code_established: "Civil Code Established"
- modifier_balkfm_civil_code_established_desc: "Civil Code Established"
- modifier_balkfm_modernized_economics: "Modernized Economics"
- modifier_balkfm_modernized_economics_desc: "Modernized Economics"
+ modifier_balkfm_obrenovic_succession: "House Obrenović Triumphant"
+ modifier_balkfm_obrenovic_succession_desc: "House Obrenović Triumphant"
+ modifier_balkfm_karadordevic_succession: "House Karađorđević Triumphant"
+ modifier_balkfm_karadordevic_succession_desc: "House Karađorđević Triumphant"
+ modifier_balkfm_aiding_vojvodina: "Aiding Vojvodina"
+ modifier_balkfm_aiding_vojvodina_desc: "Aiding Vojvodina"
+ modifier_balkfm_serbian_supporters: "Serbian Support"
+ modifier_balkfm_serbian_supporters_desc: "Serbian Support"
  
  # Bulgaria Modifiers
  modifier_balkfm_honorable_ruler: "Honorable Ruler"
@@ -758,8 +838,6 @@
  modifier_balkfm_national_army_desc: "National Army"
  modifier_balkfm_throne_secured: "Throne Secured"
  modifier_balkfm_throne_secured_desc: "Throne Secured"
- modifier_balkfm_secured_order: "Secured Order"
- modifier_balkfm_secured_order_desc: "Secured Order"
  modifier_balkfm_railway_buyout: "Railway Buyout"
  modifier_balkfm_railway_buyout_desc: "Railway Buyout"
  modifier_balkfm_bulgarian_railways: "Bulgarian Railways"
@@ -879,9 +957,19 @@
  Dakovic: "Daković"
  Novica: "Novica"
  Cerovic: "Cerović"
+ Stanojlo: "Stanojlo"
+ Perisic: "Perišić"
+ Avram: "Avram"
+ Petronijevic: "Petronijević"
  
  Latas: "Latas"
  Ilija: "Ilija"
+ Mileta: "Mileta"
+ Radojkovic: "Radojković"
+ Stevan: "Stevan"
+ Supljikac: "Šupljikac"
+ Josif: "Josif"
+ Rajacic: "Rajačić"
  
  Battenburg: "Battenburg"
  Turnovski: "Turnovski"
@@ -971,14 +1059,5 @@
  
  # concepts
  
- # custom loc
- custom_balkfm_province_cetinje: "Cetinje"
- custom_balkfm_province_niksic: "Nikšić"
- custom_balkfm_province_podgorica: "Podgorica"
- custom_balkfm_province_pljevla: "Pljevlja"
- custom_balkfm_province_kotor: "Kotor"
- 
- custom_balkfm_protochronism_juninism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Junimism#!."
- custom_balkfm_protochronism_dacianism: "Nationalist sentiments are expected to progress by #variable [Country.MakeScope.Var('balkfm_protochronism_progress_var').GetValue|+=]#! in favor of #yellow Dacianism#!."
- custom_balkfm_protochronism_stall: "Nationalist sentiments currently do not favor either side."
+
  
