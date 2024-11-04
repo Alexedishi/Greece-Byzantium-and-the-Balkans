@@ -70,6 +70,42 @@ balkfm_set_up_ottoman_legacies_effect = {
 	}
 }
 
+balkfm_add_nationalism_progress_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_technology_researched = mass_communication
+			}
+		}
+		add_technology_progress = { 
+			progress = 1500
+			technology = mass_communication
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_technology_researched = nationalism
+			}
+		}
+		add_technology_progress = { 
+			progress = 4000
+			technology = nationalism
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_technology_researched = pan-nationalism
+			}
+		}
+		add_technology_progress = { 
+			progress = 10000
+			technology = pan-nationalism
+		}
+	}
+}
+
 ##YUGOSLAVIA EFFECTS ##
 balkfm_initialize_yugoslavism_effect = {
 	set_global_variable = balkfm_yugoslavism_started
@@ -1358,7 +1394,7 @@ balkfm_minor_dynasty_support_loss_effect = {
 			text = balkfm_obrenovic_minus_50
 			hidden_effect = {
 				change_variable = {
-					name = obrenovic_support_var
+					name = balkfm_obrenovic_support_var
 					subtract = 50
 				}
 			}
@@ -1372,7 +1408,7 @@ balkfm_minor_dynasty_support_loss_effect = {
 			text = balkfm_karadordevic_minus_50
 			hidden_effect = {
 				change_variable = {
-					name = karadordevic_support_var
+					name = balkfm_karadordevic_support_var
 					subtract = 50
 				}
 			}
@@ -1390,7 +1426,7 @@ balkfm_minor_dynasty_support_gain_effect = {
 			text = balkfm_obrenovic_plus_50
 			hidden_effect = {
 				change_variable = {
-					name = obrenovic_support_var
+					name = balkfm_obrenovic_support_var
 					add = 50
 				}
 			}
@@ -1404,7 +1440,7 @@ balkfm_minor_dynasty_support_gain_effect = {
 			text = balkfm_karadordevic_plus_50
 			hidden_effect = {
 				change_variable = {
-					name = karadordevic_support_var
+					name = balkfm_karadordevic_support_var
 					add = 50
 				}
 			}

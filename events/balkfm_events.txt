@@ -1332,6 +1332,9 @@ balkfm.100 = { # An Ottoman Legacy
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
@@ -1858,23 +1861,7 @@ balkfm.201 = { # The Mountain Wreath (General Variant)
 		trigger = {
 			balkfm_has_yugoslav_culture_trigger = yes
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_technology_researched = nationalism
-				}
-			}
-			add_technology_progress = {
-				progress = 5000 
-				technology = nationalism
-			}
-		}
-		else = {
-			add_technology_progress = {
-				progress = 10000
-				technology = pan-nationalism
-			}
-		}
+		balkfm_add_nationalism_progress_effect = yes
 		balkfm_happy_yugoslavs_effect = yes
 	}
 	
@@ -1925,23 +1912,7 @@ balkfm.202 = { # Vienna Literary Agreement (Slavic Variant)
 	option = {
 		name = balkfm.202.a
 		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_technology_researched = nationalism
-				}
-			}
-			add_technology_progress = {
-				progress = 5000 
-				technology = nationalism
-			}
-		}
-		else = {
-			add_technology_progress = {
-				progress = 10000
-				technology = pan-nationalism
-			}
-		}
+		balkfm_add_nationalism_progress_effect = yes
 	}
 
 }
@@ -2627,23 +2598,7 @@ balkfm.305 = { # The Mountain Wreath
 	option = {
 		name = balkfm.305.a
 		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_technology_researched = nationalism
-				}
-			}
-			add_technology_progress = {
-				progress = 5000 
-				technology = nationalism
-			}
-		}
-		else = {
-			add_technology_progress = {
-				progress = 10000
-				technology = pan-nationalism
-			}
-		}
+		balkfm_add_nationalism_progress_effect = yes
 		every_country = {
 			limit = {
 				c:MON != this
@@ -6175,7 +6130,7 @@ balkfm.407 = { # Defenders of the Constitution
 			has_variable = balkfm_constitution_pending
 		}
 		
-		var:obrenovic_support_var < 50
+		var:balkfm_obrenovic_support_var < 50
 	}
 	
 	immediate = {
@@ -6232,7 +6187,7 @@ balkfm.407 = { # Defenders of the Constitution
 			text = balkfm_obrenovic_wipeout
 			hidden_effect = {
 				set_variable = {
-					name = obrenovic_support_var
+					name = balkfm_obrenovic_support_var
 					value = 0
 				}
 			}
@@ -6241,7 +6196,7 @@ balkfm.407 = { # Defenders of the Constitution
 			text = balkfm.407.tt2
 			hidden_effect = {
 				set_variable = {
-					name = karadordevic_support_var
+					name = balkfm_karadordevic_support_var
 					value = 200
 				}
 			}
@@ -7098,10 +7053,7 @@ balkfm.483 = { # Society of Serbian Letters
 	option = {
 		name = balkfm.483.a
 		default_option = yes
-		add_technology_progress = { 
-			progress = 5000
-			technology = nationalism
-		}
+		balkfm_add_nationalism_progress_effect = yes
 	}
 
 }
@@ -9935,18 +9887,12 @@ balkfm.552 = { # The Bulgarian Question
 			country = c:TUR
 			value = 15
 		}
-		add_technology_progress = { 
-			progress = 5000
-			technology = nationalism
-		}
+		balkfm_add_nationalism_progress_effect = yes
 	}
 	
 	option = { # Just Coexist
 		name = balkfm.552.b
-		add_technology_progress = { 
-			progress = 5000
-			technology = nationalism
-		}
+		balkfm_add_nationalism_progress_effect = yes
 	}
 }
 
@@ -9984,23 +9930,7 @@ balkfm.553 = { # The Bulgarian Eagle
 	option = { # Support the Publishing
 		name = balkfm.553.a
 		default_option = yes
-		if = {
-			limit = {
-				NOT = {
-					has_technology_researched = nationalism
-				}
-			}
-			add_technology_progress = { 
-				progress = 5000
-				technology = nationalism
-			}
-		}
-		else = {
-			add_technology_progress = { 
-				progress = 5000
-				technology = pan-nationalism
-			}
-		}
+		balkfm_add_nationalism_progress_effect = yes
 		add_radicals = {
 			religion = rel:sunni
 			value = medium_radicals
