@@ -266,8 +266,16 @@ je_grefm_greek_constitution = {
 	}
 
 	invalid = {
-		NOT = {
-			has_law = law_type:law_monarchy 
+		OR = {
+			NOT = {
+				has_law = law_type:law_monarchy 
+			}
+			custom_tooltip = {
+				text = je_grefm_bavarocracy_completed_tt
+				hidden_trigger = {
+					has_variable = grefm_bavarocracy_completed
+				}
+			}
 		}
 	}
 
