@@ -1609,6 +1609,7 @@ je_grefm_megali_idea = {
 		NOR = { 
 			has_global_variable = has_formed_byz
 			has_global_variable = grefm_megali_idea_complete
+			has_journal_entry = je_grefm_scions_of_rhomania
 		}
 	}
 
@@ -1652,7 +1653,6 @@ je_grefm_megali_idea = {
 		trigger_event = { 
 			id = grefm.272 # The Future of Greece
 		}
-		custom_tooltip = je_grefm_megali_idea_complete
 	}
 	
 	invalid = {
@@ -1741,6 +1741,83 @@ je_grefm_greater_greece = {
 	
 	weight = 2000 # will fall in behind je_grefm_greek_nationalism
 	
+}
+
+je_grefm_scions_of_rhomania = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:rhomaios
+		NOR = { 
+			has_global_variable = has_formed_byz
+			has_global_variable = grefm_megali_idea_complete
+			has_journal_entry = je_grefm_megali_idea
+		}
+	}
+
+	possible = {
+		has_technology_researched = nationalism
+	}
+
+	immediate = {
+		trigger_event = {
+			id = grefm.281 # The Themata of Anatolia
+		}
+	}
+	
+	scripted_button = grefm_ionian_enosis_button
+	scripted_button = grefm_ionian_enosis_alternate_button
+	scripted_button = grefm_samos_enosis_button
+
+	complete = {
+		is_subject = no
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_PELOPONNESE
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
+	}
+
+	on_complete = {
+		trigger_event = { 
+			id = grefm.282 # The Throne of the East
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = byzfm_weaksauce
+				has_global_variable = has_formed_byz
+				has_global_variable = grefm_megali_idea_complete
+			}
+		}
+	}
+	
+	on_invalid = {
+		set_variable = grefm_tzatzikisauce
+	}
+
+	weight = 4000 # second up to je_grefm_bavarocracy_main
+
 }
 	
 #############################

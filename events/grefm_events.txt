@@ -50,7 +50,7 @@ namespace = grefm
 #	019 - The Return of the "Turk-Eater"
 
 #020-029 - Bavarocracy Support Events
-#	020 - //
+#	020 - OPEN
 #	021 - King Ludwig Visits Greece
 #	022 - Otto Departs for Bavaria
 #	023 - A Consort Fit for a Bavarian
@@ -174,7 +174,7 @@ namespace = grefm
 ##  #GRE2  GREEK NATIONAL IDENTITY CONTENT  Events  200-299  ##
 
 #200-209 - Greek Ethnogenesis Events
-#	200 - The Hellenic Question
+#	200 - What is a Greek
 #	201 - Paparrigopoulos's History of the Greek Nation
 #	202 - The Greek Capital
 #	203 - OPEN
@@ -195,12 +195,12 @@ namespace = grefm
 #280-289 - Roman Revanchism Events
 #	280 - ##The Legacy of Romanía
 #	281 - ##The Themata of Anatolia
+#	282 - ##The Throne of the East
 
 #290-299 - Greek Cultural Syncretism Events
 #	290 - The Fate of the Turks
 #	291 - A Question of Homelands
 #	292 - Greek Expansion in X
-#	293 - The Helleno-Turkish State
 
 
 ##  #GRE3  THE REVENGE OF THE GREEKS  Events  300-399  ##
@@ -322,7 +322,7 @@ namespace = grefm
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
 
 #900-909 - Hidden Events
-#	900 - Re-adds Turkish Culture if lost through tag switch
+#	900 - OPEN
 #	901 - Adds Mainland Greece claims to non-GRE Greek nations
 #	902 - Reassigns Revolt Journals
 
@@ -7442,10 +7442,6 @@ grefm.271 = { # The Megali Idea
 }
 
 grefm.272 = { # The Future of Greece
-	## Pre-2.0 BYZ path branching occurred in byzfm.006 (byzantium.6 in the old structure)
-	## This event now provides branches into byzfm.300, eocfm.300, grefm.300, or grefm.203
-	## BUL uses balkfm.570 via balkfm.587
-	## ROM uses balkfm.673 and pivots to byzfm.305 via balkfm.679
 	type = country_event
 	placement = root
 	
@@ -7472,69 +7468,26 @@ grefm.272 = { # The Future of Greece
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	option = { # The Purple Pheonix
-		name = grefm.272.1
+	option = { # Become the Hellenic Empire
+		name = grefm.272.a
 		default_option = yes
-		trigger = {
-			NOT = { has_variable = byzfm_weaksauce }
+		custom_tooltip = grefm_hemp_possible_tt
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
 		}
-		custom_tooltip = {
-			text = byzfm_the_purple_phoenix_tt
-			hidden_effect = {
-				set_variable = byzfm_purple_phoenix
-			}
+	}
+
+	option = { # Remain Greece
+		name = grefm.272.b
+		custom_tooltip = grefm_tzatzikisauce_tt
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
 		}
-		change_tag = BYZ
-	}	
+		set_variable = grefm_empire_rejected
+	}
 	
-	option = { # The Revenge of the Greeks
-		name = grefm.272.2
-		trigger = {
-			NOT = { has_variable = byzfm_weaksauce }
-		}
-		custom_tooltip = {
-			text = byzfm_the_revenge_of_the_greeks_tt
-			hidden_effect = {
-				set_variable = byzfm_revenge_of_the_greeks
-			}
-		}
-		change_tag = BYZ
-	}
-
-	option = { # The Orthodox Realms
-		name = grefm.272.3
-		trigger = {
-			NOT = { has_variable = byzfm_weaksauce }
-		}
-		custom_tooltip = {
-			text = byzfm_the_orthodox_realms_tt
-			hidden_effect = {
-				set_variable = byzfm_texas_left 
-				# this is an old variable from before the three path system; it used to put you on a quick detour to capture Crimea and Georgia before returning to the Roman Empire restoration; it still handles the eocfm path for legacy reasons
-			}
-		}
-		change_tag = BYZ
-	}
-
-	option = { # whimpy whimpy whimpy
-		name = grefm.272.4
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				set_variable = grefm_tzatzikisauce
-			}
-		}
-		custom_tooltip = {
-			text = grefm_tzatzikisauce_tt
-			hidden_effect = {
-				trigger_event = {
-					id = grefm.273 # Greater Greece
-					days = 30
-				}
-			}
-		}
-	}
 }
 
 grefm.273 = { # Greater Greece
@@ -7765,9 +7718,15 @@ grefm.290 = { # The Fate of the Turks
 		has_global_variable = grefm_megali_idea_complete
 		any_scope_state = {
 			state_region = {
-				AND = {
-					is_homeland = cu:turkish
-					is_homeland = cu:hellene
+				OR = {
+					AND = {
+						is_homeland = cu:turkish
+						is_homeland = cu:hellene
+					}
+					AND = {
+						is_homeland = cu:turkish
+						is_homeland = cu:rhomaios
+					}
 				}
 			}
 		}
@@ -7787,13 +7746,6 @@ grefm.290 = { # The Fate of the Turks
 		add_loyalists = {
 			culture = cu:turkish
 			value = medium_radicals
-		}
-		set_variable = {
-			name = grefm_turkish_integration_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_grefm_grecoturkism
 		}
 	}
 		
@@ -8028,44 +7980,6 @@ grefm.292 = { # Greek Expansion in X
 			state_region = {
 				add_homeland = cu:hellene
 			}
-		}
-	}
-
-}
-
-grefm.293 = { # The Helleno-Turkish State
-	type = country_event
-	placement = root
-	
-	title = grefm.293.t
-	desc = grefm.293.d
-	flavor = grefm.293.f
-	
-	event_image = {
-		video = "unspecific_world_fair"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.293.a
-		default_option = yes
-		add_primary_culture = cu:turkish
-		add_loyalists = {
-			culture = cu:turkish
-			value = large_radicals
 		}
 	}
 
@@ -12291,20 +12205,8 @@ grefm.599 = { # Reassigns the Revolt Journals
 
 #### HIDDEN EVENTS ####
 
-grefm.900 = { # Re-adds Turkish Culture if Lost Through Tag Switch
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-		has_variable = grefm_turkeytime
-		NOT = { country_has_primary_culture = cu:turkish }
-	}
-	
-	immediate = {
-		add_primary_culture = cu:turkish
-	}
-	
+grefm.900 = { # OPEN
+	orphan = yes
 }
 
 
