@@ -1251,8 +1251,6 @@ je_balkfm_ser_greater_serbia = {
 			NOT = { c:SER ?= this }
 		}
 	}
-	
-	scripted_button = balkfm_restore_serbia_button
 
 	weight = 1000
 
@@ -1626,7 +1624,6 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE		
@@ -1664,7 +1661,6 @@ je_balkfm_bul_greater_bulgaria = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
@@ -1730,7 +1726,6 @@ je_balkfm_bul_greater_bulgaria_alternate = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
@@ -1763,16 +1758,15 @@ je_balkfm_bul_tsardom = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
 		owns_entire_state_region = STATE_WESTERN_THRACE
 		owns_entire_state_region = STATE_SKOPIA
 		owns_entire_state_region = STATE_MACEDONIA
 		owns_entire_state_region = STATE_DOBRUDJA	
-		country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_ALBANIA	
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_ALBANIA
 	}
 	
 	on_complete = {
@@ -1799,20 +1793,12 @@ je_balkfm_bul_empire = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_WALLACHIA
-		owns_entire_state_region = STATE_DOBRUDJA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MACEDONIA
-		country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_ALBANIA
-		country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-		country_or_subject_owns_entire_state_region = STATE_BOSNIA
-		country_or_subject_owns_entire_state_region = STATE_DALMATIA
-		country_or_subject_owns_entire_state_region = STATE_CROATIA
+		custom_tooltip = {
+			text = je_balkfm_bul_empire_tt
+			hidden_trigger = {
+				c:TSAR ?= this
+			}
+		}
 	}
 	
 	on_complete = {

@@ -1,4 +1,61 @@
-﻿YUG = {
+﻿BYZ = {
+	states = { 
+		STATE_ATTICA
+		STATE_PELOPONNESE
+		STATE_THESSALIA
+		STATE_MACEDONIA
+		STATE_SKOPIA
+		STATE_EASTERN_THRACE
+		STATE_WESTERN_THRACE
+		STATE_NORTHERN_THRACE
+		STATE_HUDAVENDIGAR
+		STATE_AYDIN
+		STATE_WEST_AEGEAN_ISLANDS
+		STATE_EAST_AEGEAN_ISLANDS
+		STATE_ALBANIA
+		STATE_CRETE
+		STATE_IONIAN_ISLANDS
+	}
+
+	required_states_fraction = 0.70
+	
+	ai_will_do = { always = yes }
+
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		country_has_primary_culture = cu:rhomaios # Replaces plausible_formable_nations trigger; you're using this mod for a reason
+	}
+}
+
+HEMP = {
+	states = { 
+		STATE_ATTICA
+		STATE_PELOPONNESE
+		STATE_THESSALIA
+		STATE_MACEDONIA
+		STATE_SKOPIA
+		STATE_EASTERN_THRACE
+		STATE_WESTERN_THRACE
+		STATE_NORTHERN_THRACE
+		STATE_HUDAVENDIGAR
+		STATE_AYDIN
+		STATE_WEST_AEGEAN_ISLANDS
+		STATE_EAST_AEGEAN_ISLANDS
+		STATE_ALBANIA
+		STATE_CRETE
+		STATE_IONIAN_ISLANDS
+	}
+
+	required_states_fraction = 0.70
+	
+	ai_will_do = { always = yes }
+
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		NOT = {
+			country_has_primary_culture = cu:rhomaios
+		}
+	}
 }
 
 RUME = {
@@ -22,4 +79,107 @@ RUME = {
 		country_has_state_religion = rel:sunni
 		NOT = { has_game_rule = plausible_formable_nations } # This is ridiculous and you know it
 	}
+}
+
+SRPS = {
+	states = {
+		STATE_NORTHERN_SERBIA
+		STATE_SOUTHERN_SERBIA
+		STATE_SKOPIA
+		STATE_MONTENEGRO
+		STATE_BOSNIA
+		STATE_DALMATIA
+		STATE_SLAVONIA
+		STATE_BANAT
+		STATE_DELVIDEK
+	}
+	
+	required_states_fraction = 1.0
+	
+	ai_will_do = { always = no }
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				c:SER ?= this
+			}
+			custom_tooltip = {
+				text = je_balkfm_ser_monarchism_complete_tt
+				hidden_trigger = {
+					NOT = {
+						has_journal_entry = je_balkfm_ser_monarchism
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+TSAR = {
+	states = {
+		STATE_BULGARIA
+		STATE_NORTHERN_THRACE
+		STATE_WESTERN_THRACE
+		STATE_WALLACHIA
+		STATE_DOBRUDJA
+		STATE_SKOPIA
+		STATE_MACEDONIA
+		STATE_NORTHERN_SERBIA
+		STATE_SOUTHERN_SERBIA
+		STATE_ALBANIA
+		STATE_MONTENEGRO
+		STATE_BOSNIA
+		STATE_DALMATIA
+		STATE_CROATIA
+	}
+	
+	required_states_fraction = 1.0
+	
+	ai_will_do = { always = no }
+	
+	possible = {
+		custom_tooltip = {
+			text = je_balkfm_tsar_formable_tt
+			hidden_trigger = {
+				has_variable = balkfm_tsar_formable
+			}
+		}
+	}
+	
+}
+
+YUG = {
+	states = {
+		STATE_NORTHERN_SERBIA
+		STATE_SOUTHERN_SERBIA
+		STATE_MONTENEGRO
+		STATE_BOSNIA
+		STATE_CROATIA
+		STATE_DALMATIA
+		STATE_SLAVONIA
+		STATE_SLOVENIA
+		STATE_ISTRIA
+		STATE_BANAT
+		STATE_DELVIDEK
+	}
+	
+	required_states_fraction = 
+	
+	ai_will_do = { always = yes }
+	
+	possible = {
+		custom_tooltip = {
+			text = je_balkfm_nacertanije_fail_tt
+			hidden_trigger = {
+				NOR = {
+					c:SRPS ?= this
+					c:TSAR ?= this
+					c:TRIU ?= this
+					c:BYZ ?= this
+				}
+			}
+		}
+	}
+	
 }

@@ -138,14 +138,8 @@ balkfm_form_yugoslavia_button = {
 	name = "balkfm_form_yugoslavia"
 	desc = "balkfm_form_yugoslavia_desc"
 	
-	visible = {
-		NOR = {
-			has_global_variable = has_formed_yug
-			c:SRPS ?= this
-			c:TSAR ?= this
-			c:TRIU ?= this
-			c:BYZ ?= this
-		}
+	visible = { # This button has been downgraded to be a fallback for BUL
+		c:BUL ?= this
 	}
 	
 	possible = { 
@@ -878,43 +872,6 @@ balkfm_cement_monarchy_button = {
 		}
 		set_variable = balkfm_cement_monarchy_var
 	}
-}
-
-balkfm_restore_serbia_button = {
-	name = "balkfm_restore_serbia"
-	desc = "balkfm_restore_serbia_desc"
-	
-	visible = {
-		NOT = { has_global_variable = has_formed_srps }
-		NOT = { c:YUG ?= this }
-	}
-	
-	possible = {
-		custom_tooltip = {
-			text = je_balkfm_ser_monarchism_complete_tt
-			hidden_trigger = {
-				NOT = {
-					has_journal_entry = je_balkfm_ser_monarchism
-				}
-			}
-		}
-		is_subject = no
-		owns_entire_state_region = STATE_NORTHERN_SERBIA
-		owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MONTENEGRO
-		owns_entire_state_region = STATE_BOSNIA
-		owns_entire_state_region = STATE_DALMATIA
-		owns_entire_state_region = STATE_SLAVONIA
-		owns_entire_state_region = STATE_BANAT
-		owns_entire_state_region = STATE_DELVIDEK
-	}
-	
-	effect = {
-		change_tag = SRPS
-		set_global_variable = has_formed_srps
-	}
-
 }
 
 # BULGARIA BUTTONS
