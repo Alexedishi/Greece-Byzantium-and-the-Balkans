@@ -2,7 +2,7 @@
 # GREECE, BYZANTIUM, AND THE BALKANS ON_ACTIONS #
 #################################################
 
-on_monthly_pulse_country = {
+on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 	on_actions = {
 		grefm_monthly_pulse
 		byfzm_monthly_pulse
@@ -15,7 +15,8 @@ on_monthly_pulse_country = {
 		rom_flavor_pulse
 #		bos_flavor_pulse
 #		alb_flavor_pulse
-#		triu_flavor_pulse
+#		cro_flavor_pulse
+#		slo_flavor_pulse
 		eocfm_monthly_pulse
 		byzfm_chariot_pulse_1
 		byzfm_chariot_pulse_2	
@@ -37,8 +38,6 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 }
 
 ############
-
-# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 
 grefm_monthly_pulse = {
 	trigger = {
@@ -200,7 +199,7 @@ eocfm_monthly_pulse = {
 		eocfm.319 # The Supreme Pontiff of the Universal Church
 	}
 	random_events = {
-		500 = 0
+		chance_of_no_event = 95
 		5 = eocfm.010 # Ecumenical Reforms
 		5 = eocfm.011 # Bible Translation Published
 		5 = eocfm.012 # A Heretical Ruler

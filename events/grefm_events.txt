@@ -126,6 +126,7 @@ namespace = grefm
 #	131 - Corinth Canal Completed
 #	132 - The Royal Palace of Athens
 
+# //////////////////////////////////////// #
 #140-149 - Archeaology Events
 #	140 - Archaeological Society of Athens
 #	141 - OPEN
@@ -137,6 +138,14 @@ namespace = grefm
 #	147 - Delos Complete
 #	148 - Larissa Complete
 #	149 - Rhodes Complete
+# //////////////////////////////////////// #
+
+#140-149 - Archeaology Events
+#	140 - Archaeological Society of Athens
+#	141 - Expedition Team Departs
+#	142 - Alternative Dig Sites Considered
+#	143 - Hellenic Excavation Completed
+#	144 - Roman Excavation Completed
 
 #150-159 - Excavation Events
 #	150 - Excavation Proceeding Smoothly
@@ -5209,12 +5218,7 @@ grefm.141 = { # Excavation Team Departs
 	option = {
 		name = grefm.141.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_active_excavation
-		}
-		show_as_tooltip = {
-			add_modifier = modifier_grefm_active_excavation
-		}
+		add_modifier = modifier_grefm_active_excavation
 	}
 	
 	option = {
@@ -5222,12 +5226,12 @@ grefm.141 = { # Excavation Team Departs
 		scope:grefm_excavation_site = {
 			remove_variable = grefm_excavation_target
 		}
-		grefm_clear_artifact_variables = yes
+		grefm_cancel_expedition_effect = yes
 	}
 
 }
 
-grefm.142 = { # gla complete
+grefm.142 = { # Alternative Dig Sites Considered
 	type = country_event
 	placement = root
 	
@@ -5236,44 +5240,60 @@ grefm.142 = { # gla complete
 	flavor = grefm.142.f
 	
 	event_image = {
-		video = "byzfm_ruins"
+		video = "middleeast_middleclass_cafe"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by grefm_archeaology_alternate_site_button
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_archaeology
+		}
 	}
 	
 	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_gla_excavation
-		set_variable = grefm_gla_complete
 	}
 	
 	option = {
 		name = grefm.142.a
 		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			custom_tooltip = {
+				text = grefm_roman_sites_allowed_tt
+				hidden_effect = {
+					set_variable = grefm_roman_sites_allowed
 				}
-				grefm_artifact_modifier_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+			}
+			custom_tooltip = {
+				text = grefm_hellenic_sites_allowed_tt
+				hidden_effect = {
+					set_variable = grefm_hellenic_sites_allowed
+				}
 			}
 		}
 	}
-
+	
 }
 
-grefm.143 = { # parthenon 1 complete
+grefm.143 = { # Hellenic Excavation Completed
 	type = country_event
 	placement = root
 	
@@ -5287,39 +5307,47 @@ grefm.143 = { # parthenon 1 complete
 	
 	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		var:grefm_excavation_var >= 24
+		grefm_has_hellenic_exacavation_trigger = yes
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_archaeology
+		}
 	}
 	
 	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_parthenon_1_excavation
-		set_variable = grefm_parthenon_1_complete
+		grefm_excavation_completion_effect = yes
 	}
 	
 	option = {
 		name = grefm.143.a
 		default_option = yes
+		remove_modifier = modifier_grefm_active_excavation
 		custom_tooltip = {
-			text = grefm_excavation_completed_tt
+			text = grefm_hellenic_excavation_completed_tt
 			hidden_effect = {
 				change_variable = {
-					name = grefm_archeaology_var
+					name = grefm_hellenic_archeaology_var
 					add = 1
 				}
-				grefm_artifact_modifier_effect = yes
+				grefm_update_artifact_modifier_effect = yes
 			}
 		}
+		grefm_excavation_completion_effect = yes
 	}
-
+	
 }
 
-grefm.144 = { # parthenon 2 complete
+grefm.144 = { # Roman Excavation Completed
 	type = country_event
 	placement = root
 	
@@ -5333,267 +5361,49 @@ grefm.144 = { # parthenon 2 complete
 	
 	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		var:grefm_excavation_var >= 24
+		grefm_has_roman_exacavation_trigger = yes
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_grefm_archaeology
+		}
 	}
 	
 	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_parthenon_2_excavation
-		set_variable = grefm_parthenon_2_complete
+		every_scope_state = {
+			limit = {
+				has_variable = grefm_excavation_target
+			}
+			remove_variable = grefm_excavation_target
+		}
 	}
 	
 	option = {
 		name = grefm.144.a
 		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
-				}
-				grefm_artifact_modifier_effect = yes
-			}
-		}
-	}
-
-}
-
-grefm.145 = { # mycenae 1 complete
-	type = country_event
-	placement = root
-	
-	title = grefm.145.t
-	desc = grefm.145.d
-	flavor = grefm.145.f
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
 		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_mycenae_1_excavation
-		set_variable = grefm_knossos_1_complete
-	}
-	
-	option = {
-		name = grefm.145.a
-		default_option = yes
 		custom_tooltip = {
-			text = grefm_excavation_completed_tt
+			text = grefm_roman_excavation_completed_tt
 			hidden_effect = {
 				change_variable = {
-					name = grefm_archeaology_var
+					name = grefm_roman_archeaology_var
 					add = 1
 				}
-				grefm_artifact_modifier_effect = yes
+				grefm_update_artifact_modifier_effect = yes
 			}
 		}
-	}
-
-}
-
-grefm.146 = { # mycenae 2 complete
-	type = country_event
-	placement = root
-	
-	title = grefm.146.t
-	desc = grefm.146.d
-	flavor = grefm.146.f
-	
-	event_image = {
-		video = "byzfm_ruins"
+		grefm_excavation_completion_effect = yes
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_mycenae_2_excavation
-		set_variable = grefm_knossos_2_complete
-	}
-	
-	option = {
-		name = grefm.146.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
-				}
-				grefm_artifact_modifier_effect = yes
-			}
-		}
-	}
-
-}
-
-grefm.147 = { # delos complete
-	type = country_event
-	placement = root
-	
-	title = grefm.147.t
-	desc = grefm.147.d
-	flavor = grefm.147.f
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_delos_excavation
-		set_variable = grefm_delos_complete
-	}
-	
-	option = {
-		name = grefm.147.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
-				}
-				grefm_artifact_modifier_effect = yes
-			}
-		}
-	}
-
-}
-
-grefm.148 = { # delos complete
-	type = country_event
-	placement = root
-	
-	title = grefm.148.t
-	desc = grefm.148.d
-	flavor = grefm.148.f
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_larissa_excavation
-		set_variable = grefm_larissa_complete
-	}
-	
-	option = {
-		name = grefm.148.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
-				}
-				grefm_artifact_modifier_effect = yes
-			}
-		}
-	}
-
-}
-
-grefm.149 = { # rhodes complete
-	type = country_event
-	placement = root
-	
-	title = grefm.149.t
-	desc = grefm.149.d
-	flavor = grefm.149.f
-	
-	event_image = {
-		video = "byzfm_ruins"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_ruins.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
-		remove_modifier = modifier_grefm_active_excavation
-		remove_variable = grefm_rhodes_excavation
-		set_variable = grefm_rhodes_complete
-	}
-	
-	
-	option = {
-		name = grefm.149.a
-		default_option = yes
-		custom_tooltip = {
-			text = grefm_excavation_completed_tt
-			hidden_effect = {
-				change_variable = {
-					name = grefm_archeaology_var
-					add = 1
-				}
-				grefm_artifact_modifier_effect = yes
-			}
-		}
-	}
-
 }
 
 
@@ -6770,7 +6580,7 @@ grefm.183 = { # Foreign Intercession for Jonas King
 ##################################################
 
 ####  THE GREEK ETHNOGENSIS EVENTS ####
-grefm.200 = { # The Hellenic Question
+grefm.200 = { # What is a Greek
 	type = country_event
 	placement = root
 	
@@ -6800,7 +6610,7 @@ grefm.200 = { # The Hellenic Question
 	option = {
 		name = grefm.200.a
 		default_option = yes
-#		custom_tooltip = grefm.200.tt ##TODO Uncomment
+		custom_tooltip = grefm.200.tt
 	}
 	
 }
@@ -7006,7 +6816,7 @@ grefm.206 = { # The Language Question
 	option = {
 		name = grefm.206.a
 		default_option = yes
-#		custom_tooltip = grefm.206.tt ##TODO Uncomment
+		custom_tooltip = grefm.206.tt
 	}
 	
 }

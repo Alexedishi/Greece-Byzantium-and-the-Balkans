@@ -176,103 +176,94 @@ create_epirus_characters = {
 }
 
 ## EXCAVATION EFFECTS ##
-grefm_excavation_complete = {
+
+
+grefm_update_artifact_modifier_effect = {
+	hidden_effect = {
+		remove_modifier = modifier_grefm_archaiologiki_etaireia
+	}
+	if = {
+		limit = {
+			grefm_artifact_value <= 10
+		}
+		add_modifier = {
+			name = modifier_grefm_archaiologiki_etaireia
+			multiplier = grefm_artifact_value
+		}
+	}
+	else = {
+		add_modifier = {
+			name = modifier_grefm_archaiologiki_etaireia
+			multiplier = 10
+		}
+	}
+}
+
+grefm_excavation_completion_effect = {
 	set_variable = {
 		name = grefm_excavation_var
 		value = 0
 	}
-	every_scope_state = {
-		limit = {
-			has_variable = grefm_excavation_target
-		}
-		remove_variable = grefm_excavation_target
-	}
+	
 	if = {
 		limit = {
 			has_variable = grefm_gla_excavation
 		}
-		trigger_event = {
-			id = grefm.142 # gla complete
-		}
+		remove_variable = grefm_gla_excavation
+		set_variable = grefm_gla_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_parthenon_1_excavation
 		}
-		trigger_event = {
-			id = grefm.143 # parthenon 1 complete
-		}
+		remove_variable = grefm_parthenon_1_excavation
+		set_variable = grefm_parthenon_1_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_parthenon_2_excavation
 		}
-		trigger_event = {
-			id = grefm.144 # parthenon 2 complete
-		}
+		remove_variable = grefm_parthenon_2_excavation
+		set_variable = grefm_parthenon_2_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_mycenae_1_excavation
 		}
-		trigger_event = {
-			id = grefm.145 # mycenae 1 complete
-		}
+		remove_variable = grefm_mycenae_1_excavation
+		set_variable = grefm_knossos_1_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_mycenae_2_excavation
 		}
-		trigger_event = {
-			id = grefm.146 # mycenae 2 complete
-		}
+		remove_variable = grefm_mycenae_2_excavation
+		set_variable = grefm_knossos_2_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_delos_excavation
 		}
-		trigger_event = {
-			id = grefm.147 # delos complete
-		}
+		remove_variable = grefm_delos_excavation
+		set_variable = grefm_delos_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_larissa_excavation
 		}
-		trigger_event = {
-			id = grefm.148 # larissa complete
-		}
+		remove_variable = grefm_larissa_excavation
+		set_variable = grefm_larissa_complete
 	}
 	else_if = {
 		limit = {
 			has_variable = grefm_rhodes_excavation
 		}
-		trigger_event = {
-			id = grefm.149 # rhodes complete
-		}
-	}
-	else = {
-		remove_modifier = modifier_grefm_active_excavation
-	}
-	every_scope_state = {
-		limit = {
-			has_variable = grefm_excavation_target
-		}
-		remove_variable = grefm_excavation_target
+		remove_variable = grefm_rhodes_excavation
+		set_variable = grefm_rhodes_complete
 	}
 }
 
-grefm_artifact_modifier_effect = {
-	hidden_effect = {
-		remove_modifier = modifier_grefm_archaiologiki_etaireia
-	}
-	add_modifier = {
-		name = modifier_grefm_archaiologiki_etaireia
-		multiplier = grefm_artifact_value
-	}
-}
-
-grefm_clear_artifact_variables = {
+grefm_cancel_expedition_effect = {
 	remove_variable = grefm_parthenon_1_excavation
 	remove_variable = grefm_parthenon_2_excavation
 	remove_variable = grefm_mycenae_1_excavation
@@ -281,7 +272,18 @@ grefm_clear_artifact_variables = {
 	remove_variable = grefm_delos_excavation
 	remove_variable = grefm_larissa_excavation
 	remove_variable = grefm_rhodes_excavation
+	
+	remove_variable = grefm_corinth_1_excavation
+	remove_variable = grefm_corinth_2_excavation
+	remove_variable = grefm_thessaloniki_excavation
+	remove_variable = grefm_thebes_excavation
+	remove_variable = grefm_nicomedia_excavation
+	remove_variable = grefm_smyrna_excavation
+	remove_variable = grefm_tyana_excavation
+	remove_variable = grefm_chios_excavation
 }
+
+
 
 ## SEPARATISM EFFECTS ##
 grefm_intialize_separatism_variables_effect = {
