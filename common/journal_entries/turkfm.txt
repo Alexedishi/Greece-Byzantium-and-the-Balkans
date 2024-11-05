@@ -3,10 +3,8 @@
 ########################
 
 je_turkfm_sick_man_main = {
-	# This journal was once eqfm_main; this hosts the core logic for the Eastern Question
-	# Global variables are set from this scope and referenced elsewhere
+	# This is a temporary replacement because the default journal SUCKS. FIGHT ME
 	
-
 	icon = "gfx/interface/icons/event_icons/event_fez.dds"
 	
 	group = je_group_turkfm_sick_man
@@ -21,66 +19,44 @@ je_turkfm_sick_man_main = {
 	}
 	
 	complete = {
-		custom_tooltip = {
-			text = je_turkfm_sick_man_main_complete
-			hidden_trigger = {
-				always = no
-			}
+		scope:journal_entry = {
+			is_goal_complete = yes
 		}
 	}
 	
 	on_complete = {
-		
-	}
-	
-	fail = {
-	}
-	
-	on_fail = {
-		
-	}
-	
-	invalid = {
-	}
-	
-	on_invalid = {
-	}
-	
-	on_weekly_pulse = {
-		events = {
+		trigger_event = {
+			id = sick_man.2
 		}
-		random_events = {
-		}
-		effect = {
-			set_global_variable = {
-				name = balkfm_tur_border_control_var
-				value = balkfm_border_control_value
-			}
-		}
-	}
-	
-	on_monthly_pulse = {
-		events = {
-		}
-		random_events = {
-		}
-		effect = {
-		}
-	}
-	
-	on_yearly_pulse = {
-		events = {
-		}
-		random_events = {
-		}
-		effect = {
-		}
-	}
-	
-	status_desc = {
 	}
 
-	weight = 100
+	timeout = 14600
+
+	on_timeout = {
+		remove_modifier = sick_man_of_europe
+		trigger_event = {
+			id = turkfm.008 # The Dead Man of Europe
+		}
+		if = {
+			limit = {
+	       		is_in_power_bloc = yes
+	        	is_power_bloc_leader = yes				
+			}
+			custom_tooltip = sick_man_of_europe_lose_power_bloc
+		}
+	}
+	
+	current_value = {
+		value = var:sick_man_var
+	}
+
+	goal_add_value = {
+		add = 4
+	}
+
+	progressbar = yes
+
+	weight = 10000
 	
 }
 
