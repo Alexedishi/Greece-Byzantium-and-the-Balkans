@@ -28,12 +28,14 @@ namespace = turkfm
 
 #001-009 - Sick Man Mainline Events
 #	001 - The Sick Man of Europe
-#	002 - The Healthy Man of Europe
-#	003 - The Dead Man of Europe
-#	004 - The Reordering of the State
+#	002 - The Reordering of the State
+#	003 - 
+#	004 - 
 #	005 - 
 #	006 - 
-#	007 - 
+#	007 - The Empire Shattered
+#	008 - The Dead Man of Europe
+#	009 - The Healthy Man of Europe
 
 #010-019 - Tanzimat Events I
 
@@ -219,5 +221,163 @@ namespace = turkfm
 #### SICK MAN MAINLINE EVENTS ####
 
 turkfm.001 = { # The Sick Man of Europe
+	orphan = yes
+}
+
+turkfm.007 = { # The Empire Shattered
+	type = country_event
+	placement = root
+	
+	title = turkfm.007.t
+	desc = turkfm.007.d
+	flavor = turkfm.007.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.008
+	}
+	
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			ruler = {
+				save_scope_as = ottoman_ruler_scope
+			}
+		}
+		random_primary_culture = {
+			save_scope_as = primary_culture_scope
+		}
+	}
+	
+	option = { # Rejoin the Empire
+		name = turkfm.007.a
+		default_option = yes
+		c:TUR = {
+			create_diplomatic_pact = {
+				country = root
+				type = tributary
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 50
+		}
+		c:TUR = {
+			set_secret_goal = {
+				country = root
+				secret_goal = befriend
+			}
+		}
+		ai_chance = {
+			base = 9
+		}
+	}
+	
+	option = { # Assert Your Destiny
+		name = turkfm.007.b
+		make_independent = yes
+		add_loyalists = {
+			culture = scope:primary_culture_scope
+			value = large_radicals
+		}
+		add_modifier = {
+			name = modifier_turkfm_sultanate_shattered
+			months = long_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+		c:TUR = {
+			set_secret_goal = {
+				country = root
+				secret_goal = conquer
+			}
+		}
+		ai_chance = {
+			base = 1 # Shouldn't really happen; if we get an economic dependence trigger, this will be expanded on
+		}
+	}
+
+}
+
+turkfm.008 = { # The Dead Man of Europe
+	type = country_event
+	placement = root
+	
+	title = turkfm.008.t
+	desc = turkfm.008.d
+	flavor = turkfm.008.f
+	
+	event_image = {
+		video = "unspecific_factory_closed"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_sick_man_main
+	}
+
+	immediate = {
+		set_variable = sick_man_complete
+		remove_modifier = outmoded_bureaucracy
+		remove_modifier = cizye_tax
+	}
+	
+	option = {
+		name = turkfm.008.a
+		default_option = yes
+		if = {
+			limit = {				
+				is_subject = no
+				any_subject_or_below = {
+					NOT = { any_overlord_or_above = { NOT = { ROOT = this } } }
+					NOT = {
+						is_country_type = unrecognized
+					}
+				}
+			}
+			every_subject_or_below = {
+				limit = {
+					NOT = { any_overlord_or_above = { NOT = { ROOT = this } } }
+					OR = {
+						NOT = {
+							is_country_type = unrecognized
+						}
+						is_subject_type = subject_type_protectorate
+						is_subject_type = subject_type_dominion
+						is_subject_type = subject_type_puppet
+					}
+				}
+				trigger_event = {
+					id = turkfm.007 # The Empire Shattered
+				}
+			}
+		}
+		set_country_type = unrecognized
+	}
+
+}
+
+turkfm.009 = { # The Healthy Man of Europe
 	orphan = yes
 }
