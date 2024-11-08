@@ -88,10 +88,10 @@
  
  je_grefm_megali_idea: "The Megali Idea"
  je_grefm_megali_idea_reason: "The Greek World once stretched from the hills of the Balkans to the shores of the Levantine Sea. Across the Mediterranean, Greek peoples call for union with the Greek state. We will see the Greek realm restored."
- je_grefm_megali_idea_complete: "We will have the option to form #bold Byzantium#!"
- je_grefm_roman_inheritance: "The Roman Inheritance"
- je_grefm_roman_inheritance_reason: ""
- je_grefm_roman_inheritance_complete: "We will have the option to form #bold Byzantium#!"
+ je_grefm_megali_idea_complete: "We will have the option to form the #bold Hellenic Empire#!"
+ je_grefm_scions_of_rhomania: "Scions of Rhomania"
+ je_grefm_scions_of_rhomania_reason: ""
+ je_grefm_scions_of_rhomania_complete:  "We will have the option to form the #bold Roman Empire#!"
  je_grefm_greater_greece: "Greater Greece"
  je_grefm_greater_greece_reason: "The Megali Idea has been brought to fruition, but only in its most basic form. Several Greek communities still lie beyond our borders. We have an imperative to see to it that our borders grow until every Greek may find shelter within the Greek state."
  je_grefm_grecoturkism: "Helleno-Turkism"
@@ -210,6 +210,9 @@
  # decisions
  grefm_corinth_canal_survey_decision: "Survey the Isthmus of Corinth"
  grefm_corinth_canal_survey_decision_desc: "Since ancient times, the Isthmus of Corinth has linked the Peloponnese from the rest of Greece. With modern innovations in engineering and explosives, we may be able to link the Ionian and Aegean Seas."
+ grefm_lake_kopais_decision: "Drain Lake Kopais"
+ grefm_lake_kopais_decision_desc: "With our industrial might, Lake Kopais can be drained once more. Our engineers await the order."
+ 
  grefm_annex_hepatanese_decision: "Annex the Ionian Islands"
  grefm_annex_hepatanese_decision_desc: "The Ionian Islands changed hands multiple times throughout the Napoleonic Wars, and were not integrated into the Greek state upon their independence. If we can obtain the consent of both the Ionian people and the government of their protectors, we may be able to negotiate a peaceful transition of power."
  grefm_annex_epirus_decision: "Annex Epirus"
@@ -220,8 +223,15 @@
  grefm_annex_macedonia_decision_desc: "The Macedonian people have earned their freedom from Muslim persecution. They should take their place in the Greek state."
  grefm_annex_crete_decision: "Annex Crete"
  grefm_annex_crete_decision_desc: "The people of Crete have struggled for generations against their Muslim oppressors. We should welcome them into the Greek state."
- grefm_lake_kopais_decision: "Drain Lake Kopais"
- grefm_lake_kopais_decision_desc: "With our industrial might, Lake Kopais can be drained once more. Our engineers await the order."
+ grefm_annex_theodoro_decision: "Annex Theodoro"
+ grefm_annex_theodoro_decision_desc: "Theodoro was once of the rumps states that survived the fall of Constantinople. Greeks still call its coasts home today, and it may be possible to negotiate their reunion with Greece."
+ grefm_annex_trabzon_decision: "Annex Trabzon"
+ grefm_annex_trabzon_decision_desc: "Trabzon held out for years after the fall of Byzantium. With some patient diplomacy, they could be reunited with the Greek state."
+ 
+ grefm_chariot_racing_decision: "Re-establish Chariot Racing"
+ grefm_chariot_racing_decision_desc: "Chariot racing is one of the oldest traditions in the Mediterranean. With the Hippodrome restored, we can revive the sport of the Romans."
+ grefm_expand_chariot_racing_decision: "Expand Chariot Racing"
+ grefm_expand_chariot_racing_decision_desc: "With chariot racing becoming all the rage in the Empire, there are calls to expand the chariot racing teams to include the six original teams of the Roman Empire."
  
  # tooltips
  grefm_regency_discharged_tt: "The Regency Council has been discharged."
@@ -248,6 +258,9 @@
  je_grefm_greek_nationalism_tt2: "Solve the question of the Greek language."
  je_grefm_greek_nationalism_tt3: "Secure recognition of the Greek Orthodox Church."
  grefm_declare_national_language_button_tt: "Any Greek dialect has at least #bold 100#! support."
+ 
+ je_grefm_greater_greece_possible_tt: "We have rejected Greek Imperialism"
+ je_grefm_revenge_of_the_greeks_tt: "We have formed the #bold Hellenic Empire#!"
  
  grefm_crete_progress_tt: "Current revolt progress is due to:\n•#red #bold +0.5#!#! base value.\n•#red #bold +[GetGlobalVariable('grefm_crete_radicals_var').GetValue]#!#! from [GetCulture('greek').GetName] radicals in Crete.\n•#red #bold +[GetGlobalVariable('grefm_crete_accelerate_var').GetValue]#!#! from foreign interference in Crete.\n•#red #bold +[GetGlobalVariable('grefm_crete_nationalism_var').GetValue]#!#! from #yellow Nationalism#! taking root in the Greek state."
  grefm_epirus_support_tt: "This will increase [GetCulture('greek').GetName] radicals in #yellow Epirus#! by #red #bold 0.05%#!#! per month."
@@ -738,10 +751,19 @@
  concept_concert_of_europe_desc: "The Concert of Europe is the informal poltical structure and balance of power that gives each country a [Concept('concept_rank','$concept_rank$')], provides each [Concept('concept_great_power','$concept_great_power$')] with a sphere of influence, and has been a major step towards avoiding the conditions that led to the French Revolutionary War and the Napoleonic Wars."
  
  # archaeology localization
- je_grefm_active_excavation: "Active Excavation"
- je_grefm_active_excavation_reason: "Teams of laborers under the supervision of Ephors from the archaeological society are working on the latest expedition to uncover the secrets of our Greek past." 
- je_grefm_active_excavation_goal: "Wait for the excavation to complete..."
- grefm_excavation_completed_tt: "Number of completed excavations increases by #green 1#!."
+ grefm_excavation_completed_tt: "Number of completed excavations increases by #green 1#!.
+ 
+ grefm_archeaology_greek_sites_button: "Show Hellenic Sites"
+ grefm_archeaology_greek_sites_button_desc: "Ruins of Ancient Greek are littered across the Aegean. Every excavation we complete of a Hellenic site will #bold increase#! our tilt towards a Hellenic national identity."
+ grefm_archeaology_roman_sites_button: "Show Roman Sites"
+ grefm_archeaology_roman_sites_button_desc: "The remains of the Roman Empire are so integral to our existence, that many structures remain in use to this day with their original purposes long forgotten. Every excavation we complete of a Roman site will #bold increase#! our tilt towards a Roman national identity.
+ grefm_archeaology_alternate_site_button: "Consider Alternate Sites"
+ grefm_archeaology_alternate_site_button_desc: "Presently, our scholars are singularly focused on the excavation of sites from one specific era. We could consider 
+ grefm_cancel_button: "Cancel Current Expedition"
+ grefm_cancel_button_desc: "This will cancel the current excavation. All progress will be lost."
+ 
+ grefm_show_hellenic_sites_tt: "This will toggle showing Hellenic Excavation sites"
+ grefm_show_roman_sites_tt: "This will toggle showing Roman Excavation sites"
  
  grefm_parthenon_button_1: "Survey the Acropolis"
  grefm_parthenon_button_1_desc: "Towering over the city of Athens, the ancient acropolis, once called the #bold Cecropia#!, lay at the heart of the Athenian city-state. Today the site lays in ruins having decayed after millennia of neglect. Ephors of the archaeological service clamor for a proper study of the site."
@@ -760,8 +782,22 @@
  grefm_rhodes_button: "Survey the ruins on Rhodes"
  grefm_rhodes_button_desc: "Located at the eastern edge of the Greek Islands, Rhodes was once a powerhouse in both political and maritime influence. Academics have long known of the wealth of cultural history strewn across the island."
  
- grefm_cancel_button: "Cancel Current Expedition"
- grefm_cancel_button_desc: "This will cancel the current excavation. All progress will be lost."
+ grefm_archeaology_corinth_button_1: "Excavate the Hexamilion Wall"
+ grefm_archeaology_corinth_button_1_desc: ""
+ grefm_archeaology_corinth_button_2: "Explore the Acrocorinth"
+ grefm_archeaology_corinth_button_2_desc: ""
+ grefm_archeaology_thessaloniki_button: "Detail the ruins in Thessaloniki"
+ grefm_archeaology_thessaloniki_button_desc: ""
+ grefm_archeaology_thebes_button: "Survey the workshops of Thebes"
+ grefm_archeaology_thebes_button_desc: ""
+ grefm_archeaology_nicomedia_button: "Excavate the ruins of Nicomedia"
+ grefm_archeaology_nicomedia_button_desc: ""
+ grefm_archeaology_smyrna_button: "Survey the ruins in Smyrna"
+ grefm_archeaology_smyrna_button_desc: ""
+ grefm_archeaology_tyana_button: "Excavate the ruins of Tyana"
+ grefm_archeaology_tyana_button_desc: ""
+ grefm_archeaology_chios_button: "Catalog the island of Chios"
+ grefm_archeaology_chios_button_desc: ""
  
  grefm_parthenon_1_tt: "This will begin an expedition to survey the #bold Acropolis of Athens#!."
  grefm_parthenon_2_tt: "This will being an expedition to excavate the #bold Parthenon#!."
@@ -775,6 +811,15 @@
  grefm_gla_exposed_tt2: "You may now excavate the citadel of Gla."
  grefm_parthenon_1_complete_tt: "You must first survey the ruins atop the Acropolis to excavate the Parthenon."
  grefm_knossos_1_complete_tt: "You must first survey the ruins at Mycenae to explore the Palace."
+ 
+ grefm_corinth_1_tt: "This will begin an expedition to survey the #bold Hexamilion Wall#!."
+ grefm_corinth_2_tt: "This will begin an expedition to survey the #bold Acrocorinth#!."
+ grefm_thessaloniki_tt: "This will begin an expedition to survey the #bold Urban Ruins of Thessaloniki#!."
+ grefm_thebes_tt: "This will begin an expedition to survey the #bold Workshops of Thebes#!."
+ grefm_nicomedia_tt: "This will begin an expedition to survey the #bold Ruins of Nicomedia#!."
+ grefm_smyrna_tt: "This will begin an expedition to survey the #bold Ruins in Smyrna#!."
+ grefm_tyana_tt: "This will begin an expedition to survey the #bold Ruins of Tyana#!."
+ grefm_chios_tt: "This will begin an expedition to survey the #bold Island of Chios#!."
  
  grefm_mega_palation_button: "Survey the Palace Ruins"
  grefm_mega_palation_button_desc: "The Imperial Palace, the Méga Palátion, lies in ruin, yet it may be possible to restore large portions of it."

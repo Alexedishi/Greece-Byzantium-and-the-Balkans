@@ -113,7 +113,7 @@ SRPS = {
 			}
 		}
 		custom_tooltip = {
-			text = balkfm_has_formed_yug_tt
+			text = balkfm_has_not_formed_yug_tt
 			hidden_trigger = {
 				NOT = {
 					c:YUG ?= this
@@ -148,9 +148,12 @@ TSAR = {
 	
 	possible = {
 		custom_tooltip = {
-			text = je_balkfm_tsar_formable_tt
+			text = balkfm_below_empire_tt
 			hidden_trigger = {
-				has_variable = balkfm_tsar_formable
+				NOR = {
+					country_tier = hegemon
+					country_tier = empire
+				}
 			}
 		}
 	}
