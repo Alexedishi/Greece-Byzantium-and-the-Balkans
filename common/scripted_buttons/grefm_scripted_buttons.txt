@@ -1768,14 +1768,345 @@ grefm_archeaology_rhodes_button = {
 
 }
 
-grefm_archeaology_corinth_button_1 # Hexamillion
-grefm_archeaology_corinth_button_2 # Acrocorinth
-grefm_archeaology_thessaloniki_button # Heptapyrgion
-grefm_archeaology_thebes_button # Silk Workshops
-grefm_archeaology_nicomedia_button
-grefm_archeaology_smyrna_button
-grefm_archeaology_tyana_button
-grefm_archeaology_chios_button
+grefm_archeaology_corinth_button_1 = {
+	name = "grefm_archeaology_corinth_button_1"
+	desc = "grefm_archeaology_corinth_button_1_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_corinth_1_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_PELOPONNESE
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_corinth_1_tt
+			hidden_effect = {
+				s:STATE_PELOPONNESE = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_corinth_1_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+ # Acrocorinth
+grefm_archeaology_corinth_button_2 = {
+	name = "grefm_archeaology_corinth_button_2"
+	desc = "grefm_archeaology_corinth_button_2_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_corinth_2_complete }
+			has_variable = grefm_corinth_1_complete
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_PELOPONNESE
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_corinth_2_tt
+			hidden_effect = {
+				s:STATE_PELOPONNESE = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_corinth_2_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+ # Heptapyrgion
+grefm_archeaology_thessaloniki_button = {
+	name = "grefm_archeaology_thessaloniki_button"
+	desc = "grefm_archeaology_thessaloniki_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_thessaloniki_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_MACEDONIA
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_thessaloniki_tt
+			hidden_effect = {
+				s:STATE_MACEDONIA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_thessaloniki_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+ # Silk Workshops
+grefm_archeaology_thebes_button = {
+	name = "grefm_archeaology_thebes_button"
+	desc = "grefm_archeaology_thebes_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_thebes_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ATTICA
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_thebes_tt
+			hidden_effect = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_thebes_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+grefm_archeaology_nicomedia_button = { # Hexamillion
+	name = "grefm_archeaology_nicomedia_button"
+	desc = "grefm_archeaology_nicomedia_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_nicomedia_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_HUDAVENDIGAR
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_nicomedia_tt
+			hidden_effect = {
+				s:STATE_HUDAVENDIGAR = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_nicomedia_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+grefm_archeaology_smyrna_button = { # Hexamillion
+	name = "grefm_archeaology_smyrna_button"
+	desc = "grefm_archeaology_smyrna_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_smyrna_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_AYDIN
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_smyrna_tt
+			hidden_effect = {
+				s:STATE_ATTICA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_smyrna_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+grefm_archeaology_tyana_button = {
+	name = "grefm_archeaology_tyana_button"
+	desc = "grefm_archeaology_tyana_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_tyana_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_ANKARA
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_tyana_tt
+			hidden_effect = {
+				s:STATE_ANKARA = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_tyana_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
+
+grefm_archeaology_chios_button = {
+	name = "grefm_archeaology_chios_button"
+	desc = "grefm_archeaology_chios_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_chios_complete }
+		}
+		var:grefm_archeaology_sites_var = 2
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		NOT = {
+			has_modifier = modifier_grefm_active_excavation
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm__tt
+			hidden_effect = {
+				s:STATE_WEST_AEGEAN_ISLANDS = {
+					random_scope_state = {
+						set_variable = grefm_excavation_target
+						save_scope_as = grefm_excavation_site
+					}
+				}
+			}
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_active_excavation
+		}
+		set_variable = grefm_chios_excavation
+		trigger_event = {
+			id = grefm.141 # Expedition Team Departs
+			popup = yes
+		}
+	}
+
+}
 
 # Enosis
 
