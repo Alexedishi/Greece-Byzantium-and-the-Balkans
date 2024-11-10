@@ -391,43 +391,52 @@ grefm_chariot_racing_decision = {
 		any_scope_building = {
 			is_building_type = building_hippodrome
 		}
-		NOT = {
+		NOR = {
 			has_modifier = modifier_byzfm_chariot_racing
-		}
-		NOT = {
 			has_modifier = modifier_byzfm_expanded_chariot_racing
 		}
 	}
 	
 	possible = {
 		has_technology_researched = organized_sports
+		hidden_trigger = {
+			NOT = {
+				has_variable = grefm_chariot_var
+			}
+		}
 	}
 	
 	when_taken = {
 		custom_tooltip = {
 			text = chariot_racing_enabled_tt	
 			trigger_event = {
-				id = byzfm.121
+				id = grefm.830 = { # Chariot Racing Re-established
 				popup = yes
 			}
 		}
 		show_as_tooltip = {
-			add_modifier = modifier_byzfm_chariot_racing
+			add_modifier = modifier_grefm_chariot_racing
 		}
+		set_variable = grefm_chariot_var
 	}
 }
 
 grefm_expand_chariot_racing_decision = {
 	is_shown = {
-		has_modifier = modifier_byzfm_chariot_racing
+		has_modifier = modifier_grefm_chariot_racing
 		NOT = {
-			has_modifier = modifier_byzfm_expanded_chariot_racing
+			has_modifier = modifier_grefm_expanded_chariot_racing
 		}
 	}
 	
 	possible = {
-		has_modifier = modifier_byzfm_chariot_racing
+		has_modifier = modifier_grefm_chariot_racing
 		has_technology_researched = electric_telegraph
+		hidden_trigger = {
+			NOT = {
+				has_variable = grefm_chariot_var
+			}
+		}
 	}
 	
 	when_taken = {
@@ -439,8 +448,9 @@ grefm_expand_chariot_racing_decision = {
 		}
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.122
+				id = grefm.831 # Chariot Racing Expanded
 			}
 		}
+		set_variable = grefm_chariot_var
 	}	
 }

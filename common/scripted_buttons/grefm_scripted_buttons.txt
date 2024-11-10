@@ -2235,3 +2235,35 @@ grefm_samos_enosis_button = {
 		}
 	}
 }
+
+grefm_mega_palation_survey_button = {
+	name = "grefm_mega_palation_survey_button"
+	desc = "grefm_mega_palation_survey_button_desc"
+	
+	visible = {
+		owner = {
+			NOT = { has_variable = grefm_mega_palation_surveyed }
+		}
+	}
+	
+	possible = {
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		NOT = {
+			has_journal_entry = je_grefm_mega_palation_survey
+		}
+	}
+	
+	effect = {
+		set_variable = { 
+			name = grefm_imperial_palace_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_grefm_mega_palation_survey
+		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_site_survey
+		}
+	}
+	
+}

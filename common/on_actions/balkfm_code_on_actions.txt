@@ -5,7 +5,6 @@
 on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 	on_actions = {
 		grefm_monthly_pulse
-		byfzm_monthly_pulse
 #		turkfm_monthly_pulse
 		balkfm_monthly_pulse
 #		yug_flavor_pulse
@@ -18,8 +17,6 @@ on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here t
 #		cro_flavor_pulse
 #		slo_flavor_pulse
 		eocfm_monthly_pulse
-		byzfm_chariot_pulse_1
-		byzfm_chariot_pulse_2	
 	}
 }
 
@@ -41,7 +38,10 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 
 grefm_monthly_pulse = {
 	trigger = {
-		country_has_primary_culture = cu:hellene 
+		OR = {
+			country_has_primary_culture = cu:hellene
+			country_has_primary_culture = cu:rhomaios
+		}
 	}
 	events = {
 		grefm.005 # error 404 monarch not found
@@ -58,6 +58,8 @@ grefm_monthly_pulse = {
 		grefm.202 # The Greek Capital
 		grefm.270 # The Lands of Thessaly
 		grefm.290 # The Fate of the Turks
+		grefm.842 # Chariot Race Technical Event
+		grefm.847 # drag racing in the hippodrome
 		grefm.901 # non-GRE claims
 	}
 	random_events = {
@@ -74,35 +76,6 @@ grefm_monthly_pulse = {
 		25 = grefm.291 # A Question of Homelands
 		25 = grefm.292 # Greek Expansion in X
 		10 = grefm.902 # Don Pacifico Affair
-	}
-}
-
-byfzm_monthly_pulse = {
-	trigger = {
-		has_global_variable = has_formed_byz
-	}
-	events = {
-		byzfm.123 # drag racing in the hippodrome
-	}
-	random_events = {
-		100 = 0
-		 1 = byzfm.311 # A Greek Basileus
-	}
-	effect = {
-		if = {
-			limit = {
-				has_variable =  byzfm_held_chariot_races
-			}
-			change_variable = {
-				name = byzfm_held_chariot_races
-				add = -1
-			}
-			clamp_variable = { # just to avoid outlandish values
-				name = byzfm_held_chariot_races
-				max = 48 
-				min = 0 
-			}
-		}
 	}
 }
 
@@ -145,8 +118,7 @@ ser_flavor_pulse = {
 bul_flavor_pulse = {
 	trigger = {
 		OR = {
-			c:BUL ?= this
-			c:TSAR ?= this
+			country_has_primary_culture = cu:bulgarian
 		}
 	}
 	events = {
@@ -160,10 +132,7 @@ bul_flavor_pulse = {
 rom_flavor_pulse = {
 	trigger = {
 		OR = {
-			c:WAL ?= this
-			c:MOL ?= this
-			c:TRS ?= this
-			c:ROM ?= this
+			country_has_primary_culture = cu:romanian
 		}
 	}
 	events = {
@@ -257,48 +226,6 @@ eocfm_schism_monthly_pulse = {
 			name = eocfm_schism_var
 			add = eocfm_schism_progress_value
 		}
-	}
-}
-
-############
-
-# This pair of on_actions handle the chariot races
-
-byzfm_chariot_pulse_1 = {
-	trigger = {
-		has_modifier = modifier_byzfm_chariot_racing
-		has_variable = byzfm_held_chariot_races
-		var:byzfm_held_chariot_races < 1
-	}
-	random_events = {
-		20 = byzfm.110 # reds win
-		20 = byzfm.111 # whites win
-		20 = byzfm.112 # greens win
-		20 = byzfm.113 # blues win
-		10 = byzfm.116 # first match complete, crowd calls for diversum
-		 1 = byzfm.117 # sporting riot
-		 1 = byzfm.118 # ruler tries to join race
-		 1 = byzfm.119 # team gets caught cheating
-	}
-}
-
-byzfm_chariot_pulse_2 = {
-	trigger = {
-		has_modifier = modifier_byzfm_expanded_chariot_racing
-		has_variable = byzfm_held_chariot_races
-		var:byzfm_held_chariot_races < 1
-	}
-	random_events = {
-		25 = byzfm.110 # reds win - industrialists
-		25 = byzfm.111 # whites win - intel
-		25 = byzfm.112 # greens win - rural folk
-		25 = byzfm.113 # blues win - petite
-		25 = byzfm.114 # purples win - landowners
-		25 = byzfm.115 # golds win - trade unions
-		15 = byzfm.116 # first match complete, crowd calls for diversum
-		 5 = byzfm.117 # sporting riot
-		 5 = byzfm.118 # ruler tries to join race
-		 1 = byzfm.119 # team gets caught cheating
 	}
 }
 
