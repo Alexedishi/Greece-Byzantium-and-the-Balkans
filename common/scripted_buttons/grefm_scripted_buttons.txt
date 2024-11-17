@@ -1,4 +1,7 @@
-﻿# BAVAROCRACY BUTTONS #
+﻿#######################
+# BAVAROCRACY BUTTONS #
+#######################
+
 grefm_dismiss_auxilliaries_button = {
 	name = "grefm_dismiss_auxilliaries_button"
 	desc = "grefm_dismiss_auxilliaries_button_desc"
@@ -12,7 +15,7 @@ grefm_dismiss_auxilliaries_button = {
 			text = grefm_regency_discharged_tt
 			hidden_trigger = {
 				NOT = {
-					has_journal_entry = je_grefm_regency_council
+					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 		}
@@ -47,7 +50,7 @@ grefm_release_nikitaras_button = {
 			text = grefm_regency_discharged_tt
 			hidden_trigger = {
 				NOT = {
-					has_journal_entry = je_grefm_regency_council
+					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 		}
@@ -79,7 +82,7 @@ grefm_authorize_palace_button = {
 			text = grefm_regency_discharged_tt
 			hidden_trigger = {
 				NOT = {
-					has_journal_entry = je_grefm_regency_council
+					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 		}
@@ -113,7 +116,7 @@ grefm_philhellenic_loan_button = {
 			text = grefm_regency_discharged_tt
 			hidden_trigger = {
 				NOT = {
-					has_journal_entry = je_grefm_regency_council
+					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 		}
@@ -130,19 +133,29 @@ grefm_philhellenic_loan_button = {
 	
 }
 
-#### NATIONALISM BUTTONS ####
-
-# grefm_embrace_national_identity_button
+#######################
+# NATIONALISM BUTTONS #
+#######################
 
 grefm_declare_national_language_button = {
 	name = "grefm_declare_national_language_button"
 	desc = "grefm_declare_national_language_button_desc"
 	
 	visible = {
-		always = yes
+		NOR = {
+			has_variable = grefm_greek_language_demotic
+			has_variable = grefm_greek_language_katharevousa
+			has_variable = grefm_greek_language_khoine
+			has_variable = grefm_greek_language_rhomaiika
+		}
 	}
 	
 	possible = {
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 3
+		}
+		literacy_rate > 0.33
 		custom_tooltip = {
 			text = grefm_declare_national_language_button_tt
 			hidden_trigger = {
@@ -151,16 +164,14 @@ grefm_declare_national_language_button = {
 						"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
 						"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
 						"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
+						"scripted_bar_progress(grefm_rhomaiika_progress_bar)" >= 100
 					}
 				}
 			}
 		}
 		hidden_trigger = {
-			NOR = {
+			NOT = {
 				has_variable = grefm_language_var
-				has_variable = grefm_greek_language_demotic
-				has_variable = grefm_greek_language_katharevousa
-				has_variable = grefm_greek_language_khoine
 			}
 		}
 	}
@@ -177,1110 +188,91 @@ grefm_declare_national_language_button = {
 	}
 }
 
-# REVOLT BUTTONS #
-grefm_epirus_support_button = {
-	name = "grefm_epirus_support_button"
-	desc = "grefm_epirus_support_button_desc"
+grefm_embrace_hellenic_identity_button = {
+	name = "grefm_embrace_hellenic_identity_button"
+	desc = "grefm_embrace_hellenic_identity_button_desc"
 	
 	visible = {
-		NOR = {
-			has_modifier = modifier_grefm_supporting_epirus
-			has_state_in_state_region = STATE_ALBANIA
-			has_state_in_state_region = STATE_THESSALIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_THESSALIA
-			grefm_is_muslim_trigger = yes
-		}
+		always = yes
 	}
 	
 	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_epirus }
-		has_technology_researched = mass_communication
+		country_has_primary_culture = cu:hellene
 	}
 	
 	effect = {
-		custom_tooltip = grefm_epirus_support_tt
-		add_modifier = modifier_grefm_supporting_epirus
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
+		trigger_event = {
+			id = grefm.209 # The Greek Ethnogenesis
 		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_epirus_cease_button = {
-	name = "grefm_epirus_cease_button"
-	desc = "grefm_epirus_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_epirus
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_epirus
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_epirus
 	}
 	
 	ai_chance = {
 		base = 0
 		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
+			trigger = {}
+			add = 0
 		}
 	}
-	
 }
 
-grefm_epirus_provoke_button = {
-	name = "grefm_epirus_provoke_button"
-	desc = "grefm_epirus_provoke_button_desc"
+grefm_embrace_roman_identity_button = {
+	name = "grefm_embrace_roman_identity_button"
+	desc = "grefm_embrace_roman_identity_button_desc"
 	
 	visible = {
-		NOR = {
-			has_state_in_state_region = STATE_ALBANIA
-			has_state_in_state_region = STATE_THESSALIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_THESSALIA
-			grefm_is_muslim_trigger = yes
-		}
+		always = yes
 	}
 	
 	possible = {
-		has_modifier = modifier_grefm_supporting_epirus
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		s:STATE_ALBANIA = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
-		s:STATE_THESSALIA = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
-		any_country = {
-			owns_entire_state_region = STATE_ALBANIA
-			owns_entire_state_region = STATE_THESSALIA
-			grefm_is_muslim_trigger = yes
-		}
+		country_has_primary_culture = cu:rhomaios
 	}
 	
 	effect = {
-		custom_tooltip = {
-			text = grefm_epirus_provoke_tt
-			hidden_effect = {
-				s:STATE_ALBANIA = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_ALBANIA
-						owns_entire_state_region = STATE_THESSALIA
-						grefm_is_muslim_trigger = yes
-					}
-					trigger_event = {
-						id = grefm.911 # The Epirote Revolt (No Triggers)
-					}
-				}
-			}
+		trigger_event = {
+			id = grefm.209 # The Greek Ethnogenesis
 		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-}
-	
-grefm_macedonia_support_button = {
-	name = "grefm_macedonia_support_button"
-	desc = "grefm_macedonia_support_button_desc"
-	
-	visible = {
-		owns_entire_state_region = STATE_THESSALIA
-		NOR = { 
-			has_modifier = modifier_grefm_supporting_macedonia
-			has_state_in_state_region = STATE_MACEDONIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_MACEDONIA
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_macedonia }
-		has_technology_researched = nationalism
-	}
-	
-	effect = {
-		custom_tooltip = grefm_macedonia_support_tt
-		add_modifier = modifier_grefm_supporting_macedonia
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_macedonia_cease_button = {
-	name = "grefm_macedonia_cease_button"
-	desc = "grefm_macedonia_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_macedonia
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_macedonia
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_macedonia
 	}
 	
 	ai_chance = {
 		base = 0
 		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
+			trigger = {}
+			add = 0
 		}
 	}
-	
 }
 
-grefm_macedonia_provoke_button = {
-	name = "grefm_macedonia_provoke_button"
-	desc = "grefm_macedonia_provoke_button_desc"
+grefm_embrace_hybrid_identity_button = {
+	name = "grefm_embrace_hybrid_identity_button"
+	desc = "grefm_embrace_hybrid_identity_button_desc"
 	
 	visible = {
-		owns_entire_state_region = STATE_THESSALIA
-		NOT = {
-			has_state_in_state_region = STATE_MACEDONIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_MACEDONIA
-			grefm_is_muslim_trigger = yes
-		}
+		always = yes
 	}
 	
 	possible = {
-		has_modifier = modifier_grefm_supporting_macedonia
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		s:STATE_MACEDONIA = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
+		country_has_primary_culture = cu:hellene
+		country_has_primary_culture = cu:rhomaios
 	}
 	
 	effect = {
-		custom_tooltip = {
-			text = grefm_macedonia_provoke_tt
-			hidden_effect = {
-				s:STATE_MACEDONIA = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_MACEDONIA
-					}
-					trigger_event = {
-						id = grefm.913 # The Macedonian Revolt (No Triggers)
-					}
-				}
-			}
+		trigger_event = {
+			id = grefm.209 # The Greek Ethnogenesis
 		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-	
-}
-	
-grefm_skopia_support_button = {
-	name = "grefm_skopia_support_button"
-	desc = "grefm_skopia_support_button_desc"
-	
-	visible = {
-		owns_entire_state_region = STATE_MACEDONIA
-		NOR = { 
-			has_modifier = modifier_grefm_supporting_skopia
-			has_state_in_state_region = STATE_SKOPIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_SKOPIA
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_skopia }
-		has_technology_researched = nationalism
-	}
-	
-	effect = {
-		custom_tooltip = grefm_skopia_support_tt
-		add_modifier = modifier_grefm_supporting_skopia
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_skopia_cease_button = {
-	name = "grefm_skopia_cease_button"
-	desc = "grefm_skopia_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_skopia
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_skopia
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_skopia
 	}
 	
 	ai_chance = {
 		base = 0
 		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
+			trigger = {}
+			add = 0
 		}
 	}
-	
 }
 
-grefm_skopia_provoke_button = {
-	name = "grefm_skopia_provoke_button"
-	desc = "grefm_skopia_provoke_button_desc"
-	
-	visible = {
-		owns_entire_state_region = STATE_MACEDONIA
-		NOT = {
-			has_state_in_state_region = STATE_SKOPIA
-		}
-		any_country = {
-			owns_entire_state_region = STATE_SKOPIA
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_skopia
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		s:STATE_SKOPIA = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
-	}
-	
-	effect = {
-		custom_tooltip = {
-			text = grefm_skopia_provoke_tt
-			hidden_effect = {
-				s:STATE_SKOPIA = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_SKOPIA
-					}
-					trigger_event = {
-						id = grefm.910 # The Makedonijan Revolt (No Triggers)
-					}
-				}
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-	
-}
-	
-grefm_smyrna_support_button = {
-	name = "grefm_smyrna_support_button"
-	desc = "grefm_smyrna_support_button_desc"
-	
-	visible = {
-		owns_entire_state_region = STATE_ATTICA
-		owns_entire_state_region = STATE_THESSALIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-		NOR = { 
-			has_modifier = modifier_grefm_supporting_smyrna
-			has_state_in_state_region = STATE_AYDIN
-		}
-		any_country = {
-			owns_entire_state_region = STATE_AYDIN
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_smyrna }
-		has_technology_researched = nationalism
-	}
-	
-	effect = {
-		custom_tooltip = grefm_smyrna_support_tt
-		add_modifier = modifier_grefm_supporting_smyrna
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_smyrna_cease_button = {
-	name = "grefm_smyrna_cease_button"
-	desc = "grefm_smyrna_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_smyrna
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_smyrna
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_smyrna
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
-		}
-	}
-	
-}
-
-grefm_smyrna_provoke_button = {
-	name = "grefm_smyrna_provoke_button"
-	desc = "grefm_smyrna_provoke_button_desc"
-	
-	visible = {
-		owns_entire_state_region = STATE_ATTICA
-		owns_entire_state_region = STATE_THESSALIA
-		owns_entire_state_region = STATE_MACEDONIA
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-		NOT = {
-			has_state_in_state_region = STATE_AYDIN
-		}
-		any_country = {
-			owns_entire_state_region = STATE_AYDIN
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_smyrna
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		s:STATE_AYDIN = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
-	}
-	
-	effect = {
-		custom_tooltip = {
-			text = grefm_smyrna_provoke_tt
-			hidden_effect = {
-				s:STATE_AYDIN = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_AYDIN
-					}
-					trigger_event = {
-						id = grefm.914 # The Smyrnite Revolt (No Triggers)
-					}
-				}
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-	
-}
-	
-grefm_cyprus_support_button = {
-	name = "grefm_cyprus_support_button"
-	desc = "grefm_cyprus_support_button_desc"
-	
-	visible = {
-		NOR = {
-			has_modifier = modifier_grefm_supporting_cyprus
-			has_state_in_state_region = STATE_CYPRUS
-		}
-		any_country = {
-			owns_entire_state_region = STATE_CYPRUS
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_cyprus }
-		has_technology_researched = pan-nationalism
-	}
-	
-	effect = {
-		custom_tooltip = grefm_cyprus_support_tt
-		add_modifier = modifier_grefm_supporting_cyprus
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_cyprus_cease_button = {
-	name = "grefm_cyprus_cease_button"
-	desc = "grefm_cyprus_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_cyprus
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_cyprus
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_cyprus
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
-		}
-	}
-	
-}
-
-grefm_cyprus_provoke_button = {
-	name = "grefm_cyprus_provoke_button"
-	desc = "grefm_cyprus_provoke_button_desc"
-	
-	visible = {
-		NOT = {
-			has_state_in_state_region = STATE_CYPRUS
-		}
-		any_country = {
-			owns_entire_state_region = STATE_CYPRUS
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		has_technology_researched = pan-nationalism
-		has_modifier = modifier_grefm_supporting_cyprus
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		s:STATE_CYPRUS = {
-			any_scope_state = {
-				radical_fraction = {
-					value >= 0.25
-					culture = cu:greek
-				}
-			}
-		}
-	}
-	
-	effect = {
-		custom_tooltip = {
-			text = grefm_cyprus_provoke_tt
-			hidden_effect = {
-				s:STATE_CYPRUS = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_CYPRUS
-					}
-					trigger_event = {
-						id = grefm.912 # The Cypriot Revolt (No Triggers)
-					}
-				}
-				
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-	
-}
-	
-grefm_crete_support_button = {
-	name = "grefm_crete_support_button"
-	desc = "grefm_crete_support_button_desc"
-	
-	visible = {
-		NOR = {
-			has_modifier = modifier_grefm_supporting_crete
-			has_state_in_state_region = STATE_CRETE
-		}
-		any_country = {
-			owns_entire_state_region = STATE_CRETE
-			grefm_is_muslim_trigger = yes
-		}	
-	}
-	
-	possible = {
-		NOT = { has_modifier = modifier_grefm_supporting_crete }
-		has_technology_researched = nationalism
-	}
-	
-	effect = {
-		custom_tooltip = grefm_crete_support_tt
-		add_modifier = modifier_grefm_supporting_crete
-	}
-	
-	ai_chance = {
-		base = -5
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-				OR = {
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = antagonize
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = conquer
-					}
-					has_secret_goal = {
-						who = c:TUR
-						secret_goal = dominate
-					}
-				}
-				weekly_net_fixed_income > money_amount_multiplier_medium
-				gold_reserves > 0
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = -1000
-		}
-	}
-	
-}
-
-grefm_crete_cease_button = {
-	name = "grefm_crete_cease_button"
-	desc = "grefm_crete_cease_button_desc"
-	
-	visible = {
-		has_modifier = modifier_grefm_supporting_crete
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_crete
-	}
-	
-	effect = {
-		remove_modifier = modifier_grefm_supporting_crete
-	}
-	
-	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root > relations_threshold:neutral
-				}
-			}
-			add = 100
-		}
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = -100
-		}
-		modifier = {
-			trigger = {
-				weekly_net_fixed_income < money_amount_multiplier_medium
-				gold_reserves < 0
-			}
-			add = 1000
-		}
-	}
-	
-}
-
-grefm_crete_provoke_button = {
-	name = "grefm_crete_provoke_button"
-	desc = "grefm_crete_provoke_button_desc"
-	
-	visible = {
-		NOR = {
-			has_state_in_state_region = STATE_CRETE
-		}
-		any_country = {
-			owns_entire_state_region = STATE_CRETE
-			grefm_is_muslim_trigger = yes
-		}
-	}
-	
-	possible = {
-		has_modifier = modifier_grefm_supporting_crete
-		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
-		custom_tooltip = {
-			text = grefm_crete_provoke_tt1
-			hidden_trigger = {
-				global_var:grefm_crete_revolt_var >= 150
-			}
-		}
-	}
-	
-	effect = {
-		custom_tooltip = {
-			text = grefm_crete_provoke_tt2
-			hidden_effect = {
-				s:STATE_CRETE = {
-					random_scope_state = {
-						set_variable = grefm_provocation_state_target
-					}
-				}
-				trigger_event = {
-					id = grefm.591 # Greek Provocations in State (GRE)
-					popup = yes
-				}
-				random_country = {
-					limit = {
-						owns_entire_state_region = STATE_CRETE
-					}
-					trigger_event = {
-						id = grefm.529 # Crete Revolts Again
-					}
-				}
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_nationalist_agitation
-			months = normal_modifier_time
-		}
-		change_infamy = 5
-	}
-	
-	ai_chance = {
-		base = -100
-		modifier = {
-			trigger = {
-				c:TUR ?= {
-					relations:root < relations_threshold:neutral
-				}
-			}
-			add = 1000
-		}
-	}
-	
-}
-
-# ARCHEAOLOGY
+#######################
+# ARCHEAOLOGY BUTTONS #
+#######################
 
 grefm_archeaology_cancel_button = {
 	name = "grefm_cancel_button"
@@ -1295,7 +287,7 @@ grefm_archeaology_cancel_button = {
 	}
 	
 	effect = {
-		grefm_clear_artifact_variables = yes
+		grefm_cancel_expedition_effect = yes
 		remove_modifier = modifier_grefm_active_excavation
 	}
 
@@ -1408,8 +400,21 @@ grefm_archeaology_alternate_site_button = {
 		trigger_event = {
 			id = grefm.142 # Alternative Dig Sites Considered
 		}
+		hidden_effect = {
+			if = {
+				limit = {
+					country_has_primary_culture = cu:hellene
+				}
+				set_variable = grefm_roman_sites_allowed
+			}
+			if = {
+				limit = {
+					country_has_primary_culture = cu:rhomaios
+				}
+				set_variable = grefm_hellenic_sites_allowed
+			}
+		}
 	}
-	
 }
 
 grefm_archeaology_parthenon_button_1 = {
@@ -2108,7 +1113,1097 @@ grefm_archeaology_chios_button = {
 
 }
 
-# Enosis
+########################
+# GREEK REVOLT BUTTONS #
+########################
+
+grefm_epirus_support_button = {
+	name = "grefm_epirus_support_button"
+	desc = "grefm_epirus_support_button_desc"
+	
+	visible = {
+		NOR = {
+			has_state_in_state_region = STATE_ALBANIA
+			has_state_in_state_region = STATE_THESSALIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_epirus
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_epirus
+				}
+			}
+			has_technology_researched = mass_communication
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_epirus
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_epirus
+				}
+			}
+			custom_tooltip = grefm_epirus_support_tt
+			add_modifier = modifier_grefm_supporting_epirus
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_epirus
+			}
+			remove_modifier = modifier_grefm_supporting_epirus
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_epirus }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_epirus }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_epirus
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_epirus
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_epirus
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}	
+
+grefm_epirus_provoke_button = {
+	name = "grefm_epirus_provoke_button"
+	desc = "grefm_epirus_provoke_button_desc"
+	
+	visible = {
+		NOR = {
+			has_state_in_state_region = STATE_ALBANIA
+			has_state_in_state_region = STATE_THESSALIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_epirus
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_ALBANIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+		s:STATE_THESSALIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+		any_country = {
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_THESSALIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_epirus_provoke_tt
+			hidden_effect = {
+				s:STATE_ALBANIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_ALBANIA
+						owns_entire_state_region = STATE_THESSALIA
+						grefm_is_muslim_trigger = yes
+					}
+					trigger_event = {
+						id = grefm.911 # The Epirote Revolt (No Triggers)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+}
+
+grefm_macedonia_support_button = {
+	name = "grefm_macedonia_support_button"
+	desc = "grefm_macedonia_support_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_THESSALIA
+		NOT = {
+			has_state_in_state_region = STATE_MACEDONIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_MACEDONIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_macedonia
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_grefm_supporting_macedonia
+				}
+			}
+			has_technology_researched = nationalism
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_macedonia
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+			if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_macedonia
+				}
+			}
+			custom_tooltip = grefm_macedonia_support_tt
+			add_modifier = modifier_grefm_supporting_macedonia
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_macedonia
+			}
+			remove_modifier = modifier_grefm_supporting_macedonia
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_macedonia }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_macedonia }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_macedonia
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_macedonia
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_macedonia
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_macedonia_provoke_button = {
+	name = "grefm_macedonia_provoke_button"
+	desc = "grefm_macedonia_provoke_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_THESSALIA
+		NOT = {
+			has_state_in_state_region = STATE_MACEDONIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_MACEDONIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_macedonia
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_MACEDONIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_macedonia_provoke_tt
+			hidden_effect = {
+				s:STATE_MACEDONIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_MACEDONIA
+					}
+					trigger_event = {
+						id = grefm.913 # The Macedonian Revolt (No Triggers)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_skopia_support_button = {
+	name = "grefm_skopia_support_button"
+	desc = "grefm_skopia_support_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_MACEDONIA
+		NOT = {
+			has_state_in_state_region = STATE_SKOPIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_SKOPIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_skopia
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_skopia
+				}
+			}
+			has_technology_researched = nationalism
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_skopia
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_skopia
+				}
+			}
+			custom_tooltip = grefm_skopia_support_tt
+			add_modifier = modifier_grefm_supporting_skopia
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_skopia
+			}
+			remove_modifier = modifier_grefm_supporting_skopia
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_skopia }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_skopia }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_skopia
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_skopia
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_skopia
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_skopia_provoke_button = {
+	name = "grefm_skopia_provoke_button"
+	desc = "grefm_skopia_provoke_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_MACEDONIA
+		NOT = {
+			has_state_in_state_region = STATE_SKOPIA
+		}
+		any_country = {
+			owns_entire_state_region = STATE_SKOPIA
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_skopia
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_SKOPIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_skopia_provoke_tt
+			hidden_effect = {
+				s:STATE_SKOPIA = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_SKOPIA
+					}
+					trigger_event = {
+						id = grefm.910 # The Makedonijan Revolt (No Triggers)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_smyrna_support_button = {
+	name = "grefm_smyrna_support_button"
+	desc = "grefm_smyrna_support_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+		NOT = {
+			has_state_in_state_region = STATE_AYDIN
+		}
+		any_country = {
+			owns_entire_state_region = STATE_AYDIN
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_smyrna
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_smyrna
+				}
+			}
+			has_technology_researched = nationalism
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_smyrna
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_smyrna
+				}
+			}
+			custom_tooltip = grefm_smyrna_support_tt
+			add_modifier = modifier_grefm_supporting_smyrna
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_smyrna
+			}
+			remove_modifier = modifier_grefm_supporting_smyrna
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_smyrna }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_smyrna }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_smyrna
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_smyrna
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_smyrna
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_smyrna_provoke_button = {
+	name = "grefm_smyrna_provoke_button"
+	desc = "grefm_smyrna_provoke_button_desc"
+	
+	visible = {
+		owns_entire_state_region = STATE_ATTICA
+		owns_entire_state_region = STATE_THESSALIA
+		owns_entire_state_region = STATE_MACEDONIA
+		owns_entire_state_region = STATE_WESTERN_THRACE
+		owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+		owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+		NOT = {
+			has_state_in_state_region = STATE_AYDIN
+		}
+		any_country = {
+			owns_entire_state_region = STATE_AYDIN
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_smyrna
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_AYDIN = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_smyrna_provoke_tt
+			hidden_effect = {
+				s:STATE_AYDIN = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_AYDIN
+					}
+					trigger_event = {
+						id = grefm.914 # The Smyrnite Revolt (No Triggers)
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_cyprus_support_button = {
+	name = "grefm_cyprus_support_button"
+	desc = "grefm_cyprus_support_button_desc"
+	
+	visible = {
+		NOT = {
+			has_state_in_state_region = STATE_CYPRUS
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CYPRUS
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_cyprus
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_cyprus
+				}
+			}
+			has_technology_researched = nationalism
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_cyprus
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_cyprus
+				}
+			}
+			custom_tooltip = grefm_cyprus_support_tt
+			add_modifier = modifier_grefm_supporting_cyprus
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_cyprus
+			}
+			remove_modifier = modifier_grefm_supporting_cyprus
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_cyprus }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_cyprus }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_cyprus
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_cyprus
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_cyprus
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_cyprus_provoke_button = {
+	name = "grefm_cyprus_provoke_button"
+	desc = "grefm_cyprus_provoke_button_desc"
+	
+	visible = {
+		NOT = {
+			has_state_in_state_region = STATE_CYPRUS
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CYPRUS
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+		has_modifier = modifier_grefm_supporting_cyprus
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_CYPRUS = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:hellene
+				}
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_cyprus_provoke_tt
+			hidden_effect = {
+				s:STATE_CYPRUS = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_CYPRUS
+					}
+					trigger_event = {
+						id = grefm.912 # The Cypriot Revolt (No Triggers)
+					}
+				}
+				
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_crete_support_button = {
+	name = "grefm_crete_support_button"
+	desc = "grefm_crete_support_button_desc"
+	
+	visible = {
+		NOT = {
+			has_state_in_state_region = STATE_CRETE
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CRETE
+			grefm_is_muslim_trigger = yes
+		}	
+	}
+	
+	selected = {
+		has_modifier = modifier_grefm_supporting_crete
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_crete
+				}
+			}
+			has_technology_researched = nationalism
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_crete
+			}
+			always = yes
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_grefm_supporting_crete
+				}
+			}
+			custom_tooltip = grefm_crete_support_tt
+			add_modifier = modifier_grefm_supporting_crete
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_grefm_supporting_crete
+			}
+			remove_modifier = modifier_grefm_supporting_crete
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_crete }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_grefm_supporting_crete }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_crete
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_crete
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_grefm_supporting_crete
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_crete_provoke_button = {
+	name = "grefm_crete_provoke_button"
+	desc = "grefm_crete_provoke_button_desc"
+	
+	visible = {
+		NOR = {
+			has_state_in_state_region = STATE_CRETE
+		}
+		any_country = {
+			owns_entire_state_region = STATE_CRETE
+			grefm_is_muslim_trigger = yes
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_crete
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		custom_tooltip = {
+			text = grefm_crete_provoke_tt1
+			hidden_trigger = {
+				global_var:grefm_crete_revolt_var >= 150
+			}
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_crete_provoke_tt2
+			hidden_effect = {
+				s:STATE_CRETE = {
+					random_scope_state = {
+						set_variable = grefm_provocation_state_target
+					}
+				}
+				trigger_event = {
+					id = grefm.591 # Greek Provocations in State (GRE)
+					popup = yes
+				}
+				random_country = {
+					limit = {
+						owns_entire_state_region = STATE_CRETE
+					}
+					trigger_event = {
+						id = grefm.529 # Crete Revolts Again
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+######################
+# ANNEXATION BUTTONS #
+######################
 
 grefm_ionian_enosis_button = {
 	name = "grefm_greek_enosis_button"
@@ -2235,6 +2330,10 @@ grefm_samos_enosis_button = {
 		}
 	}
 }
+
+#########################
+# MISCELLANEOUS BUTTONS #
+#########################
 
 grefm_mega_palation_survey_button = {
 	name = "grefm_mega_palation_survey_button"

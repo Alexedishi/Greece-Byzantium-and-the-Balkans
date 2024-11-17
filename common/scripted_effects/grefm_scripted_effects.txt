@@ -9,24 +9,16 @@ grefm_initialize_bavarocracy_variables_effect = {
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_var
+		name = grefm_bavarocracy_instability_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_otto_points
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_ruler_popularity_var
+		name = grefm_bavarocracy_instability_progress_var
 		value = 0
 	}
 }
 
-clean_up_bavarocracy_effect = {
+grefm_cleanup_bavarocracy_effect = {
 	hidden_effect = {
 		every_interest_group = {
 			remove_modifier = modifier_grefm_constitution_refused
@@ -38,62 +30,7 @@ clean_up_bavarocracy_effect = {
 	remove_variable = grefm_bavarocracy_var
 	remove_variable = grefm_bavarocracy_progress_var
 	remove_variable = grefm_tyranny_var
-	remove_variable = grefm_tyranny_progress_var
-	remove_variable = grefm_otto_points
-}
-
-grefm_initialize_tyranny_variables_effect = {
-	set_variable = {
-		name = grefm_tyranny_var
-		value = 100
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_support_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_opposition_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_laws_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_popularity_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_otto_points
-		value = 0
-	}
-}
-
-grefm_calculate_tyranny_variables_effect = {
-	set_variable = {
-		name = grefm_tyranny_support_var
-		value = grefm_tyranny_support_value
-	}
-	set_variable = {
-		name = grefm_tyranny_opposition_var
-		value = grefm_tyranny_opposition_value
-	}
-	set_variable = {
-		name = grefm_tyranny_laws_var
-		value = grefm_tyranny_laws_value
-	}
-	set_variable = {
-		name = grefm_tyranny_popularity_var
-		value = grefm_tyranny_popularity_value
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
-		value = grefm_tyranny_progress_value
-	}
+	set_variable = grefm_don_pacifico_var
 }
 
 ## Character Effects ##
@@ -177,6 +114,28 @@ create_epirus_characters = {
 
 ## EXCAVATION EFFECTS ##
 
+grefm_initialize_archaeology_effect = {
+	set_variable = {
+		name = grefm_archeaology_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_excavation_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_archeaology_sites_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_hellenic_archeaology_var
+		value = 0
+	}
+	set_variable = {
+		name = grefm_roman_archeaology_var
+		value = 0
+	}
+}
 
 grefm_update_artifact_modifier_effect = {
 	hidden_effect = {
@@ -203,6 +162,10 @@ grefm_excavation_completion_effect = {
 	set_variable = {
 		name = grefm_excavation_var
 		value = 0
+	}
+	change_variable = {
+		name = grefm_archeaology_var
+		add = 1
 	}
 	
 	if = {
@@ -343,6 +306,14 @@ grefm_cancel_expedition_effect = {
 	remove_variable = grefm_smyrna_excavation
 	remove_variable = grefm_tyana_excavation
 	remove_variable = grefm_chios_excavation
+}
+
+grefm_cleanup_archaeology_effect = {
+	remove_variable = grefm_archeaology_var
+	remove_variable = grefm_excavation_var
+	remove_variable = grefm_archeaology_sites_var
+	remove_variable = grefm_hellenic_archeaology_var
+	remove_variable = grefm_roman_archeaology_var
 }
 
 ## SEPARATISM EFFECTS ##

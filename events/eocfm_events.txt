@@ -3909,7 +3909,7 @@ eocfm.169 = { # The Living Law
 		video = "southamerica_christianity"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -4984,7 +4984,7 @@ eocfm.301 = { # The Metropolitan Lands
 		video = "byzfm_georgios_averof"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
@@ -5080,7 +5080,7 @@ eocfm.302 = { # Nova Roma Constantinopolitana
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 
 	duration = 3
 	
@@ -5128,7 +5128,7 @@ eocfm.303 = { # Into the Holy Land
 		video = "unspecific_military_parade"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
@@ -5279,7 +5279,7 @@ eocfm.304 = { # The Church of the East
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 
 	duration = 3
 	
@@ -5299,22 +5299,14 @@ eocfm.304 = { # The Church of the East
 			name = modifier_byzfm_restored
 			months = very_long_modifier_time
 		}
-		if = {
-			limit = {
-				has_variable = byzfm_texas_left
-			}
-			trigger_event = {
-				id = eocfm.305 # Across the Hospitable Sea
-				days = 30
-			}
+		trigger_event = {
+			id = eocfm.305 # Across the Hospitable Sea
+			days = 30
 		}
 	}
 	
 	option = {
 		name = eocfm.304.b
-		trigger = {
-			has_variable = byzfm_texas_left
-		}
 		add_modifier = {
 			name = modifier_byzfm_restored
 			months = very_long_modifier_time
@@ -5324,7 +5316,6 @@ eocfm.304 = { # The Church of the East
 			text = byzfm_weaksauce_tt
 			hidden_effect = {
 				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_texas_left
 			}
 		}
 	}

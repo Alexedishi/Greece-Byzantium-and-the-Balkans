@@ -3,7 +3,7 @@
 ########################
 # Events contained here pertain to the Greek state and its derivative Empires; this mod is GREECE-FIRST and the majority of nations will likely not receive content at this depth and level of detail. This is not to say I won't strive to keep all content high-quality, relevant, and hopefully engaging.
 # Fun fact: this entire mod came into existence because I wanted to make a "what if Roman Empire mod" and the history took it from there.
-# Byzantium used to be represented by the module "byzfm"; this has been merged with grefm. The following byzfm variables remain: byzfm_byzantium_restored, byzfm_weaksauce, and byzfm_took_the_purple
+# Byzantium used to be represented by the module "byzfm"; this has been merged with grefm. The following byzfm variables remain: byzfm_byzantium_restored, and byzfm_took_the_purple
 
 ####################
 
@@ -33,33 +33,33 @@ namespace = grefm
 #	004 - Long Live the Constitution
 #	005 - The Bavarocracy Abolished
 #	006 - The October Revolution
-#	007 - Mandate Secured
+#	007 - The Bavarocracy Secured
 #	008 - The Overthrow of the Bavarocracy
 #	009 - A Disgraced Tyrant
 
-#010-019 - Bavarocracy Reform Events
+#010-019 - Bavarocracy Support Events
 #	010 - Constitutional Promises
-#	011 - An Ottoman Legacy
-#	012 - The Great Land Reformation
-#	013 - Tribunal Justice
-#	014 - The End of the Brigands
-#	015 - Rampant Corruption
-#	016 - An Honorable Regime
+#	021>>011 - King Ludwig Visits Greece
+#	022>>012 - Otto Departs for Bavaria
+#	023>>013 - A Consort Fit for a Bavarian
+#	024>>014 - The King's Intellect Challenged
+#	025>>015 - Discharging the Regency
+#	026>>016 - The Philorthodox Conspiracy
 #	017 - The Bavarian Auxiliary Corps
 #	018 - Bavarian Auxiliaries Dismissed
 #	019 - The Return of the "Turk-Eater"
 
-#020-029 - Bavarocracy Support Events
-#	020 - OPEN
-#	021 - King Ludwig Visits Greece
-#	022 - Otto Departs for Bavaria
-#	023 - A Consort Fit for a Bavarian
-#	024 - The King's Intellect Challenged
-#	025 - Discharging the Regency
-#	026 - The Philorthodox Conspiracy
-#	027 - OPEN
-#	028 - OPEN
-#	029 - Absolutism in Greece
+#020-029 - Bavarocracy Outcome Events
+#	020 - 
+#	021 - 
+#	022 - 
+#	023 - 
+#	024 - 
+#	025 - 
+#	026 - 
+#	027 - 
+#	028 - 
+#	029 - 
 
 #030-039 - Constitutional Monarchy Events
 #	030 - An Elected Monarch --end of 1.0 content
@@ -201,25 +201,19 @@ namespace = grefm
 ##  #GRE3  THE REVENGE OF THE GREEKS  Events  300-399  ##
 
 #300-309 - Hellenistic Empire Restoration Events
-#	300 - The Vergina Sun Rises (path event)
-#	301 - The Revenge of the Greeks
-#	302 - Nova Roma Constantinopolitana
-#	303 - The Shores of Phoenicia
-#	304 - The Legacy of Alexander ----commit event
-#	305 - The Lands of Arianōn
-#	306 - The Graveyard of Empires
-#	307 - The Empire of the Greeks
+#	300 - The Revenge of the Greeks
+#	301 - The Legacy of Alexander
+#	302 - The Shores of Phoenicia
+#	303 - The Lands of Arianōn
+#	304 - The Graveyard of Empires
+#	305 - The Empire of the Greeks
+#	306 - The Shores of the Hospitable Sea
+#	307 - The Lands of Magna Graecia
+#	308 - The Foundings of Alexander
 
-#310-319 - Hellenistic Imperial Ambition Events
-#	310 - The Shores of the Hospitable Sea
-#	311 - The Black Sea Secured
-#	312 - The Lands of Magna Graecia
-#	313 - Magna Graecia Secured
-#	314 - The Foundings of Alexander
-#	315 - Alexandria on the Oxus
-#	316 - Alexandria in Margiana
-#	317 - Alexandria on the Indus
-#	318 - Alexandria in the Caucasus
+#310-319 - General Hellenic Empire Events
+#	310 - OPEN
+
 
 ##  #GRE4  IONIAN ISLANDS FLAVOR  Events  400-499  ##
 
@@ -307,15 +301,16 @@ namespace = grefm
 #	598 - The Smyrna Revolt (TUR/EGY)
 #	599 - Reassigns the Separatism JE [TECH]
 
+
 ##  #GRE6  OPEN  Events  600-699  ##
+# //
 
 
 ##	#GRE7	OPEN	Events 700-799	##
+# //
 
 	
 ##  #GRE8  BYZANTINE EMPIRE FLAVOR  Events 800-899  ##
-
-##>>>>IMPORT FROM BYZFM>>>>##
 
 #800-809 - Purple Pheonix Events
 #	800 - The Pheonix Rises (Path Event)
@@ -343,13 +338,13 @@ namespace = grefm
 #830-839 - Chariot Racing Events
 #	830 - Chariot Racing Re-established
 #	831 - Chariot Racing Expanded
-	832 - Chariot Racing Technical Event [TECH]
+#	832 - Chariot Racing Technical Event [TECH]
 #	833 - A Day at the Races
-	834 - Inconclusive Race Results
+#	834 - Inconclusive Race Results
 #	835 - Sporting Riot
 #	836 - Ruler Attempts to Join Race
 #	837 - Team Caught Cheating
-#	838 - Drag Racing Event
+#	838 - The Combustion Engine Takes the Hippodrome!
 
 #840-849 - OPEN
 #	840 - OPEN
@@ -377,8 +372,6 @@ namespace = grefm
 #	397>>897 - >>[ROM] The Last of the Romans
 #	398>>898 - ##[ALB] TBD
 #	399>>899 - ##[ALB] TBD
-
-##>>>>IMPORT FROM BYZFM>>>>##
 
 
 ##	#GRE9	TECHNICAL EVENTS	Events 900-999	##
@@ -430,7 +423,7 @@ grefm.001 = { # Bavarocracy notification
 	
 	immediate = {
 		trigger_event = {
-			id = grefm.021 # King Ludwig Visits Greece
+			id = grefm.011 # King Ludwig Visits Greece
 			days = 40 # Mid-February
 		}
 		trigger_event = {
@@ -438,19 +431,19 @@ grefm.001 = { # Bavarocracy notification
 			days = 90
 		}
 		trigger_event = {
-			id = grefm.022 # Otto Leaves for Bavaria
+			id = grefm.012 # Otto Leaves for Bavaria
 			days = 130 # Mid-May
 		}
 		trigger_event = {
-			id = grefm.023 # A Consort Fit for a Bavarian
+			id = grefm.013 # A Consort Fit for a Bavarian
 			days = 270
 		}
 		trigger_event = {
-			id = grefm.024 # Otto's Intellect Challenged
+			id = grefm.014 # Otto's Intellect Challenged
 			days = 270
 		}
 		trigger_event = {
-			id = grefm.025 # Discharging the Regency
+			id = grefm.015 # Discharging the Regency
 			days = 390 # February 1837
 		}
 	}
@@ -623,12 +616,10 @@ grefm.003 = { # 3 September 1843 Revolution
 				add = 100
 			}
 		}
-		set_variable = grefm_constitution_completed
 	}
 	
 	option = { # Othonian Absolutism Time
 		name = grefm.003.b
-		grefm_initialize_tyranny_variables_effect = yes
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -657,9 +648,6 @@ grefm.003 = { # 3 September 1843 Revolution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Otto discharged von Rudhart in 1837 to directly chair his privy council; this is represented here for gameplay reasons
 		}
-		add_journal_entry = {
-			type = je_grefm_the_tyranny_of_house_wittelsbach
-		}
 		if = {
 			limit = {
 				has_law = law_type:law_oligarchy
@@ -674,6 +662,7 @@ grefm.003 = { # 3 September 1843 Revolution
 			}
 			activate_law = law_type:law_autocracy
 		}
+		set_variable = grefm_tyranny_var
 	}
 	
 }
@@ -706,16 +695,11 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 		ruler = {
 			save_scope_as = king_otto_scope
 		}
-		set_variable = {
-			name = grefm_tyranny_var
-			value = 0
-		}
 	}
 	
 	option = {
 		name = grefm.004.a
 		default_option = yes
-		grefm_initialize_tyranny_variables_effect = yes
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -755,16 +739,7 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Othonian Absolutism Moment
 		}
-		add_journal_entry = {
-			type = je_grefm_the_tyranny_of_house_wittelsbach
-		}
-	}
-	
-	after = {
-		set_variable = {
-			name = grefm_tyranny_var
-			value = 100
-		}
+		set_variable = grefm_tyranny_var
 	}
 	
 }
@@ -803,7 +778,6 @@ grefm.005 = { # error 404 monarch not found
 	option = {
 		name = grefm.005.a
 		default_option = yes
-		clean_up_bavarocracy_effect = yes
 		change_relations = {
 			country = c:FRA
 			value = -30
@@ -931,7 +905,6 @@ grefm.006 = { # revolution of 1862
 		add_loyalists = {
 			value = 0.1
 		}
-		clean_up_bavarocracy_effect = yes
 		trigger_event = {
 			id = grefm.030
 			days = 30
@@ -940,7 +913,7 @@ grefm.006 = { # revolution of 1862
 	
 }
 
-grefm.007 = { # mandate secured
+grefm.007 = { # The Bavarocracy Secured
 	type = country_event
 	placement = root
 	
@@ -973,7 +946,6 @@ grefm.007 = { # mandate secured
 	option = {
 		name = grefm.007.a
 		default_option = yes
-		clean_up_bavarocracy_effect = yes
 		scope:king_otto_scope = {
 			remove_trait = arrogant
 			remove_trait = romantic
@@ -1075,7 +1047,6 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 			}
 			exile_character = yes
 		}
-		clean_up_bavarocracy_effect = yes
 		trigger_event = {
 			id = grefm.030
 			days = 30
@@ -1180,14 +1151,13 @@ grefm.009 = { # A Disgraced Tyrant
 				add = -400
 			}
 		}
-		set_variable = grefm_constitution_completed
 	}
 	
 }
 
 #### GOVERNMENT REFORM EVENTS ####
 
-grefm.010 = { # adds je_grefm_greek_constitution
+grefm.010 = { # Constitutional Promises
 	type = country_event
 	placement = root
 	
@@ -1216,14 +1186,12 @@ grefm.010 = { # adds je_grefm_greek_constitution
 	option = {
 		name = grefm.010.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_greek_constitution
-		}
+		custom_tooltip = grefm.010.tt
 	}
 
 }
 
-grefm.011 = { # adds je_grefm_land_reform
+grefm.011 = { # King Ludwig Visits Greece
 	type = country_event
 	placement = root
 	
@@ -1232,10 +1200,10 @@ grefm.011 = { # adds je_grefm_land_reform
 	flavor = grefm.011.f
 	
 	event_image = {
-		video = "europenorthamerica_russian_serfs"
+		video = "votp_monarch_holding_court"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1243,28 +1211,39 @@ grefm.011 = { # adds je_grefm_land_reform
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by grefm.001
+	trigger = {
+		# triggered from GLOBAL
 	}
 	
 	immediate = {
+		c:BAV = {
+			save_scope_as = bavaria_scope
+			capital = {
+				save_scope_as = bavaria_state_scope
+			}
+			ruler = {
+				save_scope_as = ludwig_scope
+			}
+		}
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = armansperg_scope
+			}
+		}
 	}
 	
 	option = {
 		name = grefm.011.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_land_reform
+		add_modifier = {
+			name = modifier_grefm_bavarian_tour
+			months = normal_modifier_time
 		}
-		show_as_tooltip = {
-			add_modifier = {
-				name = modifier_grefm_timar
-			}
-		}	
 	}
 
 }
 
-grefm.012 = { # land reformation complete
+grefm.012 = { # Otto Leaves for Bavaria
 	type = country_event
 	placement = root
 	
@@ -1273,10 +1252,10 @@ grefm.012 = { # land reformation complete
 	flavor = grefm.012.f
 	
 	event_image = {
-		video = "southamerica_factory_opening"
+		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1284,35 +1263,34 @@ grefm.012 = { # land reformation complete
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by JE
-	}
+	trigger = {
+		# triggered from GLOBAL
+	}	
 	
 	immediate = {
+		c:BAV = {
+			save_scope_as = bavaria_scope
+			capital = {
+				save_scope_as = bavaria_state_scope
+			}
+			ruler = {
+				save_scope_as = ludwig_scope
+			}
+		}
 	}
 	
 	option = {
 		name = grefm.012.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_balkfm_modernized_agriculture
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			pop_type = farmers
-			value = small_radicals
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_100
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = 100
-			}
+			name = modifier_grefm_absent_monarch
+			months = 12
 		}
 	}
 
 }
 
-grefm.013 = { # adds je_grefm_brigandage
+grefm.013 = { # A Consort Fit for a Bavarian
 	type = country_event
 	placement = root
 	
@@ -1320,11 +1298,254 @@ grefm.013 = { # adds je_grefm_brigandage
 	desc = grefm.013.d
 	flavor = grefm.013.f
 	
-	event_image = {
-		video = "southamerica_war_civilians"
+	gui_window = event_window_2char
+
+	left_icon = scope:royal_marriage_character
+	right_icon = scope:queen_amalia_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	immediate = { # wedding.2 effects, with extra scripting for Queen Amalia and Oldenburg
+		create_character = {
+			template = template_grefm_oldenburg_amalia
+			on_created = {
+				place_character_in_void = 300
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_grefm_oldenburg_amalia
+			}
+			save_scope_as = queen_amalia_scope
+		}
+		random_scope_character = {
+			limit = {
+				has_variable = spouse_seeker
+			}
+			save_scope_as = royal_marriage_character
+		}
+		random_country = {
+			limit = {
+				NOT = { THIS = ROOT }
+				NOT = { THIS ?= c:OLD }
+				has_law = law_type:law_monarchy
+				country_has_state_religion = rel:catholic
+				is_country_type = recognized
+				ruler = {
+					age > 36
+					NOT = {
+						has_variable = marriage_target
+					}
+				}
+			}
+			save_scope_as = marriage_country_1
+			ruler = {
+				save_scope_as = foreign_ruler_1
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:marriage_country_1
+				any_country = {
+					NOT = { THIS = ROOT }
+					NOT = { THIS ?= c:OLD }
+					NOT = { THIS = scope:marriage_country_1 }
+					has_law = law_type:law_monarchy
+					country_has_state_religion = rel:catholic
+					is_country_type = recognized
+					ruler = {
+						age > 36
+						NOT = { has_variable = marriage_target }
+					}
+				}
+			}
+			random_country = {
+				limit = {
+					NOT = { THIS = ROOT }
+					NOT = { THIS ?= c:OLD }
+					NOT = { THIS = scope:marriage_country_1 }
+					has_law = law_type:law_monarchy
+					country_has_state_religion = rel:catholic
+					is_country_type = recognized
+					ruler = {
+						age > 36
+						NOT = {
+							has_variable = marriage_target
+						}
+					}
+				}
+				save_scope_as = marriage_country_2
+				ruler = {
+					save_scope_as = foreign_ruler_2
+				}
+			}
+			if = { #In order for this to be searched for, marriage country 2 must also exist.
+				limit = {
+					exists = scope:marriage_country_2
+					any_country = {
+						NOT = { THIS = ROOT }
+						NOT = { THIS ?= c:OLD }
+						NOT = { THIS = scope:marriage_country_1 }
+						NOT = { THIS = scope:marriage_country_2 }
+						has_law = law_type:law_monarchy
+						country_has_state_religion = rel:catholic
+						is_country_type = recognized
+						ruler = {
+							age > 36
+							NOT = { has_variable = marriage_target }
+						}
+					}
+				}
+				random_country = {
+					limit = {
+						NOT = { THIS = ROOT }
+						NOT = { THIS ?= c:OLD }
+						NOT = { THIS = scope:marriage_country_1 }
+						NOT = { THIS = scope:marriage_country_2 }
+						relations:root >= 0
+						has_law = law_type:law_monarchy
+						country_has_state_religion = rel:catholic
+						is_country_type = recognized
+						ruler = {
+							age > 36
+							NOT = {
+								has_variable = marriage_target
+							}
+						}
+					}
+					save_scope_as = marriage_country_3
+					ruler = {
+						save_scope_as = foreign_ruler_3
+					}
+				}
+			}
+		}
+		c:OLD = {
+			save_scope_as = oldenburg_scope
+		}
+	}
+	
+	option = { # Queen Amalia, the Historical Option
+		name = grefm.013.a
+		default_option = yes
+		trigger = {
+			exists = scope:queen_amalia_scope
+			exists = c:OLD
+		}
+		c:OLD ?= {
+			ruler = {
+				set_variable = marriage_target
+			}
+			save_scope_as = marriage_country
+			change_relations = {
+				country = ROOT
+				value = 20
+			}
+		}
+		trigger_event = {
+			id = wedding.1
+			popup = yes
+		}
+		custom_tooltip = grefm.013.tt
+	}
+	
+	option = { # Vanilla Noble 1
+		name = wedding.2.a
+		trigger = {
+			exists = scope:marriage_country_1
+		}
+		scope:marriage_country_1 = {
+			ruler = {
+				set_variable = marriage_target
+			}
+			save_scope_as = marriage_country
+			change_relations = {
+				country = ROOT
+				value = 20
+			}
+		}
+		trigger_event = {
+			id = wedding.1
+			popup = yes
+		}
+	}
+	
+	option = { # Vanilla Noble 2
+		name = wedding.2.b
+		trigger = {
+			exists = scope:marriage_country_2
+		}
+		scope:marriage_country_2 = {
+			ruler = {
+				set_variable = marriage_target
+				save_scope_as = marriage_country_ruler
+			}
+			save_scope_as = marriage_country
+			change_relations = {
+				country = ROOT
+				value = 20
+			}
+		}
+		trigger_event = {
+			id = wedding.1
+			popup = yes
+		}
+	}
+	
+	option = { # Dynamic Noble 3
+		name = wedding.2.c
+		trigger = {
+			exists = scope:marriage_country_3
+		}
+		scope:marriage_country_3 = {
+			ruler = {
+				set_variable = marriage_target
+				save_scope_as = marriage_country_ruler
+			}
+			save_scope_as = marriage_country
+			change_relations = {
+				country = ROOT
+				value = 20
+			}
+		}
+		trigger_event = {
+			id = wedding.1
+			popup = yes
+		}
+	}
+
+	after = {
+		ruler = {
+			set_variable = is_married
+			remove_variable = spouse_seeker
+		}
+	}
+}
+
+grefm.014 = { # Otto's Intellect Challenged
+	type = country_event
+	placement = root
+	
+	title = grefm.014.t
+	desc = grefm.014.d
+	flavor = grefm.014.f
+	
+	event_image = {
+		video = "ep1_clandestine_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1332,85 +1553,44 @@ grefm.013 = { # adds je_grefm_brigandage
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by JE
+	trigger = {
+		# triggered from GLOBAL
 	}
 	
 	immediate = {
-		random_scope_state = {
-			save_scope_as = brigandage_state
+		ruler = {
+			save_scope_as = king_otto_scope
 		}
-	}
-	
-	option = {
-		name = grefm.013.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_brigandage
-		}
-		show_as_tooltip = {
-			add_modifier = {
-				name = modifier_grefm_insecure_countryside
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = armansperg_scope
 			}
 		}
-	}
-
-}
-
-grefm.014 = { # brigands suppressed
-	type = country_event
-	placement = root
-
-	title = grefm.014.t
-	desc = grefm.014.d
-	flavor = grefm.014.f
-
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = { # triggered by JE
-	}
-	
-	immediate = {
+		c:BAV = {
+			ruler = {
+				save_scope_as = ludwig_scope
+			}
+		}
 	}
 	
 	option = {
 		name = grefm.014.a
 		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_secured_order
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			value = small_radicals
-			strata = poor
-		}
-		every_scope_state = {
-			limit = {
-				has_modifier = modifier_balkfm_brigandage
-			}
-			remove_modifier = modifier_balkfm_brigandage
+		scope:king_otto_scope = {
+			add_modifier = modifier_grefm_feebleminded
 		}
 		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_100
+			text = je_grefm_bavarocracy_minus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
-				add = 100
+				add = -100
 			}
 		}
 	}
-	
+
 }
 
-grefm.015 = { # adds je_grefm_civic_tradition
+grefm.015 = { # Discharging the Regency
 	type = country_event
 	placement = root
 	
@@ -1419,10 +1599,10 @@ grefm.015 = { # adds je_grefm_civic_tradition
 	flavor = grefm.015.f
 	
 	event_image = {
-		video = "europenorthamerica_capitalists_meeting"
+		video = "unspecific_politicians_arguing"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1430,28 +1610,88 @@ grefm.015 = { # adds je_grefm_civic_tradition
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by JE
+	trigger = {
+		# triggered from GLOBAL
 	}
 	
 	immediate = {
-	}
-	
-	option = {
-		name = grefm.015.a
-		default_option = yes
-		add_journal_entry = {
-			type = je_grefm_civic_tradition
+		ruler = {
+			save_scope_as = king_otto_scope
 		}
-		show_as_tooltip = {
-			add_modifier = {
-				name = modifier_grefm_poor_administration
+		ig:ig_landowners = {
+			leader = {
+				save_scope_as = armansperg_scope
 			}
 		}
+		create_character = {
+			template = template_grefm_rudhart_ignaz
+			on_created = {
+				place_character_in_void = 12 # just for this event
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_grefm_rudhart_ignaz
+			}
+			save_scope_as = grefm_rudhart_scope
+		}
 	}
-
+	
+	option = { # Kick Armansperg Out
+		name = grefm.015.a
+		default_option = yes
+		scope:king_otto_scope = {
+			remove_modifier = modifier_grefm_feebleminded
+		}
+		scope:armansperg_scope = {
+			hidden_effect = {
+				disinherit_character = yes
+			}
+			exile_character = yes
+		}
+		scope:grefm_rudhart_scope = {
+			set_as_interest_group_leader = yes
+			free_character_from_void = yes
+		}
+		trigger_event = {
+			id = grefm.010 # Constitutional Promises
+			days = 30
+		}
+		set_variable = grefm_bavarocracy
+		remove_modifier = modifier_grefm_armansperg_regency
+		remove_variable = eocfm_ruler_conversion_considered
+	}
+	
+	option = { # Be a Beta
+		name = grefm.015.b
+		add_modifier = {
+			name = modifier_grefm_impotent_monarch
+			months = long_modifier_time
+		}
+		scope:armansperg_scope = {
+			hidden_effect = {
+				disinherit_character = yes
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_minus_200
+			change_variable = {
+				name = grefm_bavarocracy_var
+				add = -200
+			}
+		}
+		trigger_event = {
+			id = grefm.010 # Constitutional Promises
+			days = 30
+		}
+		set_variable = grefm_bavarocracy
+		remove_modifier = modifier_grefm_armansperg_regency
+		remove_variable = eocfm_ruler_conversion_considered
+	}
+	
 }
 
-grefm.016 = { # civic reform complete
+grefm.016 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of eocfm.006
 	type = country_event
 	placement = root
 	
@@ -1460,10 +1700,10 @@ grefm.016 = { # civic reform complete
 	flavor = grefm.016.f
 	
 	event_image = {
-		video = "unspecific_signed_contract"
+		video = "ep1_clandestine_meeting"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -1471,28 +1711,118 @@ grefm.016 = { # civic reform complete
 	
 	dlc = dlc_grefm
 	
-	trigger = {	# triggered by JE
+	trigger = {
+		NOT = {
+			has_variable = eocfm_ruler_conversion_considered
+		}
+		var:grefm_bavarocracy_var <= 1500
+		ruler = {
+			NOT = {
+				has_religion = orthodox
+			}
+		}
+		heir ?= {
+			NOT = {
+				has_religion = orthodox
+			}
+		}
 	}
 	
 	immediate = {
-	}
+		set_variable = eocfm_ruler_conversion_considered
+		ruler = {
+			save_scope_as = eocfm_ruler_scope
+		}
+		heir = {
+			save_scope_as = eocfm_heir_scope
+		}
+		ig:ig_devout = {
+			leader = {
+				save_scope_as = devout_leader_scope
+			}
+		}
+	}	
 	
-	option = {
+	option = { # Both will convert
 		name = grefm.016.a
 		default_option = yes
+		scope:eocfm_ruler_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
+		scope:eocfm_heir_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
 		add_modifier = {
-			name = modifier_balkfm_civic_tradition_established
+			name = modifier_eocfm_ruler_accepted_conversion
 			months = normal_modifier_time
 		}
 		add_loyalists = {
-			pop_type = bureaucrats
-			value = small_radicals
+			religion = rel:orthodox
+			value = medium_radicals
 		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_plus_100
 			change_variable = {
 				name = grefm_bavarocracy_var
 				add = 100
+			}
+		}
+	}
+	
+	option = { # Heir will convert
+		name = grefm.016.b
+		scope:eocfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		scope:eocfm_heir_scope = {
+			change_character_religion = rel:orthodox
+			add_modifier = modifier_eocfm_accepted_conversion
+		}
+		add_loyalists = {
+			religion = rel:orthodox
+			value = small_radicals
+		}
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_plus_50
+			change_variable = {
+				name = grefm_bavarocracy_var
+				add = 50
+			}
+		}
+	}
+	
+	option = { # 99 THESES GO BRRRRRRRRR
+		name = grefm.016.c
+		scope:eocfm_ruler_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		scope:eocfm_heir_scope = {
+			add_modifier = {
+				name = modifier_eocfm_refused_conversion
+				months = very_long_modifier_time
+			}
+		}
+		add_modifier = {
+			name = modifier_eocfm_ruler_refused_conversion
+			months = normal_modifier_time
+		}
+		add_radicals = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+		custom_tooltip = {
+			text = je_grefm_bavarocracy_minus_50
+			change_variable = {
+				name = grefm_bavarocracy_var
+				add = -50
 			}
 		}
 	}
@@ -1648,701 +1978,7 @@ grefm.019 = { # nikitas released from jail
 
 #### MONARCHY SUPPORT EVENTS ####
 
-grefm.020 = { # OPEN
-	orphan = yes
-}
 
-grefm.021 = { # King Ludwig Visits Greece
-	type = country_event
-	placement = root
-	
-	title = grefm.021.t
-	desc = grefm.021.d
-	flavor = grefm.021.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_otto.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered from GLOBAL
-	}
-	
-	immediate = {
-		c:BAV = {
-			save_scope_as = bavaria_scope
-			capital = {
-				save_scope_as = bavaria_state_scope
-			}
-			ruler = {
-				save_scope_as = ludwig_scope
-			}
-		}
-		ig:ig_landowners = {
-			leader = {
-				save_scope_as = armansperg_scope
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.021.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_bavarian_tour
-			months = normal_modifier_time
-		}
-	}
-
-}
-
-grefm.022 = { # Otto Leaves for Bavaria
-	type = country_event
-	placement = root
-	
-	title = grefm.022.t
-	desc = grefm.022.d
-	flavor = grefm.022.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered from GLOBAL
-	}	
-	
-	immediate = {
-		c:BAV = {
-			save_scope_as = bavaria_scope
-			capital = {
-				save_scope_as = bavaria_state_scope
-			}
-			ruler = {
-				save_scope_as = ludwig_scope
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.022.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_absent_monarch
-			months = 12
-		}
-	}
-
-}
-
-grefm.023 = { # A Consort Fit for a Bavarian
-	type = country_event
-	placement = root
-	
-	title = grefm.023.t
-	desc = grefm.023.d
-	flavor = grefm.023.f
-	
-	gui_window = event_window_2char
-
-	left_icon = scope:royal_marriage_character
-	right_icon = scope:queen_amalia_scope
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered from GLOBAL
-	}
-	
-	immediate = { # wedding.2 effects, with extra scripting for Queen Amalia and Oldenburg
-		create_character = {
-			template = template_grefm_oldenburg_amalia
-			on_created = {
-				place_character_in_void = 300
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_template = template_grefm_oldenburg_amalia
-			}
-			save_scope_as = queen_amalia_scope
-		}
-		random_scope_character = {
-			limit = {
-				has_variable = spouse_seeker
-			}
-			save_scope_as = royal_marriage_character
-		}
-		random_country = {
-			limit = {
-				NOT = { THIS = ROOT }
-				NOT = { THIS ?= c:OLD }
-				has_law = law_type:law_monarchy
-				country_has_state_religion = rel:catholic
-				is_country_type = recognized
-				ruler = {
-					age > 36
-					NOT = {
-						has_variable = marriage_target
-					}
-				}
-			}
-			save_scope_as = marriage_country_1
-			ruler = {
-				save_scope_as = foreign_ruler_1
-			}
-		}
-		if = {
-			limit = {
-				exists = scope:marriage_country_1
-				any_country = {
-					NOT = { THIS = ROOT }
-					NOT = { THIS ?= c:OLD }
-					NOT = { THIS = scope:marriage_country_1 }
-					has_law = law_type:law_monarchy
-					country_has_state_religion = rel:catholic
-					is_country_type = recognized
-					ruler = {
-						age > 36
-						NOT = { has_variable = marriage_target }
-					}
-				}
-			}
-			random_country = {
-				limit = {
-					NOT = { THIS = ROOT }
-					NOT = { THIS ?= c:OLD }
-					NOT = { THIS = scope:marriage_country_1 }
-					has_law = law_type:law_monarchy
-					country_has_state_religion = rel:catholic
-					is_country_type = recognized
-					ruler = {
-						age > 36
-						NOT = {
-							has_variable = marriage_target
-						}
-					}
-				}
-				save_scope_as = marriage_country_2
-				ruler = {
-					save_scope_as = foreign_ruler_2
-				}
-			}
-			if = { #In order for this to be searched for, marriage country 2 must also exist.
-				limit = {
-					exists = scope:marriage_country_2
-					any_country = {
-						NOT = { THIS = ROOT }
-						NOT = { THIS ?= c:OLD }
-						NOT = { THIS = scope:marriage_country_1 }
-						NOT = { THIS = scope:marriage_country_2 }
-						has_law = law_type:law_monarchy
-						country_has_state_religion = rel:catholic
-						is_country_type = recognized
-						ruler = {
-							age > 36
-							NOT = { has_variable = marriage_target }
-						}
-					}
-				}
-				random_country = {
-					limit = {
-						NOT = { THIS = ROOT }
-						NOT = { THIS ?= c:OLD }
-						NOT = { THIS = scope:marriage_country_1 }
-						NOT = { THIS = scope:marriage_country_2 }
-						relations:root >= 0
-						has_law = law_type:law_monarchy
-						country_has_state_religion = rel:catholic
-						is_country_type = recognized
-						ruler = {
-							age > 36
-							NOT = {
-								has_variable = marriage_target
-							}
-						}
-					}
-					save_scope_as = marriage_country_3
-					ruler = {
-						save_scope_as = foreign_ruler_3
-					}
-				}
-			}
-		}
-		c:OLD = {
-			save_scope_as = oldenburg_scope
-		}
-	}
-	
-	option = { # Queen Amalia, the Historical Option
-		name = grefm.023.a
-		default_option = yes
-		trigger = {
-			exists = scope:queen_amalia_scope
-			exists = c:OLD
-		}
-		c:OLD ?= {
-			ruler = {
-				set_variable = marriage_target
-			}
-			save_scope_as = marriage_country
-			change_relations = {
-				country = ROOT
-				value = 20
-			}
-		}
-		trigger_event = {
-			id = wedding.1
-			popup = yes
-		}
-		custom_tooltip = grefm.023.tt
-	}
-	
-	option = { # Vanilla Noble 1
-		name = wedding.2.a
-		trigger = {
-			exists = scope:marriage_country_1
-		}
-		scope:marriage_country_1 = {
-			ruler = {
-				set_variable = marriage_target
-			}
-			save_scope_as = marriage_country
-			change_relations = {
-				country = ROOT
-				value = 20
-			}
-		}
-		trigger_event = {
-			id = wedding.1
-			popup = yes
-		}
-	}
-	
-	option = { # Vanilla Noble 2
-		name = wedding.2.b
-		trigger = {
-			exists = scope:marriage_country_2
-		}
-		scope:marriage_country_2 = {
-			ruler = {
-				set_variable = marriage_target
-				save_scope_as = marriage_country_ruler
-			}
-			save_scope_as = marriage_country
-			change_relations = {
-				country = ROOT
-				value = 20
-			}
-		}
-		trigger_event = {
-			id = wedding.1
-			popup = yes
-		}
-	}
-	
-	option = { # Dynamic Noble 3
-		name = wedding.2.c
-		trigger = {
-			exists = scope:marriage_country_3
-		}
-		scope:marriage_country_3 = {
-			ruler = {
-				set_variable = marriage_target
-				save_scope_as = marriage_country_ruler
-			}
-			save_scope_as = marriage_country
-			change_relations = {
-				country = ROOT
-				value = 20
-			}
-		}
-		trigger_event = {
-			id = wedding.1
-			popup = yes
-		}
-	}
-
-	after = {
-		ruler = {
-			set_variable = is_married
-			remove_variable = spouse_seeker
-		}
-	}
-}
-
-grefm.024 = { # Otto's Intellect Challenged
-	type = country_event
-	placement = root
-	
-	title = grefm.024.t
-	desc = grefm.024.d
-	flavor = grefm.024.f
-	
-	event_image = {
-		video = "ep1_clandestine_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered from GLOBAL
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = king_otto_scope
-		}
-		ig:ig_landowners = {
-			leader = {
-				save_scope_as = armansperg_scope
-			}
-		}
-		c:BAV = {
-			ruler = {
-				save_scope_as = ludwig_scope
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.024.a
-		default_option = yes
-		scope:king_otto_scope = {
-			add_modifier = modifier_grefm_feebleminded
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_100
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = -100
-			}
-		}
-	}
-
-}
-
-grefm.025 = { # Discharging the Regency
-	type = country_event
-	placement = root
-	
-	title = grefm.025.t
-	desc = grefm.025.d
-	flavor = grefm.025.f
-	
-	event_image = {
-		video = "unspecific_politicians_arguing"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered from GLOBAL
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = king_otto_scope
-		}
-		ig:ig_landowners = {
-			leader = {
-				save_scope_as = armansperg_scope
-			}
-		}
-		create_character = {
-			template = template_grefm_rudhart_ignaz
-			on_created = {
-				place_character_in_void = 12 # just for this event
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_template = template_grefm_rudhart_ignaz
-			}
-			save_scope_as = grefm_rudhart_scope
-		}
-		set_variable = grefm_regency_completed
-	}
-	
-	option = { # Kick Armansperg Out
-		name = grefm.025.a
-		default_option = yes
-		scope:king_otto_scope = {
-			remove_modifier = modifier_grefm_feebleminded
-		}
-		scope:armansperg_scope = {
-			hidden_effect = {
-				disinherit_character = yes
-			}
-			exile_character = yes
-		}
-		scope:grefm_rudhart_scope = {
-			set_as_interest_group_leader = yes
-			free_character_from_void = yes
-		}
-	}
-	
-	option = { # Be a Beta
-		name = grefm.025.b
-		add_modifier = {
-			name = modifier_grefm_impotent_monarch
-			months = long_modifier_time
-		}
-		scope:armansperg_scope = {
-			hidden_effect = {
-				disinherit_character = yes
-			}
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_200
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = -200
-			}
-		}
-	}
-	
-	after = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.010 # adds je_grefm_greek_constitution
-				days = 30
-			}
-			trigger_event = {
-				id = grefm.011 # adds je_grefm_land_reform
-				days = 45
-			}
-			trigger_event = {
-				id = grefm.013 # je_grefm_brigandage
-				days = 90
-			}
-			trigger_event = {
-				id = grefm.015 # je_grefm_civic_tradition
-				days = 120
-			}
-		}
-		set_variable = grefm_bavarocracy
-		remove_variable = eocfm_ruler_conversion_considered
-	}
-	
-}
-
-grefm.026 = { # The Philorthodox Conspiracy; this is a grefm-specific variant of eocfm.006
-	type = country_event
-	placement = root
-	
-	title = grefm.026.t
-	desc = grefm.026.d
-	flavor = grefm.026.f
-	
-	event_image = {
-		video = "ep1_clandestine_meeting"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = {
-			has_variable = eocfm_ruler_conversion_considered
-		}
-		var:grefm_bavarocracy_var <= 1500
-		ruler = {
-			NOT = {
-				has_religion = orthodox
-			}
-		}
-		heir ?= {
-			NOT = {
-				has_religion = orthodox
-			}
-		}
-	}
-	
-	immediate = {
-		set_variable = eocfm_ruler_conversion_considered
-		ruler = {
-			save_scope_as = eocfm_ruler_scope
-		}
-		heir = {
-			save_scope_as = eocfm_heir_scope
-		}
-		ig:ig_devout = {
-			leader = {
-				save_scope_as = devout_leader_scope
-			}
-		}
-	}	
-	
-	option = { # Both will convert
-		name = grefm.026.a
-		default_option = yes
-		scope:eocfm_ruler_scope = {
-			change_character_religion = rel:orthodox
-			add_modifier = modifier_eocfm_accepted_conversion
-		}
-		scope:eocfm_heir_scope = {
-			change_character_religion = rel:orthodox
-			add_modifier = modifier_eocfm_accepted_conversion
-		}
-		add_modifier = {
-			name = modifier_eocfm_ruler_accepted_conversion
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			religion = rel:orthodox
-			value = medium_radicals
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_100
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = 100
-			}
-		}
-	}
-	
-	option = { # Heir will convert
-		name = grefm.026.b
-		scope:eocfm_ruler_scope = {
-			add_modifier = {
-				name = modifier_eocfm_refused_conversion
-				months = very_long_modifier_time
-			}
-		}
-		scope:eocfm_heir_scope = {
-			change_character_religion = rel:orthodox
-			add_modifier = modifier_eocfm_accepted_conversion
-		}
-		add_loyalists = {
-			religion = rel:orthodox
-			value = small_radicals
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_plus_50
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = 50
-			}
-		}
-	}
-	
-	option = { # 99 THESES GO BRRRRRRRRR
-		name = grefm.026.c
-		scope:eocfm_ruler_scope = {
-			add_modifier = {
-				name = modifier_eocfm_refused_conversion
-				months = very_long_modifier_time
-			}
-		}
-		scope:eocfm_heir_scope = {
-			add_modifier = {
-				name = modifier_eocfm_refused_conversion
-				months = very_long_modifier_time
-			}
-		}
-		add_modifier = {
-			name = modifier_eocfm_ruler_refused_conversion
-			months = normal_modifier_time
-		}
-		add_radicals = {
-			religion = rel:orthodox
-			value = medium_radicals
-		}
-		custom_tooltip = {
-			text = je_grefm_bavarocracy_minus_50
-			change_variable = {
-				name = grefm_bavarocracy_var
-				add = -50
-			}
-		}
-	}
-
-}
-
-grefm.029 = { # Absolutism in Greece
-	type = country_event
-	placement = root
-	
-	title = grefm.029.t
-	desc = grefm.029.d
-	flavor = grefm.029.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_otto.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_bavarian_greece
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = king_otto_scope
-		}
-	}
-	option = {
-		name = grefm.029.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_grefm_absolutist_rule
-			months = long_modifier_time
-		}
-		add_loyalists = {
-			strata = rich
-			value = medium_radicals
-		}
-	}
-
-}
 
 #### CONSTITUTIONAL MONARCHY EVENTS ####
 
@@ -2625,10 +2261,7 @@ grefm.030 = { # 1862 head of state referendum
 	option = { # Dredge up a Palaiologos descendant
 		name = grefm.030.7
 		trigger = {
-			OR = {
-				c:BYZ ?= this
-				c:ERE ?= this
-			}
+			c:BYZ ?= this
 		}
 		custom_tooltip = {
 			text = grefm.030.7.tt
@@ -2642,7 +2275,7 @@ grefm.030 = { # 1862 head of state referendum
 					interest_group = ig_landowners
 					ideology = ideology_moderate
 					traits = {
-						trait_byzfm_porphyrogenitus
+						trait_grefm_porphyrogenitus
 						ambitious
 						charismatic
 						basic_political_operator
@@ -2765,13 +2398,7 @@ grefm.031 = { # the king of the hellenes
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
 		}
-		set_variable = {
-			name = grefm_absolutism_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_grefm_bavarian_greece
-		}
+		## TODO give this a function
 	}
 	
 	option = { # alternate if you got here via je_grefm_bavarocracy_main
@@ -2958,7 +2585,7 @@ grefm.035 = { # A Perennial Problem
 		}
 		OR = {
 			has_journal_entry = je_grefm_the_dedilomeni_principle
-			has_journal_entry = je_grefm_bavarian_greece
+			has_variable = grefm_bavarianism_var
 		}
 		institution_investment_level = {
 			institution = institution_police
@@ -3443,15 +3070,6 @@ grefm.047 = { # A Cretan Champion Alternate
 	
 	option = { # reject his ass
 		name = grefm.047.b
-		if = {
-			limit = {
-				empty_agitator_slots <= 0
-			}
-			add_modifier = {
-				name = modifier_grefm_agitator_slot
-				months = long_modifier_time
-			}
-		}
 		scope:grefm_venizelos_scope = {
 			transfer_character = ROOT
 			add_character_role = agitator
@@ -4671,54 +4289,8 @@ grefm.119 = { # Land Reclaimed in Kopaida
 #### CULTURAL EVENTS ####
 # events in this group center on Greek ethnogenesis
 
-grefm.120 = { # olympics restarted
-	type = country_event
-	placement = root
-	
-	title = grefm.120.t
-	desc = grefm.120.d
-	flavor = grefm.120.f
-	
-	event_image = {
-		video = "unspecific_world_fair"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		morgenrote_is_active = no
-		has_variable = revive_olympics_decision_taken
-		has_modifier = modifier_olympic_games
-	}
-	
-	immediate = {
-		s:STATE_ATTICA = {
-			random_scope_state = {
-				save_scope_as = attica_state
-			}
-		}
-		remove_modifier = modifier_olympic_games
-		add_modifier = modifier_grefm_olympic_games
-	}
-	
-	option = {
-		name = grefm.120.a
-		default_option = yes
-		add_loyalists = {
-			value = small_radicals
-			culture = cu:hellene
-		}
-		custom_tooltip = grefm.120.tt
-	}
-	
-	orphan = yes # Seriously, you people should be using Morgenröte
-	
+grefm.120 = { # OPEN
+	orphan = yes
 }
 
 grefm.121 = { # The University of Athens
@@ -4923,15 +4495,6 @@ grefm.123 = { # the women's council
 		custom_tooltip = {
 			text= grefm.123.tt
 		}
-		if = {
-			limit = {
-				empty_agitator_slots < 1
-			}
-			add_modifier = {
-				name = modifier_grefm_agitator_slot
-				months = 60
-			}
-		}
 		scope:kalliroi_scope = {
 			add_character_role = agitator
 			free_character_from_void = yes
@@ -4991,16 +4554,7 @@ grefm.124 = { # national council of greek women
 		name = grefm.124.a
 		default_option = yes
 		trigger = {
-			empty_agitator_slots >= 1
-		}
-		if = {
-			limit = {
-				empty_agitator_slots < 1
-			}
-			add_modifier = {
-				name = modifier_grefm_agitator_slot
-				months = 60
-			}
+			empty_agitator_slots > 0
 		}
 		scope:theodoropoulou_scope = {
 			free_character_from_void = yes
@@ -5351,8 +4905,106 @@ grefm.143 = { # Hellenic Excavation Completed
 	type = country_event
 	placement = root
 	
-	title = grefm.143.t
-	desc = grefm.143.d
+	title = {
+		triggered_desc = {
+			desc = grefm.143.t1
+			trigger = {
+				has_variable = grefm_parthenon_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t2
+			trigger = {
+				has_variable = grefm_parthenon_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t3
+			trigger = {
+				has_variable = grefm_mycenae_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t4
+			trigger = {
+				has_variable = grefm_mycenae_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t5
+			trigger = {
+				has_variable = grefm_gla_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t6
+			trigger = {
+				has_variable = grefm_delos_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t7
+			trigger = {
+				has_variable = grefm_larissa_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t8
+			trigger = {
+				has_variable = grefm_rhodes_excavation
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = grefm.143.d1
+			trigger = {
+				has_variable = grefm_parthenon_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d2
+			trigger = {
+				has_variable = grefm_parthenon_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d3
+			trigger = {
+				has_variable = grefm_mycenae_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d4
+			trigger = {
+				has_variable = grefm_mycenae_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d5
+			trigger = {
+				has_variable = grefm_gla_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d6
+			trigger = {
+				has_variable = grefm_delos_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d7
+			trigger = {
+				has_variable = grefm_larissa_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d8
+			trigger = {
+				has_variable = grefm_rhodes_excavation
+			}
+		}
+	}
 	flavor = grefm.143.f
 	
 	event_image = {
@@ -5405,8 +5057,106 @@ grefm.144 = { # Roman Excavation Completed
 	type = country_event
 	placement = root
 	
-	title = grefm.144.t
-	desc = grefm.144.d
+	title = {
+		triggered_desc = {
+			desc = grefm.143.t1
+			trigger = {
+				has_variable = grefm_corinth_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t2
+			trigger = {
+				has_variable = grefm_corinth_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t3
+			trigger = {
+				has_variable = grefm_thessaloniki_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t4
+			trigger = {
+				has_variable = grefm_thebes_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t5
+			trigger = {
+				has_variable = grefm_nicomedia_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t6
+			trigger = {
+				has_variable = grefm_smyrna_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t7
+			trigger = {
+				has_variable = grefm_tyana_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.t8
+			trigger = {
+				has_variable = grefm_chios_excavation
+			}
+		}
+	}
+	desc = {
+		triggered_desc = {
+			desc = grefm.143.d1
+			trigger = {
+				has_variable = grefm_corinth_1_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d2
+			trigger = {
+				has_variable = grefm_corinth_2_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d3
+			trigger = {
+				has_variable = grefm_thessaloniki_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d4
+			trigger = {
+				has_variable = grefm_thebes_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d5
+			trigger = {
+				has_variable = grefm_nicomedia_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d6
+			trigger = {
+				has_variable = grefm_smyrna_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d7
+			trigger = {
+				has_variable = grefm_tyana_excavation
+			}
+		}
+		triggered_desc = {
+			desc = grefm.143.d8
+			trigger = {
+				has_variable = grefm_chios_excavation
+			}
+		}
+	}
 	flavor = grefm.144.f
 	
 	event_image = {
@@ -5469,7 +5219,7 @@ grefm.150 = { # Excavation Positive Progress
 	hidden = yes
 	
 	trigger = {
-		has_variable = grefm_excavation_var
+		has_modifier = modifier_grefm_active_excavation
 	}
 	
 	immediate = {
@@ -5503,6 +5253,7 @@ grefm.151 = { # Excavation Heavy Equipment Needed
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 6
 		NOT = {
 			has_modifier = modifier_grefm_provided_heavy_equipment
@@ -5511,7 +5262,7 @@ grefm.151 = { # Excavation Heavy Equipment Needed
 	
 	cancellation_trigger = {
 		NOT = {
-			has_journal_entry = je_grefm_active_excavation
+			has_modifier = modifier_grefm_active_excavation
 		}
 	}
 	
@@ -5573,6 +5324,7 @@ grefm.152 = { # Excavation Tomb Uncovered
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 6
 		NOT = {
 			has_modifier = modifier_grefm_discovered_ancient_palace
@@ -5581,7 +5333,7 @@ grefm.152 = { # Excavation Tomb Uncovered
 	
 	cancellation_trigger = {
 		NOT = {
-			has_journal_entry = je_grefm_active_excavation
+			has_modifier = modifier_grefm_active_excavation
 		}
 	}
 	
@@ -5626,6 +5378,7 @@ grefm.153 = { # Excavation Minor Collapse
 	hidden = yes
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 4
 	}
 	
@@ -5645,6 +5398,7 @@ grefm.154 = { # Excavation Major Collapse
 	hidden = yes
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 12
 		NOT = { has_variable = grefm_collapse_lessons_learned }
 	}
@@ -5666,6 +5420,7 @@ grefm.155 = { # Excavation Popular Interest
 	hidden = yes
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 4
 		NOT = {
 			has_modifier = modifier_grefm_popular_excavation_project
@@ -5696,6 +5451,7 @@ grefm.156 = { # Excavation Palace Uncovered
 	hidden = yes
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 12
 		NOT = {
 			has_modifier = modifier_grefm_discovered_ancient_palace
@@ -5733,6 +5489,7 @@ grefm.157 = { # The Mask of Agammemnon
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		morgenrote_is_active = no
 		NOT = { has_global_variable = grefm_agammemnon_found }
 		has_variable = grefm_archeaology_var
@@ -5787,6 +5544,7 @@ grefm.158 = { # Politician Offers Funding
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		NOT = {
 			any_interest_group = {
 				has_modifier = modifier_grefm_supported_excavation  # can't already be supporting a dig
@@ -5803,7 +5561,7 @@ grefm.158 = { # Politician Offers Funding
 	
 	cancellation_trigger = {
 		NOT = {
-			has_journal_entry = je_grefm_active_excavation
+			has_modifier = modifier_grefm_active_excavation
 		}
 	}
 	
@@ -5940,12 +5698,13 @@ grefm.159 = { # Reconstruction Garners Criticism
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_modifier = modifier_grefm_active_excavation
 		var:grefm_excavation_var > 12
 	}
 	
 	cancellation_trigger = {
 		NOT = {
-			has_journal_entry = je_grefm_active_excavation
+			has_modifier = modifier_grefm_active_excavation
 		}
 	}
 	
@@ -6887,7 +6646,7 @@ grefm.207 = { # A National Language
 		video = "unspecific_ruler_speaking_to_people"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
 	
 	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -6911,6 +6670,10 @@ grefm.207 = { # A National Language
 	option = { # listen to the people, go Demotic
 		name = grefm.207.a
 		default_option = yes
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
 		trigger = {
 			je:je_grefm_national_language = {
 				"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
@@ -6934,6 +6697,10 @@ grefm.207 = { # A National Language
 
 	option = { # keep it classy with Katharevousa
 		name = grefm.207.b
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
 		trigger = {
 			je:je_grefm_national_language = {
 				"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
@@ -6957,6 +6724,10 @@ grefm.207 = { # A National Language
 	
 	option = { # the Khoine choice for the Orthodox boys
 		name = grefm.207.c
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
 		trigger = {
 			je:je_grefm_national_language = {
 				"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
@@ -6974,18 +6745,38 @@ grefm.207 = { # A National Language
 		remove_variable = grefm_language_var
 	}
 	
-	option = { # Fallback option
+	option = { # Favor the OGs with Rhomaiika 
 		name = grefm.207.e
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
 		trigger = {
 			je:je_grefm_national_language = {
-				NOR = {
-					"scripted_bar_progress(grefm_dimotiki_progress_bar)" >= 100
-					"scripted_bar_progress(grefm_katharevousa_progress_bar)" >= 100
-					"scripted_bar_progress(grefm_khoine_progress_bar)" >= 100
-				}
+				"scripted_bar_progress(grefm_rhomaiika_progress_bar)" >= 100
 			}
 		}
+		add_loyalists = {
+			culture = cu:rhomaios
+			value = large_radicals
+		}
+		add_modifier = {
+			name = modifier_grefm_elevated_rhomaiika
+			months = very_long_modifier_time
+		}
+		set_variable = grefm_greek_language_rhomaiika
 		remove_variable = grefm_language_var
+	}
+	
+	option = { # Fallback option
+		name = grefm.207.g
+		highlighted_option = yes
+		custom_tooltip = {
+			text = grefm.207.tt
+			hidden_effect = {
+				remove_variable = grefm_language_var
+			}
+		}
 	}
 	
 }
@@ -7051,24 +6842,151 @@ grefm.209 = { # greek ethnogenesis
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by scripted buttons in je_grefm_greek_nationalism
 	}
 	
 	immediate = {
-		set_variable = grefm_greek_nationalism_completed
+		if = {
+			limit = {
+				var:grefm_culture_var = 1 # Hellene
+			}
+			cu:hellene = {
+				save_scope_as = grefm_national_culture_scope
+			}
+		}
+		else_if = {
+			limit = {
+				var:grefm_culture_var = 2 # Rhomaios
+			}
+			cu:rhomaios = {
+				save_scope_as = grefm_national_culture_scope
+			}
+		}
+		else = {
+			cu:greek = {
+				save_scope_as = grefm_national_culture_scope
+			}
+		}
 	}
 	
-	option = {
+	option = { # Hellene
 		name = grefm.209.a
 		default_option = yes
+		trigger = {
+			var:grefm_culture_var = 1
+		}
 		add_modifier = {
 			name = modifier_grefm_greek_nationalism
 			months = long_modifier_time
 		}
+		add_loyalists = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		add_radicals = {
+			culture = cu:rhomaios
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:hellene
+				}
+				add_primary_culture = cu:hellene
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+			}
+			remove_primary_culture = cu:rhomaios
+		}
+		set_variable = grefm_greek_nationalism_completed
 	}
 	
+	option = { # Rhomaios
+		name = grefm.209.a
+		default_option = yes
+		trigger = {
+			var:grefm_culture_var = 2
+		}
+		add_modifier = {
+			name = modifier_grefm_greek_nationalism
+			months = long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		add_loyalists = {
+			culture = cu:rhomaios
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:rhomaios
+				}
+				add_primary_culture = cu:rhomaios
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			remove_primary_culture = cu:hellene
+		}
+		set_variable = grefm_greek_nationalism_completed
+	}
+	
+	option = { # Hybrid
+		name = grefm.209.a
+		default_option = yes
+		trigger = {
+			var:grefm_culture_var = 3
+		}
+		add_modifier = {
+			name = modifier_grefm_greek_nationalism
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			culture = cu:hellene
+			value = medium_radicals
+		}
+		add_loyalists = {
+			culture = cu:rhomaios
+			value = medium_radicals
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:hellene
+				}
+				add_primary_culture = cu:hellene
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_has_primary_culture = cu:rhomaios
+				}
+				add_primary_culture = cu:rhomaios
+			}
+		}
+		set_variable = grefm_greek_nationalism_completed
+	}
+	
+	option = { # Option for Testing
+		name = grefm.209.b
+		trigger = {
+			NOT = {
+				has_variable = grefm_culture_var
+			}
+		}
+		set_variable = grefm_greek_nationalism_completed
+	}
 }
-
 
 #### HELLENIC REVANCHISM EVENTS ####
 grefm.270 = { # The Lands of Thessaly
@@ -7294,7 +7212,7 @@ grefm.271 = { # The Megali Idea
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
 			hidden_effect = {
-				set_variable = byzfm_weaksauce
+				set_variable = grefm_weaksauce
 			}
 		}
 		add_radicals = {
@@ -7325,7 +7243,15 @@ grefm.272 = { # The Future of Greece
 	
 	dlc = dlc_grefm
 
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by JE
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			c:BYZ ?= this
+			c:HEMP ?= this
+		}
 	}
 	
 	immediate = {
@@ -7335,16 +7261,27 @@ grefm.272 = { # The Future of Greece
 	option = { # Become the Hellenic Empire
 		name = grefm.272.a
 		default_option = yes
-		custom_tooltip = grefm_hemp_possible_tt
-		add_modifier = {
-			name = greek_nationalism
-			months = long_modifier_time
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			custom_tooltip = grefm_hemp_possible_tt
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+			}
+			custom_tooltip = grefm_byz_possible_tt
 		}
 	}
 
 	option = { # Remain Greece
 		name = grefm.272.b
 		custom_tooltip = grefm_tzatzikisauce_tt
+		trigger_event = {
+			id = grefm.273 # Greater Greece
+			days = 30
+		}
 		add_modifier = {
 			name = greek_nationalism
 			months = long_modifier_time
@@ -7375,7 +7312,7 @@ grefm.273 = { # Greater Greece
 	dlc = dlc_grefm
 	
 	trigger = {
-		#	triggered by grefm.272
+		# triggered by grefm.272
 	}
 	
 	immediate = {
@@ -7431,10 +7368,6 @@ grefm.273 = { # Greater Greece
 	
 	option = {
 		name = grefm.273.b
-		add_modifier = {
-			name = modifier_grefm_rebirth
-			months = very_long_modifier_time
-		}
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
 			hidden_effect = {
@@ -7555,6 +7488,38 @@ grefm.281 = { # The Themata of Anatolia
 	orphan = yes
 }
 
+grefm.282 = { # The Throne of the East
+	type = country_event
+	placement = root
+	
+	title = grefm.282.t
+	desc = grefm.282.d
+	flavor = grefm.282.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.282.a
+		default_option = yes
+	}
+
+}
 
 #### GREEK CULTURAL SYNCRETISM EVENTS ####
 grefm.290 = { # The Fate of the Turks
@@ -7879,7 +7844,8 @@ grefm.300 = { # Resurrection of the Byzantine Empire
 	
 	dlc = dlc_grefm
 
-	trigger = { # triggered by grefm.202
+	trigger = {
+		# triggered by je_grefm_purple_pheonix
 	}
 	
 	immediate = {
@@ -7896,7 +7862,6 @@ grefm.300 = { # Resurrection of the Byzantine Empire
 			}
 			post_notification = unification_notification_byz
 		}
-		set_global_variable = has_formed_byz
 	}
 	
 	option = {
@@ -7907,7 +7872,7 @@ grefm.300 = { # Resurrection of the Byzantine Empire
 			days = 30
 		}
 		add_modifier = {
-			name = modifier_byzfm_rebirth
+			name = modifier_grefm_rebirth
 			months = very_long_modifier_time
 		}
 		if = {
@@ -7933,7 +7898,7 @@ grefm.301 = { # The Revenge of the Greeks
 		video = "byzfm_georgios_averof"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
@@ -7942,15 +7907,10 @@ grefm.301 = { # The Revenge of the Greeks
 	dlc = dlc_grefm
 
 	trigger = {
+		# triggered by grefm.300
 	}
 	
 	immediate = {
-		random_scope_state = {
-			limit = {
-				is_capital = yes
-			}
-			save_scope_as = byzantium_capital_state
-		}
 	}
 	
 	option = {
@@ -7971,109 +7931,15 @@ grefm.301 = { # The Revenge of the Greeks
 			add_claim = ROOT
 		}
 	}
-	
-	option = {
-		name = grefm.301.b
-		every_state_region = {
-			limit = {
-				region = sr:region_anatolia
-				any_scope_state = {
-					NOT = { owner = ROOT }
-					NOT = { has_claim_by = ROOT }
-				}
-			}
-			add_claim = ROOT
-		}
-		change_infamy = -10
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				set_variable = grefm_tzatzikisauce
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.301.c
-		every_state_region = {
-			limit = {
-				region = sr:region_balkans
-				any_scope_state = {
-					NOT = { owner = ROOT }
-					NOT = { has_claim_by = ROOT }
-				}
-			}
-			add_claim = ROOT
-		}
-		change_infamy = -10
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				set_variable = grefm_tzatzikisauce
-			}
-		}
-	}
 
 }
 
-grefm.302 = { # Nova Roma Constantinopolitana
+grefm.302 = { # The Shores of Phoenicia
 	type = country_event
 	
 	title = grefm.302.t
 	desc = grefm.302.d
 	flavor = grefm.302.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {
-		# Triggered by JE
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = byzantium_emperor
-		}
-	}
-	
-	option = {
-		name = grefm.302.a
-		default_option = yes
-		scope:byzantium_emperor = {
-			add_modifier = {
-				name = modifier_byzfm_popular_emperor
-			}
-		}
-		add_modifier = {
-			name = modifier_byzfm_legitmacy_boost
-			months = normal_modifier_time
-		}
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.303 # The Shores of Phoenicia
-				days = 20
-			}
-		}
-	}
-}
-
-grefm.303 = { # The Shores of Phoenicia
-	type = country_event
-	
-	title = grefm.303.t
-	desc = grefm.303.d
-	flavor = grefm.303.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -8091,13 +7957,10 @@ grefm.303 = { # The Shores of Phoenicia
 	}
 	
 	immediate = {
-		capital = {
-			save_scope_as = byzantium_capital
-		}
 	}
 
 	option = { # reclaim the east
-		name = grefm.303.a
+		name = grefm.302.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_shores_of_phoenicia
@@ -8194,101 +8057,34 @@ grefm.303 = { # The Shores of Phoenicia
 	}
 	
 	option = { # nah bro, shits for the birds
-		name = grefm.303.b
+		name = grefm.302.b
 		change_infamy = -20
 		scope:byzantium_capital = {
 			add_modifier = {
-				name = modifier_byzfm_capital_assimiliation_boost
+				name = modifier_grefm_capital_assimiliation_boost
 				months = normal_modifier_time
 			}
 			add_modifier = {
-				name = modifier_byzfm_heartland_reclaimed
+				name = modifier_grefm_heartland_reclaimed
 				months = normal_modifier_time
 			}
 		}
 		custom_tooltip = {
-			text = byzfm_weaksauce_tt
+			text = grefm_weaksauce_tt
 			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				set_variable = grefm_tzatzikisauce
+				set_variable = grefm_weaksauce
 			}
 		}
 	}
 
 }
 
-grefm.304 = { # The Legacy of Alexander
-	## former byzfm.5 used to allow conversion to ERE, now an off-ramp for no goddamn reason
+grefm.303 = { # The Lands of Arianōn
 	type = country_event
 	
-	title = grefm.304.t
-	desc = grefm.304.d
-	flavor = grefm.304.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
-
-	duration = 3
-	
-	dlc = dlc_grefm
-
-	trigger = {	# Triggered by JE
-	}
-	
-	immediate = {
-		set_variable = byzfm_byzantium_restored
-	}
-
-	option = {
-		name = grefm.304.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_byzfm_restored
-			months = long_modifier_time
-		}
-		if = {
-			limit = {
-				has_variable = byzfm_revenge_of_the_greeks
-			}
-			trigger_event = {
-				id = grefm.305 # The Lands of Arianōn
-				days = 30
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.304.b
-		trigger = {
-			has_variable = byzfm_revenge_of_the_greeks
-		}
-		add_modifier = {
-			name = modifier_byzfm_restored
-			months = long_modifier_time
-		}
-		change_infamy = -25
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_revenge_of_the_greeks
-			}
-		}
-	}
-	
-}
-
-grefm.305 = { # The Lands of Arianōn
-	type = country_event
-	
-	title = grefm.305.t
-	desc = grefm.305.d
-	flavor = grefm.305.f
+	title = grefm.303.t
+	desc = grefm.303.d
+	flavor = grefm.303.f
 	
 	event_image = {
 		video = "ep1_persian_court"
@@ -8302,14 +8098,14 @@ grefm.305 = { # The Lands of Arianōn
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by grefm.304
+	trigger = {
 	}
 	
 	immediate = {
 	}
 
-	option = {
-		name = grefm.305.a
+	option = { # Get My Horse
+		name = grefm.303.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_lands_of_arianon
@@ -8330,12 +8126,12 @@ grefm.305 = { # The Lands of Arianōn
 	
 }
 
-grefm.306 = { # The Graveyard of Empires
+grefm.304 = { # The Graveyard of Empires
 	type = country_event
 	
-	title = grefm.306.t
-	desc = grefm.306.d
-	flavor = grefm.306.f
+	title = grefm.304.t
+	desc = grefm.304.d
+	flavor = grefm.304.f
 	
 	event_image = {
 		video = "ep1_ca_mountain_pass_military"
@@ -8354,7 +8150,7 @@ grefm.306 = { # The Graveyard of Empires
 	}
 	
 	option = {
-		name = grefm.306.a
+		name = grefm.304.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_the_graveyard_of_empires
@@ -8374,12 +8170,12 @@ grefm.306 = { # The Graveyard of Empires
 	}
 }
 
-grefm.307 = { # Hellenistic Empire choice
+grefm.305 = { # The Empire of the Greeks
 	type = country_event
 	
-	title = grefm.307.t
-	desc = grefm.307.d
-	flavor = grefm.307.f
+	title = grefm.305.t
+	desc = grefm.305.d
+	flavor = grefm.305.f
 	
 	event_image = {
 		video = "europenorthamerica_before_the_battle"
@@ -8398,7 +8194,7 @@ grefm.307 = { # Hellenistic Empire choice
 	}
 	
 	option = {
-		name = grefm.307.a
+		name = grefm.305.a
 		default_option = yes
 		add_modifier = {
 			name = modifier_grefm_imperial_glory
@@ -8411,23 +8207,17 @@ grefm.307 = { # Hellenistic Empire choice
 				}
 			}
 		}
-		trigger_event = {
-			id = grefm.314 # The Foundings of Alexander
-			days = 90
-		}
 	}
 	
 }
 
-#### Hellenistic Imperial Ambition Events ####
-
-grefm.310 = { # The Shores of the Hospitable Sea
+grefm.306 = { # The Shores of the Hospitable Sea
 	type = country_event
 	placement = root
 	
-	title = grefm.310.t
-	desc = grefm.310.d
-	flavor = grefm.310.f
+	title = grefm.306.t
+	desc = grefm.306.d
+	flavor = grefm.306.f
 	
 	event_image = {
 		video = "votp_gunboat_diplomacy"
@@ -8449,7 +8239,7 @@ grefm.310 = { # The Shores of the Hospitable Sea
 	}
 	
 	option = {
-		name = grefm.310.a
+		name = grefm.306.a
 		default_option = yes
 		if = {
 			limit = {
@@ -8499,71 +8289,13 @@ grefm.310 = { # The Shores of the Hospitable Sea
 
 }
 
-grefm.311 = { # The Black Sea Secured
+grefm.307 = { # The Lands of Magna Graecia
 	type = country_event
 	placement = root
 	
-	title = grefm.311.t
-	desc = grefm.311.d
-	flavor = grefm.311.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_black_sea
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.311.a
-		default_option = yes
-		s:STATE_KARS = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_bosporan_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_GREATER_CAUCASUS = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_bosporan_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_CRIMEA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_bosporan_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-grefm.312 = { # The Lands of Magna Graecia
-	type = country_event
-	placement = root
-	
-	title = grefm.312.t
-	desc = grefm.312.d
-	flavor = grefm.312.f
+	title = grefm.307.t
+	desc = grefm.307.d
+	flavor = grefm.307.f
 	
 	event_image = {
 		video = "europenorthamerica_before_the_battle"
@@ -8585,7 +8317,7 @@ grefm.312 = { # The Lands of Magna Graecia
 	}
 	
 	option = {
-		name = grefm.312.a
+		name = grefm.307.a
 		default_option = yes
 		if = {
 			limit = {
@@ -8635,79 +8367,13 @@ grefm.312 = { # The Lands of Magna Graecia
 
 }
 
-grefm.313 = { # Magna Graecia Secured
+grefm.308 = { # The Foundings of Alexander
 	type = country_event
 	placement = root
 	
-	title = grefm.313.t
-	desc = grefm.313.d
-	flavor = grefm.313.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_black_sea
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.313.a
-		default_option = yes
-		s:STATE_APULIA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_belisarian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_CALABRIA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_belisarian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_CAMPANIA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_belisarian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_SICILY = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_belisarian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-grefm.314 = { # The Foundings of Alexander
-	type = country_event
-	placement = root
-	
-	title = grefm.314.t
-	desc = grefm.314.d
-	flavor = grefm.314.f
+	title = grefm.308.t
+	desc = grefm.308.d
+	flavor = grefm.308.f
 	
 	event_image = {
 		video = "unspecific_military_parade"
@@ -8729,7 +8395,7 @@ grefm.314 = { # The Foundings of Alexander
 	}
 	
 	option = {
-		name = grefm.314.a
+		name = grefm.308.a
 		default_option = yes
 		add_journal_entry = {
 			type = je_grefm_alexandria_oxus
@@ -8742,230 +8408,6 @@ grefm.314 = { # The Foundings of Alexander
 		}
 		add_journal_entry = {
 			type = je_grefm_alexandria_susiana
-		}
-	}
-
-}
-
-grefm.315 = { # Alexandria on the Oxus
-	type = country_event
-	placement = root
-	
-	title = grefm.315.t
-	desc = grefm.315.d
-	flavor = grefm.315.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_alexandria_oxus
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.315.a
-		default_option = yes
-		s:STATE_MERZ = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_UZBEKIA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-grefm.316 = { # Alexandria in Margiana
-	type = country_event
-	placement = root
-	
-	title = grefm.316.t
-	desc = grefm.316.d
-	flavor = grefm.316.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_alexandria_merv
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.316.a
-		default_option = yes
-		s:STATE_FERGANA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_KIRGHIZIA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_TAJIKISTAN = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-grefm.317 = { # Alexandria on the Indus
-	type = country_event
-	placement = root
-	
-	title = grefm.317.t
-	desc = grefm.317.d
-	flavor = grefm.317.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_alexandria_indus
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.317.a
-		default_option = yes
-		s:STATE_PUNJAB = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_SINDH = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_KASHMIR = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-grefm.318 = { # Alexandria in Susiana
-	type = country_event
-	placement = root
-	
-	title = grefm.318.t
-	desc = grefm.318.d
-	flavor = grefm.318.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_grefm_alexandria_susiana
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = grefm.318.a
-		default_option = yes
-		s:STATE_KHUZESTAN = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_BASRA = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
-		}
-		s:STATE_BAGHDAD = {
-			random_scope_state = {
-				add_modifier = {
-					name = modifier_grefm_alexandrian_legacy
-					months = long_modifier_time
-				}
-			}
 		}
 	}
 
@@ -12161,7 +11603,7 @@ grefm.599 = { # Reassigns the Revolt Journals
 ##  #GRE8  BYZANTINE EMPIRE FLAVOR  Events 800-899  ##
 ######################################################
 
-grefm.800 = { # The Pheonix Rises
+grefm.800 = { # The Purple Pheonix
 	type = country_event
 	placement = root
 	
@@ -12182,7 +11624,7 @@ grefm.800 = { # The Pheonix Rises
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_grefm_rome_of_the_east
+		# triggered by je_grefm_revenge_of_the_greeks
 	}
 	
 	immediate = {
@@ -12199,18 +11641,17 @@ grefm.800 = { # The Pheonix Rises
 			}
 			post_notification = unification_notification_byz
 		}
-		set_global_variable = has_formed_byz
 	}
 	
 	option = {
 		name = grefm.800.a
 		default_option = yes
 		trigger_event = {
-			id = byzfm.301 # The Byzantine Restoration
+			id = grefm.301 # The Legacy of Alexander
 			days = 30
 		}
 		add_modifier = {
-			name = modifier_grefm_byzantine_rebirth
+			name = modifier_grefm_rebirth
 			months = very_long_modifier_time
 		}
 		if = {
@@ -12225,7 +11666,7 @@ grefm.800 = { # The Pheonix Rises
 
 }
 
-grefm.801 = { # Nova Roma Constantinopolitana
+grefm.801 = { # The Legacy of Alexander
 	type = country_event
 	placement = root
 	
@@ -12249,8 +11690,11 @@ grefm.801 = { # Nova Roma Constantinopolitana
 		# triggered by grefm.800
 	}
 	
+	immediate = {
+	}
+	
 	option = {
-		name = grefm.301.a
+		name = grefm.801.a
 		default_option = yes
 		set_capital = STATE_EASTERN_THRACE
 		every_state_region = {
@@ -12265,48 +11709,6 @@ grefm.801 = { # Nova Roma Constantinopolitana
 				}
 			}
 			add_claim = ROOT
-		}
-	}
-	
-	option = {
-		name = grefm.301.b
-		every_state_region = {
-			limit = {
-				region = sr:region_anatolia
-				any_scope_state = {
-					NOT = { owner = ROOT }
-					NOT = { has_claim_by = ROOT }
-				}
-			}
-			add_claim = ROOT
-		}
-		change_infamy = -10
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.301.c
-		every_state_region = {
-			limit = {
-				region = sr:region_balkans
-				any_scope_state = {
-					NOT = { owner = ROOT }
-					NOT = { has_claim_by = ROOT }
-				}
-			}
-			add_claim = ROOT
-		}
-		change_infamy = -10
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-			}
 		}
 	}
 
@@ -12339,17 +11741,8 @@ grefm.802 = { # The Rome of the East
 	}
 	
 	option = { # reclaim the east
-		name = grefm.803.a
+		name = grefm.802.a
 		default_option = yes
-		ruler = {
-			add_modifier = {
-				name = modifier_grefm_popular_emperor
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_legitmacy_boost
-			months = normal_modifier_time
-		}
 		add_journal_entry = {
 			type = je_grefm_rome_of_the_east
 		}
@@ -12444,17 +11837,8 @@ grefm.802 = { # The Rome of the East
 	}
 	
 	option = { # nah bro, shits for the birds
-		name = grefm.803.b
+		name = grefm.802.b
 		change_infamy = -20
-		ruler = {
-			add_modifier = {
-				name = modifier_grefm_popular_emperor
-			}
-		}
-		add_modifier = {
-			name = modifier_grefm_legitmacy_boost
-			months = normal_modifier_time
-		}
 		capital = {
 			add_modifier = {
 				name = modifier_grefm_capital_assimiliation_boost
@@ -12466,9 +11850,9 @@ grefm.802 = { # The Rome of the East
 			}
 		}
 		custom_tooltip = {
-			text = byzfm_weaksauce_tt
+			text = grefm_weaksauce_tt
 			hidden_effect = {
-				set_variable = byzfm_weaksauce
+				set_variable = grefm_weaksauce
 			}
 		}
 	}
@@ -12494,14 +11878,15 @@ grefm.803 = { # The Basileia Rhōmaiōn
 	
 	dlc = dlc_grefm
 
-	trigger = {	# Triggered by JE
+	trigger = {
+		# triggered by je_grefm_rome_of_the_east
 	}
 	
 	immediate = {
 		set_variable = byzfm_byzantium_restored
 	}
 
-	option = { # W Finna Spank the Pope
+	option = { # We Finna Spank the Pope
 		name = grefm.803.a
 		default_option = yes
 		add_modifier = {
@@ -12509,37 +11894,22 @@ grefm.803 = { # The Basileia Rhōmaiōn
 			months = very_long_modifier_time
 		}
 		add_journal_entry = {
-			type = je_grefm_the_purple_phoenix
+			type = je_grefm_renovatio_imperii_romanorum
 		}
 		add_journal_entry = {
-			type = je_grefm_the_purple_phoenix_dalmatia
+			type = je_grefm_renovatio_imperii_romanorum_dalmatia
 		}
 		add_journal_entry = {
-			type = je_grefm_the_purple_phoenix_northern_italy
+			type = je_grefm_renovatio_imperii_romanorum_northern_italy
 		}
 		add_journal_entry = {
-			type = je_grefm_the_purple_phoenix_southern_italy
+			type = je_grefm_renovatio_imperii_romanorum_southern_italy
 		}
 		add_journal_entry = {
-			type = je_grefm_the_purple_phoenix_central_italy
+			type = je_grefm_renovatio_imperii_romanorum_central_italy
 		}
 	}
-
-	option = { # Whimpy Whimpy Whimpy
-		name = grefm.803.b
-		add_modifier = {
-			name = modifier_grefm_rhomania_restored
-			months = very_long_modifier_time
-		}
-		change_infamy = -25
-		custom_tooltip = {
-			text = byzfm_weaksauce_tt
-			hidden_effect = {
-				set_variable = byzfm_weaksauce
-				remove_variable = byzfm_purple_phoenix
-			}
-		}
-	}
+	
 }
 
 grefm.804 = { # Dalmatia Secured
@@ -13073,16 +12443,9 @@ grefm.822 = { # Great Palace of Constantinople
 	option = {
 		name = grefm.822.a
 		default_option = yes
-		if = {
-			limit = {
-				morgenrote_is_active = no
-			}
-			custom_tooltip = {
-				text = grefm.822.tt
-				hidden_effect = {
-					grefm_artifact_modifier_effect = yes
-				}
-			}
+		custom_tooltip = grefm.822.tt
+		hidden_effect = {
+			grefm_excavation_completion_effect = yes
 		}
 		set_variable = grefm_mega_palation_complete
 	}
@@ -13127,15 +12490,10 @@ grefm.823 = { # The Hippodrome of Constantinople
 	option = {
 		name = grefm.823.a
 		default_option = yes
-		if = {
-			limit = {
-				morgenrote_is_active = no
-			}
-			hidden_effect = {
-				grefm_artifact_modifier_effect = yes
-			}
-		}
 		custom_tooltip = grefm.823.tt
+		hidden_effect = {
+			grefm_excavation_completion_effect = yes
+		}
 		set_variable = grefm_hippodrome_complete
 	}
 	
@@ -13225,18 +12583,11 @@ grefm.830 = { # Chariot Racing Re-established
 	option = {
 		name = grefm.830.a
 		default_option = yes
-		set_variable = byzfm_chariot_racing
 		if = {
 			limit = {
 				has_modifier = modifier_olympic_games
 			}
 			remove_modifier = modifier_olympic_games
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_olympic_games
-			}
-			remove_modifier = modifier_grefm_olympic_games
 		}
 		add_modifier = {
 			name = modifier_grefm_chariot_racing
@@ -13296,12 +12647,6 @@ grefm.831 = { # Chariot Racing Expanded
 				has_modifier = modifier_olympic_games
 			}
 			remove_modifier = modifier_olympic_games
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_grefm_olympic_games
-			}
-			remove_modifier = modifier_grefm_olympic_games
 		}
 		if = {
 			limit = {
@@ -13883,10 +13228,7 @@ grefm.901 = { # adds claims to greek countries if they go independent
 		NOR = {
 			exists = c:GRE
 			exists = c:BYZ
-			exists = c:ERE
-			exists = c:SPQR
 			exists = c:HEMP
-			exists = c:ODXY
 		}
 	}
 	

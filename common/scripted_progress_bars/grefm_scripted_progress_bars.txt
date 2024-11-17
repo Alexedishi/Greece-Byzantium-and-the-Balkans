@@ -1,55 +1,38 @@
-﻿grefm_nationalism_progress_bar = {
-	name = "grefm_nationalism_progress_bar"
-	desc = "grefm_nationalism_progress_bar_desc1"
-	second_desc = "grefm_nationalism_progress_bar_desc2"
+﻿##################################
+# GREEK NATIONALISM PROGRESSBARS #
+##################################
+
+grefm_hellenism_progress_bar = {
+	name = "grefm_hellenism_progress_bar"
+	desc = "grefm_hellenism_progress_bar_desc"
 	
-	double_sided_bad = yes
+	default = yes
 	
 	monthly_progress = {
-		## Hellenic Progress ##
-		add = {
-			desc = grefm_progress_from_intelligentsia_clout
-			value = owner.ig:ig_intelligentsia.ig_clout
-		}
-		if = {
-			limit = {
-				has_variable = grefm_greek_language_katharevousa
-			}
-			add = {
-				desc = grefm_progress_from_katharevousa
-				value = owner.literacy_rate
-			}
-		}
-		
-		## Roman Progress ##
-		subtract = {
-			desc = "grefm_progress_from_rural_folk_clout"
-			value = owner.ig:ig_rural_folk.ig_clout
-		}
-		if = {
-			limit = {
-				has_variable = grefm_greek_language_demotic
-			}
-			subtract = {	
-				desc = grefm_progress_from_demotic
-				value = owner.literacy_rate
-			}
-		}
-		if = {
-			limit = {
-				has_variable = grefm_greek_language_khoine
-			}
-			subtract = {
-				desc = grefm_progress_from_khoine
-				value = owner.literacy_rate
-			}
-		}
 	}
 	
-	start_value = 500
+	start_value = 0
 	min_value = 0
-	max_value = 1000
+	max_value = 10
 }
+
+grefm_romanism_progress_bar = {
+	name = "grefm_romanism_progress_bar"
+	desc = "grefm_romanism_progress_bar_desc"
+	
+	default_bad = yes
+	
+	monthly_progress = {
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 10
+}
+
+###############################
+# GREEK LANGUAGE PROGRESSBARS #
+###############################
 
 grefm_dimotiki_progress_bar = {
 	name = "grefm_dimotiki_progress_bar"
@@ -58,13 +41,18 @@ grefm_dimotiki_progress_bar = {
 	default = yes
 	
 	monthly_progress = {
-		add = {
-			desc = grefm_progress_from_literacy_rate
-			value = owner.literacy_rate
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			add = {
+				desc = grefm_progress_from_rural_folk_clout
+				value = owner.ig:ig_rural_folk.ig_clout
+			}
 		}
 		add = {
-			desc = grefm_progress_from_rural_folk_clout
-			value = owner.ig:ig_rural_folk.ig_clout
+			desc = grefm_progress_from_hellene_literacy
+			value = grefm_hellene_literacy_value
 		}
 		subtract = {
 			desc = grefm_progress_from_language_friction
@@ -81,12 +69,20 @@ grefm_katharevousa_progress_bar = {
 	name = "grefm_katharevousa_progress_bar"
 	desc = "grefm_katharevousa_progress_bar_desc"
 	
-	default_bad = yes
+	default_green = yes
 
 	monthly_progress = {
-		add = {
-			desc = grefm_progress_from_intelligentsia_clout
-			value = owner.ig:ig_intelligentsia.ig_clout
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+				NOT = {
+					country_has_primary_culture = cu:rhomaios
+				}
+			}
+			add = {
+				desc = grefm_progress_from_intelligentsia_clout
+				value = owner.ig:ig_intelligentsia.ig_clout
+			}
 		}
 		add = {
 			desc = grefm_progress_from_universities
@@ -110,13 +106,19 @@ grefm_khoine_progress_bar = {
 	default_bad = yes
 
 	monthly_progress = {
-		add = {
-			desc = grefm_progress_from_landowners_clout
-			value = owner.ig:ig_landowners.ig_clout
-		}
-		add = {
-			desc = grefm_from_devout_clout
-			value = owner.ig:ig_devout.ig_clout
+		if = {
+			limit = {
+				owner = {
+					OR = {
+						has_law = law_type:law_state_religion
+						has_law = law_type:law_freedom_of_conscience
+					}
+				}
+			}
+			subtract = {
+				desc = grefm_progress_from_devout_clout_religion
+				value = 1
+			}
 		}
 		if = {
 			limit = {
@@ -125,8 +127,8 @@ grefm_khoine_progress_bar = {
 				}
 			}
 			add = {
-				desc = grefm_progress_from_theocracy
-				value = 1
+				desc = grefm_progress_from_devout_clout_theocracy
+				value = owner.ig:ig_devout.ig_clout
 			}
 		}
 		if = {
@@ -142,6 +144,40 @@ grefm_khoine_progress_bar = {
 				desc = grefm_progress_from_hostile_religious_policy
 				value = 1
 			}
+		}
+		subtract = {
+			desc = grefm_progress_from_language_friction
+			value = grefm_language_decay_value
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 200
+}
+
+grefm_rhomaiika_progress_bar = {
+	name = "grefm_rhomaiika_progress_bar"
+	desc = "grefm_rhomaiika_progress_bar_desc"
+	
+	default = yes
+
+	monthly_progress = {
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+				NOT = {
+					country_has_primary_culture = cu:hellene
+				}
+			}
+			add = {
+				desc = grefm_progress_from_intelligentsia_clout
+				value = owner.ig:ig_intelligentsia.ig_clout
+			}
+		}
+		add = {
+			desc = grefm_progress_from_rhomaios_literacy
+			value = grefm_rhomaios_radicals_value
 		}
 		subtract = {
 			desc = grefm_progress_from_language_friction

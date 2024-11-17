@@ -98,8 +98,9 @@ grefm_annex_hepatanese_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
 		custom_tooltip = {
-			text = ionian_islands_possible_tt
+			text = hellene_annexation_possible_tt
 			any_scope_state = {
 				state_region = {
 					is_homeland = cu:hellene
@@ -119,7 +120,7 @@ grefm_annex_hepatanese_decision = {
 
 	when_taken = {
 		set_variable = ionian_islands_var
-		custom_tooltip = treaty_of_london_event_tt
+		custom_tooltip = treaty_of_heptanese_event_tt
 		hidden_effect = {
 			trigger_event = {
 				id = grefm.580 # ION Annexation
@@ -153,11 +154,19 @@ grefm_annex_epirus_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = hellene_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
 		c:EPI = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
-		}
-		c:EPI = {
 			NOT = { has_truce_with = ROOT }
 		}
 	}
@@ -195,11 +204,19 @@ grefm_annex_cyprus_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = hellene_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
 		c:CYP = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
-		}
-		c:CYP = {
 			NOT = { has_truce_with = ROOT }
 		}
 	}
@@ -239,11 +256,19 @@ grefm_annex_crete_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = hellene_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
 		c:CRE = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
-		}
-		c:CRE = {
 			NOT = { has_truce_with = ROOT }
 		}
 	}
@@ -282,11 +307,19 @@ grefm_annex_macedonia_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = hellene_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
 		c:MAC = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
-		}
-		c:MAC = {
 			NOT = { has_truce_with = ROOT }
 		}
 	}
@@ -324,18 +357,29 @@ grefm_annex_theodoro_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:rhomaios
+		custom_tooltip = {
+			text = roman_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:rhomaios
+				}
+				count >= 3
+			}
+		}
 		c:THE = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
+			NOT = { has_truce_with = ROOT }
 		}
 	}
 
 	when_taken = {
 		set_variable = grefm_theodoro_var
-		custom_tooltip = byzfm.320.tt
+		custom_tooltip = treaty_of_theodoro_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.320
+				id = grefm.587 # THE Annexation
 				days = 0
 				popup = yes
 			}
@@ -363,18 +407,29 @@ grefm_annex_trabzon_decision = {
 	possible = {
 		is_at_war = no
 		has_technology_researched = nationalism
+		country_has_primary_culture = cu:rhomaios
+		custom_tooltip = {
+			text = roman_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:rhomaios
+				}
+				count >= 3
+			}
+		}
 		c:TRB = {
 			relations:root >= relations_threshold:cordial
 			is_at_war = no
+			NOT = { has_truce_with = ROOT }
 		}
 	}
 
 	when_taken = {
 		set_variable = grefm_trabzon_var
-		custom_tooltip = byzfm.321.tt
+		custom_tooltip = treaty_of_trabzon_event_tt
 		hidden_effect = {
 			trigger_event = {
-				id = byzfm.321
+				id = grefm.588 # TRB Annexation
 				days = 0
 				popup = yes
 			}
@@ -392,8 +447,8 @@ grefm_chariot_racing_decision = {
 			is_building_type = building_hippodrome
 		}
 		NOR = {
-			has_modifier = modifier_byzfm_chariot_racing
-			has_modifier = modifier_byzfm_expanded_chariot_racing
+			has_modifier = modifier_grefm_chariot_racing
+			has_modifier = modifier_grefm_expanded_chariot_racing
 		}
 	}
 	
@@ -410,7 +465,7 @@ grefm_chariot_racing_decision = {
 		custom_tooltip = {
 			text = chariot_racing_enabled_tt	
 			trigger_event = {
-				id = grefm.830 = { # Chariot Racing Re-established
+				id = grefm.830 # Chariot Racing Re-established
 				popup = yes
 			}
 		}
@@ -441,9 +496,9 @@ grefm_expand_chariot_racing_decision = {
 	
 	when_taken = {
 		show_as_tooltip = {
-			remove_modifier = modifier_byzfm_chariot_racing
+			remove_modifier = modifier_grefm_chariot_racing
 			add_modifier = {
-				name = modifier_byzfm_expanded_chariot_racing
+				name = modifier_grefm_expanded_chariot_racing
 			}
 		}
 		hidden_effect = {

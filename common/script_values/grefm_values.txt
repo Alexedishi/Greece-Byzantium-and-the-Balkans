@@ -1,7 +1,6 @@
 ﻿## Bavarocracy Values ##
 grefm_bavarocracy_progress_value = {
 	value = 0
-	add = var:grefm_ruler_popularity_var
 	if = {
 		limit = {
 			NOT = {
@@ -9,7 +8,10 @@ grefm_bavarocracy_progress_value = {
 			}
 		}
 		subtract = {
-			value = 1
+			value = {
+				add = root.ruler.popularity
+				divide = 100
+			}
 			desc = grefm_value_from_ruler_popularity
 		}
 	}
@@ -93,81 +95,13 @@ grefm_bavarocracy_progress_value = {
 	round_to = 0.01
 }
 
-grefm_ruler_popularity_value = {
+grefm_bavarocracy_instability_progress_value = {
 	value = 0
-	add = root.ruler.popularity
-	divide = 100
-}
-
-grefm_tyranny_support_value = {
-	value = 0
-	every_interest_group = {
-		limit = {
-			law_stance = {
-				law = law_type:law_autocracy
-				value > neutral
-			}
-		}
-		add = ig_clout
-	}
-	multiply = 10
-}
-
-grefm_tyranny_opposition_value = {
-	value = 0
-	every_interest_group = {
-		limit = {
-			law_stance = {
-				law = law_type:law_autocracy
-				value < neutral
-			}
-		}
-		subtract = ig_clout
-	}
-	multiply = 10
-}
-
-grefm_tyranny_laws_value = {
-	value = 0
-	if = {
-		limit = {
-			has_law = law_type:law_autocracy
-		}
-		add = 1
-	}
-	if = {
-		limit = {
-			OR = {
-				has_law = law_type:law_hereditary_bureaucrats
-				has_law = law_type:law_appointed_bureaucrats
-			}
-		}
-		add = 1
-	}
-	if = {
-		limit = {
-			OR = {
-				has_law = law_type:law_serfdom	
-				has_law = law_type:law_tenant_farmers
-			}
-		}
-		add = 1
-	}
-}
-
-grefm_tyranny_popularity_value = {
-	value = 0
-	add = root.ruler.popularity
-	divide = 10
-}
-
-grefm_tyranny_progress_value = {
-	value = 0
-	add = var:grefm_tyranny_support_var
-	add = var:grefm_tyranny_opposition_var
-	add = var:grefm_tyranny_laws_var
-	add = var:grefm_tyranny_popularity_var
-	round_to = 0.01
+	
+	# Constitution Values
+	
+	
+	# Tyranny Values
 }
 
 ## Greek Artifact Values ##
@@ -271,23 +205,13 @@ grefm_artifact_value = {
 		add = 1
 	}
 	
-	if = {
-		limit = {
-			has_variable = byzfm_mega_palation_complete
-		}
-		add = 1
-	}
-	if = {
-		limit = {
-			has_variable = byzfm_hippodrome_complete
-		}
-		add = 1
-	}
+	min = 0
+	max = 10
 }
 
 ## Language Question Variables
 
-grefm_greek_radicals_value = {
+grefm_hellene_radicals_value = {
 	value = {
 		every_scope_pop = {
 			limit = {
@@ -300,6 +224,66 @@ grefm_greek_radicals_value = {
 		every_scope_pop = {
 			limit = {
 				culture = cu:hellene
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_hellene_literacy_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:hellene
+			}
+			add = literacy_rate
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:hellene
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_rhomaios_radicals_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_rhomaios_literacy_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = literacy_rate
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
 			}
 			add = 1
 		}
@@ -322,13 +306,25 @@ grefm_university_count_value = {
 
 grefm_language_decay_value = {
 	value = 0
-	add = root.literacy_rate
+	
+	# Dimotiki Sources
 	add = root.ig:ig_rural_folk.ig_clout
-	add = root.ig:ig_intelligentsia.ig_clout
+	add = grefm_hellene_literacy_value
+
+	# Katharevousa Sources
 	add = grefm_university_count_value
+	
+	# Khoine Sources
 	add = root.ig:ig_landowners.ig_clout
 	add = root.ig:ig_devout.ig_clout
-	divide = 6 # this is meant to slow down everything and clap out the weakest of the three values
+	
+	# Rhomaiika Sources
+	add = grefm_rhomaios_literacy_value
+	
+	# Other Sources
+	add = root.ig:ig_intelligentsia.ig_clout
+	
+	divide = 7 # this is meant to slow down everything and clap out the weakest of the three values
 }
 
 ## Greek Separatism Values ##

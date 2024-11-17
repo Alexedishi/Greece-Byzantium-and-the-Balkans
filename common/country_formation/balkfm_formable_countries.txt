@@ -24,6 +24,14 @@
 	possible = {
 		owns_entire_state_region = STATE_EASTERN_THRACE
 		country_has_primary_culture = cu:rhomaios # Replaces plausible_formable_nations trigger; you're using this mod for a reason
+		custom_tooltip = {
+			text = grefm_weaksauce_formation_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = grefm_weaksauce
+				}
+			}
+		}
 	}
 }
 
@@ -52,8 +60,14 @@ HEMP = {
 
 	possible = {
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		NOT = {
-			country_has_primary_culture = cu:rhomaios
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = grefm_weaksauce_formation_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = grefm_weaksauce
+				}
+			}
 		}
 	}
 }
@@ -151,7 +165,7 @@ TSAR = {
 			text = balkfm_below_empire_tt
 			hidden_trigger = {
 				NOR = {
-					country_tier = hegemon
+					country_tier = hegemony
 					country_tier = empire
 				}
 			}
