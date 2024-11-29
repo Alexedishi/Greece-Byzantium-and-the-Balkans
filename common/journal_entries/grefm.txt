@@ -2803,10 +2803,9 @@ je_grefm_ion_jewry = {
 					var:grefm_samos_loyalist_jews_var >= 0.75
 				}
 			}
-			cu:romaniote = {
-				NOT = {
-					culture_is_discriminated_in = root
-				}
+			cultural_acceptance_base = {
+				target = cu:romaniote
+				value >= acceptance_status_5
 			}
 		}
 	}
@@ -3061,6 +3060,14 @@ je_grefm_intro = {
 	group = je_group_grefm_content
 	
 	should_be_pinned_by_default = no
+	
+	is_shown_when_inactive = {
+		always = no
+	}
+	
+	possible = {
+		always = no
+	}
 	
 	complete = {
 		always = yes

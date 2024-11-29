@@ -44,7 +44,7 @@
 		law_no_schools = disapprove	
 	}		
 	
-	possible = {
+	interest_group_leader_trigger = {
 		owner = { # limited to the Danubian Principalities
 			c:MOL ?= this
 			c:WAL ?= this
@@ -69,7 +69,7 @@
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 100
 		if = {
 			limit = {
@@ -91,6 +91,11 @@
 			multiply = 0
 		}
 	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
+	}
+	
 }
 
 ideology_junimist = {
@@ -143,7 +148,7 @@ ideology_junimist = {
 		law_industry_banned = strongly_disapprove
 	}
 	
-	possible = {
+	interest_group_leader_trigger = {
 		owner = { # Limited to Romanian Nationalism
 			has_journal_entry = je_balkfm_rom_nationalism
 		}
@@ -156,7 +161,7 @@ ideology_junimist = {
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 100
 		if = {
 			limit = {
@@ -175,6 +180,10 @@ ideology_junimist = {
 			}
 			add = 150 # This should be a hot button issue for the Romanians while the journal is open
 		}
+	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
 	}
 }
 
@@ -234,7 +243,7 @@ ideology_dacianist = {
 		law_industry_banned = strongly_disapprove
 	}
 	
-	possible = {
+	interest_group_leader_trigger = {
 		owner = { # Limited to Romanian Nationalism
 			has_journal_entry = je_balkfm_rom_nationalism
 		}
@@ -248,7 +257,7 @@ ideology_dacianist = {
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 100
 		if = {
 			limit = {
@@ -269,5 +278,9 @@ ideology_dacianist = {
 			}
 			add = 100 # This should be a hot button issue for the Romanians while the journal is open
 		}
+	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
 	}
 }
