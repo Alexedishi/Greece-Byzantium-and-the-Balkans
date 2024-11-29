@@ -47,7 +47,6 @@ modifier_grefm_dismissed_bavarians = {
 modifier_grefm_timar = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_negative.dds
 	state_radicals_from_sol_change_mult = 0.1
-	state_poor_standard_of_living_add = -1
 }
 
 modifier_grefm_taxation_reformed = {
@@ -245,8 +244,8 @@ modifier_grefm_enforced_katharevousa = {
 
 modifier_grefm_enshrined_khoine = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_book_positive.dds
-	state_loyalists_from_sol_change_accepted_religion_mult = 0.10
-	state_radicals_from_sol_change_accepted_religion_mult = -0.10
+	state_loyalism_increases_full_acceptance_mult = 0.10
+	state_radicalism_increases_full_acceptance_mult = -0.10
 	state_conversion_mult = 0.1
 }
 
@@ -269,7 +268,7 @@ modifier_grefm_greek_nationalism = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_mobilization_positive.dds
 	country_prestige_mult = 0.1
 	state_assimilation_mult = 0.25
-	state_loyalists_from_sol_change_accepted_culture_mult = 0.05
+	state_loyalism_increases_full_acceptance_mult = 0.05
 }
 
 modifier_grefm_bavarocracy_secured = {
@@ -340,7 +339,9 @@ modifier_grefm_venizelist_tilt = {
 	country_legitimacy_base_add = 10
 	country_authority_mult = 0.1
 	country_radicals_from_conquest_mult = 0.10
-	state_radicals_from_discrimination_mult = 0.05
+	state_radicalism_increases_open_prejudice_mult = 0.05
+	state_radicalism_increases_cultural_erasure_mult = 0.05
+	state_radicalism_increases_violent_hostility_mult = 0.05
 	interest_group_ig_intelligentsia_pol_str_mult = 0.15
 }
 
@@ -368,14 +369,17 @@ modifier_grefm_religious_deconfliction = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_protestant_positive.dds
 	country_infamy_decay_mult = 0.05
 	country_influence_mult = 0.10
-	state_radicals_from_discrimination_mult = -0.05
+	state_radicalism_increases_open_prejudice_mult = -0.05
+	state_radicalism_increases_cultural_erasure_mult = -0.05
+	state_radicalism_increases_violent_hostility_mult = -0.05
 }
 
 modifier_grefm_religious_witchhunt = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_fire_positive.dds
 	country_authority_add = 100
-	state_radicals_from_discrimination_mult = -0.10
-	state_radicals_from_sol_change_accepted_religion_mult = -0.10
+	state_radicalism_increases_open_prejudice_mult = -0.10
+	state_radicalism_increases_cultural_erasure_mult = -0.10
+	state_radicalism_increases_violent_hostility_mult = -0.10
 }	
 
 modifier_grefm_rebirth = {
@@ -481,7 +485,9 @@ modifier_grefm_supporting_crete = {
 modifier_grefm_granted_balkan_autonomy = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitulate_negative.dds
 	country_authority_mult = -0.25
-	state_radicals_from_discrimination_mult = 0.50
+	state_radicalism_increases_open_prejudice_mult = 0.50
+	state_radicalism_increases_cultural_erasure_mult = 0.50
+	state_radicalism_increases_violent_hostility_mult = 0.50
 }
 
 modifier_grefm_supported_excavation = {
@@ -626,8 +632,8 @@ modifier_grefm_civilized_state = {
 
 modifier_grefm_hepantese_union = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
-	state_loyalists_from_sol_change_accepted_culture_mult = 0.10
-	state_radicals_from_sol_change_accepted_culture_mult = -0.10
+	state_loyalism_increases_full_acceptance_mult = 0.10
+	state_radicalism_increases_full_acceptance_mult = -0.10
 }
 
 ## ROMANIOTE JEW MODIFIERS ##
@@ -635,27 +641,30 @@ modifier_grefm_hepantese_union = {
 modifier_grefm_jewish_exclusion = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_negative.dds
 	state_jewish_standard_of_living_add = -2
-	state_radicals_from_discrimination_mult = 0.10
+	state_radicalism_increases_open_prejudice_mult = 0.10
+	state_radicalism_increases_cultural_erasure_mult = 0.10
+	state_radicalism_increases_violent_hostility_mult = 0.10
 }
 
 modifier_grefm_jewish_legal_concessions = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_positive.dds
 	state_jewish_standard_of_living_add = 2
-	state_radicals_from_sol_change_accepted_religion_mult = 0.10
+	state_radicalism_increases_full_acceptance_mult = 0.10
 }
 
 modifier_grefm_denied_jewish_rights = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_negative.dds
 	state_jewish_standard_of_living_add = -1
-	state_radicals_from_sol_change_accepted_religion_mult = -0.10
+	state_radicalism_increases_full_acceptance_mult = -0.10
 }
 
 modifier_grefm_chronica_israelitika = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_positive.dds
 	country_society_tech_spread_mult = 0.10
 	state_jewish_standard_of_living_add = 1
-	state_radicals_from_discrimination_mult = -0.05
-	state_radicals_from_sol_change_accepted_religion_mult = 0.05
+	state_radicalism_increases_open_prejudice_mult = -0.05
+	state_radicalism_increases_cultural_erasure_mult = -0.05
+	state_radicalism_increases_violent_hostility_mult = -0.05
 	interest_group_ig_devout_approval_add = -5
 }
 
@@ -663,14 +672,17 @@ modifier_grefm_closed_presshouse = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_negative.dds
 	country_society_tech_spread_mult = -0.05
 	state_jewish_standard_of_living_add = -1
-	state_radicals_from_discrimination_mult = 0.10
-	state_radicals_from_sol_change_accepted_religion_mult = -0.20
+	state_radicalism_increases_open_prejudice_mult = -0.10
+	state_radicalism_increases_cultural_erasure_mult = -0.10
+	state_radicalism_increases_violent_hostility_mult = -0.10
 }
 
 modifier_grefm_suppressed_blood_libel = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_positive.dds
 	state_jewish_standard_of_living_add = 1
-	state_radicals_from_discrimination_mult = 0.10
+	state_radicalism_increases_open_prejudice_mult = 0.10
+	state_radicalism_increases_cultural_erasure_mult = 0.10
+	state_radicalism_increases_violent_hostility_mult = 0.10
 }
 
 modifier_grefm_blood_libel = {
@@ -678,7 +690,9 @@ modifier_grefm_blood_libel = {
 	country_prestige_mult -0.05
 	country_infamy_generation_mult = 0.25
 	state_jewish_standard_of_living_add = -2
-	state_radicals_from_discrimination_mult = 0.50
+	state_radicalism_increases_open_prejudice_mult = 0.50
+	state_radicalism_increases_cultural_erasure_mult = 0.50
+	state_radicalism_increases_violent_hostility_mult = 0.50
 }
 
 modifier_grefm_jewish_neglect = {
@@ -686,15 +700,21 @@ modifier_grefm_jewish_neglect = {
 	country_mass_migration_attraction_mult = -0.50
 	country_influence_mult = -0.25
 	state_jewish_standard_of_living_add = -4
-	state_radicals_from_sol_change_accepted_religion_mult = -0.25
-	state_loyalists_from_sol_change_accepted_religion_mult = 0.25
+	state_loyalism_increases_full_acceptance_mult = 0.25
+	state_loyalism_increases_second_rate_citizen_mult = 0.25
+	state_radicalism_increases_open_prejudice_mult = 0.25
+	state_radicalism_increases_cultural_erasure_mult = 0.25
+	state_radicalism_increases_violent_hostility_mult = 0.25
 }
 
 modifier_grefm_jewish_integration = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_jewish_positive.dds
 	state_jewish_standard_of_living_add = 4
-	state_radicals_from_sol_change_accepted_religion_mult = 0.10
-	state_loyalists_from_sol_change_accepted_religion_mult = -0.10
+	state_loyalism_increases_full_acceptance_mult = 0.10
+	state_loyalism_increases_second_rate_citizen_mult = 0.10
+	state_radicalism_increases_open_prejudice_mult = 0.10
+	state_radicalism_increases_cultural_erasure_mult = 0.10
+	state_radicalism_increases_violent_hostility_mult = 0.10
 }
 
 ###########################
@@ -731,6 +751,6 @@ modifier_grefm_ruler_ejected = {
 
 modifier_grefm_samian_union = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
-	state_loyalists_from_sol_change_accepted_culture_mult = 0.10
-	state_radicals_from_sol_change_accepted_culture_mult = -0.10
+	state_loyalism_increases_full_acceptance_mult = 0.10
+	state_radicalism_increases_full_acceptance_mult = -0.10
 }
