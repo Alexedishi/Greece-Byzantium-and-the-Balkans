@@ -1,4 +1,4 @@
-﻿# Important point to make here is that the "Russian," "French," and "English" parties were not political parties as we would envision them today. Their origin lies in the patron-client style politics that dominated Greece in the Kapodastrian era.
+﻿﻿# Important point to make here is that the "Russian," "French," and "English" parties were not political parties as we would envision them today. Their origin lies in the patron-client style politics that dominated Greece in the Kapodastrian era.
 # Each one takes their name from the Great Power that they seeked to align the Greek state with. This was dominant over their royalist or liberalist tilt.
 # These parties congealed into more tangible forms after the coronation of Otto I and the dismissal of Armansperg. However, these were still political groupings heavily dominated by individual strongmen as opposed to true parties.
 # As such, the two ideologies "Bavarocrat" and "Constitutionalist" seek to portray their attitudes towards statecraft, while their diplomatic attitudes are handled by lobby scripting.
@@ -58,7 +58,7 @@ ideology_bavarocrat = {
 		law_graduated_taxation = strongly_disapprove
 	}
 	
-	possible = {
+	interest_group_leader_trigger = {
 		owner = {
 			has_variable = grefm_bavarocracy
 		}
@@ -81,7 +81,7 @@ ideology_bavarocrat = {
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 100
 		if = {
 			limit = {
@@ -105,6 +105,10 @@ ideology_bavarocrat = {
 			}
 			multiply = 0 # will not manifest if Bavarocracy was abolished
 		}
+	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
 	}
 }
 
@@ -154,7 +158,7 @@ ideology_grefm_constitutionalist = {
 		law_old_age_pension = strongly_approve
 	}
 
-	possible = {
+	interest_group_leader_trigger = {
 		owner = { has_journal_entry = je_grefm_bavarocracy_main }
 		scope:interest_group = {
 			OR = {
@@ -176,7 +180,7 @@ ideology_grefm_constitutionalist = {
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 50
 		if = {
 			limit = {
@@ -206,11 +210,15 @@ ideology_grefm_constitutionalist = {
 		if = {
 			limit = {
 				owner = {
-					has_variable = grefm_tyranny_var
+					has_journal_entry = je_grefm_the_tyranny_of_house_wittelsbach
 				}
 			}
-			add = 400 # should be frequent if you're on the Tyranny route
+			add = 400 # should be frequent if encountered during the Tyranny JE
 		}
+	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
 	}
 }
 
@@ -275,11 +283,11 @@ ideology_venizelos = {
 		law_old_age_pension = strongly_approve
 	}
 
-	possible = {
-		has_variable = grefm_is_venizelos
+	interest_group_leader_weight = {
+		value = 0
 	}
 	
-	leader_weight = {
+	non_interest_group_leader_weight = {
 		value = 0
 	}
 }
@@ -344,10 +352,9 @@ ideology_venizelist = {
 		law_old_age_pension = strongly_approve
 	}
 
-	possible = { # social democrat requirements but with an event variable instead
+	interest_group_leader_trigger = { # social democrat requirements but with an event variable instead
 		owner = { has_variable = grefm_venizelos_has_landed }
 		NAND = {
-			has_role = agitator
 			owner = {
 				has_law = law_type:law_universal_suffrage
 				has_law = law_type:law_graduated_taxation
@@ -375,7 +382,7 @@ ideology_venizelist = {
 		}
 	}
 	
-	leader_weight = {
+	interest_group_leader_weight = {
 		value = 100
 		if = {
 			limit = {
@@ -408,5 +415,9 @@ ideology_venizelist = {
 			}
 			multiply = 0 # won't happen without Venizelos
 		}
+	}
+	
+	non_interest_group_leader_weight = {
+		value = 0
 	}
 }
