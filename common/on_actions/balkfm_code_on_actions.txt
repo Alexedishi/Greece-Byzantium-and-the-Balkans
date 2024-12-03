@@ -4,7 +4,8 @@
 
 on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 	on_actions = {
-		grefm_monthly_pulse
+		grefm_monthly_pulse_1
+		grefm_monthly_pulse_2
 #		turkfm_monthly_pulse
 		balkfm_monthly_pulse
 #		yug_flavor_pulse
@@ -36,11 +37,10 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 
 ############
 
-grefm_monthly_pulse = {
+grefm_monthly_pulse_1 = {
 	trigger = {
 		OR = {
 			country_has_primary_culture = cu:hellene
-			country_has_primary_culture = cu:rhomaios
 		}
 	}
 	events = {
@@ -76,6 +76,24 @@ grefm_monthly_pulse = {
 		25 = grefm.291 # A Question of Homelands
 		25 = grefm.292 # Greek Expansion in X
 		10 = grefm.902 # Don Pacifico Affair
+	}
+}
+
+grefm_monthly_pulse_2 = {
+	trigger = {
+		country_has_primary_culture = cu:rhomaios
+	}
+	events = {
+		grefm.114 # Merchantile Rivalry
+		grefm.280 # The Legacy of Romanía
+		grefm.290 # The Fate of the Turks
+		grefm.838 # The Combustion Engine Takes the Hippodrome!
+	}
+	random_events = {
+		200 = 0
+		 5 = grefm.157 # The Mask of Agammemnon
+		25 = grefm.291 # A Question of Homelands
+		25 = grefm.292 # Greek Expansion in X
 	}
 }
 
@@ -137,7 +155,6 @@ rom_flavor_pulse = {
 	}
 	events = {
 		balkfm.660 # The Academy of Romania
-		byzfm.394 # Echoes of the Empire
 	}
 	random_events = {
 		100 = 0

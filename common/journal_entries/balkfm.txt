@@ -2998,7 +2998,7 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
                 country_has_primary_culture = cu:romanian
             }
         }
-    }	
+    }
 	
 	immediate = {
 	}
@@ -3110,7 +3110,11 @@ je_balkfm_rom_greater_romania = {
 	
     possible = {
         has_technology_researched = nationalism
-		is_subject = no
+		NOT = {
+            any_overlord_or_above ?= { # Can't unite the principalities if you're already the lesser in a pact with another Romanian state
+                country_has_primary_culture = cu:romanian
+            }
+        }
     }
 	
 	immediate = {

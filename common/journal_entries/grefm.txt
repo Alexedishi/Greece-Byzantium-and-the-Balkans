@@ -142,7 +142,9 @@ je_grefm_bavarocracy_main = {
 			grefm.002 # A Crisis Averted
 			grefm.003 # The September Revolution
 			grefm.004 # Long Live the Constitution
+			grefm.009 # A Disgraced Tyrant
 			grefm.016 # The Philorthodox Conspiracy
+			grefm.020 # Bavarianism in Greece
 		}
 		effect = {
 			change_variable = {
@@ -2991,7 +2993,7 @@ je_grefm_renovatio_imperii_romanorum = {
 	should_be_pinned_by_default = yes
 	
 	modifiers_while_active = {
-		modifier_byzfm_imperial_aspiriations
+		modifier_grefm_imperial_aspiriations
 	}
 
 	complete = {
@@ -3107,7 +3109,7 @@ je_grefm_renovatio_imperii_romanorum_northern_italy = {
 	
 	on_complete = {
 		trigger_event = {
-			id = grefm.806 # Lombardia Reclaimed
+			id = grefm.805 # Lombardia Reclaimed
 		}
 	}
 
@@ -3205,7 +3207,7 @@ je_grefm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = balkfm_weaksauce
+			has_variable = grefm_weaksauce
 		}
 	}
 	
@@ -3219,8 +3221,24 @@ je_grefm_rom_megali_idea = {
 	group = je_group_balkfm_romanian_nationalism
 	
 	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:ROM ?= this
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = grefm_greater_romania_complete_tt
+			hidden_trigger = {
+				has_variable = balkfm_rom_unification_completed
+			}
+		}
+	}
 
 	immediate = {
+		trigger_event = {
+			id = balkfm.678 # The Imperial Standard
+		}
 	}
 
 	complete = {
@@ -3246,14 +3264,14 @@ je_grefm_rom_megali_idea = {
 
 	on_complete = {
 		trigger_event = { 
-			id = byzfm.395 # The Queen of Cities
+			id = balkfm.679 # The Queen of Cities
 		}
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = balkfm_weaksauce
+			has_variable = grefm_weaksauce
 		}
 	}
 	
