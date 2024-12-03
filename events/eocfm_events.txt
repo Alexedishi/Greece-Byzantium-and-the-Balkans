@@ -153,13 +153,13 @@ namespace = eocfm
 #	300 - The Partiarchate Rises (Path Event)
 #	301 - The Church of the East
 #	302 - The Orthodox Realms
-#	310>>303 - The Capture of the Great Mosque
-#	314>>304 - The Ancient Partiarchates
-#	315>>305 - The Restoration of the Pentarchy
-#	316>>306 - Challenging the Patriarch of the West
-#	317>>307 - The Throne of Saint Peter
-#	318>>308 - The Council of Unification
-#	319>>309 - The Supreme Pontiff of the Universal Church
+#	303 - The Capture of the Great Mosque
+#	304 - The Ancient Partiarchates
+#	305 - The Restoration of the Pentarchy
+#	306 - Challenging the Patriarch of the West
+#	307 - The Throne of Saint Peter
+#	308 - The Council of Unification
+#	309 - The Supreme Pontiff of the Universal Church
 
 
 ##	#EOC9	TECHNICAL EVENTS	Events 900-999	##
@@ -4921,6 +4921,7 @@ eocfm.300 = { # The Partiarchate Rises
 	dlc = dlc_grefm
 
 	trigger = {
+		# triggered by eocfm_unify_orthodox_realms_sgui
 	}
 	
 	immediate = {
@@ -5134,7 +5135,7 @@ eocfm.303 = { # The Capture of the Great Mosque
 
 	trigger = {
 		owns_entire_state_region = STATE_HEDJAZ
-		NOT = { has_global_variable = byzfm_smoked_mecca }
+		NOT = { has_global_variable = grefm_smoked_mecca }
 		has_variable = eocfm_crusades_unlocked
 	}
 	
@@ -5157,14 +5158,14 @@ eocfm.303 = { # The Capture of the Great Mosque
 				save_scope_as = byzantium_arabia_target
 			}
 		}
-		set_global_variable = byzfm_smoked_mecca
+		set_global_variable = grefm_smoked_mecca
 	}
 	
 	option = { # burn it down
 		name = eocfm.303.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_byzfm_great_mosque_destroyed
+			name = modifier_eocfm_great_mosque_destroyed
 		}
 		add_radicals = {
 			value = very_large_radicals

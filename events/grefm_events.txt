@@ -983,6 +983,13 @@ grefm.007 = { # The Bavarocracy Secured
 			id = grefm.031 # the king of the hellenes
 			days = 30
 		}
+		if = {
+			limit = {
+				has_variable = grefm_bavarocracy_secured
+			}
+			remove_variable = grefm_bavarocracy_secured
+			set_variable = grefm_bavarianism_var
+		}
 	}
 	
 }
@@ -2903,7 +2910,6 @@ grefm.045 = { # a cretan champion
 		scope:grefm_venizelos_scope = {
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
-			set_variable = grefm_is_venizelos
 		}
 	}
 	
@@ -3131,7 +3137,6 @@ grefm.047 = { # A Cretan Champion Alternate
 		scope:grefm_venizelos_scope = {
 			transfer_character = ROOT
 			set_as_interest_group_leader = yes
-			set_variable = grefm_is_venizelos
 		}
 		trigger_event = {
 			id = grefm.049 # The Rise of the Ethnarch (Alternate)
@@ -6893,7 +6898,7 @@ grefm.208 = { # Defining Greek Roots
 
 }
 
-grefm.209 = { # greek ethnogenesis
+grefm.209 = { # The Greek Ethnogenesis
 	type = country_event
 	placement = root
 	
@@ -6973,7 +6978,7 @@ grefm.209 = { # greek ethnogenesis
 			}
 			remove_primary_culture = cu:rhomaios
 		}
-		set_variable = grefm_greek_nationalism_completed
+		set_variable = grefm_nationalism_complete
 	}
 	
 	option = { # Rhomaios
@@ -7008,7 +7013,7 @@ grefm.209 = { # greek ethnogenesis
 			}
 			remove_primary_culture = cu:hellene
 		}
-		set_variable = grefm_greek_nationalism_completed
+		set_variable = grefm_nationalism_complete
 	}
 	
 	option = { # Hybrid
@@ -7045,7 +7050,7 @@ grefm.209 = { # greek ethnogenesis
 			}
 			add_primary_culture = cu:rhomaios
 		}
-		set_variable = grefm_greek_nationalism_completed
+		set_variable = grefm_nationalism_complete
 	}
 	
 	option = { # Option for Testing
@@ -7055,7 +7060,7 @@ grefm.209 = { # greek ethnogenesis
 				has_variable = grefm_culture_var
 			}
 		}
-		set_variable = grefm_greek_nationalism_completed
+		set_variable = grefm_nationalism_complete
 	}
 }
 
@@ -7514,7 +7519,7 @@ grefm.280 = { # The Legacy of Romanía
 		}
 		OR = {
 			c:THE ?= this
-			c:TRB ? this
+			c:TRB ?= this
 		}
 	}
 	
@@ -8232,6 +8237,9 @@ grefm.302 = { # The Shores of Phoenicia
 	}
 	
 	immediate = {
+		capital = {
+			save_scope_as = byzantium_capital_state
+		}
 	}
 
 	option = { # reclaim the east
@@ -8334,7 +8342,7 @@ grefm.302 = { # The Shores of Phoenicia
 	option = { # nah bro, shits for the birds
 		name = grefm.302.b
 		change_infamy = -20
-		scope:byzantium_capital = {
+		scope:byzantium_capital_state = {
 			add_modifier = {
 				name = modifier_grefm_capital_assimiliation_boost
 				months = normal_modifier_time

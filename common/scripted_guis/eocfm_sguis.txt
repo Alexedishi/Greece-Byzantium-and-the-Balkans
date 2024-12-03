@@ -389,6 +389,38 @@ eocfm_disband_schools_sgui = {
 	}
 }
 
+eocfm_unify_orthodox_realms_sgui = {
+	scope = country
+	
+	is_shown = {
+		NOT = {
+			has_variable = eocfm_texas_left
+		}
+	}
+	
+	is_valid = {
+		custom_tooltip = {
+			text = eocfm_has_autocephaly_tt
+			hidden_trigger = {
+				has_variable = eocfm_is_autocephalous
+			}
+		}
+		custom_tooltip = {
+			text = eocfm_controls_eastern_seat_tt
+			hidden_trigger = {
+				eocfm_controls_eastern_seat_trigger = yes
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = eocfm.300 # The Partiarchate Rises
+		}
+		set_variable = eocfm_texas_left
+	}
+}
+
 ######################
 # ECUMENICAL ACTIONS #
 ######################

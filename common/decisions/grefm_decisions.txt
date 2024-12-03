@@ -341,6 +341,59 @@ grefm_annex_macedonia_decision = {
 	}
 }
 
+grefm_annex_samos_decision = {
+	is_shown = {
+		NOT = { has_variable = grefm_samos_var }
+		country_has_primary_culture = cu:hellene
+		is_subject = no
+		exists = c:SAMO
+		c:SAMO = {
+			OR = {
+				is_subject = no
+				is_subject_of = ROOT
+			}
+			is_player = no
+		}
+	}
+
+	possible = {
+		is_at_war = no
+		has_technology_researched = nationalism
+		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = hellene_annexation_possible_tt
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:hellene
+				}
+				count >= 3
+			}
+		}
+		c:SAMO = {
+			relations:root >= relations_threshold:cordial
+			is_at_war = no
+			NOT = { has_truce_with = ROOT }
+		}
+	}
+
+	when_taken = {
+		set_variable = grefm_samos_var
+		custom_tooltip = treaty_of_samos_event_tt
+		hidden_effect = {
+			trigger_event = {
+				id = grefm.586 # SAMO Annexation
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 10
+	}
+	
+}
+
 grefm_annex_theodoro_decision = {
 	is_shown = {
 		NOT = { has_variable = grefm_theodoro_var }

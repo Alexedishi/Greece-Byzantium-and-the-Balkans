@@ -572,7 +572,7 @@ je_grefm_venizelism_main = {
 		custom_tooltip = {
 			text = je_grefm_venizelism_tt1
 			hidden_trigger = {
-				has_variable = grefm_greek_nationalism_completed
+				has_variable = grefm_nationalism_complete
 			}
 		}
 		custom_tooltip = {
@@ -860,15 +860,24 @@ je_grefm_greek_nationalism = {
 	complete = {
 		has_technology_researched = pan-nationalism
 		custom_tooltip = {
-			text = je_grefm_greek_nationalism
+			text = je_grefm_greek_nationalism_complete_tt
 			hidden_trigger = {
 				has_variable = grefm_nationalism_complete
 			}
 		}
 	}
 	
-	invalid = {
-		has_variable = grefm_nationalism_complete
+	on_weekly_pulse = {
+		effect = {
+			set_variable = {
+				name = grefm_hellene_culture_var
+				value = grefm_hellenism_value
+			}
+			set_variable = {
+				name = grefm_rhomaios_culture_var
+				value = grefm_romanism_value
+			}
+		}
 	}
 	
 	on_monthly_pulse = {
@@ -934,7 +943,6 @@ je_grefm_national_language = {
 	}
 	
 	on_complete = {
-		set_variable = grefm_greek_language_solved
 	}
 	
 	weight = 2997

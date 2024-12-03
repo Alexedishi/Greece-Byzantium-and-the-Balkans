@@ -197,21 +197,26 @@ grefm_embrace_hellenic_identity_button = {
 	}
 	
 	possible = {
-		country_has_primary_culture = cu:hellene
+		custom_tooltip = {
+			text = grefm_embrace_hellenism_tt
+			hidden_trigger = {
+				var:grefm_hellene_culture_var >= 5
+			}
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = grefm.209 # The Greek Ethnogenesis
 		}
+		set_variable = {
+			name = grefm_culture_var
+			value = 1
+		}
 	}
 	
 	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
+		base = 10
 	}
 }
 
@@ -224,21 +229,26 @@ grefm_embrace_roman_identity_button = {
 	}
 	
 	possible = {
-		country_has_primary_culture = cu:rhomaios
+		custom_tooltip = {
+			text = grefm_embrace_romanism_tt
+			hidden_trigger = {
+				var:grefm_rhomaios_culture_var >= 5
+			}
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = grefm.209 # The Greek Ethnogenesis
 		}
+		set_variable = {
+			name = grefm_culture_var
+			value = 2
+		}
 	}
 	
 	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
+		base = 10
 	}
 }
 
@@ -251,22 +261,32 @@ grefm_embrace_hybrid_identity_button = {
 	}
 	
 	possible = {
-		country_has_primary_culture = cu:hellene
-		country_has_primary_culture = cu:rhomaios
+		custom_tooltip = {
+			text = grefm_embrace_hellenism_tt
+			hidden_trigger = {
+				var:grefm_hellene_culture_var >= 5
+			}
+		}
+		custom_tooltip = {
+			text = grefm_embrace_romanism_tt
+			hidden_trigger = {
+				var:grefm_rhomaios_culture_var >= 5
+			}
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = grefm.209 # The Greek Ethnogenesis
 		}
+		set_variable = {
+			name = grefm_culture_var
+			value = 3
+		}
 	}
 	
 	ai_chance = {
-		base = 0
-		modifier = {
-			trigger = {}
-			add = 0
-		}
+		base = 10
 	}
 }
 
