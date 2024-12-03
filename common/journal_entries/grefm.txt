@@ -36,6 +36,15 @@ je_grefm_bavarocracy_main = {
 			}
 			has_law = law_type:law_monarchy
 		}
+		trigger_if = {
+			limit = {
+				OR = {
+					has_variable = grefm_tyranny_var
+					has_variable = grefm_bavarocracy_secured
+				}
+			}
+			has_law = law_type:law_autocracy
+		}
 		custom_tooltip = {
 			text = je_grefm_bavarocracy_main_complete_tt
 			hidden_trigger = {
@@ -144,6 +153,16 @@ je_grefm_bavarocracy_main = {
 				name = grefm_bavarocracy_instability_var
 				add = var:grefm_bavarocracy_instability_progress_var
 			}
+			if = {
+				limit = {
+					has_variable = grefm_tyranny_var
+					has_revolution = no
+				}
+				change_variable = {
+					name = grefm_tyranny_var
+					add = 1
+				}
+			}
 		}
 	}
 	
@@ -160,13 +179,13 @@ je_grefm_bavarocracy_main = {
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_grefm_bavarocracy_phase_regency
+				desc = je_grefm_bavarocracy_status_regency
 				trigger = {
 					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 			triggered_desc = {
-				desc = je_grefm_bavarocracy_phase_constitution
+				desc = je_grefm_bavarocracy_status_constitution
 				trigger = {
 					NOT = {
 						has_variable = grefm_1843_revolution_happened
@@ -174,13 +193,13 @@ je_grefm_bavarocracy_main = {
 				}
 			}
 			triggered_desc = {
-				desc = je_grefm_bavarocracy_phase_tyranny
+				desc = je_grefm_bavarocracy_status_tyranny
 				trigger = {
 					has_variable = grefm_tyranny_var
 				}
 			}
 			triggered_desc = {	
-				desc = je_grefm_bavarocracy_phase_bavarianism
+				desc = je_grefm_bavarocracy_status_bavarianism
 				trigger = {
 					has_variable = grefm_bavarocracy_secured
 				}
@@ -2334,10 +2353,9 @@ je_grefm_ion_jewry = {
 					var:grefm_samos_loyalist_jews_var >= 0.75
 				}
 			}
-			cu:romaniote = {
-				NOT = {
-					culture_is_discriminated_in = root
-				}
+			cultural_acceptance_base = {
+				target = cu:romaniote
+				value >= acceptance_status_5
 			}
 		}
 	}

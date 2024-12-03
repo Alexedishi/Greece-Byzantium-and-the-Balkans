@@ -49,17 +49,17 @@ namespace = grefm
 #	018 - Bavarian Auxiliaries Dismissed
 #	019 - The Return of the "Turk-Eater"
 
-#020-029 - Bavarocracy Outcome Events
-#	020 - 
-#	021 - 
-#	022 - 
-#	023 - 
-#	024 - 
-#	025 - 
-#	026 - 
-#	027 - 
-#	028 - 
-#	029 - 
+#020-029 - Bavarocracy Support Events II
+#	020 - ##Bavarianism in Greece
+#	021 - ##A "Greek" King
+#	022 - OPEN
+#	023 - OPEN
+#	024 - OPEN
+#	025 - OPEN
+#	026 - OPEN
+#	027 - OPEN
+#	028 - OPEN
+#	029 - OPEN
 
 #030-039 - Constitutional Monarchy Events
 #	030 - An Elected Monarch --end of 1.0 content
@@ -481,7 +481,19 @@ grefm.002 = { # Revolution averted, Otto remains in power
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		NOR = {
+			has_variable = grefm_1843_revolution_happened
+			has_modifier = modifier_grefm_armansperg_regency
+		}
+		OR = {
+			has_law = law_type:law_appointed_bureaucrats
+			has_law = law_type:law_elected_bureaucrats
+		}
+		OR = {
+			has_law = law_type:law_census_voting
+			has_law = law_type:law_universal_suffrage
+		}
 	}
 	
 	immediate = {
@@ -529,7 +541,12 @@ grefm.003 = { # 3 September 1843 Revolution
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		NOR = {
+			has_variable = grefm_1843_revolution_happened
+			has_modifier = modifier_grefm_armansperg_regency
+		}
+		var:grefm_bavarocracy_instability_var >= 100
 	}
 	
 	immediate = {
@@ -662,7 +679,10 @@ grefm.003 = { # 3 September 1843 Revolution
 			}
 			activate_law = law_type:law_autocracy
 		}
-		set_variable = grefm_tyranny_var
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 0
+		}
 	}
 	
 }
@@ -687,13 +707,25 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		NOR = {
+			has_variable = grefm_1843_revolution_happened
+			has_modifier = modifier_grefm_armansperg_regency
+		}
+		AND = {
+			has_law = law_type:law_monarchy
+			has_law = law_type:law_autocracy
+		}
 	}
 	
 	immediate = {
 		set_variable = grefm_1843_revolution_happened
 		ruler = {
 			save_scope_as = king_otto_scope
+		}
+		set_variable = {
+			name = grefm_tyranny_var
+			value = 0
 		}
 	}
 	
@@ -739,7 +771,6 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Othonian Absolutism Moment
 		}
-		set_variable = grefm_tyranny_var
 	}
 	
 }
@@ -764,10 +795,13 @@ grefm.005 = { # error 404 monarch not found
 	
 	dlc = dlc_grefm
 	
-	trigger = { # also triggered by JE during je_grefm_bavarocracy_main
-		NOT = { has_law = law_type:law_monarchy }
-		has_variable = grefm_bavarocracy_completed
+	trigger = {
 		has_variable = grefm_bavarocracy
+		NOR = {
+			has_law = law_type:law_monarchy
+			has_modifier = modifier_grefm_armansperg_regency
+			has_variable = grefm_bavarocracy_completed
+		}
 	}
 	
 	immediate = {
@@ -814,7 +848,8 @@ grefm.006 = { # revolution of 1862
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by je_grefm_bavarocracy_main
 	}
 	
 	immediate = {
@@ -933,7 +968,8 @@ grefm.007 = { # The Bavarocracy Secured
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by je_grefm_bavarocracy_main
 	}
 	
 	immediate = {
@@ -980,7 +1016,8 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 	
 	dlc = dlc_grefm
 	
-	trigger = { # triggered by JE
+	trigger = {
+		# triggered by je_grefm_bavarocracy_main
 	}
 	
 	immediate = {
@@ -1076,8 +1113,17 @@ grefm.009 = { # A Disgraced Tyrant
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_grefm_the_tyranny_of_house_wittelsbach
-	}	
+		has_variable = grefm_tyranny_var
+		NOT = {
+			has_variable = grefm_tyranny_busted
+		}
+		OR = {
+			var:grefm_bavarocracy_instability_var >= 100
+			NOT = {
+				has_law = law_type:law_autocracy
+			}
+		}
+	}
 	
 	immediate = {
 		ig:ig_armed_forces = {
@@ -1151,6 +1197,7 @@ grefm.009 = { # A Disgraced Tyrant
 				add = -400
 			}
 		}
+		remove_variable = grefm_tyranny_var
 	}
 	
 }
@@ -1657,7 +1704,6 @@ grefm.015 = { # Discharging the Regency
 			id = grefm.010 # Constitutional Promises
 			days = 30
 		}
-		set_variable = grefm_bavarocracy
 		remove_modifier = modifier_grefm_armansperg_regency
 		remove_variable = eocfm_ruler_conversion_considered
 	}
@@ -1684,7 +1730,6 @@ grefm.015 = { # Discharging the Regency
 			id = grefm.010 # Constitutional Promises
 			days = 30
 		}
-		set_variable = grefm_bavarocracy
 		remove_modifier = modifier_grefm_armansperg_regency
 		remove_variable = eocfm_ruler_conversion_considered
 	}
@@ -1978,7 +2023,42 @@ grefm.019 = { # nikitas released from jail
 
 #### MONARCHY SUPPORT EVENTS ####
 
+grefm.020 = { # Bavarianism in Greece
+	type = country_event
+	placement = root
+	
+	title = grefm.020.t
+	desc = grefm.020.d
+	flavor = grefm.020.f
+	
+	event_image = {
+		video = "votp_monarch_holding_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_otto.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_variable = grefm_tyranny_var
+		var:grefm_tyranny_var >= 60
+	}
+	
+	immediate = {
+		remove_variable = grefm_tyranny_var
+		set_variable = grefm_bavarocracy_secured
+	}
+	
+	option = {
+		name = grefm.020.a
+		default_option = yes
+	}
 
+}
 
 #### CONSTITUTIONAL MONARCHY EVENTS ####
 
