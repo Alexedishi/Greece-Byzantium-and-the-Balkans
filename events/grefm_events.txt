@@ -482,6 +482,7 @@ grefm.002 = { # Revolution averted, Otto remains in power
 			has_law = law_type:law_elected_bureaucrats
 		}
 		OR = {
+			has_law = law_type:law_wealth_voting
 			has_law = law_type:law_census_voting
 			has_law = law_type:law_universal_suffrage
 		}
@@ -506,6 +507,10 @@ grefm.002 = { # Revolution averted, Otto remains in power
 				name = grefm_bavarocracy_var
 				add = 100
 			}
+		}
+		set_variable = {
+			name = grefm_bavarocracy_instability_var
+			value = 0
 		}
 		set_variable = grefm_constitution_completed
 	}
@@ -624,6 +629,10 @@ grefm.003 = { # 3 September 1843 Revolution
 				add = 100
 			}
 		}
+		set_variable = {
+			name = grefm_bavarocracy_instability_var
+			value = 0
+		}
 	}
 	
 	option = { # Othonian Absolutism Time
@@ -674,8 +683,42 @@ grefm.003 = { # 3 September 1843 Revolution
 			name = grefm_tyranny_var
 			value = 0
 		}
+		set_variable = {
+			name = grefm_bavarocracy_instability_var
+			value = 0
+		}
 	}
 	
+	option = { # Find a Greek King instead
+		name = grefm.003.c
+		create_incident = {
+			country = c:GBR
+			value = 5
+		}
+		create_incident = {
+			country = c:FRA
+			value = 5
+		}
+		create_incident = {
+			country = c:RUS
+			value = 5
+		}
+		ruler = {
+			exile_character = yes
+		}
+		heir ?= {
+			exile_character = yes
+		}
+		scope:ig_armed_forces_scope = {
+			set_character_as_ruler = yes
+		}
+		trigger_event = {
+			id = grefm.021 # A Greek King
+			days = 30
+		}
+		set_variable = grefm_bavarocracy_completed
+		remove_variable = grefm_bavarocracy
+	}
 }
 
 grefm.004  { # lol you really thought that INCREASING autocracy was the solution?
@@ -762,11 +805,15 @@ grefm.004  { # lol you really thought that INCREASING autocracy was the solution
 		scope:king_otto_scope = {
 			set_as_interest_group_leader = yes # Othonian Absolutism Moment
 		}
+		set_variable = {
+			name = grefm_bavarocracy_instability_var
+			value = 0
+		}
 	}
 	
 }
 
-grefm.005 = { # error 404 monarch not found
+grefm.005 = { # The Bavarocracy Abolished
 	type = country_event
 	placement = root
 	
@@ -2058,6 +2105,49 @@ grefm.020 = { # Bavarianism in Greece
 
 }
 
+grefm.021 = { # A Greek King
+	type = country_event
+	placement = root
+	
+	title = grefm.021.t
+	desc = grefm.021.d
+	flavor = grefm.021.f
+	
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm.
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = grefm.021.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_grefm_greek_king
+		}
+	}
+
+}
+
 #### CONSTITUTIONAL MONARCHY EVENTS ####
 
 grefm.030 = { # 1862 head of state referendum
@@ -2244,52 +2334,25 @@ grefm.030 = { # 1862 head of state referendum
 #		set_variable = grefm_dr_moneybags_in_the_house
 	}
 	
-	option = { # Ypsilantis, the Phanariote option - votes were cast in favor of an unspecfied Ypsilantis noble
+	option = { # Elect a Greek King
 		name = grefm.030.4
-		trigger = { # Always Available
+		trigger = {
+			# Always Available
 		}
-		custom_tooltip = {
-			text = grefm.030.4.tt
-			hidden_effect = {
-				create_character = {
-					last_name = Ypsilantis
-					noble = yes
-					age = 30
-					culture = cu:hellene
-					religion = rel:orthodox
-					interest_group = ig_landowners
-					ideology = ideology_moderate
-					traits = {
-						basic_political_operator
-						arrogant
-					}
-					on_created = {
-						set_variable = grefm_phanariot
-						set_character_as_ruler = yes
-					}
-				}
-			}
+		create_incident = {
+			country = c:GBR
+			value = 5
 		}
-		c:GBR ?= {
-			change_relations = {
-				country = root
-				value = -25
-			}
+		create_incident = {
+			country = c:FRA
+			value = 5
 		}
-		c:FRA ?= {
-			change_relations = {
-				country = root
-				value = -25
-			}
-		}
-		c:RUS ?= {
-			change_relations = {
-				country = root
-				value = -25
-			}
+		create_incident = {
+			country = c:RUS
+			value = 5
 		}
 		trigger_event = {
-			id = grefm.031 # the king of the hellenes
+			id = grefm.021 # A Greek King
 			days = 30
 		}
 		hidden_effect = {
@@ -2302,6 +2365,8 @@ grefm.030 = { # 1862 head of state referendum
 				}
 			}
 		}
+		set_variable = grefm_bavarocracy_completed
+		remove_variable = grefm_bavarocracy
 	}
 	
 	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
@@ -2392,7 +2457,33 @@ grefm.031 = { # the king of the hellenes
 	type = country_event
 	placement = root
 	
-	title = grefm.031.t
+	title = {
+		triggered_desc = {
+			desc = grefm.031.t1
+			trigger = {
+				country_has_primary_culture = cu:hellene
+				NOT = {
+					country_has_primary_culture = cu:rhomaios
+				}
+			}
+		}
+		triggered_desc = {
+			desc = grefm.031.t2
+			trigger = {
+				NOT = {
+					country_has_primary_culture = cu:hellene
+				}
+				country_has_primary_culture = cu:rhomaios
+			}
+		}
+		triggered_desc = {
+			desc = grefm.031.t3
+			trigger = {
+				country_has_primary_culture = cu:hellene
+				country_has_primary_culture = cu:rhomaios
+			}
+		}
+	}
 	desc = {
 		triggered_desc = {
 			desc = grefm.031.d1

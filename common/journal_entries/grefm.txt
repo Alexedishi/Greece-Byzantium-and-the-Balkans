@@ -239,6 +239,52 @@ je_grefm_bavarocracy_main = {
 ###############################
 # THE CONSTITUTIONAL MONARCHY #
 ###############################
+je_grefm_greek_king = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_grefm_monarchism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	scripted_progress_bar = grefm_hellene_king_progressbar
+	scripted_progress_bar = grefm_roman_king_progressbar
+	
+	scripted_button = grefm_favor_hellene_king_button
+	scripted_button = grefm_favor_roman_king_button
+	scripted_button = grefm_elect_hellene_king_button
+	scripted_button = grefm_elect_roman_king_button
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_greek_king_complete_tt
+			hidden_trigger = {
+				has_variable = grefm_greek_ruler_elected
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.031 # the king of the hellenes
+		}
+	}
+	
+	fail = {
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	
+	invalid = {
+	}
+	
+	weight = 5000
+	
+}
+
 je_grefm_the_dedilomeni_principle = {
 	icon = "gfx/interface/icons/event_icons/event_glucksburg.dds"
 	
