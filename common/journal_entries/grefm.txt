@@ -34,15 +34,6 @@ je_grefm_bavarocracy_main = {
 				has_law = law_type:law_oligarchy
 				has_law = law_type:law_landed_voting
 			}
-			has_law = law_type:law_monarchy
-		}
-		trigger_if = {
-			limit = {
-				OR = {
-					has_variable = grefm_tyranny_var
-					has_variable = grefm_bavarocracy_secured
-				}
-			}
 			has_law = law_type:law_autocracy
 		}
 		custom_tooltip = {
@@ -50,6 +41,14 @@ je_grefm_bavarocracy_main = {
 			hidden_trigger = {
 				scope:journal_entry = {
 					is_goal_complete = yes
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_regency_discharged_tt
+			hidden_trigger = {
+				NOT = {
+					has_modifier = modifier_grefm_armansperg_regency
 				}
 			}
 		}
@@ -130,9 +129,29 @@ je_grefm_bavarocracy_main = {
 				name = grefm_bavarocracy_progress_var
 				value = grefm_bavarocracy_progress_value
 			}
-			set_variable = {
-				name = grefm_bavarocracy_instability_progress_var
-				value = grefm_bavarocracy_instability_progress_value
+			if = {
+				limit = {
+					OR = {
+						NOR = {
+							has_variable = grefm_1843_revolution_happened
+						}
+						has_variable = grefm_tyranny_var
+					}
+				}
+				set_variable = {
+					name = grefm_bavarocracy_instability_progress_var
+					value = grefm_bavarocracy_instability_progress_value
+				}
+			}
+			else = {
+				set_variable = {
+					name = grefm_bavarocracy_instability_progress_var
+					value = 0
+				}
+				set_variable = {
+					name = grefm_bavarocracy_instability_var
+					value = 0
+				}
 			}
 		}
 	}

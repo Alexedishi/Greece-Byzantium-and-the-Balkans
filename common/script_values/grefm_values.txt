@@ -97,8 +97,6 @@ grefm_bavarocracy_progress_value = {
 
 grefm_bavarocracy_instability_progress_value = {
 	value = 0
-	
-	# Constitution Values
 	if = {
 		limit = {
 			OR = {
@@ -127,6 +125,34 @@ grefm_bavarocracy_instability_progress_value = {
 			desc = grefm_value_from_no_voting
 		}
 	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
+			}
+		}
+		add = {
+			value = {
+				every_political_movement = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_autocracy
+								value < neutral
+							}
+							law_stance = {
+								law = law_type:law_oligarchy
+								value < neutral
+							}
+						}
+					}
+					add = political_movement_radicalism
+				}
+			}
+			desc = grefm_value_from_liberal_movements
+		}
+	}
 	subtract = {
 		value = {
 			add = root.ruler.popularity
@@ -134,8 +160,7 @@ grefm_bavarocracy_instability_progress_value = {
 		}
 		desc = grefm_value_from_ruler_popularity
 	}
-	
-	# Tyranny Values
+	round_to = 0.01
 }
 
 ## Greek Nationalism Values ##
