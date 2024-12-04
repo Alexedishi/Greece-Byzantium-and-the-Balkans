@@ -39,21 +39,21 @@ namespace = grefm
 
 #010-019 - Bavarocracy Support Events
 #	010 - Constitutional Promises
-#	021>>011 - King Ludwig Visits Greece
-#	022>>012 - Otto Departs for Bavaria
-#	023>>013 - A Consort Fit for a Bavarian
-#	024>>014 - The King's Intellect Challenged
-#	025>>015 - Discharging the Regency
-#	026>>016 - The Philorthodox Conspiracy
+#	011 - King Ludwig Visits Greece
+#	012 - Otto Departs for Bavaria
+#	013 - A Consort Fit for a Bavarian
+#	014 - The King's Intellect Challenged
+#	015 - Discharging the Regency
+#	016 - The Philorthodox Conspiracy
 #	017 - The Bavarian Auxiliary Corps
 #	018 - Bavarian Auxiliaries Dismissed
 #	019 - The Return of the "Turk-Eater"
 
 #020-029 - Bavarocracy Support Events II
 #	020 - ##Bavarianism in Greece
-#	021 - ##A "Greek" King
-#	022 - OPEN
-#	023 - OPEN
+#	021 - ##The Search for a King
+#	022 - ##A Hellene Candidate
+#	023 - ##A Rhomaios Candidate
 #	024 - OPEN
 #	025 - OPEN
 #	026 - OPEN
@@ -284,9 +284,9 @@ namespace = grefm
 #	583 - CRE Annexation
 #	584 - MAC Annexation
 #	585 - OPEN
-#	586 - ##SAMO Annexation
-#	320>>587 - THE Annexation <<IMPORT FROM BYZFM
-#	321>>588 - TRB Annexation <<IMPORT FROM BYZFM
+#	586 - SAMO Annexation
+#	587 - THE Annexation <<IMPORT FROM BYZFM
+#	588 - TRB Annexation <<IMPORT FROM BYZFM
 #	589 - ##CAPP Annexation
 
 #590-599 - Greek Separatism Events
@@ -713,7 +713,7 @@ grefm.003 = { # 3 September 1843 Revolution
 			set_character_as_ruler = yes
 		}
 		trigger_event = {
-			id = grefm.021 # A Greek King
+			id = grefm.021 # The Search for a King
 			days = 30
 		}
 		set_variable = grefm_bavarocracy_completed
@@ -2105,7 +2105,7 @@ grefm.020 = { # Bavarianism in Greece
 
 }
 
-grefm.021 = { # A Greek King
+grefm.021 = { # The Search for a King
 	type = country_event
 	placement = root
 	
@@ -2144,6 +2144,11 @@ grefm.021 = { # A Greek King
 		add_journal_entry = {
 			type = je_grefm_greek_king
 		}
+		show_as_tooltip = {
+			add_modifier = modifier_grefm_custodian_government
+		}
+		custom_tooltip = grefm.021.tt1
+		custom_tooltip = grefm.021.tt2
 	}
 
 }
@@ -2352,7 +2357,7 @@ grefm.030 = { # 1862 head of state referendum
 			value = 5
 		}
 		trigger_event = {
-			id = grefm.021 # A Greek King
+			id = grefm.021 # The Search for a King
 			days = 30
 		}
 		hidden_effect = {
@@ -2365,8 +2370,6 @@ grefm.030 = { # 1862 head of state referendum
 				}
 			}
 		}
-		set_variable = grefm_bavarocracy_completed
-		remove_variable = grefm_bavarocracy
 	}
 	
 	option = { # Garbaldi, if he's in town - he literally has votes recorded in his name, I don't understand
@@ -2389,50 +2392,23 @@ grefm.030 = { # 1862 head of state referendum
 		}
 	}
 
-	option = { # Make it a republic - unsurprisingly some voters just wrote this option in
+	option = { # Make it a republic - some voters wrote this in
 		name = grefm.030.6
 		trigger = {
 			has_technology_researched = egalitarianism
 		}
 		activate_law = law_type:law_parliamentary_republic
-		trigger_event = {
-			id = grefm.005 # convenient for cleanup, flavor, and damaging relations
-			popup = yes
+		create_incident = {
+			country = c:GBR
+			value = 5
 		}
-	}
-	
-	option = { # Dredge up a Palaiologos descendant
-		name = grefm.030.7
-		trigger = {
-			c:BYZ ?= this
+		create_incident = {
+			country = c:FRA
+			value = 5
 		}
-		custom_tooltip = {
-			text = grefm.030.7.tt
-			hidden_effect = {
-				create_character = {
-					last_name = Palaiologos
-					noble = yes
-					age = 30
-					culture = cu:hellene
-					religion = rel:orthodox
-					interest_group = ig_landowners
-					ideology = ideology_moderate
-					traits = {
-						trait_grefm_porphyrogenitus
-						ambitious
-						charismatic
-						basic_political_operator
-					}
-					on_created = {
-						set_variable = grefm_phanariot
-						set_character_as_ruler = yes
-					}
-				}
-			}
-		}
-		trigger_event = {	
-			id = grefm.810 # The Basileus Basileōn
-			days = 10
+		create_incident = {
+			country = c:RUS
+			value = 5
 		}
 		hidden_effect = {
 			if = {
@@ -2444,7 +2420,6 @@ grefm.030 = { # 1862 head of state referendum
 				}
 			}
 		}
-		set_variable = byzfm_took_the_purple
 	}
 	
 	after = {
@@ -2550,11 +2525,18 @@ grefm.031 = { # the king of the hellenes
 		set_variable = grefm_glucksburg_era
 	}
 	
-	option = { # standard option if you got here via grefm.030
+	option = { # The standard option if you got here via grefm.030 # An Elected King
 		name = grefm.031.a
 		default_option = yes
 		trigger = {
 			has_variable = grefm_1862_election_held
+			NOR = {
+				has_variable = grefm_elected_greek_king
+				has_variable = byzfm_took_the_purple
+			}
+		}
+		ruler = {
+			add_trait = trait_grefm_elected_ruler
 		}
 		scope:grefm_trikoupis_scope = {
 			free_character_from_void = yes
@@ -2562,22 +2544,42 @@ grefm.031 = { # the king of the hellenes
 		}
 	}
 	
-	option = { # alternate if you got here via je_grefm_the_tyranny_of_house_wittelsbach
+	option = { # Alternate if you got here via grefm.007 # Mandate Secured
 		name = grefm.031.a
 		trigger = {
 			has_variable = grefm_bavarocracy_secured
 		}
-		## TODO give this a function
+		ruler = {
+			add_trait = trait_grefm_absolutist_ruler
+		}
+		scope:grefm_trikoupis_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
 	}
 	
-	option = { # alternate if you got here via je_grefm_bavarocracy_main
+	option = { # Aternate if you got here via grefm.022 # A Hellene King
 		name = grefm.031.a
 		default_option = yes
 		trigger = {
-			NOR = {
-				has_variable = grefm_1862_election_held
-				has_variable = grefm_bavarocracy_secured
-			}
+			has_variable = grefm_elected_greek_king
+		}
+		ruler = {
+			add_trait = trait_grefm_native_ruler
+		}
+		scope:grefm_trikoupis_scope = {
+			free_character_from_void = yes
+			set_as_interest_group_leader = yes
+		}
+	}
+	
+	option = { # Alternate if you got here via grefm.023 # A Roman King
+		name = grefm.031.a
+		trigger = {
+			has_variable = byzfm_took_the_purple
+		}
+		ruler = {
+			add_trait = trait_grefm_porphyrogenitus
 		}
 		scope:grefm_trikoupis_scope = {
 			free_character_from_void = yes
@@ -12637,52 +12639,8 @@ grefm.809 = { # Renovatio Imperii Romanorum
 
 #### GENERAL BYZANTINE EVENTS ####
 
-grefm.810 = { # The Basileus Basileōn
-	type = country_event
-	placement = root
-	
-	title = grefm.810.t
-	desc = grefm.810.d
-	flavor = grefm.810.f
-	
-	event_image = {
-		video = "votp_monarch_holding_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_palaiologos.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = { 
-		# triggered by grefm.009
-	}
-	
-	immediate = {
-		ruler = {
-			save_scope_as = byzfm_ruler_scope
-		}
-		ig:ig_devout = {
-			leader = {
-				save_scope_as = devout_leader_scope
-			}
-		}
-	}
-	
-	option = {
-		name = grefm.810.a
-		default_option = yes
-		trigger = {
-			has_variable = byzfm_took_the_purple
-		}
-		scope:byzfm_ruler_scope = {
-			add_trait = trait_grefm_porphyrogenitus
-		}
-	}
-	
+grefm.810 = { # OPEN
+	orphan = yes
 }
 
 #### BYZANTINE MONUMENT EVENTS ####
