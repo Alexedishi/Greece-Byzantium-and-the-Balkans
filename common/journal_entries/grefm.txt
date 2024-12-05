@@ -249,6 +249,10 @@ je_grefm_greek_king = {
 	immediate = {
 	}
 	
+	modifiers_while_active = {
+		modifier_grefm_custodian_government
+	}
+	
 	scripted_progress_bar = grefm_hellene_king_progressbar
 	scripted_progress_bar = grefm_roman_king_progressbar
 	
@@ -261,7 +265,10 @@ je_grefm_greek_king = {
 		custom_tooltip = {
 			text = je_grefm_greek_king_complete_tt
 			hidden_trigger = {
-				has_variable = grefm_greek_ruler_elected
+				OR = {
+					has_variable = grefm_elected_greek_king
+					has_variable = byzfm_took_the_purple
+				}
 			}
 		}
 	}
@@ -972,10 +979,14 @@ je_grefm_national_language = {
 	group = je_group_grefm_nationalism
 	
 	is_shown_when_inactive = {
-		has_journal_entry = je_grefm_greek_nationalism
+		OR = {
+			country_has_primary_culture = cu:hellene
+			country_has_primary_culture = cu:rhomaios
+		}
 	}
 
 	possible = {
+		has_journal_entry = je_grefm_greek_nationalism
 		has_technology_researched = empiricism
 		literacy_rate > 0.20
 	}
@@ -1020,12 +1031,16 @@ je_grefm_archaeology = {
 	
 	should_be_pinned_by_default = yes
 	
-	is_shown_when_inactive = {
-#		morgenrote_is_active = no ##TODO MGR Compatch
-		has_journal_entry = je_grefm_greek_nationalism
+	is_shown_when_inactive = { ##TODO MGR Compatch
+		OR = {
+			country_has_primary_culture = cu:hellene
+			country_has_primary_culture = cu:rhomaios
+		}
 	}
 
 	possible = {
+		has_journal_entry = je_grefm_greek_nationalism
+		has_technology_researched = empiricism
 		any_scope_building = {
 			is_building_type = building_university
 		}
@@ -1042,6 +1057,7 @@ je_grefm_archaeology = {
 		custom_tooltip = {
 			text = je_grefm_archaeology_complete_tt
 			hidden_trigger = {
+				has_variable = grefm_archeaology_var
 				OR = {
 					AND = {
 						NOR = {
@@ -1124,9 +1140,7 @@ je_grefm_archaeology = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = {
-						has_modifier = modifier_grefm_active_excavation
-					}
+					has_modifier = modifier_grefm_active_excavation
 				}
 				desc = je_grefm_archaeology_status
 			}
@@ -1144,7 +1158,7 @@ je_grefm_archaeology = {
 je_grefm_megali_idea = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_megali_idea
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 
@@ -1220,7 +1234,7 @@ je_grefm_megali_idea = {
 je_grefm_greater_greece = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_megali_idea
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 
@@ -1290,7 +1304,7 @@ je_grefm_greater_greece = {
 je_grefm_scions_of_rhomania = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_megali_idea
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 
@@ -1366,7 +1380,7 @@ je_grefm_scions_of_rhomania = {
 je_grefm_revenge_of_the_greeks = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	should_be_pinned_by_default = yes	
 	
@@ -1459,7 +1473,7 @@ je_grefm_revenge_of_the_greeks = {
 je_grefm_shores_of_phoenicia = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	should_be_pinned_by_default = yes	
 
@@ -1511,7 +1525,7 @@ je_grefm_shores_of_phoenicia = {
 je_grefm_lands_of_arianon = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 
 	should_be_pinned_by_default = yes
 
@@ -1552,7 +1566,7 @@ je_grefm_lands_of_arianon = {
 je_grefm_the_graveyard_of_empires = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 
 	should_be_pinned_by_default = yes
 	
@@ -1584,7 +1598,7 @@ je_grefm_the_graveyard_of_empires = {
 je_grefm_black_sea = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	is_shown_when_inactive = {
 		c:HEMP ?= this
@@ -1641,14 +1655,14 @@ je_grefm_black_sea = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
 je_grefm_magna_graecia = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 
 	is_shown_when_inactive = {
 		c:HEMP ?= this
@@ -1713,14 +1727,14 @@ je_grefm_magna_graecia = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
 je_grefm_alexandria_oxus = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 
 	complete = {
 		country_or_subject_owns_entire_state_region = STATE_MERZ
@@ -1750,14 +1764,14 @@ je_grefm_alexandria_oxus = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
 je_grefm_alexandria_merv = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	complete = {
 		country_or_subject_owns_entire_state_region = STATE_FERGANA
@@ -1796,14 +1810,14 @@ je_grefm_alexandria_merv = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
 je_grefm_alexandria_indus = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	complete = {
 		country_or_subject_owns_entire_state_region = STATE_PUNJAB
@@ -1842,14 +1856,14 @@ je_grefm_alexandria_indus = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
 je_grefm_alexandria_susiana = {
 	icon = "gfx/interface/icons/event_icons/event_vergina_sun.dds"
 	
-	group = je_group_grefm_empire
+	group = je_group_grefm_hellenic_empire
 	
 	complete = {
 		country_or_subject_owns_entire_state_region = STATE_KHUZESTAN
@@ -1888,7 +1902,7 @@ je_grefm_alexandria_susiana = {
 		has_variable = grefm_weaksauce
 	}
 
-	weight = 1000
+	weight = 100
 
 }
 
@@ -1899,7 +1913,7 @@ je_grefm_alexandria_susiana = {
 je_grefm_greek_separatism_main = {
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
-	group = je_group_grefm_megali_idea
+	group = je_group_grefm_nationalism
 	
 	should_be_pinned_by_default = yes
 	
@@ -1908,8 +1922,8 @@ je_grefm_greek_separatism_main = {
 	}
 	
 	possible = {
+		has_journal_entry = je_grefm_megali_idea
 		is_subject = no
-		has_technology_researched = mass_communication
 	}
 	
 	immediate = {
@@ -1922,8 +1936,11 @@ je_grefm_greek_separatism_main = {
 			trigger_event = {
 				id = grefm.590 # Greek Separatism
 			}
+			set_variable = grefm_separatism_received
 		}
-		set_variable = grefm_separatism_received
+		else = {
+			post_notification = notitification_grefm_separatism_received
+		}
 	}
 	
 	scripted_button = grefm_epirus_support_button
@@ -2014,14 +2031,20 @@ je_grefm_greek_separatism_sub = {
 				}
 			}
 			trigger_event = {
-				id = grefm.290 # Greek Separatism
+				id = grefm.590 # Greek Separatism
 			}
+			set_variable = grefm_separatism_received
 		}
-		set_variable = grefm_separatism_received
+		else = {
+			post_notification = notitification_grefm_separatism_received
+		}
 	}
 	
 	complete = {
-		has_law = law_type:law_multicultural
+		cultural_acceptance_base = {
+			target = cu:hellene
+			value >= acceptance_status_5
+		}
 	}
 	
 	fail = {
@@ -2491,7 +2514,7 @@ je_grefm_ion_jewry = {
 je_grefm_samos_main = {
 	icon = "gfx/interface/icons/event_icons/event_samos.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_samos
 	
 	should_be_pinned_by_default = yes
 	
@@ -2589,7 +2612,7 @@ je_grefm_samos_main = {
 je_grefm_samos_organic_law = {
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 	
-	group = je_group_grefm_content
+	group = je_group_grefm_samos
 	
 	should_be_pinned_by_default = yes
 	
@@ -2921,7 +2944,7 @@ je_grefm_byzantine_nationalism = {
 je_grefm_purple_pheonix = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes	
 	
@@ -3014,7 +3037,7 @@ je_grefm_purple_pheonix = {
 je_grefm_rome_of_the_east = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3061,7 +3084,7 @@ je_grefm_rome_of_the_east = {
 je_grefm_renovatio_imperii_romanorum = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3145,7 +3168,7 @@ je_grefm_renovatio_imperii_romanorum = {
 je_grefm_renovatio_imperii_romanorum_dalmatia = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3169,7 +3192,7 @@ je_grefm_renovatio_imperii_romanorum_dalmatia = {
 je_grefm_renovatio_imperii_romanorum_northern_italy = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3193,7 +3216,7 @@ je_grefm_renovatio_imperii_romanorum_northern_italy = {
 je_grefm_renovatio_imperii_romanorum_southern_italy = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3217,7 +3240,7 @@ je_grefm_renovatio_imperii_romanorum_southern_italy = {
 je_grefm_renovatio_imperii_romanorum_central_italy = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_byzantium
+	group = je_group_grefm_roman_empire
 	
 	should_be_pinned_by_default = yes
 	
@@ -3352,7 +3375,6 @@ je_grefm_rom_megali_idea = {
 
 }
 
-
 #####################
 # UNUSED /TECHNICAL #
 #####################
@@ -3362,6 +3384,14 @@ je_grefm_intro = {
 	group = je_group_grefm_content
 	
 	should_be_pinned_by_default = no
+	
+	is_shown_when_inactive = {
+		always = no
+	}
+	
+	possible = {
+		always = no
+	}
 	
 	complete = {
 		always = yes

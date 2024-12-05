@@ -1,18 +1,79 @@
 ﻿## Bavarocracy Values ##
 grefm_bavarocracy_progress_value = {
 	value = 0
+	
+	## SOURCES ##
 	if = {
 		limit = {
-			NOT = {
-				has_variable = grefm_constitution_completed
+			OR = {
+				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		add = {
+			value = 0.5
+			desc = grefm_value_from_voting
+		}
+	}
+	add = {
+		value = {
+			if = {
+				limit = {
+					has_variable = balkfm_land_reform_complete
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_brigandage_complete
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_civic_reform_complete
+				}
+				add = 0.5
+			}
+		}
+		desc = grefm_value_from_completed_legacies
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_nikitas_released
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_turkeater_unleashed
+		}
+	}
+	if = {
+		limit = {
+			owns_entire_state_region = STATE_ATTICA
+			s:STATE_ATTICA = {
+				has_building = building_palaia_anaktora
+			}
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_royal_palace
+		}
+	}
+	
+	## PENALTIES ##
+	if = {
+		limit = {
+			NOR = {
+				has_variable = grefm_bavarocracy_secured
+				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
 			}
 		}
 		subtract = {
-			value = {
-				add = root.ruler.popularity
-				divide = 100
-			}
-			desc = grefm_value_from_ruler_popularity
+			value = 1
+			desc = grefm_value_from_no_voting
 		}
 	}
 	if = {
@@ -59,9 +120,12 @@ grefm_bavarocracy_progress_value = {
 	}
 	if = {
 		limit = {
-			heir ?= {
+			OR = {
 				NOT = {
-					has_religion = orthodox
+					exists = heir
+				}
+				heir ?= {
+					has_template = template_grefm_armansperg_josef
 				}
 			}
 		}
@@ -71,27 +135,6 @@ grefm_bavarocracy_progress_value = {
 		}
 	}
 	
-	if = {
-		limit = {
-			has_modifier = modifier_grefm_nikitas_released
-		}
-		add = {
-			value = 1
-			desc = grefm_value_from_turkeater_unleashed
-		}
-	}
-	if = {
-		limit = {
-			owns_entire_state_region = STATE_ATTICA
-			s:STATE_ATTICA = {
-				has_building = building_palaia_anaktora
-			}
-		}
-		add = {
-			value = 1
-			desc = grefm_value_from_royal_palace
-		}
-	}
 	round_to = 0.01
 }
 
@@ -178,17 +221,32 @@ grefm_hellenism_value = {
 		limit = {
 			has_variable = grefm_greek_language_katharevousa
 		}
-		add = 2
+		add = {
+			value = 2
+			desc = grefm_value_from_katharevousa
+		}
 	}
 	if = {
 		limit = {
 			has_variable = grefm_greek_language_demotic
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = grefm_value_from_demotic
+		}
 	}
 	add = {
 		value = grefm_hellenic_artifact_value
 		desc = grefm_value_from_hellene_artifacts
+	}
+	if = {
+		limit = {
+			has_variable = grefm_elected_greek_king
+		}
+		add = {
+			value = 2
+			desc = grefm_value_from_greek_king
+		}
 	}
 }
 
@@ -205,17 +263,32 @@ grefm_romanism_value = {
 		limit = {
 			has_variable = grefm_greek_language_rhomaiika
 		}
-		add = 2
+		add = {
+			value = 2
+			desc = grefm_value_from_rhomaiika
+		}
 	}
 	if = {
 		limit = {
 			has_variable = grefm_greek_language_khoine
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = grefm_value_from_khoine
+		}
 	}
 	add = {
 		value = grefm_roman_artifact_value
 		desc = grefm_value_from_roman_artifacts
+	}
+	if = {
+		limit = {
+			has_variable = byzfm_took_the_purple
+		}
+		add = {
+			value = 2
+			desc = grefm_value_from_roman_king
+		}
 	}
 }
 

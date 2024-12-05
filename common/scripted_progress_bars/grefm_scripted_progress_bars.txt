@@ -1,4 +1,80 @@
-﻿##################################
+﻿############################
+# BAVAROCRACY PROGRESSBARS #
+############################
+
+grefm_hellene_king_progressbar = {
+	name = "grefm_hellene_king_progressbar"
+	desc = "grefm_hellene_king_progressbar_desc"
+	
+	default = yes
+	
+	monthly_progress = {
+		add = {
+			desc = grefm_progress_from_hellene_literacy
+			value = grefm_hellene_literacy_value
+		}
+		if = {
+			limit = {
+				has_variable = grefm_favoring_hellene_king
+			}
+			add = {
+				desc = grefm_progress_from_favoring_hellene_king
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			add = {
+				desc = grefm_progress_from_hellene_culture
+				value = 1
+			}
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+grefm_roman_king_progressbar = {
+	name = "grefm_roman_king_progressbar"
+	desc = "grefm_roman_king_progressbar_desc"
+	
+	default = yes
+	
+	monthly_progress = {
+		add = {
+			desc = grefm_progress_from_rhomaios_literacy
+			value = grefm_rhomaios_radicals_value
+		}
+		if = {
+			limit = {
+				has_variable = grefm_favoring_roman_king
+			}
+			add = {
+				desc = grefm_progress_from_favoring_roman_king
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+			}
+			add = {
+				desc = grefm_progress_from_rhomaios_culture
+				value = 1
+			}
+		}
+	}
+	
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+##################################
 # GREEK NATIONALISM PROGRESSBARS #
 ##################################
 

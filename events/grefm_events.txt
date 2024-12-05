@@ -325,7 +325,7 @@ namespace = grefm
 #	809 - Renovatio Imperii Romanorum
 
 #810-819 - General Byzantine Events
-#	810 - The Basileus Basileōn
+#	810 - OPEN
 
 #820-829 - Monument Events
 #	820 - The 14 Regions of Constantinople
@@ -512,7 +512,6 @@ grefm.002 = { # Revolution averted, Otto remains in power
 			name = grefm_bavarocracy_instability_var
 			value = 0
 		}
-		set_variable = grefm_constitution_completed
 	}
 	
 }
@@ -711,6 +710,65 @@ grefm.003 = { # 3 September 1843 Revolution
 		}
 		scope:ig_armed_forces_scope = {
 			set_character_as_ruler = yes
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_law = law_type:law_hereditary_bureaucrats
+				}
+			}
+			activate_law = law_type:law_appointed_bureaucrats
+		}
+		if = {
+			limit = {
+				AND = {
+					OR = {
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_landed_voting
+						has_law = law_type:law_wealth_voting
+						has_law = law_type:law_census_voting
+					}
+					has_technology_researched = egalitarianism
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_autocracy
+					has_law = law_type:law_oligarchy
+					has_law = law_type:law_landed_voting
+					has_law = law_type:law_wealth_voting
+				}
+			}
+			activate_law = law_type:law_census_voting
+		}
+		every_interest_group = {
+			limit = {	
+				law_stance = {
+					law = law_type:law_autocracy
+					value > neutral
+				}
+			}
+			add_modifier = {
+				name = modifier_grefm_constitution_enforced
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+		add_radicals = {
+			pop_type = aristocrats
+			value = medium_radicals
+		}
+		add_loyalists = {
+			strata = middle
+			value = small_radicals
+		}
+		add_loyalists = {
+			strata = poor
+			value = small_radicals
 		}
 		trigger_event = {
 			id = grefm.021 # The Search for a King
@@ -912,7 +970,7 @@ grefm.006 = { # revolution of 1862
 		}
 		random_scope_character = {
 			limit = {
-				has_variable = grefm_is_voulgaris
+				has_template = template_grefm_voulgaris_dimitrios
 			}
 			save_scope_as = voulgaris_scope
 		}
@@ -950,7 +1008,7 @@ grefm.006 = { # revolution of 1862
 		}
 		every_scope_character = {
 			limit = {
-				has_variable = grefm_bavarocrat
+				has_trait = trait_grefm_bavarocrat
 			}
 			exile_character = yes
 		}
@@ -1125,7 +1183,7 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 		}
 		every_scope_character = {
 			limit = {
-				has_variable = grefm_bavarocrat
+				has_trait = trait_grefm_bavarocrat
 			}
 			exile_character = yes
 		}
@@ -2101,6 +2159,12 @@ grefm.020 = { # Bavarianism in Greece
 	option = {
 		name = grefm.020.a
 		default_option = yes
+		ruler = {
+			add_modifier = {
+				name = modifier_grefm_legitimized_rule
+				months = long_modifier_time
+			}
+		}
 	}
 
 }
@@ -2149,6 +2213,190 @@ grefm.021 = { # The Search for a King
 		}
 		custom_tooltip = grefm.021.tt1
 		custom_tooltip = grefm.021.tt2
+	}
+
+}
+
+grefm.022 = { # A Hellene King
+	type = country_event
+	placement = root
+	
+	title = grefm.022.t
+	desc = grefm.022.d
+	flavor = grefm.022.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_elect_hellene_king_button
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Kapodistrias Option
+		name = grefm.022.1
+		default_option = yes
+		custom_tooltip = {
+			text = grefm.022.tt1
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_hellene_king
+					last_name = Kapodistrias
+				}
+			}
+		}
+	}
+	
+	option = { # Mavrocordatos Option
+		name = grefm.022.2
+		custom_tooltip = {
+			text = grefm.022.tt2
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_hellene_king
+					last_name = Mavrocordatos
+				}
+			}
+		}
+	}
+	
+	option = { # Metaxas Option
+		name = grefm.022.3
+		custom_tooltip = {
+			text = grefm.022.tt3
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_hellene_king
+					last_name = Metaxas
+				}
+			}
+		}
+	}
+	
+	option = { # Ypsilantis Option
+		name = grefm.022.4
+		custom_tooltip = {
+			text = grefm.022.tt4
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_hellene_king
+					last_name = Ypsilantis
+				}
+			}
+		}
+	}
+	
+	after = {
+		set_variable = grefm_elected_greek_king
+	}
+
+}
+
+grefm.023 = { # A Roman King
+	type = country_event
+	placement = root
+	
+	title = grefm.023.t
+	desc = grefm.023.d
+	flavor = grefm.023.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by grefm_elect_hellene_king_button
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Angelos Option
+		name = grefm.023.1
+		default_option = yes
+		custom_tooltip = {
+			text = grefm.023.tt1
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_roman_king
+					last_name = Angelos
+				}
+			}
+		}
+	}
+	
+	option = { # Doukas Option
+		name = grefm.023.2
+		custom_tooltip = {
+			text = grefm.023.tt2
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_roman_king
+					last_name = Doukas
+				}
+			}
+		}
+	}
+	
+	option = { # Kantakouzenos Option
+		name = grefm.023.3
+		custom_tooltip = {
+			text = grefm.023.tt3
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_roman_king
+					last_name = Kantakouzenos
+				}
+			}
+		}
+	}
+	
+	option = { # Palaiologos Option
+		name = grefm.023.4
+		custom_tooltip = {
+			text = grefm.023.tt4
+			hidden_effect = {
+				create_character = {
+					template = template_grefm_roman_king
+					last_name = Palaiologos
+				}
+			}
+		}
+	}
+	
+	after = {
+		set_variable = byzfm_took_the_purple
 	}
 
 }
@@ -5013,7 +5261,20 @@ grefm.142 = { # Alternative Dig Sites Considered
 	placement = root
 	
 	title = grefm.142.t
-	desc = grefm.142.d
+	desc = {
+		triggered_desc = {
+			desc = grefm.142.d1
+			trigger = {
+				country_has_primary_culture = cu:hellene
+			}
+		}
+		triggered_desc = {
+			desc = grefm.142.d2
+			trigger = {
+				country_has_primary_culture = cu:rhomaios
+			}
+		}
+	}
 	flavor = grefm.142.f
 	
 	event_image = {
@@ -5035,6 +5296,10 @@ grefm.142 = { # Alternative Dig Sites Considered
 	cancellation_trigger = {
 		NOT = {
 			has_journal_entry = je_grefm_archaeology
+		}
+		AND = {
+			country_has_primary_culture = cu:hellene
+			country_has_primary_culture = cu:rhomaios
 		}
 	}
 	
@@ -7359,10 +7624,6 @@ grefm.271 = { # The Megali Idea
 			s:STATE_CRETE = {
 				add_claim = ROOT
 			}
-		}
-		trigger_event = {
-			id = grefm.590 # Greek Separatism
-			days = 30
 		}
 		if = {
 			limit = {
@@ -11953,22 +12214,8 @@ grefm.599 = { # Reassigns the Revolt Journals
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = grefm_separatism_received
-				}
-			}
-			trigger_event = {
-				id = grefm.590 # Greek Separatism
-			}
-			set_variable = grefm_separatism_received
-		}
-		else = {
-			add_journal_entry = {
-				type = je_grefm_greek_separatism_sub
-			}
-			post_notification = notitification_grefm_separatism_received
+		add_journal_entry = {
+			type = je_grefm_greek_separatism_sub
 		}
 	}
 

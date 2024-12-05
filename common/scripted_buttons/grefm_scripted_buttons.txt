@@ -133,6 +133,140 @@ grefm_philhellenic_loan_button = {
 	
 }
 
+grefm_favor_hellene_king_button = {
+	name = "grefm_favor_hellene_king_button"
+	desc = "grefm_favor_hellene_king_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		has_variable = grefm_favoring_hellene_king
+	}
+	
+	possible = {
+		always = yes
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_favor_hellene_king_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_variable = grefm_favoring_hellene_king
+					}
+					remove_variable = grefm_favoring_hellene_king
+				}
+				else = {
+					set_variable = grefm_favoring_hellene_king
+					remove_variable = grefm_favoring_roman_king
+				}
+			}
+		}
+	}
+	
+}
+
+grefm_favor_roman_king_button = {
+	name = "grefm_favor_roman_king_button"
+	desc = "grefm_favor_roman_king_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		has_variable = grefm_favoring_roman_king
+	}
+	
+	possible = {
+		always = yes
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_favor_roman_king_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_variable = grefm_favoring_roman_king
+					}
+					remove_variable = grefm_favoring_roman_king
+				}
+				else = {
+					set_variable = grefm_favoring_roman_king
+					remove_variable = grefm_favoring_hellene_king
+				}
+			}
+		}
+	}
+	
+}
+
+grefm_elect_hellene_king_button = {
+	name = "grefm_elect_hellene_king_button"
+	desc = "grefm_elect_hellene_king_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = grefm_elect_hellene_king_tt
+			hidden_trigger = {
+				je:je_grefm_greek_king = {
+					"scripted_bar_progress(grefm_hellene_king_progressbar)" >= 100
+				}
+				NOT = {
+					has_variable = grefm_greek_king_var
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = grefm.022 # A Hellene King
+		}
+		set_variable = grefm_greek_king_var
+	}
+	
+}
+
+grefm_elect_roman_king_button = {
+	name = "grefm_elect_roman_king_button"
+	desc = "grefm_elect_roman_king_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = grefm_elect_roman_king_tt
+			hidden_trigger = {
+				je:je_grefm_greek_king = {
+					"scripted_bar_progress(grefm_roman_king_progressbar)" >= 100
+				}
+				NOT = {
+					has_variable = grefm_greek_king_var
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = grefm.023 # A Roman King
+		}
+		set_variable = grefm_greek_king_var
+	}
+	
+}
+
 #######################
 # NATIONALISM BUTTONS #
 #######################
@@ -200,6 +334,7 @@ grefm_embrace_hellenic_identity_button = {
 		custom_tooltip = {
 			text = grefm_embrace_hellenism_tt
 			hidden_trigger = {
+				has_variable = grefm_hellene_culture_var
 				var:grefm_hellene_culture_var >= 5
 			}
 		}
@@ -232,6 +367,7 @@ grefm_embrace_roman_identity_button = {
 		custom_tooltip = {
 			text = grefm_embrace_romanism_tt
 			hidden_trigger = {
+				has_variable = grefm_rhomaios_culture_var
 				var:grefm_rhomaios_culture_var >= 5
 			}
 		}
@@ -264,12 +400,14 @@ grefm_embrace_hybrid_identity_button = {
 		custom_tooltip = {
 			text = grefm_embrace_hellenism_tt
 			hidden_trigger = {
+				has_variable = grefm_hellene_culture_var
 				var:grefm_hellene_culture_var >= 5
 			}
 		}
 		custom_tooltip = {
 			text = grefm_embrace_romanism_tt
 			hidden_trigger = {
+				has_variable = grefm_rhomaios_culture_var
 				var:grefm_rhomaios_culture_var >= 5
 			}
 		}
@@ -318,6 +456,7 @@ grefm_archeaology_greek_sites_button = {
 	desc = "grefm_archeaology_greek_sites_button_desc"
 	
 	visible = {
+		has_variable = grefm_archeaology_sites_var
 		OR = {
 			country_has_primary_culture = cu:hellene
 			has_variable = grefm_hellenic_sites_allowed
@@ -325,7 +464,7 @@ grefm_archeaology_greek_sites_button = {
 	}
 	
 	selected = {
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -362,6 +501,7 @@ grefm_archeaology_roman_sites_button = {
 	desc = "grefm_archeaology_roman_sites_button_desc"
 	
 	visible = {
+		has_variable = grefm_archeaology_sites_var
 		OR = {
 			country_has_primary_culture = cu:rhomaios
 			has_variable = grefm_roman_sites_allowed
@@ -369,7 +509,7 @@ grefm_archeaology_roman_sites_button = {
 	}
 	
 	selected = {
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -445,7 +585,7 @@ grefm_archeaology_parthenon_button_1 = {
 		owner = {
 			NOT = { has_variable = grefm_parthenon_1_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -487,7 +627,7 @@ grefm_archeaology_parthenon_button_2 = {
 		owner = {
 			NOT = { has_variable = grefm_parthenon_2_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -536,7 +676,7 @@ grefm_archeaology_mycenae_button_1 = {
 		owner = {
 			NOT = { has_variable = grefm_knossos_1_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -578,7 +718,7 @@ grefm_archeaology_mycenae_button_2 = {
 		owner = {
 			NOT = { has_variable = grefm_knossos_2_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -626,7 +766,7 @@ grefm_archeaology_gla_button = {
 		owner = {
 			NOT = { has_variable = grefm_gla_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -675,7 +815,7 @@ grefm_archeaology_delos_button = {
 		owner = {
 			NOT = { has_variable = grefm_delos_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -717,7 +857,7 @@ grefm_archeaology_larissa_button = {
 		owner = {
 			NOT = { has_variable = grefm_larissa_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -759,7 +899,7 @@ grefm_archeaology_rhodes_button = {
 		owner = {
 			NOT = { has_variable = grefm_rhodes_complete }
 		}
-		var:grefm_archeaology_sites_var = 1
+		var:grefm_archeaology_sites_var ?= 1
 	}
 	
 	possible = {
@@ -801,7 +941,7 @@ grefm_archeaology_corinth_button_1 = {
 		owner = {
 			NOT = { has_variable = grefm_corinth_1_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -845,7 +985,7 @@ grefm_archeaology_corinth_button_2 = {
 			NOT = { has_variable = grefm_corinth_2_complete }
 			has_variable = grefm_corinth_1_complete
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -888,7 +1028,7 @@ grefm_archeaology_thessaloniki_button = {
 		owner = {
 			NOT = { has_variable = grefm_thessaloniki_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -931,7 +1071,7 @@ grefm_archeaology_thebes_button = {
 		owner = {
 			NOT = { has_variable = grefm_thebes_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -973,7 +1113,7 @@ grefm_archeaology_nicomedia_button = { # Hexamillion
 		owner = {
 			NOT = { has_variable = grefm_nicomedia_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -1015,7 +1155,7 @@ grefm_archeaology_smyrna_button = { # Hexamillion
 		owner = {
 			NOT = { has_variable = grefm_smyrna_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -1057,7 +1197,7 @@ grefm_archeaology_tyana_button = {
 		owner = {
 			NOT = { has_variable = grefm_tyana_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {
@@ -1099,7 +1239,7 @@ grefm_archeaology_chios_button = {
 		owner = {
 			NOT = { has_variable = grefm_chios_complete }
 		}
-		var:grefm_archeaology_sites_var = 2
+		var:grefm_archeaology_sites_var ?= 2
 	}
 	
 	possible = {

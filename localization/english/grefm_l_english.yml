@@ -1,14 +1,14 @@
 ﻿l_english:
  # journal entries
- je_group_grefm_content: "Greece Flavor"
+ je_group_grefm_content: "Greece Historical Content"
  je_group_grefm_monarchism: "Greek Monarchism"
  je_group_grefm_venizelos: "Venizelism"
- je_group_grefm_megali_idea: "The Megali Idea"
  je_group_grefm_nationalism: "Greek Nationalism"
- je_group_grefm_empire: "The Revenge of the Greeks"
- je_group_grefm_ambition: "Greek Imperial Ambitions"
- je_group_grefm_heptanese: "Ionian Islands Flavor"
- je_group_grefm_byzantium: "Byzantium Flavor"
+ je_group_grefm_hellenic_empire: "The Revenge of the Greeks"
+ je_group_grefm_heptanese: "Ionian Islands Historical Content"
+ je_group_grefm_samos: "Samos Historical Content"
+ je_group_grefm_byzantium: "Byzantium Alt-History Content"
+ je_group_grefm_roman_empire: "The Purple Pheonix"
  
  je_grefm_bavarocracy_main: "The Bavarocracy"
  je_grefm_bavarocracy_main_reason: "Following the collapse of the [ROOT.GetCountry.GetAdjective] government after the assassination of #yellow Ioannis Kapodistrias#!, the [Concept('concept_great_power','$concept_great_powers$')] installed #yellow House Wittelsbach#! as sovereign over the Greek State in the hope of bringing stability to the young nation. However, since taking power, King [ROOT.GetCountry.GetRuler.GetFullName] has conspired to rule Greece by means of absolutism. Meanwhile, both citizens and politicans protest the stagnation and corruption rampant in the nation.[SCOPE.GetRootScope.GetCountry.GetCustom('grefm_bavarocracy_type')]\n$TOOLTIP_DELIMITER$\nCurrently, the King enjoys #bold #greece [ROOT.GetVariable('grefm_bavarocracy_var').GetValue]#!#! #bold Political Support#!.\nThis is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_bavarocracy_main_breakdown [Country.MakeScope.ScriptValue('grefm_bavarocracy_progress_value')|+=]#! next month."
@@ -81,13 +81,13 @@
  je_grefm_archaeology: "Greek Cultural Roots"
  je_grefm_archaeology_reason: "Ruins of pre-historic and ancient Greek civilizations lie scattered across the Balkans and Anatolia. As Greeks, it falls to us to reclaim these relics of our heritage."
  je_grefm_archaeology_complete_tt: "Complete all excavations"
- je_grefm_archaeology_status: "Excavation progress: #bold #greece [GetPlayer.MakeScope.Var('grefm_excavation_var').GetValue]#!/24#!]
+ je_grefm_archaeology_status: "Excavation progress: #bold #greece [GetPlayer.MakeScope.Var('grefm_excavation_var').GetValue]#!/24#!"
  
  je_grefm_megali_idea: "The Megali Idea"
  je_grefm_megali_idea_reason: "The Greek World once stretched from the hills of the Balkans to the shores of the Levantine Sea. Across the Mediterranean, Greek peoples call for union with the Greek state. We will see the Greek realm restored."
  je_grefm_megali_idea_complete: "We will have the option to form the #bold Hellenic Empire#!"
  je_grefm_scions_of_rhomania: "Scions of Rhomania"
- je_grefm_scions_of_rhomania_reason: ""
+ je_grefm_scions_of_rhomania_reason: "The Greek World once stretched from the hills of the Balkans to the shores of the Levantine Sea. Across the Mediterranean, Greek peoples call for union with the Greek state. We will see the Greek realm restored."
  je_grefm_scions_of_rhomania_complete:  "We will have the option to form the #bold Roman Empire#!"
  je_grefm_greater_greece: "Greater Greece"
  je_grefm_greater_greece_reason: "The Megali Idea has been brought to fruition, but only in its most basic form. Several Greek communities still lie beyond our borders. We have an imperative to see to it that our borders grow until every Greek may find shelter within the Greek state."
@@ -206,16 +206,30 @@
  custom_grefm_samos_progress: "The Prince has #bold #greece [GetPlayer.MakeScope.Var('grefm_samos_support_var').GetValue]#!#! support. This is expected to change by #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_samos_main_breakdown [Country.MakeScope.ScriptValue('grefm_samos_support_value')|+=]#!  next month."
  
  # script value breakdowns
- grefm_value_from_ruler_popularity: "From our [concept_ruler]'s [concept_popularity]"
+ grefm_value_from_voting: "From enacting #yellow Voting Rights#!"
+ grefm_value_from_completed_legacies: "From our number of completed #bold Ottoman Legacy#! ['concept_journal_entry','$concept_journal_entries$']"
+ grefm_value_from_turkeater_unleashed: "From #bold Releasing #greece Nikitaras#!#!"
+ grefm_value_from_royal_palace: "From #bold Building the Royal Palace#!"
+ grefm_value_from_no_voting: "From #bold not#! having any #yellow Voting Rights#!"
  grefm_value_from_land_reform: "From not #bold Reforming Our Land Policy#!"
  grefm_value_from_brigandage_completed: "From not #bold Controlling the Brigands#!"
  grefm_value_from_civic_tradition: "From lacking a #bold Civic Tradition#!"
  grefm_value_from_bavarian_auxiliaries: "From #bold Hosting the Bavarian Auxiliaries#!"
  grefm_value_from_lacking_heir: "From #bold Lacking an Heir#!"
- grefm_value_from_turkeater_unleashed: "From #bold Releasing #greece Nikitaras#!#!"
- grefm_value_from_royal_palace: "From #bold Building the Royal Palace#!"
- grefm_value_from_no_voting: "From #bold not#! having any #yellow Voting Rights#!"
+ grefm_value_from_ruler_popularity: "From our [concept_ruler]'s [concept_popularity]"
  grefm_value_from_liberal_movements: "From #bold Pro-Voting#! [concept_political_movement] [concept_activism]"
+ 
+ grefm_value_from_hellene_literacy: "From the [concept_literacy] of our [GetCulture('hellene').GetName] pops"
+ grefm_value_from_katharevousa: "From adopting #bold Katharevousa#! as our national language"
+ grefm_value_from_demotic: "From adopting #bold Dimotikí#! as our national language"
+ grefm_value_from_hellene_artifacts: "From our number of completed [GetCulture('hellene').GetName] excavations"
+ grefm_value_from_greek_king: "From electing a [GetCulture('hellene').GetName] King"
+ 
+ grefm_value_from_rhomaios_literacy: "From the [concept_literacy] of our [GetCulture('rhomaios').GetName] pops"
+ grefm_value_from_rhomaiika: "From adopting #bold Rhomaiika#! as our national language"
+ grefm_value_from_khoine: "From adopting #bold Khoine#! as our national language"
+ grefm_value_from_roman_artifacts: "From our number of completed [GetCulture('rhomaios').GetName] excavations"
+ grefm_value_from_roman_king: "From electing a [GetCulture('rhomaios').GetName] king"
  
  grefm_samos_from_support: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #green #bold positive#!#! [concept_approval]."
  grefm_samos_from_opposition: "From the [concept_clout] of [Concept('concept_interest_group','$concept_interest_groups$')] with #red #bold negative#!#! [concept_approval]."
@@ -223,8 +237,8 @@
  # scripted progressbars
  grefm_hellene_king_progressbar: "Support for a [GetCulture('hellene').GetName] King"
  grefm_hellene_king_progressbar_desc: "Hellene King Support"
- grefm_romanism_progress_bar: "Support for a [GetCulture('rhomaios').GetName] King"
- grefm_romanism_progress_bar_desc: "Roman King Support"
+ grefm_roman_king_progressbar: "Support for a [GetCulture('rhomaios').GetName] King"
+ grefm_roman_king_progressbar_desc: "Roman King Support"
  
  grefm_hellenism_progress_bar: "Hellenic Identity Support"
  grefm_hellenism_progress_bar_desc: "Hellenic Identity"
@@ -299,6 +313,11 @@
  je_grefm_bavarocracy_minus_200: "Support for the King will change by #red #bold -200#!#!."
  je_grefm_bavarocracy_minus_400: "Support for the King will change by #red #bold -400#!#!."
  je_grefm_tyranny_tt: "The King has #bold zero or less#! support."
+ 
+ grefm_favor_hellene_king_tt: "This will increase monthly support for a [GetCulture('hellene').GetName] candidate by #bold 1#!"
+ grefm_favor_roman_king_tt: "This will increase monthly support for a [GetCulture('rhomaios').GetName] candidate by #bold 1#!"
+ grefm_elect_hellene_king_tt: "A [GetCulture('hellene').GetName] [concept_ruler] will be appointed"
+ grefm_elect_roman_king_tt: "A [GetCulture('rhomaios').GetName] [concept_ruler] will be appointed"
  
  je_grefm_greater_greece_tt: "Control the Greek homelands."
  je_grefm_declared_national_language_tt: "We have embraced a national dialect."
@@ -412,6 +431,15 @@
  grefm_declare_national_language_button: "Declare National Language"
  grefm_declare_national_language_button_desc: "The linguistic question has hounded the question of Greek identity since before the Revolution. While we may not have the institutions to enforce a nationwide language yet, we can declare our intent for the Greek Language."
  
+ grefm_favor_hellene_king_button: "Favor Hellene Candidates"
+ grefm_favor_hellene_king_button_desc: "The [GetCulture('hellene').GetName] identity is the only way to unify the Greek people. If we wish, we can provide official support for a candidate of this culture."
+ grefm_favor_roman_king_button: "Favor Roman Candidates"
+ grefm_favor_roman_king_button_desc: "The [GetCulture('rhomaios').GetName] identity is the true legacy Greek people. If we wish, we can provide official support for a candidate of this culture."
+ grefm_elect_hellene_king_button: "Elect a Hellene King"
+ grefm_elect_hellene_king_button_desc: "After months of arduous work, a list of [GetCulture('hellene').GetName]-culture candidates has been drawn up, each with the pedigree and public gravitas to sit on the throne of [ROOT.GetCountry.GetName]. The National Assembly awaits the chance to elect the next King."
+ grefm_elect_roman_king_button: "Elect a Roman King"
+ grefm_elect_roman_king_button_desc: "After months of arduous work, a list of [GetCulture('rhomaios').GetName]-culture candidates has been drawn up, each with the pedigree and public gravitas to sit on the throne of [ROOT.GetCountry.GetName]. The National Assembly awaits the chance to elect the next King."
+ 
  grefm_epirus_support_button: "Support Rebels in Epirus"
  grefm_epirus_support_button_desc: "Epirus is as much a heartland of Greek culure as Thessaly or Mane. Their proximity to the Greek state has only increased their desire for freedom from the Porte."
  grefm_epirus_provoke_button: "Provoke Epirote Revolt"
@@ -524,6 +552,8 @@
  modifier_grefm_feebleminded_desc: "Deranged Monarch"
  modifier_grefm_impotent_monarch: "Impotent Monarch"
  modifier_grefm_impotent_monarch_desc: "Impotent Monarch"
+ modifier_grefm_legitimized_rule: "Legitimized Rule"
+ modifier_grefm_legitimized_rule_desc: "Legitimized Rule"
  modifier_grefm_legacy_brigandage: "Legacy Brigandage"
  modifier_grefm_legacy_brigandage_desc: "Legacy Brigandage"
  modifier_grefm_custodian_government: "Custodian Government"
@@ -789,6 +819,7 @@
  Karatheodoris: "Karatheodoris"
  Kopasis: "Kopasis"
  
+ Kantakouzenos: "Kantakouzenos"
  Palaiologos: "Palaiologos"
  Komnenos: "Komnenos"
  Doukas: "Doukas"
