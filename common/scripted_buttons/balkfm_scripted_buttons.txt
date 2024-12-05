@@ -1238,12 +1238,11 @@ balkfm_uplift_rumelia_button = {
 	desc = "balkfm_uplift_rumelia_desc"
 	
 	visible = {
-		NOR = {
-			owns_entire_state_region = STATE_NORTHERN_THRACE
-			exists = c:ERUM
-		}
 		c:TUR ?= {
 			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+		NOT = {
+			exists = c:ERUM
 		}
 	}
 	
@@ -1271,9 +1270,6 @@ balkfm_uplift_rumelia_button = {
 			trigger_event = {
 				id = balkfm.578 # Eastern Rumelia Rebels!
 			}
-		}
-		trigger_event = {
-			id = balkfm.578 # Eastern Rumelia Rebels!
 		}
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation

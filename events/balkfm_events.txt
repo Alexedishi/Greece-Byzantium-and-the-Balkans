@@ -11184,7 +11184,7 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 				}
 				create_diplomatic_pact = {
 					country = c:ERUM
-					type = dominion
+					type = puppet
 				}
 			}
 			else_if = {
@@ -11205,15 +11205,15 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 		}
 		c:BUL = {
 			save_scope_as = bulgaria_scope
-			trigger_event = {
-				id = balkfm.578 # Eastern Rumelia Rebels!
-			}
 		}
 	}
 	
 	option = { # For BUL
 		name = balkfm.578.a
 		default_option = yes
+		trigger = {
+			c:TUR != this
+		}
 		change_relations = {
 			country = c:ERUM
 			value = 50
@@ -11222,13 +11222,21 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 	
 	option = { # For TUR, spank them!
 		name = balkfm.578.b
+		trigger = {
+			c:TUR = this
+		}
 		scope:rumelia_scope = {
 			make_independent = yes
 		}
 		create_diplomatic_play = {
 			name = eqfm_balkan_rebellion
 			target_country = scope:rumelia_scope
-			type = dp_secession
+			type = dp_annex_war
+			add_war_goal = {
+				holder = root
+				type = conquer_state
+				target_state = s:STATE_NORTHERN_THRACE.region_state:ERUM
+			}
 		}
 		hidden_effect = {
 			random_diplomatic_play = {
@@ -11243,10 +11251,18 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 				add_diplomatic_play_war_support = { target = scope:rumelia_scope value = 100 }
 			}
 		}
+		c:BUL = {
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
+		}
 	}
 	
 	option = { # For TUR, be a pansy...
 		name = balkfm.578.c
+		trigger = {
+			c:TUR = this
+		}
 		scope:rumelia_scope = {
 			increase_autonomy = yes
 		}
@@ -11261,6 +11277,11 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 		add_modifier = {
 			name = modifier_eqfm_caved_to_separatists
 			months = normal_modifier_time
+		}
+		c:BUL = {
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
 		}
 	}
 
