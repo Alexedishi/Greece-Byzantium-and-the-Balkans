@@ -4733,10 +4733,16 @@ grefm.121 = { # The University of Athens
 	
 	trigger = {
 		morgenrote_is_active = no
-		country_has_primary_culture = cu:hellene
 		NOT = { has_variable = grefm_athens_university_considered }
-		has_technology_researched = empiricism
-		owns_entire_state_region = STATE_ATTICA
+		capital = {
+			state_region = {
+				s:STATE_ATTICA = this
+			}
+			any_scope_building = {
+				is_building_type = building_university
+				has_active_production_method = pm_philosophy_department
+			}
+		}
 	}
 	
 	immediate = {
@@ -4755,14 +4761,14 @@ grefm.121 = { # The University of Athens
 		name = grefm.121.a
 		default_option = yes
 		scope:university_state = {
-			create_building = {
- 				building = "building_university"
-				level = 1
+			add_modifier = {
+ 				name = modifier_grefm_university_of_athens
+ 				months = long_modifier_time
  			}
 		}
 		add_modifier = {
 			name = modifier_grefm_funding_royal_university
-			months = normal_modifier_time
+			months = long_modifier_time
 			multiplier = money_amount_multiplier_small
 		}
 	}
@@ -4771,15 +4777,16 @@ grefm.121 = { # The University of Athens
 		name = grefm.121.b
 		scope:university_benefactor = {
 			add_modifier = {
-				name = modifier_grefm_blocked_building_university
-				months = normal_modifier_time
+				name = modifier_grefm_blocked_funding_university
+				months = long_modifier_time
+				is_decaying = yes
 			}
 		}
 	}
 
 }
 
-grefm.122 = { # Patriarchal Academy of Constantinople
+grefm.122 = { # The Great School of the Nation
 	type = country_event
 	placement = scope:university_state
 
