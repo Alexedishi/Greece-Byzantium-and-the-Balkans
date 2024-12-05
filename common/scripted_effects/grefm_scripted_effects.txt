@@ -1194,3 +1194,66 @@ grefm_cleanup_quadrennial_race_variables_effect = {
 	remove_variable = grefm_chariot_purples
 	remove_variable = grefm_chariot_golds
 }
+
+grefm_setup_hellene_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+			OR = {
+				is_pop_type = aristocrats
+				is_pop_type = capitalists
+				is_pop_type = clergymen
+				is_pop_type = academics
+				is_pop_type = bureaucrats
+				is_pop_type = engineers
+				is_pop_type = shopkeepers
+				is_pop_type = clerks
+				is_pop_type = machinists
+				is_pop_type = farmers
+			}
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 1
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 0.6
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+}
+
+grefm_setup_rhomaios_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 0.95
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+}

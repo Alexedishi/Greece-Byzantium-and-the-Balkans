@@ -121,35 +121,23 @@
 		limit = {
 			state_is_demotic_greek = yes
 		}
-		every_scope_pop = {
-			limit = {
-				has_pop_culture = greek
-			}
-			change_pop_culture = {
-				target = cu:hellene
-				value = 1
-			}
-		}
+		grefm_setup_hellene_pops_effect = yes
 	}
 	every_state = {
 		limit = {
 			state_is_demotic_greek = no
 		}
-		every_scope_pop = {
-			limit = {
-				has_pop_culture = greek
-			}
-			change_pop_culture = {
-				target = cu:rhomaios
-				value = 1
-			}
-		}
+		grefm_setup_rhomaios_pops_effect = yes
 	}
 	s:STATE_CRIMEA = {
 		every_scope_state = {
 			every_scope_pop = {
 				limit = {
-					has_pop_culture = rhomaios
+					OR = {
+						has_pop_culture = greek
+						has_pop_culture = hellene
+						has_pop_culture = rhomaios
+					}
 				}
 				change_pop_culture = {
 					target = cu:urum
@@ -177,6 +165,35 @@
 			change_pop_culture = {
 				target = cu:romaniote
 				value = 0.10 # this value will change pending more research
+			}
+		}
+	}
+	
+	c:GRE = {
+		every_scope_pop = {
+			limit = {
+				is_pop_type = aristocrats
+			}
+			change_pop_culture = {
+				target = cu:south_german
+				value = 0.05
+			}
+			change_pop_religion = {
+				target = rel:catholic
+				value = 0.05
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				is_pop_type = officers
+			}
+			change_pop_culture = {
+				target = cu:south_german
+				value = 1
+			}
+			change_pop_religion = {
+				target = rel:catholic
+				value = 1
 			}
 		}
 	}

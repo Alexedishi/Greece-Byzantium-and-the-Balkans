@@ -8184,7 +8184,7 @@ grefm.290 = { # The Fate of the Turks
 	dlc = dlc_grefm
 
 	trigger = {
-		NOT = {	has_variable = grefm_greek_homelands_event }
+		NOT = {	has_global_variable = grefm_greek_homelands_event }
 		has_global_variable = grefm_megali_idea_complete
 		any_scope_state = {
 			state_region = {
@@ -8204,10 +8204,13 @@ grefm.290 = { # The Fate of the Turks
 	}
 	
 	immediate = {
-		set_variable = grefm_greek_homelands_event
+		set_global_variable = {
+			name = grefm_greek_homelands_event
+			value = 0
+		}
 	}
 	
-	option = { # Integrate the Turks
+	option = { # Tolerate the Turks
 		name = grefm.290.a
 		add_radicals = {
 			culture = cu:hellene
@@ -8234,7 +8237,10 @@ grefm.290 = { # The Fate of the Turks
 		else = {
 			change_infamy = 5
 		}
-		set_variable = grefm_rejected_grecoturkism # enables turkish homelands event
+		set_global_variable = {
+			name = grefm_greek_homelands_event
+			value = 1 # enables turkish homelands event
+		}
 	}
 
 }
@@ -8260,7 +8266,7 @@ grefm.291 = { # A Question of Homelands
 	dlc = dlc_grefm
 	
 	trigger = { # will trigger for any state that shares Greek and Turkish homelands
-		has_variable = grefm_rejected_grecoturkism
+		global_var:grefm_greek_homelands_event ?= 1
 		any_scope_state = {
 			AND = {
 				NOT = { has_variable = grefm_turkish_reserve }
@@ -8407,14 +8413,35 @@ grefm.292 = { # Greek Expansion in X
 	dlc = dlc_grefm
 	
 	trigger = {
-		has_variable = grefm_megali_idea_complete # homelands will expand regardless of turkish homeland outcome
-		any_scope_state = {
+		has_global_variable = grefm_megali_idea_complete # homelands will expand regardless of turkish homeland outcome
+		OR = {
 			AND = {
-				is_incorporated = yes
-				state_region = {
-					AND = {
-						state_in_anatolia = yes
-						NOT = { is_homeland = cu:hellene }
+				country_has_primary_culture = cu:hellene
+				any_scope_state = {
+					is_incorporated = yes
+					state_region = {
+						OR = {
+							state_in_anatolia = yes
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:hellene
+							}
+						}
+					}
+				}
+			}
+			AND = {
+				country_has_primary_culture = cu:rhomaios
+				any_scope_state = {
+					is_incorporated = yes
+					state_region = {
+						OR = {
+							state_in_anatolia = yes
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:rhomaios
+							}
+						}
 					}
 				}
 			}
@@ -8422,19 +8449,70 @@ grefm.292 = { # Greek Expansion in X
 	}
 	
 	immediate = {
-		random_scope_state = {
+		if = {
 			limit = {
-				AND = {
+				country_has_primary_culture = cu:hellene
+				any_scope_state = {
 					is_incorporated = yes
 					state_region = {
-						AND = {
+						OR = {
 							state_in_anatolia = yes
-							NOT = { is_homeland = cu:hellene }
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:hellene
+							}
 						}
 					}
 				}
 			}
-			save_scope_as = grefm_expansion_state
+			random_scope_state = {
+				limit = {
+					is_incorporated = yes
+					state_region = {
+						OR = {
+							state_in_anatolia = yes
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:hellene
+							}
+						}
+					}
+					
+				}
+				save_scope_as = grefm_expansion_state
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+				any_scope_state = {
+					is_incorporated = yes
+					state_region = {
+						OR = {
+							state_in_anatolia = yes
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:rhomaios
+							}
+						}
+					}
+				}
+			}
+			random_scope_state = {
+				limit = {
+					is_incorporated = yes
+					state_region = {
+						OR = {
+							state_in_anatolia = yes
+							state_in_balkans = yes
+							NOT = { 
+								is_homeland = cu:rhomaios
+							}
+						}
+					}
+				}
+				save_scope_as = grefm_expansion_state
+			}
 		}
 	}
 	
@@ -8442,13 +8520,41 @@ grefm.292 = { # Greek Expansion in X
 		months = 12
 	}
 	
-	
 	option = {
 		name = grefm.292.a
 		default_option = yes
-		scope:grefm_expansion_state = {
-			state_region = {
-				add_homeland = cu:hellene
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+				scope:grefm_expansion_state = {
+					state_region = {
+						NOT = { 
+							is_homeland = cu:hellene
+						}
+					}
+				}
+			}
+			scope:grefm_expansion_state = {
+				state_region = {
+					add_homeland = cu:hellene
+				}
+			}
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+				scope:grefm_expansion_state = {
+					state_region = {
+						NOT = { 
+							is_homeland = cu:rhomaios
+						}
+					}
+				}
+			}
+			scope:grefm_expansion_state = {
+				state_region = {
+					add_homeland = cu:rhomaios
+				}
 			}
 		}
 	}
