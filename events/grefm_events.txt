@@ -188,8 +188,8 @@ namespace = grefm
 #	274 - The Greak Realm
 
 #280-289 - Roman Revanchism Events
-#	280 - ##The Legacy of Romanía
-#	281 - ##The Themata of Anatolia
+#	280 - ##The Lands of the Rhomaios
+#	281 - ##The Legacy of Rhōmanía
 #	282 - ##The Throne of the East
 
 #290-299 - Greek Cultural Syncretism Events
@@ -7896,7 +7896,7 @@ grefm.274 = { # A Greek Domain
 
 
 #### RHOMANIAN REVANCHISM EVENTS ####
-grefm.280 = { # The Legacy of Romanía
+grefm.280 = { # The Lands of the Rhomaios
 	type = country_event
 	placement = root
 	
@@ -7917,17 +7917,13 @@ grefm.280 = { # The Legacy of Romanía
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_variable = grefm_rhomaios_home_claim_var
-		}
-		OR = {
-			c:THE ?= this
-			c:TRB ?= this
-		}
+		# triggered from GLOBAL
 	}
 	
 	immediate = {
-		set_variable = grefm_rhomaios_home_claim_var
+		c:TUR ?= {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
@@ -7965,12 +7961,49 @@ grefm.280 = { # The Legacy of Romanía
 				}
 			}
 		}
-		##TODO Add Cappadoccia effect one tag is ready
+		if = {
+			limit = {
+				c:GRE_CAP ?= this
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_ANKARA
+						owns_entire_state_region = STATE_ANKARA
+					}
+				}
+				s:STATE_ANKARA = {
+					add_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_ADANA
+						owns_entire_state_region = STATE_ADANA
+					}
+				}
+				s:STATE_ADANA = {
+					add_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_DIYARBAKIR
+						owns_entire_state_region = STATE_DIYARBAKIR
+					}
+				}
+				s:STATE_DIYARBAKIR = {
+					add_claim = ROOT
+				}
+			}
+		}
 	}
 
 }
 
-grefm.281 = { # The Themata of Anatolia
+grefm.281 = { # The Legacy of Rhōmanía
 	type = country_event
 	placement = root
 	
@@ -11260,7 +11293,7 @@ grefm.586 = { # SAMO Annexation
 	desc = grefm.586.d
 	flavor = grefm.586.f
 
-	placement = scope:theodoro_capital
+	placement = scope:samos_capital
 
 	event_image = {
 		video = "unspecific_signed_contract"
@@ -11276,10 +11309,10 @@ grefm.586 = { # SAMO Annexation
 	}
 
 	immediate = {
-		c:THE = {
-			save_scope_as = theodoro_scope
+		c:SAMO = {
+			save_scope_as = samos_scope
 			capital = {
-				save_scope_as = theodoro_capital
+				save_scope_as = samos_capital
 			}
 		}
 	}

@@ -210,6 +210,15 @@ grefm_bavarocracy_instability_progress_value = {
 
 grefm_hellenism_value = {
 	value = 0
+	if = {
+		limit = {	
+			country_has_primary_culture = cu:hellene
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_hellene_primary
+		}
+	}
 	add = {
 		value = {
 			add = grefm_hellene_literacy_value
@@ -249,10 +258,20 @@ grefm_hellenism_value = {
 			desc = grefm_value_from_greek_king
 		}
 	}
+	max = 10
 }
 
 grefm_romanism_value = {
 	value = 0
+	if = {
+		limit = {	
+			country_has_primary_culture = cu:rhomaios
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_rhomaios_primary
+		}
+	}
 	add = {
 		value = {
 			add = grefm_rhomaios_literacy_value
@@ -292,6 +311,7 @@ grefm_romanism_value = {
 			desc = grefm_value_from_roman_king
 		}
 	}
+	max = 10
 }
 
 ## Greek Artifact Values ##
