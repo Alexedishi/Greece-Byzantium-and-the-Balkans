@@ -64,17 +64,16 @@
  je_grefm_venizelism_humanities: "Venizelism: Supporting Greek Humanities"
  je_grefm_venizelism_humanities_reason: ""
  
- 
  je_grefm_greek_nationalism: "Greek Nationalism"
  je_grefm_greek_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity.\n$TOOLTIP_DELIMITER$\n@information!The [GetCulture('hellene').GetName] movement, spearheaded by Philhellene thinkers in Western Europe and America, argue that the Greek people are inheritors of Bronze and Iron Age Greek culture and the scions of the forefathers of civilization. Hellene supporters discard the Roman and Ottoman eras as a "Dark Age" during which Greek culture was dormnant and suppressed. The [GetCulture('rhomaios').GetName] identity represents the continuous experience that the Greek people have held, with an unquestioned link from Roman to Byzantine to modern times, during which the Greek culture has evolved and grown under Roman, Slavic, and Turkish influences.\n$TOOLTIP_DELIMITER$\nThe [GetCulture('hellene').GetName] movement has #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_greek_nationalism_hellenism_breakdown [GetPlayer.MakeScope.Var('grefm_hellene_culture_var').GetValue]#! support.\nThe [GetCulture('rhomaios').GetName] movement has #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_greek_nationalism_romanism_breakdown [GetPlayer.MakeScope.Var('grefm_rhomaios_culture_var').GetValue]#! support."
  je_grefm_greek_nationalism_complete_tt: "[ROOT.GetCountry.GetName] has embraced a national identity"
  je_grefm_greek_nationalism_hellenism_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_hellenism_value')]"
  je_grefm_greek_nationalism_romanism_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_romanism_value')]"
  je_grefm_national_language: "A National Language"
- je_grefm_national_language_reason: "Separated by time, distance, and empires, the greater Greek populations have each diverged from the Greek languages that were spoken during the pre-Ottoman times. Scholars today have been engaged in a deep argument whether the Turkic intrusions into the Greek language, or any deviation from Koine Greek, should be tolerated at all."
- je_grefm_national_language_complete_tt: "Support for any dialect is over #bold 100#!"
+ je_grefm_national_language_reason: "Separated by time, distance, and empires, the greater Greek populations have each diverged from the Greek languages that were spoken during the pre-Ottoman times. Scholars today have been engaged in a deep argument whether the Turkic intrusions into the Greek language, or any deviation from Koine Greek, should be tolerated at all.\n$TOOLTIP_DELIMITER$\n@information!Supporting #bold #greece Demotic#!#! or #bold #purple Katharevousa#!#! will increase our tilt towards #bold Hellenism#!. Supporting #bold #yellow Khoine#!#! or #bold #green Rhomaίika#!#! will increase our tilt towards #bold Romanism#!."
+ je_grefm_national_language_complete_tt: "[ROOT.GetCountry.GetName] has declared a National Dialect"
  je_grefm_archaeology: "Greek Cultural Roots"
- je_grefm_archaeology_reason: "The [GetCulture('greek').GetName] people have had a presence across the Aegean since pre-historic times. In the contest over defining the roots of the Greek people, the Archaeological Service has been tasked with unearthing artifacts and ruins to prove the legacy of the Greek people and justify their claims to the region.\n$TOOLTIP_DELIMITER$\n@information!Every [GetCulture('hellene').GetName] site that we excavate will contribute towards support for #yellow Hellenism#!. Likewise, every [GetCulture('rhomaios').GetName] site will contribute support towards #yellow Romanism#!\n$TOOLTIP_DELIMITER$\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_hellenic_archeaology_var').GetValue]#!#! [GetCulture('hellene').GetName] sites.\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_roman_archeaology_var').GetValue]#!#! [GetCulture('rhomaios').GetName] sites."
+ je_grefm_archaeology_reason: "The [GetCulture('greek').GetName] people have had a presence across the Aegean since pre-historic times. In the contest over defining the roots of the Greek people, the Archaeological Service has been tasked with unearthing artifacts and ruins to prove the legacy of the Greek people and justify their claims to the region.\n$TOOLTIP_DELIMITER$\n@information!Every [GetCulture('hellene').GetName] site that we excavate will contribute towards support for #bold Hellenism#!. Likewise, every [GetCulture('rhomaios').GetName] site will contribute support towards #bold Romanism#!.\n$TOOLTIP_DELIMITER$\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_hellenic_archeaology_var').GetValue]#!#! [GetCulture('hellene').GetName] sites.\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_roman_archeaology_var').GetValue]#!#! [GetCulture('rhomaios').GetName] sites."
  je_grefm_archaeology_complete_tt: "Complete all excavations"
  je_grefm_archaeology_status: "Excavation progress: #bold #greece [GetPlayer.MakeScope.Var('grefm_excavation_var').GetValue]#!/24#!"
  
@@ -314,7 +313,6 @@
  grefm_elect_roman_king_tt: "A [GetCulture('rhomaios').GetName] [concept_ruler] will be appointed"
  
  je_grefm_greater_greece_tt: "Control the Greek homelands."
- je_grefm_declared_national_language_tt: "We have embraced a national dialect."
  grefm_declare_national_language_button_tt: "Any Greek dialect has at least #bold 100#! support."
  grefm_embrace_hellenism_tt: "The [GetCulture('hellene').GetName] [concept_culture] has #bold 10#! support"
  grefm_embrace_romanism_tt: "The [GetCulture('rhomaios').GetName] [concept_culture] has #bold 10#! support"
@@ -417,11 +415,11 @@
  grefm_philhellenic_loan_button: "Seek Philhellene Loan"
  grefm_philhellenic_loan_button_desc: "The Philhellenes, admirers of ancient Greek culture and art, funded the Greek revolution. Across western Europe, several Philhellenic organizations have pledged their monetary support towards the young nation."
  grefm_embrace_hellenic_identity_button: "Embrace Hellenic Identity"
- grefm_embrace_hellenic_identity_button_desc: ""
+ grefm_embrace_hellenic_identity_button_desc: "The [GetCulture('hellene').GetName] movement is the only means we have to truly unify [ROOT.GetCountry.GetName] under a single identity. We should embrace our truly ancient roots."
  grefm_embrace_roman_identity_button: "Embrace Roman Identity"
- grefm_embrace_roman_identity_button_desc: ""
+ grefm_embrace_roman_identity_button_desc: "The [GetCulture('rhomaios').GetName] movement represents the inherited legacy of the Greek people. We cannot deny our Roman identity."
  grefm_embrace_hybrid_identity_button: "Embrace Greco-Roman Identity"
- grefm_embrace_hybrid_identity_button_desc: ""
+ grefm_embrace_hybrid_identity_button_desc: "The [GetCulture('hellene').GetName] and [GetCulture('rhomaios').GetName] movements are but two halves of a singular identity. We cannot deny that to be [GetCulture('greek').GetName] is to embrace both our Ancient and Roman roots."
  grefm_declare_national_language_button: "Declare National Language"
  grefm_declare_national_language_button_desc: "The linguistic question has hounded the question of Greek identity since before the Revolution. While we may not have the institutions to enforce a nationwide language yet, we can declare our intent for the Greek Language."
  
@@ -939,7 +937,7 @@
  grefm_archeaology_roman_sites_button: "Show Roman Sites"
  grefm_archeaology_roman_sites_button_desc: "The remains of the Roman Empire are so integral to our existence, that many structures remain in use to this day with their original purposes long forgotten. Every excavation we complete of a Roman site will #bold increase#! our tilt towards a Roman national identity.
  grefm_archeaology_alternate_site_button: "Consider Alternate Sites"
- grefm_archeaology_alternate_site_button_desc: "Presently, our scholars are singularly focused on the excavation of sites from one specific era. We could consider 
+ grefm_archeaology_alternate_site_button_desc: "Presently, our scholars are singularly focused on the excavation of sites from one specific era. We could direct expansion of the field of research to include both the Ancient and Medieval eras, despite widespread opposition from academics."
  grefm_cancel_button: "Cancel Current Expedition"
  grefm_cancel_button_desc: "This will cancel the current excavation. All progress will be lost."
  
@@ -1003,6 +1001,7 @@
  grefm_smyrna_tt: "This will begin an expedition to survey the #bold Ruins in Smyrna#!."
  grefm_tyana_tt: "This will begin an expedition to survey the #bold Ruins of Tyana#!."
  grefm_chios_tt: "This will begin an expedition to survey the #bold Island of Chios#!."
+ grefm_corinth_1_complete_tt: "You must first survery the Hexamilion Wall to move on to the Acrocorinth."
  
  grefm_mega_palation_button: "Survey the Palace Ruins"
  grefm_mega_palation_button_desc: "The Imperial Palace, the Méga Palátion, lies in ruin, yet it may be possible to restore large portions of it."

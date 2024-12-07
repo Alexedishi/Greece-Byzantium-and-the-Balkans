@@ -5495,7 +5495,12 @@ grefm.143 = { # Hellenic Excavation Completed
 	}
 	
 	immediate = {
-		grefm_excavation_completion_effect = yes
+		every_scope_state = {
+			limit = {
+				has_variable = grefm_excavation_target
+			}
+			remove_variable = grefm_excavation_target
+		}
 	}
 	
 	option = {
@@ -7104,7 +7109,8 @@ grefm.206 = { # The Language Question
 	option = {
 		name = grefm.206.a
 		default_option = yes
-		custom_tooltip = grefm.206.tt
+		custom_tooltip = grefm.206.tt1
+		custom_tooltip = grefm.206.tt2
 	}
 	
 }

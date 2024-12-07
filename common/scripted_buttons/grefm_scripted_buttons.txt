@@ -984,7 +984,6 @@ grefm_archeaology_corinth_button_2 = {
 	visible = {
 		owner = {
 			NOT = { has_variable = grefm_corinth_2_complete }
-			has_variable = grefm_corinth_1_complete
 		}
 		var:grefm_archeaology_sites_var ?= 2
 	}
@@ -993,6 +992,12 @@ grefm_archeaology_corinth_button_2 = {
 		owns_entire_state_region = STATE_PELOPONNESE
 		NOT = {
 			has_modifier = modifier_grefm_active_excavation
+		}
+		custom_tooltip = {
+			text = grefm_corinth_1_complete_tt
+			hidden_trigger = {
+				has_variable = grefm_corinth_1_complete
+			}
 		}
 	}
 	
