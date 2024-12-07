@@ -895,6 +895,8 @@ je_grefm_greek_nationalism = {
 	
 	group = je_group_grefm_nationalism
 	
+	should_be_pinned_by_default = yes
+	
 	is_shown_when_inactive = {
 		OR = {
 			country_has_primary_culture = cu:hellene
@@ -907,18 +909,28 @@ je_grefm_greek_nationalism = {
 	}
 	
 	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.200 # What is a Greek
-			}
-		}
 		set_variable = {
 			name = grefm_hellene_culture_var
-			value = 0
+			value = grefm_hellenism_value
 		}
 		set_variable = {
 			name = grefm_rhomaios_culture_var
-			value = 0
+			value = grefm_romanism_value
+		}
+		je:je_grefm_greek_nationalism = {
+			set_bar_progress = {
+				name = grefm_hellenism_progress_bar
+				value = owner.var:grefm_hellene_culture_var
+			}
+		}
+		je:je_grefm_greek_nationalism = {
+			set_bar_progress = {
+				name = grefm_romanism_progress_bar
+				value = owner.var:grefm_rhomaios_culture_var
+			}
+		}
+		trigger_event = {
+			id = grefm.200 # What is a Greek
 		}
 	}
 	
@@ -957,13 +969,13 @@ je_grefm_greek_nationalism = {
 			je:je_grefm_greek_nationalism = {
 				set_bar_progress = {
 					name = grefm_hellenism_progress_bar
-					value = grefm_hellenism_value
+					value = owner.var:grefm_hellene_culture_var
 				}
 			}
 			je:je_grefm_greek_nationalism = {
 				set_bar_progress = {
 					name = grefm_romanism_progress_bar
-					value = grefm_romanism_value
+					value = owner.var:grefm_rhomaios_culture_var
 				}
 			}
 		}

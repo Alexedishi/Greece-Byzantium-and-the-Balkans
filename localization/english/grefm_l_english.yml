@@ -66,20 +66,15 @@
  
  
  je_grefm_greek_nationalism: "Greek Nationalism"
- je_grefm_greek_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity."
- je_grefm_greek_nationalism_complete_tt: "Has embraced a national identity"
- je_grefm_hellenic_nationalism: "Hellenic Nationalism"
- je_grefm_hellenic_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity." # This loc is temporarily copied over; this journal will be reworked in phases
- je_grefm_hellenic_nationalism_complete_tt: "We have formed #bold Byzantium#!"
- je_grefm_roman_nationalism: "Roman Nationalism"
- je_grefm_roman_nationalism_reason: ""
- je_grefm_roman_nationalism_complete_tt: "We have formed #bold Byzantium#!"
- 
+ je_grefm_greek_nationalism_reason: "The Greek people have existed for millennia, yet never has a truly Greek state ever come into existence. From the Greek city-state of antiquity to the multi-ethnic Roman, Byzantine, and Ottoman Empires, the Greek populace have never held a state that they valued over their own home villages and regions. Spearheaded by Enlightenment thought, movements have sprung up to unite the Greek people under a truly common identity.\n$TOOLTIP_DELIMITER$\n@information!The [GetCulture('hellene').GetName] movement, spearheaded by Philhellene thinkers in Western Europe and America, argue that the Greek people are inheritors of Bronze and Iron Age Greek culture and the scions of the forefathers of civilization. Hellene supporters discard the Roman and Ottoman eras as a "Dark Age" during which Greek culture was dormnant and suppressed. The [GetCulture('rhomaios').GetName] identity represents the continuous experience that the Greek people have held, with an unquestioned link from Roman to Byzantine to modern times, during which the Greek culture has evolved and grown under Roman, Slavic, and Turkish influences.\n$TOOLTIP_DELIMITER$\nThe [GetCulture('hellene').GetName] movement has #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_greek_nationalism_hellenism_breakdown [GetPlayer.MakeScope.Var('grefm_hellene_culture_var').GetValue]#! support.\nThe [GetCulture('rhomaios').GetName] movement has #tooltippable;tooltip:[Country.GetTooltipTag],je_grefm_greek_nationalism_romanism_breakdown [GetPlayer.MakeScope.Var('grefm_rhomaios_culture_var').GetValue]#! support."
+ je_grefm_greek_nationalism_complete_tt: "[ROOT.GetCountry.GetName] has embraced a national identity"
+ je_grefm_greek_nationalism_hellenism_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_hellenism_value')]"
+ je_grefm_greek_nationalism_romanism_breakdown: "[Country.MakeScope.GetScriptValueDesc('grefm_romanism_value')]"
  je_grefm_national_language: "A National Language"
  je_grefm_national_language_reason: "Separated by time, distance, and empires, the greater Greek populations have each diverged from the Greek languages that were spoken during the pre-Ottoman times. Scholars today have been engaged in a deep argument whether the Turkic intrusions into the Greek language, or any deviation from Koine Greek, should be tolerated at all."
  je_grefm_national_language_complete_tt: "Support for any dialect is over #bold 100#!"
  je_grefm_archaeology: "Greek Cultural Roots"
- je_grefm_archaeology_reason: "Ruins of pre-historic and ancient Greek civilizations lie scattered across the Balkans and Anatolia. As Greeks, it falls to us to reclaim these relics of our heritage."
+ je_grefm_archaeology_reason: "The [GetCulture('greek').GetName] people have had a presence across the Aegean since pre-historic times. In the contest over defining the roots of the Greek people, the Archaeological Service has been tasked with unearthing artifacts and ruins to prove the legacy of the Greek people and justify their claims to the region.\n$TOOLTIP_DELIMITER$\n@information!Every [GetCulture('hellene').GetName] site that we excavate will contribute towards support for #yellow Hellenism#!. Likewise, every [GetCulture('rhomaios').GetName] site will contribute support towards #yellow Romanism#!\n$TOOLTIP_DELIMITER$\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_hellenic_archeaology_var').GetValue]#!#! [GetCulture('hellene').GetName] sites.\nWe have excavated #bold #greece [GetPlayer.MakeScope.Var('grefm_roman_archeaology_var').GetValue]#!#! [GetCulture('rhomaios').GetName] sites."
  je_grefm_archaeology_complete_tt: "Complete all excavations"
  je_grefm_archaeology_status: "Excavation progress: #bold #greece [GetPlayer.MakeScope.Var('grefm_excavation_var').GetValue]#!/24#!"
  
@@ -300,7 +295,7 @@
  
  # tooltips
  grefm_regency_discharged_tt: "The Regency Council has been discharged"
- je_grefm_bavarocracy_completed_tt: "This entry will close on completing the Bavarocracy event chain"
+ grefm_dimiss_bavarians_tt: "Any [GetCulture(south_german).GetName] [GetPopType('officers').GetName] will be removed from our [Concept('concept_army','$concept_armies$')]"
  je_grefm_greek_constitution_tt1: "If Greece has embraced #yellow Autocracy#!, triggers the Event #white #bold Long Live the Constitution!#!#!"
  je_grefm_greek_constitution_tt2: "If Greece has embraced #yellow Suffrage#!, triggers the event #white #bold A Crisis Averted#!#!"
  je_grefm_bavarocracy_fail_tt: "Support for the King is at #bold zero#!."
@@ -312,7 +307,6 @@
  je_grefm_bavarocracy_minus_100: "Support for the King will change by #red #bold -100#!#!."
  je_grefm_bavarocracy_minus_200: "Support for the King will change by #red #bold -200#!#!."
  je_grefm_bavarocracy_minus_400: "Support for the King will change by #red #bold -400#!#!."
- je_grefm_tyranny_tt: "The King has #bold zero or less#! support."
  
  grefm_favor_hellene_king_tt: "This will increase monthly support for a [GetCulture('hellene').GetName] candidate by #bold 1#!"
  grefm_favor_roman_king_tt: "This will increase monthly support for a [GetCulture('rhomaios').GetName] candidate by #bold 1#!"
@@ -322,8 +316,8 @@
  je_grefm_greater_greece_tt: "Control the Greek homelands."
  je_grefm_declared_national_language_tt: "We have embraced a national dialect."
  grefm_declare_national_language_button_tt: "Any Greek dialect has at least #bold 100#! support."
- grefm_embrace_hellenism_tt: "Support for #yellow Hellene#! culture is over 5"
- grefm_embrace_romanism_tt: "Support for #yellow Rhomaios#! culture is over 5"
+ grefm_embrace_hellenism_tt: "The [GetCulture('hellene').GetName] [concept_culture] has #bold 10#! support"
+ grefm_embrace_romanism_tt: "The [GetCulture('rhomaios').GetName] [concept_culture] has #bold 10#! support"
  
  grefm_byz_possible_tt: "We may now form the #bold Byzantine Empire#!"
  grefm_hemp_possible_tt: "We may now form the #bold Hellenic Empire#!"

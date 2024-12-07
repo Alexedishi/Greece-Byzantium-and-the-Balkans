@@ -2048,6 +2048,9 @@ grefm.018 = { # Bavarian Auxiliaries Dismissed
 		ruler = {
 			save_scope_as = king_otto_scope
 		}
+		c:BAV ?= {
+			save_scope_as = bavaria_scope
+		}
 	}
 	
 	option = {
@@ -2060,11 +2063,29 @@ grefm.018 = { # Bavarian Auxiliaries Dismissed
 		}
 		if = {
 			limit = {
-				exists = c:BAV
+				exists = scope:bavaria_scope
 			}
 			change_relations = {
-				country = c:BAV
-				value = -30
+				country = scope:bavaria_scope
+				value = -15
+			}
+			
+		}
+		else = {
+			custom_tooltip = {
+				text = grefm_dimiss_bavarians_tt
+				hidden_effect = {
+					random_scope_pop = {
+						limit = {
+							is_pop_type = officers
+							has_pop_culture = south_german
+						}
+						change_pop_culture = {
+							target = cu:hellene
+							value = 1
+						}
+					}
+				}
 			}
 		}
 		custom_tooltip = {
@@ -6857,7 +6878,7 @@ grefm.200 = { # What is a Greek
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_grefm_hellenic_nationalism
+		# triggered by je_grefm_greek_nationalism
 	}
 	
 	immediate = {
@@ -6866,7 +6887,18 @@ grefm.200 = { # What is a Greek
 	option = {
 		name = grefm.200.a
 		default_option = yes
-		custom_tooltip = grefm.200.tt
+		if = {
+			limit = {
+				country_has_primary_culture = cu:hellene
+			}
+			custom_tooltip = grefm.200.tt1
+		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:rhomaios
+			}
+			custom_tooltip = grefm.200.tt2
+		}
 	}
 	
 }
@@ -7262,6 +7294,8 @@ grefm.208 = { # Defining Greek Roots
 			value = small_radicals
 		}
 	}
+	
+	orphan = yes
 
 }
 
