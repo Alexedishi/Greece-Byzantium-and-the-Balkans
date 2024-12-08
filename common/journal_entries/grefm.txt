@@ -2176,19 +2176,20 @@ je_grefm_corinth_canal_survey = {
 	}
 
 	on_complete = {
-		remove_modifier = modifier_grefm_corinth_canal_survey
 		trigger_event = {
 			id = grefm.130 # Corinth Canal Surveyed
 		}
+		remove_variable = grefm_corinth_canal_var
+		set_global_variable = grefm_corinth_survey_complete
 	}
 
-	invalid = {
+	fail = {
 		NOT = {
 			owns_entire_state_region = STATE_PELOPONNESE
 		}
 	}
 
-	on_invalid = {
+	on_fail = {
 		remove_variable = grefm_corinth_canal_var
 	}
 	
@@ -2219,7 +2220,11 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	icon = "gfx/interface/icons/event_icons/event_map.dds"
 	
 	group = je_group_grefm_content
-
+	
+	modifiers_while_active = {
+		modifier_grefm_reclaiming_land
+	}
+	
 	complete = {
 		scope:journal_entry = {
 			is_goal_complete = yes
@@ -2227,12 +2232,19 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	}
 
 	on_complete = {
-		remove_modifier = modifier_grefm_reclaiming_land
-		hidden_effect = {
-			trigger_event = {
-				id = grefm.112 # Lake Kopais Drained
-				days = 15
+		trigger_event = {
+			id = grefm.112 # Lake Kopais Drained
+			days = 15
+		}
+		remove_global_variable = grefm_lake_kopais_var
+		set_global_variable = grefm_lake_kopais_drained
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = grefm_gla_exposed
+				}
 			}
+			set_global_variable = grefm_gla_exposed
 		}
 	}
 
@@ -2243,7 +2255,7 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 	}
 
 	on_fail = {
-		remove_modifier = modifier_grefm_reclaiming_land
+		remove_global_variable = grefm_lake_kopais_var
 	}
 
 	current_value = {
@@ -2272,7 +2284,7 @@ je_grefm_land_reclaimation = { # literally the vanilla reclaimation event in a t
 			triggered_desc = {
 				desc = je_grefm_land_reclaimation_status
 				trigger = {
-					always = yes
+					has_variable = grefm_lake_kopais_var
 				}
 			}
 		}
