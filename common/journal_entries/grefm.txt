@@ -1167,7 +1167,7 @@ je_grefm_archaeology = {
 je_grefm_megali_idea = {
 	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
 	
-	group = je_group_grefm_nationalism
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 
@@ -1240,80 +1240,10 @@ je_grefm_megali_idea = {
 
 }
 
-je_grefm_greater_greece = {
-	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
-	
-	group = je_group_grefm_nationalism
-	
-	should_be_pinned_by_default = yes
-
-	is_shown_when_inactive = {
-		country_has_primary_culture = cu:hellene
-		country_has_primary_culture = cu:rhomaios
-	}
-	
-	possible = {
-		has_technology_researched = pan-nationalism
-		custom_tooltip = {
-			text = je_grefm_greater_greece_possible_tt
-			hidden_trigger = {
-				has_variable = grefm_empire_rejected
-			}
-		}
-	}
-	
-	immediate = {
-		trigger_event = {
-			id = grefm.273 # The Lands of Greater Greece
-		}
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_grefm_greater_greece_tt
-			hidden_trigger = {
-				owns_entire_state_region = STATE_EASTERN_THRACE
-				owns_entire_state_region = STATE_ATTICA
-				owns_entire_state_region = STATE_THESSALIA
-				owns_entire_state_region = STATE_MACEDONIA
-				owns_entire_state_region = STATE_SKOPIA
-				owns_entire_state_region = STATE_WESTERN_THRACE
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-				owns_entire_state_region = STATE_HUDAVENDIGAR
-				owns_entire_state_region = STATE_AYDIN
-				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_ALBANIA
-			}
-		}
-		owns_entire_state_region = STATE_CRETE
-		owns_entire_state_region = STATE_IONIAN_ISLANDS
-		owns_entire_state_region = STATE_CYPRUS
-		owns_entire_state_region = STATE_KASTAMONU
-		owns_entire_state_region = STATE_TRABZON
-		owns_entire_state_region = STATE_ADANA
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = grefm.274 # The Greek Realm
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = grefm_weaksauce
-		}
-	}
-	
-	weight = 2000 # will fall in behind je_grefm_greek_nationalism
-	
-}
-
 je_grefm_scions_of_rhomania = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_grefm_nationalism
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 
@@ -1380,6 +1310,83 @@ je_grefm_scions_of_rhomania = {
 
 	weight = 1000
 
+}
+
+je_grefm_greater_greece = {
+	icon = "gfx/interface/icons/event_icons/event_hellenic.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+
+	is_shown_when_inactive = {
+		OR = {
+			country_has_primary_culture = cu:hellene
+			country_has_primary_culture = cu:rhomaios
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = je_grefm_greater_greece_possible_tt1
+			hidden_trigger = {
+				has_variable = grefm_megali_idea_completed
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_greater_greece_possible_tt2
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.273 # The Lands of Greater Greece
+		}
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_greater_greece_tt
+			hidden_trigger = {
+				owns_entire_state_region = STATE_EASTERN_THRACE
+				owns_entire_state_region = STATE_ATTICA
+				owns_entire_state_region = STATE_THESSALIA
+				owns_entire_state_region = STATE_MACEDONIA
+				owns_entire_state_region = STATE_SKOPIA
+				owns_entire_state_region = STATE_WESTERN_THRACE
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+				owns_entire_state_region = STATE_HUDAVENDIGAR
+				owns_entire_state_region = STATE_AYDIN
+				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_ALBANIA
+			}
+		}
+		owns_entire_state_region = STATE_CRETE
+		owns_entire_state_region = STATE_IONIAN_ISLANDS
+		owns_entire_state_region = STATE_CYPRUS
+		owns_entire_state_region = STATE_KASTAMONU
+		owns_entire_state_region = STATE_TRABZON
+		owns_entire_state_region = STATE_ADANA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.274 # The Greek Realm
+		}
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = grefm_weaksauce
+		}
+	}
+	
+	weight = 2000 # will fall in behind je_grefm_greek_nationalism
+	
 }
 	
 #############################
@@ -3290,7 +3297,7 @@ je_grefm_renovatio_imperii_romanorum_central_italy = {
 je_grefm_bul_megali_idea = { # megali idea minus Attica and the Islands
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_balkfm_empire
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 	
@@ -3335,7 +3342,7 @@ je_grefm_bul_megali_idea = { # megali idea minus Attica and the Islands
 je_grefm_rom_megali_idea = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
-	group = je_group_balkfm_romanian_nationalism
+	group = je_group_grefm_megali_idea
 	
 	should_be_pinned_by_default = yes
 	

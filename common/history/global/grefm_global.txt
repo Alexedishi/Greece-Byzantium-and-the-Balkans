@@ -123,21 +123,11 @@
 		}
 		grefm_setup_hellene_pops_effect = yes
 	}
-	every_state = {
-		limit = {
-			state_is_demotic_greek = no
-		}
-		grefm_setup_rhomaios_pops_effect = yes
-	}
 	s:STATE_CRIMEA = {
 		every_scope_state = {
 			every_scope_pop = {
 				limit = {
-					OR = {
-						has_pop_culture = greek
-						has_pop_culture = hellene
-						has_pop_culture = rhomaios
-					}
+					has_pop_culture = greek
 				}
 				change_pop_culture = {
 					target = cu:urum
@@ -145,6 +135,12 @@
 				}
 			}
 		}
+	}
+	every_state = {
+		limit = {
+			state_is_demotic_greek = no
+		}
+		grefm_setup_rhomaios_pops_effect = yes
 	}
 	every_country = {
 		limit = {
