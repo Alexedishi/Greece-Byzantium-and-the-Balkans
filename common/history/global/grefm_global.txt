@@ -115,6 +115,43 @@
 	c:SAMO = {
 		grefm_setup_samos_effect = yes
 	}
+	create_country = {
+		tag = TRB
+		origin = c:TUR
+		state = s:STATE_TRABZON.region_state:TUR
+	}
+	create_country = {
+		tag = GRE_CAP
+		origin = c:TUR
+		# Ankara Provinces
+		province = p:x401080
+		province = p:xF470A0
+		province = p:xA8674E
+		province = p:x3041CC
+		province = p:xA8674E
+		province = p:xC09000
+		province = p:x431F60
+		province = p:x17B19B
+		# Adana Provinces
+		province = p:x4DA0F1
+		province = p:xA4523A
+		province = p:x39CBF7
+		province = p:x63E9DB
+		province = p:x909463
+		province = p:x7DD48B
+		province = p:xF657D8
+		# Diyarbakir Provinces
+		province = p:xC9CF24
+		province = p:xFB66D7
+		province = p:x5E4B3A
+	}
+	create_country = {
+		tag = TRB
+		origin = c:RUS
+		province = p:xB0DFDF
+		province = p:xF56D13
+		province = p:x706060
+	}
 	
 ### Culture Setup ###
 	every_state = {
@@ -461,6 +498,25 @@
 		}
 	}
 	
+	c:TUR ?= {
+		balkfm_initialize_border_variables_effect = yes
+		trigger_event = {
+			id = eqfm.001 # The Eastern Question
+			days = 1
+		}
+#		add_journal_entry = {
+#			type = je_balkfm_tur_karadag
+#		}
+		set_variable = {
+			name = balkfm_border_timeout_var
+			years = 1
+		}
+		eqfm_calculate_tension_variables_effect = yes
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
+	}
+	
 	c:ION = {
 		add_journal_entry = {
 			type = je_grefm_ion_xenocracy
@@ -487,6 +543,12 @@
 		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
+	C:TRB ?= {
+		trigger_event = {
+			id = grefm.280 # The Lands of the Rhomaios
+		}
+	}
+	
 	C:GRE_CAP ?= {
 		trigger_event = {
 			id = grefm.280 # The Lands of the Rhomaios
@@ -495,13 +557,7 @@
 	
 	C:THE ?= {
 		trigger_event = {
-			id = grefm.280 # The Lands of the Rhomaios
-		}
-	}
-	
-	C:TRB ?= {
-		trigger_event = {
-			id = grefm.280 # The Lands of the Rhomaios
+			id = grefm.260 # The People of Little Theodoro
 		}
 	}
 	
@@ -585,32 +641,7 @@
 		set_variable = eocfm_controls_moscow
 	}
 	
-	c:TUR ?= {
-		balkfm_initialize_border_variables_effect = yes
-		trigger_event = {
-			id = eqfm.001 # The Eastern Question
-			days = 1
-		}
-#		add_journal_entry = {
-#			type = je_balkfm_tur_karadag
-#		}
-		set_variable = {
-			name = balkfm_border_timeout_var
-			years = 1
-		}
-#		trigger_event = {
-#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
-#		}
-		eqfm_calculate_tension_variables_effect = yes # Yes, Turkey is loadbearing
-		set_variable = eocfm_controls_constantinople
-		set_variable = eocfm_controls_antioch
-		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
-	}
-	
 	c:EGY ?= {
-#		trigger_event = {
-#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
-#		}
 		set_variable = eocfm_controls_alexandria
 		set_variable = eocfm_controls_jerusalem
 	}

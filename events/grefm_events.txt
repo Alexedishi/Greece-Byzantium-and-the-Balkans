@@ -180,6 +180,11 @@ namespace = grefm
 #	208 - Defining Greek Roots
 #	209 - The Greek Ethnogenesis
 
+#260-269 - Urum Revanchism Events
+#	260 - The People of Little Theodoro
+#	261 - ##The Legacy of Rhōmanía
+#	262 - ##The Throne of the East
+
 #270-279 - Hellenic Revanchism Events
 #	270 - The Lands of Thessaly
 #	271 - The Megali Idea
@@ -188,9 +193,9 @@ namespace = grefm
 #	274 - The Greak Realm
 
 #280-289 - Roman Revanchism Events
-#	280 - ##The Lands of the Rhomaios
-#	281 - ##The Legacy of Rhōmanía
-#	282 - ##The Throne of the East
+#	280 - The Lands of the Rhomaios
+#	281 - The Legacy of Rhōmanía
+#	282 - The Throne of the East
 
 #290-299 - Greek Cultural Syncretism Events
 #	290 - The Fate of the Turks
@@ -4919,7 +4924,7 @@ grefm.123 = { # the women's council
 		capital = {
 			save_scope_as = grefm_capital_scope
 		}
-		grefm_create_feminism_characters = yes
+		grefm_create_feminism_characters_effect = yes
 		random_character_in_void = {
 			limit = {
 				has_template = template_grefm_parren_kalliroi
@@ -7462,6 +7467,286 @@ grefm.209 = { # The Greek Ethnogenesis
 	}
 }
 
+#### URUM REVANCHISM EVENTS ####
+grefm.260 = { # The Urums of Little Theodoro
+	type = country_event
+	placement = root
+	
+	title = grefm.260.t
+	desc = grefm.260.d
+	flavor = grefm.260.f
+	
+	event_image = {
+		video = "grefm_ion_intro"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		c:TUR ?= {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = grefm.260.a
+		default_option = yes
+		if = {
+			limit = {
+				c:THE ?= this
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_claim = s:STATE_CRIMEA
+						owns_entire_state_region = STATE_CRIMEA
+					}
+				}
+				s:STATE_CRIMEA = {
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+
+}
+
+grefm.261 = { # The Legacy of Rhōmanía
+	type = country_event
+	placement = root
+	
+	title = grefm.261.t
+	desc = grefm.261.d
+	flavor = grefm.261.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_scions_of_rhomania
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Vanilla Claims Option, merged into one event
+		name = grefm.261.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_claim = s:STATE_EASTERN_THRACE
+				}
+			}
+			s:STATE_EASTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					owns_entire_state_region = STATE_MACEDONIA
+					has_claim = s:STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_SKOPIA
+					has_claim = s:STATE_SKOPIA
+				}
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					has_claim = s:STATE_WESTERN_THRACE
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+					has_claim = s:STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_HUDAVENDIGAR
+					has_claim = s:STATE_HUDAVENDIGAR
+				}
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_AYDIN
+					has_claim = s:STATE_AYDIN
+				}
+			}
+			s:STATE_AYDIN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					has_claim = s:STATE_WEST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_EAST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_ALBANIA }
+			}
+			s:STATE_ALBANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_CRETE
+					has_claim = s:STATE_CRETE
+				}
+			}
+			s:STATE_CRETE = {
+				add_claim = ROOT
+			}
+		}
+	}
+	
+	option = { # vanilla option 2
+		name = grefm.261.b
+		custom_tooltip = {
+			text = grefm_weaksauce_tt
+			hidden_effect = {
+				set_variable = grefm_weaksauce
+			}
+		}
+		add_radicals = {
+			culture = cu:urum
+			value = large_radicals
+		}
+	}
+
+}
+
+grefm.262 = { # The Throne of the East
+	type = country_event
+	placement = root
+	
+	title = grefm.262.t
+	desc = grefm.262.d
+	flavor = grefm.262.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_scions_of_rhomania
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			c:BYZ ?= this
+			c:HEMP ?= this
+		}
+	}
+	
+	immediate = {
+		set_global_variable = grefm_megali_idea_complete
+	}
+	
+	option = { # Become the Hellenic Empire
+		name = grefm.262.a
+		default_option = yes
+		add_primary_culture = cu:rhomaios
+		custom_tooltip = grefm_byz_possible_tt
+		set_variable = grefm_megali_idea_completed
+	}
+
+	option = { # Remain Greece
+		name = grefm.262.b
+		custom_tooltip = grefm_weaksauce_tt
+		custom_tooltip = grefm_tzatzikisauce_tt
+		trigger_event = {
+			id = grefm.273 # Greater Greece
+			days = 30
+		}
+		add_modifier = {
+			name = greek_nationalism
+			months = long_modifier_time
+		}
+		set_variable = grefm_weaksauce
+	}
+	
+}
+
 #### HELLENIC REVANCHISM EVENTS ####
 grefm.270 = { # The Lands of Thessaly
 	type = country_event
@@ -7725,7 +8010,6 @@ grefm.272 = { # The Future of Greece
 	}
 	
 	immediate = {
-		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	option = { # Become the Hellenic Empire
@@ -7919,22 +8203,6 @@ grefm.280 = { # The Lands of the Rhomaios
 		default_option = yes
 		if = {
 			limit = {
-				c:THE ?= this
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_claim = s:STATE_CRIMEA
-						owns_entire_state_region = STATE_CRIMEA
-					}
-				}
-				s:STATE_CRIMEA = {
-					add_claim = ROOT
-				}
-			}
-		}
-		if = {
-			limit = {
 				c:TRB ?= this
 			}
 			if = {
@@ -8019,7 +8287,7 @@ grefm.281 = { # The Legacy of Rhōmanía
 	}
 	
 	option = { # Vanilla Claims Option, merged into one event
-		name = grefm.271.a
+		name = grefm.281.a
 		default_option = yes
 		if = {
 			limit = {
@@ -8142,7 +8410,7 @@ grefm.281 = { # The Legacy of Rhōmanía
 	}
 	
 	option = { # vanilla option 2
-		name = grefm.271.b
+		name = grefm.281.b
 		custom_tooltip = {
 			text = grefm_weaksauce_tt
 			hidden_effect = {
@@ -8193,7 +8461,7 @@ grefm.282 = { # The Throne of the East
 	}
 	
 	option = { # Become the Hellenic Empire
-		name = grefm.272.a
+		name = grefm.282.a
 		default_option = yes
 		if = {
 			limit = {
@@ -8211,7 +8479,7 @@ grefm.282 = { # The Throne of the East
 	}
 
 	option = { # Remain Greece
-		name = grefm.272.b
+		name = grefm.282.b
 		custom_tooltip = grefm_weaksauce_tt
 		custom_tooltip = grefm_tzatzikisauce_tt
 		trigger_event = {
@@ -9840,7 +10108,7 @@ grefm.418 = { # Jewish Exclusion
 	}	
 	
 	immediate = {
-		grefm_clean_up_ionian_jew_modifiers = yes
+		grefm_cleanup_ionian_jewery_effect = yes
 	}
 	
 	option = {
@@ -9884,7 +10152,7 @@ grefm.419 = { # A Judaeo-Greek Nation
 	}
 	
 	immediate = {
-		grefm_clean_up_ionian_jew_modifiers = yes
+		grefm_cleanup_ionian_jewery_effect = yes
 #		set_global_variable = grefm_romaniote_jews_integrated
 	}
 	
@@ -11835,7 +12103,7 @@ grefm.595 = { # The Epirote Revolt (TUR/EGY)
 		}
 		c:EPI = {
 			save_scope_as = epirus_scope
-			create_epirus_characters = yes
+			grefm_create_epirus_characters_effect = yes
 			set_variable = grefm_revolt_tracker
 		}
 		create_diplomatic_pact = {
@@ -11997,7 +12265,7 @@ grefm.596 = { # The Cypriot Revolt (TUR/EGY)
 		}
 		c:CYP = {
 			save_scope_as = cyprus_scope
-			create_cyprus_characters = yes
+			grefm_create_cyprus_characters_effect = yes
 			set_variable = grefm_revolt_tracker
 		}
 		create_diplomatic_pact = {
@@ -13632,7 +13900,7 @@ grefm.833 = { # A Day at the Races
 				months = 48
 			}
 		}
-		grefm_cleanup_quadrennial_race_variables_effect = yes
+		grefm_cleanup_quadrennial_race_effect = yes
 	}
 	
 }
@@ -14238,7 +14506,7 @@ grefm.911 = { # The Epirote Revolt (No Triggers)
 		}
 		c:EPI = {
 			save_scope_as = epirus_scope
-			create_epirus_characters = yes
+			grefm_create_epirus_characters_effect = yes
 			set_variable = grefm_revolt_tracker
 		}
 		create_diplomatic_pact = {
@@ -14373,7 +14641,7 @@ grefm.912 = { # The Cypriot Revolt (No Triggers)
 		}
 		c:CYP = {
 			save_scope_as = cyprus_scope
-			create_cyprus_characters = yes
+			grefm_create_cyprus_characters_effect = yes
 			set_variable = grefm_revolt_tracker
 		}
 		create_diplomatic_pact = {

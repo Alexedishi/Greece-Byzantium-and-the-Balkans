@@ -1,4 +1,137 @@
-﻿## Bavarocracy Effects ##
+﻿##########################
+# GREFM SCRIPTED EFFECTS #
+##########################
+
+#### TABLE OF CONTENTS ####
+# GRE0 - Technical Effects
+# GRE1 - Bavarocracy Effects 
+# GRE2 - Archaeology Effects
+# GRE3 - Character Effects
+# GRE4 - Greek Separatism Effects
+# GRE5 - Heptanese Effects
+# GRE6 - Samos Effects
+# GRE7 - Byzantium Effects
+############################
+
+## GRE0 - Technical Effects ##
+
+grefm_setup_hellene_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+			OR = {
+				is_pop_type = aristocrats
+				is_pop_type = capitalists
+				is_pop_type = clergymen
+				is_pop_type = academics
+				is_pop_type = bureaucrats
+				is_pop_type = engineers
+				is_pop_type = shopkeepers
+				is_pop_type = clerks
+				is_pop_type = machinists
+				is_pop_type = farmers
+			}
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 1
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 0.6
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+}
+
+grefm_setup_rhomaios_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = rhomaios
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 0.05
+		}
+	}
+}
+
+grefm_rhomaios_country_start_effect = {
+	c:TUR ?= {
+		if = {
+			limit = {
+				c:TRB ?= {
+					is_player = no
+				}
+			}
+			annex = c:TRB
+		}
+		if = {
+			limit = {
+				c:GRE_CAP ?= {
+					is_player = no
+				}
+			}
+			annex = c:GRE_CAP
+		}
+	}
+	c:RUS ?= {
+		if = {
+			limit = {
+				c:THE ?= {
+					is_player = no
+				}
+			}
+			annex = c:THE
+		}
+	}
+}
+
+grefm_purge_turkish_homelands_effect = {
+	every_scope_state = {
+		limit = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					is_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:turkish
+			value = small_radicals
+		}
+		state_region = {
+			remove_homeland = cu:turkish
+		}
+	}
+}
+
+
+## GRE1 - Bavarocracy Scripted Effects ##
+
 grefm_initialize_bavarocracy_variables_effect = {
 	set_variable = {
 		name = grefm_bavarocracy_var
@@ -33,86 +166,8 @@ grefm_cleanup_bavarocracy_effect = {
 	set_variable = grefm_don_pacifico_var
 }
 
-## Character Effects ##
-grefm_create_feminism_characters = {
-	create_character = {
-		template = template_grefm_parren_kalliroi
-		on_created = {
-			place_character_in_void = 600
-		}
-	}
-	create_character = {
-		template = template_grefm_theodoropoulou_avra
-		on_created = {
-			place_character_in_void = 600
-		}
-	}
-}
 
-create_cyprus_characters = {
-	create_character = {
-		first_name = Nikodemos
-		last_name = Mylonas
-		age = 65
-		culture = cu:hellene
-		religion = rel:orthodox
-		historical = yes
-		is_general = yes
-		ig_leader = yes
-		interest_group = ig_devout
-		hq = region_anatolia
-		ruler = yes
-		ideology = ideology_ethno_nationalist
-		commander_rank = commander_rank_2
-		traits = {
-			expert_political_operator
-			ambitious
-			demagogue
-		}
-	}
-	
-}
-
-create_epirus_characters = {
-	create_character = {
-		first_name = Theodoros
-		last_name = Grivas
-		historical = yes
-		birth_date = 1797.1.1
-		culture = cu:hellene
-		religion = rel:orthodox
-		historical = yes
-		ig_leader = yes
-		interest_group = ig_armed_forces
-		ruler = yes
-		ideology = ideology_ethno_nationalist
-		traits = {
-			expert_political_operator
-			ambitious
-			demagogue
-		}
-	}
-	
-	create_character = {
-		first_name = Kitsos
-		last_name = Tzavelas
-		birth_date = 1800.1.1
-		culture = cu:hellene
-		religion = rel:orthodox
-		historical = yes
-		is_general = yes
-		interest_group = ig_armed_forces
-		hq = region_balkans
-		ideology = ideology_royalist
-		commander_rank = commander_rank_2
-		traits = {
-			persistent
-			brave
-		}
-	}
-}
-
-## EXCAVATION EFFECTS ##
+## GRE2 - Archaeology Effects
 
 grefm_initialize_archaeology_effect = {
 	set_variable = {
@@ -316,7 +371,89 @@ grefm_cleanup_archaeology_effect = {
 	remove_variable = grefm_roman_archeaology_var
 }
 
-## SEPARATISM EFFECTS ##
+
+## GRE3 - Character Effects ##
+
+grefm_create_feminism_characters_effect = {
+	create_character = {
+		template = template_grefm_parren_kalliroi
+		on_created = {
+			place_character_in_void = 600
+		}
+	}
+	create_character = {
+		template = template_grefm_theodoropoulou_avra
+		on_created = {
+			place_character_in_void = 600
+		}
+	}
+}
+
+grefm_create_cyprus_characters_effect = {
+	create_character = {
+		first_name = Nikodemos
+		last_name = Mylonas
+		age = 65
+		culture = cu:hellene
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		ig_leader = yes
+		interest_group = ig_devout
+		hq = region_anatolia
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		commander_rank = commander_rank_2
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	
+}
+
+grefm_create_epirus_characters_effect = {
+	create_character = {
+		first_name = Theodoros
+		last_name = Grivas
+		historical = yes
+		birth_date = 1797.1.1
+		culture = cu:hellene
+		religion = rel:orthodox
+		historical = yes
+		ig_leader = yes
+		interest_group = ig_armed_forces
+		ruler = yes
+		ideology = ideology_ethno_nationalist
+		traits = {
+			expert_political_operator
+			ambitious
+			demagogue
+		}
+	}
+	create_character = {
+		first_name = Kitsos
+		last_name = Tzavelas
+		birth_date = 1800.1.1
+		culture = cu:hellene
+		religion = rel:orthodox
+		historical = yes
+		is_general = yes
+		interest_group = ig_armed_forces
+		hq = region_balkans
+		ideology = ideology_royalist
+		commander_rank = commander_rank_2
+		traits = {
+			persistent
+			brave
+		}
+	}
+}
+
+
+## GRE4 - Greek Separatism Effects ##
+
 grefm_intialize_separatism_variables_effect = {
 	set_global_variable = {
 		name = grefm_epirus_radicals_var
@@ -661,8 +798,9 @@ grefm_greek_revolt_tension_effect = {
 	}
 }
 
-## MISCELLANEOUS EFFECTS ##
-grefm_clean_up_ionian_jew_modifiers = {
+## GRE5 - Heptanese Effects ##
+
+grefm_cleanup_ionian_jewery_effect = {
 	remove_modifier = modifier_grefm_jewish_legal_concessions
 	remove_modifier = modifier_grefm_denied_jewish_rights
 	remove_modifier = modifier_grefm_chronica_israelitika
@@ -670,6 +808,8 @@ grefm_clean_up_ionian_jew_modifiers = {
 	remove_modifier = modifier_grefm_suppressed_blood_libel
 #	remove_modifier = modifier_grefm_blood_libel # if you get this modifier, you deserve it
 }
+
+## GRE6 - Samos Effects ##
 
 grefm_setup_samos_effect = { # Laws copied over from Greece; the two countries were similarly giga-rural.
 
@@ -1166,94 +1306,13 @@ grefm_generate_samos_ruler_effect = { # This effect is huge and icky, but holy m
 	}
 }
 
-grefm_purge_turkish_homelands_effect = {
-	every_scope_state = {
-		limit = {
-			AND = {
-				NOT = { has_variable = grefm_turkish_reserve }
-				state_region = {
-					is_homeland = cu:turkish
-				}
-			}
-		}
-		add_radicals_in_state = {
-			culture = cu:turkish
-			value = small_radicals
-		}
-		state_region = {
-			remove_homeland = cu:turkish
-		}
-	}
-}
+## GRE7 - Byzantium Effects ##
 
-grefm_cleanup_quadrennial_race_variables_effect = {
+grefm_cleanup_quadrennial_race_effect = {
 	remove_variable = grefm_chariot_reds
 	remove_variable = grefm_chariot_whites
 	remove_variable = grefm_chariot_greens
 	remove_variable = grefm_chariot_blues
 	remove_variable = grefm_chariot_purples
 	remove_variable = grefm_chariot_golds
-}
-
-grefm_setup_hellene_pops_effect = {
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-			OR = {
-				is_pop_type = aristocrats
-				is_pop_type = capitalists
-				is_pop_type = clergymen
-				is_pop_type = academics
-				is_pop_type = bureaucrats
-				is_pop_type = engineers
-				is_pop_type = shopkeepers
-				is_pop_type = clerks
-				is_pop_type = machinists
-				is_pop_type = farmers
-			}
-		}
-		change_pop_culture = {
-			target = cu:hellene
-			value = 1
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-		}
-		change_pop_culture = {
-			target = cu:hellene
-			value = 0.6
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-		}
-		change_pop_culture = {
-			target = cu:rhomaios
-			value = 1
-		}
-	}
-}
-
-grefm_setup_rhomaios_pops_effect = {
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-		}
-		change_pop_culture = {
-			target = cu:rhomaios
-			value = 1
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = rhomaios
-		}
-		change_pop_culture = {
-			target = cu:hellene
-			value = 0.05
-		}
-	}
 }
