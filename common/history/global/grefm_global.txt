@@ -664,6 +664,28 @@
 		set_variable = eocfm_controls_moscow
 	}
 	
+	c:TUR ?= {
+		balkfm_initialize_border_variables_effect = yes
+		trigger_event = {
+			id = eqfm.001 # The Eastern Question
+			days = 1
+		}
+#		add_journal_entry = {
+#			type = je_balkfm_tur_karadag
+#		}
+		set_variable = {
+			name = balkfm_border_timeout_var
+			years = 1
+		}
+#		trigger_event = {
+#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
+#		}
+		eqfm_calculate_tension_variables_effect = yes # Yes, Turkey is loadbearing
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
+	}
+	
 	c:EGY ?= {
 		set_variable = eocfm_controls_alexandria
 		set_variable = eocfm_controls_jerusalem
