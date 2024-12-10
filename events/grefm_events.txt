@@ -642,6 +642,12 @@ grefm.003 = { # 3 September 1843 Revolution
 	
 	option = { # Othonian Absolutism Time
 		name = grefm.003.b
+		ruler = {
+			add_modifier = {
+				name = modifier_grefm_tyrant_king
+				months = long_modifier_time
+			}
+		}
 		every_interest_group = {
 			limit = {	
 				law_stance = {
@@ -1190,6 +1196,7 @@ grefm.008 = { # The Overthrow of the Bavarocracy
 		every_scope_character = {
 			limit = {
 				has_trait = trait_grefm_bavarocrat
+				is_ruler = no
 			}
 			exile_character = yes
 		}
@@ -2291,6 +2298,24 @@ grefm.022 = { # A Hellene King
 				}
 			}
 		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
 	}
 	
 	option = { # Mavrocordatos Option
@@ -2302,6 +2327,24 @@ grefm.022 = { # A Hellene King
 					template = template_grefm_hellene_king
 					last_name = Mavrocordatos
 				}
+			}
+		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = -15
 			}
 		}
 	}
@@ -2317,6 +2360,24 @@ grefm.022 = { # A Hellene King
 				}
 			}
 		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
 	}
 	
 	option = { # Ypsilantis Option
@@ -2328,6 +2389,24 @@ grefm.022 = { # A Hellene King
 					template = template_grefm_hellene_king
 					last_name = Ypsilantis
 				}
+			}
+		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = 15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = -15
 			}
 		}
 	}
@@ -2383,6 +2462,24 @@ grefm.023 = { # A Roman King
 				}
 			}
 		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = 25
+			}
+		}
 	}
 	
 	option = { # Doukas Option
@@ -2394,6 +2491,24 @@ grefm.023 = { # A Roman King
 					template = template_grefm_roman_king
 					last_name = Doukas
 				}
+			}
+		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = 25
 			}
 		}
 	}
@@ -2409,6 +2524,24 @@ grefm.023 = { # A Roman King
 				}
 			}
 		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = 25
+			}
+		}
 	}
 	
 	option = { # Palaiologos Option
@@ -2420,6 +2553,24 @@ grefm.023 = { # A Roman King
 					template = template_grefm_roman_king
 					last_name = Palaiologos
 				}
+			}
+		}
+		c:GBR ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:FRA ?= {
+			change_relations = {
+				country = root
+				value = -15
+			}
+		}
+		c:RUS ?= {
+			change_relations = {
+				country = root
+				value = 25
 			}
 		}
 	}
@@ -8240,7 +8391,7 @@ grefm.282 = { # The Throne of the East
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	option = { # Become the Hellenic Empire
+	option = { # Become the Roman Empire
 		name = grefm.282.a
 		default_option = yes
 		if = {
@@ -8255,6 +8406,13 @@ grefm.282 = { # The Throne of the East
 			}
 			custom_tooltip = grefm_byz_possible_tt
 		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:urum
+			}
+			add_primary_culture = cu:rhomaios
+			custom_tooltip = grefm_byz_possible_tt
+		}	
 		set_variable = grefm_megali_idea_completed
 	}
 

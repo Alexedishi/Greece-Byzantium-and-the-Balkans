@@ -985,6 +985,9 @@ je_balkfm_mon_nationalism = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		trigger_event = {
+			id = balkfm.380 # The Montenegrin Identity
+		}
 	}
 	
 	scripted_button = balkfm_mon_kingdom_button
@@ -1206,9 +1209,20 @@ je_balkfm_ser_serbian_heartlands = {
 	
 	group = je_group_balkfm_serbia
 	
-	should_be_pinned_by_default = yes	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:SER ?= this
+	}
+	
+	possible = {
+		has_journal_entry = je_balkfm_nacertanije
+	}
 	
 	immediate = {
+		trigger_event = {
+			id = balkfm.480 # The Serbian Heartlands
+		}
 	}
 	
 	complete = {
@@ -1222,7 +1236,24 @@ je_balkfm_ser_serbian_heartlands = {
 			id = balkfm.481 # Greater Serbia
 		}
 	}
-
+	
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_nacertanije_complete_tt
+				hidden_trigger = {
+					c:YUG ?= this
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_weaksauce_trigger_tt
+				hidden_trigger = {
+					has_variable = balkfm_weaksauce
+				}
+			}
+		}
+	}
+	
 	weight = 1000
 
 }
@@ -1252,9 +1283,20 @@ je_balkfm_ser_greater_serbia = {
 		}
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			NOT = { c:SER ?= this }
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_nacertanije_complete_tt
+				hidden_trigger = {
+					c:YUG ?= this
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_weaksauce_trigger_tt
+				hidden_trigger = {
+					has_variable = balkfm_weaksauce
+				}
+			}
 		}
 	}
 
@@ -3383,7 +3425,18 @@ je_balkfm_cro_triune_restoration = {
 	
 	should_be_pinned_by_default = yes
 	
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:croat
+	}
+	
+	possible = {
+		has_journal_entry = je_balkfm_nacertanije
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = balkfm.980 # The Triune Dream
+		}
 	}
 	
 	scripted_button = balkfm_proclaim_triune_button

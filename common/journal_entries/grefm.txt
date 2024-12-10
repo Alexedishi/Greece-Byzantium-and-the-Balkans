@@ -124,6 +124,13 @@ je_grefm_bavarocracy_main = {
 	}
 	
 	on_weekly_pulse = {
+		events = {
+			grefm.002 # A Crisis Averted
+			grefm.003 # The September Revolution
+			grefm.004 # Long Live the Constitution
+			grefm.009 # A Disgraced Tyrant
+			grefm.020 # Bavarianism in Greece
+		}
 		effect = {
 			set_variable = {
 				name = grefm_bavarocracy_progress_var
@@ -158,12 +165,7 @@ je_grefm_bavarocracy_main = {
 	
 	on_monthly_pulse = {
 		events = {
-			grefm.002 # A Crisis Averted
-			grefm.003 # The September Revolution
-			grefm.004 # Long Live the Constitution
-			grefm.009 # A Disgraced Tyrant
 			grefm.016 # The Philorthodox Conspiracy
-			grefm.020 # Bavarianism in Greece
 		}
 		effect = {
 			change_variable = {
@@ -960,11 +962,6 @@ je_grefm_greek_nationalism = {
 				name = grefm_rhomaios_culture_var
 				value = grefm_romanism_value
 			}
-		}
-	}
-	
-	on_monthly_pulse = {
-		effect = {
 			je:je_grefm_greek_nationalism = {
 				set_bar_progress = {
 					name = grefm_hellenism_progress_bar
@@ -978,6 +975,9 @@ je_grefm_greek_nationalism = {
 				}
 			}
 		}
+	}
+	
+	on_monthly_pulse = {
 	}
 	
 	weight = 3000 # third billing, behind je_grefm_megali_idea
@@ -1494,18 +1494,23 @@ je_grefm_greater_greece = {
 		custom_tooltip = {
 			text = je_grefm_greater_greece_tt
 			hidden_trigger = {
-				owns_entire_state_region = STATE_EASTERN_THRACE
-				owns_entire_state_region = STATE_ATTICA
-				owns_entire_state_region = STATE_THESSALIA
-				owns_entire_state_region = STATE_MACEDONIA
-				owns_entire_state_region = STATE_SKOPIA
-				owns_entire_state_region = STATE_WESTERN_THRACE
-				owns_entire_state_region = STATE_NORTHERN_THRACE
-				owns_entire_state_region = STATE_HUDAVENDIGAR
-				owns_entire_state_region = STATE_AYDIN
-				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-				owns_entire_state_region = STATE_ALBANIA
+				calc_true_if = {
+					amount >= 10
+					owns_entire_state_region = STATE_ATTICA
+					owns_entire_state_region = STATE_PELOPONNESE
+					owns_entire_state_region = STATE_THESSALIA
+					owns_entire_state_region = STATE_MACEDONIA
+					owns_entire_state_region = STATE_SKOPIA
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+					owns_entire_state_region = STATE_HUDAVENDIGAR
+					owns_entire_state_region = STATE_AYDIN
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					owns_entire_state_region = STATE_ALBANIA
+					owns_entire_state_region = STATE_CRETE
+					owns_entire_state_region = STATE_IONIAN_ISLANDS
+				}
 			}
 		}
 		owns_entire_state_region = STATE_CRETE
@@ -1641,10 +1646,6 @@ je_grefm_shores_of_phoenicia = {
 	}
 	
 	complete = {
-		country_rank >= rank_value:great_power
-		any_scope_state = {
-			has_building = building_mega_palation
-		}
 		country_or_subject_owns_entire_state_region = STATE_ALEPPO
 		country_or_subject_owns_entire_state_region = STATE_LEBANON
 		country_or_subject_owns_entire_state_region = STATE_SYRIA
@@ -2886,8 +2887,13 @@ je_grefm_constantinople = { # 14 Regions of Constantinople
 	
 	possible = {
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
+		custom_tooltip = {
+			text = je_grefm_constantinople_tt
+			hidden_trigger = {
+				capital = {
+					state_region = s:STATE_EASTERN_THRACE
+				}
+			}
 		}
 	}
 	
@@ -3063,8 +3069,13 @@ je_grefm_byzantine_nationalism = {
 				c:BYZ ?= this
 			}
 		}
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
+		custom_tooltip = {
+			text = je_grefm_constantinople_tt
+			hidden_trigger = {
+				capital = {
+					state_region = s:STATE_EASTERN_THRACE
+				}
+			}
 		}
 		NOR = {
 			has_law = law_type:law_ethnostate
@@ -3217,10 +3228,6 @@ je_grefm_rome_of_the_east = {
 	}
 
 	complete = {
-		country_rank >= rank_value:great_power
-		any_scope_state = {
-			has_building = building_mega_palation
-		}
 		country_or_subject_owns_entire_state_region = STATE_ALEPPO
 		country_or_subject_owns_entire_state_region = STATE_LEBANON
 		country_or_subject_owns_entire_state_region = STATE_SYRIA
@@ -3469,12 +3476,20 @@ je_grefm_bul_megali_idea = { # megali idea minus Attica and the Islands
 		trigger_event = {
 			id = balkfm.588 # The Queen of Cities
 		}
+		show_as_tooltip = {
+			add_primary_culture = cu:rhomaios
+		}
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = grefm_weaksauce
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = balkfm_weaksauce
+				has_global_variable = has_formed_byz
+				has_global_variable = grefm_megali_idea_complete
+			}
 		}
 	}
 	
@@ -3533,16 +3548,24 @@ je_grefm_rom_megali_idea = {
 		trigger_event = { 
 			id = balkfm.679 # The Queen of Cities
 		}
+		show_as_tooltip = {
+			add_primary_culture = cu:rhomaios
+		}
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = grefm_weaksauce
+			OR = {
+				has_variable = grefm_weaksauce
+				has_variable = balkfm_weaksauce
+				has_global_variable = has_formed_byz
+				has_global_variable = grefm_megali_idea_complete
+			}
 		}
 	}
 	
-	weight = 1000
+	weight = 500
 
 }
 
