@@ -118,11 +118,9 @@ balkfm_initialize_yugoslavism_effect = {
 		check_range_bounds = no
 		save_scope_as = balkfm_yugoslav_leader_scope
 	}
-	scope:balkfm_yugoslav_leader_scope = {
-		set_global_variable = {
-			name = balkfm_yugoslav_leader_prestige_var
-			value = prestige
-		}
+	set_global_variable = {
+		name = balkfm_yugoslav_leader_prestige_var
+		value = scope:balkfm_yugoslav_leader_scope.prestige
 	}
 	set_variable = {
 		name = balkfm_yugoslav_leader_var
@@ -143,7 +141,7 @@ balkfm_determine_yugoslav_leader_effect = {
 	scope:balkfm_yugoslav_leader_scope = {
 		set_global_variable = {
 			name = balkfm_yugoslav_leader_prestige_var
-			value = prestige
+			value = root.prestige
 		}
 	}
 	set_variable = {
