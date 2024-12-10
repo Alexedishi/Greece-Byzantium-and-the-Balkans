@@ -138,14 +138,8 @@ balkfm_form_yugoslavia_button = {
 	name = "balkfm_form_yugoslavia"
 	desc = "balkfm_form_yugoslavia_desc"
 	
-	visible = {
-		NOR = {
-			has_global_variable = has_formed_yug
-			c:SRPS ?= this
-			c:TSAR ?= this
-			c:TRIU ?= this
-			c:BYZ ?= this
-		}
+	visible = { # This button has been downgraded to be a fallback for BUL
+		c:BUL ?= this
 	}
 	
 	possible = { 
@@ -218,6 +212,12 @@ balkfm_austrian_agitation_button = {
 		trigger_event = {
 			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
 		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:AUS
+				value = 10
+			}
+		}
 		remove_variable = balkfm_yugoslav_agitation_actor
 	}
 	
@@ -270,6 +270,12 @@ balkfm_ottoman_agitation_button = {
 		}
 		trigger_event = {
 			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
+		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:TUR
+				value = 10
+			}
 		}
 		remove_variable = balkfm_yugoslav_agitation_actor
 	}
@@ -880,43 +886,6 @@ balkfm_cement_monarchy_button = {
 	}
 }
 
-balkfm_restore_serbia_button = {
-	name = "balkfm_restore_serbia"
-	desc = "balkfm_restore_serbia_desc"
-	
-	visible = {
-		NOT = { has_global_variable = has_formed_srps }
-		NOT = { c:YUG ?= this }
-	}
-	
-	possible = {
-		custom_tooltip = {
-			text = je_balkfm_ser_monarchism_complete_tt
-			hidden_trigger = {
-				NOT = {
-					has_journal_entry = je_balkfm_ser_monarchism
-				}
-			}
-		}
-		is_subject = no
-		owns_entire_state_region = STATE_NORTHERN_SERBIA
-		owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MONTENEGRO
-		owns_entire_state_region = STATE_BOSNIA
-		owns_entire_state_region = STATE_DALMATIA
-		owns_entire_state_region = STATE_SLAVONIA
-		owns_entire_state_region = STATE_BANAT
-		owns_entire_state_region = STATE_DELVIDEK
-	}
-	
-	effect = {
-		change_tag = SRPS
-		set_global_variable = has_formed_srps
-	}
-
-}
-
 # BULGARIA BUTTONS
 
 balkfm_purchase_rail_button = {
@@ -1281,12 +1250,11 @@ balkfm_uplift_rumelia_button = {
 	desc = "balkfm_uplift_rumelia_desc"
 	
 	visible = {
-		NOR = {
-			owns_entire_state_region = STATE_NORTHERN_THRACE
-			exists = c:ERUM
-		}
 		c:TUR ?= {
 			owns_entire_state_region = STATE_NORTHERN_THRACE
+		}
+		NOT = {
+			exists = c:ERUM
 		}
 	}
 	
@@ -1314,9 +1282,6 @@ balkfm_uplift_rumelia_button = {
 			trigger_event = {
 				id = balkfm.578 # Eastern Rumelia Rebels!
 			}
-		}
-		trigger_event = {
-			id = balkfm.578 # Eastern Rumelia Rebels!
 		}
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation

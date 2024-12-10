@@ -1,9 +1,177 @@
-﻿GRE = {
+﻿BYZ = {
+	## Rhomania Name Variants
+	dynamic_country_name = {
+		name = dyn_c_rhomania
+		adjective = SPQR_ADJ
+
+		is_main_tag_only = yes
+		priority = 0
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_rhomania_empire
+		adjective = SPQR_ADJ
+
+		is_main_tag_only = yes
+		priority = 1
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+			OR = {
+				coa_def_monarchy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+				coa_def_military_junta_flag_trigger = yes
+				coa_def_fascist_flag_trigger = yes
+			}
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_rhomania_republic
+		adjective = SPQR_ADJ
+		
+		is_main_tag_only = yes
+		priority = 2
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+			coa_def_republic_flag_trigger = yes
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_rhomania_synod
+		adjective = SPQR_ADJ
+		
+		is_main_tag_only = yes
+		priority = 2
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+			coa_def_theocracy_flag_trigger = yes
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_rhomania_peoples_republic
+		adjective = SPQR_ADJ
+		
+		is_main_tag_only = yes
+		priority = 10000 # why PDX why
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+			coa_def_communist_flag_trigger = yes
+		}
+	}
+
+	dynamic_country_name = {
+		name = dyn_c_rhomania_peoples_front
+		adjective = SPQR_ADJ
+		
+		is_main_tag_only = yes
+		priority = 3
+		
+		trigger = {
+			has_game_rule = grefm_rome_name_rule
+			coa_def_anarchy_flag_trigger = yes
+		}
+	}
+	
+	## Byzantium Name Variants
+	dynamic_country_name = {
+		name = BYZ
+		adjective = BYZ_ADJ
+
+		is_main_tag_only = yes
+		priority = 0
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_byzantine_empire
+		adjective = BYZ_ADJ
+
+		is_main_tag_only = yes
+		priority = 1
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+			OR = {
+				coa_def_monarchy_flag_trigger = yes
+				coa_def_autocracy_flag_trigger = yes
+				coa_def_military_junta_flag_trigger = yes
+				coa_def_fascist_flag_trigger = yes
+			}
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_byzantine_republic
+		adjective = BYZ_ADJ
+		
+		is_main_tag_only = yes
+		priority = 2
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+			coa_def_republic_flag_trigger = yes
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_patriarchal_synod
+		adjective = BYZ_ADJ
+		
+		is_main_tag_only = yes
+		priority = 2
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+			coa_def_theocracy_flag_trigger = yes
+		}
+	}
+	
+	dynamic_country_name = {
+		name = dyn_c_byzantine_peoples_republic
+		adjective = BYZ_ADJ
+		
+		is_main_tag_only = yes
+		priority = 10000 # still hilarious
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+			coa_def_communist_flag_trigger = yes
+		}
+	}
+
+	dynamic_country_name = {
+		name = dyn_c_byzantine_peoples_front
+		adjective = BYZ_ADJ
+		
+		is_main_tag_only = yes
+		priority = 3
+		
+		trigger = {
+			has_game_rule = grefm_byzantium_name_rule
+			coa_def_anarchy_flag_trigger = yes
+		}
+	}
+}
+
+GRE = {
 	dynamic_country_name = {
 		name = dyn_c_greek_peoples_republic
 
 		is_main_tag_only = yes
-		priority = 1
+		priority = 10000
 		
 		trigger = {
 			OR = {

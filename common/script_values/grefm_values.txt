@@ -1,16 +1,79 @@
 ﻿## Bavarocracy Values ##
 grefm_bavarocracy_progress_value = {
 	value = 0
-	add = var:grefm_ruler_popularity_var
+	
+	## SOURCES ##
 	if = {
 		limit = {
-			NOT = {
-				has_variable = grefm_constitution_completed
+			OR = {
+				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		add = {
+			value = 0.5
+			desc = grefm_value_from_voting
+		}
+	}
+	add = {
+		value = {
+			if = {
+				limit = {
+					has_variable = balkfm_land_reform_complete
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_brigandage_complete
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					has_variable = balkfm_civic_reform_complete
+				}
+				add = 0.5
+			}
+		}
+		desc = grefm_value_from_completed_legacies
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_grefm_nikitas_released
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_turkeater_unleashed
+		}
+	}
+	if = {
+		limit = {
+			owns_entire_state_region = STATE_ATTICA
+			s:STATE_ATTICA = {
+				has_building = building_palaia_anaktora
+			}
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_royal_palace
+		}
+	}
+	
+	## PENALTIES ##
+	if = {
+		limit = {
+			NOR = {
+				has_variable = grefm_bavarocracy_secured
+				has_law = law_type:law_wealth_voting
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
 			}
 		}
 		subtract = {
 			value = 1
-			desc = grefm_value_from_ruler_popularity
+			desc = grefm_value_from_no_voting
 		}
 	}
 	if = {
@@ -57,9 +120,12 @@ grefm_bavarocracy_progress_value = {
 	}
 	if = {
 		limit = {
-			heir ?= {
+			OR = {
 				NOT = {
-					has_religion = orthodox
+					exists = heir
+				}
+				heir ?= {
+					has_template = template_grefm_armansperg_josef
 				}
 			}
 		}
@@ -69,105 +135,187 @@ grefm_bavarocracy_progress_value = {
 		}
 	}
 	
-	if = {
-		limit = {
-			has_modifier = modifier_grefm_nikitas_released
-		}
-		add = {
-			value = 1
-			desc = grefm_value_from_turkeater_unleashed
-		}
-	}
-	if = {
-		limit = {
-			owns_entire_state_region = STATE_ATTICA
-			s:STATE_ATTICA = {
-				has_building = building_palaia_anaktora
-			}
-		}
-		add = {
-			value = 1
-			desc = grefm_value_from_royal_palace
-		}
-	}
 	round_to = 0.01
 }
 
-grefm_ruler_popularity_value = {
-	value = 0
-	add = root.ruler.popularity
-	divide = 100
-}
-
-grefm_tyranny_support_value = {
-	value = 0
-	every_interest_group = {
-		limit = {
-			law_stance = {
-				law = law_type:law_autocracy
-				value > neutral
-			}
-		}
-		add = ig_clout
-	}
-	multiply = 10
-}
-
-grefm_tyranny_opposition_value = {
-	value = 0
-	every_interest_group = {
-		limit = {
-			law_stance = {
-				law = law_type:law_autocracy
-				value < neutral
-			}
-		}
-		subtract = ig_clout
-	}
-	multiply = 10
-}
-
-grefm_tyranny_laws_value = {
+grefm_bavarocracy_instability_progress_value = {
 	value = 0
 	if = {
 		limit = {
-			has_law = law_type:law_autocracy
+			OR = {
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
+			}
 		}
-		add = 1
+		add = {
+			value = {
+				every_interest_group = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_autocracy
+								value < neutral
+							}
+							law_stance = {
+								law = law_type:law_oligarchy
+								value < neutral
+							}
+						}
+					}
+					add = ig_clout
+				}
+			}
+			desc = grefm_value_from_no_voting
+		}
 	}
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_hereditary_bureaucrats
-				has_law = law_type:law_appointed_bureaucrats
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
 			}
 		}
-		add = 1
+		add = {
+			value = {
+				every_political_movement = {
+					limit = {
+						OR = {
+							law_stance = {
+								law = law_type:law_autocracy
+								value < neutral
+							}
+							law_stance = {
+								law = law_type:law_oligarchy
+								value < neutral
+							}
+						}
+					}
+					add = political_movement_radicalism
+				}
+			}
+			desc = grefm_value_from_liberal_movements
+		}
+	}
+	subtract = {
+		value = {
+			add = root.ruler.popularity
+			divide = 100
+		}
+		desc = grefm_value_from_ruler_popularity
+	}
+	round_to = 0.01
+}
+
+## Greek Nationalism Values ##
+
+grefm_hellenism_value = {
+	value = 0
+	if = {
+		limit = {	
+			country_has_primary_culture = cu:hellene
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_hellene_primary
+		}
+	}
+	add = {
+		value = {
+			add = grefm_hellene_literacy_value
+			multiply = 10
+			round_to = 1
+		}
+		desc = grefm_value_from_hellene_literacy
 	}
 	if = {
 		limit = {
-			OR = {
-				has_law = law_type:law_serfdom	
-				has_law = law_type:law_tenant_farmers
+			has_variable = grefm_greek_language_katharevousa
+		}
+		add = {
+			value = 2
+			desc = grefm_value_from_katharevousa
+		}
+	}
+	if = {
+		limit = {
+			has_variable = grefm_greek_language_demotic
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_demotic
+		}
+	}
+	add = {
+		value = grefm_hellenic_artifact_value
+		desc = grefm_value_from_hellene_artifacts
+	}
+	if = {
+		limit = {
+			ruler = {
+				has_culture = cu:hellene
 			}
 		}
-		add = 1
+		add = {
+			value = 2
+			desc = grefm_value_from_greek_king
+		}
 	}
+	max = 10
 }
 
-grefm_tyranny_popularity_value = {
+grefm_romanism_value = {
 	value = 0
-	add = root.ruler.popularity
-	divide = 10
-}
-
-grefm_tyranny_progress_value = {
-	value = 0
-	add = var:grefm_tyranny_support_var
-	add = var:grefm_tyranny_opposition_var
-	add = var:grefm_tyranny_laws_var
-	add = var:grefm_tyranny_popularity_var
-	round_to = 0.01
+	if = {
+		limit = {	
+			country_has_primary_culture = cu:rhomaios
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_rhomaios_primary
+		}
+	}
+	add = {
+		value = {
+			add = grefm_rhomaios_literacy_value
+			multiply = 10
+			round_to = 1
+		}
+		desc = grefm_value_from_rhomaios_literacy
+	}
+	if = {
+		limit = {
+			has_variable = grefm_greek_language_rhomaiika
+		}
+		add = {
+			value = 2
+			desc = grefm_value_from_rhomaiika
+		}
+	}
+	if = {
+		limit = {
+			has_variable = grefm_greek_language_khoine
+		}
+		add = {
+			value = 1
+			desc = grefm_value_from_khoine
+		}
+	}
+	add = {
+		value = grefm_roman_artifact_value
+		desc = grefm_value_from_roman_artifacts
+	}
+	if = {
+		limit = {
+			ruler = {
+				has_culture = cu:rhomaios
+			}
+		}
+		add = {
+			value = 2
+			desc = grefm_value_from_roman_king
+		}
+	}
+	max = 10
 }
 
 ## Greek Artifact Values ##
@@ -221,15 +369,159 @@ grefm_artifact_value = {
 		}
 		add = 1
 	}
+	
 	if = {
 		limit = {
-			has_variable = byzfm_mega_palation_complete
+			has_variable = grefm_corinth_1_complete
 		}
 		add = 1
 	}
 	if = {
 		limit = {
-			has_variable = byzfm_hippodrome_complete
+			has_variable = grefm_corinth_2_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_thessaloniki_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_thebes_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_nicomedia_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_smyrna_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_tyana_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_chios_complete
+		}
+		add = 1
+	}
+	
+	min = 0
+	max = 10
+}
+
+grefm_hellenic_artifact_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = grefm_parthenon_1_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_parthenon_2_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_knossos_1_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_knossos_2_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_gla_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_delos_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_larissa_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_rhodes_complete
+		}
+		add = 1
+	}
+}
+
+grefm_roman_artifact_value = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = grefm_corinth_1_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_corinth_2_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_thessaloniki_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_thebes_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_nicomedia_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_smyrna_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_tyana_complete
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_variable = grefm_chios_complete
 		}
 		add = 1
 	}
@@ -237,7 +529,7 @@ grefm_artifact_value = {
 
 ## Language Question Variables
 
-grefm_greek_radicals_value = {
+grefm_hellene_radicals_value = {
 	value = {
 		every_scope_pop = {
 			limit = {
@@ -250,6 +542,66 @@ grefm_greek_radicals_value = {
 		every_scope_pop = {
 			limit = {
 				culture = cu:hellene
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_hellene_literacy_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:hellene
+			}
+			add = literacy_rate
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:hellene
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_rhomaios_radicals_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = pop_radical_fraction
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = 1
+		}
+		min = 1 # DIV/0 safety
+	}
+}
+
+grefm_rhomaios_literacy_value = {
+	value = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
+			}
+			add = literacy_rate
+		}
+	}
+	divide = {
+		every_scope_pop = {
+			limit = {
+				culture = cu:rhomaios
 			}
 			add = 1
 		}
@@ -272,13 +624,25 @@ grefm_university_count_value = {
 
 grefm_language_decay_value = {
 	value = 0
-	add = root.literacy_rate
+	
+	# Dimotiki Sources
 	add = root.ig:ig_rural_folk.ig_clout
-	add = root.ig:ig_intelligentsia.ig_clout
+	add = grefm_hellene_literacy_value
+
+	# Katharevousa Sources
 	add = grefm_university_count_value
+	
+	# Khoine Sources
 	add = root.ig:ig_landowners.ig_clout
 	add = root.ig:ig_devout.ig_clout
-	divide = 6 # this is meant to slow down everything and clap out the weakest of the three values
+	
+	# Rhomaiika Sources
+	add = grefm_rhomaios_literacy_value
+	
+	# Other Sources
+	add = root.ig:ig_intelligentsia.ig_clout
+	
+	divide = 7 # this is meant to slow down everything and clap out the weakest of the three values
 }
 
 ## Greek Separatism Values ##

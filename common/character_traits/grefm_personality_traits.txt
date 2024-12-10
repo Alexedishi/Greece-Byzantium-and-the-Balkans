@@ -126,3 +126,181 @@ trait_grefm_ethnarch = {
 	
 	value = 0
 }
+
+trait_grefm_elected_ruler = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/social_banditry.dds"
+	
+	character_modifier = {
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		unit_morale_recovery_mult = 0.1
+	}
+	
+	country_modifier = {
+	}
+
+	agitator_modifier = {
+	}
+	
+	interest_group_modifier = {
+	}
+	
+	possible = {
+		always = no
+	}
+	
+	weight = {
+		value = 0
+	}
+	
+	replace = {
+	}
+	
+	value = 0
+}
+
+trait_grefm_absolutist_ruler = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/imperious.dds"
+
+	character_modifier = {
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		character_command_limit_mult = 0.25
+	}
+	
+	country_modifier = {
+		country_authority_mult = 0.10
+		country_prestige_mult = 0.05
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.05
+		interest_group_pop_attraction_mult = 0.05
+	}
+	
+	possible = {
+		always = no
+	}
+	
+	weight = {
+		value = 0
+	}
+				
+	replace = {
+	}
+	
+	value = 0
+	
+}
+
+trait_grefm_native_ruler = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/imperious.dds"
+
+	character_modifier = {
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		character_command_limit_mult = 0.25
+	}
+	
+	country_modifier = {
+		country_authority_mult = 0.10
+		country_prestige_mult = 0.05
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.05
+		interest_group_pop_attraction_mult = 0.05
+	}
+	
+	possible = {
+		owner ?= {
+ 			has_variable = byzfm_took_the_purple
+ 		}
+		is_heir = yes
+		NOT = { age < define:NCharacters|ADULT_AGE }
+	}
+	
+	weight = {
+		value = 1
+		if = {
+			limit = {
+				owner ?= {
+					has_variable = byzfm_took_the_purple
+				}
+			}
+			multiply = 1000 # make it happen
+		}
+		else = {
+			multiply = 0
+		}
+	}
+				
+	replace = {
+		trait_child
+	}
+	
+	value = 0
+	
+}
+
+trait_grefm_porphyrogenitus = {
+	type = personality
+	texture = "gfx/interface/icons/character_trait_icons/imperious.dds"
+
+	character_modifier = {
+		character_popularity_add = 25
+	}
+
+	command_modifier = {
+		character_command_limit_mult = 0.25
+	}
+	
+	country_modifier = {
+		country_authority_mult = 0.10
+		country_prestige_mult = 0.05
+	}
+	
+	interest_group_modifier = {
+		interest_group_pol_str_mult = 0.05
+		interest_group_pop_attraction_mult = 0.05
+	}
+	
+	possible = {
+		owner ?= {
+ 			has_variable = byzfm_took_the_purple
+ 		}
+		is_heir = yes
+		NOT = { age < define:NCharacters|ADULT_AGE }
+	}
+	
+	weight = {
+		value = 1
+		if = {
+			limit = {
+				owner ?= {
+					has_variable = byzfm_took_the_purple
+				}
+			}
+			multiply = 1000 # make it happen
+		}
+		else = {
+			multiply = 0
+		}
+	}
+				
+	replace = {
+		trait_child
+	}
+	
+	value = 0
+	
+}

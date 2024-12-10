@@ -121,10 +121,10 @@ namespace = balkfm
 #	309 - The Light of Modernity
 
 #310-319 - Secular Era of Montenegro Events
-#	310 - Old Rivalries
-#	311 - ##A Hostile Court <-Danilo replaces IG leaders
-#	312 - ##Blood Revenge <- Danilo gets shot
-#	313 - ##The Little Rabbit <- Nikola takes the throne // dont forget to add Mirko as a general
+#	310 - Blood Revenge
+#	311 - A Hostile Court
+#	312 - Blood Revenge
+#	313 - A Worldly Leader
 
 #320-329 - The Yugoslav Era Events
 #	320 - //The Kingdom of Montenegro
@@ -377,14 +377,14 @@ namespace = balkfm
 #	670 - Forms Without Substance (Teoria Formelor Fără Fond)
 #	671 - Etymologicum Magnum Romaniae
 #	672 - A Romanian Identity
-#673-679 - Byzantine Empire Restoration Events
-#	673 - //The Imperial Standard
-#	674 - //The Queen of Cities
-#	675 - //The Golden Eagle Soars
-#	676 - //Scions of the Empire
-#	677 - //Nova Roma Constantinopolitana
-#	678 - //Rome of the East
-#	679 - //Imperiul României
+#	673 - OPEN
+#	674 - OPEN
+#	675 - OPEN
+#	676 - OPEN
+#	677 - OPEN
+#678-679 - Byzantine Empire Restoration Events
+#	678 - ##The Imperial Standard
+#	679 - ##The Queen of Cities
 
 #680-689 - Romanian Unification Events
 #	680 - Our Declaration of Union
@@ -1589,9 +1589,8 @@ balkfm.110 = { # The Brigands Raid Again!
 	}
 	
 	cancellation_trigger = {
-		NOR = {
+		NOT = {
 			has_journal_entry = je_balkfm_brigandage
-			has_journal_entry = je_grefm_brigandage
 		}
 	}
 	
@@ -1778,39 +1777,6 @@ balkfm.200 = { # Yugoslavism Starter Event
 		name = balkfm.200.a
 		default_option = yes
 		custom_tooltip = balkfm_yugoslavism_tt
-		hidden_effect = {
-			if = {
-				limit = {
-					always = no ##TODO Enable this option once Montenegrin Nationalism is implemented
-#					# c:MON ?= this
-				}
-				trigger_event = {
-					id = balkfm.380 # Montenegrin Nationalism
-					days = 60
-				}
-			}
-			else_if = {
-				limit = {
-					c:SER ?= this
-				}
-				trigger_event = {
-					id = balkfm.480 # Serbian Nationalism
-					days = 60
-				}
-			}
-			else_if = {
-				limit = {
-					OR = {
-#						country_has_primary_culture = cu:slovene
-						country_has_primary_culture = cu:croat
-					}
-				}
-				trigger_event = {
-					id = balkfm.980 # The Triune Dream
-					days = 60
-				}
-			}
-		}
 		balkfm_determine_yugoslav_leader_effect = yes
 	}
 	
@@ -2131,7 +2097,7 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 	}
 
 	immediate = {
-		save_scope_as = formation_country
+		save_scope_as = yugoslav_formation_scope
 		cu:bosniak = {
 			save_scope_as = unification_culture
 		}
@@ -2156,10 +2122,6 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 	option = {
 		name = balkfm.209.a
 		default_option = yes
-		add_modifier = {
-			name = unification_prestige
-			months = very_long_modifier_time
-		}
 		every_state_region = {
 			limit = {
 				region = sr:region_balkans
@@ -5771,7 +5733,7 @@ balkfm.369 = { # The Lands of Montenegro
 
 #### MONTENEGRIN NATIONALISM ####
 
-balkfm.380 = { # The Black Mountain
+balkfm.380 = { # The Montenegrin Identity
 	type = country_event
 	placement = root
 	
@@ -6910,8 +6872,38 @@ balkfm.480 = { # The Serbian Heartlands
 	option = {
 		name = balkfm.480.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_ser_serbian_heartlands
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_NORTHERN_SERBIA
+					owns_entire_state_region = STATE_NORTHERN_SERBIA
+				}
+			}
+			s:STATE_NORTHERN_SERBIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SOUTHERN_SERBIA
+					owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				}
+			}
+			s:STATE_SOUTHERN_SERBIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SKOPIA
+					owns_entire_state_region = STATE_SKOPIA
+				}
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
 		}
 	}
 
@@ -6949,23 +6941,71 @@ balkfm.481 = { # Greater Serbia
 		add_journal_entry = {
 			type = je_balkfm_ser_greater_serbia
 		}
-		s:STATE_MONTENEGRO = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_MONTENEGRO
+					owns_entire_state_region = STATE_MONTENEGRO
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				add_claim = ROOT
+			}
 		}
-		s:STATE_BOSNIA = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_BOSNIA
+					owns_entire_state_region = STATE_BOSNIA
+				}
+			}
+			s:STATE_BOSNIA = {
+				add_claim = ROOT
+			}
 		}
-		s:STATE_DALMATIA = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_DALMATIA
+					owns_entire_state_region = STATE_DALMATIA
+				}
+			}
+			s:STATE_DALMATIA = {
+				add_claim = ROOT
+			}
 		}
-		s:STATE_SLAVONIA = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SLAVONIA
+					owns_entire_state_region = STATE_SLAVONIA
+				}
+			}
+			s:STATE_SLAVONIA = {
+				add_claim = ROOT
+			}
 		}
-		s:STATE_BANAT = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_BANAT
+					owns_entire_state_region = STATE_BANAT
+				}
+			}
+			s:STATE_BANAT = {
+				add_claim = ROOT
+			}
 		}
-		s:STATE_DELVIDEK = {
-			add_claim = root
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_DELVIDEK
+					owns_entire_state_region = STATE_DELVIDEK
+				}
+			}
+			s:STATE_DELVIDEK = {
+				add_claim = ROOT
+			}
 		}
 	}
 
@@ -11185,7 +11225,7 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 				}
 				create_diplomatic_pact = {
 					country = c:ERUM
-					type = dominion
+					type = puppet
 				}
 			}
 			else_if = {
@@ -11206,15 +11246,15 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 		}
 		c:BUL = {
 			save_scope_as = bulgaria_scope
-			trigger_event = {
-				id = balkfm.578 # Eastern Rumelia Rebels!
-			}
 		}
 	}
 	
 	option = { # For BUL
 		name = balkfm.578.a
 		default_option = yes
+		trigger = {
+			c:TUR != this
+		}
 		change_relations = {
 			country = c:ERUM
 			value = 50
@@ -11223,13 +11263,21 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 	
 	option = { # For TUR, spank them!
 		name = balkfm.578.b
+		trigger = {
+			c:TUR = this
+		}
 		scope:rumelia_scope = {
 			make_independent = yes
 		}
 		create_diplomatic_play = {
 			name = eqfm_balkan_rebellion
 			target_country = scope:rumelia_scope
-			type = dp_secession
+			type = dp_annex_war
+			add_war_goal = {
+				holder = root
+				type = conquer_state
+				target_state = s:STATE_NORTHERN_THRACE.region_state:ERUM
+			}
 		}
 		hidden_effect = {
 			random_diplomatic_play = {
@@ -11244,10 +11292,18 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 				add_diplomatic_play_war_support = { target = scope:rumelia_scope value = 100 }
 			}
 		}
+		c:BUL = {
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
+		}
 	}
 	
 	option = { # For TUR, be a pansy...
 		name = balkfm.578.c
+		trigger = {
+			c:TUR = this
+		}
 		scope:rumelia_scope = {
 			increase_autonomy = yes
 		}
@@ -11262,6 +11318,11 @@ balkfm.578 = { # Eastern Rumelia Rebels!
 		add_modifier = {
 			name = modifier_eqfm_caved_to_separatists
 			months = normal_modifier_time
+		}
+		c:BUL = {
+			trigger_event = {
+				id = balkfm.578 # Eastern Rumelia Rebels!
+			}
 		}
 	}
 
@@ -11406,12 +11467,9 @@ balkfm.581 = { # The Tophane Agreement
 			}
 		}
 		else = {
-			custom_tooltip = {
-				text = balkfm.680.a.ttb
-				create_diplomatic_pact = {
-					country = scope:rumelia_scope
-					type = puppet
-				}
+			create_diplomatic_pact = {
+				country = scope:rumelia_scope
+				type = puppet
 			}
 		}
 		change_relations = {
@@ -11659,10 +11717,9 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 	immediate = {
 	}
 	
-	option = { # Remain Bulgaria
+	option = { # Restore the Bulgarian Empire
 		name = balkfm.585.a
 		default_option = yes
-		change_tag = TSAR
 		add_journal_entry = {
 			type = je_balkfm_bul_empire
 		}
@@ -11683,7 +11740,6 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 	option = { # Embrace Yugoslavism
 		name = balkfm.585.b
 		default_option = yes
-		change_tag = TSAR
 		every_state_region = {
 			limit = {
 				OR = {
@@ -11706,9 +11762,8 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 
 	option = { # Restore Byzantium
 		name = balkfm.585.c
-		change_tag = TSAR
 		add_journal_entry = {
-			type = je_byzfm_bul_megali_idea
+			type = je_grefm_bul_megali_idea
 		}
 		every_state_region = {
 			limit = {
@@ -11758,7 +11813,7 @@ balkfm.585 = { # change tag to TSAR; branches for pan-slavia or byzfm
 		}
 	}
 	
-	option = { #weakness
+	option = { # Remain Just Bulgaria
 		name = balkfm.585.e
 		change_tag = TSAR
 		custom_tooltip = {
@@ -11868,10 +11923,6 @@ balkfm.587 = { # The Slavic Balkans
 	option = {
 		name = balkfm.587.a
 		default_option = yes
-		add_modifier = {
-			name = unification_prestige
-			months = very_long_modifier_time
-		}
 		every_state_region = {
 			limit = {
 				region = sr:region_balkans
@@ -11916,7 +11967,10 @@ balkfm.588 = { # The Queen of Cities
 		name = balkfm.588.a
 		default_option = yes
 		change_tag = BYZ
-		set_variable = byzfm_golden_lion # LET'S GO
+		hidden_effect = {
+			add_primary_culture = cu:bulgarian
+			add_primary_culture = cu:rhomaios
+		}
 	}
 
 }
@@ -14558,6 +14612,211 @@ balkfm.672 = { # A Romanian Identity
 	
 }
 
+balkfm.678 = { # The Imperial Standard
+	type = country_event
+	placement = root
+	
+	title = balkfm.678.t
+	desc = balkfm.678.d
+	flavor = balkfm.678.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_rom_megali_idea
+	}
+	
+	immediate = {
+	}
+	
+	option = { # Vanilla Claims Option, merged into one event
+		name = balkfm.678.a
+		default_option = yes
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EASTERN_THRACE
+					has_claim = s:STATE_EASTERN_THRACE
+				}
+			}
+			s:STATE_EASTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					owns_entire_state_region = STATE_MACEDONIA
+					has_claim = s:STATE_MACEDONIA
+				}
+			}
+			s:STATE_MACEDONIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_SKOPIA
+					has_claim = s:STATE_SKOPIA
+				}
+			}
+			s:STATE_SKOPIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WESTERN_THRACE
+					has_claim = s:STATE_WESTERN_THRACE
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+					has_claim = s:STATE_NORTHERN_THRACE
+				}
+			}
+			s:STATE_NORTHERN_THRACE = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_HUDAVENDIGAR
+					has_claim = s:STATE_HUDAVENDIGAR
+				}
+			}
+			s:STATE_HUDAVENDIGAR = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_AYDIN
+					has_claim = s:STATE_AYDIN
+				}
+			}
+			s:STATE_AYDIN = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					has_claim = s:STATE_WEST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_WEST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+				}
+			}
+			s:STATE_EAST_AEGEAN_ISLANDS = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOT = { owns_entire_state_region = STATE_ALBANIA }
+			}
+			s:STATE_ALBANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = { 
+					owns_entire_state_region = STATE_CRETE
+					has_claim = s:STATE_CRETE
+				}
+			}
+			s:STATE_CRETE = {
+				add_claim = ROOT
+			}
+		}
+	}
+	
+	option = { # vanilla option 2
+		name = balkfm.678.b
+		custom_tooltip = {
+			text = grefm_weaksauce_tt
+			hidden_effect = {
+				set_variable = grefm_weaksauce
+			}
+		}
+		add_radicals = {
+			culture = cu:romanian
+			value = large_radicals
+		}
+	}
+
+}
+
+balkfm.679 = { # The Queen of Cities
+	type = country_event
+	placement = root
+	
+	title = balkfm.679.t
+	desc = balkfm.679.d
+	flavor = balkfm.679.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_grefm_rom_megali_idea
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.679.a
+		default_option = yes
+		change_tag = BYZ
+		hidden_effect = {
+			add_primary_culture = cu:romanian
+			add_primary_culture = cu:rhomaios
+		}
+	}
+
+}
+
 #### ROMANIAN UNIFICATION EVENTS ####
 
 balkfm.680 = { # Our Declaration of Union (romania.2, integrated into balkfm)
@@ -15740,7 +15999,7 @@ balkfm.980 = { # The Triune Dream
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by balkfm.200
+		# triggered by je_balkfm_cro_triune_restoration
 	}
 	
 	immediate = {

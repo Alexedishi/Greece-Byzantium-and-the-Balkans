@@ -65,11 +65,10 @@ je_balkfm_land_reform = {
 		}
 		any_scope_building = {
 			is_building_type = building_wheat_farm
-			NOR = {
+			NOT = {
 				has_active_production_method = pm_simple_farming
-				has_active_production_method = pm_tools_disabled
 			}
-			level >= 10
+			level >= 5
 			weekly_profit > 5
 			occupancy >= 0.9
 		}
@@ -108,6 +107,19 @@ je_balkfm_civic_reform = {
 	}
 	
 	complete = {
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_grefm_armansperg_regency
+			}
+			custom_tooltip = {
+				text = grefm_regency_discharged_tt
+				hidden_trigger = {
+					NOT = {
+						has_modifier = modifier_grefm_armansperg_regency
+					}
+				}
+			}
+		}
 		NOT = {
 			has_law = law_type:law_hereditary_bureaucrats
 		}
@@ -273,7 +285,6 @@ je_balkfm_nacertanije = {
 	
 	possible = {
 		has_technology_researched = nationalism
-		is_subject = no
 		hidden_trigger = { # blocks journal before a tag has independence
 			is_secessionist = no
 		}
@@ -327,12 +338,7 @@ je_balkfm_nacertanije = {
 		custom_tooltip = {
 			text = je_balkfm_nacertanije_fail_tt
 			hidden_trigger = {
-				OR = {
-					c:SRPS ?= this
-					c:TSAR ?= this
-					c:TRIU ?= this
-					c:BYZ ?= this
-				}
+				balkfm_is_national_empire_trigger = yes
 			}
 		}
 	}
@@ -391,6 +397,9 @@ je_balkfm_nacertanije = {
 	status_desc = {
 		triggered_desc = {
 			desc = je_balkfm_nacertanije_status
+			trigger = {
+				has_global_variable = balkfm_yugoslav_leader_var
+			}
 		}
 	}
 
@@ -976,6 +985,9 @@ je_balkfm_mon_nationalism = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		trigger_event = {
+			id = balkfm.380 # The Montenegrin Identity
+		}
 	}
 	
 	scripted_button = balkfm_mon_kingdom_button
@@ -1197,9 +1209,20 @@ je_balkfm_ser_serbian_heartlands = {
 	
 	group = je_group_balkfm_serbia
 	
-	should_be_pinned_by_default = yes	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:SER ?= this
+	}
+	
+	possible = {
+		has_journal_entry = je_balkfm_nacertanije
+	}
 	
 	immediate = {
+		trigger_event = {
+			id = balkfm.480 # The Serbian Heartlands
+		}
 	}
 	
 	complete = {
@@ -1213,7 +1236,24 @@ je_balkfm_ser_serbian_heartlands = {
 			id = balkfm.481 # Greater Serbia
 		}
 	}
-
+	
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_nacertanije_complete_tt
+				hidden_trigger = {
+					c:YUG ?= this
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_weaksauce_trigger_tt
+				hidden_trigger = {
+					has_variable = balkfm_weaksauce
+				}
+			}
+		}
+	}
+	
 	weight = 1000
 
 }
@@ -1243,13 +1283,22 @@ je_balkfm_ser_greater_serbia = {
 		}
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			NOT = { c:SER ?= this }
+	fail = {
+		OR = {
+			custom_tooltip = {
+				text = je_balkfm_nacertanije_complete_tt
+				hidden_trigger = {
+					c:YUG ?= this
+				}
+			}
+			custom_tooltip = {
+				text = balkfm_weaksauce_trigger_tt
+				hidden_trigger = {
+					has_variable = balkfm_weaksauce
+				}
+			}
 		}
 	}
-	
-	scripted_button = balkfm_restore_serbia_button
 
 	weight = 1000
 
@@ -1623,7 +1672,6 @@ je_balkfm_bul_liberation_of_bulgaria = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE		
@@ -1661,7 +1709,6 @@ je_balkfm_bul_greater_bulgaria = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
@@ -1727,7 +1774,6 @@ je_balkfm_bul_greater_bulgaria_alternate = {
 	}
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		is_subject = no
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
@@ -1760,16 +1806,15 @@ je_balkfm_bul_tsardom = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
-		has_law = law_type:law_monarchy
 		owns_entire_state_region = STATE_BULGARIA
 		owns_entire_state_region = STATE_NORTHERN_THRACE
 		owns_entire_state_region = STATE_WESTERN_THRACE
 		owns_entire_state_region = STATE_SKOPIA
 		owns_entire_state_region = STATE_MACEDONIA
 		owns_entire_state_region = STATE_DOBRUDJA	
-		country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_ALBANIA	
+		owns_entire_state_region = STATE_NORTHERN_SERBIA
+		owns_entire_state_region = STATE_SOUTHERN_SERBIA
+		owns_entire_state_region = STATE_ALBANIA
 	}
 	
 	on_complete = {
@@ -1796,20 +1841,12 @@ je_balkfm_bul_empire = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
-		owns_entire_state_region = STATE_BULGARIA
-		owns_entire_state_region = STATE_NORTHERN_THRACE
-		owns_entire_state_region = STATE_WESTERN_THRACE
-		owns_entire_state_region = STATE_WALLACHIA
-		owns_entire_state_region = STATE_DOBRUDJA
-		owns_entire_state_region = STATE_SKOPIA
-		owns_entire_state_region = STATE_MACEDONIA
-		country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
-		country_or_subject_owns_entire_state_region = STATE_ALBANIA
-		country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
-		country_or_subject_owns_entire_state_region = STATE_BOSNIA
-		country_or_subject_owns_entire_state_region = STATE_DALMATIA
-		country_or_subject_owns_entire_state_region = STATE_CROATIA
+		custom_tooltip = {
+			text = je_balkfm_bul_empire_tt
+			hidden_trigger = {
+				c:TSAR ?= this
+			}
+		}
 	}
 	
 	on_complete = {
@@ -1830,7 +1867,7 @@ je_balkfm_bul_empire = {
 ## BULGARIAN IMPERIAL AMBITIONS ##
 
 je_balkfm_bul_old_bulgaria = {
-	icon = "gfx/interface/icons/event_icons/event_eagle.dds"
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
 	group = je_group_balkfm_bulgaria
 	
@@ -3017,7 +3054,7 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
                 country_has_primary_culture = cu:romanian
             }
         }
-    }	
+    }
 	
 	immediate = {
 	}
@@ -3129,7 +3166,11 @@ je_balkfm_rom_greater_romania = {
 	
     possible = {
         has_technology_researched = nationalism
-		is_subject = no
+		NOT = {
+            any_overlord_or_above ?= { # Can't unite the principalities if you're already the lesser in a pact with another Romanian state
+                country_has_primary_culture = cu:romanian
+            }
+        }
     }
 	
 	immediate = {
@@ -3385,7 +3426,18 @@ je_balkfm_cro_triune_restoration = {
 	
 	should_be_pinned_by_default = yes
 	
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:croat
+	}
+	
+	possible = {
+		has_journal_entry = je_balkfm_nacertanije
+	}
+	
 	immediate = {
+		trigger_event = {
+			id = balkfm.980 # The Triune Dream
+		}
 	}
 	
 	scripted_button = balkfm_proclaim_triune_button

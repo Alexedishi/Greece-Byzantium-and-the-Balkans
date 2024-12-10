@@ -1,4 +1,137 @@
-﻿## Bavarocracy Effects ##
+﻿##########################
+# GREFM SCRIPTED EFFECTS #
+##########################
+
+#### TABLE OF CONTENTS ####
+# GRE0 - Technical Effects
+# GRE1 - Bavarocracy Effects 
+# GRE2 - Archaeology Effects
+# GRE3 - Character Effects
+# GRE4 - Greek Separatism Effects
+# GRE5 - Heptanese Effects
+# GRE6 - Samos Effects
+# GRE7 - Byzantium Effects
+############################
+
+## GRE0 - Technical Effects ##
+
+grefm_setup_hellene_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+			OR = {
+				is_pop_type = aristocrats
+				is_pop_type = capitalists
+				is_pop_type = clergymen
+				is_pop_type = academics
+				is_pop_type = bureaucrats
+				is_pop_type = engineers
+				is_pop_type = shopkeepers
+				is_pop_type = clerks
+				is_pop_type = machinists
+				is_pop_type = farmers
+			}
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 1
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 0.6
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+}
+
+grefm_setup_rhomaios_pops_effect = {
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = greek
+		}
+		change_pop_culture = {
+			target = cu:rhomaios
+			value = 1
+		}
+	}
+	every_scope_pop = {
+		limit = {
+			has_pop_culture = rhomaios
+		}
+		change_pop_culture = {
+			target = cu:hellene
+			value = 0.05
+		}
+	}
+}
+
+grefm_rhomaios_country_start_effect = {
+	c:TUR ?= {
+		if = {
+			limit = {
+				c:TRB ?= {
+					is_player = no
+				}
+			}
+			annex = c:TRB
+		}
+		if = {
+			limit = {
+				c:GRE_CAP ?= {
+					is_player = no
+				}
+			}
+			annex = c:GRE_CAP
+		}
+	}
+	c:RUS ?= {
+		if = {
+			limit = {
+				c:THE ?= {
+					is_player = no
+				}
+			}
+			annex = c:THE
+		}
+	}
+}
+
+grefm_purge_turkish_homelands_effect = {
+	every_scope_state = {
+		limit = {
+			AND = {
+				NOT = { has_variable = grefm_turkish_reserve }
+				state_region = {
+					is_homeland = cu:turkish
+				}
+			}
+		}
+		add_radicals_in_state = {
+			culture = cu:turkish
+			value = small_radicals
+		}
+		state_region = {
+			remove_homeland = cu:turkish
+		}
+	}
+}
+
+
+## GRE1 - Bavarocracy Scripted Effects ##
+
 grefm_initialize_bavarocracy_variables_effect = {
 	set_variable = {
 		name = grefm_bavarocracy_var
@@ -9,24 +142,16 @@ grefm_initialize_bavarocracy_variables_effect = {
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_var
+		name = grefm_bavarocracy_instability_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_otto_points
-		value = 0
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_ruler_popularity_var
+		name = grefm_bavarocracy_instability_progress_var
 		value = 0
 	}
 }
 
-clean_up_bavarocracy_effect = {
+grefm_cleanup_bavarocracy_effect = {
 	hidden_effect = {
 		every_interest_group = {
 			remove_modifier = modifier_grefm_constitution_refused
@@ -38,66 +163,218 @@ clean_up_bavarocracy_effect = {
 	remove_variable = grefm_bavarocracy_var
 	remove_variable = grefm_bavarocracy_progress_var
 	remove_variable = grefm_tyranny_var
-	remove_variable = grefm_tyranny_progress_var
-	remove_variable = grefm_otto_points
+	set_variable = grefm_don_pacifico_var
 }
 
-grefm_initialize_tyranny_variables_effect = {
+
+## GRE2 - Archaeology Effects
+
+grefm_initialize_archaeology_effect = {
 	set_variable = {
-		name = grefm_tyranny_var
-		value = 100
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
+		name = grefm_archeaology_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_support_var
+		name = grefm_excavation_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_opposition_var
+		name = grefm_archeaology_sites_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_laws_var
+		name = grefm_hellenic_archeaology_var
 		value = 0
 	}
 	set_variable = {
-		name = grefm_tyranny_popularity_var
-		value = 0
-	}
-	set_variable = {
-		name = grefm_otto_points
+		name = grefm_roman_archeaology_var
 		value = 0
 	}
 }
 
-grefm_calculate_tyranny_variables_effect = {
-	set_variable = {
-		name = grefm_tyranny_support_var
-		value = grefm_tyranny_support_value
+grefm_update_artifact_modifier_effect = {
+	hidden_effect = {
+		remove_modifier = modifier_grefm_archaiologiki_etaireia
 	}
-	set_variable = {
-		name = grefm_tyranny_opposition_var
-		value = grefm_tyranny_opposition_value
+	if = {
+		limit = {
+			grefm_artifact_value <= 10
+		}
+		add_modifier = {
+			name = modifier_grefm_archaiologiki_etaireia
+			multiplier = grefm_artifact_value
+		}
 	}
-	set_variable = {
-		name = grefm_tyranny_laws_var
-		value = grefm_tyranny_laws_value
-	}
-	set_variable = {
-		name = grefm_tyranny_popularity_var
-		value = grefm_tyranny_popularity_value
-	}
-	set_variable = {
-		name = grefm_tyranny_progress_var
-		value = grefm_tyranny_progress_value
+	else = {
+		add_modifier = {
+			name = modifier_grefm_archaiologiki_etaireia
+			multiplier = 10
+		}
 	}
 }
 
-## Character Effects ##
-grefm_create_feminism_characters = {
+grefm_excavation_completion_effect = {
+	set_variable = {
+		name = grefm_excavation_var
+		value = 0
+	}
+	change_variable = {
+		name = grefm_archeaology_var
+		add = 1
+	}
+	
+	if = {
+		limit = {
+			has_variable = grefm_gla_excavation
+		}
+		remove_variable = grefm_gla_excavation
+		set_variable = grefm_gla_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_parthenon_1_excavation
+		}
+		remove_variable = grefm_parthenon_1_excavation
+		set_variable = grefm_parthenon_1_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_parthenon_2_excavation
+		}
+		remove_variable = grefm_parthenon_2_excavation
+		set_variable = grefm_parthenon_2_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_mycenae_1_excavation
+		}
+		remove_variable = grefm_mycenae_1_excavation
+		set_variable = grefm_knossos_1_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_mycenae_2_excavation
+		}
+		remove_variable = grefm_mycenae_2_excavation
+		set_variable = grefm_knossos_2_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_delos_excavation
+		}
+		remove_variable = grefm_delos_excavation
+		set_variable = grefm_delos_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_larissa_excavation
+		}
+		remove_variable = grefm_larissa_excavation
+		set_variable = grefm_larissa_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_rhodes_excavation
+		}
+		remove_variable = grefm_rhodes_excavation
+		set_variable = grefm_rhodes_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_corinth_1_excavation
+		}
+		remove_variable = grefm_corinth_1_excavation
+		set_variable = grefm_corinth_1_complete
+	}
+	
+	else_if = {
+		limit = {
+			has_variable = grefm_corinth_2_excavation
+		}
+		remove_variable = grefm_corinth_2_excavation
+		set_variable = grefm_corinth_2_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_thessaloniki_excavation
+		}
+		remove_variable = grefm_thessaloniki_excavation
+		set_variable = grefm_thessaloniki_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_thebes_excavation
+		}
+		remove_variable = grefm_thebes_excavation
+		set_variable = grefm_thebes_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_nicomedia_excavation
+		}
+		remove_variable = grefm_nicomedia_excavation
+		set_variable = grefm_nicomedia_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_smyrna_excavation
+		}
+		remove_variable = grefm_smyrna_excavation
+		set_variable = grefm_smyrna_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_tyana_excavation
+		}
+		remove_variable = grefm_tyana_excavation
+		set_variable = grefm_tyana_complete
+	}
+	else_if = {
+		limit = {
+			has_variable = grefm_chios_excavation
+		}
+		remove_variable = grefm_chios_excavation
+		set_variable = grefm_chios_complete
+	}
+}
+
+grefm_cancel_expedition_effect = {
+	set_variable = {
+		name = grefm_excavation_var
+		value = 0
+	}
+	
+	remove_variable = grefm_parthenon_1_excavation
+	remove_variable = grefm_parthenon_2_excavation
+	remove_variable = grefm_mycenae_1_excavation
+	remove_variable = grefm_mycenae_2_excavation
+	remove_variable = grefm_gla_excavation
+	remove_variable = grefm_delos_excavation
+	remove_variable = grefm_larissa_excavation
+	remove_variable = grefm_rhodes_excavation
+	
+	remove_variable = grefm_corinth_1_excavation
+	remove_variable = grefm_corinth_2_excavation
+	remove_variable = grefm_thessaloniki_excavation
+	remove_variable = grefm_thebes_excavation
+	remove_variable = grefm_nicomedia_excavation
+	remove_variable = grefm_smyrna_excavation
+	remove_variable = grefm_tyana_excavation
+	remove_variable = grefm_chios_excavation
+}
+
+grefm_cleanup_archaeology_effect = {
+	remove_variable = grefm_archeaology_var
+	remove_variable = grefm_excavation_var
+	remove_variable = grefm_archeaology_sites_var
+	remove_variable = grefm_hellenic_archeaology_var
+	remove_variable = grefm_roman_archeaology_var
+}
+
+
+## GRE3 - Character Effects ##
+
+grefm_create_feminism_characters_effect = {
 	create_character = {
 		template = template_grefm_parren_kalliroi
 		on_created = {
@@ -112,7 +389,7 @@ grefm_create_feminism_characters = {
 	}
 }
 
-create_cyprus_characters = {
+grefm_create_cyprus_characters_effect = {
 	create_character = {
 		first_name = Nikodemos
 		last_name = Mylonas
@@ -136,7 +413,7 @@ create_cyprus_characters = {
 	
 }
 
-create_epirus_characters = {
+grefm_create_epirus_characters_effect = {
 	create_character = {
 		first_name = Theodoros
 		last_name = Grivas
@@ -155,7 +432,6 @@ create_epirus_characters = {
 			demagogue
 		}
 	}
-	
 	create_character = {
 		first_name = Kitsos
 		last_name = Tzavelas
@@ -175,115 +451,9 @@ create_epirus_characters = {
 	}
 }
 
-## EXCAVATION EFFECTS ##
-grefm_excavation_complete = {
-	set_variable = {
-		name = grefm_excavation_var
-		value = 0
-	}
-	every_scope_state = {
-		limit = {
-			has_variable = grefm_excavation_target
-		}
-		remove_variable = grefm_excavation_target
-	}
-	if = {
-		limit = {
-			has_variable = grefm_gla_excavation
-		}
-		trigger_event = {
-			id = grefm.142 # gla complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_parthenon_1_excavation
-		}
-		trigger_event = {
-			id = grefm.143 # parthenon 1 complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_parthenon_2_excavation
-		}
-		trigger_event = {
-			id = grefm.144 # parthenon 2 complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_mycenae_1_excavation
-		}
-		trigger_event = {
-			id = grefm.145 # mycenae 1 complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_mycenae_2_excavation
-		}
-		trigger_event = {
-			id = grefm.146 # mycenae 2 complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_delos_excavation
-		}
-		trigger_event = {
-			id = grefm.147 # delos complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_larissa_excavation
-		}
-		trigger_event = {
-			id = grefm.148 # larissa complete
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = grefm_rhodes_excavation
-		}
-		trigger_event = {
-			id = grefm.149 # rhodes complete
-		}
-	}
-	else = {
-		remove_modifier = modifier_grefm_active_excavation
-	}
-	every_scope_state = {
-		limit = {
-			has_variable = grefm_excavation_target
-		}
-		remove_variable = grefm_excavation_target
-	}
-}
 
-grefm_artifact_modifier_effect = {
-	hidden_effect = {
-		remove_modifier = modifier_grefm_archaiologiki_etaireia
-	}
-	add_modifier = {
-		name = modifier_grefm_archaiologiki_etaireia
-		multiplier = grefm_artifact_value
-	}
-}
+## GRE4 - Greek Separatism Effects ##
 
-grefm_clear_artifact_variables = {
-	remove_variable = grefm_parthenon_1_excavation
-	remove_variable = grefm_parthenon_2_excavation
-	remove_variable = grefm_mycenae_1_excavation
-	remove_variable = grefm_mycenae_2_excavation
-	remove_variable = grefm_gla_excavation
-	remove_variable = grefm_delos_excavation
-	remove_variable = grefm_larissa_excavation
-	remove_variable = grefm_rhodes_excavation
-}
-
-## SEPARATISM EFFECTS ##
 grefm_intialize_separatism_variables_effect = {
 	set_global_variable = {
 		name = grefm_epirus_radicals_var
@@ -628,8 +798,9 @@ grefm_greek_revolt_tension_effect = {
 	}
 }
 
-## MISCELLANEOUS EFFECTS ##
-grefm_clean_up_ionian_jew_modifiers = {
+## GRE5 - Heptanese Effects ##
+
+grefm_cleanup_ionian_jewery_effect = {
 	remove_modifier = modifier_grefm_jewish_legal_concessions
 	remove_modifier = modifier_grefm_denied_jewish_rights
 	remove_modifier = modifier_grefm_chronica_israelitika
@@ -637,6 +808,8 @@ grefm_clean_up_ionian_jew_modifiers = {
 	remove_modifier = modifier_grefm_suppressed_blood_libel
 #	remove_modifier = modifier_grefm_blood_libel # if you get this modifier, you deserve it
 }
+
+## GRE6 - Samos Effects ##
 
 grefm_setup_samos_effect = { # Laws copied over from Greece; the two countries were similarly giga-rural.
 
@@ -1133,22 +1306,13 @@ grefm_generate_samos_ruler_effect = { # This effect is huge and icky, but holy m
 	}
 }
 
-grefm_purge_turkish_homelands_effect = {
-	every_scope_state = {
-		limit = {
-			AND = {
-				NOT = { has_variable = grefm_turkish_reserve }
-				state_region = {
-					is_homeland = cu:turkish
-				}
-			}
-		}
-		add_radicals_in_state = {
-			culture = cu:turkish
-			value = small_radicals
-		}
-		state_region = {
-			remove_homeland = cu:turkish
-		}
-	}
+## GRE7 - Byzantium Effects ##
+
+grefm_cleanup_quadrennial_race_effect = {
+	remove_variable = grefm_chariot_reds
+	remove_variable = grefm_chariot_whites
+	remove_variable = grefm_chariot_greens
+	remove_variable = grefm_chariot_blues
+	remove_variable = grefm_chariot_purples
+	remove_variable = grefm_chariot_golds
 }

@@ -36,14 +36,13 @@
  
  # Yugoslavia Content
  je_balkfm_nacertanije: "Načertanije"
- je_balkfm_nacertanije_reason: "[GetPlayer.MakeScope.Var('balkfm_yugoslav_leader_var').GetCountry.GetName] is the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#! with [GetGlobalVariable('balkfm_yugoslav_leader_prestige_var').GetValue] [concept_prestige]. If we are the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!, #yellow #tooltip:[GetRawTextTooltipTag('balkfm_yug_cultures_tt')] Jugoslav#!#! nations may seek union with us.\n$TOOLTIP_DELIMITER$\n--\n$TOOLTIP_DELIMITER$\nThe South Slav people have been present throughout the Balkans for over a millennium. While we have been divided by times and dialects, the plan draws inspiration from the #italic Risorgimento#!, calling for unifying the South Slavs under one crown."
- je_balkfm_nacertanije_status: "[GetPlayer.MakeScope.Var('balkfm_yugoslav_leader_var').GetCountry.GetName] is the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!."
- je_balkfm_nacertanije_complete_tt: "We have formed #bold Yugoslavia#!"
- je_balkfm_nacertanije_fail_tt: "We have formed our #tooltippable #tooltip:[GetRawTextTooltipTag('balkfm_empires_tt')] National Empire#!#!"
- balkfm_empires_tt: "The #yellow Byzantine Empire#!, #yellow Serbian Empire#!, #yellow Bulgarian Empire#!, or #yellow Triune Kingdom#!"
+ je_balkfm_nacertanije_reason: "[GetGlobalVariable('balkfm_yugoslav_leader_var').GetCountry.GetName] is the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#! with [GetGlobalVariable('balkfm_yugoslav_leader_prestige_var').GetValue] [concept_prestige]. If we are the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!, #yellow #tooltip:[GetRawTextTooltipTag('balkfm_yug_cultures_tt')] Jugoslav#!#! nations may seek union with us.\n$TOOLTIP_DELIMITER$\n--\n$TOOLTIP_DELIMITER$\nThe South Slav people have been present throughout the Balkans for over a millennium. While we have been divided by times and dialects, the plan draws inspiration from the #italic Risorgimento#!, calling for unifying the South Slavs under one crown."
+ je_balkfm_nacertanije_status: "[GetGlobalVariable('balkfm_yugoslav_leader_var').GetCountry.GetName] is the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Leader#!#!."
+ je_balkfm_nacertanije_complete_tt: "[ROOT.GetCountry.GetNameNoFlag] has formed #bold Yugoslavia#!"
+ je_balkfm_nacertanije_fail_tt: "[ROOT.GetCountry.GetNameNoFlag] has formed our #tooltippable #tooltip:[GetRawTextTooltipTag('balkfm_national_empires_tt')] National Empire#!#!"
  balkfm_yugoslavism_completed_tt: "#bold Yugoslavia#! has already been formed"
  balkfm_yugoslavism_failed_tt: "The #yellow Yugoslavism#! movement has failed"
- balkfm_weaksauce_trigger_tt: "We have rejected irredentism"
+ balkfm_weaksauce_trigger_tt: "[ROOT.GetCountry.GetNameNoFlag] has rejected irredentism"
  
  # montenegro content
  je_balkfm_mon_prince_bishopric: "The Prince-Bishopric"
@@ -165,6 +164,7 @@
  je_balkfm_bul_tsardom_reason: "Followng their arrival in the Balkans, the Bulgarians were Slavicized and established a large domain spanning the north of the region. After the fall of the Byzantine Empire, Bulgarian communities have been estranged from each other by the designs of the Porte. We should reunite these peoples with the Bulgarian state."
  je_balkfm_bul_empire: "The Bulgarian Empire"
  je_balkfm_bul_empire_reason: "Rife with the spirit of Nationalism and freed from the shackles of Ottoman oppression, [ROOT.GetCountry.GetName] aspires to become the new master of the Balkans. We will secure our dominion over Rumelia."
+ je_balkfm_bul_empire_tt: "We have formed the #bold Bulgarian Empire#!"
  je_balkfm_bul_old_bulgaria: "Old Great Bulgaria"
  je_balkfm_bul_old_bulgaria_reason: "It is well-known and recognized that there was a time when the Bulgarian people called the steppe home. As steppe nomads, the first Bulgar state was founded in the lands between the Dneister and Volga rivers. As the [ROOT.GetCountry.GetName] consolidates its power over the Balkans, scholars and nationalists have suggested that we should extend our rule to our ancient homelands."
  
@@ -289,6 +289,12 @@
  je_balkfm_construction_4: "Construction is complete."
  
  balkfm_friend_with_all_great_powers_tt: "[SCOPE.GetRootScope.GetCountry.GetName] has #bold positive#! relations with every [concept_great_power] that has an [concept_active_interest] in the region."
+ balkfm_below_empire_tt: "Our #bold Country Tier#! is below that of an #bold Empire#!"
+ 
+ balkfm_is_national_empire_tt: "We have formed our #tooltippable #tooltip:[GetRawTextTooltipTag('balkfm_national_empires_tt')] National Empire#!#!"
+ balkfm_national_empires_tt: "The #yellow Hellenic Empire#!, #yellow Byzantine Empire#!, #yellow Serbian Empire#!, #yellow Bulgarian Empire#!, or #yellow Triune Kingdom#!"
+ balkfm_is_balkan_empire_tt: "We have formed one of the #tooltippable #tooltip:[GetRawTextTooltipTag('balkfm_all_empires_tt')] Balkan Empires#!#!"
+ balkfm_all_empires_tt: "The #yellow Hellenic Empire#!, #yellow Byzantine Empire#!, #yellow Yugoslavia#!, #yellow Serbian Empire#!, #yellow Bulgarian Empire#!, or #yellow Triune Kingdom#!"
  
  balkfm_support_yugoslavism_tt: "This will commit us to supporting the cause of Yugoslavism."
  balkfm_oppose_yugoslavism_tt: "This will commit us to opposing the cause of Yugoslavism."
@@ -297,6 +303,7 @@
  balkfm_form_yug_tt: "We are the #o #tooltip:[GetRawTextTooltipTag('balkfm_yug_leader_tt')] Yugoslav Unification Leader#!#!."
  balkfm_yug_leader_tt: "The #bold Yugoslav Unification Leader#! is the country with the highest prestige amongst all #yellow #tooltip:[GetRawTextTooltipTag('balkfm_yug_cultures_tt')] Jugoslav#!#! cultures."
  balkfm_yug_cultures_tt: "[GetCulture('serb').GetName], [GetCulture('croat').GetName], [GetCulture('slovene').GetName], [GetCulture('bosniak').GetName], and [GetCulture('bulgarian').GetName]."
+ balkfm_has_not_formed_yug_tt: "We have #bold not#! formed #bold Yugoslavia#!"
  
  balkfm_weaksauce_tt: "#red This will abandon the Byzantine Restoration#!!"
  balkfm_weaksauce_mon: "#red This will abandon any Montenegrin Revanchism#!!"

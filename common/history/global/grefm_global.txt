@@ -115,41 +115,56 @@
 	c:SAMO = {
 		grefm_setup_samos_effect = yes
 	}
+	create_country = {
+		tag = TRB
+		origin = c:TUR
+		state = s:STATE_TRABZON.region_state:TUR
+	}
+	create_country = {
+		tag = GRE_CAP
+		origin = c:TUR
+		# Ankara Provinces
+		province = p:x401080
+		province = p:xF470A0
+		province = p:xA8674E
+		province = p:x3041CC
+		province = p:xA8674E
+		province = p:xC09000
+		province = p:x431F60
+		province = p:x17B19B
+		# Adana Provinces
+		province = p:x4DA0F1
+		province = p:xA4523A
+		province = p:x39CBF7
+		province = p:x63E9DB
+		province = p:x909463
+		province = p:x7DD48B
+		province = p:xF657D8
+		# Diyarbakir Provinces
+		province = p:xC9CF24
+		province = p:xFB66D7
+		province = p:x5E4B3A
+	}
+	create_country = {
+		tag = THE
+		origin = c:RUS
+		province = p:xB0DFDF
+		province = p:xF56D13
+		province = p:x706060
+	}
 	
 ### Culture Setup ###
 	every_state = {
 		limit = {
 			state_is_demotic_greek = yes
 		}
-		every_scope_pop = {
-			limit = {
-				has_pop_culture = greek
-			}
-			change_pop_culture = {
-				target = cu:hellene
-				value = 1
-			}
-		}
-	}
-	every_state = {
-		limit = {
-			state_is_demotic_greek = no
-		}
-		every_scope_pop = {
-			limit = {
-				has_pop_culture = greek
-			}
-			change_pop_culture = {
-				target = cu:rhomaios
-				value = 1
-			}
-		}
+		grefm_setup_hellene_pops_effect = yes
 	}
 	s:STATE_CRIMEA = {
 		every_scope_state = {
 			every_scope_pop = {
 				limit = {
-					has_pop_culture = rhomaios
+					has_pop_culture = greek
 				}
 				change_pop_culture = {
 					target = cu:urum
@@ -157,6 +172,12 @@
 				}
 			}
 		}
+	}
+	every_state = {
+		limit = {
+			state_is_demotic_greek = no
+		}
+		grefm_setup_rhomaios_pops_effect = yes
 	}
 	every_country = {
 		limit = {
@@ -177,6 +198,35 @@
 			change_pop_culture = {
 				target = cu:romaniote
 				value = 0.10 # this value will change pending more research
+			}
+		}
+	}
+	
+	c:GRE = {
+		every_scope_pop = {
+			limit = {
+				is_pop_type = aristocrats
+			}
+			change_pop_culture = {
+				target = cu:south_german
+				value = 0.05
+			}
+			change_pop_religion = {
+				target = rel:catholic
+				value = 0.05
+			}
+		}
+		every_scope_pop = {
+			limit = {
+				is_pop_type = officers
+			}
+			change_pop_culture = {
+				target = cu:south_german
+				value = 1
+			}
+			change_pop_religion = {
+				target = rel:catholic
+				value = 1
 			}
 		}
 	}
@@ -338,6 +388,14 @@
 			country = c:SAMO
 			type = protectorate
 		}
+		create_diplomatic_pact = {
+			country = c:TRB
+			type = puppet
+		}
+		create_diplomatic_pact = {
+			country = c:GRE_CAP
+			type = puppet
+		}
 		set_secret_goal = { # This should help to avoid getting bullied at game start
 			country = c:SAMO
 			secret_goal = befriend
@@ -369,6 +427,14 @@
 		}
 	}
 	c:RUS ?= {
+		create_diplomatic_pact = {
+			country = c:THE
+			type = puppet
+		}
+		set_secret_goal = {
+			country = c:THE
+			secret_goal = protect
+		}
 		create_diplomatic_pact = {
 			country = c:GRE
 			type = guarantee_independence
@@ -409,9 +475,6 @@
 	c:GRE = {
 		grefm_initialize_bavarocracy_variables_effect = yes
 		add_journal_entry = {
-			type = je_grefm_regency_council
-		}
-		add_journal_entry = {
 			type = je_grefm_bavarocracy_main
 		}
 		trigger_event = {
@@ -421,12 +484,57 @@
 			name = grefm_bavarocracy_var
 			value = 2000
 		}
+		balkfm_set_up_ottoman_legacies_effect = yes
+		add_modifier = modifier_grefm_armansperg_regency
 		add_modifier = modifier_eocfm_reformed_synod
 		add_modifier = modifier_eocfm_dissolved_monasteries
+		set_variable = grefm_bavarocracy
 		set_variable = eocfm_dissolved_monasteries
 		set_variable = grefm_mainland_claims_added
 		set_variable = eocfm_ruler_conversion_considered
 		eocfm_initialize_patriarchs_effect = yes # Greece is loadbearing too now bois
+		create_character = {
+			template = template_grefm_mavrokordatos_alexandros
+			on_created = {
+				set_variable = grefm_phanariot
+				add_character_role = agitator
+			}
+		}
+		create_character = {
+			template = template_grefm_kanaris_konstantinos
+			on_created = {
+				add_character_role = agitator
+			}
+		}
+		create_character = {
+			template = template_grefm_gennaios_kolokotronis
+			on_created = {
+				add_character_role = agitator
+			}
+		}
+		trigger_event = {
+			id = grefm.900 # Rhomaios Country Start Effect
+			days = 1
+		}
+	}
+	
+	c:TUR ?= {
+		balkfm_initialize_border_variables_effect = yes
+		trigger_event = {
+			id = eqfm.001 # The Eastern Question
+			days = 1
+		}
+#		add_journal_entry = {
+#			type = je_balkfm_tur_karadag
+#		}
+		set_variable = {
+			name = balkfm_border_timeout_var
+			years = 1
+		}
+		eqfm_calculate_tension_variables_effect = yes
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
 	}
 	
 	c:ION = {
@@ -452,6 +560,28 @@
 		trigger_event = {
 			id = grefm.500 # Samos Defiant
 		}
+		balkfm_set_up_ottoman_legacies_effect = yes
+	}
+	
+	C:TRB ?= {
+		trigger_event = {
+			id = grefm.550 # The Pontic Greeks
+		}
+		balkfm_set_up_ottoman_legacies_effect = yes
+	}
+	
+	C:GRE_CAP ?= {
+		trigger_event = {
+			id = grefm.560 # The Greeks of the Highlands
+		}
+		balkfm_set_up_ottoman_legacies_effect = yes
+	}
+	
+	C:THE ?= {
+		trigger_event = {
+			id = grefm.570 # The Urums of Little Theodoro
+		}
+		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
 	c:MON = {
@@ -557,9 +687,6 @@
 	}
 	
 	c:EGY ?= {
-#		trigger_event = {
-#			id = eocfm.002 # The Millet-i Rûm (TUR/EGY)
-#		}
 		set_variable = eocfm_controls_alexandria
 		set_variable = eocfm_controls_jerusalem
 	}

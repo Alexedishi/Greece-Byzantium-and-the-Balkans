@@ -2,10 +2,10 @@
 # GREECE, BYZANTIUM, AND THE BALKANS ON_ACTIONS #
 #################################################
 
-on_monthly_pulse_country = {
+on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
 	on_actions = {
-		grefm_monthly_pulse
-		byfzm_monthly_pulse
+		grefm_monthly_pulse_1
+		grefm_monthly_pulse_2
 #		turkfm_monthly_pulse
 		balkfm_monthly_pulse
 #		yug_flavor_pulse
@@ -15,10 +15,9 @@ on_monthly_pulse_country = {
 		rom_flavor_pulse
 #		bos_flavor_pulse
 #		alb_flavor_pulse
-#		triu_flavor_pulse
+#		cro_flavor_pulse
+#		slo_flavor_pulse
 		eocfm_monthly_pulse
-		byzfm_chariot_pulse_1
-		byzfm_chariot_pulse_2	
 	}
 }
 
@@ -38,14 +37,12 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 
 ############
 
-# There's a lot of tiny on_actions specified here to avoid having more complicated triggers downstream in the events themselves
-
-grefm_monthly_pulse = {
+grefm_monthly_pulse_1 = {
 	trigger = {
 		country_has_primary_culture = cu:hellene 
 	}
 	events = {
-		grefm.005 # error 404 monarch not found
+		grefm.005 # The Bavarocracy Abolished
 		grefm.034 # unfortunately we are bankrupt
 		grefm.040 # Military Nepotism
 		grefm.101 # hellenic railways
@@ -59,7 +56,8 @@ grefm_monthly_pulse = {
 		grefm.202 # The Greek Capital
 		grefm.270 # The Lands of Thessaly
 		grefm.290 # The Fate of the Turks
-		grefm.900 # Re-Adds Trukish Culture
+		grefm.832 # Chariot Race Technical Event
+		grefm.838 # The Combustion Engine Takes the Hippodrome!
 		grefm.901 # non-GRE claims
 	}
 	random_events = {
@@ -72,39 +70,27 @@ grefm_monthly_pulse = {
 		 5 = grefm.157 # The Mask of Agammemnon
 		 5 = grefm.180 # The Defence of Jonas King
 		25 = grefm.201 # Paparrigopoulos's History of the Greek Nation
-		25 = grefm.208 # Defining Greek Roots
 		25 = grefm.291 # A Question of Homelands
 		25 = grefm.292 # Greek Expansion in X
 		10 = grefm.902 # Don Pacifico Affair
 	}
 }
 
-byfzm_monthly_pulse = {
+grefm_monthly_pulse_2 = {
 	trigger = {
-		has_global_variable = has_formed_byz
+		country_has_primary_culture = cu:rhomaios
 	}
 	events = {
-		byzfm.123 # drag racing in the hippodrome
+		grefm.114 # Merchantile Rivalry
+		grefm.280 # The Legacy of Romanía
+		grefm.290 # The Fate of the Turks
+		grefm.838 # The Combustion Engine Takes the Hippodrome!
 	}
 	random_events = {
-		100 = 0
-		 1 = byzfm.311 # A Greek Basileus
-	}
-	effect = {
-		if = {
-			limit = {
-				has_variable =  byzfm_held_chariot_races
-			}
-			change_variable = {
-				name = byzfm_held_chariot_races
-				add = -1
-			}
-			clamp_variable = { # just to avoid outlandish values
-				name = byzfm_held_chariot_races
-				max = 48 
-				min = 0 
-			}
-		}
+		250 = 0
+		 5 = grefm.157 # The Mask of Agammemnon
+		25 = grefm.291 # A Question of Homelands
+		25 = grefm.292 # Greek Expansion in X
 	}
 }
 
@@ -147,8 +133,7 @@ ser_flavor_pulse = {
 bul_flavor_pulse = {
 	trigger = {
 		OR = {
-			c:BUL ?= this
-			c:TSAR ?= this
+			country_has_primary_culture = cu:bulgarian
 		}
 	}
 	events = {
@@ -162,15 +147,11 @@ bul_flavor_pulse = {
 rom_flavor_pulse = {
 	trigger = {
 		OR = {
-			c:WAL ?= this
-			c:MOL ?= this
-			c:TRS ?= this
-			c:ROM ?= this
+			country_has_primary_culture = cu:romanian
 		}
 	}
 	events = {
 		balkfm.660 # The Academy of Romania
-		byzfm.394 # Echoes of the Empire
 	}
 	random_events = {
 		100 = 0
@@ -196,12 +177,12 @@ eocfm_monthly_pulse = {
 		eocfm.161 # The Patriarch's Blessings
 		eocfm.169 # The Living Law
 		eocfm.190 # [TECH] Removes Lex Animata Modifier
-		eocfm.310 # The Capture of the Great Mosque
-		eocfm.317 # The Throne of Saint Peter
-		eocfm.319 # The Supreme Pontiff of the Universal Church
+		eocfm.303 # The Capture of the Great Mosque
+		eocfm.307 # The Throne of Saint Peter
+		eocfm.309 # The Supreme Pontiff of the Universal Church
 	}
 	random_events = {
-		500 = 0
+		chance_of_no_event = 95
 		5 = eocfm.010 # Ecumenical Reforms
 		5 = eocfm.011 # Bible Translation Published
 		5 = eocfm.012 # A Heretical Ruler
@@ -259,48 +240,6 @@ eocfm_schism_monthly_pulse = {
 			name = eocfm_schism_var
 			add = eocfm_schism_progress_value
 		}
-	}
-}
-
-############
-
-# This pair of on_actions handle the chariot races
-
-byzfm_chariot_pulse_1 = {
-	trigger = {
-		has_modifier = modifier_byzfm_chariot_racing
-		has_variable = byzfm_held_chariot_races
-		var:byzfm_held_chariot_races < 1
-	}
-	random_events = {
-		20 = byzfm.110 # reds win
-		20 = byzfm.111 # whites win
-		20 = byzfm.112 # greens win
-		20 = byzfm.113 # blues win
-		10 = byzfm.116 # first match complete, crowd calls for diversum
-		 1 = byzfm.117 # sporting riot
-		 1 = byzfm.118 # ruler tries to join race
-		 1 = byzfm.119 # team gets caught cheating
-	}
-}
-
-byzfm_chariot_pulse_2 = {
-	trigger = {
-		has_modifier = modifier_byzfm_expanded_chariot_racing
-		has_variable = byzfm_held_chariot_races
-		var:byzfm_held_chariot_races < 1
-	}
-	random_events = {
-		25 = byzfm.110 # reds win - industrialists
-		25 = byzfm.111 # whites win - intel
-		25 = byzfm.112 # greens win - rural folk
-		25 = byzfm.113 # blues win - petite
-		25 = byzfm.114 # purples win - landowners
-		25 = byzfm.115 # golds win - trade unions
-		15 = byzfm.116 # first match complete, crowd calls for diversum
-		 5 = byzfm.117 # sporting riot
-		 5 = byzfm.118 # ruler tries to join race
-		 1 = byzfm.119 # team gets caught cheating
 	}
 }
 
