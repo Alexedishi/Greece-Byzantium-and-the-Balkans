@@ -1259,6 +1259,17 @@ je_grefm_scions_of_rhomania = {
 	}
 
 	possible = {
+		trigger_if = {
+			limit = {
+				country_has_primary_culture = cu:urum
+			}
+			custom_tooltip = {
+				text = grefm_last_romans_completed_tt
+				hidden_trigger = {	
+					has_variable = grefm_last_romans_completed
+				}
+			}
+		}
 		has_technology_researched = nationalism
 	}
 
@@ -1266,6 +1277,7 @@ je_grefm_scions_of_rhomania = {
 		trigger_event = {
 			id = grefm.281 # The Legacy of Rhōmanía
 		}
+		set_variable = grefm_rhomaios_claims_received # blocks grefm.280
 	}
 
 	complete = {
@@ -1315,6 +1327,59 @@ je_grefm_scions_of_rhomania = {
 
 }
 
+je_grefm_the_greek_plan = {
+	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+
+	is_shown_when_inactive = {
+		country_has_primary_culture = cu:urum
+	}
+
+	possible = {
+		has_technology_researched = mass_communication
+	}
+
+	immediate = {
+		trigger_event = {
+			id = grefm.260 # The Last of the Romans
+		}
+	}
+
+	complete = {
+		is_subject = no
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_CRIMEA
+			owns_entire_state_region = STATE_TAURIDA
+			owns_entire_state_region = STATE_KUBAN
+		}
+	}
+
+	on_complete = {
+		set_variable = grefm_greek_plan_completed
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			OR = {
+				has_variable = grefm_weaksauce
+				has_global_variable = has_formed_byz
+				has_global_variable = grefm_megali_idea_complete
+			}
+		}
+	}
+	
+	on_invalid = {
+		set_variable = grefm_tzatzikisauce
+	}
+
+	weight = 1000
+
+}
+
 je_grefm_last_of_the_romans = {
 	icon = "gfx/interface/icons/event_icons/event_aquila.dds"
 	
@@ -1324,7 +1389,7 @@ je_grefm_last_of_the_romans = {
 
 	is_shown_when_inactive = {
 		country_has_primary_culture = cu:urum
-		NOR = { 
+		NOR = {
 			has_global_variable = has_formed_byz
 			has_global_variable = grefm_megali_idea_complete
 			has_journal_entry = je_grefm_megali_idea
@@ -1333,12 +1398,18 @@ je_grefm_last_of_the_romans = {
 	}
 
 	possible = {
+		custom_tooltip = {
+			text = grefm_last_romans_completed_tt
+			hidden_trigger = {	
+				has_variable = grefm_greek_plan_completed
+			}
+		}
 		has_technology_researched = nationalism
 	}
 
 	immediate = {
 		trigger_event = {
-			id = grefm.261 # The Legacy of Rhōmanía
+			id = grefm.281 # The Legacy of Rhōmanía
 		}
 	}
 
@@ -1366,8 +1437,12 @@ je_grefm_last_of_the_romans = {
 
 	on_complete = {
 		trigger_event = { 
-			id = grefm.262 # The Throne of the East
+			id = grefm.282 # The Throne of the East
 		}
+		show_as_tooltip = {
+			add_primary_culture = cu:rhomaios
+		}
+		set_variable = grefm_rhomaios_claims_received # blocks grefm.280
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
@@ -1464,7 +1539,7 @@ je_grefm_greater_greece = {
 	
 	invalid = {
 		hidden_trigger = {
-			has_variable = grefm_weaksauce
+			has_variable = grefm_super_weaksauce
 		}
 	}
 	

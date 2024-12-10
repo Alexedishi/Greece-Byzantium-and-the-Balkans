@@ -146,7 +146,7 @@
 		province = p:x5E4B3A
 	}
 	create_country = {
-		tag = TRB
+		tag = THE
 		origin = c:RUS
 		province = p:xB0DFDF
 		province = p:xF56D13
@@ -388,6 +388,14 @@
 			country = c:SAMO
 			type = protectorate
 		}
+		create_diplomatic_pact = {
+			country = c:TRB
+			type = puppet
+		}
+		create_diplomatic_pact = {
+			country = c:GRE_CAP
+			type = puppet
+		}
 		set_secret_goal = { # This should help to avoid getting bullied at game start
 			country = c:SAMO
 			secret_goal = befriend
@@ -419,6 +427,14 @@
 		}
 	}
 	c:RUS ?= {
+		create_diplomatic_pact = {
+			country = c:THE
+			type = puppet
+		}
+		create_diplomatic_pact = {
+			country = c:THE
+			type = protect
+		}
 		create_diplomatic_pact = {
 			country = c:GRE
 			type = guarantee_independence
@@ -545,19 +561,19 @@
 	
 	C:TRB ?= {
 		trigger_event = {
-			id = grefm.280 # The Lands of the Rhomaios
+			id = grefm.550 # The Pontic Greeks
 		}
 	}
 	
 	C:GRE_CAP ?= {
 		trigger_event = {
-			id = grefm.280 # The Lands of the Rhomaios
+			id = grefm.560 # The Greeks of the Highlands
 		}
 	}
 	
 	C:THE ?= {
 		trigger_event = {
-			id = grefm.260 # The People of Little Theodoro
+			id = grefm.570 # The Urums of Little Theodoro
 		}
 	}
 	
