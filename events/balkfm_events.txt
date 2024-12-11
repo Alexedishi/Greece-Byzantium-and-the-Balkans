@@ -2101,7 +2101,7 @@ balkfm.209 = { # The Birth of Yugoslavia
 		video = "unspecific_military_parade"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -2272,7 +2272,7 @@ balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
 	}
 	
 	option = { # Slap Them Down
-		name = balkfm.212
+		name = balkfm.212.a
 		default_option = yes
 		create_incident = {
 			country = scope:balkfm_provocation_owner_scope
@@ -2477,18 +2477,14 @@ balkfm.214 = { # Yugoslavist Uprising in State
 				is_country_type = unrecognized
 			}
 			create_diplomatic_pact = {
-				create_diplomatic_pact = {
-					country = scope:balkfm_rebellion_scope
-					type = tributary
-				}
+				country = scope:balkfm_rebellion_scope
+				type = tributary
 			}
 		}
 		else = {
 			create_diplomatic_pact = {
-				create_diplomatic_pact = {
-					country = scope:balkfm_rebellion_scope
-					type = protectorate
-				}
+				country = scope:balkfm_rebellion_scope
+				type = protectorate
 			}
 		}
 		every_country = {
@@ -2516,7 +2512,7 @@ balkfm.215 = { # Yugoslav Country Seeks Union (Same Culture)
 		video = "unspecific_signed_contract"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -2597,7 +2593,7 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 		video = "unspecific_signed_contract"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -12726,7 +12722,7 @@ balkfm.601 = { # The Petition-Proclamation
 	
 	immediate = {
 		set_variable = balkfm_1848_happened
-		balkfm_set_up_1848_variables_effect = yes
+		balkfm_initialize_1848_variables_effect = yes
 		create_character = {
 			# Vasile Alecsandri, Romanian nationalist and radical
 			template = template_balkfm_alecsandri_vasile
@@ -13159,7 +13155,7 @@ balkfm.611 = { # Proclamation of Islaz
 	
 	immediate = {
 		set_variable = balkfm_1848_happened
-		balkfm_set_up_1848_variables_effect = yes
+		balkfm_initialize_1848_variables_effect = yes
 		create_character = {
 			# Nicolae Bălcescu, leader of the 1848 revolution
 			template = template_balkfm_balcescu_nicolae
@@ -13571,11 +13567,11 @@ balkfm.621 = { # OPEN
 
 }
 
-balkfm.106 = { # OPEN
+balkfm.622 = { # OPEN
 	orphan = yes
 }
 
-balkfm.107 = { # OPEN
+balkfm.623 = { # OPEN
 	orphan = yes
 }
 
@@ -13863,7 +13859,6 @@ balkfm.627 = { # Absolutist Aspirations
 		ruler = {
 			set_ideology = ideology:ideology_authoritarian
 		}
-		balkfm_update_dezvoltator_variables_effect = yes
 	}
 	
 }
@@ -14904,7 +14899,7 @@ balkfm.672 = { # A Romanian Identity
 	}
 	
 	after = {
-		balkfm_clean_up_protochronism_effect = yes
+		balkfm_cleanup_protochronism_effect = yes
 	}
 	
 }
