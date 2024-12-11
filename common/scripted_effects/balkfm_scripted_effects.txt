@@ -79,7 +79,7 @@ balkfm_set_up_ottoman_legacies_effect = {
 			add_journal_entry = {
 				type = je_balkfm_social_reform
 			}
-			
+		}
 		set_variable = balkfm_ottoman_legacies_started
 	}
 }
@@ -2248,7 +2248,7 @@ balkfm_wallachian_election_effect = {
 
 }
 
-balkfm_set_up_1848_variables_effect = {
+balkfm_initialize_1848_variables_effect = {
 	set_variable = {
 		name = balkfm_1848_rom_var
 		value = 0
@@ -2257,78 +2257,14 @@ balkfm_set_up_1848_variables_effect = {
 		name = balkfm_1848_progress_var
 		value = 0
 	}
-	set_variable = {
-		name = balkfm_1848_ruler_popularity_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1848_intelligentsia_approval_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1848_bourgeoisie_approval_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1848_landowners_approval_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1848_occupation_var
-		value = 0
-	}
 }
 
-balkfm_1848_variables_effect = {
-	set_variable = {
-		name = balkfm_1848_ruler_popularity_var
-		value = balkfm_1848_ruler_popularity_value
-	}
-	set_variable = {
-		name = balkfm_1848_intelligentsia_approval_var
-		value = balkfm_1848_intelligentsia_approval_value
-	}
-	set_variable = {
-		name = balkfm_1848_landowners_approval_var
-		value = balkfm_1848_landowners_approval_value
-	}
-	set_variable = {
-		name = balkfm_1848_bourgeoisie_approval_var
-		value = balkfm_1848_bourgeoisie_approval_value
-	}
-	set_variable = {
-		name = balkfm_1848_occupation_var
-		value = balkfm_1848_occupation_value
-	}
-	set_variable = {
-		name = balkfm_1848_progress_var
-		value = balkfm_1848_progress_value
-	}
-}
-	
-balkfm_1848_progress_effect = {
-	change_variable = {
-		name = balkfm_1848_rom_var
-		add = var:balkfm_1848_progress_var
-	}
-	clamp_variable = {
-		name = balkfm_1848_rom_var
-		max = 200
-		min = 0
-	}
-}
-
-balkfm_clean_up_1848_variables_effect = {
+balkfm_cleanup_1848_variables_effect = {
 	remove_variable = balkfm_1848_rom_var
 	remove_variable = balkfm_1848_progress_var
-	remove_variable = balkfm_1848_ruler_popularity_var
-	remove_variable = balkfm_1848_intelligentsia_approval_var
-	remove_variable = balkfm_1848_landowners_approval_var
-	remove_variable = balkfm_1848_bourgeoisie_approval_var
 }
 
 balkfm_initialize_dezvoltator_variables_effect = {
-	# Little did you know this was actually a Variables Flavor Mod
 	set_variable = {
 		name = balkfm_dezvoltator_var
 		value = 0
@@ -2337,102 +2273,11 @@ balkfm_initialize_dezvoltator_variables_effect = {
 		name = balkfm_dezvoltator_progress_var
 		value = 0
 	}
-	set_variable = {
-		name = balkfm_landowners_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_devout_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_armed_forces_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_intelligentsia_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_industrialists_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_bourgeoisie_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_rural_folk_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_trade_unions_support_var
-		value = 0
-	}
 }
 
-balkfm_update_dezvoltator_variables_effect = {
-	set_variable = {
-		name = balkfm_landowners_support_var
-		value = balkfm_landowners_support_value
-	}
-	set_variable = {
-		name = balkfm_devout_support_var
-		value = balkfm_devout_support_value
-	}
-	set_variable = {
-		name = balkfm_armed_forces_support_var
-		value = balkfm_armed_forces_support_value
-	}
-	set_variable = {
-		name = balkfm_intelligentsia_support_var
-		value = balkfm_intelligentsia_support_value
-	}
-	set_variable = {
-		name = balkfm_industrialists_support_var
-		value = balkfm_industrialists_support_value
-	}
-	set_variable = {
-		name = balkfm_bourgeoisie_support_var
-		value = balkfm_bourgeoisie_support_value
-	}
-	set_variable = {
-		name = balkfm_rural_folk_support_var
-		value = balkfm_rural_folk_support_value
-	}
-	set_variable = {
-		name = balkfm_trade_unions_support_var
-		value = balkfm_trade_unions_support_value
-	}
-	set_variable = {
-		name = balkfm_dezvoltator_progress_var
-		value = balkfm_dezvoltator_progress_value
-	}
-}
-
-balkfm_push_dezvoltator_progress_effect = {
-	change_variable = {
-		name = balkfm_dezvoltator_var
-		add = var:balkfm_dezvoltator_progress_var
-	}
-	clamp_variable = {
-		name = balkfm_dezvoltator_var
-		max = 200
-		min = 0
-	}
-}
-
-balkfm_clean_up_dezvoltator_variables_effect = {
+balkfm_cleanup_dezvoltator_variables_effect = {
 	remove_variable = balkfm_dezvoltator_var
 	remove_variable = balkfm_dezvoltator_progress_var
-	remove_variable = balkfm_landowners_support_var
-	remove_variable = balkfm_devout_support_var
-	remove_variable = balkfm_armed_forces_support_var
-	remove_variable = balkfm_intelligentsia_support_var
-	remove_variable = balkfm_industrialists_support_var
-	remove_variable = balkfm_bourgeoisie_support_var
-	remove_variable = balkfm_rural_folk_support_var
-	remove_variable = balkfm_trade_unions_support_var
 }
 
 balkfm_find_kogalniceanu_effect = {
@@ -2478,33 +2323,8 @@ balkfm_find_kogalniceanu_effect = {
 }
 
 balkfm_initialize_protochronism_effect = {
-	# Infinite Variable Works Continues...
-	set_variable = {
-		name = balkfm_junimism_popularity_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_junimism_landowners_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_junimism_support_var
-		value = 0
-	}
 	set_variable = {
 		name = balkfm_junimism_progress_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_dacianism_popularity_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_dacianism_intelligentsia_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_dacianism_support_var
 		value = 0
 	}
 	set_variable = {
@@ -2527,38 +2347,13 @@ balkfm_initialize_protochronism_effect = {
 
 balkfm_calculate_protochronism_effect = {
 	set_variable = {
-		name = balkfm_junimism_popularity_var
-		value = balkfm_junimism_popularity_value
-	}
-	set_variable = {
-		name = balkfm_junimism_landowners_var
-		value = root.ig:ig_landowners.ig_clout
-	}
-	set_variable = {
-		name = balkfm_junimism_support_var
-		value = balkfm_junimism_support_value
-	}
-	set_variable = {
 		name = balkfm_junimism_progress_var
 		value = balkfm_junimism_progress_value
-	}
-	set_variable = {
-		name = balkfm_dacianism_popularity_var
-		value = balkfm_dacianism_popularity_value
-	}
-	set_variable = {
-		name = balkfm_dacianism_intelligentsia_var
-		value = root.ig:ig_intelligentsia.ig_clout
-	}
-	set_variable = {
-		name = balkfm_dacianism_support_var
-		value = balkfm_dacianism_support_value
 	}
 	set_variable = {
 		name = balkfm_dacianism_progress_var
 		value = balkfm_dacianism_progress_value
 	}
-	
 	if = {
 		limit = {
 			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
@@ -2629,14 +2424,8 @@ balkfm_push_protochronism_effect = {
 	}
 }
 
-balkfm_clean_up_protochronism_effect = {
-	remove_variable = balkfm_junimism_popularity_var
-	remove_variable = balkfm_junimism_landowners_var
-	remove_variable = balkfm_junimism_support_var
+balkfm_cleanup_protochronism_effect = {
 	remove_variable = balkfm_junimism_progress_var
-	remove_variable = balkfm_dacianism_popularity_var
-	remove_variable = balkfm_dacianism_intelligentsia_var
-	remove_variable = balkfm_dacianism_support_var
 	remove_variable = balkfm_dacianism_progress_var
 	remove_variable = balkfm_protochronism_progress_var
 	remove_variable = balkfm_junimism_var
@@ -2652,53 +2441,11 @@ balkfm_initialize_1866_variables_effect = {
 		name = balkfm_1866_progress_var
 		value = 0
 	}
-	set_variable = {
-		name = balkfm_1866_ruler_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1866_support_var
-		value = 0
-	}
-	set_variable = {
-		name = balkfm_1866_radicals_var
-		value = 0
-	}
-}
-
-balkfm_calculate_1866_variables_effect = {
-	set_variable = {
-		name = balkfm_1866_ruler_var
-		value = balkfm_1866_ruler_value
-	}
-	set_variable = {
-		name = balkfm_1866_support_var
-		value = balkfm_1866_support_value
-	}
-	set_variable = {
-		name = balkfm_1866_radicals_var
-		value = root.radical_fraction
-	}
-	set_variable = {
-		name = balkfm_1866_progress_var
-		value = balkfm_1866_progress_value
-	}
-}
-
-balkfm_push_1866_variables_effect = {
-	change_variable = {
-		name = balkfm_1866_var
-		add = var:balkfm_1866_progress_var
-	}
-	clamp_variable = {
-		name = balkfm_1866_var
-		max = 100
-		min = 0
-	}
 }
 
 balkfm_cleanup_1866_variables_effect = {
-
+	remove_variable = balkfm_1866_var
+	remove_variable = balkfm_1866_progress_var
 }
 
 

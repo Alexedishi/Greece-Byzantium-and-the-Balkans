@@ -1200,240 +1200,287 @@ balkfm_ottoman_relations_value = {
 # ROMANIA VALUES #
 ##################
 
-## Regulamentul Values ##
-
-
-# 1848 Variables
-balkfm_1848_ruler_popularity_value = {
+balkfm_1848_progress_value = {
 	value = 0
-	add = root.ruler.popularity
-	divide = 10
-}
-
-balkfm_1848_intelligentsia_approval_value = {
-	value = 0
-	add = root.ig:ig_intelligentsia.ig_approval
-	divide = 10
-}
-
-balkfm_1848_landowners_approval_value = {
-	value = 0
-	add = root.ig:ig_landowners.ig_approval
-	divide = 10
-}
-
-balkfm_1848_bourgeoisie_approval_value = {
-	value = 0
-	add = root.ig:ig_petty_bourgeoisie.ig_approval
-	divide = 10
-}
-
-balkfm_1848_occupation_value = {
-	value = 0
+	add = {
+		value = {
+			add = root.ruler.popularity
+			divide = 10
+		}
+		desc = balkfm_value_from_ruler_popularity
+	}
+	if = {
+		limit = {
+			ig:ig_intelligentsia = {
+				ig_approval > 0
+			}
+		}
+		add = {
+			value = {
+				add = root.ig:ig_intelligentsia.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_intelligentsia_clout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_intelligentsia = {
+				ig_approval < 0
+			}
+		}
+		subtract = {
+			value = {
+				add = root.ig:ig_intelligentsia.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_intelligentsia_clout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				ig_approval > 0
+			}
+		}
+		add = {
+			value = {
+				add = root.ig:ig_landowners.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_landowners_clout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				ig_approval < 0
+			}
+		}
+		subtract = {
+			value = {
+				add = root.ig:ig_landowners.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_landowners_clout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_petty_bourgeoisie = {
+				ig_approval > 0
+			}
+		}
+		add = {
+			value = {
+				add = root.ig:ig_petty_bourgeoisie.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_bourgeoisie_clout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_petty_bourgeoisie = {
+				ig_approval < 0
+			}
+		}
+		subtract = {
+			value = {
+				add = root.ig:ig_petty_bourgeoisie.ig_clout
+				multiply = 10
+			}
+			desc = balkfm_value_from_bourgeoisie_clout
+		}
+	}
 	if = {
 		limit = {
 			has_modifier = modifier_balkfm_russian_occupation
 		}
-		add = 20
+		add = {
+			value = 20
+			desc = balkfm_value_from_russian_occupation
+		}
 	}
-}
-
-balkfm_1848_progress_value = {
-	value = 0
-	add = var:balkfm_1848_ruler_popularity_var
-	add = var:balkfm_1848_intelligentsia_approval_var
-	add = var:balkfm_1848_landowners_approval_var
-	add = var:balkfm_1848_bourgeoisie_approval_var
-	add = var:balkfm_1848_occupation_var
-}
-
-# Dezvoltator Values
-
-balkfm_landowners_support_value = {
-	value = 0
-	add = root.ig:ig_landowners.ig_approval
-	multiply = root.ig:ig_landowners.ig_clout
-}
-
-balkfm_devout_support_value = {
-	value = 0
-	add = root.ig:ig_devout.ig_approval
-	multiply = root.ig:ig_landowners.ig_clout
-}
-
-balkfm_armed_forces_support_value = {
-	value = 0
-	add = root.ig:ig_armed_forces.ig_approval
-	multiply = root.ig:ig_armed_forces.ig_clout
-}
-
-balkfm_intelligentsia_support_value = {
-	value = 0
-	add = root.ig:ig_intelligentsia.ig_approval
-	multiply = root.ig:ig_intelligentsia.ig_clout
-}
-
-balkfm_industrialists_support_value = {
-	value = 0
-	add = root.ig:ig_industrialists.ig_approval
-	multiply = root.ig:ig_industrialists.ig_clout
-}
-
-balkfm_bourgeoisie_support_value = {
-	value = 0
-	add = root.ig:ig_petty_bourgeoisie.ig_approval
-	multiply = root.ig:ig_petty_bourgeoisie.ig_clout
-}
-
-balkfm_rural_folk_support_value = {
-	value = 0
-	add = root.ig:ig_rural_folk.ig_approval
-	multiply = root.ig:ig_rural_folk.ig_clout
-}
-
-balkfm_trade_unions_support_value = {
-	value = 0
-	add = root.ig:ig_trade_unions.ig_approval
-	multiply = root.ig:ig_trade_unions.ig_clout
 }
 
 balkfm_dezvoltator_progress_value = {
 	value = 0
-	add = var:balkfm_landowners_support_var
-	add = var:balkfm_devout_support_var
-	add = var:balkfm_armed_forces_support_var
-	add = var:balkfm_intelligentsia_support_var
-	add = var:balkfm_industrialists_support_var
-	add = var:balkfm_bourgeoisie_support_var
-	add = var:balkfm_rural_folk_support_var
-	add = var:balkfm_trade_unions_support_var
-	if = {
-		limit = {
-			NOT = {
-				has_law = law_type:law_autocracy
-			}
+	add = {
+		value = {
+			add = root.ig:ig_landowners.ig_approval
+			multiply = root.ig:ig_landowners.ig_clout
 		}
-		multiply = 0.5
+		desc = balkfm_value_from_landowners_support
 	}
-}
-
-# 1866 Values
-
-balkfm_1866_ruler_value = {
-	value = 0
-	add = root.ruler.popularity
-	divide = 10
-}
-
-balkfm_1866_support_value = {
-	value = 0
-	every_interest_group = {
-		limit = {
-			OR = {
-				law_stance = {
-					law = law_type:law_oligarchy
-					value < neutral
-				}
-				law_stance = {
-					law = law_type:law_autocracy
-					value < neutral
-				}
-			}
+	add = {
+		value = {
+			add = root.ig:ig_devout.ig_approval
+			multiply = root.ig:ig_landowners.ig_clout
 		}
-		add = ig_clout
+		desc = balkfm_value_from_devout_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_armed_forces.ig_approval
+			multiply = root.ig:ig_armed_forces.ig_clout
+		}
+		desc = balkfm_value_from_armed_forces_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_intelligentsia.ig_approval
+			multiply = root.ig:ig_intelligentsia.ig_clout
+		}
+		desc = balkfm_value_from_intelligentsia_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_industrialists.ig_approval
+			multiply = root.ig:ig_industrialists.ig_clout
+		}
+		desc = balkfm_value_from_industrialists_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_petty_bourgeoisie.ig_approval
+			multiply = root.ig:ig_petty_bourgeoisie.ig_clout
+		}
+		desc = balkfm_value_from_bourgeoisie_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_rural_folk.ig_approval
+			multiply = root.ig:ig_rural_folk.ig_clout
+		}
+		desc = balkfm_value_from_rural_folk_support
+	}
+	add = {
+		value = {
+			add = root.ig:ig_trade_unions.ig_approval
+			multiply = root.ig:ig_trade_unions.ig_clout
+		}
+		desc = balkfm_value_from_trade_unions_support
 	}
 }
 
 balkfm_1866_progress_value = {
 	value = 0
-	add = var:balkfm_1866_ruler_var
-	add = var:balkfm_1866_support_var
-	subtract = var:balkfm_1866_radicals_var
-	round = 0.01
-}
-
-# Nationalism Values
-
-balkfm_junimism_popularity_value = {
-	value = 0
-	every_scope_character = {
-		limit = {
-			OR = {
-				law_stance = {
-					law = law_type:law_traditionalism
-					value > neutral
-				}
-				law_stance = {
-					law = law_type:law_agrarianism
-					value > neutral
-				}
-			}
-			AND = {
-				has_role = politician
-				is_ruler = no
-			}
+	add = {
+		value = {
+			add = root.ruler.popularity
+			divide = 10
 		}
-		add = popularity
+		desc = balkfm_value_from_ruler_popularity
 	}
-	divide = 100
-}
-
-balkfm_junimism_support_value = {
-	value = 0
-	if = {
-		limit = {
-			has_variable = balkfm_supporting_junimism
+	add = {
+		value = {
+			every_interest_group = {
+				limit = {
+					OR = {
+						law_stance = {
+							law = law_type:law_oligarchy
+							value < neutral
+						}
+						law_stance = {
+							law = law_type:law_autocracy
+							value < neutral
+						}
+					}
+				}
+				add = ig_clout
+			}
 		}
-		add = 1
+		desc = balkfm_value_from_anti_authoritarian
+	}
+	add = {
+		value = root.radical_fraction
+		desc = balkfm_value_from_radicals
 	}
 }
 
 balkfm_junimism_progress_value = {
 	value = 0
-	add = var:balkfm_junimism_popularity_var
-	add = var:balkfm_junimism_landowners_var
-	add = var:balkfm_junimism_support_var
-}
-
-balkfm_dacianism_popularity_value = {
-	value = 0
-	every_scope_character = {
-		limit = {
-			OR = {
-				law_stance = {
-					law = law_type:law_traditionalism
-					value < neutral
-				}
-				law_stance = {
-					law = law_type:law_agrarianism
-					value < neutral
-				}
-			}
-			AND = {
-				has_role = politician
-				is_ruler = no
-			}
-		}
-		add = popularity
-	}
-	divide = 10
-}
-
-balkfm_dacianism_support_value = {
-	value = 0
 	if = {
 		limit = {
-			has_variable = balkfm_supporting_dacianism
+			has_variable = balkfm_supporting_junimism
 		}
-		add = 1
+		add = {
+			value = 1
+			desc = balkfm_value_from_supporting_junimism
+		}
+	}
+	add = {
+		value = {
+			every_scope_character = {
+				limit = {
+					OR = {
+						law_stance = {
+							law = law_type:law_traditionalism
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_agrarianism
+							value > neutral
+						}
+					}
+					AND = {
+						has_role = politician
+						is_ruler = no
+					}
+				}
+				add = popularity
+			}
+			divide = 100
+		}
+		desc = balkfm_value_from_junimism_popularity
+	}
+	add = {
+		value = root.ig:ig_landowners.ig_clout
+		desc = balkfm_value_from_landowners_clout
 	}
 }
 
 balkfm_dacianism_progress_value = {
 	value = 0
-	add = var:balkfm_dacianism_popularity_var
-	add = var:balkfm_dacianism_intelligentsia_var
-	add = var:balkfm_dacianism_support_var
+	if = {
+		limit = {
+			has_variable = balkfm_supporting_dacianism
+		}
+		add = {
+			value = 1
+			desc = balkfm_value_from_supporting_dacianism
+		}
+	}
+	add = {
+		value = {
+			every_scope_character = {
+				limit = {
+					OR = {
+						law_stance = {
+							law = law_type:law_traditionalism
+							value < neutral
+						}
+						law_stance = {
+							law = law_type:law_agrarianism
+							value < neutral
+						}
+					}
+					AND = {
+						has_role = politician
+						is_ruler = no
+					}
+				}
+				add = popularity
+			}
+			divide = 100
+		}
+		desc = balkfm_value_from_dacianism_popularity
+	}
+	add = {
+		value = root.ig:ig_intelligentsia.ig_clout
+		desc = balkfm_value_from_intelligentsia_clout
+	}
 }
 
 balkfm_junimism_lead_value = {
@@ -1447,4 +1494,3 @@ balkfm_dacianism_lead_value = {
 	add = var:balkfm_dacianism_progress_var
 	subtract = var:balkfm_junimism_progress_var
 }
-
