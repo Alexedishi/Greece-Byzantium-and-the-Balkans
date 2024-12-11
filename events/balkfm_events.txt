@@ -343,9 +343,9 @@ namespace = balkfm
 
 #620-629 - Regulamentul Organic / Statutul Dezvoltator Events
 #	620 - The Regulamentul Organic
-#	621 - //Renewed Legal Standards
-#	622 - //Modernized Economy
-#	623 - //Social Equity
+#	621 - OPEN
+#	622 - OPEN
+#	623 - OPEN
 #	624 - Electing a Hospodar (MOL)
 #	625 - Electing a Hospodar (WAL)
 #	626 - The Death of Feudalism
@@ -2418,14 +2418,20 @@ balkfm.214 = { # Yugoslavist Uprising in State
 	dlc = dlc_grefm
 	
 	trigger = {
+		NOT = {
+			has_global_variable = balkfm_yugoslav_rebel_cooldown
+		}
 		any_scope_state = {
 			balkfm_is_yugoslav_homeland_trigger = yes
 			balkfm_yugoslav_radicals_trigger = yes
 		}
-		
 	}
 	
 	immediate = {
+		set_global_variable = {
+			name = balkfm_yugoslav_rebel_cooldown
+			years = 3
+		}
 		save_scope_as = balkfm_provocation_owner_scope
 		random_state = {
 			limit = {
@@ -2519,6 +2525,7 @@ balkfm.215 = { # Yugoslav Country Seeks Union (Same Culture)
 	dlc = dlc_grefm
 	
 	trigger = {
+		global_var:balkfm_yugoslav_leader_var ?= this
 		NOT = {
 			has_modifier = modifier_balkfm_established_union
 		}
@@ -2599,6 +2606,7 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 	dlc = dlc_grefm
 	
 	trigger = {
+		global_var:balkfm_yugoslav_leader_var ?= this
 		NOT = {
 			has_modifier = modifier_balkfm_established_union
 		}
@@ -13553,15 +13561,7 @@ balkfm.620 = { # The Regulamentul Organic
 	option = {
 		name = balkfm.620.a
 		default_option = yes
-		add_journal_entry = {
-			type = je_balkfm_rom_legal_modernization
-		}
-		add_journal_entry = {
-			type = je_balkfm_rom_economic_modernization
-		}
-		add_journal_entry = {
-			type = je_balkfm_rom_social_modernization
-		}
+		custom_tooltip = balkfm.620.tt
 	}
 
 }
