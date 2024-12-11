@@ -1976,9 +1976,11 @@ balkfm.205 = { # OPEN
 }
 
 balkfm.206 = { # OPEN
+	orphan = yes
 }
 
 balkfm.207 = { # OPEN
+	orphan = yes
 }
 
 balkfm.208 = { # Yugoslavism Fizzles Out
@@ -2026,7 +2028,7 @@ balkfm.208 = { # Yugoslavism Fizzles Out
 
 }
 
-balkfm.209 = { # formation.9 event, retooled to function within balkfm
+balkfm.209 = { # The Birth of Yugoslavia
 	type = country_event
 	placement = root
 
@@ -2087,40 +2089,6 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 		}
 	}
 	
-}
-
-balkfm.209 = { # The Birth of Yugoslavia
-	type = country_event
-	placement = root
-	
-	title = balkfm.209.t
-	desc = balkfm.209.d
-	flavor = balkfm.209.f
-	
-	event_image = {
-		video = "unspecific_military_parade"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by je_balkfm_nacertanije
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.209.a
-		default_option = yes
-	}
-
 }
 
 #### YUGOSLAVIAN UNIFICATION MECHANICAL EVENTS ####
@@ -2271,7 +2239,7 @@ balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
 		}
 	}
 	
-	option = { # Slap Them Down
+	option = { # 
 		name = balkfm.212.a
 		default_option = yes
 		create_incident = {
@@ -2370,18 +2338,14 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 				is_country_type = unrecognized
 			}
 			create_diplomatic_pact = {
-				create_diplomatic_pact = {
-					country = scope:balkfm_rebellion_scope
-					type = tributary
-				}
+				country = scope:balkfm_rebellion_scope
+				type = tributary
 			}
 		}
 		else = {
 			create_diplomatic_pact = {
-				create_diplomatic_pact = {
-					country = scope:balkfm_rebellion_scope
-					type = protectorate
-				}
+				country = scope:balkfm_rebellion_scope
+				type = protectorate
 			}
 		}
 		every_country = {

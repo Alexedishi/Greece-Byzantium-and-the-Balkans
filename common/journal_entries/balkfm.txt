@@ -2519,7 +2519,14 @@ je_balkfm_rom_1848 = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		balkfm_1848_variables_effect = yes
+		change_variable = {
+			name = balkfm_1848_rom_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_1848_progress_var
+			value = 0
+		}
 	}
 	
 	modifiers_while_active = {
@@ -2554,7 +2561,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.614 # The Convention of Balta Liman
 			}
 		}
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	fail = {
@@ -2583,7 +2590,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.613 # The Sword of the Revolution
 			}
 		}
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	timeout = 730
