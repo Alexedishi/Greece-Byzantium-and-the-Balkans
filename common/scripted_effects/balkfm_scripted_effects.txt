@@ -50,6 +50,10 @@ balkfm_set_up_ottoman_legacies_effect = {
 				has_variable = balkfm_ottoman_legacies_started # There's a tiny corner case where Bulgaria can fire this effect twice
 			}
 		}
+		trigger_event = {
+			id = balkfm.100 # An Ottoman Legacy
+			days = 15 # Provides a buffer from Day 1 events
+		}
 #		add_journal_entry = {
 #			type = je_balkfm_tax_reform
 #		}
@@ -62,10 +66,20 @@ balkfm_set_up_ottoman_legacies_effect = {
 		add_journal_entry = {
 			type = je_balkfm_brigandage
 		}
-		trigger_event = {
-			id = balkfm.100 # An Ottoman Legacy
-			days = 15 # Provides a buffer from Day 1 events
-		}
+		if = {
+			limit = {
+				country_has_primary_culture = cu:romanian
+			}
+			add_journal_entry = {
+				type = je_balkfm_state_reform
+			}
+			add_journal_entry = {
+				type = je_balkfm_economic_reform
+			}
+			add_journal_entry = {
+				type = je_balkfm_social_reform
+			}
+			
 		set_variable = balkfm_ottoman_legacies_started
 	}
 }
@@ -107,27 +121,6 @@ balkfm_add_nationalism_progress_effect = {
 }
 
 ##YUGOSLAVIA EFFECTS ##
-balkfm_initialize_yugoslavism_effect = {
-	set_global_variable = balkfm_yugoslavism_started
-	ordered_country = {
-		limit = {
-			has_journal_entry = je_balkfm_nacertanije
-		}
-		order_by = prestige
-		max = 1
-		check_range_bounds = no
-		save_scope_as = balkfm_yugoslav_leader_scope
-	}
-	set_global_variable = {
-		name = balkfm_yugoslav_leader_prestige_var
-		value = scope:balkfm_yugoslav_leader_scope.prestige
-	}
-	set_global_variable = {
-		name = balkfm_yugoslav_leader_var
-		value = scope:balkfm_yugoslav_leader_scope
-	}
-}
-
 balkfm_determine_yugoslav_leader_effect = {
 	ordered_country = {
 		limit = {
@@ -147,6 +140,173 @@ balkfm_determine_yugoslav_leader_effect = {
 	set_global_variable = {
 		name = balkfm_yugoslav_leader_var
 		value = scope:balkfm_yugoslav_leader_scope
+	}
+}
+
+balkfm_create_yugoslav_rebel_effect = {
+	scope:balkfm_provocation_state_scope = {
+		switch = {
+			trigger = state_region
+			# Serb Homelands
+			s:STATE_NORTHERN_SERBIA = {
+				create_country = {
+					tag = SER
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_SOUTHERN_SERBIA = {
+				create_country = {
+					tag = NISH
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_SKOPIA = {
+				create_country = {
+					tag = NMAC
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_BOSNIA = {
+				create_country = {
+					tag = BOS
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_BANAT = {
+				create_country = {
+					tag = SER_VOJ
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_DELVIDEK = {
+				create_country = {
+					tag = SER_VOJ
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_MONTENEGRO = {
+				create_country = {
+					tag = MON
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			
+			# Bulgarian Homelands
+			s:STATE_BULGARIA = {
+				create_country = {
+					tag = BUL
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			
+			s:STATE_NORTHERN_THRACE = {
+				create_country = {
+					tag = ERUM
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_DOBRUDJA = {
+				create_country = {
+					tag = SILI
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_WESTERN_THRACE = {
+				create_country = {
+					tag = THRA
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			
+			# Croat Homelands
+			s:STATE_CROATIA = {
+				create_country = {
+					tag = CRO
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_DALMATIA = {
+				create_country = {
+					tag = CRO_DAL
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_SLAVONIA = {
+				create_country = {
+					tag = CRO_SLA
+					origin = scope:balkfm_provocation_owner_scope
+					state = scope:balkfm_provocation_state_scope
+					on_created = {
+						set_variable = balkfm_rebellion_tag_tracker
+						eqfm_set_rebellion_laws = yes
+					}
+				}
+			}
+		}
 	}
 }
 

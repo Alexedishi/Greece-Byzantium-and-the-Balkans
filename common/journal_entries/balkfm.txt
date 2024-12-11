@@ -252,6 +252,75 @@ je_balkfm_state_reform = {
 	
 }
 
+je_balkfm_economic_reform = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_balkfm_legacies
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_traditionalism }
+		NOR = { 
+			has_law = law_type:law_land_based_taxation
+			has_law = law_type:law_consumption_based_taxation
+		}
+		NOT = { has_law = law_type:law_isolationism }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.106 # Economic Reform Complete
+		}
+		set_variable = balkfm_economic_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_economic_reform_complete
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_social_reform = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_balkfm_legacies
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_serfdom }
+		has_law = law_type:law_slavery_banned
+		NOT = { has_law = law_type:law_no_schools }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.107 # Social Reform Complete
+		}
+		set_variable = balkfm_social_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_social_reform_complete
+		}
+	}
+	
+	weight = 500
+	
+}
+
 ###############
 # YUGOSLAVISM #
 ###############
@@ -294,11 +363,14 @@ je_balkfm_nacertanije = {
 		trigger_event = {
 			id = balkfm.200 # Yugoslavism Starter Event
 		}
+		set_global_variable = balkfm_yugoslavism_started
 	}
 	
-	scripted_button = balkfm_form_yugoslavia_button
 	scripted_button = balkfm_austrian_agitation_button
 	scripted_button = balkfm_ottoman_agitation_button
+	scripted_button = balkfm_austrian_provokation_button
+	scripted_button = balkfm_ottoman_provokation_button
+	scripted_button = balkfm_form_yugoslavia_button # this is a fallback for Bulgaria
 	
 	complete = {
 		custom_tooltip = {
@@ -382,7 +454,7 @@ je_balkfm_nacertanije = {
 			balkfm_determine_yugoslav_leader_effect = yes
 		}
 		events = {
-#			balkfm.204 # Yugoslav Uprising in X
+			balkfm.204 # Yugoslav Uprising in X
 		}
 	}
 	
@@ -2290,25 +2362,17 @@ je_balkfm_rom_regulamentul_organic = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = balkfm_ottoman_legacy_var
+			value = 0
+		
 	}
 	
 	complete = {
 		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt1
+			text = je_rom_regulamentul_organic_tt
 			hidden_trigger = {
-				has_variable = balkfm_regulamentul_legal
-			}
-		}
-		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt2
-			hidden_trigger = {
-				has_variable = balkfm_regulamentul_economic
-			}
-		}
-		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt3
-			hidden_trigger = {
-				has_variable = balkfm_regulamentul_social
+				var:balkfm_ottoman_legacy_var >= 4
 			}
 		}
 	}
@@ -2338,13 +2402,13 @@ je_balkfm_rom_regulamentul_organic = {
 	fail = {
 		OR = {
 			custom_tooltip = {
-				text = je_rom_regulamentul_organic_tt4
+				text = balkfm_has_formed_rom_tt
 				hidden_trigger = {
 					c:ROM ?= this
 				}
 			}
 			custom_tooltip = {
-				text = je_rom_regulamentul_organic_tt5
+				text = balkfm_not_turkish_subject_tt
 				hidden_trigger = {
 					NOT = {
 						is_subject_of = c:TUR
@@ -2377,6 +2441,13 @@ je_balkfm_rom_regulamentul_organic = {
 	invalid = {
 		hidden_trigger = {
 			has_variable =  balkfm_regulamentul_completed
+		}
+	}
+	
+	on_weekly_pulse = {
+		set_variable = {
+			name = balkfm_ottoman_legacy_var
+			value = balkfm_ottoman_legacy_value
 		}
 	}
 	
@@ -2440,105 +2511,6 @@ je_balkfm_rom_regulamentul_organic = {
 	}
 	
 	weight = 2000
-	
-}
-
-je_balkfm_rom_legal_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_autocracy }
-		NOT = { has_law = law_type:law_peasant_levies }
-		NOT = { has_law = law_type:law_hereditary_bureaucrats }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.621 # Renewed Legal Standards
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
-	
-}
-
-je_balkfm_rom_economic_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_traditionalism }
-		NOR = { 
-			has_law = law_type:law_land_based_taxation
-			has_law = law_type:law_consumption_based_taxation
-		}
-		NOT = { has_law = law_type:law_isolationism }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.622 # A Modernized Economy
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
-	
-}
-
-je_balkfm_rom_social_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_serfdom }
-		has_law = law_type:law_slavery_banned
-		NOT = { has_law = law_type:law_no_schools }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.623 # Social Equity
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
 	
 }
 

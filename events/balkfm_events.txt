@@ -71,8 +71,8 @@ namespace = balkfm
 #	103 - Civic Reform Complete
 #	104 - Brigandage Complete
 #	105 - State Reform Complete
-#	106 - OPEN
-#	107 - OPEN
+#	106 - Economic Reform Complete
+#	107 - Social Reform Complete
 #	108 - OPEN
 #	109 - OPEN
 
@@ -89,22 +89,22 @@ namespace = balkfm
 #	203 - OPEN
 #	204 - OPEN
 #	205 - OPEN
-#	206 - Yugoslav Breakaways Seek Union!
-#	207 - Yugoslav Annexation // Yugoslav Union
+#	206 - OPEN
+#	207 - OPEN
 #	208 - Yugoslavism Fizzles Out
-#	209 - //Yugoslavia Creation Event
+#	209 - ##The Birth of Yugoslavia
 
 #210-219 - Yugoslavian Unification Mechnical Events
 #	210 - Yugoslavist Agitation (Agitator Event)
 #	211 - Yugoslavist Agitation (Target Event)
-#	212 - OPEN
-#	213 - OPEN
-#	214 - OPEN
-#	215 - OPEN
-#	216 - OPEN
+#	212 - ##Yugoslavist Provocation (Provokatur Event)
+#	213 - ##Yugoslavist Provocation (Target Event)
+#	214 - ##Yugoslavist Uprising in State
+#	215 - ##Yugoslav Country Seeks Union (Same Culture)
+#	216 - ##Yugoslav Country Seeks Union (Different Culture)
 #	217 - OPEN
 #	218 - OPEN
-#	219 - ##Yugoslav Uprising in X
+#	219 - OPEN
 
 ##  #BALK3  MONTENEGRO FLAVOR  Events  300-399 ##
 
@@ -343,9 +343,9 @@ namespace = balkfm
 
 #620-629 - Regulamentul Organic / Statutul Dezvoltator Events
 #	620 - The Regulamentul Organic
-#	621 - Renewed Legal Standards
-#	622 - Modernized Economy
-#	623 - Social Equity
+#	621 - //Renewed Legal Standards
+#	622 - //Modernized Economy
+#	623 - //Social Equity
 #	624 - Electing a Hospodar (MOL)
 #	625 - Electing a Hospodar (WAL)
 #	626 - The Death of Feudalism
@@ -1560,6 +1560,87 @@ balkfm.105 = { # State Reform Complete
 
 }
 
+balkfm.106 = { # Economic Reform Complete
+	type = country_event
+	placement = root
+	
+	title = balkfm.106.t
+	desc = balkfm.106.d
+	flavor = balkfm.106.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.106.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_economic_reforms
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+		}
+	}
+
+}
+
+balkfm.107 = { # Social Equity
+	type = country_event
+	placement = root
+	
+	title = balkfm.107.t
+	desc = balkfm.107.d
+	flavor = balkfm.107.f
+	
+	event_image = {
+		video = "europenorthamerica_london_center"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.107.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_economic_reforms
+			months = long_modifier_time
+		}
+		add_loyalists = {
+			value = small_radicals
+			strata = poor
+		}
+	}
+
+}
+
 #### OTTOMAN LEGACY MECHANICAL EVENTS ####
 
 balkfm.110 = { # The Brigands Raid Again!
@@ -1746,7 +1827,6 @@ balkfm.200 = { # Yugoslavism Starter Event
 	}
 	
 	immediate = {
-		balkfm_initialize_yugoslavism_effect = yes
 		if = {
 			limit = {
 				NOT = {
@@ -1777,7 +1857,6 @@ balkfm.200 = { # Yugoslavism Starter Event
 		name = balkfm.200.a
 		default_option = yes
 		custom_tooltip = balkfm_yugoslavism_tt
-		balkfm_determine_yugoslav_leader_effect = yes
 	}
 	
 }
@@ -1896,136 +1975,10 @@ balkfm.205 = { # OPEN
 	orphan = yes
 }
 
-balkfm.206 = { # Yugoslav Breakaways Seek Union!
-	type = country_event
-	placement = root
-	
-	title = balkfm.206.t
-	desc = balkfm.206.d
-	flavor = balkfm.206.f
-	
-	event_image = {
-		video = "europenorthamerica_political_extremism"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		NOT = { has_global_variable = balkfm_breakaway_technical }
-		has_technology_researched = pan-nationalism
-		any_country = {
-			has_variable = balkfm_breakaway_var
-			balkfm_is_annexation_candidate_trigger = yes
-		}
-	}
-	
-	immediate = {
-		set_global_variable = balkfm_breakaway_technical
-		random_primary_culture = {
-			save_scope_as = primary_culture_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = balkfm_breakaway_var
-			}
-			save_scope_as = balkfm_breakaway_scope
-		}
-	}
-	
-	option = { # Annex Them
-		name = balkfm.206.a
-		default_option = yes
-		create_incident = {
-			country = scope:balkfm_breakaway_scope
-			value = 10
-		}
-		annex = scope:balkfm_breakaway_scope
-	}
-	
-	option = { # Nope
-		name = balkfm.206.b
-		change_relations = {
-			country = scope:balkfm_breakaway_scope
-			value = 50
-		}
-		scope:balkfm_breakaway_scope = {
-			remove_variable = balkfm_breakaway_var
-		}
-	}
-	
-	after = {
-		remove_global_variable = balkfm_breakaway_technical
-	}
-
+balkfm.206 = { # OPEN
 }
 
-balkfm.207 = { # Yugoslav Annexation
-	type = country_event
-	placement = scope:balkfm_yugoslav_annex_scope
-	
-	title = balkfm.207.t
-	desc = balkfm.207.d
-	flavor = balkfm.207.f
-	
-	event_image = {
-		video = "unspecific_signed_contract"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_flag_yug.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		has_technology_researched = pan-nationalism
-		any_country = {
-			balkfm_has_yugoslav_culture_trigger = yes
-			balkfm_is_annexation_candidate_trigger = yes
-			relations:root >= relations_threshold:cordial
-		}
-	}
-	
-	immediate = {
-		random_country = {
-			limit = {
-				balkfm_has_yugoslav_culture_trigger = yes
-				balkfm_is_annexation_candidate_trigger = yes
-				relations:root >= relations_threshold:cordial
-			}
-			save_scope_as =  balkfm_yugoslav_annex_scope
-		}
-	}
-	
-	cooldown = {
-		years = 2 # putting the brakes on RNGesus
-	}
-	
-	option = { # Annex Them
-		name = balkfm.207.a
-		default_option = yes
-		annex = scope:balkfm_yugoslav_annex_scope
-	}
-	
-	option = { # Nope
-		name = balkfm.207.b
-		change_relations = {
-			country = scope:balkfm_yugoslav_annex_scope
-			value = 50
-		}
-		scope:balkfm_yugoslav_annex_scope = {
-			set_variable = balkfm_annexation_declined
-		}
-	}
-
+balkfm.207 = { # OPEN
 }
 
 balkfm.208 = { # Yugoslavism Fizzles Out
@@ -2136,6 +2089,40 @@ balkfm.209 = { # formation.9 event, retooled to function within balkfm
 	
 }
 
+balkfm.209 = { # The Birth of Yugoslavia
+	type = country_event
+	placement = root
+	
+	title = balkfm.209.t
+	desc = balkfm.209.d
+	flavor = balkfm.209.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_balkfm_nacertanije
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = balkfm.209.a
+		default_option = yes
+	}
+
+}
+
 #### YUGOSLAVIAN UNIFICATION MECHANICAL EVENTS ####
 
 balkfm.210 = { # Yugoslavist Agitation (Agitator Event)
@@ -2240,24 +2227,433 @@ balkfm.211 = { # Yugoslavist Agitation (Target Event)
 
 }
 
-balkfm.212 = { # OPEN
-	orphan = yes
+balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
+	type = country_event
+	placement = scope:balkfm_rebellion_scope
+	
+	title = balkfm.212.t
+	desc = balkfm.212.d
+	flavor = balkfm.212.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_austrian_provokation_button / balkfm_ottoman_provokation_button
+	}
+	
+	immediate = {
+		random_state = {
+			limit = {
+				has_variable = balkfm_yugoslav_state_target
+			}
+			save_scope_as = balkfm_provocation_state_scope
+			owner = {
+				save_scope_as = balkfm_provocation_owner_scope
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_rebellion_tag_tracker
+			}
+			save_scope_as = balkfm_rebellion_scope
+		}
+	}
+	
+	option = { # Slap Them Down
+		name = balkfm.212
+		default_option = yes
+		create_incident = {
+			country = scope:balkfm_provocation_owner_scope
+			value = 10
+		}
+		every_country = {
+			limit = {
+				is_subject_of = root
+				balkfm_has_yugoslav_culture_trigger = yes
+			}
+			add_modifier = {
+				name = modifier_balkfm_yugoslavist_overlord
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+	}
+	
 }
 
-balkfm.213 = { # OPEN
-	orphan = yes
+balkfm.213 = { # Yugoslavist Provocation (Target Event)
+	type = country_event
+	placement = scope:balkfm_rebellion_scope
+	
+	title = balkfm.213.t
+	desc = balkfm.213.d
+	flavor = balkfm.213.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_austrian_provokation_button / balkfm_ottoman_provokation_button
+	}
+	
+	immediate = {
+		random_state = {
+			limit = {
+				has_variable = balkfm_yugoslav_state_target
+			}
+			save_scope_as = balkfm_provocation_state_scope
+			owner = {
+				save_scope_as = balkfm_provocation_owner_scope
+			}
+		}
+		balkfm_create_yugoslav_rebel_effect = yes
+		random_country = {
+			limit = {
+				has_variable = balkfm_yugoslav_provocation_actor
+			}
+			save_scope_as = balkfm_yugoslav_provocateur_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_rebellion_tag_tracker
+			}
+			save_scope_as = balkfm_rebellion_scope
+		}
+		scope:balkfm_provocation_state_scope = {
+			state_region = {
+				add_claim = root
+			}
+		}
+	}
+	
+	option = { # Slap Them Down
+		name = balkfm.213.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = dp_yugoslav_rebellion
+			type = dp_return_state
+			target_state = scope:balkfm_provocation_state_scope
+			add_war_goal = {
+				holder = scope:balkfm_rebellion_scope
+				type = revoke_claim
+				target_state = scope:balkfm_provocation_state_scope
+				target_country = root
+			}  
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = balkfm.213.b
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			create_diplomatic_pact = {
+				create_diplomatic_pact = {
+					country = scope:balkfm_rebellion_scope
+					type = tributary
+				}
+			}
+		}
+		else = {
+			create_diplomatic_pact = {
+				create_diplomatic_pact = {
+					country = scope:balkfm_rebellion_scope
+					type = protectorate
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				is_subject_of = root
+			}
+			add_modifier = {
+				name = modifier_balkfm_spineless_overlord
+				months = long_modifier_time
+			}
+		}
+	}
+	
 }
 
-balkfm.214 = { # OPEN
-	orphan = yes
+balkfm.214 = { # Yugoslavist Uprising in State
+	type = country_event
+	placement = root
+	
+	title = balkfm.214.t
+	desc = balkfm.214.d
+	flavor = balkfm.214.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_######.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		any_scope_state = {
+			balkfm_is_yugoslav_homeland_trigger = yes
+			balkfm_yugoslav_radicals_trigger = yes
+		}
+		
+	}
+	
+	immediate = {
+		save_scope_as = balkfm_provocation_owner_scope
+		random_state = {
+			limit = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+				balkfm_yugoslav_radicals_trigger = yes
+			}
+			save_scope_as = balkfm_provocation_state_scope
+		}
+		balkfm_create_yugoslav_rebel_effect = yes
+		random_country = {
+			limit = {
+				has_variable = balkfm_rebellion_tag_tracker
+			}
+			save_scope_as = balkfm_rebellion_scope
+		}
+		scope:balkfm_provocation_state_scope = {
+			state_region = {
+				add_claim = root
+			}
+		}
+	}
+	
+	option = { # Slap Them Down
+		name = balkfm.213.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = dp_yugoslav_rebellion
+			type = dp_return_state
+			target_state = scope:balkfm_provocation_state_scope
+			add_war_goal = {
+				holder = scope:balkfm_rebellion_scope
+				type = revoke_claim
+				target_state = scope:balkfm_provocation_state_scope
+				target_country = root
+			}  
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = balkfm.213.b
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			create_diplomatic_pact = {
+				create_diplomatic_pact = {
+					country = scope:balkfm_rebellion_scope
+					type = tributary
+				}
+			}
+		}
+		else = {
+			create_diplomatic_pact = {
+				create_diplomatic_pact = {
+					country = scope:balkfm_rebellion_scope
+					type = protectorate
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				is_subject_of = root
+			}
+			add_modifier = {
+				name = modifier_balkfm_spineless_overlord
+				months = long_modifier_time
+			}
+		}
+	}
+
 }
 
-balkfm.215 = { # OPEN
-	orphan = yes
+balkfm.215 = { # Yugoslav Country Seeks Union (Same Culture)
+	type = country_event
+	placement = root
+	
+	title = balkfm.215.t
+	desc = balkfm.215.d
+	flavor = balkfm.215.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_modifier = modifier_balkfm_established_union
+		}
+		any_country = {
+			has_journal_entry = je_balkfm_nacertanije
+			is_adjacent_to_country = root
+			balkfm_shares_slav_culture_trigger = yes
+			is_player = no
+			is_diplomatic_play_committed_participant = no
+			is_subject = no
+			relations:root >= relations_threshold:amicable
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = scope:balkfm_yugoslav_union_scope
+		}
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_journal_entry = je_balkfm_nacertanije
+				is_adjacent_to_country = root
+				balkfm_shares_slav_culture_trigger = yes
+				is_player = no
+				is_diplomatic_play_committed_participant = no
+				is_subject = no
+				relations:root >= relations_threshold:amicable
+			}
+			save_scope_as = balkfm_yugoslav_union_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.215.a
+		default_option = yes
+		create_diplomatic_pact = {
+			country = scope:balkfm_yugoslav_union_scope
+			type = protectorate
+		}
+		add_modifier = {
+			name = modifier_balkfm_established_union
+			months = short_modifier_time
+		}
+	}
+	
+	option = {
+		name = balkfm.215.b
+		change_relations = {
+			country = scope:balkfm_yugoslav_union_scope
+			value = -50
+		}
+		balkfm_sad_yugoslavs_effect = yes
+	}
+
 }
 
-balkfm.216 = { # OPEN
-	orphan = yes
+balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
+	type = country_event
+	placement = root
+	
+	title = balkfm.215.t
+	desc = balkfm.215.d
+	flavor = balkfm.215.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_yugoslavia.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_modifier = modifier_balkfm_established_union
+		}
+		any_country = {
+			has_journal_entry = je_balkfm_nacertanije
+			is_adjacent_to_country = root
+			balkfm_has_yugoslav_culture_trigger = yes
+			is_player = no
+			is_diplomatic_play_committed_participant = no
+			is_subject = no
+			relations:root >= relations_threshold:amicable
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = scope:balkfm_yugoslav_union_scope
+		}
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_journal_entry = je_balkfm_nacertanije
+				is_adjacent_to_country = root
+				balkfm_has_yugoslav_culture_trigger = yes
+				is_player = no
+				is_diplomatic_play_committed_participant = no
+				is_subject = no
+				relations:root >= relations_threshold:amicable
+			}
+			save_scope_as = balkfm_yugoslav_union_scope
+		}
+	}
+	
+	option = {
+		name = balkfm.215.a
+		default_option = yes
+		create_diplomatic_pact = {
+			country = scope:balkfm_yugoslav_union_scope
+			type = protectorate
+		}
+		add_modifier = {
+			name = modifier_balkfm_established_union
+			months = short_modifier_time
+		}
+	}
+	
+	option = {
+		name = balkfm.215.b
+		change_relations = {
+			country = scope:balkfm_yugoslav_union_scope
+			value = -50
+		}
+		balkfm_sad_yugoslavs_effect = yes
+	}
+
 }
 
 balkfm.217 = { # OPEN
@@ -2268,7 +2664,7 @@ balkfm.218 = { # OPEN
 	orphan = yes
 }
 
-balkfm.219 = { # Yugoslav Uprising in X
+balkfm.219 = { # OPEN
 	orphan = yes
 }
 
@@ -13168,118 +13564,17 @@ balkfm.620 = { # The Regulamentul Organic
 
 }
 
-balkfm.621 = { # Renewed Legal Standards
-	type = country_event
-	placement = root
-	
-	title = balkfm.621.t
-	desc = balkfm.621.d
-	flavor = balkfm.621.f
-	
-	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.621.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_legal_reforms
-			months = long_modifier_time
-		}
-		set_variable = balkfm_regulamentul_legal
-	}
+balkfm.621 = { # OPEN
+	orphan = yes
 
 }
 
-balkfm.622 = { # Modernized Economy
-	type = country_event
-	placement = root
-	
-	title = balkfm.622.t
-	desc = balkfm.622.d
-	flavor = balkfm.622.f
-	
-	event_image = {
-		video = "europenorthamerica_london_center"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_trade.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.622.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_economic_reforms
-			months = long_modifier_time
-		}
-		set_variable = balkfm_regulamentul_economic
-	}
-
+balkfm.106 = { # OPEN
+	orphan = yes
 }
 
-balkfm.623 = { # Social Equity
-	type = country_event
-	placement = root
-	
-	title = balkfm.623.t
-	desc = balkfm.623.d
-	flavor = balkfm.623.f
-	
-	event_image = {
-		video = "europenorthamerica_london_center"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	option = {
-		name = balkfm.622.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_economic_reforms
-			months = long_modifier_time
-		}
-		set_variable = balkfm_regulamentul_social
-	}
-
+balkfm.107 = { # OPEN
+	orphan = yes
 }
 
 balkfm.624 = { # Electing a Hospodar (MOL)

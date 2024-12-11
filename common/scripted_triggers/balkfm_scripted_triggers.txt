@@ -1,4 +1,8 @@
-﻿balkfm_balkans_involved_trigger = {
+﻿####################
+# GENERAL TRIGGERS #
+####################
+
+balkfm_balkans_involved_trigger = {
 	OR = {
 		has_interest_marker_in_region = sr:region_balkans
 		capital = {
@@ -44,6 +48,10 @@ balkfm_is_balkan_empire_trigger = {
 	}
 }
 
+########################
+# YUGOSLAVISM TRIGGERS #
+########################
+
 balkfm_has_yugoslav_culture_trigger = {
 	OR = {
 		country_has_primary_culture = cu:serb
@@ -54,37 +62,112 @@ balkfm_has_yugoslav_culture_trigger = {
 	}
 }
 
-balkfm_is_yugoslav_homeland_trigger = {
-	state_region = {
-		OR = {
-			is_homeland = cu:serb
-			is_homeland = cu:croat
-			is_homeland = cu:bosniak
-			is_homeland = cu:slovene
-			is_homeland = cu:bulgarian
+balkfm_shares_slav_culture_trigger = {
+	trigger_if = {
+		limit = {
+			country_has_primary_culture = cu:serb
+		}
+		any_primary_culture = {
+			cu:serb = this
+		}
+	}
+	trigger_if = {
+		limit = {
+			country_has_primary_culture = cu:bulgarian
+		}
+		any_primary_culture = {
+			cu:bulgarian = this
+		}
+	}
+	trigger_if = {
+		limit = {
+			country_has_primary_culture = cu:bosniak
+		}
+		any_primary_culture = {
+			cu:bosniak = this
+		}
+	}
+	trigger_if = {
+		limit = {
+			country_has_primary_culture = cu:croat
+		}
+		any_primary_culture = {
+			cu:croat = this
+		}
+	}
+	trigger_if = {
+		limit = {
+			country_has_primary_culture = cu:slovene
+		}
+		any_primary_culture = {
+			cu:slovene = this
 		}
 	}
 }
 
-balkfm_is_annexation_candidate_trigger = {
-	has_journal_entry = je_balkfm_nacertanije
-	is_player = no
-	is_diplomatic_play_committed_participant = no
-	is_at_war = no
-	is_adjacent_to_country = root
-	OR = {
-		is_subject = no
-		is_subject_of = root
-		has_diplomatic_pact = {
-			who = root
-			type = alliance
+balkfm_is_yugoslav_homeland_trigger = {
+	state_region = {
+		OR = {
+			is_homeland = cu:serb
+			is_homeland = cu:bulgarian
+			is_homeland = cu:bosniak
+			is_homeland = cu:croat
+			is_homeland = cu:slovene
 		}
-		relations:root >= relations_threshold:friendly
-	}
-	NOT = {
-		has_variable = balkfm_annexation_declined
 	}
 }
+
+balkfm_yugoslav_radicals_trigger = {
+	trigger_if = {
+		any_scope_pop = {
+			has_pop_culture = serb
+		}
+		radical_fraction = {
+			culture = serb
+			value >= 0.33
+		}
+	}
+	trigger_if = {
+		any_scope_pop = {
+			has_pop_culture = bulgarian
+		}
+		radical_fraction = {
+			culture = bulgarian
+			value >= 0.33
+		}
+	}
+	trigger_if = {
+		any_scope_pop = {
+			has_pop_culture = bosniak
+		}
+		radical_fraction = {
+			culture = bosniak
+			value >= 0.33
+		}
+	}
+	trigger_if = {
+		any_scope_pop = {
+			has_pop_culture = croat
+		}
+		radical_fraction = {
+			culture = croat
+			value >= 0.33
+		}
+	}
+	trigger_if = {
+		any_scope_pop = {
+			has_pop_culture = slovene
+		}
+		radical_fraction = {
+			culture = slovene
+			value >= 0.33
+		}
+	}
+}
+
+###################
+# SERBIA TRIGGERS #
+###################
 
 balkfm_has_obrenovic_ruler_trigger = {
 	ruler = {
