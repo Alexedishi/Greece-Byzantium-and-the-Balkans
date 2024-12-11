@@ -294,6 +294,125 @@ balkfm_ottoman_agitation_button = {
 	}
 }
 
+balkfm_austrian_provokation_button = {
+	name = "balkfm_austrian_provokation_button"
+	desc = "balkfm_austrian_provokation_button_desc"
+	
+	visible = {
+		c:AUS ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+				balkfm_yugoslav_radicals_trigger = yes
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_austrian_provokation_tt
+			hidden_trigger = {
+				c:AUS ?= {
+					any_scope_state = {
+						balkfm_is_yugoslav_homeland_trigger = yes
+						balkfm_yugoslav_radicals_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_provocation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:AUS ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland_trigger = yes
+					balkfm_yugoslav_radicals_trigger = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+			}
+		}
+		trigger_event = {
+			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:AUS
+				value = 10
+			}
+		}
+		remove_variable = balkfm_yugoslav_provocation_actor
+	}
+	
+}
+
+balkfm_ottoman_provokation_button = {
+	name = "balkfm_ottoman_provokation_button"
+	desc = "balkfm_ottoman_provokation_button_desc"
+	
+	visible = {
+		c:TUR ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+				balkfm_yugoslav_radicals_trigger = yes
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_ottoman_provokation_tt
+			hidden_trigger = {
+				c:TUR ?= {
+					any_scope_state = {
+						balkfm_is_yugoslav_homeland_trigger = yes
+						balkfm_yugoslav_radicals_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_provocation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:TUR ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland_trigger = yes
+					balkfm_yugoslav_radicals_trigger = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+			}
+		}
+		trigger_event = {
+			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:TUR
+				value = 10
+			}
+		}
+		remove_variable = balkfm_yugoslav_provocation_actor
+	}
+	
+}
 
 # MONTENEGRO BUTTONS
 balkfm_reinforce_border_button = {
