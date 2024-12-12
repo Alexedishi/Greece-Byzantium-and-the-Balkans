@@ -2414,6 +2414,7 @@ eocfm.121 = { # Council of X
 		trigger = {
 			NOT = { has_global_variable = eocfm_orthodox_realms_started }
 			has_variable = eocfm_is_autocephalous
+			eocfm_controls_ancient_seat_trigger = yes
 			country_rank >= rank_value:great_power
 		}
 		trigger_event = {
@@ -2982,18 +2983,19 @@ eocfm.129 = { # The Byzantine Commonwealth
 	flavor = eocfm.129.f
 	
 	event_image = {
-		video = votp_monarch_holding_court"
+		video = "votp_monarch_holding_court"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_crozier.dds"
+	icon = "gfx/interface/icons/event_icons/event_orthodox.dds"
 	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
 	duration = 3
 	
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by eocfm.300
 	}
 	
 	immediate = {
@@ -3006,11 +3008,11 @@ eocfm.129 = { # The Byzantine Commonwealth
 	}
 	
 	option = {
-		name = eocfm.122.a
+		name = eocfm.129.a
 		default_option = yes
-		custom_tooltip = eocfm_orthodox_realms_tt
+		custom_tooltip = eocfm_orthodox_realms_warning_tt
 	}
-	
+
 }
 
 #### CRUSADE EVENTS ####
