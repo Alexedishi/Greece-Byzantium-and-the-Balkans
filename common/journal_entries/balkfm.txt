@@ -2389,9 +2389,11 @@ je_balkfm_rom_regulamentul_organic = {
 				}
 				NOT = { has_variable = balkfm_1848_succeeded }
 			}
-			trigger_event = {
-				id = balkfm.627 # Absolutist Aspirations
-				days = 120
+			hidden_effect = {
+					trigger_event = {
+					id = balkfm.627 # Absolutist Aspirations
+					days = 120
+				}
 			}
 		}
 	}
@@ -2427,9 +2429,16 @@ je_balkfm_rom_regulamentul_organic = {
 				}
 				NOT = { has_variable = balkfm_1848_succeeded }
 			}
-			trigger_event = {
+			show_as_tooltip = {
+				trigger_event = {
+					id = balkfm.627 # Absolutist Aspirations
+				}
+			}
+			hidden_effect = {
+				trigger_event = {
 				id = balkfm.627 # Absolutist Aspirations
-				days = 120
+					days = 120
+				}
 			}
 		}
 		set_variable = balkfm_regulamentul_completed
@@ -2442,9 +2451,11 @@ je_balkfm_rom_regulamentul_organic = {
 	}
 	
 	on_weekly_pulse = {
-		set_variable = {
-			name = balkfm_ottoman_legacy_var
-			value = balkfm_ottoman_legacy_value
+		effect = {
+			set_variable = {
+				name = balkfm_ottoman_legacy_var
+				value = balkfm_ottoman_legacy_value
+			}
 		}
 	}
 	
@@ -2519,7 +2530,7 @@ je_balkfm_rom_1848 = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		change_variable = {
+		set_variable = {
 			name = balkfm_1848_rom_var
 			value = 0
 		}
