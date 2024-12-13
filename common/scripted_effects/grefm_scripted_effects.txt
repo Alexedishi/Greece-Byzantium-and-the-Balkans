@@ -79,33 +79,100 @@ grefm_setup_rhomaios_pops_effect = {
 }
 
 grefm_rhomaios_country_start_effect = {
-	c:TUR ?= {
-		if = {
-			limit = {
-				c:TRB ?= {
-					is_player = no
-				}
-			}
-			annex = c:TRB
+	if = {
+		limit = {
+			c:TUR ?= this
 		}
-		if = {
-			limit = {
-				c:GRE_CAP ?= {
-					is_player = no
-				}
-			}
-			annex = c:GRE_CAP
+		create_country = {
+			tag = TRB
+			origin = c:TUR
+			state = s:STATE_TRABZON.region_state:TUR
 		}
+		c:TUR ?= {
+			create_diplomatic_pact = {
+				country = c:TRB
+				type = puppet
+			}
+		}
+		C:TRB ?= {
+			trigger_event = {
+				id = grefm.550 # The Pontic Greeks
+			}
+			balkfm_set_up_ottoman_legacies_effect = yes
+		}
+		play_as = c:TRB
 	}
-	c:RUS ?= {
-		if = {
-			limit = {
-				c:THE ?= {
-					is_player = no
-				}
-			}
-			annex = c:THE
+	else_if = {
+		limit = {
+			c:EGY ?= this
 		}
+		create_country = {
+			tag = GRE_CAP
+			origin = c:TUR
+			# Ankara Provinces
+			province = p:x401080
+			province = p:xF470A0
+			province = p:xA8674E
+			province = p:x3041CC
+			province = p:xA8674E
+			province = p:xC09000
+			province = p:x431F60
+			province = p:x17B19B
+			# Adana Provinces
+			province = p:x4DA0F1
+			province = p:xA4523A
+			province = p:x39CBF7
+			province = p:x63E9DB
+			province = p:x909463
+			province = p:x7DD48B
+			province = p:xF657D8
+			# Diyarbakir Provinces
+			province = p:xC9CF24
+			province = p:xFB66D7
+			province = p:x5E4B3A
+		}
+		c:TUR ?= {
+			create_diplomatic_pact = {
+				country = c:GRE_CAP
+				type = puppet
+			}
+		}
+		C:GRE_CAP ?= {
+			trigger_event = {
+				id = grefm.560 # The Greeks of the Highlands
+			}
+			balkfm_set_up_ottoman_legacies_effect = yes
+		}
+		play_as = c:GRE_CAP
+	}
+	else_if = {
+		limit = {
+			c:RUS ?= this
+		}
+		create_country = {
+			tag = THE
+			origin = c:RUS
+			province = p:xB0DFDF
+			province = p:xF56D13
+			province = p:x706060
+		}
+		c:RUS ?= {
+			create_diplomatic_pact = {
+				country = c:THE
+				type = puppet
+			}
+			set_secret_goal = {
+				country = c:THE
+				secret_goal = protect
+			}
+		}
+		c:THE ?= {
+			trigger_event = {
+				id = grefm.570 # The Urums of Little Theodoro
+			}
+			balkfm_set_up_ottoman_legacies_effect = yes
+		}
+		play_as = c:THE
 	}
 }
 
@@ -1315,4 +1382,263 @@ grefm_cleanup_quadrennial_race_effect = {
 	remove_variable = grefm_chariot_blues
 	remove_variable = grefm_chariot_purples
 	remove_variable = grefm_chariot_golds
+}
+
+grefm_add_byzantium_claims_effect = {
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_ATTICA
+				owns_entire_state_region = STATE_ATTICA
+			}
+		}
+		s:STATE_ATTICA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_PELOPONNESE
+				owns_entire_state_region = STATE_PELOPONNESE
+			}
+		}
+		s:STATE_PELOPONNESE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_THESSALIA
+				owns_entire_state_region = STATE_THESSALIA
+			}
+		}
+		s:STATE_THESSALIA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_MACEDONIA
+				owns_entire_state_region = STATE_MACEDONIA
+			}
+		}
+		s:STATE_MACEDONIA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_SKOPIA
+				owns_entire_state_region = STATE_SKOPIA
+			}
+		}
+		s:STATE_SKOPIA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_EASTERN_THRACE
+				owns_entire_state_region = STATE_EASTERN_THRACE
+			}
+		}
+		s:STATE_EASTERN_THRACE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_WESTERN_THRACE
+				owns_entire_state_region = STATE_WESTERN_THRACE
+			}
+		}
+		s:STATE_WESTERN_THRACE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_NORTHERN_THRACE
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+			}
+		}
+		s:STATE_NORTHERN_THRACE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_HUDAVENDIGAR
+				owns_entire_state_region = STATE_HUDAVENDIGAR
+			}
+		}
+		s:STATE_HUDAVENDIGAR = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_AYDIN
+				owns_entire_state_region = STATE_AYDIN
+			}
+		}
+		s:STATE_AYDIN = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_WEST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			}
+		}
+		s:STATE_WEST_AEGEAN_ISLANDS = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_EAST_AEGEAN_ISLANDS
+				owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			}
+		}
+		s:STATE_EAST_AEGEAN_ISLANDS = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_ALBANIA
+				owns_entire_state_region = STATE_ALBANIA
+			}
+		}
+		s:STATE_ALBANIA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_CRETE
+				owns_entire_state_region = STATE_CRETE
+			}
+		}
+		s:STATE_CRETE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_claim = s:STATE_IONIAN_ISLANDS
+				owns_entire_state_region = STATE_IONIAN_ISLANDS
+			}
+		}
+		s:STATE_IONIAN_ISLANDS = {
+			add_claim = ROOT
+		}
+	}
+}
+
+grefm_add_levant_claims_effect = {
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_ALEPPO }
+		}
+		s:STATE_ALEPPO = {
+			add_claim = ROOT
+		}
+	}		
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_SYRIA }
+		}
+		s:STATE_SYRIA = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_LEBANON }
+		}
+		s:STATE_LEBANON = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_TRANSJORDAN }
+		}
+		s:STATE_TRANSJORDAN = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_PALESTINE }
+		}
+		s:STATE_PALESTINE = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_SINAI }
+		}
+		s:STATE_SINAI = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_LOWER_EGYPT }
+		}
+		s:STATE_LOWER_EGYPT = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_MIDDLE_EGYPT }
+		}
+		s:STATE_MIDDLE_EGYPT = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_UPPER_EGYPT }
+		}
+		s:STATE_UPPER_EGYPT = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_MATRUH }
+		}
+		s:STATE_MATRUH = {
+			add_claim = ROOT
+		}
+	}
+	if = {
+		limit = {
+			NOT = { owns_entire_state_region = STATE_LIBYA }
+		}
+		s:STATE_LIBYA = {
+			add_claim = ROOT
+		}
+	}
 }

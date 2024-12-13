@@ -130,8 +130,6 @@ je_balkfm_civic_reform = {
 			is_powerful = no
 			is_insurrectionary = no
 		}
-		bureaucracy >= 0 
-		approaching_bureaucracy_shortage = no
 	}
 	
 	on_complete = {
@@ -227,12 +225,20 @@ je_balkfm_state_reform = {
 	}
 	
 	complete = {
-		NOR = { 
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_oligarchy
+		NOR = {
 			has_law = law_type:law_hereditary_bureaucrats
 			has_law = law_type:law_peasant_levies
 		}
+		any_scope_building = {
+			is_building_type = building_government_administration
+			NOT = {
+				has_active_production_method = pm_simple_farming
+			}
+			level >= 2
+			occupancy >= 0.9
+		}
+		bureaucracy >= 0 
+		approaching_bureaucracy_shortage = no
 	}
 
 	on_complete = {
@@ -2355,10 +2361,6 @@ je_balkfm_rom_regulamentul_organic = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_variable = {
-			name = balkfm_ottoman_legacy_var
-			value = 0
-		}
 	}
 	
 	complete = {
@@ -2484,6 +2486,16 @@ je_balkfm_rom_regulamentul_organic = {
 			}
 		}
 	}
+	
+	current_value = {
+		value = var:balkfm_ottoman_legacy_var
+	}
+
+	goal_add_value = {
+		value = 4
+	}
+
+	progressbar = yes
 	
 	status_desc = {
 		first_valid = {

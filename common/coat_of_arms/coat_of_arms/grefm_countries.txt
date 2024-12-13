@@ -6,6 +6,55 @@
 @canton_scale_cross_x = @[ ( 333 / 768 ) + 0.001 ]
 @canton_scale_cross_y = @[ ( 205 / 512 ) + 0.001 ]
 
+
+################
+# GREECE FLAGS #
+################
+
+GRE_communist = {
+	pattern = "pattern_solid.tga"
+	color1 = "red"
+
+	colored_emblem = {
+		texture = "ce_cross_england.dds"
+		color1 = "blue"
+		color2 = "blue"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	colored_emblem = {
+		texture = "ce_hammer_and_sickle.dds"
+		color1 = "yellow"
+		color2 = "yellow"
+        instance = { scale = { 0.333 0.333 } position = { 0.222 0.222 }  }
+	}
+}
+
+HEMP = {
+	pattern = "pattern_solid.tga"
+	color1 = "blue"
+
+	colored_emblem = {
+		texture = "ce_vergina_sun.dds"
+		color1 = "yellow"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+
+}
+
+##################
+# HELLENE MINORS #
+##################
+
+ATHE = {
+	pattern = "pattern_solid.tga"
+	color1 = "red"
+	
+	textured_emblem = {
+		texture = "te_coa_athens_full.dds"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+}
+
 EPI = {
 	pattern = "pattern_solid.tga"
 	color1 = "blue"
@@ -37,24 +86,6 @@ MAC = {
 
 }
 
-GRE_communist = {
-	pattern = "pattern_solid.tga"
-	color1 = "red"
-
-	colored_emblem = {
-		texture = "ce_cross_england.dds"
-		color1 = "blue"
-		color2 = "blue"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-	colored_emblem = {
-		texture = "ce_hammer_and_sickle.dds"
-		color1 = "yellow"
-		color2 = "yellow"
-        instance = { scale = { 0.333 0.333 } position = { 0.222 0.222 }  }
-	}
-}
-
 MORE = {
 	pattern = "pattern_solid.tga"
 	color1 = "red"
@@ -65,15 +96,7 @@ MORE = {
 	}
 }
 
-ATHE = {
-	pattern = "pattern_solid.tga"
-	color1 = "red"
-	
-	textured_emblem = {
-		texture = "te_coa_athens_full.dds"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-}
+
 
 NAXO = {
 	pattern = "pattern_solid.tga"
@@ -84,32 +107,6 @@ NAXO = {
 		color1 = "blue"
 		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
-}
-
-THRA = {
-	pattern = "pattern_solid.tga"
-	color1 = "blue"
-
-	colored_emblem = {
-		texture = "ce_cross_england.dds"
-		color1 = "black"
-		color2 = "black"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-	
-}
-
-SMYR = {
-	pattern = "pattern_solid.tga"
-	color1 = "green"
-
-	colored_emblem = {
-		texture = "ce_cross_england.dds"
-		color1 = "white"
-		color2 = "white"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-	
 }
 
 SAMO = {
@@ -128,6 +125,36 @@ SAMO = {
 		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
 }
+
+SMYR = {
+	pattern = "pattern_solid.tga"
+	color1 = "green"
+
+	colored_emblem = {
+		texture = "ce_cross_england.dds"
+		color1 = "white"
+		color2 = "white"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+}
+
+THRA = {
+	pattern = "pattern_solid.tga"
+	color1 = "blue"
+
+	colored_emblem = {
+		texture = "ce_cross_england.dds"
+		color1 = "black"
+		color2 = "black"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+}
+
+##########################
+# BYZANTIUM / ROME FLAGS #
+##########################
 
 BYZ_byzantine_empire = {
 	pattern = "pattern_solid.tga"
@@ -189,28 +216,32 @@ BYZ_byzantine_peoples_republic = {
 	}
 }
 
-ERE = {
+BYZ_roman_empire = {
 	pattern = "pattern_solid.tga"
 	color1 = "red"
-	color2 = "yellow"
 
 	colored_emblem = {
-		texture = "ce_cross_england.dds"
-		color1 = color2
-		color2 = color2
+		texture = "ce_spqr_vexillum.dds"
+		color1 = "yellow"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
-	
+
+}
+
+BYZ_roman_republic = {
+	pattern = "pattern_solid.tga"
+	color1 = "red"
+
 	colored_emblem = {
-		texture = "ce_letter_beta.dds"
-		color1 = color2
-		color2 = color2
-		
-        instance = { position = { @[canton_scale_cross_x/2] @[canton_scale_cross_y/2] } scale = { @[-1/5*2] @[1/5*2] } } # top left
-        instance = { position = { @[1-(canton_scale_cross_x/2)] @[canton_scale_cross_y/2] } scale = { @[1/5*2] @[1/5*2] } } # top right
-        instance = { position = { @[canton_scale_cross_x/2] @[1-(canton_scale_cross_y/2)] } scale = { @[-1/5*2] @[1/5*2] } } # bottom left
-        instance = { position = { @[1-(canton_scale_cross_x/2)] @[1-(canton_scale_cross_y/2)] } scale = { @[1/5*2] @[1/5*2] } } # bottom right
+		texture = "ce_bicolor_right.dds"
+		color1 = "yellow"
+		color2 = "yellow"
 	}
 }
+
+###################
+# RHOMAIOS MINORS #
+###################
 
 GRE_CAP = {
 	pattern = "pattern_solid.tga"
@@ -218,17 +249,6 @@ GRE_CAP = {
 
 	colored_emblem = {
 		texture = "ce_greek_orthodox_01.dds"
-		color1 = "black"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-}
-
-THE = {
-	pattern = "pattern_solid.tga"
-	color1 = "yellow"
-
-	colored_emblem = {
-		texture = "ce_theodoro.dds"
 		color1 = "black"
 		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
@@ -244,29 +264,24 @@ TRB = {
 	}
 }
 
-SPQR = {
+##############
+# URUM FLAGS #
+##############
+
+THE = {
 	pattern = "pattern_solid.tga"
-	color1 = "red"
+	color1 = "yellow"
 
 	colored_emblem = {
-		texture = "ce_spqr_vexillum.dds"
-		color1 = "yellow"
+		texture = "ce_theodoro.dds"
+		color1 = "black"
 		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
-
 }
 
-HEMP = {
-	pattern = "pattern_solid.tga"
-	color1 = "blue"
-
-	colored_emblem = {
-		texture = "ce_vergina_sun.dds"
-		color1 = "yellow"
-		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
-	}
-
-}
+###################
+# ORTHODOXY FLAGS #
+###################
 
 ODXY = {
 	pattern = "pattern_solid.tga"
@@ -286,6 +301,59 @@ ODXY_ecumene = {
 	colored_emblem = {
 		texture = "ce_icxc_nika.dds"
 		color1 = "yellow"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+}
+
+##############
+# MEME FLAGS #
+##############
+
+GRE_EMU = {
+	pattern = "pattern_solid.tga"
+	color1 = "blue"
+	
+	colored_emblem = {
+		texture = "ce_cross_england.dds"
+		color1 = "white"
+		color2 = "white"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+	colored_emblem = {
+		texture = "ce_emu_double_headed.dds"
+		color1 = "yellow"
+		color2 = "black"
+		color3 = "black"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+}
+
+GRE_EMU_republic = {
+	pattern = "pattern_solid.tga"
+	color1 = "blue"
+	
+	colored_emblem = {
+		texture = "ce_wreath.dds"
+		color1 = rgb { 255 255 89 }
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+	colored_emblem = {
+		texture = "ce_southern_cross_australia.dds"
+		color1 = "white"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+	colored_emblem = {
+		texture = "ce_southern_cross_australia.dds"
+		color1 = "white"
+		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
+	}
+	
+	colored_emblem = {
+		texture = "ce_star_07.dds"
+		color1 = "white"
 		instance = { scale = { 1.0 1.0 } position = { 0.5 0.5 } }
 	}
 }

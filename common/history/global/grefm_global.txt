@@ -115,43 +115,6 @@
 	c:SAMO = {
 		grefm_setup_samos_effect = yes
 	}
-	create_country = {
-		tag = TRB
-		origin = c:TUR
-		state = s:STATE_TRABZON.region_state:TUR
-	}
-	create_country = {
-		tag = GRE_CAP
-		origin = c:TUR
-		# Ankara Provinces
-		province = p:x401080
-		province = p:xF470A0
-		province = p:xA8674E
-		province = p:x3041CC
-		province = p:xA8674E
-		province = p:xC09000
-		province = p:x431F60
-		province = p:x17B19B
-		# Adana Provinces
-		province = p:x4DA0F1
-		province = p:xA4523A
-		province = p:x39CBF7
-		province = p:x63E9DB
-		province = p:x909463
-		province = p:x7DD48B
-		province = p:xF657D8
-		# Diyarbakir Provinces
-		province = p:xC9CF24
-		province = p:xFB66D7
-		province = p:x5E4B3A
-	}
-	create_country = {
-		tag = THE
-		origin = c:RUS
-		province = p:xB0DFDF
-		province = p:xF56D13
-		province = p:x706060
-	}
 	
 ### Culture Setup ###
 	every_state = {
@@ -398,14 +361,6 @@
 			country = c:SAMO
 			type = protectorate
 		}
-		create_diplomatic_pact = {
-			country = c:TRB
-			type = puppet
-		}
-		create_diplomatic_pact = {
-			country = c:GRE_CAP
-			type = puppet
-		}
 		set_secret_goal = { # This should help to avoid getting bullied at game start
 			country = c:SAMO
 			secret_goal = befriend
@@ -437,14 +392,6 @@
 		}
 	}
 	c:RUS ?= {
-		create_diplomatic_pact = {
-			country = c:THE
-			type = puppet
-		}
-		set_secret_goal = {
-			country = c:THE
-			secret_goal = protect
-		}
 		create_diplomatic_pact = {
 			country = c:GRE
 			type = guarantee_independence
@@ -522,10 +469,6 @@
 				add_character_role = agitator
 			}
 		}
-		trigger_event = {
-			id = grefm.900 # Rhomaios Country Start Effect
-			days = 1
-		}
 	}
 	
 	c:TUR ?= {
@@ -573,27 +516,6 @@
 		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
-	C:TRB ?= {
-		trigger_event = {
-			id = grefm.550 # The Pontic Greeks
-		}
-		balkfm_set_up_ottoman_legacies_effect = yes
-	}
-	
-	C:GRE_CAP ?= {
-		trigger_event = {
-			id = grefm.560 # The Greeks of the Highlands
-		}
-		balkfm_set_up_ottoman_legacies_effect = yes
-	}
-	
-	C:THE ?= {
-		trigger_event = {
-			id = grefm.570 # The Urums of Little Theodoro
-		}
-		balkfm_set_up_ottoman_legacies_effect = yes
-	}
-	
 	c:MON = {
 		balkfm_set_up_montenegro_effect = yes
 		balkfm_initialize_border_variables_effect = yes
@@ -634,6 +556,10 @@
 	
 	c:MOL ?= {
 		set_variable = {
+			name = balkfm_ottoman_legacy_var
+			value = 0
+		}
+		set_variable = {
 			name = balkfm_regulamentul_var
 			value = 5
 		}
@@ -651,6 +577,10 @@
 	}
 	
 	c:WAL ?= {
+		set_variable = {
+			name = balkfm_ottoman_legacy_var
+			value = 0
+		}
 		set_variable = {
 			name = balkfm_regulamentul_var
 			value = 5
