@@ -79,100 +79,33 @@ grefm_setup_rhomaios_pops_effect = {
 }
 
 grefm_rhomaios_country_start_effect = {
-	if = {
-		limit = {
-			c:TUR ?= this
-		}
-		create_country = {
-			tag = TRB
-			origin = c:TUR
-			state = s:STATE_TRABZON.region_state:TUR
-		}
-		c:TUR ?= {
-			create_diplomatic_pact = {
-				country = c:TRB
-				type = puppet
+	c:TUR ?= {
+		if = {
+			limit = {
+				c:TRB ?= {
+					is_player = no
+				}
 			}
+			annex = c:TRB
 		}
-		C:TRB ?= {
-			trigger_event = {
-				id = grefm.550 # The Pontic Greeks
+		if = {
+			limit = {
+				c:GRE_CAP ?= {
+					is_player = no
+				}
 			}
-			balkfm_set_up_ottoman_legacies_effect = yes
+			annex = c:GRE_CAP
 		}
-		play_as = c:TRB
 	}
-	else_if = {
-		limit = {
-			c:EGY ?= this
-		}
-		create_country = {
-			tag = GRE_CAP
-			origin = c:TUR
-			# Ankara Provinces
-			province = p:x401080
-			province = p:xF470A0
-			province = p:xA8674E
-			province = p:x3041CC
-			province = p:xA8674E
-			province = p:xC09000
-			province = p:x431F60
-			province = p:x17B19B
-			# Adana Provinces
-			province = p:x4DA0F1
-			province = p:xA4523A
-			province = p:x39CBF7
-			province = p:x63E9DB
-			province = p:x909463
-			province = p:x7DD48B
-			province = p:xF657D8
-			# Diyarbakir Provinces
-			province = p:xC9CF24
-			province = p:xFB66D7
-			province = p:x5E4B3A
-		}
-		c:TUR ?= {
-			create_diplomatic_pact = {
-				country = c:GRE_CAP
-				type = puppet
+	c:RUS ?= {
+		if = {
+			limit = {
+				c:THE ?= {
+					is_player = no
+				}
 			}
+			annex = c:THE
 		}
-		C:GRE_CAP ?= {
-			trigger_event = {
-				id = grefm.560 # The Greeks of the Highlands
-			}
-			balkfm_set_up_ottoman_legacies_effect = yes
-		}
-		play_as = c:GRE_CAP
-	}
-	else_if = {
-		limit = {
-			c:RUS ?= this
-		}
-		create_country = {
-			tag = THE
-			origin = c:RUS
-			province = p:xB0DFDF
-			province = p:xF56D13
-			province = p:x706060
-		}
-		c:RUS ?= {
-			create_diplomatic_pact = {
-				country = c:THE
-				type = puppet
-			}
-			set_secret_goal = {
-				country = c:THE
-				secret_goal = protect
-			}
-		}
-		c:THE ?= {
-			trigger_event = {
-				id = grefm.570 # The Urums of Little Theodoro
-			}
-			balkfm_set_up_ottoman_legacies_effect = yes
-		}
-		play_as = c:THE
 	}
 }
 
