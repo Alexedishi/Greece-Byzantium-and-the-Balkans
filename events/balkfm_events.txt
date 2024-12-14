@@ -398,7 +398,7 @@ namespace = balkfm
 #	688 - The Greater Romanian Lands
 #	689 - The Reunification of Romania
 
-690-691 - Romania Miscellaneous Events
+#690-691 - Romania Miscellaneous Events
 #	690 - Romanian Provocation in Transylvania (ROM)
 #	691 - Romanian Provocation in Transylvania (AUS)
 
@@ -2328,7 +2328,7 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 				add_claim = root
 			}
 		}
-		balkfm_rebellion_scope = {
+		scope:balkfm_rebellion_scope = {
 			every_scope_state = {
 				remove_modifier = modifier_balkfm_separatist_tensions
 				add_modifier = {
@@ -14926,124 +14926,7 @@ balkfm.678 = { # The Imperial Standard
 	option = { # Vanilla Claims Option, merged into one event
 		name = balkfm.678.a
 		default_option = yes
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_EASTERN_THRACE
-					has_claim = s:STATE_EASTERN_THRACE
-				}
-			}
-			s:STATE_EASTERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = {
-					owns_entire_state_region = STATE_MACEDONIA
-					has_claim = s:STATE_MACEDONIA
-				}
-			}
-			s:STATE_MACEDONIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_SKOPIA
-					has_claim = s:STATE_SKOPIA
-				}
-			}
-			s:STATE_SKOPIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_WESTERN_THRACE
-					has_claim = s:STATE_WESTERN_THRACE
-				}
-			}
-			s:STATE_WESTERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = {
-					owns_entire_state_region = STATE_NORTHERN_THRACE
-					has_claim = s:STATE_NORTHERN_THRACE
-				}
-			}
-			s:STATE_NORTHERN_THRACE = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_HUDAVENDIGAR
-					has_claim = s:STATE_HUDAVENDIGAR
-				}
-			}
-			s:STATE_HUDAVENDIGAR = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_AYDIN
-					has_claim = s:STATE_AYDIN
-				}
-			}
-			s:STATE_AYDIN = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
-					has_claim = s:STATE_WEST_AEGEAN_ISLANDS
-				}
-			}
-			s:STATE_WEST_AEGEAN_ISLANDS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
-					has_claim = s:STATE_EAST_AEGEAN_ISLANDS
-				}
-			}
-			s:STATE_EAST_AEGEAN_ISLANDS = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOT = { owns_entire_state_region = STATE_ALBANIA }
-			}
-			s:STATE_ALBANIA = {
-				add_claim = ROOT
-			}
-		}
-		if = {
-			limit = {
-				NOR = { 
-					owns_entire_state_region = STATE_CRETE
-					has_claim = s:STATE_CRETE
-				}
-			}
-			s:STATE_CRETE = {
-				add_claim = ROOT
-			}
-		}
+		grefm_add_byzantium_claims_effect = yes
 	}
 	
 	option = { # vanilla option 2
@@ -15780,13 +15663,13 @@ balkfm.689 = { # The Reunification of Romania
 
 #### ROMANIA MISCELLANEOUS EVENTS ####
 
-grefm.690 = { # Romanian Provocation in Transylvania (ROM)
+balkfm.690 = { # Romanian Provocation in Transylvania (ROM)
 	type = country_event
 	placement = root
 	
-	title = grefm.690.t
-	desc = grefm.690.d
-	flavor = grefm.690.f
+	title = balkfm.690.t
+	desc = balkfm.690.d
+	flavor = balkfm.690.f
 	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
@@ -15814,7 +15697,7 @@ grefm.690 = { # Romanian Provocation in Transylvania (ROM)
 	}
 	
 	option = {
-		name = grefm.690.a
+		name = balkfm.690.a
 		default_option = yes
 		create_incident = {
 			country = c:AUS
@@ -15828,13 +15711,13 @@ grefm.690 = { # Romanian Provocation in Transylvania (ROM)
 
 }
 
-grefm.691 = { # Romanian Provocation in Transylvania (AUS)
+balkfm.691 = { # Romanian Provocation in Transylvania (AUS)
 	type = country_event
 	placement = root
 	
-	title = grefm.691.t
-	desc = grefm.691.d
-	flavor = grefm.691.f
+	title = balkfm.691.t
+	desc = balkfm.691.d
+	flavor = balkfm.691.f
 	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
@@ -15884,7 +15767,7 @@ grefm.691 = { # Romanian Provocation in Transylvania (AUS)
 	}
 	
 	option = { # Slap Them Down
-		name = grefm.691.a
+		name = balkfm.691.a
 		default_option = yes
 		create_diplomatic_play = {
 			name = dp_trs_rebellion
@@ -15894,7 +15777,7 @@ grefm.691 = { # Romanian Provocation in Transylvania (AUS)
 	}
 	
 	option = { # Grant Autonomy
-		name = grefm.691.b
+		name = balkfm.691.b
 		create_diplomatic_pact = {
 			country = c:TRS
 			type = protectorate
