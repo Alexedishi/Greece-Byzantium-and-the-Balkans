@@ -550,34 +550,35 @@ grefm_archeaology_alternate_site_button = {
 	desc = "grefm_archeaology_alternate_site_button_desc"
 	
 	visible = {
-		NOR = {
-			has_variable = grefm_hellenic_sites_allowed
-			has_variable = grefm_roman_sites_allowed
+		OR = {
+			AND = {
+				country_has_primary_culture = cu:hellene
+				NOT = {
+					has_variable = grefm_roman_sites_allowed
+				}
+			}
+			AND = {
+				country_has_primary_culture = cu:rhomaios
+				NOT = {
+					has_variable = grefm_hellenic_sites_allowed
+				}
+			}
 		}
 	}
 	
 	possible = {
-		always = yes
+		hidden_trigger = {
+			NOT = {
+				has_variable = grefm_considering_sites
+			}
+		}
 	}
 	
 	effect = {
 		trigger_event = {
 			id = grefm.142 # Alternative Dig Sites Considered
 		}
-		hidden_effect = {
-			if = {
-				limit = {
-					country_has_primary_culture = cu:hellene
-				}
-				set_variable = grefm_roman_sites_allowed
-			}
-			if = {
-				limit = {
-					country_has_primary_culture = cu:rhomaios
-				}
-				set_variable = grefm_hellenic_sites_allowed
-			}
-		}
+		set_variable = grefm_considering_sites
 	}
 }
 

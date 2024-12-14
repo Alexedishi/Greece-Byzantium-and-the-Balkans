@@ -1223,17 +1223,26 @@ je_grefm_megali_idea = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
 				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
 			}
 		}
 	}
 	
-	on_invalid = {
+	on_fail = {
 		set_variable = grefm_tzatzikisauce
 	}
 
@@ -1298,18 +1307,23 @@ je_grefm_scions_of_rhomania = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
 	}
 
 	weight = 1000
@@ -1347,18 +1361,13 @@ je_grefm_the_greek_plan = {
 		set_variable = grefm_greek_plan_completed
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
+	fail = {
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
 				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
 	}
 
 	weight = 1000
@@ -1431,18 +1440,23 @@ je_grefm_last_of_the_romans = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
 	}
 
 	weight = 1000
@@ -3577,15 +3591,14 @@ je_grefm_aus_megali_idea = {
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
-		anzfp_is_active = yes
+#		anzfp_is_active = yes
 		country_has_primary_culture = cu:australian
-		has_interest_marker_in_region = sr:region_balkans
 	}
 	
 	possible = {
 		any_scope_state = {
 			region = sr:region_balkans
-			is_corporated = yes
+			is_incorporated = yes
 		}
 	}
 	
@@ -3627,11 +3640,21 @@ je_grefm_aus_megali_idea = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
 			}
 		}
 	}

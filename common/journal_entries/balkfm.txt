@@ -2969,12 +2969,17 @@ je_balkfm_rom_nationalism = {
 	
 	is_shown_when_inactive = {
 		NOT = { has_variable = balkfm_romanian_nationalism_started }
-		c:ROM ?= this
+		country_has_primary_culture = cu:romanian
 	}
 	
 	possible = {
 		has_technology_researched = nationalism
-		has_technology_researched = egalitarianism
+		custom_tooltip = {
+			text = balkfm_has_formed_rom_tt
+			hidden_trigger = {
+				c:ROM ?= this
+			}
+		}
 	}
 	
 	immediate = {
@@ -2998,8 +3003,9 @@ je_balkfm_rom_nationalism = {
 		}
 		literacy_rate >= 0.50
 		custom_tooltip = {
-			text = je_balkfm_rom_nationalism_tt1
+			text = je_balkfm_rom_nationalism_complete_tt
 			hidden_trigger = {
+				has_journal_entry = je_balkfm_rom_nationalism
 				var:balkfm_junimism_var != var:balkfm_dacianism_var
 				OR = {
 					var:balkfm_junimism_var >= 50
@@ -3018,18 +3024,48 @@ je_balkfm_rom_nationalism = {
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_calculate_protochronism_effect = yes
+			set_variable = {
+				name = balkfm_junimism_progress_var
+				value = balkfm_junimism_progress_value
+			}
+			set_variable = {
+				name = balkfm_dacianism_progress_var
+				value = balkfm_dacianism_progress_value
+			}
+			set_variable = {
+				name = balkfm_protochronism_progress_var
+				value = balkfm_protochronism_progress_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			balkfm_push_protochronism_effect = yes
+			change_variable = {
+				name = balkfm_junimism_var
+				add = var:balkfm_junimism_progress_var
+			}
+			change_variable = {
+				name = balkfm_dacianism_var
+				add = var:balkfm_dacianism_progress_var
+			}
+			clamp_variable = {
+				name = balkfm_junimism_var
+				max = 100
+				min = 0
+			}
+			clamp_variable = {
+				name = balkfm_dacianism_var
+				max = 100
+				min = 0
+			}
 		}
 	}
 	
 	invalid = {
-		has_variable = balkfm_rom_nationalism_complete
+		hidden_trigger = {
+			has_variable = balkfm_rom_nationalism_complete
+		}
 	}
 	
 	on_invalid = {
@@ -3039,28 +3075,23 @@ je_balkfm_rom_nationalism = {
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt5
+				desc = je_balkfm_rom_nationalism_junimism_tt
 				trigger = {
-					NOT = {
-						 has_journal_entry = je_balkfm_rom_nationalism
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt2
-				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var > var:balkfm_dacianism_var
 				}
 			}
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt3
+				desc = je_balkfm_rom_nationalism_dacianism_tt
 				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var < var:balkfm_dacianism_var
 				}
 			}
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt4
+				desc = je_balkfm_rom_nationalism_tie_tt
 				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var = var:balkfm_dacianism_var
 				}
 			}
@@ -3093,6 +3124,11 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	
 	immediate = {
 	}
+	
+	scripted_button = balkfm_unite_principalities_button
+	scripted_button = balkfm_all_for_one_button
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
 	
 	complete = {
 		custom_tooltip = {
@@ -3166,11 +3202,6 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 			}
         }
     }
-	
-	scripted_button = balkfm_unite_principalities_button
-	scripted_button = balkfm_all_for_one_button
-	scripted_button = balkfm_bessarabian_retrocession_button
-	scripted_button = balkfm_marea_unire_button
 
 	# timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
 
@@ -3187,25 +3218,21 @@ je_balkfm_rom_greater_romania = {
 	
     is_shown_when_inactive = {
 		c:ROM ?= this
-		calc_true_if = {
-			amount >= 6
-			NOT = { owns_entire_state_region = STATE_BANAT }
-			NOT = { owns_entire_state_region = STATE_BESSARABIA }
-			NOT = { owns_entire_state_region = STATE_BEKES }
-			NOT = { owns_entire_state_region = STATE_MOLDAVIA }
-			NOT = { owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA }
-			NOT = { owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA }
-			NOT = { owns_entire_state_region = STATE_WALLACHIA }
-		}
     }
 	
     possible = {
         has_technology_researched = nationalism
-		NOT = {
-            any_overlord_or_above ?= { # Can't unite the principalities if you're already the lesser in a pact with another Romanian state
-                country_has_primary_culture = cu:romanian
-            }
-        }
+		custom_tooltip = {
+			text = je_balkfm_rom_greater_romania_possible_tt
+			hidden_trigger = {
+				any_scope_state = {
+					state_region = {
+						is_homeland = cu:romanian
+					}
+					count >= 3
+				}
+			}
+		}
     }
 	
 	immediate = {
@@ -3213,6 +3240,11 @@ je_balkfm_rom_greater_romania = {
 			id = balkfm.688 # The Greater Romanian Lands
 		}
 	}
+	
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
+	scripted_button = balkfm_trs_agitate_button
+	scripted_button = balkfm_trs_provoke_button
 	
 	complete = {
 		is_subject = no
@@ -3233,10 +3265,6 @@ je_balkfm_rom_greater_romania = {
 			id = balkfm.689 # The Reunification of Romania
 		}
 	}
-	
-	scripted_button = balkfm_bessarabian_retrocession_button
-	scripted_button = balkfm_marea_unire_button
-	scripted_button = balkfm_romanian_agitation_button
 
     weight = 1000
 	

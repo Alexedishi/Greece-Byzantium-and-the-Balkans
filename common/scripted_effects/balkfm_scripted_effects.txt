@@ -374,6 +374,64 @@ balkfm_rile_up_yugoslavs_effect = {
 	}
 }
 
+balkfm_calm_down_yugoslavs_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:serb
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:croat
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:bosniak
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:slovene
+			value = large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:bulgarian
+			value = large_radicals
+		}
+	}
+}
+
 balkfm_sad_yugoslavs_effect = {
 	if = {
 		limit = {
@@ -2343,85 +2401,6 @@ balkfm_initialize_protochronism_effect = {
 	set_variable = {
 		name = balkfm_dacianism_var
 		value = 0
-	}
-}
-
-balkfm_calculate_protochronism_effect = {
-	set_variable = {
-		name = balkfm_junimism_progress_var
-		value = balkfm_junimism_progress_value
-	}
-	set_variable = {
-		name = balkfm_dacianism_progress_var
-		value = balkfm_dacianism_progress_value
-	}
-	if = {
-		limit = {
-			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
-		}
-		set_variable = {
-			name = balkfm_protochronism_progress_var
-			value = balkfm_junimism_lead_value
-		}
-	}
-	if = {
-		limit = {
-			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
-		}
-		set_variable = {
-			name = balkfm_protochronism_progress_var
-			value = balkfm_dacianism_lead_value
-		}
-	}
-	if = {
-		limit = {
-			var:balkfm_junimism_progress_var = var:balkfm_dacianism_progress_var
-		}
-		set_variable = {
-			name = balkfm_protochronism_progress_var
-			value = 0
-		}
-	}
-}
-
-balkfm_push_protochronism_effect = {
-	# These variables are intentionally tuned to aggressively swing support from one camp to another if either side has a negative progress variable
-	
-	if = {
-		limit = {
-			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
-		}
-		change_variable = {
-			name = balkfm_junimism_var
-			add = var:balkfm_protochronism_progress_var
-		}
-		change_variable = {
-			name = balkfm_dacianism_var
-			subtract = var:balkfm_protochronism_progress_var
-		}
-	}
-	if = {
-		limit = {
-			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
-		}
-		change_variable = {
-			name = balkfm_junimism_var
-			subtract = var:balkfm_protochronism_progress_var
-		}
-		change_variable = {
-			name = balkfm_dacianism_var
-			add = var:balkfm_protochronism_progress_var
-		}
-	}
-	clamp_variable = {
-		name = balkfm_junimism_var
-		max = 100
-		min = 0
-	}
-	clamp_variable = {
-		name = balkfm_dacianism_var
-		max = 100
-		min = 0
 	}
 }
 

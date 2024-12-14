@@ -398,6 +398,10 @@ namespace = balkfm
 #	688 - The Greater Romanian Lands
 #	689 - The Reunification of Romania
 
+690-691 - Romania Miscellaneous Events
+#	690 - Romanian Provocation in Transylvania (ROM)
+#	691 - Romanian Provocation in Transylvania (AUS)
+
 
 ##  #BALK7  BOSNIA FLAVOR  Events 700-799  ##
 
@@ -2143,6 +2147,14 @@ balkfm.210 = { # Yugoslavist Agitation (Agitator Event)
 				balkfm_rile_up_yugoslavs_effect = yes
 			}
 		}
+		show_as_tooltip = {
+			scope:balkfm_agitation_state_scope = {
+				add_modifier = {
+					name = modifier_balkfm_separatist_tensions
+					months = normal_modifier_time
+				}
+			}
+		}
 	}
 
 }
@@ -2190,6 +2202,9 @@ balkfm.211 = { # Yugoslavist Agitation (Target Event)
 		default_option = yes
 		scope:balkfm_agitation_state_scope = {
 			balkfm_rile_up_yugoslavs_effect = yes
+			add_modifier = {
+				name = modifier_balkfm_separatist_tensions
+			}
 		}
 	}
 
@@ -2311,6 +2326,16 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 		scope:balkfm_provocation_state_scope = {
 			state_region = {
 				add_claim = root
+			}
+		}
+		balkfm_rebellion_scope = {
+			every_scope_state = {
+				remove_modifier = modifier_balkfm_separatist_tensions
+				add_modifier = {
+					name = modifier_balkfm_realized_rebellion
+					months = short_modifier_time
+				}
+				balkfm_calm_down_yugoslavs_effect = yes
 			}
 		}
 	}
@@ -14697,7 +14722,6 @@ balkfm.670 = { # Forms Without Substance
 	
 	immediate = {
 		set_variable = balkfm_romanian_nationalism_started
-		balkfm_calculate_protochronism_effect = yes
 		create_character = {
 			# Titu Maiorescu, de facto leader of the Junimea society
 			template = template_balkfm_mairoescu_titu
@@ -14723,7 +14747,6 @@ balkfm.670 = { # Forms Without Substance
 	}
 	
 	after = {
-		balkfm_calculate_protochronism_effect = yes
 		trigger_event = {
 			id = balkfm.671 # Etymologicum Magnum Romaniae
 			days = 90
@@ -15510,17 +15533,8 @@ balkfm.686 = { # Romanian Agitation in State (ROM)
 	}
 	
 	immediate = {
-		random_state = {
-			limit = {
-				has_variable = balkfm_romanian_state_target
-			}
-			save_scope_as = balkfm_agitation_state_scope
-			owner = {
-				save_scope_as = balkfm_agitation_owner_scope
-			}
-		}
-		scope:balkfm_agitation_state_scope = {
-			remove_variable = balkfm_romanian_state_target
+		c:AUS = {
+			save_scope_as = austria_scope
 		}
 	}
 	
@@ -15532,10 +15546,29 @@ balkfm.686 = { # Romanian Agitation in State (ROM)
 			value = 10
 		}
 		show_as_tooltip = {
-			scope:balkfm_agitation_state_scope = {
-				add_radicals_in_state = {
-					culture = cu:romanian
-					value = medium_radicals
+			c:AUS = {
+				every_scope_state = {
+					limit = {
+						OR = {
+							state_region = s:STATE_NORTHERN_TRANSYLVANIA
+							state_region = s:STATE_SOUTHERN_TRANSYLVANIA
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_modifier = modifier_balkfm_separatist_tensions
+							}
+						}
+						add_modifier = {
+							name = modifier_balkfm_separatist_tensions
+							months = normal_modifier_time
+						}
+					}
+					add_radicals_in_state = {
+						culture = cu:romanian
+						value = medium_radicals
+					}
 				}
 			}
 		}
@@ -15567,24 +15600,32 @@ balkfm.687 = { # Romanian Agitation in State (AUS)
 	}
 	
 	immediate = {
-		random_state = {
-			limit = {
-				has_variable = balkfm_romanian_state_target
-			}
-			save_scope_as = balkfm_agitation_state_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = balkfm_romanian_agitation_actor
-			}
-			save_scope_as = balkfm_romanian_agitator_scope
+		c:ROM ?= {
+			save_scope_as = romania_scope
 		}
 	}
 	
 	option = {
 		name = balkfm.687.a
 		default_option = yes
-		scope:balkfm_agitation_state_scope = {
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_NORTHERN_TRANSYLVANIA
+					state_region = s:STATE_SOUTHERN_TRANSYLVANIA
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_modifier = modifier_balkfm_separatist_tensions
+					}
+				}
+				add_modifier = {
+					name = modifier_balkfm_separatist_tensions
+					months = normal_modifier_time
+				}
+			}
 			add_radicals_in_state = {
 				culture = cu:romanian
 				value = medium_radicals
@@ -15732,6 +15773,140 @@ balkfm.689 = { # The Reunification of Romania
 		add_modifier = {
 			name = modifier_balkfm_bulgarian_resurgence
 			months = very_long_modifier_time
+		}
+	}
+
+}
+
+#### ROMANIA MISCELLANEOUS EVENTS ####
+
+grefm.690 = { # Romanian Provocation in Transylvania (ROM)
+	type = country_event
+	placement = root
+	
+	title = grefm.690.t
+	desc = grefm.690.d
+	flavor = grefm.690.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_trs_agitate_button
+	}
+	
+	immediate = {
+		c:TRS ?= {
+			save_scope_as = transylvania_scope
+		}
+		c:AUS ?= {
+			save_scope_as = austria_scope
+		}
+	}
+	
+	option = {
+		name = grefm.690.a
+		default_option = yes
+		create_incident = {
+			country = c:AUS
+			value = 10
+		}
+		change_relations = {
+			country = c:TRS
+			value = 50
+		}
+	}
+
+}
+
+grefm.691 = { # Romanian Provocation in Transylvania (AUS)
+	type = country_event
+	placement = root
+	
+	title = grefm.691.t
+	desc = grefm.691.d
+	flavor = grefm.691.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_trs_agitate_button
+	}
+	
+	immediate = {
+		c:TRS ?= {
+			save_scope_as = transylvania_scope
+		}
+		c:ROM = {
+			save_scope_as = romania_scope
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_NORTHERN_TRANSYLVANIA
+					owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA
+				}
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				add_claim = ROOT
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					has_claim = s:STATE_SOUTHERN_TRANSYLVANIA
+					owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				add_claim = ROOT
+			}
+		}
+	}
+	
+	option = { # Slap Them Down
+		name = grefm.691.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = dp_trs_rebellion
+			target_country = c:TRS
+			type = dp_annex_war
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = grefm.691.b
+		create_diplomatic_pact = {
+			country = c:TRS
+			type = protectorate
+		}
+		every_country = {
+			limit = {
+				is_subject_of = root
+			}
+			add_modifier = {
+				name = modifier_balkfm_spineless_overlord
+				months = long_modifier_time
+			}
 		}
 	}
 

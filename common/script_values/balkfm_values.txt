@@ -1442,7 +1442,7 @@ balkfm_junimism_progress_value = {
 		value = root.ig:ig_landowners.ig_clout
 		desc = balkfm_value_from_landowners_clout
 	}
-	round_to = 0.1
+	round_to = 0.01
 }
 
 balkfm_dacianism_progress_value = {
@@ -1485,17 +1485,30 @@ balkfm_dacianism_progress_value = {
 		value = root.ig:ig_intelligentsia.ig_clout
 		desc = balkfm_value_from_intelligentsia_clout
 	}
-	round_to = 0.1
+	round_to = 0.01
 }
 
-balkfm_junimism_lead_value = {
+balkfm_protochronism_progress_value = {
 	value = 0
-	add = var:balkfm_junimism_progress_var
-	subtract = var:balkfm_dacianism_progress_var
-}
-
-balkfm_dacianism_lead_value = {
-	value = 0
-	add = var:balkfm_dacianism_progress_var
-	subtract = var:balkfm_junimism_progress_var
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var > var:balkfm_dacianism_progress_var
+		}
+		add = var:balkfm_junimism_progress_var
+		subtract = var:balkfm_dacianism_progress_var
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var < var:balkfm_dacianism_progress_var
+		}
+		add = var:balkfm_junimism_progress_var
+		subtract = var:balkfm_dacianism_progress_var
+	}
+	if = {
+		limit = {
+			var:balkfm_junimism_progress_var = var:balkfm_dacianism_progress_var
+		}
+		multiply = 0
+	}
+	round_to = 0.01
 }
