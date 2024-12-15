@@ -3591,8 +3591,8 @@ je_grefm_aus_megali_idea = {
 	should_be_pinned_by_default = yes
 	
 	is_shown_when_inactive = {
-#		anzfp_is_active = yes
-		country_has_primary_culture = cu:australian
+		anzfp_is_active = yes
+		c:AUS ?= this
 	}
 	
 	possible = {
@@ -3611,8 +3611,13 @@ je_grefm_aus_megali_idea = {
 	complete = {
 		is_subject = no
 		owns_entire_state_region = STATE_EASTERN_THRACE
-		capital = {
-			state_region = s:STATE_EASTERN_THRACE
+		custom_tooltip = {
+			text = grefm_constantinople_capital_tt
+			hidden_trigger = {
+				capital = {
+					state_region = s:STATE_EASTERN_THRACE
+				}
+			}
 		}
 		calc_true_if = {
 			amount >= 10

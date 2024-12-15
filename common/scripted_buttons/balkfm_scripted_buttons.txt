@@ -183,7 +183,7 @@ balkfm_austrian_agitation_button = {
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -201,7 +201,7 @@ balkfm_austrian_agitation_button = {
 		c:AUS ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland_trigger = yes
+					is_homeland_of_country_cultures = root
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
@@ -242,7 +242,7 @@ balkfm_ottoman_agitation_button = {
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -260,7 +260,7 @@ balkfm_ottoman_agitation_button = {
 		c:TUR ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland_trigger = yes
+					is_homeland_of_country_cultures = root
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
@@ -301,8 +301,7 @@ balkfm_austrian_provokation_button = {
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
-				balkfm_yugoslav_radicals_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -361,8 +360,7 @@ balkfm_ottoman_provokation_button = {
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
-				balkfm_yugoslav_radicals_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -1718,11 +1716,10 @@ balkfm_marea_unire_button = { # vanilla button, integrated into balkfm
 
 	possible = {
 		is_at_war = no
-
 		exists = c:TRS
         c:TRS ?= {
         	is_subject = no
-            relations:root >= 25
+            relations:root >= relations_threshold:cordial
             is_at_war = no
         }
     }
@@ -1783,48 +1780,10 @@ balkfm_trs_agitate_button = {
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
-		hidden_trigger = {
-			trigger_if = {
-				limit = {
-					c:AUS = {
-						has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
-					}
-					s:STATE_NORTHERN_TRANSYLVANIA = {
-						any_scope_state = {
-							owner = {
-								c:AUS = this
-							}
-							NOT = {
-								radical_fraction = {
-									culture = cu:romanian
-									value >= 0.33
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		hidden_trigger = {
-			trigger_if = {
-				limit = {
-					c:AUS = {
-						has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
-					}
-					s:STATE_SOUTHERN_TRANSYLVANIA = {
-						any_scope_state = {
-							owner = {
-								c:AUS = this
-							}
-							NOT = {
-								radical_fraction = {
-									culture = cu:romanian
-									value >= 0.33
-								}
-							}
-						}
-					}
-				}
+		c:AUS = {
+			cultural_acceptance_base = {
+				target = cu:romanian
+				value < acceptance_status_4
 			}
 		}
 	}
@@ -1881,15 +1840,15 @@ balkfm_trs_provoke_button = {
 				c:AUS = {
 					has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
 				}
-				s:STATE_NORTHERN_TRANSYLVANIA = {
-					any_scope_state = {
-						owner = {
-							c:AUS = this
-						}
-						radical_fraction = {
-							culture = cu:romanian
-							value >= 0.33
-						}
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = {
+						c:AUS = this
+					}
+					radical_fraction = {
+						culture = cu:romanian
+						value >= 0.50
 					}
 				}
 			}
@@ -1899,15 +1858,15 @@ balkfm_trs_provoke_button = {
 				c:AUS = {
 					has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
 				}
-				s:STATE_SOUTHERN_TRANSYLVANIA = {
-					any_scope_state = {
-						owner = {
-							c:AUS = this
-						}
-						radical_fraction = {
-							culture = cu:romanian
-							value >= 0.33
-						}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = {
+						c:AUS = this
+					}
+					radical_fraction = {
+						culture = cu:romanian
+						value >= 0.50
 					}
 				}
 			}

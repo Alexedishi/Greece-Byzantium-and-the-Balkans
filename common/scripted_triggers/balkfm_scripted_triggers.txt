@@ -118,49 +118,181 @@ balkfm_is_yugoslav_homeland_trigger = {
 }
 
 balkfm_yugoslav_radicals_trigger = {
-	trigger_if = {
-		any_scope_pop = {
-			has_pop_culture = serb
+	OR = {
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = serb
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:serb
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:serb
+				value >= 0.33
+			}
 		}
-		radical_fraction = {
-			culture = cu:serb
-			value >= 0.33
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = bulgarian
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:bulgarian
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:bulgarian
+				value >= 0.33
+			}
+		}
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = bosniak
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:bosniak
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:bosniak
+				value >= 0.33
+			}
+		}
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = croat
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:croat
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:croat
+				value >= 0.33
+			}
+		}
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = slovene
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:slovene
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:slovene
+				value >= 0.33
+			}
 		}
 	}
-	trigger_if = {
-		any_scope_pop = {
-			has_pop_culture = bulgarian
+}
+
+balkfm_yugoslav_high_radicals_trigger = {
+	OR = {
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = serb
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:serb
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:serb
+				value >= 0.50
+			}
 		}
-		radical_fraction = {
-			culture = cu:bulgarian
-			value >= 0.33
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = bulgarian
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:bulgarian
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:bulgarian
+				value >= 0.50
+			}
 		}
-	}
-	trigger_if = {
-		any_scope_pop = {
-			has_pop_culture = bosniak
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = bosniak
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:bosniak
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:bosniak
+				value >= 0.50
+			}
 		}
-		radical_fraction = {
-			culture = cu:bosniak
-			value >= 0.33
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = croat
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:croat
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:croat
+				value >= 0.50
+			}
 		}
-	}
-	trigger_if = {
-		any_scope_pop = {
-			has_pop_culture = croat
-		}
-		radical_fraction = {
-			culture = cu:croat
-			value >= 0.33
-		}
-	}
-	trigger_if = {
-		any_scope_pop = {
-			has_pop_culture = slovene
-		}
-		radical_fraction = {
-			culture = cu:slovene
-			value >= 0.33
+		trigger_if = {
+			limit = {
+				any_scope_pop = {
+					has_pop_culture = slovene
+				}
+				owner = {
+					cultural_acceptance_base = {
+						target = cu:slovene
+						value < acceptance_status_4
+					}
+				}
+			}
+			radical_fraction = {
+				culture = cu:slovene
+				value >= 0.50
+			}
 		}
 	}
 }

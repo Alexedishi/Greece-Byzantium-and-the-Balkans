@@ -466,10 +466,28 @@ je_balkfm_nacertanije = {
 	}
 	
 	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_nacertanije_status
-			trigger = {
-				global_var:balkfm_yugoslav_leader_var != 0
+		first_valid = {
+			triggered_desc ={
+			desc = je_balkfm_nacertanije_no_leader_tt
+				trigger = {
+					NOT = {
+						has_global_variable = balkfm_yugoslav_leader_var
+					}
+				}
+			}
+			triggered_desc ={
+			desc = je_balkfm_nacertanije_no_leader_tt
+				trigger = {
+					NOT = {
+						exists = global_var:balkfm_yugoslav_leader_var
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_nacertanije_leader_tt
+				trigger = {
+					exists = global_var:balkfm_yugoslav_leader_var
+				}
 			}
 		}
 	}
@@ -3241,10 +3259,10 @@ je_balkfm_rom_greater_romania = {
 		}
 	}
 	
-	scripted_button = balkfm_bessarabian_retrocession_button
-	scripted_button = balkfm_marea_unire_button
 	scripted_button = balkfm_trs_agitate_button
 	scripted_button = balkfm_trs_provoke_button
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
 	
 	complete = {
 		is_subject = no

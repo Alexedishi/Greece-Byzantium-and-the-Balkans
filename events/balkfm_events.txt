@@ -92,14 +92,14 @@ namespace = balkfm
 #	206 - OPEN
 #	207 - OPEN
 #	208 - Yugoslavism Fizzles Out
-#	209 - ##The Birth of Yugoslavia
+#	209 - The Birth of Yugoslavia
 
 #210-219 - Yugoslavian Unification Mechnical Events
 #	210 - Yugoslavist Agitation (Agitator Event)
 #	211 - Yugoslavist Agitation (Target Event)
-#	212 - ##Yugoslavist Provocation (Provokatur Event)
-#	213 - ##Yugoslavist Provocation (Target Event)
-#	214 - ##Yugoslavist Uprising in State
+#	212 - Yugoslavist Provocation (Provokatur Event)
+#	213 - Yugoslavist Provocation (Target Event)
+#	214 - Yugoslavist Uprising in State
 #	215 - ##Yugoslav Country Seeks Union (Same Culture)
 #	216 - ##Yugoslav Country Seeks Union (Different Culture)
 #	217 - OPEN
@@ -2352,7 +2352,10 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 				type = revoke_claim
 				target_state = scope:balkfm_provocation_state_scope
 				target_country = root
-			}  
+			}
+		}
+		ai_chance = {
+			base = 100
 		}
 	}
 	
@@ -2382,6 +2385,9 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 				months = long_modifier_time
 			}
 		}
+		ai_chance = {
+			base = 1
+		}
 	}
 	
 }
@@ -2410,9 +2416,10 @@ balkfm.214 = { # Yugoslavist Uprising in State
 		NOT = {
 			has_global_variable = balkfm_yugoslav_rebel_cooldown
 		}
+		has_technology_researched = nationalism
 		any_scope_state = {
 			balkfm_is_yugoslav_homeland_trigger = yes
-			balkfm_yugoslav_radicals_trigger = yes
+			balkfm_yugoslav_high_radicals_trigger = yes
 		}
 	}
 	
@@ -2425,7 +2432,7 @@ balkfm.214 = { # Yugoslavist Uprising in State
 		random_state = {
 			limit = {
 				balkfm_is_yugoslav_homeland_trigger = yes
-				balkfm_yugoslav_radicals_trigger = yes
+				balkfm_yugoslav_high_radicals_trigger = yes
 			}
 			save_scope_as = balkfm_provocation_state_scope
 		}
@@ -2462,6 +2469,9 @@ balkfm.214 = { # Yugoslavist Uprising in State
 				target_country = root
 			}  
 		}
+		ai_chance = {
+			base = 100
+		}
 	}
 	
 	option = { # Grant Autonomy
@@ -2489,6 +2499,9 @@ balkfm.214 = { # Yugoslavist Uprising in State
 				name = modifier_balkfm_spineless_overlord
 				months = long_modifier_time
 			}
+		}
+		ai_chance = {
+			base = 1
 		}
 	}
 
@@ -2562,6 +2575,9 @@ balkfm.215 = { # Yugoslav Country Seeks Union (Same Culture)
 			name = modifier_balkfm_established_union
 			months = short_modifier_time
 		}
+		ai_chance = {
+			base = 100
+		}
 	}
 	
 	option = {
@@ -2571,6 +2587,9 @@ balkfm.215 = { # Yugoslav Country Seeks Union (Same Culture)
 			value = -50
 		}
 		balkfm_sad_yugoslavs_effect = yes
+		ai_chance = {
+			base = -100
+		}
 	}
 
 }
@@ -2607,7 +2626,7 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 			is_player = no
 			is_diplomatic_play_committed_participant = no
 			is_subject = no
-			relations:root >= relations_threshold:amicable
+			relations:root >= relations_threshold:cordial
 		}
 	}
 	
@@ -2643,6 +2662,9 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 			name = modifier_balkfm_established_union
 			months = short_modifier_time
 		}
+		ai_chance = {
+			base = 100
+		}
 	}
 	
 	option = {
@@ -2652,6 +2674,9 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 			value = -50
 		}
 		balkfm_sad_yugoslavs_effect = yes
+		ai_chance = {
+			base = -100
+		}
 	}
 
 }
@@ -15702,10 +15727,6 @@ balkfm.690 = { # Romanian Provocation in Transylvania (ROM)
 		create_incident = {
 			country = c:AUS
 			value = 10
-		}
-		change_relations = {
-			country = c:TRS
-			value = 50
 		}
 	}
 
