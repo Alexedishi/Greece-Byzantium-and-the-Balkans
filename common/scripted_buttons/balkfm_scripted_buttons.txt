@@ -183,7 +183,7 @@ balkfm_austrian_agitation_button = {
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -201,7 +201,7 @@ balkfm_austrian_agitation_button = {
 		c:AUS ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland_trigger = yes
+					is_homeland_of_country_cultures = root
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
@@ -242,7 +242,7 @@ balkfm_ottoman_agitation_button = {
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				balkfm_is_yugoslav_homeland_trigger = yes
+				is_homeland_of_country_cultures = root
 			}
 		}
 	}
@@ -260,7 +260,7 @@ balkfm_ottoman_agitation_button = {
 		c:TUR ?= {
 			random_scope_state = {
 				limit = {
-					balkfm_is_yugoslav_homeland_trigger = yes
+					is_homeland_of_country_cultures = root
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
@@ -292,6 +292,124 @@ balkfm_ottoman_agitation_button = {
 			add = 10
 		}
 	}
+}
+
+balkfm_austrian_provokation_button = {
+	name = "balkfm_austrian_provokation_button"
+	desc = "balkfm_austrian_provokation_button_desc"
+	
+	visible = {
+		c:AUS ?= {
+			any_scope_state = {
+				is_homeland_of_country_cultures = root
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_austrian_provokation_tt
+			hidden_trigger = {
+				c:AUS ?= {
+					any_scope_state = {
+						balkfm_is_yugoslav_homeland_trigger = yes
+						balkfm_yugoslav_radicals_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_provocation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:AUS ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland_trigger = yes
+					balkfm_yugoslav_radicals_trigger = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+			}
+		}
+		trigger_event = {
+			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:AUS
+				value = 10
+			}
+		}
+		remove_variable = balkfm_yugoslav_provocation_actor
+	}
+	
+}
+
+balkfm_ottoman_provokation_button = {
+	name = "balkfm_ottoman_provokation_button"
+	desc = "balkfm_ottoman_provokation_button_desc"
+	
+	visible = {
+		c:TUR ?= {
+			any_scope_state = {
+				is_homeland_of_country_cultures = root
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_ottoman_provokation_tt
+			hidden_trigger = {
+				c:TUR ?= {
+					any_scope_state = {
+						balkfm_is_yugoslav_homeland_trigger = yes
+						balkfm_yugoslav_radicals_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		set_variable = balkfm_yugoslav_provocation_actor
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		c:TUR ?= {
+			random_scope_state = {
+				limit = {
+					balkfm_is_yugoslav_homeland_trigger = yes
+					balkfm_yugoslav_radicals_trigger = yes
+				}
+				set_variable = balkfm_yugoslav_state_target
+			}
+			trigger_event = {
+				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+			}
+		}
+		trigger_event = {
+			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+		}
+		show_as_tooltip = {
+			create_incident = {
+				country = c:TUR
+				value = 10
+			}
+		}
+		remove_variable = balkfm_yugoslav_provocation_actor
+	}
+	
 }
 
 # MONTENEGRO BUTTONS
@@ -1598,11 +1716,10 @@ balkfm_marea_unire_button = { # vanilla button, integrated into balkfm
 
 	possible = {
 		is_at_war = no
-
 		exists = c:TRS
         c:TRS ?= {
         	is_subject = no
-            relations:root >= 25
+            relations:root >= relations_threshold:cordial
             is_at_war = no
         }
     }
@@ -1645,39 +1762,38 @@ balkfm_annex_transylvania_button = {
 	}
 }
 
-balkfm_romanian_agitation_button = {
-	name = "balkfm_romanian_agitation"
-	desc = "balkfm_romanian_agitation_desc"
+balkfm_trs_agitate_button = {
+	name = "balkfm_trs_agitate_button"
+	desc = "balkfm_trs_agitate_button_desc"
 	
 	visible = {
+		NOT = {
+			exists = c:TRS
+		}
 		c:AUS ?= {
-			any_scope_state = {
-				state_region = {
-					is_homeland = cu:romanian
-				}
+			OR = {
+				has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+				has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
 			}
 		}
 	}
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		c:AUS = {
+			cultural_acceptance_base = {
+				target = cu:romanian
+				value < acceptance_status_4
+			}
+		}
 	}
 	
 	effect = {
-		set_variable = balkfm_romanian_agitation_actor
 		add_modifier = {
 			name = modifier_balkfm_nationalist_agitation
 			months = 37
 		}
 		c:AUS ?= {
-			random_scope_state = {
-				limit = {
-					state_region = {
-						is_homeland = cu:romanian
-					}
-				}
-				set_variable = balkfm_romanian_state_target
-			}
 			trigger_event = {
 				id = balkfm.687 # Romanian Agitation in State (AUS)
 			}
@@ -1685,7 +1801,138 @@ balkfm_romanian_agitation_button = {
 		trigger_event = {
 			id = balkfm.686 # Romanian Agitation in State (ROM)
 		}
-		remove_variable = balkfm_romanian_agitation_actor
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				has_secret_goal = {
+					who = c:AUS
+					secret_goal = antagonize
+				}
+			}
+			add = 10
+		}
+	}
+}
+
+balkfm_trs_provoke_button = {
+	name = "balkfm_trs_provoke_button"
+	desc = "balkfm_trs_provoke_button_desc"
+	
+	visible = {
+		NOT = {
+			exists = c:TRS
+		}
+		c:AUS ?= {
+			OR = {
+				has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+				has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+			}
+		}
+	}
+	
+	possible = {
+		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		trigger_if = {
+			limit = {
+				c:AUS = {
+					has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+				}
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = {
+						c:AUS = this
+					}
+					radical_fraction = {
+						culture = cu:romanian
+						value >= 0.50
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				c:AUS = {
+					has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = {
+						c:AUS = this
+					}
+					radical_fraction = {
+						culture = cu:romanian
+						value >= 0.50
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		add_modifier = {
+			name = modifier_balkfm_nationalist_agitation
+			months = 37
+		}
+		hidden_effect = {
+			c:AUS ?= {
+				if = {
+					limit = {
+						has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+						has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+					}
+					create_country = {
+						tag = TRS
+						origin = this
+						state = s:STATE_NORTHERN_TRANSYLVANIA.region_state:AUS
+						state = s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS
+					}
+				}
+				else_if = {
+					limit = {
+						has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+					}
+					create_country = {
+						tag = TRS
+						origin = this
+						state = s:STATE_NORTHERN_TRANSYLVANIA.region_state:AUS
+					}
+				}
+				else_if = {
+					limit = {
+						has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+					}
+					create_country = {
+						tag = TRS
+						origin = this
+						state = s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS
+					}
+				}
+				trigger_event = {
+					id = balkfm.691 # Romanian Provocation in Transylvania (AUS)
+				}
+			}
+			c:TRS ?= {
+				every_scope_state = {
+					remove_modifier = modifier_balkfm_separatist_tensions
+					add_modifier = {
+						name = modifier_balkfm_realized_rebellion
+						months = short_modifier_time
+					}
+					add_loyalists_in_state = {
+						culture = cu:romanian
+						value = 0.50
+					}
+				}
+			}
+		}
+		trigger_event = {
+			id = balkfm.690 # Romanian Provocation in Transylvania (ROM)
+		}
 	}
 	
 	ai_chance = {
@@ -1707,23 +1954,34 @@ balkfm_support_junimism_button = {
 	desc = "balkfm_support_junimism_desc"
 	
 	visible = {
-		has_variable = balkfm_romanian_nationalism_started
+		always = yes
+	}
+	
+	selected = {
+		has_variable = balkfm_supporting_junimism
 	}
 	
 	possible = {
-		custom_tooltip = {
-			text = support_junimism_tt
-			hidden_trigger = {
-				NOT = { has_variable = balkfm_supporting_junimism }
-			}
-		}
+		always = yes
 	}
 	
 	effect = {
-		set_variable = balkfm_supporting_junimism
-		remove_variable = balkfm_supporting_dacianism
+		custom_tooltip = {
+			text = support_junimism_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_variable = balkfm_supporting_junimism
+					}
+					remove_variable = balkfm_supporting_junimism
+				}
+				else = {	
+					set_variable = balkfm_supporting_junimism
+					remove_variable = balkfm_supporting_dacianism
+				}
+			}
+		}
 	}
-
 }
 
 balkfm_support_dacianism_button = {
@@ -1731,21 +1989,33 @@ balkfm_support_dacianism_button = {
 	desc = "balkfm_support_dacianism_desc"
 	
 	visible = {
-		has_variable = balkfm_romanian_nationalism_started
+		always = yes
+	}
+	
+	selected = {
+		has_variable = balkfm_supporting_dacianism
 	}
 	
 	possible = {
-		custom_tooltip = {
-			text = support_dacianism_tt
-			hidden_trigger = {
-				NOT = { has_variable = balkfm_supporting_dacianism }
-			}
-		}
+		always = yes
 	}
 	
 	effect = {
-		set_variable = balkfm_supporting_dacianism
-		remove_variable = balkfm_supporting_junimism
+		custom_tooltip = {
+			text = support_dacianism_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_variable = balkfm_supporting_dacianism
+					}
+					remove_variable = balkfm_supporting_dacianism
+				}
+				else = {	
+					set_variable = balkfm_supporting_dacianism
+					remove_variable = balkfm_supporting_junimism
+				}
+			}
+		}
 	}
 
 }

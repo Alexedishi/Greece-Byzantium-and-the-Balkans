@@ -1223,17 +1223,26 @@ je_grefm_megali_idea = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
 				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
 			}
 		}
 	}
 	
-	on_invalid = {
+	on_fail = {
 		set_variable = grefm_tzatzikisauce
 	}
 
@@ -1298,18 +1307,23 @@ je_grefm_scions_of_rhomania = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
 	}
 
 	weight = 1000
@@ -1347,18 +1361,13 @@ je_grefm_the_greek_plan = {
 		set_variable = grefm_greek_plan_completed
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
+	fail = {
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
 				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
 	}
 
 	weight = 1000
@@ -1431,18 +1440,23 @@ je_grefm_last_of_the_romans = {
 		set_global_variable = grefm_megali_idea_complete
 	}
 	
-	invalid = {
-		hidden_trigger = {
-			OR = {
-				has_variable = grefm_weaksauce
-				has_global_variable = has_formed_byz
-				has_global_variable = grefm_megali_idea_complete
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
 			}
 		}
-	}
-	
-	on_invalid = {
-		set_variable = grefm_tzatzikisauce
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
 	}
 
 	weight = 1000
@@ -3567,6 +3581,199 @@ je_grefm_rom_megali_idea = {
 	
 	weight = 500
 
+}
+
+je_grefm_aus_megali_idea = {
+	icon = "gfx/interface/icons/event_icons/event_emu.dds"
+	
+	group = je_group_grefm_megali_idea
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		anzfp_is_active = yes
+		c:AUS ?= this
+	}
+	
+	possible = {
+		any_scope_state = {
+			region = sr:region_balkans
+			is_incorporated = yes
+		}
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = grefm.890 # The Emu has Landed
+		}
+	}
+	
+	complete = {
+		is_subject = no
+		owns_entire_state_region = STATE_EASTERN_THRACE
+		custom_tooltip = {
+			text = grefm_constantinople_capital_tt
+			hidden_trigger = {
+				capital = {
+					state_region = s:STATE_EASTERN_THRACE
+				}
+			}
+		}
+		calc_true_if = {
+			amount >= 10
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_THESSALIA
+			owns_entire_state_region = STATE_MACEDONIA
+			owns_entire_state_region = STATE_SKOPIA
+			owns_entire_state_region = STATE_WESTERN_THRACE
+			owns_entire_state_region = STATE_NORTHERN_THRACE
+			owns_entire_state_region = STATE_HUDAVENDIGAR
+			owns_entire_state_region = STATE_AYDIN
+			owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+			owns_entire_state_region = STATE_ALBANIA
+			owns_entire_state_region = STATE_CRETE
+			owns_entire_state_region = STATE_IONIAN_ISLANDS
+		}
+	}
+	
+	on_complete = {
+		change_tag = GRE_EMU
+		trigger_event = {
+			id = grefm.891 # The Empire from Down Under
+		}
+		set_global_variable = grefm_megali_idea_complete
+	}
+	
+	fail = {
+		custom_tooltip = {
+			text = grefm_greek_empire_exists_tt
+			hidden_trigger = {
+				OR = {
+					exists = c:BYZ
+					exists = c:HEMP
+					exists = c:GRE_EMU
+				}
+			}
+		}
+		custom_tooltip = {
+			text = grefm_no_spice_tt
+			hidden_trigger = {
+				has_variable = grefm_weaksauce
+			}
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_grefm_emu_empire = {
+	icon = "gfx/interface/icons/event_icons/event_emu.dds"
+	
+	group = je_group_grefm_roman_empire
+	
+	should_be_pinned_by_default = yes	
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_grefm_imperial_aspiriations
+	}
+	
+	complete = {
+		custom_tooltip = {
+			text = je_grefm_purple_pheonix_complete_tt1
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 9
+					country_or_subject_owns_entire_state_region = STATE_ALBANIA
+					country_or_subject_owns_entire_state_region = STATE_BOSNIA
+					country_or_subject_owns_entire_state_region = STATE_BULGARIA
+					country_or_subject_owns_entire_state_region = STATE_CRETE
+					country_or_subject_owns_entire_state_region = STATE_CROATIA
+					country_or_subject_owns_entire_state_region = STATE_DALMATIA
+					country_or_subject_owns_entire_state_region = STATE_IONIAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_MACEDONIA
+					country_or_subject_owns_entire_state_region = STATE_MONTENEGRO
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_NORTHERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_PELOPONNESE
+					country_or_subject_owns_entire_state_region = STATE_SKOPIA
+					country_or_subject_owns_entire_state_region = STATE_SLAVONIA
+					country_or_subject_owns_entire_state_region = STATE_SLOVENIA
+					country_or_subject_owns_entire_state_region = STATE_SOUTHERN_SERBIA
+					country_or_subject_owns_entire_state_region = STATE_THESSALIA
+					country_or_subject_owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+			}
+		}
+		custom_tooltip = {
+			text = je_grefm_purple_pheonix_complete_tt2
+			hidden_trigger = {
+				calc_true_if = {
+					amount > 8
+					country_or_subject_owns_entire_state_region = STATE_ADANA
+					country_or_subject_owns_entire_state_region = STATE_ANKARA
+					country_or_subject_owns_entire_state_region = STATE_AYDIN
+					country_or_subject_owns_entire_state_region = STATE_CYPRUS
+					country_or_subject_owns_entire_state_region = STATE_DIYARBAKIR
+					country_or_subject_owns_entire_state_region = STATE_EAST_AEGEAN_ISLANDS
+					country_or_subject_owns_entire_state_region = STATE_EASTERN_THRACE
+					country_or_subject_owns_entire_state_region = STATE_ERZURUM
+					country_or_subject_owns_entire_state_region = STATE_HUDAVENDIGAR
+					country_or_subject_owns_entire_state_region = STATE_KASTAMONU
+					country_or_subject_owns_entire_state_region = STATE_KONYA
+					country_or_subject_owns_entire_state_region = STATE_TRABZON
+				}
+			}
+		}
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.892 # The Emu of the East
+		}
+	}
+
+	weight = 10000
+}
+
+je_grefm_emu_of_the_east = {
+	icon = "gfx/interface/icons/event_icons/event_emu.dds"
+	
+	group = je_group_grefm_roman_empire
+	
+	should_be_pinned_by_default = yes
+	
+	modifiers_while_active = {
+		modifier_grefm_imperial_aspiriations
+	}
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_ALEPPO
+		country_or_subject_owns_entire_state_region = STATE_LEBANON
+		country_or_subject_owns_entire_state_region = STATE_SYRIA
+		country_or_subject_owns_entire_state_region = STATE_PALESTINE
+		country_or_subject_owns_entire_state_region = STATE_TRANSJORDAN
+		country_or_subject_owns_entire_state_region = STATE_SINAI
+		country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+		country_or_subject_owns_entire_state_region = STATE_MATRUH
+		country_or_subject_owns_entire_state_region = STATE_LIBYA
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = grefm.893 # The Holy Byzantine Emu Empire
+		}
+	}
+
+	weight = 10000
+	
 }
 
 #####################

@@ -130,8 +130,6 @@ je_balkfm_civic_reform = {
 			is_powerful = no
 			is_insurrectionary = no
 		}
-		bureaucracy >= 0 
-		approaching_bureaucracy_shortage = no
 	}
 	
 	on_complete = {
@@ -227,12 +225,20 @@ je_balkfm_state_reform = {
 	}
 	
 	complete = {
-		NOR = { 
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_oligarchy
+		NOR = {
 			has_law = law_type:law_hereditary_bureaucrats
 			has_law = law_type:law_peasant_levies
 		}
+		any_scope_building = {
+			is_building_type = building_government_administration
+			NOT = {
+				has_active_production_method = pm_simple_farming
+			}
+			level >= 2
+			occupancy >= 0.9
+		}
+		bureaucracy >= 0 
+		approaching_bureaucracy_shortage = no
 	}
 
 	on_complete = {
@@ -245,6 +251,71 @@ je_balkfm_state_reform = {
 	invalid = {
 		hidden_trigger = {
 			has_variable = balkfm_state_reform_complete
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_economic_reform = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_balkfm_legacies
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_traditionalism }
+		NOR = { 
+			has_law = law_type:law_land_based_taxation
+			has_law = law_type:law_consumption_based_taxation
+		}
+		NOT = { has_law = law_type:law_isolationism }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.106 # Economic Reform Complete
+		}
+		set_variable = balkfm_economic_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_economic_reform_complete
+		}
+	}
+	
+	weight = 500
+	
+}
+
+je_balkfm_social_reform = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_balkfm_legacies
+	
+	immediate = {
+	}
+	
+	complete = {
+		NOT = { has_law = law_type:law_serfdom }
+		has_law = law_type:law_slavery_banned
+		NOT = { has_law = law_type:law_no_schools }
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = balkfm.107 # Social Reform Complete
+		}
+		set_variable = balkfm_social_reform_complete
+	}
+	
+	invalid = {
+		hidden_trigger = {
+			has_variable = balkfm_social_reform_complete
 		}
 	}
 	
@@ -294,11 +365,14 @@ je_balkfm_nacertanije = {
 		trigger_event = {
 			id = balkfm.200 # Yugoslavism Starter Event
 		}
+		set_global_variable = balkfm_yugoslavism_started
 	}
 	
-	scripted_button = balkfm_form_yugoslavia_button
 	scripted_button = balkfm_austrian_agitation_button
 	scripted_button = balkfm_ottoman_agitation_button
+	scripted_button = balkfm_austrian_provokation_button
+	scripted_button = balkfm_ottoman_provokation_button
+	scripted_button = balkfm_form_yugoslavia_button # this is a fallback for Bulgaria
 	
 	complete = {
 		custom_tooltip = {
@@ -381,24 +455,39 @@ je_balkfm_nacertanije = {
 		effect = {
 			balkfm_determine_yugoslav_leader_effect = yes
 		}
-		events = {
-#			balkfm.204 # Yugoslav Uprising in X
-		}
 	}
 	
 	on_monthly_pulse = {
 		random_events = {
-			180 = 0
-			20 = balkfm.206 # Yugoslav Breakaways Seek Union!
-			5 = balkfm.207 # Yugoslav Annexation
+			chance_of_no_event = 50
+			5 = balkfm.215 # Yugoslav Country Seeks Union (Same Culture)
+			5 = balkfm.216 # Yugoslav Country Seeks Union (Different Culture)
 		}
 	}
 	
 	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_nacertanije_status
-			trigger = {
-				has_global_variable = balkfm_yugoslav_leader_var
+		first_valid = {
+			triggered_desc ={
+			desc = je_balkfm_nacertanije_no_leader_tt
+				trigger = {
+					NOT = {
+						has_global_variable = balkfm_yugoslav_leader_var
+					}
+				}
+			}
+			triggered_desc ={
+			desc = je_balkfm_nacertanije_no_leader_tt
+				trigger = {
+					NOT = {
+						exists = global_var:balkfm_yugoslav_leader_var
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_nacertanije_leader_tt
+				trigger = {
+					exists = global_var:balkfm_yugoslav_leader_var
+				}
 			}
 		}
 	}
@@ -2294,21 +2383,9 @@ je_balkfm_rom_regulamentul_organic = {
 	
 	complete = {
 		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt1
+			text = je_rom_regulamentul_organic_tt
 			hidden_trigger = {
-				has_variable = balkfm_regulamentul_legal
-			}
-		}
-		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt2
-			hidden_trigger = {
-				has_variable = balkfm_regulamentul_economic
-			}
-		}
-		custom_tooltip = {
-			text = je_rom_regulamentul_organic_tt3
-			hidden_trigger = {
-				has_variable = balkfm_regulamentul_social
+				var:balkfm_ottoman_legacy_var >= 4
 			}
 		}
 	}
@@ -2328,9 +2405,11 @@ je_balkfm_rom_regulamentul_organic = {
 				}
 				NOT = { has_variable = balkfm_1848_succeeded }
 			}
-			trigger_event = {
-				id = balkfm.627 # Absolutist Aspirations
-				days = 120
+			hidden_effect = {
+					trigger_event = {
+					id = balkfm.627 # Absolutist Aspirations
+					days = 120
+				}
 			}
 		}
 	}
@@ -2338,13 +2417,13 @@ je_balkfm_rom_regulamentul_organic = {
 	fail = {
 		OR = {
 			custom_tooltip = {
-				text = je_rom_regulamentul_organic_tt4
+				text = balkfm_has_formed_rom_tt
 				hidden_trigger = {
 					c:ROM ?= this
 				}
 			}
 			custom_tooltip = {
-				text = je_rom_regulamentul_organic_tt5
+				text = balkfm_not_turkish_subject_tt
 				hidden_trigger = {
 					NOT = {
 						is_subject_of = c:TUR
@@ -2366,9 +2445,16 @@ je_balkfm_rom_regulamentul_organic = {
 				}
 				NOT = { has_variable = balkfm_1848_succeeded }
 			}
-			trigger_event = {
+			show_as_tooltip = {
+				trigger_event = {
+					id = balkfm.627 # Absolutist Aspirations
+				}
+			}
+			hidden_effect = {
+				trigger_event = {
 				id = balkfm.627 # Absolutist Aspirations
-				days = 120
+					days = 120
+				}
 			}
 		}
 		set_variable = balkfm_regulamentul_completed
@@ -2377,6 +2463,15 @@ je_balkfm_rom_regulamentul_organic = {
 	invalid = {
 		hidden_trigger = {
 			has_variable =  balkfm_regulamentul_completed
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			set_variable = {
+				name = balkfm_ottoman_legacy_var
+				value = balkfm_ottoman_legacy_value
+			}
 		}
 	}
 	
@@ -2409,6 +2504,16 @@ je_balkfm_rom_regulamentul_organic = {
 			}
 		}
 	}
+	
+	current_value = {
+		value = var:balkfm_ottoman_legacy_var
+	}
+
+	goal_add_value = {
+		value = 4
+	}
+
+	progressbar = yes
 	
 	status_desc = {
 		first_valid = {
@@ -2443,105 +2548,6 @@ je_balkfm_rom_regulamentul_organic = {
 	
 }
 
-je_balkfm_rom_legal_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_autocracy }
-		NOT = { has_law = law_type:law_peasant_levies }
-		NOT = { has_law = law_type:law_hereditary_bureaucrats }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.621 # Renewed Legal Standards
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
-	
-}
-
-je_balkfm_rom_economic_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_traditionalism }
-		NOR = { 
-			has_law = law_type:law_land_based_taxation
-			has_law = law_type:law_consumption_based_taxation
-		}
-		NOT = { has_law = law_type:law_isolationism }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.622 # A Modernized Economy
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
-	
-}
-
-je_balkfm_rom_social_modernization = {
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	group = je_group_balkfm_romania
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	complete = {
-		NOT = { has_law = law_type:law_serfdom }
-		has_law = law_type:law_slavery_banned
-		NOT = { has_law = law_type:law_no_schools }
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.623 # Social Equity
-		}
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_regulamentul_completed
-		}
-	}
-	
-	weight = 1000
-	
-}
-
 je_balkfm_rom_1848 = {
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
 	
@@ -2550,7 +2556,14 @@ je_balkfm_rom_1848 = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		balkfm_1848_variables_effect = yes
+		set_variable = {
+			name = balkfm_1848_rom_var
+			value = 0
+		}
+		set_variable = {
+			name = balkfm_1848_progress_var
+			value = 0
+		}
 	}
 	
 	modifiers_while_active = {
@@ -2585,7 +2598,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.614 # The Convention of Balta Liman
 			}
 		}
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	fail = {
@@ -2614,7 +2627,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.613 # The Sword of the Revolution
 			}
 		}
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	timeout = 730
@@ -2636,7 +2649,7 @@ je_balkfm_rom_1848 = {
 				id = balkfm.615 # Constitutional Stalemate
 			}
 		}
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	invalid = {
@@ -2644,18 +2657,29 @@ je_balkfm_rom_1848 = {
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_1848_variables_effect = yes
+		balkfm_cleanup_1848_variables_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_1848_variables_effect = yes
+			set_variable = {
+				name = balkfm_1848_progress_var
+				value = balkfm_1848_progress_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			balkfm_1848_progress_effect = yes
+			change_variable = {
+				name = balkfm_1848_rom_var
+				add = var:balkfm_1848_progress_var
+			}
+			clamp_variable = {
+				name = balkfm_1848_rom_var
+				max = 200
+				min = 0
+			}
 		}
 	}
 	
@@ -2680,6 +2704,10 @@ je_balkfm_rom_statutul_dezvoltator = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		set_variable = {
+			name = balkfm_dezvoltator_progress_var
+			value = balkfm_dezvoltator_progress_value
+		}
 	}
 	
 	complete = {
@@ -2705,7 +2733,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 		trigger_event = {
 			id = balkfm.628 # Mandate Secured
 		}
-		balkfm_clean_up_dezvoltator_variables_effect = yes
+		balkfm_cleanup_dezvoltator_variables_effect = yes
 	}
 	
 	timeout = 1825 # You have five years. Cuza had less.
@@ -2714,7 +2742,7 @@ je_balkfm_rom_statutul_dezvoltator = {
 		trigger_event = {
 			id = balkfm.629 # A Monstrous Coalition
 		}
-		balkfm_clean_up_dezvoltator_variables_effect = yes
+		balkfm_cleanup_dezvoltator_variables_effect = yes
 	}
 	
 	invalid = {
@@ -2724,18 +2752,29 @@ je_balkfm_rom_statutul_dezvoltator = {
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_dezvoltator_variables_effect = yes
+		balkfm_cleanup_dezvoltator_variables_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_update_dezvoltator_variables_effect = yes
+			set_variable = {
+				name = balkfm_dezvoltator_progress_var
+				value = balkfm_dezvoltator_progress_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			balkfm_push_dezvoltator_progress_effect = yes
+			change_variable = {
+				name = balkfm_dezvoltator_var
+				add = var:balkfm_dezvoltator_progress_var
+			}
+			clamp_variable = {
+				name = balkfm_dezvoltator_var
+				max = 200
+				min = 0
+			}
 		}
 	}
 	
@@ -2853,6 +2892,7 @@ je_balkfm_rom_1866_2 = {
 				id = balkfm.645 # The Candiano Republic
 			}
 		}
+		balkfm_cleanup_1866_variables_effect = yes
 	}
 	
 	timeout = 1780 # You just gotta make it five years
@@ -2861,6 +2901,7 @@ je_balkfm_rom_1866_2 = {
 		trigger_event = {
 			id = balkfm.646 # Monarchism Secured
 		}
+		balkfm_cleanup_1866_variables_effect = yes
 	}
 	
 	invalid = {
@@ -2876,7 +2917,10 @@ je_balkfm_rom_1866_2 = {
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_calculate_1866_variables_effect = yes
+			set_variable = {
+				name = balkfm_1866_progress_var
+				value = balkfm_1866_progress_value
+			}
 		}
 	}
 	
@@ -2885,7 +2929,15 @@ je_balkfm_rom_1866_2 = {
 			balkfm.642 # A Conspiracy in Ploiești
 		}
 		effect = {
-			balkfm_push_1866_variables_effect = yes
+			change_variable = {
+				name = balkfm_1866_var
+				add = var:balkfm_1866_progress_var
+			}
+			clamp_variable = {
+				name = balkfm_1866_var
+				max = 100
+				min = 0
+			}
 		}
 	}
 	
@@ -2935,12 +2987,17 @@ je_balkfm_rom_nationalism = {
 	
 	is_shown_when_inactive = {
 		NOT = { has_variable = balkfm_romanian_nationalism_started }
-		c:ROM ?= this
+		country_has_primary_culture = cu:romanian
 	}
 	
 	possible = {
 		has_technology_researched = nationalism
-		has_technology_researched = egalitarianism
+		custom_tooltip = {
+			text = balkfm_has_formed_rom_tt
+			hidden_trigger = {
+				c:ROM ?= this
+			}
+		}
 	}
 	
 	immediate = {
@@ -2964,8 +3021,9 @@ je_balkfm_rom_nationalism = {
 		}
 		literacy_rate >= 0.50
 		custom_tooltip = {
-			text = je_balkfm_rom_nationalism_tt1
+			text = je_balkfm_rom_nationalism_complete_tt
 			hidden_trigger = {
+				has_journal_entry = je_balkfm_rom_nationalism
 				var:balkfm_junimism_var != var:balkfm_dacianism_var
 				OR = {
 					var:balkfm_junimism_var >= 50
@@ -2979,53 +3037,79 @@ je_balkfm_rom_nationalism = {
 		trigger_event = {
 			id = balkfm.672 # A Romanian Identity
 		}
+		balkfm_cleanup_protochronism_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_calculate_protochronism_effect = yes
+			set_variable = {
+				name = balkfm_junimism_progress_var
+				value = balkfm_junimism_progress_value
+			}
+			set_variable = {
+				name = balkfm_dacianism_progress_var
+				value = balkfm_dacianism_progress_value
+			}
+			set_variable = {
+				name = balkfm_protochronism_progress_var
+				value = balkfm_protochronism_progress_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
 		effect = {
-			balkfm_push_protochronism_effect = yes
+			change_variable = {
+				name = balkfm_junimism_var
+				add = var:balkfm_junimism_progress_var
+			}
+			change_variable = {
+				name = balkfm_dacianism_var
+				add = var:balkfm_dacianism_progress_var
+			}
+			clamp_variable = {
+				name = balkfm_junimism_var
+				max = 100
+				min = 0
+			}
+			clamp_variable = {
+				name = balkfm_dacianism_var
+				max = 100
+				min = 0
+			}
 		}
 	}
 	
 	invalid = {
-		has_variable = balkfm_rom_nationalism_complete
+		hidden_trigger = {
+			has_variable = balkfm_rom_nationalism_complete
+		}
 	}
 	
 	on_invalid = {
-		balkfm_clean_up_protochronism_effect = yes
+		balkfm_cleanup_protochronism_effect = yes
 	}
 	
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt5
+				desc = je_balkfm_rom_nationalism_junimism_tt
 				trigger = {
-					NOT = {
-						 has_journal_entry = je_balkfm_rom_nationalism
-					}
-				}
-			}
-			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt2
-				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var > var:balkfm_dacianism_var
 				}
 			}
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt3
+				desc = je_balkfm_rom_nationalism_dacianism_tt
 				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var < var:balkfm_dacianism_var
 				}
 			}
 			triggered_desc = {
-				desc = je_balkfm_rom_nationalism_tt4
+				desc = je_balkfm_rom_nationalism_tie_tt
 				trigger = {
+					has_journal_entry = je_balkfm_rom_nationalism
 					var:balkfm_junimism_var = var:balkfm_dacianism_var
 				}
 			}
@@ -3058,6 +3142,11 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 	
 	immediate = {
 	}
+	
+	scripted_button = balkfm_unite_principalities_button
+	scripted_button = balkfm_all_for_one_button
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
 	
 	complete = {
 		custom_tooltip = {
@@ -3131,11 +3220,6 @@ je_balkfm_rom_united_principalities = { # this journal integrates all vanilla un
 			}
         }
     }
-	
-	scripted_button = balkfm_unite_principalities_button
-	scripted_button = balkfm_all_for_one_button
-	scripted_button = balkfm_bessarabian_retrocession_button
-	scripted_button = balkfm_marea_unire_button
 
 	# timeout = 0 # no timeout. Romania is eternal. -- this comment stays. Toți în unu.
 
@@ -3152,25 +3236,21 @@ je_balkfm_rom_greater_romania = {
 	
     is_shown_when_inactive = {
 		c:ROM ?= this
-		calc_true_if = {
-			amount >= 6
-			NOT = { owns_entire_state_region = STATE_BANAT }
-			NOT = { owns_entire_state_region = STATE_BESSARABIA }
-			NOT = { owns_entire_state_region = STATE_BEKES }
-			NOT = { owns_entire_state_region = STATE_MOLDAVIA }
-			NOT = { owns_entire_state_region = STATE_NORTHERN_TRANSYLVANIA }
-			NOT = { owns_entire_state_region = STATE_SOUTHERN_TRANSYLVANIA }
-			NOT = { owns_entire_state_region = STATE_WALLACHIA }
-		}
     }
 	
     possible = {
         has_technology_researched = nationalism
-		NOT = {
-            any_overlord_or_above ?= { # Can't unite the principalities if you're already the lesser in a pact with another Romanian state
-                country_has_primary_culture = cu:romanian
-            }
-        }
+		custom_tooltip = {
+			text = je_balkfm_rom_greater_romania_possible_tt
+			hidden_trigger = {
+				any_scope_state = {
+					state_region = {
+						is_homeland = cu:romanian
+					}
+					count >= 3
+				}
+			}
+		}
     }
 	
 	immediate = {
@@ -3178,6 +3258,11 @@ je_balkfm_rom_greater_romania = {
 			id = balkfm.688 # The Greater Romanian Lands
 		}
 	}
+	
+	scripted_button = balkfm_trs_agitate_button
+	scripted_button = balkfm_trs_provoke_button
+	scripted_button = balkfm_bessarabian_retrocession_button
+	scripted_button = balkfm_marea_unire_button
 	
 	complete = {
 		is_subject = no
@@ -3198,10 +3283,6 @@ je_balkfm_rom_greater_romania = {
 			id = balkfm.689 # The Reunification of Romania
 		}
 	}
-	
-	scripted_button = balkfm_bessarabian_retrocession_button
-	scripted_button = balkfm_marea_unire_button
-	scripted_button = balkfm_romanian_agitation_button
 
     weight = 1000
 	
