@@ -15,21 +15,31 @@ widget = {
 		datacontext = "[GetPlayer]"
 		
 		visible = "[And( 
-			And( 
-				IsInGame, 
-				And( 
-					Not( IsPauseMenuShown ), 
-					Not( IsGameOverScreenShown )
-				)
-			), 
-			GetScriptedGui('eocfm_window_visible_sgui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)
-		)]"
+						And( 
+							IsInGame, 
+							And( 
+								Not( IsPauseMenuShown ), 
+								Not( IsGameOverScreenShown )
+							)
+						), 
+						GetVariableSystem.HasValue('com_open_window', 'eocfm_sidebar_button_sgui')
+					)]"
+		
+		state = {
+			name = _show
+			# Toggle doesn't work here as it is still toggled on reload, so I have to set it instead
+			on_finish = "[GetVariableSystem.Set('com_fullscreen', 'com_fullscreen')]" 
+		}
+		state = {
+			name = _hide
+			on_finish = "[GetVariableSystem.Clear('com_fullscreen')]"
+		}
 
 		blockoverride "back_button_fullscreen" {
 			close_button_large = {
 				name = "tutorial_highlight_close_button"
 				parentanchor = top|right
-				onclick = "[GetScriptedGui('eocfm_sidebar_button_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+				onclick = "[GetVariableSystem.Clear('com_open_window')]"
 				shortcut = "close_window"
 
 				block "close_button_position" {
@@ -40,7 +50,7 @@ widget = {
 			back_button_large = {
 				position = { 11 15 }
 				parentanchor = top|left
-				onclick = "[GetScriptedGui('eocfm_sidebar_button_sgui').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+				onclick = "[GetVariableSystem.Clear('com_open_window')]"
 				input_action = "back"
 			}
 		}
