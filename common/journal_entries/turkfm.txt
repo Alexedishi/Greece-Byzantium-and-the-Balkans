@@ -44,38 +44,54 @@ je_turkfm_sick_man_main = {
 	
 	modifiers_while_active = {
 		modifier_turkfm_sick_man
+		modifier_turkfm_imperial_aspiriations
 	}
 	
 	complete = {
 		country_rank >= rank_value:great_power
+		calc_true_if = {
+			amount >= 4
+			custom_tooltip = {
+				text = turkfm_controls_balkans_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_balkans
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_controls_anatolia_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_anatolia
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_controls_arabia_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_arabia
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_controls_nile_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_nile
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_controls_danubia_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_danubia
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_controls_caucasus_tt
+				hidden_trigger = {
+					has_variable = turkfm_controls_caucasus
+				}
+			}
+		}
 		custom_tooltip = {
 			text = turkfm_tanzimat_completed_tt
 			hidden_trigger = {
 				has_global_variable = turkfm_tanzimat_complete
-			}
-		}
-		custom_tooltip = {
-			text = turkfm_controls_balkans_tt
-			hidden_trigger = {
-				has_variable = turkfm_controls_balkans
-			}
-		}
-		custom_tooltip = {
-			text = turkfm_controls_anatolia_tt
-			hidden_trigger = {
-				has_variable = turkfm_controls_anatolia
-			}
-		}
-		custom_tooltip = {
-			text = turkfm_controls_arabia_tt
-			hidden_trigger = {
-				has_variable = turkfm_controls_arabia
-			}
-		}
-		custom_tooltip = {
-			text = turkfm_controls_nile_tt
-			hidden_trigger = {
-				has_variable = turkfm_controls_nile
 			}
 		}
 	}
@@ -117,6 +133,22 @@ je_turkfm_sick_man_main = {
 			hidden_trigger = {
 				NOT = {
 					has_variable = turkfm_controls_nile
+				}
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_lost_danubia_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_danubia
+				}
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_lost_caucasus_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_caucasus
 				}
 			}
 		}
@@ -262,7 +294,12 @@ je_turkfm_sick_man_crete = {
 	should_be_pinned_by_default = yes
 
 	complete = {
-		country_or_subject_owns_entire_state_region = STATE_CRETE
+		OR = {
+			owns_entire_state_region = STATE_CRETE
+			c:CRE ?= {
+				is_subject_of = root
+			}
+		}
 	}
 
 	on_complete = {
@@ -290,11 +327,23 @@ je_turkfm_sick_man_caucasus = {
 	should_be_pinned_by_default = yes
 
 	complete = {
-		
+		owns_entire_state_region = STATE_KARS
+		owns_entire_state_region = STATE_ARMENIA
+		owns_entire_state_region = STATE_GREATER_CAUCASUS
+		owns_entire_state_region = STATE_ELIZAVETPOL
+		owns_entire_state_region = STATE_AZERBAIJAN
 	}
 
 	on_complete = {
 		
+	}
+	
+	fail = {
+		NOT = {
+			any_scope_state = {
+				region = sr:region_caucasus
+			}
+		}
 	}
 
 	invalid = {
@@ -325,7 +374,7 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	modifiers_while_active = {
-		modifier_turkfm_sick_man
+		modifier_turkfm_decentralized_administration
 	}
 	
 	scripted_button = turkfm_start_tanzimat_button
@@ -367,6 +416,21 @@ je_turkfm_tanzimat_argiculture = {
 	
 	should_be_pinned_by_default = yes
 	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
+	
 	weight = 500
 }
 
@@ -376,6 +440,21 @@ je_turkfm_tanzimat_army = {
 	group = je_group_turkfm_tanzimat
 	
 	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
 	
 	weight = 500
 }
@@ -387,6 +466,21 @@ je_turkfm_tanzimat_bureaucracy = {
 	
 	should_be_pinned_by_default = yes
 	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
+	
 	weight = 500
 }
 
@@ -396,6 +490,21 @@ je_turkfm_tanzimat_economy = {
 	group = je_group_turkfm_tanzimat
 	
 	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
 	
 	weight = 500
 }
@@ -407,6 +516,21 @@ je_turkfm_tanzimat_education = {
 	
 	should_be_pinned_by_default = yes
 	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
+	
 	weight = 500
 }
 
@@ -416,6 +540,21 @@ je_turkfm_tanzimat_land_reform = {
 	group = je_group_turkfm_tanzimat
 	
 	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
 	
 	weight = 500
 }
@@ -427,6 +566,21 @@ je_turkfm_tanzimat_millet_reform = {
 	
 	should_be_pinned_by_default = yes
 	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
+	
 	weight = 500
 }
 
@@ -436,6 +590,21 @@ je_turkfm_tanzimat_security = {
 	group = je_group_turkfm_tanzimat
 	
 	should_be_pinned_by_default = yes
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_complete_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
 	
 	weight = 500
 }
