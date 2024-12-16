@@ -1,6 +1,36 @@
-﻿########################
-# THE EASTERN QUESTION #
-########################
+﻿##########################
+# TURKFM JOURNAL ENTRIES #
+##########################
+
+# Content contained here pertains to the Ottoman Empire / Turkish State and associated states
+
+####################
+
+# For Greek content, see the "grefm" module
+# For Turkish content, see the "turkfm" module
+# For Balkan Nations content, see the "balkfm" module
+# For Orthodox Church content, see the "eocfm" module
+
+####################
+
+####  TABLE OF CONTENTS  ####
+
+# TURK0 - THE LAST STRUGGLE OF THE OTTOMAN EMPIRE
+# TURK1 - THE MILLETS AND EYALETS OF THE EMPIRE
+# TURK2 - THE REORDERING OF THE EMPIRE
+# TURK3 - THE EASTERN QUESTION
+# TURK4 - TURKISH HISTORICAL FLAVOR
+# TURK5 - OPEN
+# TURK6 - OPEN
+# TURK7 - OPEN
+# TURK8 - BALKAN NATIONAL REVIVALS
+# TURK9 - ARAB & ARMENIAN NATIONAL REVIVALS
+
+####################
+
+#######################################################
+##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  ##
+#######################################################
 
 je_turkfm_sick_man_main = {
 	# This is a temporary replacement because the default journal SUCKS. FIGHT ME
@@ -60,14 +90,108 @@ je_turkfm_sick_man_main = {
 	
 }
 
-je_turkfm_eastern_question = {
-	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+
+#########################################################
+##  #TURK1  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
+#########################################################
+
+je_turkfm_millet_system = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
-	group = je_group_turkfm_sick_man
+	group = je_group_turkfm_separatism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+	}
+	
+	complete = {
+	}
+	
+	on_complete = {
+		set_global_variable = turkfm_millet_completed
+	}
+	
+	fail = {
+	}
+	
+	on_fail = {
+		set_global_variable = turkfm_millet_failed
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			turkfm_calculate_tension_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+		}
+		random_events = {
+		}
+		effect = {
+			turkfm_advance_tension_effect = yes
+			turkfm_check_phase_effect = yes
+		}
+	}
+	
+	
+	current_value = {
+		value = global_var:turkfm_millet_transition_var
+	}
+
+	goal_add_value = {
+		value = 500
+	}
+
+	progressbar = yes
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_stable
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_unrest
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 2
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_hostility
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 3
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_deconfliction
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 4
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_crisis
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 5
+				}
+			}
+		}
+	}
+	
+	weight = 5000
+	
 }
 
+
 ############################################
-# THE REORGANIZATION OF THE OTTOMAN EMPIRE #
+##  #TURK2  THE REORDERING OF THE EMPIRE  ##
 ############################################
 
 je_turkfm_tanzimat = {
@@ -81,8 +205,158 @@ je_turkfm_tanzimat = {
 	}
 	
 	modifiers_while_active = {
-		
+#		modifier_turkfm_decaying_government
 	}
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+	}
+	
+	on_fail = {
+	}
+	
+	weight = 4000
 
 }
+
+
+###################################
+##  #TURK3  THE EASTERN QUESTION ##
+###################################
+
+je_turkfm_eastern_question = {
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	group = je_group_turkfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		set_variable = {
+			name = turkfm_millet_transition_local_var
+			value = 0
+		}
+	}
+	
+	scripted_button = turkfm_pro_turk_button
+	scripted_button = turkfm_anti_turk_button
+	scripted_button = turkfm_decelerate_button
+	scripted_button = turkfm_accelerate_button
+	
+	complete = {
+	}
+	
+	on_complete = {
+		hidden_effect = {
+			remove_modifier = modifier_turkfm_favoring_ottomans
+			remove_modifier = modifier_turkfm_opposing_ottomans
+			remove_modifier = modifier_turkfm_decelerating_tensions
+			remove_modifier = modifier_turkfm_accelerating_tensions
+			remove_variable = turkfm_millet_transition_local_var
+		}
+	}
+	
+	invalid = {
+		OR = {
+			NOT = {
+				exists = c:TUR
+			}
+			NOT = {
+				has_diplomatic_relevance = c:TUR
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			remove_modifier = modifier_turkfm_favoring_ottomans
+			remove_modifier = modifier_turkfm_opposing_ottomans
+			remove_modifier = modifier_turkfm_decelerating_tensions
+			remove_modifier = modifier_turkfm_accelerating_tensions
+			remove_variable = turkfm_millet_transition_local_var
+		}
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			set_variable = {
+				name = turkfm_millet_transition_local_var
+				value = global_var:turkfm_millet_transition_var
+			}
+		}
+	}
+	
+	current_value = {
+		value = var:turkfm_millet_transition_local_var
+	}
+
+	goal_add_value = {
+		value = 500
+	}
+
+	progressbar = yes
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_stable
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_unrest
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 2
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_hostility
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 3
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_deconfliction
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 4
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_crisis
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 5
+				}
+			}
+		}
+	}
+	
+	weight = 3000
+	
+}
+
+
+########################################
+##  TURK4  TURKISH HISTORICAL FLAVOR  ##
+########################################
+
+# //OPEN
+
+
+#######################################
+##  TURK8  BALKAN NATIONAL REVIVALS  ##
+#######################################
+
+
+
+################################################
+##  TURK9  ARAB & ARMENIAN NATIONAL REVIVALS  ##
+################################################
+
+# //OPEN
 

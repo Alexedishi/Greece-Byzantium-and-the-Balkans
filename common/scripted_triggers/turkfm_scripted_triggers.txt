@@ -1,0 +1,48 @@
+﻿turkfm_controls_balkans_trigger = {
+	always = yes
+}
+
+turkfm_controls_anatolia_trigger = {
+	always = yes
+}
+
+turkfm_controls_arabia_trigger = {
+	always = yes
+}
+
+turkfm_controls_nile_trigger = {
+	always = yes
+}
+
+turkfm_can_escalate_tension_trigger = {
+	OR = {
+		global_var:turkfm_millet_phase_var = 1 # Stable
+		global_var:turkfm_millet_phase_var = 2 # Unrest
+		AND = {
+			global_var:turkfm_millet_phase_var = 3 # Hostility
+			turkfm_crisis_possible_trigger = yes
+		}
+		global_var:turkfm_millet_phase_var = 4 # Deconfliction
+	}
+}
+
+turkfm_can_deescalate_tension_trigger = {
+	OR = {
+		global_var:turkfm_millet_phase_var = 2 # Unrest
+		global_var:turkfm_millet_phase_var = 3 # Hostility
+		global_var:turkfm_millet_phase_var = 5 # Crisis
+	}
+}
+
+turkfm_crisis_possible_trigger = {
+	always = no
+}
+
+turkfm_crisis_participant_trigger = {
+	OR = {
+		has_variable = turkfm_crisis_initiator
+		has_variable = turkfm_crisis_attacker
+		has_variable = turkfm_crisis_defender
+		has_variable = turkfm_crisis_target
+	}
+}

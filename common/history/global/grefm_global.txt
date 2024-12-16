@@ -245,44 +245,6 @@
 	
 ### Global Variable Setup ###
 	
-	# eqfm Tension Variables
-	set_global_variable = {
-		name = eqfm_tension_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_greek_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_serb_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_bulgarian_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_bosniak_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_nationalism_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_accelerate_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_culture_var
-		value = 0
-	}
-	set_global_variable = {
-		name = eqfm_religion_var
-		value = 0
-	}
-	
 	# Crete Revolt Momentum Variables
 	set_global_variable = {
 		name = grefm_crete_revolt_var
@@ -519,10 +481,39 @@
 	}
 	
 	c:TUR ?= {
+		turkfm_initialize_tension_variables = yes
 		balkfm_initialize_border_variables_effect = yes
+		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
 		trigger_event = {
 			id = eqfm.001 # The Eastern Question
 			days = 1
+		}
+		add_journal_entry = {
+			type = je_turkfm_sick_man_main
+		}
+		add_journal_entry = {
+			type = je_turkfm_millet_system
+		}
+		add_journal_entry = {
+			type = je_turkfm_tanzimat_argiculture
+		}
+		add_journal_entry = {
+			type = je_turkfm_tanzimat_economy
+		}
+		add_journal_entry = {
+			type = je_turkfm_tanzimat_bureaucracy
+		}
+		add_journal_entry = {
+			type = je_turkfm_tanzimat_security
+		}
+		add_journal_entry = {
+			type = je_turkfm_sick_man_syria
+		}
+		add_journal_entry = {
+			type = je_turkfm_sick_man_caucasus
+		}
+		add_journal_entry = {
+			type = je_turkfm_sick_man_crete
 		}
 #		add_journal_entry = {
 #			type = je_balkfm_tur_karadag
@@ -531,10 +522,8 @@
 			name = balkfm_border_timeout_var
 			years = 1
 		}
-		eqfm_calculate_tension_variables_effect = yes
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
-		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
 	}
 	
 	c:ION = {

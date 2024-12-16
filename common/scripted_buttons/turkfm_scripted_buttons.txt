@@ -1,0 +1,363 @@
+﻿turkfm_pro_turk_button = {
+	name = "turkfm_pro_turk_button"
+	desc = "turkfm_pro_turk_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		has_modifier = modifier_turkfm_favoring_ottomans
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_turkfm_favoring_ottomans
+				}
+			}
+			c:TUR = {
+				relations:root > relations_threshold:neutral
+			}
+			country_rank = rank_value:great_power
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_turkfm_favoring_ottomans
+			}
+			has_modifier = modifier_turkfm_favoring_ottomans
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_favoring_ottomans
+			}
+			remove_modifier = modifier_turkfm_favoring_ottomans
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_decelerating_tensions
+				}
+				remove_modifier = modifier_turkfm_decelerating_tensions
+			}
+		}
+		else = {
+			add_modifier = modifier_turkfm_favoring_ottomans
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_opposing_ottomans
+				}
+				remove_modifier = modifier_turkfm_opposing_ottomans
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_accelerating_tensions
+				}
+				remove_modifier = modifier_turkfm_accelerating_tensions
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				NOT = {
+					has_modifier = modifier_turkfm_favoring_ottomans
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				influence > 100
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+				has_modifier = modifier_turkfm_favoring_ottomans
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+				NOT = {
+					has_modifier = modifier_turkfm_favoring_ottomans
+				}
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_favoring_ottomans
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+	}
+	
+}
+
+turkfm_anti_turk_button = {
+	name = "turkfm_anti_turk_button"
+	desc = "turkfm_anti_turk_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		has_modifier = modifier_turkfm_opposing_ottomans
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					has_modifier = modifier_turkfm_opposing_ottomans
+				}
+			}
+			c:TUR = {
+				relations:root > relations_threshold:neutral
+			}
+			country_rank = rank_value:great_power
+		}
+		trigger_if = {
+			limit = {
+				has_modifier = modifier_turkfm_opposing_ottomans
+			}
+			has_modifier = modifier_turkfm_opposing_ottomans
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_opposing_ottomans
+			}
+			remove_modifier = modifier_turkfm_opposing_ottomans
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_accelerating_tensions
+				}
+				remove_modifier = modifier_turkfm_accelerating_tensions
+			}
+		}
+		else = {
+			add_modifier = modifier_turkfm_opposing_ottomans
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_favoring_ottomans
+				}
+				remove_modifier = modifier_turkfm_favoring_ottomans
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_decelerating_tensions
+				}
+				remove_modifier = modifier_turkfm_decelerating_tensions
+			}
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				NOT = {
+					has_modifier = modifier_turkfm_opposing_ottomans
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				influence > 100
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+				has_modifier = modifier_turkfm_opposing_ottomans
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				influence < 50
+				NOT = {
+					has_modifier = modifier_turkfm_opposing_ottomans
+				}
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_opposing_ottomans
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+		}
+		add = 100
+	}
+	
+}
+
+turkfm_decelerate_button = {
+	name = "turkfm_decelerate_button"
+	desc = "turkfm_decelerate_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+	
+	}
+	
+	possible = {
+		has_modifier = modifier_turkfm_favoring_ottomans
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_decelerating_tensions
+			}
+			remove_modifier = modifier_turkfm_decelerating_tensions
+		}
+		else = {
+			add_modifier = modifier_turkfm_decelerating_tensions
+			custom_tooltip = turkfm_decelerate_tensions_tt
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				NOT = {
+					has_modifier = modifier_turkfm_decelerating_tensions
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 10
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_decelerating_tensions
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+}
+
+turkfm_accelerate_button = {
+	name = "turkfm_accelerate_button"
+	desc = "turkfm_accelerate_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+	
+	}
+	
+	possible = {
+		has_modifier = modifier_turkfm_opposing_ottomans
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_accelerating_tensions
+			}
+			remove_modifier = modifier_turkfm_accelerating_tensions
+		}
+		else = {
+			add_modifier = modifier_turkfm_accelerating_tensions
+			custom_tooltip = turkfm_accelerate_tensions_tt
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {
+				NOT = {
+					has_modifier = modifier_turkfm_accelerating_tensions
+				}
+				OR = {
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = antagonize
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = conquer
+					}
+					has_secret_goal = {
+						who = c:TUR
+						secret_goal = dominate
+					}
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 10
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_accelerating_tensions
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+}
