@@ -792,9 +792,11 @@ grefm_greek_revolt_tension_effect = {
 		}
 		post_notification = notification_grefm_greek_revolt
 	}
-	change_global_variable = {
-		name = eqfm_tension_var
-		add = 25
+	if = {
+		limit = {
+			turkfm_can_escalate_tension_trigger = yes
+		}
+		turkfm_add_medium_escalation_effect = yes
 	}
 }
 
