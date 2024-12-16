@@ -33,7 +33,6 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 		balkfm.214# Yugoslavist Uprising in State
 		balkfm.484 # May Assembly
 		balkfm.598 # The Bulgarian State
-		eqfm.009 # Adds je_eqfm_sub as appropriate
 	}
 }
 
@@ -361,20 +360,20 @@ balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
 
 on_secession_start = {
 	on_actions = {
-		eqfm_secession_start
+		turkfm_secession_start
 	}
 }
 
-eqfm_secession_start = {
+turkfm_secession_start = {
 	effect = {
 		if = {
 			limit = {
-				has_journal_entry = je_eqfm_main
+				has_journal_entry = je_turkfm_millet_system
 				scope:target = {
 					balkfm_balkans_native_trigger = yes
 				}
 			}
-			eqfm_secession_start_effect = yes
+			turkfm_secession_start_effect = yes
 		}
 	}		
 }
@@ -385,8 +384,7 @@ on_wargoal_enforced = {
 	on_actions = {
 		eocfm_wargoal_enforced_1
 		eocfm_wargoal_enforced_2
-		eqfm_crisis_wargoal_enforced
-#		eqfm_thunderdome_wargoal_enforced
+		turkfm_crisis_wargoal_enforced
 	}
 }
 
@@ -436,7 +434,7 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 
 # These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
 
-eqfm_crisis_wargoal_enforced = {
+turkfm_crisis_wargoal_enforced = {
 	trigger = {
 		has_global_variable = eqfm_crisis_happened
 		OR = {
