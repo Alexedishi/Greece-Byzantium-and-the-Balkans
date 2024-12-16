@@ -51,7 +51,7 @@ je_turkfm_sick_man_main = {
 		custom_tooltip = {
 			text = turkfm_tanzimat_completed_tt
 			hidden_trigger = {
-				has_global_variable = turkfm_tanzimat_completed_tt
+				has_global_variable = turkfm_tanzimat_complete
 			}
 		}
 		custom_tooltip = {
@@ -133,11 +133,11 @@ je_turkfm_sick_man_main = {
 			}
 			custom_tooltip = sick_man_of_europe_lose_power_bloc
 		}
-		set_global_variable = turkfm_sick_man_failed
+		set_global_variable = turkfm_sick_man_complete
 	}
 	
 	current_value = {
-		value = var:sick_man_var
+		value = var:turkfm_sick_man_var
 	}
 
 	goal_add_value = {
@@ -191,9 +191,8 @@ je_turkfm_sick_man_syria = {
 	invalid = {
 		custom_tooltip = {
 			text = turkfm_sick_man_completed_tt
-			OR = {
+			hidden_trigger = {
 				has_global_variable = turkfm_sick_man_complete
-				has_global_variable = turkfm_sick_man_failed
 			}
 		}
 	}
@@ -245,9 +244,8 @@ je_turkfm_sick_man_egypt = {
 	invalid = {
 		custom_tooltip = {
 			text = turkfm_sick_man_completed_tt
-			OR = {
+			hidden_trigger = {
 				has_global_variable = turkfm_sick_man_complete
-				has_global_variable = turkfm_sick_man_failed
 			}
 		}
 	}
@@ -274,9 +272,8 @@ je_turkfm_sick_man_crete = {
 	invalid = {
 		custom_tooltip = {
 			text = turkfm_sick_man_completed_tt
-			OR = {
+			hidden_trigger = {
 				has_global_variable = turkfm_sick_man_complete
-				has_global_variable = turkfm_sick_man_failed
 			}
 		}
 	}
@@ -303,9 +300,8 @@ je_turkfm_sick_man_caucasus = {
 	invalid = {
 		custom_tooltip = {
 			text = turkfm_sick_man_completed_tt
-			OR = {
+			hidden_trigger = {
 				has_global_variable = turkfm_sick_man_complete
-				has_global_variable = turkfm_sick_man_failed
 			}
 		}
 	}
@@ -341,14 +337,13 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	on_complete = {
-		set_global_variable = turkfm_sick_tanzimat_complete
+		set_global_variable = turkfm_tanzimat_complete
 	}
 	
 	fail = {
 	}
 	
 	on_fail = {
-		set_global_variable = turkfm_sick_tanzimat_failed
 	}
 	
 	current_value = {
@@ -396,7 +391,7 @@ je_turkfm_tanzimat_bureaucracy = {
 }
 
 je_turkfm_tanzimat_economy = {
-	icon = "gfx/interface/icons/event_icons/event_coins.dds"
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
 	
 	group = je_group_turkfm_tanzimat
 	
@@ -621,13 +616,6 @@ je_turkfm_eastern_question = {
 				text = je_turkfm_eastern_question_complete_tt
 				hidden_trigger = {
 					has_global_variable = turkfm_sick_man_complete
-				}
-				
-			}
-			custom_tooltip = {
-				text = je_turkfm_eastern_question_fail_tt
-				hidden_trigger = {
-					has_global_variable = turkfm_sick_man_failed
 				}
 			}
 		}

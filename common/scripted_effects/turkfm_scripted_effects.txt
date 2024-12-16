@@ -337,7 +337,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -355,7 +355,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -373,7 +373,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -391,7 +391,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -426,7 +426,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -444,7 +444,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -462,7 +462,7 @@ turkfm_check_phase_effect = {
 				every_country = {
 					limit = {
 						OR = {
-							has_journal_entry = je_turkfm_millet_system
+							has_journal_entry = je_turkfm_millet_system_main
 							has_journal_entry = je_turkfm_eastern_question
 						}
 					}
@@ -1486,7 +1486,7 @@ turkfm_secession_start_effect = {
 	every_country = {
 		limit = {
 			OR = {
-				has_journal_entry = je_turkfm_millet_system
+				has_journal_entry = je_turkfm_millet_system_main
 				has_journal_entry = je_turkfm_eastern_question
 			}
 		}
@@ -1525,7 +1525,7 @@ turkm_cleanup_tension_variables = {
 turkfm_relations_adjustment_effect = {
 	if = {
 		limit = {
-			has_variable = turkfm_anti_turk_var
+			has_modifier = modifier_turkfm_opposing_ottomans
 			c:TUR = {
 				relations:root > relations_threshold:cold
 			}
@@ -1543,7 +1543,7 @@ turkfm_relations_adjustment_effect = {
 	}
 	if = {
 		limit = {
-			has_variable = turkfm_pro_turk_var
+			has_modifier = modifier_turkfm_favoring_ottomans
 			c:TUR = {
 				relations:root < relations_threshold:cordial
 			}
@@ -1562,7 +1562,8 @@ turkfm_relations_adjustment_effect = {
 }
 
 turkfm_cleanup_modifiers_effect = {
-	remove_modifier = modifier_turkfm_influencing_balkans
+	remove_modifier = modifier_turkfm_favoring_ottomans
+	remove_modifier = modifier_turkfm_opposing_ottomans
 	remove_modifier = modifier_turkfm_accelerating_tensions
 	remove_modifier = modifier_turkfm_decelerating_tensions
 }

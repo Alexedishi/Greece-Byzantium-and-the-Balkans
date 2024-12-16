@@ -368,7 +368,7 @@ turkfm_secession_start = {
 	effect = {
 		if = {
 			limit = {
-				has_journal_entry = je_turkfm_millet_system
+				has_journal_entry = je_turkfm_millet_system_main
 				scope:target = {
 					balkfm_balkans_native_trigger = yes
 				}
@@ -428,59 +428,6 @@ eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 				id = eocfm.132 # Failed Crusade
 			}
 			eocfm_crusade_cleanup_effect = yes
-		}
-	}
-}
-
-# These on_actions trigger after the Great Eastern Crisis ideally. DPs are janky enough that these could get effed by concurrent wars but it's what we have.
-
-turkfm_crisis_wargoal_enforced = {
-	trigger = {
-		has_global_variable = eqfm_crisis_happened
-		OR = {
-			has_variable = eqfm_crisis_target
-			has_variable = eqfm_crisis_initiator
-		}
-	}
-	effect = {
-		if = {
-			limit = {
-				has_variable = eqfm_crisis_initiator
-				NOT = { has_global_variable = eqfm_berlin_congress_var }
-			}
-			every_country = {
-				limit = {
-					has_variable = eqfm_crisis_offered
-					NOT = { has_variable = eqfm_congress_offered }
-				}
-				trigger_event = {
-					id = eqfm.119 # The Treaty of San Stefano
-				}
-			}
-			if = {
-				limit = {
-					NOT = { has_global_variable = eqfm_berlin_congress_var }
-				}
-				set_global_variable = {
-					name = eqfm_berlin_congress_var
-					value = 0
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_variable = eqfm_crisis_target
-				NOT = { has_variable = eqfm_congress_offered }
-			}
-			every_country = {
-				limit = {
-					has_variable = eqfm_crisis_offered
-				}
-				trigger_event = {
-					id = eqfm.118 # The Porte Triumphant
-				}
-			}
-			set_global_variable = eqfm_porte_triumphant_var
 		}
 	}
 }

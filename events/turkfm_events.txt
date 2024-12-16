@@ -1774,14 +1774,11 @@ turkfm.253 = { # State Rebellion Suppressed
 			}
 			remove_variable = turkfm_riot_state_var
 		}
-		custom_tooltip = {
-			text = turkfm_tension_minus_200
-			hidden_effect = {
-				change_global_variable = {
-					name = turkfm_tension_var
-					subtract = 200
-				}
+		if = {
+			limit = {
+				turkfm_can_deescalate_tension_trigger = yes
 			}
+			turkfm_add_very_large_deescalation_effect = yes
 		}
 		every_country = {
 			limit = {
@@ -1872,12 +1869,6 @@ turkfm.255 = { # Balkan Country Rebellion
 				add_diplomatic_play_war_support = { target = scope:turkfm_rebellion_scope value = 100 }
 			}
 		}
-		custom_tooltip = {
-			text = turkfm_deconfliction_tt
-			hidden_effect = {
-				set_global_variable = turkfm_deconfliction_var
-			}
-		}
 		hidden_effect = {
 			every_country = {
 				limit = {
@@ -1905,12 +1896,6 @@ turkfm.255 = { # Balkan Country Rebellion
 		add_modifier = {
 			name = modifier_turkfm_caved_to_separatists
 			months = normal_modifier_time
-		}
-		custom_tooltip = {
-			text = turkfm_deconfliction_tt
-			hidden_effect = {
-				set_global_variable = turkfm_deconfliction_var
-			}
 		}
 		hidden_effect = {
 			every_country = {
