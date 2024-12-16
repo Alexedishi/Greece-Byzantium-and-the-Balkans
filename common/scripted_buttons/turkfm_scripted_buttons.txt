@@ -1,4 +1,46 @@
-﻿turkfm_pro_turk_button = {
+﻿#### SICK MAN BUTTONS ####
+
+
+
+#### TANZIMAT BUTTONS ####
+
+turkfm_start_tanzimat_button = {
+	name = "turkfm_start_tanzimat_button"
+	desc = "turkfm_start_tanzimat_button_desc"
+	
+	visible = {
+		NOT = {
+			has_global_variable = turkfm_tanzimat_started
+		}
+	}
+	
+	possible = {
+		custom_tooltip = turkfm_mahmud_dead_tt
+		hidden_trigger = {
+			ruler = {
+				NOT = {
+					has_template = template_turkfm_osmanoglu_mahmud_ii
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = turkfm.100 # The Reordering of the Empire
+		}
+		set_global_variable = turkfm_tanzimat_started
+	}
+	
+}
+
+
+#### MILLET SYSTEM BUTTONS ####
+
+
+#### EASTERN QUESTIONS BUTTONS ####
+
+turkfm_pro_turk_button = {
 	name = "turkfm_pro_turk_button"
 	desc = "turkfm_pro_turk_button_desc"
 	

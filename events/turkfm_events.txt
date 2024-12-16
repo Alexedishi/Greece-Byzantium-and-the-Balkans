@@ -55,7 +55,7 @@ namespace = turkfm
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 
 #100-109 - Tanzimat Events I
-#	100 - ##The Reordering of the State
+#	100 - The Reordering of the State
 
 #110-119 - Tanzimat Events II
 #	110 - ##
@@ -75,9 +75,9 @@ namespace = turkfm
 #	209 - Region Secured
 
 #210-219 - Millet Neutral Events
-#	010>>210 - Extortionate Taxation in State
-#	011>>211 - Plague Outbreak in State
-#	012>>212 - Ecumenical Patriarch Demands Protections
+#	210 - Extortionate Taxation in State
+#	211 - Plague Outbreak in State
+#	212 - Ecumenical Patriarch Demands Protections
 #	213 - OPEN
 #	214 - OPEN
 #	215 - ##Dragoman Reduces Tensions
@@ -99,9 +99,9 @@ namespace = turkfm
 #	229 - OPEN
 
 #230-239 - Millet Hostility Events  #### IMPORT FROM EQFM
-#	013>>230 - Churches Burned in State
-#	014>>231 - Popular Speaker Lynched in State
-#	015>>232 - Brigandage in State
+#	230 - Churches Burned in State
+#	231 - Popular Speaker Lynched in State
+#	232 - Brigandage in State
 #	233 - ##Port Burned in State
 #	234 - 
 #	235 - 
@@ -123,12 +123,12 @@ namespace = turkfm
 #	249 - OPEN
 
 #250-259 - Millet Crisis Events
-#	020>>250 - Riots in State
-#	021>>251 - Violence in State Worsens
-#	022>>252 - Massacre in State
-#	023>>253 - State Rebellion Suppressed
-#	024>>254 - [TECH] Creates a Revolter Tag
-#	025>>255 - Balkan Country Rebellion
+#	250 - Riots in State
+#	251 - Violence in State Worsens
+#	252 - Massacre in State
+#	253 - State Rebellion Suppressed
+#	254 - [TECH] Creates a Revolter Tag
+#	255 - Balkan Country Rebellion
 #	256 - OPEN
 #	257 - OPEN
 #	258 - OPEN
@@ -374,9 +374,6 @@ turkfm.008 = { # The Dead Man of Europe
 	}
 
 	immediate = {
-		set_variable = sick_man_complete
-		remove_modifier = outmoded_bureaucracy
-		remove_modifier = cizye_tax
 	}
 	
 	option = {
@@ -423,7 +420,39 @@ turkfm.009 = { # The Healthy Man of Europe
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 ############################################################
 
-# // OPEN
+turkfm.100 = { # The Reordering of the Empire
+	type = country_event
+	placement = root
+	
+	title = turkfm.100.t
+	desc = turkfm.100.d
+	flavor = turkfm.100.f
+	
+	event_image = {
+		video = "dlc_grefm"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.100.a
+		default_option = yes
+		
+	}
+
+}
 
 
 #########################################################
@@ -481,7 +510,6 @@ turkfm.200 = { # The Rise of Nationalism
 
 }
 
-
 turkfm.208 = { # Region Lost
 	type = country_event
 	placement = root
@@ -506,55 +534,19 @@ turkfm.208 = { # Region Lost
 		OR = {
 			AND = {
 				has_variable = turkfm_controls_balkans
-				NOR = {
-					any_scope_state = {
-						region = sr:region_balkans
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_balkans
-						}
-					}
-				}
+				turkfm_controls_balkans_trigger = no
 			}
 			AND = {
 				has_variable = turkfm_controls_anatolia
-				NOR = {
-					any_scope_state = {
-						region = sr:region_anatolia
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_anatolia
-						}
-					}
-				}
+				turkfm_controls_anatolia_trigger = no
 			}
 			AND = {
 				has_variable = turkfm_controls_arabia
-				NOR = {
-					any_scope_state = {
-						region = sr:region_arabic
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_arabic
-						}
-					}
-				}
+				turkfm_controls_arabia_trigger = no
 			}
 			AND = {
 				has_variable = turkfm_controls_nile
-				NOR = {
-					any_scope_state = {
-						region = sr:region_nile_basin
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_nile_basin
-						}
-					}
-				}
+				turkfm_controls_nile_trigger = no
 			}
 		}
 	}
@@ -705,11 +697,15 @@ turkfm.209 = { # Region Secured
 				turkfm_controls_anatolia_trigger = yes
 			}
 			AND = {
-				has_variable = turkfm_controls_arabia
+				NOT = {
+					has_variable = turkfm_controls_arabia
+				}
 				turkfm_controls_arabia_trigger = yes
 			}
 			AND = {
-				has_variable = turkfm_controls_nile
+				NOT = {
+					has_variable = turkfm_controls_nile
+				}
 				turkfm_controls_nile_trigger = yes
 			}
 		}

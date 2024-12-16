@@ -4,70 +4,92 @@
 
 #### SICK MAN EFFECTS ####
 
+turkfm_initialize_sick_man = {
+	set_variable = turkfm_controls_balkans
+	set_variable = turkfm_controls_anatolia
+	set_variable = turkfm_controls_arabia
+	set_variable = turkfm_controls_nile
+	add_journal_entry = {
+		type = je_turkfm_sick_man_syria
+	}
+	add_journal_entry = {
+		type = je_turkfm_sick_man_caucasus
+	}
+	add_journal_entry = {
+		type = je_turkfm_sick_man_crete
+	}
+	turkfm_calculate_sick_man_effect = yes
+}
 
+turkfm_calculate_sick_man_effect = {
+	set_variable = {
+		name = turkfm_sick_man_var
+		value = turkfm_sick_man_value
+	}
+}	
 
-#### CHARACTER CREATION EFFECTS ####
-
-turkfm_generate_hakki_pasha_effect = {
-	# Kurt İsmail Hakkı Pasha, Commander of the Anatolian Army 1877-1878
+turkfm_validate_sick_man_effect = {
 	if = {
 		limit = {
-			NOT = {
-				has_global_variable = turkfm_hakki_pasha_spawned
-			}
+			turkfm_controls_balkans_trigger = yes
 		}
-		set_global_variable = turkfm_hakki_pasha_spawned
-		create_character = {
-			first_name = Kurt_Ismail
-			last_name = Hakki
-			historical = yes
-			age = 59 # age in 1877 at the start of the Russo-Turkish War
-			culture = cu:turkish
-			religion = rel:sunni
-			interest_group = ig_armed_forces
-			ideology = ideology_royalist
-			is_general = yes
-			traits = {
-				imposing
-				direct
-				expert_offensive_planner
-			}
-			on_created = {
-				set_variable = turkfm_is_hakki_pasha
-				set_variable = balkfm_pasha_var
-			}
+		set_variable = turkfm_controls_balkans
+	}
+	else = {
+		remove_variable = turkfm_controls_balkans
+	}
+	if = {
+		limit = {
+			turkfm_controls_anatolia_trigger = yes
 		}
+		set_variable = turkfm_controls_anatolia
+	}
+	else = {
+		remove_variable = turkfm_controls_anatolia
+	}
+	if = {
+		limit = {
+			turkfm_controls_arabia_trigger = yes
+		}
+		set_variable = turkfm_controls_arabia
+	}
+	else = {
+		remove_variable = turkfm_controls_arabia
+	}
+	if = {
+		limit = {
+			turkfm_controls_nile_trigger = yes
+		}
+		set_variable = turkfm_controls_nile
+	}
+	else = {
+		remove_variable = turkfm_controls_nile
 	}
 }
 
-turkfm_generate_osman_nuri_effect = {
-	# Osman Nuri Pasha, Ottoman field marshal and one of the most decorated Pashas ever
-	if = {
-		limit = {
-			NOT = {
-				has_global_variable = turkfm_osman_nuri_spawned
-			}
-		}
-		set_global_variable = turkfm_osman_nuri_spawned
-		create_character = {
-			first_name = Osman
-			last_name = Nuri
-			historical = yes
-			age = 59 # age in 1877 at the start of the Russo-Turkish War
-			culture = cu:turkish
-			religion = rel:sunni
-			interest_group = ig_armed_forces
-			ideology = ideology_royalist
-			is_general = yes
-			traits = {
-				persistent
-				engineer
-				expert_defensive_strategist
-			}
-			on_created = {
-				set_variable = turkfm_is_nuri_pasha
-				set_variable = balkfm_pasha_var
-			}
+#### TANZIMAT EFFECTS ####
+
+turkfm_initialize_tanzimat = {
+	add_journal_entry = {
+		type = je_turkfm_tanzimat_argiculture
+	}
+	add_journal_entry = {
+		type = je_turkfm_tanzimat_economy
+	}
+	add_journal_entry = {
+		type = je_turkfm_tanzimat_bureaucracy
+	}
+	add_journal_entry = {
+		type = je_turkfm_tanzimat_security
+	}
+}
+
+turkfm_advance_tanzimat_effect = {
+	custom_tooltip = {
+		text = turkfm_advance_tanzimat_tt
+		change_variable = {
+			name = sick_man_var
+			add = 1
 		}
 	}
 }
@@ -513,7 +535,7 @@ turkfm_add_medium_escalation_effect = {
 
 turkfm_add_large_escalation_effect = {
 	custom_tooltip = {
-		text = turkfm_add_medium_escalation_tt
+		text = turkfm_add_large_escalation_tt
 		hidden_effect = {
 			change_global_variable = {
 				name = turkfm_escalation_var
@@ -573,7 +595,7 @@ turkfm_add_medium_deescalation_effect = {
 
 turkfm_add_large_deescalation_effect = {
 	custom_tooltip = {
-		text = turkfm_add_medium_deescalation_tt
+		text = turkfm_add_large_deescalation_tt
 		hidden_effect = {
 			change_global_variable = {
 				name = turkfm_deescalation_var
@@ -1545,334 +1567,3 @@ turkfm_cleanup_modifiers_effect = {
 	remove_modifier = modifier_turkfm_decelerating_tensions
 }
 
-turkfm_recruit_participants_effect = {
-	if = {
-		limit = {
-			NOT = { has_global_variable = turkfm_crisis_happened }
-			global_var:turkfm_crisis_var >= 8
-			any_country = {
-				country_rank < rank_value:great_power
-				OR = {
-					capital = { region = sr:region_balkans }
-					capital = { region = sr:region_danubia }
-				}
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}
-			}
-		}
-		random_country = {
-			limit = {
-				country_rank < rank_value:great_power
-				OR = {
-					capital = { region = sr:region_balkans }
-					capital = { region = sr:region_danubia }
-				}
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}					
-			}
-			trigger_event = {
-				id = turkfm.101 # A Crisis in Rumelia (Recruit Local Power)
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			NOT = { has_global_variable = turkfm_crisis_happened }
-			global_var:turkfm_crisis_var >= 24
-			any_country = {
-				country_rank >= rank_value:great_power
-				has_interest_marker_in_region = region_balkans
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}
-			}
-		}
-		random_country = {
-			limit = {
-				country_rank >= rank_value:great_power
-				has_interest_marker_in_region = region_balkans
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}
-			}
-			trigger_event = {
-				id = turkfm.102 # A Crisis in the East (Recruit Neutral/Hostile Great Powers)
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			NOT = { has_global_variable = turkfm_crisis_happened }
-			global_var:turkfm_crisis_var >= 36
-			any_country = {
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-				}
-				OR = {
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}
-			}
-		}
-		random_country = {
-			limit = {
-				NOR = {
-					has_variable = turkfm_crisis_offered
-					has_variable = turkfm_crisis_target
-				}
-				OR = {
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = defensive_pact
-					}
-					has_diplomatic_pact = {
-						who = c:TUR
-						type = alliance
-					}
-				}
-			}
-			trigger_event = {
-				id = turkfm.103 # A Crisis in the East (Recruit Allied Countries)
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			NOT = { exists = c:BOS }
-			global_var:turkfm_crisis_var > 100
-		}
-		trigger_event = {
-			id = turkfm.107 # Herzegovina Uprising
-		}
-	}
-	else_if = {
-		limit = {
-			NOT = { exists = c:BUL }
-			global_var:turkfm_crisis_var > 115
-		}
-		trigger_event = {
-			id = turkfm.108 # April Uprising (Bulgaria)
-		}
-	}
-}
-
-turkfm_stage_crisis_characters_effect = {
-# event_window_crisis has this layout, from top to bottom, attackers on the left & defenders on the right:
-# 1 4 <--attackers and defenders
-# 2 5 <--initiator and target
-# 3 6 <--attackers and defenders
-# you need to save each character scope into the variable "crisis_scope_(1-6)" which is read by the gui
-	# Saves country scopes for the localization
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_initiator
-		}
-		save_scope_as = turkfm_initiator_scope
-	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_target
-		}
-		save_scope_as = turkfm_target_scope
-	}
-
-	# First round of assignments
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_attacker
-			NOT = { has_variable = turkfm_crisis_initiator }
-			country_rank >= rank_value:great_power
-		}
-		ruler = {
-			save_scope_as = crisis_scope_1
-		}
-	}		
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_initiator
-		}
-		ruler = {
-			save_scope_as = crisis_scope_2
-		}
-	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_attacker
-			NOT = {
-				ruler = {
-					THIS = scope:crisis_scope_1
-					THIS = scope:crisis_scope_2
-				}
-			}
-		}
-		ruler = {
-			save_scope_as = crisis_scope_3
-		}
-	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_defender
-		}
-		ruler = {
-			save_scope_as = crisis_scope_4
-		}
-	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_target
-		}
-		ruler = {
-			save_scope_as = crisis_scope_5
-		}
-	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_crisis_defender
-			NOT = {
-				ruler = {
-					scope:crisis_scope_4 = this
-				}
-			}
-		}
-		ruler = { 
-			save_scope_as = crisis_scope_6
-		}
-	}
-	
-	# Second round checking for missing scopes
-	if = {
-		limit = {
-			NOT = {
-				exists = scope:crisis_scope_1
-			}
-		}
-		random_country = {
-			limit = {
-				has_variable = turkfm_crisis_attacker
-				NOT = {
-					ruler = {
-						THIS = scope:crisis_scope_3 # There should be at least two minors involed in the crisis
-					}
-				}
-			}
-			ruler = {
-				save_scope_as = crisis_scope_1
-			}
-		}
-	}
-	if = {
-		limit = {
-			NOT = {
-				exists = scope:crisis_scope_4
-			}
-		}
-		random_character = {
-			limit = {
-				has_variable = turkfm_is_hakki_pasha
-			}
-			save_scope_as = crisis_scope_4
-		}
-	}
-	if = {
-		limit = {
-			NOT = {
-				exists = scope:crisis_scope_6
-			}
-		}
-		random_character = {
-			limit = {
-				has_variable = turkfm_is_nuri_pasha
-			}
-			save_scope_as = crisis_scope_6
-		}
-	}
-
-	# Assigning scopes to variables so they can be accessed by the gui
-	set_variable = {
-		name = crisis_character_1
-		value = scope:crisis_scope_1
-	}
-	set_variable = {
-		name = crisis_character_2
-		value = scope:crisis_scope_2
-	}
-	set_variable = {
-		name = crisis_character_3
-		value = scope:crisis_scope_3
-	}
-	set_variable = {
-		name = crisis_character_4
-		value = scope:crisis_scope_4
-	}
-	set_variable = {
-		name = crisis_character_5
-		value = scope:crisis_scope_5
-	}
-	set_variable = {
-		name = crisis_character_6
-		value = scope:crisis_scope_6
-	}
-}
-
-
-
-turkfm_clean_up_crisis_variables_effect = {
-	remove_variable = turkfm_crisis_rejected
-	remove_variable = turkfm_crisis_defender
-	remove_variable = turkfm_crisis_initiator
-	remove_variable = turkfm_crisis_attacker
-	remove_variable = turkfm_crisis_target
-	remove_variable = crisis_character_1
-	remove_variable = crisis_character_2
-	remove_variable = crisis_character_3
-	remove_variable = crisis_character_4
-	remove_variable = crisis_character_5
-	remove_variable = crisis_character_6
-	remove_variable = turkfm_crisis_offered
-	remove_variable = turkfm_crisis_technical
-}

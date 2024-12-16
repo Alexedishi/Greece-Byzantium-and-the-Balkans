@@ -16,8 +16,8 @@
 ####  TABLE OF CONTENTS  ####
 
 # TURK0 - THE LAST STRUGGLE OF THE OTTOMAN EMPIRE
-# TURK1 - THE MILLETS AND EYALETS OF THE EMPIRE
-# TURK2 - THE REORDERING OF THE EMPIRE
+# TURK1 - THE REORDERING OF THE EMPIRE
+# TURK2 - THE MILLETS SYSTEM
 # TURK3 - THE EASTERN QUESTION
 # TURK4 - TURKISH HISTORICAL FLAVOR
 # TURK5 - OPEN
@@ -33,8 +33,6 @@
 #######################################################
 
 je_turkfm_sick_man_main = {
-	# This is a temporary replacement because the default journal SUCKS. FIGHT ME
-	
 	icon = "gfx/interface/icons/event_icons/event_fez.dds"
 	
 	group = je_group_turkfm_sick_man
@@ -49,21 +47,82 @@ je_turkfm_sick_man_main = {
 	}
 	
 	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+		country_rank >= rank_value:great_power
+		custom_tooltip = {
+			text = turkfm_tanzimat_completed_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_completed_tt
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_controls_balkans_tt
+			hidden_trigger = {
+				has_variable = turkfm_controls_balkans
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_controls_anatolia_tt
+			hidden_trigger = {
+				has_variable = turkfm_controls_anatolia
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_controls_arabia_tt
+			hidden_trigger = {
+				has_variable = turkfm_controls_arabia
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_controls_nile_tt
+			hidden_trigger = {
+				has_variable = turkfm_controls_nile
+			}
 		}
 	}
 	
 	on_complete = {
 		trigger_event = {
-			id = sick_man.2
+			id = turkfm.009 # The Healthy Man of Europe
+		}
+		set_global_variable = turkfm_sick_man_complete
+	}
+
+	fail = {
+		custom_tooltip = {
+			text = turkfm_lost_balkans_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_balkans
+				}
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_lost_anatolia_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_anatolia
+				}
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_lost_arabia_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_arabia
+				}
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_lost_nile_tt
+			hidden_trigger = {
+				NOT = {
+					has_variable = turkfm_controls_nile
+				}
+			}
 		}
 	}
 
-	timeout = 14600
-
-	on_timeout = {
-		remove_modifier = sick_man_of_europe
+	on_fail = {
 		trigger_event = {
 			id = turkfm.008 # The Dead Man of Europe
 		}
@@ -74,6 +133,7 @@ je_turkfm_sick_man_main = {
 			}
 			custom_tooltip = sick_man_of_europe_lose_power_bloc
 		}
+		set_global_variable = turkfm_sick_man_failed
 	}
 	
 	current_value = {
@@ -86,16 +146,311 @@ je_turkfm_sick_man_main = {
 
 	progressbar = yes
 
-	weight = 10000
+	weight = 5000
 	
+}
+
+je_turkfm_sick_man_syria = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+
+	complete = {
+		owns_entire_state_region = STATE_ALEPPO
+		owns_entire_state_region = STATE_SYRIA
+		owns_entire_state_region = STATE_LEBANON
+		owns_entire_state_region = STATE_PALESTINE
+		owns_entire_state_region = STATE_TRANSJORDAN
+		owns_entire_state_region = STATE_ADANA
+	}
+
+	modifiers_while_active = {
+		modifier_syrian_ambitions
+	}
+
+	on_complete = {
+		add_journal_entry = {
+			type = je_turkfm_sick_man_egypt
+		}
+		s:STATE_SINAI = {
+			add_claim = ROOT
+		}
+		s:STATE_UPPER_EGYPT = {
+			add_claim = ROOT
+		}
+		s:STATE_MIDDLE_EGYPT = {
+			add_claim = ROOT
+		}
+		s:STATE_LOWER_EGYPT = {
+			add_claim = ROOT
+		}
+	}
+
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_sick_man_completed_tt
+			OR = {
+				has_global_variable = turkfm_sick_man_complete
+				has_global_variable = turkfm_sick_man_failed
+			}
+		}
+	}
+
+	on_weekly_pulse = {
+		events = {
+			egyptian_crisis_events.1
+		}
+	}
+
+	transferable = no
+
+	weight = 5000
+	
+}
+
+je_turkfm_sick_man_egypt = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+
+	complete = {
+		OR = {
+			AND = {
+				exists = c:EGY
+				c:EGY = {
+					is_subject_of = ROOT
+				}
+				country_or_subject_owns_entire_state_region = STATE_SINAI
+				country_or_subject_owns_entire_state_region = STATE_UPPER_EGYPT
+				country_or_subject_owns_entire_state_region = STATE_MIDDLE_EGYPT
+				country_or_subject_owns_entire_state_region = STATE_LOWER_EGYPT
+			}
+			AND = {
+				owns_entire_state_region = STATE_SINAI
+				owns_entire_state_region = STATE_UPPER_EGYPT
+				owns_entire_state_region = STATE_MIDDLE_EGYPT
+				owns_entire_state_region = STATE_LOWER_EGYPT
+			}
+		}
+	}
+
+	on_complete = {
+		
+	}
+
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_sick_man_completed_tt
+			OR = {
+				has_global_variable = turkfm_sick_man_complete
+				has_global_variable = turkfm_sick_man_failed
+			}
+		}
+	}
+
+	weight = 5000
+	
+}
+
+je_turkfm_sick_man_crete = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+
+	complete = {
+		country_or_subject_owns_entire_state_region = STATE_CRETE
+	}
+
+	on_complete = {
+		
+	}
+
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_sick_man_completed_tt
+			OR = {
+				has_global_variable = turkfm_sick_man_complete
+				has_global_variable = turkfm_sick_man_failed
+			}
+		}
+	}
+
+	weight = 5000
+	
+}
+
+je_turkfm_sick_man_caucasus = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+
+	complete = {
+		
+	}
+
+	on_complete = {
+		
+	}
+
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_sick_man_completed_tt
+			OR = {
+				has_global_variable = turkfm_sick_man_complete
+				has_global_variable = turkfm_sick_man_failed
+			}
+		}
+	}
+
+	weight = 4000
+	
+}
+
+############################################
+##  #TURK1  THE REORDERING OF THE EMPIRE  ##
+############################################
+
+je_turkfm_tanzimat_main = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_turkfm_sick_man
+	}
+	
+	scripted_button = turkfm_start_tanzimat_button
+	
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	
+	on_complete = {
+		set_global_variable = turkfm_sick_tanzimat_complete
+	}
+	
+	fail = {
+	}
+	
+	on_fail = {
+		set_global_variable = turkfm_sick_tanzimat_failed
+	}
+	
+	current_value = {
+		value = var:turkfm_tanzimat_var
+	}
+
+	goal_add_value = {
+		value = var:turkfm_tanzimat_var
+	}
+
+	progressbar = yes
+	
+	weight = 4000
+
+}
+
+je_turkfm_tanzimat_argiculture = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_army = {
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_bureaucracy = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_economy = {
+	icon = "gfx/interface/icons/event_icons/event_coins.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_education = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_land_reform = {
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_millet_reform = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
+}
+
+je_turkfm_tanzimat_security = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	weight = 500
 }
 
 
 #########################################################
-##  #TURK1  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
+##  #TURK2  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
 #########################################################
 
-je_turkfm_millet_system = {
+je_turkfm_millet_system_main = {
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_turkfm_separatism
@@ -106,9 +461,42 @@ je_turkfm_millet_system = {
 	}
 	
 	modifiers_while_active = {
+		modifier_turkfm_millet_system
 	}
 	
 	complete = {
+		cultural_acceptance_base = {
+			target = cu:greek
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:rhomaios
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:serb
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:bulgarian
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:bosniak
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:albanian
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:croat
+			value >= acceptance_status_5
+		}
+		cultural_acceptance_base = {
+			target = cu:slovene
+			value >= acceptance_status_5
+		}
 	}
 	
 	on_complete = {
@@ -116,6 +504,20 @@ je_turkfm_millet_system = {
 	}
 	
 	fail = {
+		NOT = {
+			any_scope_state = {
+				state_region = {
+					is_homeland = cu:greek
+					is_homeland = cu:rhomaios
+					is_homeland = cu:serb
+					is_homeland = cu:bulgarian
+					is_homeland = cu:bosniak
+					is_homeland = cu:albanian
+					is_homeland = cu:croat
+					is_homeland = cu:slovene
+				}
+			}
+		}
 	}
 	
 	on_fail = {
@@ -185,43 +587,8 @@ je_turkfm_millet_system = {
 		}
 	}
 	
-	weight = 5000
+	weight = 3000
 	
-}
-
-
-############################################
-##  #TURK2  THE REORDERING OF THE EMPIRE  ##
-############################################
-
-je_turkfm_tanzimat = {
-	icon = "gfx/interface/icons/event_icons/event_fez.dds"
-	
-	group = je_group_turkfm_sick_man
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	modifiers_while_active = {
-#		modifier_turkfm_decaying_government
-	}
-	
-	complete = {
-	}
-	
-	on_complete = {
-	}
-	
-	fail = {
-	}
-	
-	on_fail = {
-	}
-	
-	weight = 4000
-
 }
 
 
@@ -249,6 +616,21 @@ je_turkfm_eastern_question = {
 	scripted_button = turkfm_accelerate_button
 	
 	complete = {
+		OR = {
+			custom_tooltip = {
+				text = je_turkfm_eastern_question_complete_tt
+				hidden_trigger = {
+					has_global_variable = turkfm_sick_man_complete
+				}
+				
+			}
+			custom_tooltip = {
+				text = je_turkfm_eastern_question_fail_tt
+				hidden_trigger = {
+					has_global_variable = turkfm_sick_man_failed
+				}
+			}
+		}
 	}
 	
 	on_complete = {
@@ -336,7 +718,7 @@ je_turkfm_eastern_question = {
 		}
 	}
 	
-	weight = 3000
+	weight = 100
 	
 }
 
@@ -352,7 +734,7 @@ je_turkfm_eastern_question = {
 ##  TURK8  BALKAN NATIONAL REVIVALS  ##
 #######################################
 
-
+# //OPEN
 
 ################################################
 ##  TURK9  ARAB & ARMENIAN NATIONAL REVIVALS  ##

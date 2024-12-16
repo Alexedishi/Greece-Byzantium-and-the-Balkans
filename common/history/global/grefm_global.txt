@@ -481,40 +481,35 @@
 	}
 	
 	c:TUR ?= {
-		turkfm_initialize_tension_variables = yes
-		balkfm_initialize_border_variables_effect = yes
-		remove_modifier = sick_man_of_europe ## TODO remove in 3.0
-		trigger_event = {
-			id = eqfm.001 # The Eastern Question
-			days = 1
+		# Sick Man Setup
+		set_variable = {
+			name = turkfm_sick_man_var
+			value = 0
 		}
 		add_journal_entry = {
 			type = je_turkfm_sick_man_main
 		}
-		add_journal_entry = {
-			type = je_turkfm_millet_system
+		turkfm_initialize_sick_man = yes
+		turkfm_validate_sick_man_effect = yes
+		
+		# Taznimat Setup
+		set_variable = {
+			name = turkfm_tanzimat_var
+			value = 0
 		}
 		add_journal_entry = {
-			type = je_turkfm_tanzimat_argiculture
+			type = je_turkfm_tanzimat_main
 		}
+		turkfm_initialize_tanzimat = yes
+		
+		# Millet System Setup
+		turkfm_initialize_tension_variables = yes
 		add_journal_entry = {
-			type = je_turkfm_tanzimat_economy
+			type = je_turkfm_millet_system_main
 		}
-		add_journal_entry = {
-			type = je_turkfm_tanzimat_bureaucracy
-		}
-		add_journal_entry = {
-			type = je_turkfm_tanzimat_security
-		}
-		add_journal_entry = {
-			type = je_turkfm_sick_man_syria
-		}
-		add_journal_entry = {
-			type = je_turkfm_sick_man_caucasus
-		}
-		add_journal_entry = {
-			type = je_turkfm_sick_man_crete
-		}
+		
+		# Border Conflict Setup
+		balkfm_initialize_border_variables_effect = yes
 #		add_journal_entry = {
 #			type = je_balkfm_tur_karadag
 #		}
@@ -522,8 +517,14 @@
 			name = balkfm_border_timeout_var
 			years = 1
 		}
+		
+		# eocfm Setup
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
+		
+		trigger_event = {
+			id = turkfm.001 # The Sick Man of Europe
+		}
 	}
 	
 	c:ION = {
