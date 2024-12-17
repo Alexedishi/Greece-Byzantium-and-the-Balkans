@@ -3,13 +3,13 @@
  je_group_turkfm_content: "Ottoman & Turkish Flavor"
  je_group_turkfm_sick_man: "The Sick Man of Europe"
  je_group_turkfm_tanzimat: "The Tanzimât Reforms"
- je_group_turkfm_separatism: "Rise of Nationalism"
+ je_group_turkfm_separatism: "The Rise of Nationalism"
  je_group_turkfm_eastern_question: "The Eastern Question"
  je_group_turkfm_nationalism: "Turkish Nationalism"
  
  # journal entries
  je_turkfm_sick_man_main: "The Sick Man of Europe"
- je_turkfm_sick_man_main_reason: ""
+ je_turkfm_sick_man_main_reason: "The [ROOT.GetCountry.GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and reeling from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate. The government in [ROOT.GetCountry.GetCapital.GetName] struggles to defend itelf from the Great Powers, and its #o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Subjects#!#! eye their chances to break free from the Empire.\n$TOOLTIP_DELIMITER$\n#bold Current Phase:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n$TOOLTIP_DELIMITER$[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
  je_turkfm_sick_man_syria: "Sick Man: Reclaim Syria"
  je_turkfm_sick_man_syria_reason: ""
  je_turkfm_sick_man_egypt: "Sick Man: Reclaim Egypt"
@@ -43,11 +43,11 @@
  je_turkfm_millet_system_main_reason: ""
  je_turkfm_millet_system_complete: ""
  je_turkfm_millet_system_fail: ""
- je_turkfm_millet_system_phase_stable: "#bold Current Phase: #green Stable#!#!"
- je_turkfm_millet_system_phase_unrest: "#bold Current Phase: #yellow Unrest#!#!"
- je_turkfm_millet_system_phase_hostility: "#bold Current Phase: #orange Hostility#!#!"
- je_turkfm_millet_system_phase_deconfliction: "#bold Current Phase: #blue Deconfliction#!#!"
- je_turkfm_millet_system_phase_crisis: "#bold Current Phase: #red Crisis#!#!"
+ je_turkfm_millet_system_phase_stable: "#bold Current Phase:#! $turkfm_stable$"
+ je_turkfm_millet_system_phase_unrest: "#bold Current Phase:#! $turkfm_unrest$"
+ je_turkfm_millet_system_phase_hostility: "#bold Current Phase:#! $turkfm_hostility$"
+ je_turkfm_millet_system_phase_deconfliction: "#bold Current Phase:#! $turkfm_deconfliction$"
+ je_turkfm_millet_system_phase_crisis: "#bold Current Phase:#! $turkfm_crisis$"
  
  je_turkfm_eastern_question: "The Eastern Question"
  je_turkfm_eastern_question_reason: ""
@@ -55,31 +55,44 @@
  # decisions
  turkfm_fallback_decision: "Clear Eastern Question Modifiers"
  turkfm_fallback_decision_desc: "This will remove any leftover modifiers if they haven't been cleared after the Eastern Question."
+ turkfm_transition_stable_tt: "$turkfm_balkfm_tensions_tt$ will transition into the #bold #yellow "
+ turkfm_transition_unrest_tt: ""
+ turkfm_transition_hostility_tt: ""
+ turkfm_transition_deconfliction_tt: ""
+ turkfm_transition_crisis_tt: ""
  
  # tooltips
  turkfm_sick_man_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold Sick Man#! [concept_journal_entry]"
+ turkfm_stable: "#bold #green Stable#!#!"
+ turkfm_unrest: "#bold #yellow Unrest#!#!"
+ turkfm_hostility: "#bold #red Hostility#!#!"
+ turkfm_deconfliction: "#bold #greece Deconfliction#!#!"
+ turkfm_crisis: "#bold #red Crisis#!#!"
+ 
  
  turkfm_tanzimat_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed the #bold Tanzimat#! [concept_journal_entry]"
  turkfm_control_tt: "A [concept_country] controls a [concept_strategic_region] if it and its [concept_subject]#o s#! fully own a majority of [concept_state_region]#o s#! in that strategic region. States that are split between subjects and [concept_overlord]#o s#! do not count towards this total."
  turkfm_controls_balkans_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_balkans').GetName] [concept_strategic_region]"
- turkfm_controls_anatolia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the Anatolia [concept_strategic_region]"
- turkfm_controls_arabia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the Arabia [concept_strategic_region]"
- turkfm_controls_nile_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the Nile [concept_strategic_region]"
- turkfm_controls_danubia_tt: ""
- turkfm_controls_caucasus_tt: ""
- turkfm_lost_balkans_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the Balkans [concept_strategic_region]"
- turkfm_lost_anatolia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the Anatolia [concept_strategic_region]"
- turkfm_lost_arabia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the Arabia [concept_strategic_region]"
- turkfm_lost_nile_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the Nile [concept_strategic_region]"
- turkfm_lost_danubia_tt: ""
- turkfm_lost_caucasus_tt: ""
+ turkfm_controls_anatolia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_anatolia').GetName] [concept_strategic_region]"
+ turkfm_controls_arabia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_arabic').GetName] [concept_strategic_region]"
+ turkfm_controls_nile_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_nile_basin').GetName] [concept_strategic_region]"
+ turkfm_controls_danubia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_danubia').GetName] [concept_strategic_region]"
+ turkfm_controls_caucasus_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_caucasus').GetName] [concept_strategic_region]"
+ turkfm_lost_balkans_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_balkans').GetName] [concept_strategic_region]"
+ turkfm_lost_anatolia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_anatolia').GetName] [concept_strategic_region]"
+ turkfm_lost_arabia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_arabic').GetName] [concept_strategic_region]"
+ turkfm_lost_nile_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_nile_basin').GetName] [concept_strategic_region]"
+ turkfm_lost_danubia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_danubia').GetName] [concept_strategic_region]"
+ turkfm_lost_caucasus_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_caucasus').GetName] [concept_strategic_region]"
  
  turkfm_advance_tanzimat_tt: "The number of completed #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')] #bold increases#! by #bold 1#!."
  turkfm_mahmud_dead_tt: "Sultan Mahmud II is dead"
  
  je_turkfm_eastern_question_complete_tt: "The #yellow Ottoman Empire#! has completed or failed the #bold Sick Man#! [concept_journal_entry]"
  turkfm_balkfm_tensions_tt: "#o #tooltip:[GetRawTextTooltipTag('turkfm_balkan_tensions_concept_tt')] Balkan Tensions#!#!"
- turkfm_balkan_tensions_concept_tt: "DUMMY"
+ turkfm_balkan_tensions_concept_tt: "#bold Separatist Tension#! in the Balkans is a measure of the resistance to Ottoman rule. Should tensions escalate, the #bold Ottoman Empire#! may face uprisings in the Balkans."
+ turkfm_balkfm_cultures_tt: "#o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Cultures#!#!"
+ turkfm_balkfm_cultures_concept_tt: "[GetCulture('greek').GetName], [GetCulture('rhomaios').GetName], [GetCulture('serb').GetName], [GetCulture('bulgarian').GetName], [GetCulture('romanian').GetName], [GetCulture('albanian').GetName], [GetCulture('bosniak').GetName], [GetCulture('croat').GetName], and [GetCulture('slovene').GetName]."
  turkfm_nationalism_tension_tt: "The arrival of #yellow Nationalism#! will increase $turkfm_balkfm_tensions_tt$ tilt towards #bold Escalations#!"
  turkfm_add_small_escalation_tt: "$turkfm_balkfm_tensions_tt$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_escalation_type')] by #bold 10#!."
  turkfm_add_medium_escalation_tt: "$turkfm_balkfm_tensions_tt$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_escalation_type')] by #bold 25#!."
@@ -91,7 +104,49 @@
  turkfm_add_very_large_deescalation_tt: "$turkfm_balkfm_tensions_tt$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_deescalation_type')] by #bold 100#!."
  turkfm_decelerate_tensions_tt: "This will increase $turkfm_balkfm_tensions_tt$ tilt towards #bold Deescalations#!"
  turkfm_accelerate_tensions_tt: "This will increase $turkfm_balkfm_tensions_tt$ tilt towards #bold Escalations#!"
+ turkfm_balkan_loyalists_tt: "#bold Current Contribution from [concept_loyalist] [concept_pop]#o s#! in the [GetStrategicRegion('region_balkans').GetName]#!\n$TOOLTIP_DELIMITER$\n•"
+ turkfm_balkan_radicals_tt: "#bold Current Contribution from [concept_radical] [concept_pop]#o s#! in the [GetStrategicRegion('region_balkans').GetName]#!\n$TOOLTIP_DELIMITER$\n•"
  
+ # custom_loc
+ turkfm_custom_stable: "$turkfm_stable$, providing the following effects:\n"
+ turkfm_custom_unrest: "$turkfm_unrest$, providing the following effects:\n"
+ turkfm_custom_hostility: "$turkfm_hostility$, providing the following effects:\n"
+ turkfm_custom_deconfliction: "$turkfm_deconfliction$, providing the following effects:\n"
+ turkfm_custom_crisis: "$turkfm_crisis$ providing the following effects:\n"
+ 
+ turkfm_custom_stable_desc: "$turkfm_stable$"
+ turkfm_custom_unrest_desc: "$turkfm_unrest$"
+ turkfm_custom_hostility_desc: "$turkfm_hostility$"
+ turkfm_custom_deconfliction_desc: "$turkfm_deconfliction$"
+ turkfm_custom_crisis_desc: "$turkfm_crisis$ "
+ 
+ turkfm_custom_stable_factors: "\n@information!The following factors will increase progress towards the $turkfm_stable$ phase:\n•"
+ turkfm_custom_unrest_factors: "\n@information!The following factors will increase progress towards the $turkfm_unrest$ phase:\n•"
+ turkfm_custom_hostility_factors: "\n@information!The following factors will increase progress towards the $turkfm_hostility$ phase:\n•"
+ turkfm_custom_deconfliction_factors: "\n@information!The following factors will increase progress towards the $turkfm_deconfliction$ phase:\n•"
+ turkfm_custom_crisis_factors: "\n@information!The following factors will increase progress towards the $turkfm_crisis$ phase:\n•"
+ 
+ # scripted value breakdowns
+ 
+ 
+ # scripted progressbars
+ 
+ 
+ # scripted progressbar breakdowns
+ 
+ 
+ # scripted buttons
+ turkfm_start_tanzimat_button: "Declare the Reorganization"
+ turkfm_start_tanzimat_button_desc: ""
+ 
+ turkfm_pro_turk_button: "Support Turkish Interests"
+ turkfm_pro_turk_button_desc: "The disintegration of central authority in the Balkans is a menace to the world order. These uncivilized upstarts must be brought to heel. Let us support the #bold Porte#!."
+ turkfm_anti_turk_button: "Oppose Turkish Interests"
+ turkfm_anti_turk_button_desc: "The Ottomans' loss of control in the Balkans is the natural consqeuence of their fall into decadance. We should take advantage of this unique opportunity."
+ turkfm_decelerate_button: "Mitigate Nationalist Tensions"
+ turkfm_decelerate_button_desc: "The conflicts erupted across the Balkans are a threat to both the international order and the prosperity of the people that call the region home. If we are to provide meaningful support to the Ottomans, we should commit resources to mitigate these separatist sentiments."
+ turkfm_accelerate_button: "Stoke Nationalist Tensions"
+ turkfm_accelerate_button_desc: "The Balkans are rife with ethnic tensions as the native peoples of the Balkans struggle to define themselves in opposition to Ottoman rule over the region. In support of our opposition to the Ottomans we could devote resources to fund these breakway movements."
  
  # notifications
  notification_notification_turkfm_transition_stable_name: "Balkan Struggle Phase Transitions to #green Stable#!"
@@ -144,35 +199,6 @@
  notification_notification_turkfm_crisis_defending_desc: "[SCOPE.sCountry('turkfm_offered_scope').GetName] has declared their support for the #yellow Ottoman Empire#!."
  notification_notification_turkfm_crisis_declined_name: "Country Turns Blind Eye!"
  notification_notification_turkfm_crisis_declined_desc: "[SCOPE.sCountry('turkfm_offered_scope').GetName] has declared neutrality towards the #yellow Great Eastern Crisis#!."
- 
- # custom_loc
- turkfm_custom_stable: "#bold Stability#!
- turkfm_custom_unrest: "#bold Unrest#!"
- turkfm_custom_hostility: "#bold Hostility#!"
- turkfm_custom_deconfliction: "#bold Deconfliction#!"
- turkfm_custom_crisis: "#bold Crisis#!"
- 
- # scripted value breakdowns
- 
- 
- # scripted progressbars
- 
- 
- # scripted progressbar breakdowns
- 
- 
- # scripted buttons
- turkfm_start_tanzimat_button: "Declare the Reorganization"
- turkfm_start_tanzimat_button_desc: ""
- 
- turkfm_pro_turk_button: "Support Turkish Interests"
- turkfm_pro_turk_button_desc: "The disintegration of central authority in the Balkans is a menace to the world order. These uncivilized upstarts must be brought to heel. Let us support the #bold Porte#!."
- turkfm_anti_turk_button: "Oppose Turkish Interests"
- turkfm_anti_turk_button_desc: "The Ottomans' loss of control in the Balkans is the natural consqeuence of their fall into decadance. We should take advantage of this unique opportunity."
- turkfm_decelerate_button: "Mitigate Nationalist Tensions"
- turkfm_decelerate_button_desc: "The conflicts erupted across the Balkans are a threat to both the international order and the prosperity of the people that call the region home. If we are to provide meaningful support to the Ottomans, we should commit resources to mitigate these separatist sentiments."
- turkfm_accelerate_button: "Stoke Nationalist Tensions"
- turkfm_accelerate_button_desc: "The Balkans are rife with ethnic tensions as the native peoples of the Balkans struggle to define themselves in opposition to Ottoman rule over the region. In support of our opposition to the Ottomans we could devote resources to fund these breakway movements."
  
  # country_flavor_text
  

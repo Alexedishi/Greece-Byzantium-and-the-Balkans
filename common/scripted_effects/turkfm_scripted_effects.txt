@@ -271,6 +271,16 @@ turkfm_advance_tension_effect = {
 		name = turkfm_deescalation_var
 		add = global_var:turkfm_deescalation_progress_var
 	}
+	clamp_global_variable = {
+		name = turkfm_escalation_var
+		max = 500
+		min = 0
+	}
+	clamp_global_variable = {
+		name = turkfm_deescalation_var
+		max = 500
+		min = 0
+	}
 	if = {
 		limit = {
 			global_var:turkfm_escalation_var > global_var:turkfm_deescalation_var
@@ -309,7 +319,7 @@ turkfm_advance_tension_effect = {
 			value = 500
 		}
 	}
-	else = {
+	else = { # Favor Deescalation where possible
 		set_global_variable = {
 			name = turkfm_millet_transition_var
 			value = global_var:turkfm_deescalation_var
@@ -318,100 +328,60 @@ turkfm_advance_tension_effect = {
 }
 
 turkfm_check_phase_effect = {
+	# Make sure neither value is out of range before checking
+	clamp_global_variable = {
+		name = turkfm_escalation_var
+		max = 500
+		min = 0
+	}
+	clamp_global_variable = {
+		name = turkfm_deescalation_var
+		max = 500
+		min = 0
+	}
+	if = {
+		limit = {
+			global_var:turkfm_escalation_var > global_var:turkfm_deescalation_var
+		}
+		set_global_variable = {
+			name = turkfm_millet_transition_var
+			value = global_var:turkfm_escalation_var
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:turkfm_escalation_var < global_var:turkfm_deescalation_var
+		}
+		set_global_variable = {
+			name = turkfm_millet_transition_var
+			value = global_var:turkfm_deescalation_var
+		}
+	}
+	else_if = { # Force to a deescalation if both are maxed at the same time
+		limit = {
+			AND = {
+				global_var:turkfm_escalation_var = 500
+				global_var:turkfm_deescalation_var = 500
+			}
+		}
+		set_global_variable = {
+			name = turkfm_millet_transition_var
+			value = 500
+		}
+		set_global_variable = {
+			name = turkfm_escalation_var
+			value = 499
+		}
+		set_global_variable = {
+			name = turkfm_deescalation_var
+			value = 500
+		}
+	}
 	if = {
 		limit = {
 			global_var:turkfm_millet_transition_var >= 500
 		}
-		if = {
-			limit = {
-				global_var:turkfm_escalation_var >= 500
-			}
-			if = { # From Stable to Unrest
-				limit = {
-					global_var:turkfm_millet_phase_var ?= 1
-				}
-				set_global_variable = {
-					name = turkfm_millet_phase_var
-					value = 2 # Unrest
-				}
-				every_country = {
-					limit = {
-						OR = {
-							has_journal_entry = je_turkfm_millet_system_main
-							has_journal_entry = je_turkfm_eastern_question
-						}
-					}
-					post_notification = notification_turkfm_transition_unrest
-				}
-			}
-			else_if = { # From Unrest to Hostility
-				limit = {
-					global_var:turkfm_millet_phase_var ?= 2
-				}
-				set_global_variable = {
-					name = turkfm_millet_phase_var
-					value = 3 # Hostility
-				}
-				every_country = {
-					limit = {
-						OR = {
-							has_journal_entry = je_turkfm_millet_system_main
-							has_journal_entry = je_turkfm_eastern_question
-						}
-					}
-					post_notification = notification_turkfm_transition_hostility
-				}
-			}
-			else_if = { # From Hostility to Crisis
-				limit = {
-					global_var:turkfm_millet_phase_var ?= 3
-				}
-				set_global_variable = {
-					name = turkfm_millet_phase_var
-					value = 5 # Crisis
-				}
-				every_country = {
-					limit = {
-						OR = {
-							has_journal_entry = je_turkfm_millet_system_main
-							has_journal_entry = je_turkfm_eastern_question
-						}
-					}
-					post_notification = notification_turkfm_transition_crisis
-				}
-			}
-			else_if = { # From Deconfliction to Stable
-				limit = {
-					global_var:turkfm_millet_phase_var ?= 4
-				}
-				set_global_variable = {
-					name = turkfm_millet_phase_var
-					value = 1 # Stable
-				}
-				every_country = {
-					limit = {
-						OR = {
-							has_journal_entry = je_turkfm_millet_system_main
-							has_journal_entry = je_turkfm_eastern_question
-						}
-					}
-					post_notification = notification_turkfm_transition_stable
-				}
-			}
-			set_global_variable = {
-				name = turkfm_millet_transition_var
-				value = 0
-			}
-			set_global_variable = {
-				name = turkfm_escalation_var
-				value = 0
-			}
-			set_global_variable = {
-				name = turkfm_deescalation_var
-				value = 0
-			}
-		}
-		else_if = {
+		if = { # Attempt to Deescalate First
 			limit = {
 				global_var:turkfm_deescalation_var >= 500
 			}
@@ -432,6 +402,7 @@ turkfm_check_phase_effect = {
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
+				custom_tooltip = turkfm_transition_deconfliction_tt
 			}
 			else_if = { # From Hostility to Deconfliction
 				limit = {
@@ -450,6 +421,7 @@ turkfm_check_phase_effect = {
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
+				custom_tooltip = turkfm_transition_deconfliction_tt
 			}
 			else_if = { # From Crisis to Deconfliction
 				limit = {
@@ -468,8 +440,8 @@ turkfm_check_phase_effect = {
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
+				custom_tooltip = turkfm_transition_deconfliction_tt
 			}
-
 			set_global_variable = {
 				name = turkfm_millet_transition_var
 				value = 0
@@ -483,140 +455,277 @@ turkfm_check_phase_effect = {
 				value = 0
 			}
 		}
-	}
-}
-
-turkfm_clamp_phase_variables_effect = {
-	clamp_global_variable = {
-		name = turkfm_escalation_var
-		max = 500
-		min = 0
-	}
-	clamp_global_variable = {
-		name = turkfm_deescalation_var
-		max = 500
-		min = 0
+		else_if = { # Ignore this if we deescalated
+			limit = {
+				global_var:turkfm_escalation_var >= 500
+			}
+			if = { # From Stable to Unrest
+				limit = {
+					global_var:turkfm_millet_phase_var ?= 1
+				}
+				set_global_variable = {
+					name = turkfm_millet_phase_var
+					value = 2 # Unrest
+				}
+				every_country = {
+					limit = {
+						OR = {
+							has_journal_entry = je_turkfm_millet_system_main
+							has_journal_entry = je_turkfm_eastern_question
+						}
+					}
+					post_notification = notification_turkfm_transition_unrest
+				}
+				custom_tooltip = turkfm_transition_unrest_tt
+			}
+			else_if = { # From Unrest to Hostility
+				limit = {
+					global_var:turkfm_millet_phase_var ?= 2
+				}
+				set_global_variable = {
+					name = turkfm_millet_phase_var
+					value = 3 # Hostility
+				}
+				every_country = {
+					limit = {
+						OR = {
+							has_journal_entry = je_turkfm_millet_system_main
+							has_journal_entry = je_turkfm_eastern_question
+						}
+					}
+					post_notification = notification_turkfm_transition_hostility
+				}
+				custom_tooltip = turkfm_transition_hostility_tt
+			}
+			else_if = { # From Hostility to Crisis
+				limit = {
+					global_var:turkfm_millet_phase_var ?= 3
+				}
+				set_global_variable = {
+					name = turkfm_millet_phase_var
+					value = 5 # Crisis
+				}
+				every_country = {
+					limit = {
+						OR = {
+							has_journal_entry = je_turkfm_millet_system_main
+							has_journal_entry = je_turkfm_eastern_question
+						}
+					}
+					post_notification = notification_turkfm_transition_crisis
+				}
+				custom_tooltip = turkfm_transition_crisis_tt
+			}
+			else_if = { # From Deconfliction to Stable
+				limit = {
+					global_var:turkfm_millet_phase_var ?= 4
+				}
+				set_global_variable = {
+					name = turkfm_millet_phase_var
+					value = 1 # Stable
+				}
+				every_country = {
+					limit = {
+						OR = {
+							has_journal_entry = je_turkfm_millet_system_main
+							has_journal_entry = je_turkfm_eastern_question
+						}
+					}
+					post_notification = notification_turkfm_transition_stable
+				}
+				custom_tooltip = turkfm_transition_stable_tt
+			}
+			set_global_variable = {
+				name = turkfm_millet_transition_var
+				value = 0
+			}
+			set_global_variable = {
+				name = turkfm_escalation_var
+				value = 0
+			}
+			set_global_variable = {
+				name = turkfm_deescalation_var
+				value = 0
+			}
+		}
+		hidden_effect = {
+			remove_modifier = modifier_turkfm_stable_phase
+			remove_modifier = modifier_turkfm_unrest_phase
+			remove_modifier = modifier_turkfm_hosility_phase
+			remove_modifier = modifier_turkfm_deconfliction_phase
+			remove_modifier = modifier_turkfm_crisis_phase
+		}
+		if = {
+			limit = {
+				global_var:turkfm_millet_phase_var = 1 # Stable
+			}
+			add_modifier = modifier_turkfm_stable_phase
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_millet_phase_var = 2 # Unrest
+			}
+			add_modifier = modifier_turkfm_unrest_phase
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_millet_phase_var = 3 # Hostility
+			}
+			add_modifier = modifier_turkfm_hosility_phase
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_millet_phase_var = 4 # Deconfliction
+			}
+			add_modifier = modifier_turkfm_deconfliction_phase
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_millet_phase_var = 5 # Crisis
+			}
+			add_modifier = modifier_turkfm_crisis_phase
+		}
 	}
 }
 
 turkfm_increase_escalation_effect = {
-	change_global_variable = {
-		name = turkfm_escalation_var
-		value = $AMOUNT$
+	c:TUR = {
+		change_global_variable = {
+			name = turkfm_escalation_var
+			value = $AMOUNT$
+		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_small_escalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_small_escalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_escalation_var
-				add = 10
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_small_escalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_escalation_var
+					add = 10
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_medium_escalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_medium_escalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_escalation_var
-				add = 25
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_medium_escalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_escalation_var
+					add = 25
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_large_escalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_large_escalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_escalation_var
-				add = 50
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_large_escalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_escalation_var
+					add = 50
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_very_large_escalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_very_large_escalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_escalation_var
-				add = 100
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_very_large_escalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_escalation_var
+					add = 100
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_increase_deescalation_effect = {
-	change_global_variable = {
-		name = turkfm_deescalation_var
-		value = $AMOUNT$
+	c:TUR = {
+		change_global_variable = {
+			name = turkfm_deescalation_var
+			value = $AMOUNT$
+		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_small_deescalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_small_deescalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_deescalation_var
-				add = 10
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_small_deescalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_deescalation_var
+					add = 10
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_medium_deescalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_medium_deescalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_deescalation_var
-				add = 25
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_medium_deescalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_deescalation_var
+					add = 25
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_large_deescalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_large_deescalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_deescalation_var
-				add = 50
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_large_deescalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_deescalation_var
+					add = 50
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_very_large_deescalation_effect = {
-	custom_tooltip = {
-		text = turkfm_add_very_large_deescalation_tt
-		hidden_effect = {
-			change_global_variable = {
-				name = turkfm_deescalation_var
-				add = 100
+	c:TUR = {
+		custom_tooltip = {
+			text = turkfm_add_very_large_deescalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_deescalation_var
+					add = 100
+				}
 			}
 		}
+		turkfm_check_phase_effect = yes
 	}
-	turkfm_clamp_phase_variables_effect = yes
 }
 
 turkfm_add_medium_loyalists_effect = {

@@ -122,7 +122,7 @@ namespace = turkfm
 #	248 - OPEN
 #	249 - OPEN
 
-#250-259 - Millet Crisis Events
+#250-259 - Millet Revolt Events
 #	250 - Riots in State
 #	251 - Violence in State Worsens
 #	252 - Massacre in State
@@ -578,6 +578,14 @@ turkfm.208 = { # Region Lost
 				has_variable = turkfm_controls_nile
 				turkfm_controls_nile_trigger = no
 			}
+			AND = {
+				has_variable = turkfm_controls_danubia
+				turkfm_controls_danubia_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_caucasus
+				turkfm_controls_caucasus_trigger = no
+			}
 		}
 	}
 	
@@ -585,16 +593,7 @@ turkfm.208 = { # Region Lost
 		if = {
 			limit = {
 				has_variable = turkfm_controls_balkans
-				NOR = {
-					any_scope_state = {
-						region = sr:region_balkans
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_balkans
-						}
-					}
-				}
+				turkfm_controls_balkans_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
@@ -604,16 +603,7 @@ turkfm.208 = { # Region Lost
 		else_if = {
 			limit = {
 				has_variable = turkfm_controls_anatolia
-				NOR = {
-					any_scope_state = {
-						region = sr:region_anatolia
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_anatolia
-						}
-					}
-				}
+				turkfm_controls_anatolia_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
@@ -623,16 +613,7 @@ turkfm.208 = { # Region Lost
 		else_if = {
 			limit = {
 				has_variable = turkfm_controls_arabia
-				NOR = {
-					any_scope_state = {
-						region = sr:region_arabic
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_arabic
-						}
-					}
-				}
+				turkfm_controls_arabia_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
@@ -642,27 +623,51 @@ turkfm.208 = { # Region Lost
 		else_if = {
 			limit = {
 				has_variable = turkfm_controls_nile
-				NOR = {
-					any_scope_state = {
-						region = sr:region_nile_basin
-					}
-					any_subject_or_below = {
-						any_scope_state = {
-							region = sr:region_nile_basin
-						}
-					}
-				}
+				turkfm_controls_nile_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
 				value = 4 # Nile
 			}
 		}
+		else_if = {
+			limit = {
+
+			}
+			set_variable = {
+				name = turkfm_lost_region_var
+				value = 5 # Danubia
+			}
+		}
+		else_if = {
+			limit = {
+
+			}
+			set_variable = {
+				name = turkfm_lost_region_var
+				value = 6 # Caucasus
+			}
+		}
+					
 	}
 	
 	option = {
 		name = turkfm.208.a
 		default_option = yes
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_secured_region
+			}
+			remove_modifier = modifier_turkfm_secured_region
+		}
+		hidden_effect = {	
+			remove_modifier = modifier_turkfm_lost_region
+		}
+		add_modifier = {
+			name = modifier_turkfm_lost_region
+			months = normal_modifier_time
+			is_decaying = yes
+		}
 		if = {
 			limit = {
 				var:turkfm_lost_region_var = 1
@@ -686,6 +691,18 @@ turkfm.208 = { # Region Lost
 				var:turkfm_lost_region_var = 4
 			}
 			remove_variable = turkfm_controls_nile
+		}
+		if = {
+			limit = {
+				var:turkfm_lost_region_var = 5
+			}
+			remove_variable = turkfm_controls_danubia
+		}
+		if = {
+			limit = {
+				var:turkfm_lost_region_var = 6
+			}
+			remove_variable = turkfm_controls_caucasus
 		}
 		remove_variable = turkfm_lost_region_var
 	}
@@ -738,6 +755,18 @@ turkfm.209 = { # Region Secured
 				}
 				turkfm_controls_nile_trigger = yes
 			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_danubia
+				}
+				turkfm_controls_danubia_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_caucasus
+				}
+				turkfm_controls_caucasus_trigger = yes
+			}
 		}
 	}
 	
@@ -768,7 +797,9 @@ turkfm.209 = { # Region Secured
 		}
 		else_if = {
 			limit = {
-				has_variable = turkfm_controls_arabia
+				NOT = {
+					has_variable = turkfm_controls_arabia
+				}
 				turkfm_controls_arabia_trigger = yes
 			}
 			set_variable = {
@@ -778,7 +809,9 @@ turkfm.209 = { # Region Secured
 		}
 		else_if = {
 			limit = {
-				has_variable = turkfm_controls_nile
+				NOT = {
+					has_variable = turkfm_controls_nile
+				}
 				turkfm_controls_nile_trigger = yes
 			}
 			set_variable = {
@@ -786,11 +819,49 @@ turkfm.209 = { # Region Secured
 				value = 4 # Nile
 			}
 		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_danubia
+				}
+				turkfm_controls_danubia_trigger = yes
+			}
+			set_variable = {
+				name = turkfm_gained_region_var
+				value = 5 # Danubia
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_caucasus
+				}
+				turkfm_controls_caucasus_trigger = yes
+			}
+			set_variable = {
+				name = turkfm_gained_region_var
+				value = 6 # Caucasus
+			}
+		}
 	}
 	
 	option = {
 		name = turkfm.209.a
 		default_option = yes
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_lost_region
+			}
+			remove_modifier = modifier_turkfm_lost_region
+		}
+		hidden_effect = {	
+			remove_modifier = modifier_turkfm_secured_region
+		}
+		add_modifier = {
+			name = modifier_turkfm_secured_region
+			months = normal_modifier_time
+			is_decaying = yes
+		}
 		if = {
 			limit = {
 				var:turkfm_gained_region_var = 1
@@ -814,6 +885,18 @@ turkfm.209 = { # Region Secured
 				var:turkfm_gained_region_var = 4
 			}
 			set_variable = turkfm_controls_nile
+		}
+		if = {
+			limit = {
+				var:turkfm_gained_region_var = 5
+			}
+			set_variable = turkfm_controls_danubia
+		}
+		if = {
+			limit = {
+				var:turkfm_gained_region_var = 6
+			}
+			set_variable = turkfm_controls_caucasus
 		}
 		remove_variable = turkfm_gained_region_var
 	}
