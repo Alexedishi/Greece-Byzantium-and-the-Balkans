@@ -9,7 +9,7 @@
  
  # journal entries
  je_turkfm_sick_man_main: "The Sick Man of Europe"
- je_turkfm_sick_man_main_reason: "The [ROOT.GetCountry.GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and reeling from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate. The government in [ROOT.GetCountry.GetCapital.GetName] struggles to defend itelf from the Great Powers, and its #o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Subjects#!#! eye their chances to break free from the Empire.\n$TOOLTIP_DELIMITER$\n#bold Current Phase:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n$TOOLTIP_DELIMITER$[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
+ je_turkfm_sick_man_main_reason: "The [ROOT.GetCountry.GetName] has fallen from grace. Rocked by revolutions in Greece and Serbia and reeling from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate. The government in [ROOT.GetCountry.GetCapital.GetCityHubName] struggles to defend itelf from the Great Powers, and its #o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Subjects#!#! eye their chances to break free from the Empire.\n$TOOLTIP_DELIMITER$\n#bold Current Phase:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n$TOOLTIP_DELIMITER$[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
  je_turkfm_sick_man_syria: "Sick Man: Reclaim Syria"
  je_turkfm_sick_man_syria_reason: ""
  je_turkfm_sick_man_egypt: "Sick Man: Reclaim Egypt"
@@ -19,7 +19,7 @@
  je_turkfm_sick_man_caucasus: "Sick Man: Reclaim the Caucasus"
  je_turkfm_sick_man_caucasus_reason: ""
  
- je_turkfm_tanzimat_main: "The Reorganization of the Ottoman State"
+ je_turkfm_tanzimat_main: "The Reorganization of the State"
  je_turkfm_tanzimat_main_reason: ""
  je_turkfm_tanzimat_main_goal: "[ROOT.GetCountry.GetNameNoFlag] has completed #bold #greece 5#! or more#! #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')]"
  je_turkfm_tanzimat_argiculture: "Tanzimât: Argicultural Reforms"
@@ -70,7 +70,8 @@
  turkfm_crisis: "#bold #red Crisis#!#!"
  
  
- turkfm_tanzimat_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed the #bold Tanzimat#! [concept_journal_entry]"
+ turkfm_tanzimat_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Reorganization of the State#! [concept_journal_entry]"
+ turkfm_millet_system_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Rise of Nationalism#! [concept_journal_entry]"
  turkfm_control_tt: "A [concept_country] controls a [concept_strategic_region] if it and its [concept_subject]#o s#! fully own a majority of [concept_state_region]#o s#! in that strategic region. States that are split between subjects and [concept_overlord]#o s#! do not count towards this total."
  turkfm_controls_balkans_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_balkans').GetName] [concept_strategic_region]"
  turkfm_controls_anatolia_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_anatolia').GetName] [concept_strategic_region]"
@@ -108,17 +109,17 @@
  turkfm_balkan_radicals_tt: "#bold Current Contribution from [concept_radical] [concept_pop]#o s#! in the [GetStrategicRegion('region_balkans').GetName]#!\n$TOOLTIP_DELIMITER$\n•"
  
  # custom_loc
- turkfm_custom_stable: "$turkfm_stable$, providing the following effects:\n"
- turkfm_custom_unrest: "$turkfm_unrest$, providing the following effects:\n"
- turkfm_custom_hostility: "$turkfm_hostility$, providing the following effects:\n"
- turkfm_custom_deconfliction: "$turkfm_deconfliction$, providing the following effects:\n"
- turkfm_custom_crisis: "$turkfm_crisis$ providing the following effects:\n"
+ turkfm_custom_stable: "$turkfm_stable$"
+ turkfm_custom_unrest: "$turkfm_unrest$"
+ turkfm_custom_hostility: "$turkfm_hostility$"
+ turkfm_custom_deconfliction: "$turkfm_deconfliction$"
+ turkfm_custom_crisis: "$turkfm_crisis$"
  
- turkfm_custom_stable_desc: "$turkfm_stable$"
- turkfm_custom_unrest_desc: "$turkfm_unrest$"
- turkfm_custom_hostility_desc: "$turkfm_hostility$"
- turkfm_custom_deconfliction_desc: "$turkfm_deconfliction$"
- turkfm_custom_crisis_desc: "$turkfm_crisis$ "
+ turkfm_custom_stable_desc: "$turkfm_stable$, providing the following effects:\n[GetStaticModifier('modifier_turkfm_stable_phase').GetDesc]"
+ turkfm_custom_unrest_desc: "$turkfm_unrest$, providing the following effects:\n"
+ turkfm_custom_hostility_desc: "$turkfm_hostility$, providing the following effects:\n"
+ turkfm_custom_deconfliction_desc: "$turkfm_deconfliction$, providing the following effects:\n"
+ turkfm_custom_crisis_desc: "$turkfm_crisis$, providing the following effects:\n"
  
  turkfm_custom_stable_factors: "\n@information!The following factors will increase progress towards the $turkfm_stable$ phase:\n•"
  turkfm_custom_unrest_factors: "\n@information!The following factors will increase progress towards the $turkfm_unrest$ phase:\n•"
