@@ -426,6 +426,7 @@ je_turkfm_tanzimat_argiculture = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -451,6 +452,7 @@ je_turkfm_tanzimat_army = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -476,6 +478,7 @@ je_turkfm_tanzimat_bureaucracy = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -501,6 +504,7 @@ je_turkfm_tanzimat_economy = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -526,31 +530,7 @@ je_turkfm_tanzimat_education = {
 	}
 	
 	on_complete = {
-	}
-	
-	invalid = {
-		custom_tooltip = {
-			text = turkfm_tanzimat_completed_tt
-			hidden_trigger = {
-				has_global_variable = turkfm_tanzimat_complete
-			}
-		}
-	}
-	
-	weight = 500
-}
-
-je_turkfm_tanzimat_land_reform = {
-	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-	
-	group = je_group_turkfm_tanzimat
-	
-	should_be_pinned_by_default = yes
-	
-	complete = {
-	}
-	
-	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -576,6 +556,7 @@ je_turkfm_tanzimat_millet_reform = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -601,6 +582,7 @@ je_turkfm_tanzimat_security = {
 	}
 	
 	on_complete = {
+		turkfm_advance_tanzimat_effect = yes
 	}
 	
 	invalid = {
@@ -620,14 +602,15 @@ je_turkfm_tanzimat_security = {
 ##  #TURK2  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
 #########################################################
 
-je_turkfm_millet_system_main = {
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+je_turkfm_millet_system_main = { # This is assigned to TUR
+	icon = "gfx/interface/icons/event_icons/event_turkey.dds"
 	
 	group = je_group_turkfm_separatism
 	
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		turkfm_millet_start_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -676,6 +659,7 @@ je_turkfm_millet_system_main = {
 	fail = {
 		NOT = {
 			any_scope_state = {
+				count = all
 				state_region = {
 					is_homeland = cu:greek
 					is_homeland = cu:rhomaios
@@ -700,7 +684,7 @@ je_turkfm_millet_system_main = {
 		}
 	}
 	
-		on_monthly_pulse = {
+	on_monthly_pulse = {
 		events = {
 			turkfm.200 # The Rise of Nationalism
 			turkfm.208 # Strategic Region Lost
@@ -737,17 +721,6 @@ je_turkfm_millet_system_main = {
 			turkfm_check_phase_effect = yes
 		}
 	}
-	
-	
-	current_value = {
-		value = global_var:turkfm_millet_transition_var
-	}
-
-	goal_add_value = {
-		value = 500
-	}
-
-	progressbar = yes
 	
 	status_desc = {
 		first_valid = {
@@ -788,12 +761,75 @@ je_turkfm_millet_system_main = {
 	
 }
 
+je_turkfm_millet_system_sub = { # This is assigned to Subjects of the Ottomans
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	group = je_group_turkfm_separatism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		turkfm_millet_start_effect = yes
+	}
+	
+	modifiers_while_active = {
+		modifier_turkfm_national_aspiriations
+	}
+	
+	complete = {
+		OR = {
+			NOT = {
+				is_subject_of = c:TUR
+			}
+			NOT = {
+				exists = c:TUR
+			}
+		}
+	}
+	
+	on_complete = {
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_stable
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_unrest
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 2
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_hostility
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 3
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_deconfliction
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 4
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_millet_system_phase_crisis
+				trigger = {
+					global_var:turkfm_millet_phase_var ?= 5
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
 
-###################################
-##  #TURK3  THE EASTERN QUESTION ##
-###################################
-
-je_turkfm_eastern_question = {
+je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
 	
 	group = je_group_turkfm_eastern_question
@@ -801,10 +837,7 @@ je_turkfm_eastern_question = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_variable = {
-			name = turkfm_millet_transition_local_var
-			value = 0
-		}
+		turkfm_millet_start_effect = yes
 	}
 	
 	scripted_button = turkfm_pro_turk_button
@@ -833,7 +866,7 @@ je_turkfm_eastern_question = {
 		}
 	}
 	
-	invalid = {
+	fail = {
 		OR = {
 			NOT = {
 				exists = c:TUR
@@ -844,7 +877,7 @@ je_turkfm_eastern_question = {
 		}
 	}
 	
-	on_invalid = {
+	on_fail = {
 		hidden_effect = {
 			remove_modifier = modifier_turkfm_favoring_ottomans
 			remove_modifier = modifier_turkfm_opposing_ottomans
@@ -862,16 +895,6 @@ je_turkfm_eastern_question = {
 			}
 		}
 	}
-	
-	current_value = {
-		value = var:turkfm_millet_transition_local_var
-	}
-
-	goal_add_value = {
-		value = 500
-	}
-
-	progressbar = yes
 	
 	status_desc = {
 		first_valid = {

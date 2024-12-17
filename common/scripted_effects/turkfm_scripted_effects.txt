@@ -88,7 +88,7 @@ turkfm_advance_tanzimat_effect = {
 	custom_tooltip = {
 		text = turkfm_advance_tanzimat_tt
 		change_variable = {
-			name = sick_man_var
+			name = turkfm_tanzimat_var
 			add = 1
 		}
 	}
@@ -113,151 +113,183 @@ turkfm_initialize_tension_effect = {
 		name = turkfm_deescalation_var
 		value = 0
 	}
-	set_global_variable = {
-		name = turkfm_escalation_progress_var
-		value = 0
-	}
-	set_global_variable = {
-		name = turkfm_deescalation_progress_var
-		value = 0
-	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_hellene_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_rhomaios_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_serb_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_bulgarian_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
+		name = turkfm_romanian_loyalists_var
+		value = 0
+	}
+	set_variable = {
 		name = turkfm_bosniak_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_albanian_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_croat_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_slovene_loyalists_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_hellene_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_rhomaios_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_serb_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_bulgarian_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
+		name = turkfm_romanian_radicals_var
+		value = 0
+	}
+	set_variable = {
 		name = turkfm_bosniak_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_albanian_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_croat_radicals_var
 		value = 0
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_slovene_radicals_var
 		value = 0
 	}
-	add_modifier = modifier_turkfm_stable_phase
+}
+
+turkfm_millet_start_effect = {
+	if = {
+		limit = {
+			global_var:turkfm_millet_phase_var = 1 # Stable
+		}
+		add_modifier = modifier_turkfm_stable_phase
+	}
+	if = {
+		limit = {
+			global_var:turkfm_millet_phase_var = 2 # Unrest
+		}
+		add_modifier = modifier_turkfm_unrest_phase
+	}
+	if = {
+		limit = {
+			global_var:turkfm_millet_phase_var = 3 # Hostility
+		}
+		add_modifier = modifier_turkfm_hosility_phase
+	}
+	if = {
+		limit = {
+			global_var:turkfm_millet_phase_var = 4 # Deconfliction
+		}
+		add_modifier = modifier_turkfm_deconfliction_phase
+	}
+	if = {
+		limit = {
+			global_var:turkfm_millet_phase_var = 5 # Crisis
+		}
+		add_modifier = modifier_turkfm_crisis_phase
+	}
 }
 
 turkfm_calculate_tension_effect = {
-	set_global_variable = {
-		name = turkfm_escalation_progress_var
-		value = turkfm_escalation_progress_value
-	}
-	set_global_variable = {
-		name = turkfm_deescalation_progress_var
-		value = turkfm_deescalation_progress_value
-	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_hellene_loyalists_var
 		value = turkfm_hellene_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_rhomaios_loyalists_var
 		value = turkfm_rhomaios_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_serb_loyalists_var
 		value = turkfm_serb_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_bulgarian_loyalists_var
 		value = turkfm_bulgarian_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
+		name = turkfm_romanian_loyalists_var
+		value = turkfm_romanian_loyalists_value
+	}
+	set_variable = {
 		name = turkfm_bosniak_loyalists_var
 		value = turkfm_bosniak_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_albanian_loyalists_var
 		value = turkfm_albanian_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_croat_loyalists_var
 		value = turkfm_croat_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_slovene_loyalists_var
 		value = turkfm_slovene_loyalists_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_hellene_radicals_var
 		value = turkfm_hellene_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_rhomaios_radicals_var
 		value = turkfm_rhomaios_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_serb_radicals_var
 		value = turkfm_serb_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_bulgarian_radicals_var
 		value = turkfm_bulgarian_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
+		name = turkfm_romanian_radicals_var
+		value = turkfm_romanian_radicals_value
+	}
+	set_variable = {
 		name = turkfm_bosniak_radicals_var
 		value = turkfm_bosniak_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_albanian_radicals_var
 		value = turkfm_albanian_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_croat_radicals_var
 		value = turkfm_croat_radicals_value
 	}
-	set_global_variable = {
+	set_variable = {
 		name = turkfm_slovene_radicals_var
 		value = turkfm_slovene_radicals_value
 	}
@@ -266,11 +298,11 @@ turkfm_calculate_tension_effect = {
 turkfm_advance_tension_effect = {
 	change_global_variable = {
 		name = turkfm_escalation_var
-		add = global_var:turkfm_escalation_progress_var
+		add = turkfm_escalation_progress_value
 	}
 	change_global_variable = {
 		name = turkfm_deescalation_var
-		add = global_var:turkfm_deescalation_progress_var
+		add = turkfm_deescalation_progress_value
 	}
 	clamp_global_variable = {
 		name = turkfm_escalation_var
@@ -1609,25 +1641,26 @@ turkm_cleanup_tension_variables = {
 	remove_global_variable = turkfm_millet_transition_var
 	remove_global_variable = turkfm_escalation_var
 	remove_global_variable = turkfm_deescalation_var
-	remove_global_variable = turkfm_escalation_progress_var
-	remove_global_variable = turkfm_deescalation_progress_var
-	remove_global_variable = turkfm_hellene_loyalists_var
-	remove_global_variable = turkfm_rhomaios_loyalists_var
-	remove_global_variable = turkfm_serb_loyalists_var
-	remove_global_variable = turkfm_bulgarian_loyalists_var
-	remove_global_variable = turkfm_bosniak_loyalists_var
-	remove_global_variable = turkfm_albanian_loyalists_var
-	remove_global_variable = turkfm_croat_loyalists_var
-	remove_global_variable = turkfm_slovene_loyalists_var
-	remove_global_variable = turkfm_hellene_radicals_var
-	remove_global_variable = turkfm_rhomaios_radicals_var
-	remove_global_variable = turkfm_serb_radicals_var
-	remove_global_variable = turkfm_bulgarian_radicals_var
-	remove_global_variable = turkfm_bosniak_radicals_var
-	remove_global_variable = turkfm_albanian_radicals_var
-	remove_global_variable = turkfm_croat_radicals_var
-	remove_global_variable = turkfm_slovene_radicals_var
-	remove_global_variable = turkfm_tension_event_cooldown_var
+	
+	remove_variable = turkfm_hellene_loyalists_var
+	remove_variable = turkfm_rhomaios_loyalists_var
+	remove_variable = turkfm_serb_loyalists_var
+	remove_variable = turkfm_bulgarian_loyalists_var
+	remove_variable = turkfm_romanian_loyalists_var
+	remove_variable = turkfm_bosniak_loyalists_var
+	remove_variable = turkfm_albanian_loyalists_var
+	remove_variable = turkfm_croat_loyalists_var
+	remove_variable = turkfm_slovene_loyalists_var
+	remove_variable = turkfm_hellene_radicals_var
+	remove_variable = turkfm_rhomaios_radicals_var
+	remove_variable = turkfm_serb_radicals_var
+	remove_variable = turkfm_bulgarian_radicals_var
+	remove_variable = turkfm_romanian_radicals_var
+	remove_variable = turkfm_bosniak_radicals_var
+	remove_variable = turkfm_albanian_radicals_var
+	remove_variable = turkfm_croat_radicals_var
+	remove_variable = turkfm_slovene_radicals_var
+	remove_variable = turkfm_tension_event_cooldown_var
 }
 
 #### EASTERN QUESTION EFFECTS ####
