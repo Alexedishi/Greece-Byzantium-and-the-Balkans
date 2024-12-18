@@ -480,53 +480,6 @@
 		}
 	}
 	
-	c:TUR ?= {
-		# Sick Man Setup
-		set_variable = {
-			name = turkfm_sick_man_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_turkfm_sick_man_main
-		}
-		turkfm_initialize_sick_man = yes
-		turkfm_validate_sick_man_effect = yes
-		
-		# Taznimat Setup
-		set_variable = {
-			name = turkfm_tanzimat_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_turkfm_tanzimat_main
-		}
-		turkfm_initialize_tanzimat = yes
-		
-		# Millet System Setup
-		turkfm_initialize_tension_effect = yes
-		add_journal_entry = {
-			type = je_turkfm_separatism_main
-		}
-		
-		# Border Conflict Setup
-		balkfm_initialize_border_variables_effect = yes
-#		add_journal_entry = {
-#			type = je_balkfm_tur_karadag
-#		}
-		set_variable = {
-			name = balkfm_border_timeout_var
-			years = 1
-		}
-		
-		# eocfm Setup
-		set_variable = eocfm_controls_constantinople
-		set_variable = eocfm_controls_antioch
-		
-		trigger_event = {
-			id = turkfm.001 # The Sick Man of Europe
-		}
-	}
-	
 	c:ION = {
 		add_journal_entry = {
 			type = je_grefm_ion_xenocracy
@@ -572,6 +525,53 @@
 			id = grefm.570 # The Urums of Little Theodoro
 		}
 		balkfm_set_up_ottoman_legacies_effect = yes
+	}
+	
+	c:TUR ?= {
+		# Sick Man Setup
+		set_variable = {
+			name = turkfm_sick_man_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_turkfm_sick_man_main
+		}
+		turkfm_initialize_sick_man = yes
+		turkfm_validate_sick_man_effect = yes
+		
+		# Taznimat Setup
+		set_variable = {
+			name = turkfm_tanzimat_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_turkfm_tanzimat_main
+		}
+		turkfm_initialize_tanzimat = yes
+		
+		# Millet System Setup
+		turkfm_initialize_tension_effect = yes
+		add_journal_entry = {
+			type = je_turkfm_separatism_main
+		}
+		
+		# Border Conflict Setup
+		balkfm_initialize_border_variables_effect = yes
+#		add_journal_entry = {
+#			type = je_balkfm_tur_karadag
+#		}
+		set_variable = {
+			name = balkfm_border_timeout_var
+			years = 1
+		}
+		
+		# eocfm Setup
+		set_variable = eocfm_controls_constantinople
+		set_variable = eocfm_controls_antioch
+		
+		trigger_event = {
+			id = turkfm.001 # The Sick Man of Europe
+		}
 	}
 	
 	c:MON = {
@@ -656,15 +656,18 @@
 		balkfm_set_up_ottoman_legacies_effect = yes
 	}
 	
+	c:EGY ?= {
+		set_variable = eocfm_controls_alexandria
+		set_variable = eocfm_controls_jerusalem
+	}
+	
+	c:TRI ?= {
+	}
+	
 	c:RUS ?= {
 		add_modifier = modifier_eocfm_reformed_synod
 		set_variable = eocfm_is_autocephalous
 		set_variable = eocfm_controls_moscow
-	}
-	
-	c:EGY ?= {
-		set_variable = eocfm_controls_alexandria
-		set_variable = eocfm_controls_jerusalem
 	}
 	
 	c:PAP ?= {
@@ -683,7 +686,8 @@
 	every_country = {
 		limit = {
 			has_diplomatic_relevance = c:TUR
-			NOT = {
+			NOR = {
+				c:TUR ?= this
 				is_subject_of = c:TUR
 			}
 		}

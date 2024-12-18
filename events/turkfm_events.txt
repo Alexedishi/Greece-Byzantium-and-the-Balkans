@@ -537,7 +537,44 @@ turkfm.100 = { # The Reordering of the Empire
 
 #### MILLET NARRATIVE EVENTS ####
 
-turkfm.200 = { # The Rise of Nationalism
+turkfm.200 = { # The Eastern Question
+	type = country_event
+	placement = root
+	
+	title = turkfm.200.t
+	desc = turkfm.200.d
+	flavor = turkfm.200.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered from GLOBAL
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.200.a
+		default_option = yes
+	}
+
+}
+
+turkfm.201 = { # The Rise of Nationalism
 	type = country_event
 	placement = root
 	
