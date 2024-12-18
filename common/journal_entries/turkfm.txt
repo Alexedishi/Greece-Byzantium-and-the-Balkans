@@ -868,8 +868,14 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		trigger_event = {
-			id = turkfm.200 # The Eastern Question
+		if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			trigger_event = {
+				id = turkfm.200 # The Eastern Question
+				days = 1
+			}
 		}
 	}
 	
