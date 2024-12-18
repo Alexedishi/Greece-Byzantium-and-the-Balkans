@@ -600,6 +600,42 @@ turkfm_check_phase_effect = {
 	}
 }
 
+turkfm_update_tension_progressbar_effect = {
+	if = {
+		limit = {
+			has_journal_entry = je_turkfm_separatism_main
+		}
+		je:je_turkfm_separatism_main = {
+			set_bar_progress = {
+				name = turkfm_tension_progress_bar
+				value = global_var:turkfm_separatism_transition_var
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_journal_entry = je_turkfm_separatism_sub
+		}
+		je:je_turkfm_separatism_sub = {
+			set_bar_progress = {
+				name = turkfm_tension_progress_bar
+				value = global_var:turkfm_separatism_transition_var
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_journal_entry = je_turkfm_eastern_question
+		}
+		je:je_turkfm_eastern_question = {
+			set_bar_progress = {
+				name = turkfm_tension_progress_bar
+				value = global_var:turkfm_separatism_transition_var
+			}
+		}
+	}
+}
+
 turkfm_increase_escalation_effect = {
 	c:TUR = {
 		change_global_variable = {

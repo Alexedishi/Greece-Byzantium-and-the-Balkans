@@ -683,6 +683,7 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	on_weekly_pulse = {
 		effect = {
 			turkfm_calculate_tension_effect = yes
+			turkfm_update_tension_progressbar_effect = yes
 		}
 	}
 	
@@ -778,13 +779,11 @@ je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 	}
 	
 	complete = {
-		OR = {
-			NOT = {
-				is_subject_of = c:TUR
-			}
-			NOT = {
-				exists = c:TUR
-			}
+		hidden_trigger = {
+			exists = c:TUR
+		}
+		NOT = {
+			is_subject_of = c:TUR
 		}
 	}
 	
@@ -793,16 +792,30 @@ je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 	}
 	
 	invalid = {
-		custom_tooltip = {
-			text = turkfm_separatism_completed_tt
-			hidden_trigger = {
-				has_global_variable = turkfm_separatism_complete
+		OR = {
+			NOT = {
+				exists = c:TUR
+			}
+			NOT = {
+				has_diplomatic_relevance = c:TUR
+			}
+			custom_tooltip = {
+				text = turkfm_separatism_completed_tt
+				hidden_trigger = {
+					has_global_variable = turkfm_separatism_complete
+				}
 			}
 		}
 	}
 	
 	on_invalid = {
 		turkfm_cleanup_tension_sub_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			turkfm_update_tension_progressbar_effect = yes
+		}
 	}
 	
 	status_desc = {
@@ -882,20 +895,17 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 			NOT = {
 				has_diplomatic_relevance = c:TUR
 			}
+			custom_tooltip = {
+				text = turkfm_separatism_completed_tt
+				hidden_trigger = {
+					has_global_variable = turkfm_separatism_complete
+				}
+			}
 		}
 	}
 	
 	on_invalid = {
 		turkfm_cleanup_tension_eqfm_effect = yes
-	}
-	
-	invalid = {
-		custom_tooltip = {
-			text = turkfm_separatism_completed_tt
-			hidden_trigger = {
-				has_global_variable = turkfm_separatism_complete
-			}
-		}
 	}
 	
 	on_weekly_pulse = {
