@@ -135,32 +135,77 @@ namespace = turkfm
 #	258 - OPEN
 #	259 - OPEN
 
-#260-269 - Great Eastern Crisis Events
-#	260 - ##[TECH] Sets Variables and Starts Warmup Chain
-#	261 - ##A Crisis in Rumelia (Recruit Event)
-#	262 - ##Country Attempts Deconfliction
-#	263 - ##Bosnia Takes Up Arms!
-#	264 - ##Bulgaria Takes Up Arms!
-#	265 - ##[TECH] Assigns Tags and Preps event_window Scopes
-#	266 - ##[TECH] Creates GEC DP and Fires Crisis Superevent
-#	267 - ##Great Eastern Crisis Superevent
-#	268 - ##The Porte Triumphant
-# 	269 - ##The Treaty of San Stefano
+#260-269 - OPEN
+#	260 - OPEN
+#	261 - OPEN
+#	262 - OPEN
+#	263 - OPEN
+#	264 - OPEN
+#	265 - OPEN
+#	266 - OPEN
+#	267 - OPEN
+#	268 - OPEN
+# 	269 - OPEN
  
-#270-279 - Congress of Berlin Events
-#	270 - ##The Congress of Berlin
-#	271 - ##Balkan Participant Demands Claim
-#	272 - ##Balkan Non-Participant Begs for Claim
-#	273 - ##Convention of X
-#	274 - 
-#	275 - 
-#	276 - 
-#	277 - 
-#	278 - ##The Treaty of Berlin
-#	279 - ##[TECH] Cleans Up Global Crisis/Berlin Variables
+#270-279 - OPEN
+#	270 - OPEN
+#	271 - OPEN
+#	272 - OPEN
+#	273 - OPEN
+#	274 - OPEN
+#	275 - OPEN
+#	276 - OPEN
+#	277 - OPEN
+#	278 - OPEN
+#	279 - OPEN
 
 
-##  TURK3  EMERGENCE OF TURKISH NATIONALISM  Events 300-399  ##
+##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
+
+#////////////////////##////////////////////##////////////////////#
+#100-109 - Great Eastern Crisis Warmup Events
+#	100 - A Crisis in Rumelia (Initiator/TUR)
+#	101 - A Crisis in Rumelia (Recruit Local Power)
+#	102 - A Crisis in the East (Recruit Neutral/Hostile Great Powers)
+#	103 - A Crisis in the East (Recruit Allied Countries)
+#	104 - Great Britain Attempts Deconfliction
+#	105 - France Attempts Deconfliction
+#	106 - ##Greece Attempts Deconfliction
+# 	107 - Bosnia Takes Up Arms!
+#	108 - Bulgaria Takes Up Arms!
+#	109 - Great Eastern Crisis Superevent
+
+#110-119 - Great Eastern Crisis Events
+#	110 - [TECH] Sets Variables and Starts Warmup Chain
+#	111 - [TECH] Assigns Tags and Preps event_window Scopes
+#	112 - [TECH] Creates GEC DP and Fires Crisis Starts
+#	113 - [TECH] Crisis Start for TUR
+#	114 - [TECH] Crisis Start for Initiator
+#	115 - [TECH] Crisis Start for Attackers
+#	116 - [TECH] Crisis Start for Defenders
+#	117 - [TECH] Crisis Start for Uninvolved
+#	118 - >>The Porte Triumphant
+#	119 - >>The Treaty of San Stefano
+
+#120-129 - Congress of Berlin Events
+#	120 - The Congress of Berlin
+#	121 - The Issue of Bulgaria
+#	122 - The Issue of Bosnia
+#	123 - The Issue of Montenegro
+#	124 - The Issue of Serbia
+#	125 - ##The Issue of the Principalities
+#	126 - >>The Issue of the Caucasus
+#	127 - OPEN
+#	128 - >>The Greek Delegation
+#	129 - >>The Treaty of Berlin
+
+#130-139 - Congress of Berlin Support Events
+#	130 - >>The Convention of Cyprus
+#	131 - >>The Convention of Tunis
+#	132 - ##The Convention of Constantinople
+#	139 - [TECH] Cleans Up Global Crisis/Berlin Variables
+#////////////////////##////////////////////##////////////////////#
+
 
 ##  TURK4  TURKISH HISTORICAL FLAVOR  Events 400-499  ##
 
@@ -1247,7 +1292,7 @@ turkfm.230 = { # Churches Burned in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		global_var:turkfm_millet_phase_var = 3 # Hostility
+		global_var:turkfm_separatism_phase_var = 3 # Hostility
 		NOR = {
 			has_global_variable = turkfm_tension_event_cooldown_var
 			any_state = {
@@ -1356,7 +1401,7 @@ turkfm.231 = { # Popular Speaker Lynched in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		global_var:turkfm_millet_phase_var = 3 # Hostility
+		global_var:turkfm_separatism_phase_var = 3 # Hostility
 		NOR = {
 			has_global_variable = turkfm_tension_event_cooldown_var
 			has_modifier = modifier_turkfm_protected_minorities
@@ -1455,7 +1500,7 @@ turkfm.232 = { # Brigandage in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		global_var:turkfm_millet_phase_var = 3 # Hostility
+		global_var:turkfm_separatism_phase_var = 3 # Hostility
 		NOT = {
 			has_global_variable = turkfm_tension_event_cooldown_var
 		}

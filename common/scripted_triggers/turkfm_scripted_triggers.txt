@@ -117,23 +117,31 @@ turkfm_controls_caucasus_trigger = {
 	}
 }
 
+turkfm_tension_involved_trigger = {
+	OR = {
+		has_journal_entry = je_turkfm_separatism_main
+		has_journal_entry = je_turkfm_separatism_sub
+		has_journal_entry = je_turkfm_eastern_question
+	}
+}
+
 turkfm_can_escalate_tension_trigger = {
 	OR = {
-		global_var:turkfm_millet_phase_var = 1 # Stable
-		global_var:turkfm_millet_phase_var = 2 # Unrest
+		global_var:turkfm_separatism_phase_var = 1 # Stable
+		global_var:turkfm_separatism_phase_var = 2 # Unrest
 		AND = {
-			global_var:turkfm_millet_phase_var = 3 # Hostility
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
 			turkfm_crisis_possible_trigger = yes
 		}
-		global_var:turkfm_millet_phase_var = 4 # Deconfliction
+		global_var:turkfm_separatism_phase_var = 4 # Deconfliction
 	}
 }
 
 turkfm_can_deescalate_tension_trigger = {
 	OR = {
-		global_var:turkfm_millet_phase_var = 2 # Unrest
-		global_var:turkfm_millet_phase_var = 3 # Hostility
-		global_var:turkfm_millet_phase_var = 5 # Crisis
+		global_var:turkfm_separatism_phase_var = 2 # Unrest
+		global_var:turkfm_separatism_phase_var = 3 # Hostility
+		global_var:turkfm_separatism_phase_var = 5 # Crisis
 	}
 }
 

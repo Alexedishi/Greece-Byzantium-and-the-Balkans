@@ -5,35 +5,35 @@ turkfm_tension_type = {
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 1 # Stable
+			global_var:turkfm_separatism_phase_var = 1 # Stable
 		}
 		localization_key = turkfm_custom_stable
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 2 # Unrest
+			global_var:turkfm_separatism_phase_var = 2 # Unrest
 		}
 		localization_key = turkfm_custom_unrest
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 3 # Hostility
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
 		}
 		localization_key = turkfm_custom_hostility
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 4 # Deconfliction
+			global_var:turkfm_separatism_phase_var = 4 # Deconfliction
 		}
 		localization_key = turkfm_custom_deconfliction
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 5 # Crisis
+			global_var:turkfm_separatism_phase_var = 5 # Crisis
 		}
 		localization_key = turkfm_custom_crisis
 	}
@@ -44,37 +44,91 @@ turkfm_tension_desc_type = {
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 1 # Stable
+			global_var:turkfm_separatism_phase_var = 1 # Stable
 		}
 		localization_key = turkfm_custom_stable_desc
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 2 # Unrest
+			global_var:turkfm_separatism_phase_var = 2 # Unrest
 		}
 		localization_key = turkfm_custom_unrest_desc
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 3 # Hostility
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
 		}
 		localization_key = turkfm_custom_hostility_desc
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 4 # Deconfliction
+			global_var:turkfm_separatism_phase_var = 4 # Deconfliction
 		}
 		localization_key = turkfm_custom_deconfliction_desc
 	}
 	
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 5 # Crisis
+			global_var:turkfm_separatism_phase_var = 5 # Crisis
 		}
 		localization_key = turkfm_custom_crisis_desc
+	}
+}
+
+turkfm_tension_next_type = {
+	type = country
+	
+	# Stable Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 1 # Stable
+		}
+		localization_key = turkfm_custom_stable_next
+	}
+	
+	
+	# Unrest Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 2 # Unrest
+		}
+		localization_key = turkfm_custom_unrest_next
+	}
+	
+	# Hostility Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
+		}
+		localization_key = turkfm_custom_hostility_next
+	}
+	
+	# Hostility Phase with Crisis Available
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
+			turkfm_crisis_possible_trigger = yes # Only appears if a crisis is possible
+		}
+		localization_key = turkfm_custom_hostility_crisis_next
+	}
+	
+	# Deconfliction Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 4 # Deconfliction
+		}
+		localization_key = turkfm_custom_crisis_next
+	}
+	
+	# Crisis Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var = 5 # Crisis
+		}
+		localization_key = turkfm_custom_deconfliction_next
 	}
 }
 
@@ -84,7 +138,7 @@ turkfm_tension_factors_type = {
 	# Stable Phase
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 1 # Stable
+			global_var:turkfm_separatism_phase_var = 1 # Stable
 		}
 		localization_key = turkfm_custom_unrest_factors
 	}
@@ -93,13 +147,13 @@ turkfm_tension_factors_type = {
 	# Unrest Phase
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 2 # Unrest
+			global_var:turkfm_separatism_phase_var = 2 # Unrest
 		}
 		localization_key = turkfm_custom_hostility_factors
 	}
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 2 # Unrest
+			global_var:turkfm_separatism_phase_var = 2 # Unrest
 		}
 		localization_key = turkfm_custom_deconfliction_factors
 	}
@@ -107,13 +161,13 @@ turkfm_tension_factors_type = {
 	# Hostility Phase
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 3 # Hostility
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
 		}
 		localization_key = turkfm_custom_deconfliction_factors
 	}
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 3 # Hostility
+			global_var:turkfm_separatism_phase_var = 3 # Hostility
 			turkfm_crisis_possible_trigger = yes # Only appears if a crisis is possible
 		}
 		localization_key = turkfm_custom_crisis_factors
@@ -122,7 +176,7 @@ turkfm_tension_factors_type = {
 	# Deconfliction Phase
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 4 # Deconfliction
+			global_var:turkfm_separatism_phase_var = 4 # Deconfliction
 		}
 		localization_key = turkfm_custom_stable_factors
 	}
@@ -130,7 +184,7 @@ turkfm_tension_factors_type = {
 	# Crisis Phase
 	text = {
 		trigger = {
-			global_var:turkfm_millet_phase_var = 5 # Crisis
+			global_var:turkfm_separatism_phase_var = 5 # Crisis
 		}
 		localization_key = turkfm_custom_deconfliction_factors
 	}

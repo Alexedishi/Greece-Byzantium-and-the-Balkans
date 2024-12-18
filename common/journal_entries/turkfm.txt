@@ -95,9 +95,9 @@ je_turkfm_sick_man_main = {
 			}
 		}
 		custom_tooltip = {
-			text = turkfm_millet_system_completed_tt
+			text = turkfm_separatism_completed_tt
 			hidden_trigger = {
-				has_global_variable = turkfm_millet_system_complete
+				has_global_variable = turkfm_separatism_complete
 			}
 		}
 	}
@@ -602,7 +602,7 @@ je_turkfm_tanzimat_security = {
 ##  #TURK2  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
 #########################################################
 
-je_turkfm_millet_system_main = { # This is assigned to TUR
+je_turkfm_separatism_main = { # This is assigned to TUR
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_turkfm_separatism
@@ -610,7 +610,7 @@ je_turkfm_millet_system_main = { # This is assigned to TUR
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_millet_start_effect = yes
+		turkfm_tension_start_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -653,7 +653,7 @@ je_turkfm_millet_system_main = { # This is assigned to TUR
 	}
 	
 	on_complete = {
-		set_global_variable = turkfm_millet_system_complete
+		set_global_variable = turkfm_separatism_complete
 	}
 	
 	fail = {
@@ -675,7 +675,7 @@ je_turkfm_millet_system_main = { # This is assigned to TUR
 	}
 	
 	on_fail = {
-		set_global_variable = turkfm_millet_system_complete
+		set_global_variable = turkfm_separatism_complete
 	}
 	
 	on_weekly_pulse = {
@@ -725,33 +725,33 @@ je_turkfm_millet_system_main = { # This is assigned to TUR
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_stable
+				desc = je_turkfm_separatism_phase_stable
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 1
+					global_var:turkfm_separatism_phase_var ?= 1
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_unrest
+				desc = je_turkfm_separatism_phase_unrest
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 2
+					global_var:turkfm_separatism_phase_var ?= 2
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_hostility
+				desc = je_turkfm_separatism_phase_hostility
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 3
+					global_var:turkfm_separatism_phase_var ?= 3
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_deconfliction
+				desc = je_turkfm_separatism_phase_deconfliction
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 4
+					global_var:turkfm_separatism_phase_var ?= 4
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_crisis
+				desc = je_turkfm_separatism_phase_crisis
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 5
+					global_var:turkfm_separatism_phase_var ?= 5
 				}
 			}
 		}
@@ -761,7 +761,7 @@ je_turkfm_millet_system_main = { # This is assigned to TUR
 	
 }
 
-je_turkfm_millet_system_sub = { # This is assigned to Subjects of the Ottomans
+je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_turkfm_separatism
@@ -769,7 +769,7 @@ je_turkfm_millet_system_sub = { # This is assigned to Subjects of the Ottomans
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_millet_start_effect = yes
+		turkfm_tension_start_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -790,36 +790,45 @@ je_turkfm_millet_system_sub = { # This is assigned to Subjects of the Ottomans
 	on_complete = {
 	}
 	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_separatism_completed_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_separatism_complete
+			}
+		}
+	}
+	
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_stable
+				desc = je_turkfm_separatism_phase_stable
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 1
+					global_var:turkfm_separatism_phase_var ?= 1
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_unrest
+				desc = je_turkfm_separatism_phase_unrest
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 2
+					global_var:turkfm_separatism_phase_var ?= 2
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_hostility
+				desc = je_turkfm_separatism_phase_hostility
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 3
+					global_var:turkfm_separatism_phase_var ?= 3
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_deconfliction
+				desc = je_turkfm_separatism_phase_deconfliction
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 4
+					global_var:turkfm_separatism_phase_var ?= 4
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_crisis
+				desc = je_turkfm_separatism_phase_crisis
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 5
+					global_var:turkfm_separatism_phase_var ?= 5
 				}
 			}
 		}
@@ -837,7 +846,7 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_millet_start_effect = yes
+		turkfm_tension_start_effect = yes
 	}
 	
 	scripted_button = turkfm_pro_turk_button
@@ -887,11 +896,20 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 		}
 	}
 	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_separatism_completed_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_separatism_complete
+			}
+		}
+	}
+	
 	on_weekly_pulse = {
 		effect = {
 			set_variable = {
 				name = turkfm_millet_transition_local_var
-				value = global_var:turkfm_millet_transition_var
+				value = global_var:turkfm_separatism_transition_var
 			}
 		}
 	}
@@ -899,33 +917,33 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_stable
+				desc = je_turkfm_separatism_phase_stable
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 1
+					global_var:turkfm_separatism_phase_var ?= 1
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_unrest
+				desc = je_turkfm_separatism_phase_unrest
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 2
+					global_var:turkfm_separatism_phase_var ?= 2
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_hostility
+				desc = je_turkfm_separatism_phase_hostility
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 3
+					global_var:turkfm_separatism_phase_var ?= 3
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_deconfliction
+				desc = je_turkfm_separatism_phase_deconfliction
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 4
+					global_var:turkfm_separatism_phase_var ?= 4
 				}
 			}
 			triggered_desc = {
-				desc = je_turkfm_millet_system_phase_crisis
+				desc = je_turkfm_separatism_phase_crisis
 				trigger = {
-					global_var:turkfm_millet_phase_var ?= 5
+					global_var:turkfm_separatism_phase_var ?= 5
 				}
 			}
 		}
