@@ -674,10 +674,21 @@
 	every_country = {
 		limit = {
 			is_subject_of = c:TUR
-			country_has_state_religion = rel:orthodox # TLIM exclusion
 		}
 		add_journal_entry = {
-			type = je_turkfm_millet_system_sub
+			type = je_turkfm_separatism_sub
+		}
+	}
+	
+	every_country = {
+		limit = {
+			has_diplomatic_relevance = c:TUR
+			NOT = {
+				is_subject_of = c:TUR
+			}
+		}
+		add_journal_entry = {
+			type = je_turkfm_eastern_question
 		}
 	}
 	
