@@ -377,6 +377,11 @@ je_turkfm_tanzimat_main = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		hidden_effect = {
+			trigger_event = {
+				id = turkfm.100 # The Decaying Empire
+			}
+		}
 	}
 	
 	modifiers_while_active = {
@@ -610,10 +615,13 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		trigger_event = {
-			id = turkfm.200 # The Eastern Question
+		hidden_effect = {
+			trigger_event = {
+				id = turkfm.200 # The Millet System
+				days = 90
+			}
+			turkfm_tension_start_effect = yes
 		}
-		turkfm_tension_start_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -873,7 +881,7 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 				country_rank >= rank_value:great_power
 			}
 			trigger_event = {
-				id = turkfm.200 # The Eastern Question
+				id = turkfm.300 # The Eastern Question
 				days = 1
 			}
 		}

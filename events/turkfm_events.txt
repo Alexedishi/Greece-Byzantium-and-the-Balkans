@@ -28,7 +28,7 @@ namespace = turkfm
 
 #001-009 - Sick Man Mainline Events
 #	001 - The Sick Man of Europe (TUR)
-#	002 - The Sick Man of Europe (Others)
+#	002 - 
 #	003 - 
 #	004 - 
 #	005 - 
@@ -56,7 +56,7 @@ namespace = turkfm
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 
 #100-109 - Tanzimat Events I
-#	100 - The Reordering of the State
+#	100 - The Decaying Empire
 
 #110-119 - Tanzimat Events II
 #	110 - ##
@@ -64,7 +64,7 @@ namespace = turkfm
 ##  #TURK2  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
 
 #200-209 - Millet Narrative Events
-#	200 - The Rise of Nationalism
+#	200 - The Millet System
 #	201 - OPEN
 #	202 - OPEN
 #	203 - OPEN
@@ -273,6 +273,8 @@ turkfm.001 = { # The Sick Man of Europe
 	title = turkfm.001.t
 	desc = turkfm.001.d
 	flavor = turkfm.001.f
+	
+	gui_window = event_window_struggle
 	
 	event_image = {
 		video = "turkfm_intro"
@@ -496,7 +498,7 @@ turkfm.009 = { # The Healthy Man of Europe
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 ############################################################
 
-turkfm.100 = { # The Reordering of the Empire
+turkfm.100 = { # The Decaying Empire
 	type = country_event
 	placement = root
 	
@@ -517,6 +519,7 @@ turkfm.100 = { # The Reordering of the Empire
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by je_turkfm_sick_man_main
 	}
 	
 	immediate = {
@@ -530,6 +533,41 @@ turkfm.100 = { # The Reordering of the Empire
 
 }
 
+turkfm.101 = { # The Reordering of the Empire
+	type = country_event
+	placement = root
+	
+	title = turkfm.101.t
+	desc = turkfm.101.d
+	flavor = turkfm.101.f
+	
+	event_image = {
+		video = "dlc_grefm"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_sick_man_main
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.101.a
+		default_option = yes
+		
+	}
+
+}
+
 
 #########################################################
 ##  #TURK2  THE OTTOMAN MILLET SYSTEM  Events 100-199  ##
@@ -537,7 +575,7 @@ turkfm.100 = { # The Reordering of the Empire
 
 #### MILLET NARRATIVE EVENTS ####
 
-turkfm.200 = { # The Eastern Question
+turkfm.200 = { # The Millet System
 	type = country_event
 	placement = root
 	
@@ -558,13 +596,10 @@ turkfm.200 = { # The Eastern Question
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered from GLOBAL
+		# triggered by je_turkfm_tanzimat_main
 	}
 	
 	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-		}
 	}
 	
 	option = {
@@ -2135,11 +2170,46 @@ turkfm.270 = { # [TECH] Sets Variables and Starts Warmup Chain
 }
 
 
-###############################################################
-##  TURK3  EMERGENCE OF TURKISH NATIONALISM  Events 300-399  ##
-###############################################################
+######################################################
+##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
+######################################################
 
-# //OPEN
+turkfm.300 = { # The Eastern Question
+	type = country_event
+	placement = root
+	
+	title = turkfm.300.t
+	desc = turkfm.300.d
+	flavor = turkfm.300.f
+	
+	gui_window = event_window_struggle
+	
+	event_image = {
+		video = "dlc_grefm"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_eastern_question
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.300.a
+		default_option = yes
+		
+	}
+
+}
 
 ########################################################
 ##  TURK4  TURKISH HISTORICAL FLAVOR  Events 400-499  ##
