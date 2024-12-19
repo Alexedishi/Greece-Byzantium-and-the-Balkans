@@ -393,10 +393,7 @@ je_turkfm_tanzimat_main = {
 		custom_tooltip = {
 			text = je_turkfm_tanzimat_main_complete
 			hidden_trigger = {
-				OR = {
-					has_variable = turkfm_young_ottomans_happened
-					has_variable = turkfm_caliphate_secured
-				}
+				var:turkfm_tanzimat_var >= 20
 			}
 		}
 	}
@@ -406,6 +403,12 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	fail = {
+		custom_tooltip = {
+			text = je_turkfm_tanzimat_main_fail
+			hidden_trigger = {
+				var:turkfm_tanzimat_var <= 0
+			}
+		}
 	}
 	
 	on_fail = {
@@ -644,7 +647,7 @@ je_turkfm_tanzimat_millet_reform = {
 	}
 	
 	possible = {
-		has_technology_researched = mass_communication
+		has_technology_researched = egalitarianism
 	}
 	
 	complete = {
@@ -915,6 +918,19 @@ je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 		turkfm_cleanup_tension_sub_effect = yes
 	}
 	
+	fail = {
+		custom_tooltip = {
+			text = turkfm_separatism_completed_third_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_separatism_complete
+			}
+		}
+	}
+	
+	on_fail = {
+		turkfm_cleanup_tension_eqfm_effect = yes
+	}
+	
 	invalid = {
 		OR = {
 			NOT = {
@@ -922,12 +938,6 @@ je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 			}
 			NOT = {
 				has_diplomatic_relevance = c:TUR
-			}
-			custom_tooltip = {
-				text = turkfm_separatism_completed_tt
-				hidden_trigger = {
-					has_global_variable = turkfm_separatism_complete
-				}
 			}
 		}
 	}
@@ -1008,12 +1018,10 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	scripted_button = turkfm_accelerate_button
 	
 	complete = {
-		OR = {
-			custom_tooltip = {
-				text = je_turkfm_eastern_question_complete_tt
-				hidden_trigger = {
-					has_global_variable = turkfm_sick_man_complete
-				}
+		custom_tooltip = {
+			text = turkfm_separatism_completed_third_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_separatism_complete
 			}
 		}
 	}
@@ -1031,9 +1039,9 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 				has_diplomatic_relevance = c:TUR
 			}
 			custom_tooltip = {
-				text = turkfm_separatism_completed_tt
+				text = turkfm_sick_man_completed_third_tt
 				hidden_trigger = {
-					has_global_variable = turkfm_separatism_complete
+					has_global_variable = turkfm_sick_man_complete
 				}
 			}
 		}

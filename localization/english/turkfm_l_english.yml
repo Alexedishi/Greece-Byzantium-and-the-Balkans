@@ -21,7 +21,8 @@
  
  je_turkfm_tanzimat_main: "The Reorganization of the State"
  je_turkfm_tanzimat_main_reason: "For decades, the [ROOT.GetCountry.GetName] has been in steady decline, with the powers of Europe gawning at its borders and unrest spreading across its minorities. In the face of these threats, Sultan #bold Mahmud II#! championed an era of reform, with the aim of creating a truly centralized bureaucracy to govern and unite the Empire. As western thought begins to permeate [ROOT.GetCountry.GetCapital.GetCityHubName], the spirit of reform and progress is in the air."
- je_turkfm_tanzimat_main_complete: "Either the [GetIdeology('ideology_turkfm_ottomanist').GetName] or [GetIdeology('ideology_turkfm_islamist').GetName] movement has prevailed in the [ROOT.GetCountry.GetNameNoFlag]"
+ je_turkfm_tanzimat_main_complete: "The [GetIdeology('ideology_turkfm_ottomanist').GetName] movement has prevailed in the [ROOT.GetCountry.GetNameNoFlag]"
+ je_turkfm_tanzimat_main_fail: "The [GetIdeology('ideology_turkfm_islamist').GetName] movement has prevailed in the [ROOT.GetCountry.GetNameNoFlag]"
  je_turkfm_tanzimat_argiculture: "Tanzimât: Argicultural Reforms"
  je_turkfm_tanzimat_argiculture_reason: "Agricultural and land practices have languished as a result of centuries under Ottoman rule. The Empire is a rural one, sometimes even aggresively so. Reform must come lest the threat of famine and decay continue to take root."
  je_turkfm_tanzimat_army: "Tanzimât: Army Reforms"
@@ -61,11 +62,12 @@
  turkfm_transition_crisis_tt: "$turkfm_balkfm_tensions_tt$ will transition into the $turkfm_crisis$ Phase."
  
  # tooltips
- turkfm_sick_man_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold Sick Man#! [concept_journal_entry]"
+ turkfm_sick_man_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Sick Man of Europe#! [concept_journal_entry]"
  turkfm_tanzimat_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Reorganization of the State#! [concept_journal_entry]"
  turkfm_separatism_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Rise of Nationalism#! [concept_journal_entry]"
- turkfm_separatism_completed_tt2: "The #yellow Ottoman Empire#! has completed or failed the #bold The Rise of Nationalism#! [concept_journal_entry]"
- je_turkfm_eastern_question_complete_tt: "The #yellow Ottoman Empire#! has completed or failed the #bold Sick Man#! [concept_journal_entry]"
+ turkfm_sick_man_completed_third_tt: "The #yellow Ottoman Empire#! has completed or failed the #bold The Sick Man of Europe#! [concept_journal_entry]"
+ turkfm_tanzimat_completed_third_tt: "The #yellow Ottoman Empire#! has completed or failed the #bold The Reorganization of the State#! [concept_journal_entry]"
+ turkfm_separatism_completed_third_tt: "The #yellow Ottoman Empire#! has completed or failed the #bold The Rise of Nationalism#! [concept_journal_entry]"
  
  turkfm_control_tt: "A [concept_country] controls a [concept_strategic_region] if it and its [concept_subject]#o s#! fully own a majority of [concept_state_region]#o s#! in that strategic region. States that are split between subjects and [concept_overlord]#o s#! do not count towards this total."
  turkfm_controls_balkans_tt: "[ROOT.GetCountry.GetNameNoFlag] #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] controls#!#! the [GetStrategicRegion('region_balkans').GetName] [concept_strategic_region]"
@@ -81,14 +83,18 @@
  turkfm_lost_danubia_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_danubia').GetName] [concept_strategic_region]"
  turkfm_lost_caucasus_tt: "[ROOT.GetCountry.GetNameNoFlag] does #bold NOT#! #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_control_tt')] control#!#! the [GetStrategicRegion('region_caucasus').GetName] [concept_strategic_region]"
  
- turkfm_advance_tanzimat_tt: "The #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')] advances towards [GetIdeology('ideology_turkfm_ottomanist').GetName] movement by #bold 1#!."
- turkfm_regress_tanzimat_tt: "The #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')] advances towards [GetIdeology('ideology_turkfm_islamist').GetName] movement by #bold 1#!."
+ turkfm_advance_tanzimat_tt: "The #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')] advances towards the [GetIdeology('ideology_turkfm_ottomanist').GetName] movement by #bold 1#!."
+ turkfm_regress_tanzimat_tt: "The #bold Tanzimât#! [Concept('concept_journal_entry', '$concept_journal_entries$')] advances towards the [GetIdeology('ideology_turkfm_islamist').GetName] movement by #bold 1#!."
  turkfm_mahmud_dead_tt: "Sultan Mahmud II is dead"
  
  turkfm_balkfm_tensions_tt: "#o #tooltip:[GetRawTextTooltipTag('turkfm_balkan_tensions_concept_tt')] Balkan Tensions#!#!"
  turkfm_balkan_tensions_concept_tt: "#bold Separatist Tension#! in the Balkans is a measure of the resistance to Ottoman rule. Should tensions escalate, the #bold Ottoman Empire#! may face uprisings in the Balkans."
  turkfm_balkfm_cultures_tt: "#o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Cultures#!#!"
  turkfm_balkfm_cultures_concept_tt: "[GetCulture('greek').GetName], [GetCulture('rhomaios').GetName], [GetCulture('serb').GetName], [GetCulture('bulgarian').GetName], [GetCulture('romanian').GetName], [GetCulture('albanian').GetName], [GetCulture('bosniak').GetName], [GetCulture('croat').GetName], and [GetCulture('slovene').GetName]."
+ turkfm_tension_involved_tt: "[ROOT.GetCountry.GetNameNoFlag] is #o #tooltip:[GetRawTextTooltipTag('turkfm_tension_involved_concept_tt')] Involved#!#! in $turkfm_balkfm_tensions_tt$"
+ turkfm_tension_involved_concept_tt: "A [concept_country] is #bold involved#! in the Balkans conflict if they have diplomatic contact with the #yellow Ottoman Empire#! and the conflict has not been resolved."
+ turkfm_balkfm_tensions_ongoing_tt: "The $turkfm_balkfm_tensions_tt$ conflict is still ongoing."
+ turkfm_is_great_power_tt: "[ROOT.GetCountry.GetNameNoFlag] is a [concept_great_power]"
  
  turkfm_stable: "@turkfm_stable! #bold #green Stable#!#!"
  turkfm_unrest: "@turkfm_unrest! #bold #yellow Unrest#!#!"
@@ -402,6 +408,35 @@
  
  # diplomatic plays
  
+ 
+ # diplomatic actions
+ turkfm_accelerate_tensions: "Accelerate $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_desc: "A diplomatic operation to fund and organize separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_accelerate_tensions_action_notification_name: "Accelerate $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_action_notification_desc: "A diplomatic operation to fund and organize separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_accelerate_tensions_action_notification_third_party_name: ""
+ turkfm_accelerate_tensions_action_notification_third_party_desc: ""
+ turkfm_accelerate_tensions_action_propose_name: "Accelerate $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_action_break_name: "Cease accelerating $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_pact_desc: "A diplomatic operation to fund and organize separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_accelerate_tensions_action_notification_break_name: "Ceased accelerating $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_action_notification_break_desc: "[INITIATOR_COUNTRY.GetName] has stopped organizing separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_accelerate_tensions_action_notification_third_party_break_name: "Ceased accelerating $turkfm_balkfm_tensions_tt$"
+ turkfm_accelerate_tensions_action_notification_third_party_break_desc: "[INITIATOR_COUNTRY.GetName] has stopped organizing separatists in the [GetStrategicRegion('region_balkans').GetName]"
+ 
+ turkfm_deccelerate_tensions: "Mitigate $turkfm_balkfm_tensions_tt$"
+ turkfm_deccelerate_tensions_desc: "A diplomatic operation to deconflict and mediate separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_deccelerate_tensions_action_notification_name: "Mitigate $turkfm_balkfm_tensions_tt$"
+ turkfm_deccelerate_tensions_action_notification_desc: "A diplomatic operation to deconflict and mediate separatists in the [GetStrategicRegion('region_balkans').GetName]."
+ turkfm_deccelerate_tensions_action_notification_third_party_name: ""
+ turkfm_deccelerate_tensions_action_notification_third_party_desc: ""
+ turkfm_deccelerate_tensions_action_propose_name: ""
+ turkfm_deccelerate_tensions_action_break_name: ""
+ turkfm_deccelerate_tensions_pact_desc: ""
+ turkfm_deccelerate_tensions_action_notification_break_name: ""
+ turkfm_deccelerate_tensions_action_notification_break_desc: ""
+ turkfm_deccelerate_tensions_action_notification_third_party_break_name: ""
+ turkfm_deccelerate_tensions_action_notification_third_party_break_desc: ""
  
  # buildings
 

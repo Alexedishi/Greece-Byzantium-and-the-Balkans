@@ -1,0 +1,422 @@
+﻿turkfm_accelerate_tensions = {
+	groups = {
+		general
+	}
+	requires_approval = no
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		international_relations
+	}
+	
+	selectable = {
+		NOT = { is_country_type = decentralized }
+		is_revolutionary = no
+		custom_tooltip = {
+			text = turkfm_tension_involved_tt
+			hidden_trigger = {
+				turkfm_tension_involved_trigger = yes
+				NOT = {
+					has_journal_entry = je_turkfm_separatism_main
+				}
+			}
+		}
+	}
+	
+	potential = {
+		scope:target_country = {
+			NOT = { is_country_type = decentralized }
+			is_revolutionary = no
+			has_journal_entry = je_turkfm_separatism_main
+		}
+	}
+	
+	possible = {
+		country_rank >= rank_value:great_power
+		NOT = {
+			has_diplomatic_pact = {
+				who = scope:target_country
+				type = alliance
+			}
+		}	
+		NOT = {
+			has_diplomatic_pact = {
+				who = scope:target_country
+				type = defensive_pact
+			}
+		}
+	}
+	
+	pact = {	
+		cost = 100
+		is_hostile = yes
+		is_two_sided_pact = no
+		forced_duration = 12
+		show_in_outliner = yes
+		
+		relations_progress_per_day = -1 # At -100, -1 relations
+		relations_improvement_min = -20
+		
+		second_modifier = {
+			country_pact_leverage_generation_mult = -0.5
+		}
+
+	 	requirement_to_maintain = {
+			trigger = {
+				has_diplomatic_relevance = scope:target_country
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = DIPLO_ACTION_RELATIONS_CORDIAL_OR_GREATER_NOT
+					scope:target_country.relations:root < relations_threshold:cordial
+				}
+			}
+			
+			show_about_to_break_warning = {
+				scope:target_country.relations:root >= 17 # this is: cordial - 3
+				scope:target_country.relations_change_rate:root > 0
+			}
+		}
+
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = "DIPLOMATIC_PACT_REQUIREMENT_NO_SUBJECT_RELATION"
+					NOT = {
+						is_subject_of = scope:target_country
+						scope:target_country = { is_subject_of = root }
+					}
+				}
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = turkfm_balkfm_tensions_ongoing_tt
+					scope:target_country = {
+						has_journal_entry = je_turkfm_separatism_main
+					}
+				}
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = turkfm_is_great_power_tt
+					country_rank >= rank_value:great_power_power
+				}
+			}
+		}
+		
+	}
+	
+	ai = {
+		check_acceptance_for_will_break = no
+		
+		evaluation_chance = {
+			value = 0.1
+			
+			add = {
+				value = country_rank
+				multiply = 0.05
+			}			
+		}
+		
+		propose_score = {
+			value = 10
+		}
+		
+		will_propose = { 
+			country_rank >= rank_value:great_power
+			OR = {
+				AND = {
+					army_size >= 10
+					has_attitude = {
+						who = scope:target_country
+						attitude = antagonistic
+					}				
+					OR = {
+						AND = {
+							country_rank >= scope:target_country.country_rank
+							has_strategic_adjacency = scope:target_country					
+						}
+						AND = {
+							country_rank = scope:target_country.country_rank
+							OR = {
+								country_rank = rank_value:great_power
+								capital.region = scope:target_country.capital.region
+							}				
+						}					
+					}						
+				}
+				AND = {
+					NOT = {
+						has_attitude = {
+							who = scope:target_country
+							attitude = conciliatory
+						}						
+					}
+					scope:target_country = {
+						has_diplomatic_pact = {
+							who = root
+							type = rivalry
+						}										
+					}					
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = antagonize
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = conquer
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = dominate
+				}
+			}
+		}
+		
+		will_break = {
+			NOR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = antagonistic
+				}
+				has_attitude = {
+					who = scope:target_country
+					attitude = belligerent
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = antagonize
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = conquer
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = dominate
+				}				
+			}
+			NAND = {
+				NOT = {
+					has_attitude = {
+						who = scope:target_country
+						attitude = conciliatory
+					}						
+				}
+				scope:target_country = {
+					has_diplomatic_pact = {
+						who = root
+						type = rivalry
+					}										
+				}					
+			}
+		}
+	}
+}
+
+turkfm_deccelerate_tensions = {
+	groups = {
+		general
+	}
+	requires_approval = no
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		international_relations
+	}
+	
+	selectable = {
+		NOT = { is_country_type = decentralized }
+		is_revolutionary = no
+		custom_tooltip = {
+			text = turkfm_tension_involved_tt
+			hidden_trigger = {
+				turkfm_tension_involved_trigger = yes
+				NOT = {
+					has_journal_entry = je_turkfm_separatism_main
+				}
+			}
+		}
+	}
+	
+	potential = {
+		scope:target_country = {
+			NOT = { is_country_type = decentralized }
+			is_revolutionary = no
+			has_journal_entry = je_turkfm_separatism_main
+		}
+	}
+	
+	possible = {
+		country_rank >= rank_value:great_power
+		NOT = {
+			has_diplomatic_pact = {
+				who = scope:target_country
+				type = rivalry
+			}
+		}	
+		NOT = {
+			has_diplomatic_pact = {
+				who = scope:target_country
+				type = embargo
+			}
+		}
+	}
+	
+	pact = {	
+		cost = 100
+		is_two_sided_pact = no
+		forced_duration = 12
+		show_in_outliner = yes
+		
+		relations_progress_per_day = 1
+		relations_improvement_min = 20
+		
+		second_modifier = {
+			country_pact_leverage_generation_add = 100
+		}
+
+	 	requirement_to_maintain = {
+			trigger = {
+				has_diplomatic_relevance = scope:target_country
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = DIPLO_ACTION_RELATIONS_POOR_OR_LESS_NOT
+					scope:target_country.relations:root > relations_threshold:poor
+				}		
+			}
+			
+			show_about_to_break_warning = {
+				scope:target_country.relations:root <= -17 # this is: poor + 3
+				scope:target_country.relations_change_rate:root < 0
+			}					
+		}	
+
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = "DIPLOMATIC_PACT_REQUIREMENT_NO_SUBJECT_RELATION"
+					NOT = {
+						is_subject_of = scope:target_country
+						scope:target_country = { is_subject_of = root }
+					}
+				}
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = turkfm_balkfm_tensions_ongoing_tt
+					scope:target_country = {
+						has_journal_entry = je_turkfm_separatism_main
+					}
+				}
+			}
+		}
+		
+		requirement_to_maintain = {
+			trigger = {
+				custom_tooltip = {
+					text = turkfm_is_great_power_tt
+					country_rank >= rank_value:great_power_power
+				}
+			}
+		}
+		
+	}
+	
+	ai = {
+		check_acceptance_for_will_break = no
+		
+		evaluation_chance = {
+			value = 0.1
+			
+			add = {
+				value = country_rank
+				multiply = 0.05
+			}			
+		}
+		
+		propose_score = {
+			value = 10
+			if = {
+				limit = {
+					scope:target_country.relations:root >= relations_threshold:friendly					
+				}
+				add = 10
+			}
+			else_if = {
+				limit = {
+					scope:target_country.relations:root >= relations_threshold:amicable					
+				}
+				add = 7.5
+			}	
+			else_if = {
+				limit = {
+					scope:target_country.relations:root >= relations_threshold:cordial				
+				}
+				add = 5
+			}
+		}
+		
+		will_propose = { 
+			country_rank >= rank_value:great_power
+			OR = {
+				AND = {
+					NOT = {
+						has_attitude = {
+							who = scope:target_country
+							attitude = antagonistic
+						}						
+					}
+					scope:target_country = {
+						has_diplomatic_pact = {
+							who = root
+							type = alliance
+						}										
+					}					
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = protect
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = befriend
+				}
+			}
+		}
+		
+		will_break = {
+			NOR = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = conciliatory
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = befriend
+				}
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = protect
+				}			
+			}
+		}
+	}
+}
