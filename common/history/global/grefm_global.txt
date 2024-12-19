@@ -559,6 +559,11 @@
 		trigger_event = {
 			id = turkfm.001 # The Sick Man of Europe
 		}
+		add_modifier = {
+			name = modifier_turkfm_imperial_aspiriations
+			months = normal_modifier_time
+		}
+		
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
 	}
@@ -674,11 +679,11 @@
 	
 	every_country = {
 		limit = {
+			has_diplomatic_relevance = c:TUR
 			NOR = {
-				c:TUR ?= this
+				has_journal_entry = je_turkfm_sick_man_main
 				is_subject_of = c:TUR
 			}
-			has_diplomatic_relevance = c:TUR
 		}
 		add_journal_entry = {
 			type = je_turkfm_eastern_question

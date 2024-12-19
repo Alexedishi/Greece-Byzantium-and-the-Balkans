@@ -7,7 +7,7 @@
 turkfm_initialize_sick_man = {
 	set_variable = {
 		name = turkfm_sick_man_var
-		value = 0
+		value = 4
 	}
 	turkfm_validate_sick_man_effect = yes
 	add_journal_entry = {
@@ -19,7 +19,6 @@ turkfm_initialize_sick_man = {
 	add_journal_entry = {
 		type = je_turkfm_sick_man_crete
 	}
-	turkfm_calculate_sick_man_effect = yes
 }
 
 turkfm_calculate_sick_man_effect = {
@@ -30,10 +29,10 @@ turkfm_calculate_sick_man_effect = {
 	je:je_turkfm_sick_man_main = {
 		set_bar_progress = {
 			name = turkfm_sick_main_progress_bar
-			value = var:turkfm_sick_man_var
+			value = owner.var:turkfm_sick_man_var
 		}
 	}
-}	
+}
 
 turkfm_validate_sick_man_effect = {
 	if = {
@@ -100,13 +99,16 @@ turkfm_initialize_tanzimat = {
 		value = 10
 	}
 	add_journal_entry = {
+		type = je_turkfm_tanzimat_army
+	}
+	add_journal_entry = {
 		type = je_turkfm_tanzimat_argiculture
 	}
 	add_journal_entry = {
-		type = je_turkfm_tanzimat_economy
+		type = je_turkfm_tanzimat_bureaucracy
 	}
 	add_journal_entry = {
-		type = je_turkfm_tanzimat_bureaucracy
+		type = je_turkfm_tanzimat_economy
 	}
 	add_journal_entry = {
 		type = je_turkfm_tanzimat_security
@@ -137,12 +139,12 @@ turkfm_advance_islamism_effect = {
 		hidden_effect = {
 			change_variable = {
 				name = turkfm_tanzimat_var
-				add = 1
+				subtract = 1
 			}
 			je:je_turkfm_tanzimat_main = {
 				set_bar_progress = {
 					name = turkfm_tanzimat_progress_bar
-					value = var:turkfm_tanzimat_var
+					value = owner.var:turkfm_tanzimat_var
 				}
 			}
 		}

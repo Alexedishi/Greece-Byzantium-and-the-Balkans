@@ -177,10 +177,7 @@ je_turkfm_sick_man_main = {
 	
 	on_weekly_pulse = {
 		effect = {
-			set_bar_progress = {
-				name = turkfm_sick_main_progress_bar
-				value = var:turkfm_sick_man_var
-			}
+			turkfm_calculate_sick_man_effect = yes
 		}
 	}
 
@@ -205,7 +202,6 @@ je_turkfm_sick_man_syria = {
 	}
 
 	modifiers_while_active = {
-		modifier_syrian_ambitions
 	}
 
 	on_complete = {
@@ -380,6 +376,7 @@ je_turkfm_tanzimat_main = {
 		hidden_effect = {
 			trigger_event = {
 				id = turkfm.100 # The Decaying Empire
+				days = 30
 			}
 		}
 	}
@@ -423,7 +420,9 @@ je_turkfm_tanzimat_argiculture = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_feudal_argiculture
+	}
 	
 	complete = {
 		NOR = {
@@ -466,7 +465,9 @@ je_turkfm_tanzimat_army = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_cizye_tax
+	}
 	
 	complete = {
 		army_size >= 100
@@ -515,7 +516,9 @@ je_turkfm_tanzimat_bureaucracy = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_outmoded_bureaucracy
+	}
 	
 	complete = {
 		NOT = {
@@ -554,7 +557,9 @@ je_turkfm_tanzimat_economy = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_stagnant_economy
+	}
 	
 	complete = {
 		NOR = { 
@@ -592,7 +597,9 @@ je_turkfm_tanzimat_education = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_illiterate_populace
+	}
 	
 	complete = {
 		any_scope_building = {
@@ -628,9 +635,23 @@ je_turkfm_tanzimat_millet_reform = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_ottomanist_thought
+	}
+	
+	is_shown_when_inactive = {
+		has_journal_entry = je_turkfm_tanzimat_main
+	}
+	
+	possible = {
+		has_technology_researched = mass_communication
+	}
 	
 	complete = {
+		NOR = {
+			has_law = law_type:law_turkfm_religious_autonomy
+			has_law = law_type:law_turkfm_nominal_equality
+		}
 	}
 	
 	on_complete = {
@@ -654,7 +675,9 @@ je_turkfm_tanzimat_security = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	should_be_pinned_by_default = yes
+	modifiers_while_active = {
+		modifier_turkfm_insecure_countryside
+	}
 	
 	complete = {
 		NOR = {
@@ -711,7 +734,7 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	}
 	
 	modifiers_while_active = {
-		modifier_turkfm_millet_system
+		modifier_turkfm_separatist_tensions
 	}
 	
 	scripted_progress_bar = turkfm_tension_progress_bar
