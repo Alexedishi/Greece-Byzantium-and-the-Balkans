@@ -40,7 +40,6 @@ je_turkfm_sick_man_main = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_initialize_sick_man = yes
 	}
 	
 	modifiers_while_active = {
@@ -383,7 +382,6 @@ je_turkfm_tanzimat_main = {
 				id = turkfm.100 # The Decaying Empire
 			}
 		}
-		turkfm_initialize_tanzimat = yes
 	}
 	
 	modifiers_while_active = {
@@ -395,8 +393,14 @@ je_turkfm_tanzimat_main = {
 	scripted_button = turkfm_start_tanzimat_button
 	
 	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+		custom_tooltip = {
+			text = je_turkfm_tanzimat_main_complete
+			hidden_trigger = {
+				OR = {
+					has_variable = turkfm_young_ottomans_happened
+					has_variable = turkfm_caliphate_secured
+				}
+			}
 		}
 	}
 	
@@ -513,7 +517,7 @@ je_turkfm_tanzimat_bureaucracy = {
 	
 	should_be_pinned_by_default = yes
 	
-	complete = 
+	complete = {
 		NOT = {
 			has_law = law_type:law_hereditary_bureaucrats
 		}
@@ -697,7 +701,6 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_initialize_tension_effect = yes
 		hidden_effect = {
 			trigger_event = {
 				id = turkfm.200 # The Millet System
