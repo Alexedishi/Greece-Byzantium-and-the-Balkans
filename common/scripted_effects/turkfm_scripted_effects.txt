@@ -5,10 +5,11 @@
 #### SICK MAN EFFECTS ####
 
 turkfm_initialize_sick_man = {
-	set_variable = turkfm_controls_balkans
-	set_variable = turkfm_controls_anatolia
-	set_variable = turkfm_controls_arabia
-	set_variable = turkfm_controls_nile
+	set_variable = {
+		name = turkfm_sick_man_var
+		value = 0
+	}
+	turkfm_validate_sick_man_effect = yes
 	add_journal_entry = {
 		type = je_turkfm_sick_man_syria
 	}
@@ -25,6 +26,12 @@ turkfm_calculate_sick_man_effect = {
 	set_variable = {
 		name = turkfm_sick_man_var
 		value = turkfm_sick_man_value
+	}
+	je:je_turkfm_tanzimat_main = {
+		set_bar_progress = {
+			name = turkfm_sick_main_progress_bar
+			value = var:turkfm_sick_man_var
+		}
 	}
 }	
 
@@ -65,11 +72,33 @@ turkfm_validate_sick_man_effect = {
 	else = {
 		remove_variable = turkfm_controls_nile
 	}
+	if = {
+		limit = {
+			turkfm_controls_danubia_trigger = yes
+		}
+		set_variable = turkfm_controls_danubia
+	}
+	else = {
+		remove_variable = turkfm_controls_danubia
+	}
+	if = {
+		limit = {
+			turkfm_controls_caucasus_trigger = yes
+		}
+		set_variable = turkfm_controls_caucasus
+	}
+	else = {
+		remove_variable = turkfm_controls_caucasus
+	}
 }
 
 #### TANZIMAT EFFECTS ####
 
 turkfm_initialize_tanzimat = {
+	set_variable = {
+			name = turkfm_tanzimat_var
+			value = 10
+		}
 	add_journal_entry = {
 		type = je_turkfm_tanzimat_argiculture
 	}
@@ -84,12 +113,38 @@ turkfm_initialize_tanzimat = {
 	}
 }
 
-turkfm_advance_tanzimat_effect = {
+turkfm_advance_ottomanism_effect = {
 	custom_tooltip = {
 		text = turkfm_advance_tanzimat_tt
-		change_variable = {
-			name = turkfm_tanzimat_var
-			add = 1
+		hidden_effect = {
+			change_variable = {
+				name = turkfm_tanzimat_var
+				add = 1
+			}
+			je:je_turkfm_tanzimat_main = {
+				set_bar_progress = {
+					name = turkfm_tanzimat_progress_bar
+					value = var:turkfm_tanzimat_var
+				}
+			}
+		}
+	}
+}
+
+turkfm_advance_islamism_effect = {
+	custom_tooltip = {
+		text = turkfm_regress_tanzimat_tt
+		hidden_effect = {
+			change_variable = {
+				name = turkfm_tanzimat_var
+				add = 1
+			}
+			je:je_turkfm_tanzimat_main = {
+				set_bar_progress = {
+					name = turkfm_tanzimat_progress_bar
+					value = var:turkfm_tanzimat_var
+				}
+			}
 		}
 	}
 }

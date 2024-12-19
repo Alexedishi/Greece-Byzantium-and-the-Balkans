@@ -40,12 +40,14 @@ je_turkfm_sick_man_main = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		turkfm_initialize_sick_man = yes
 	}
 	
 	modifiers_while_active = {
 		modifier_turkfm_sick_man
-		modifier_turkfm_imperial_aspiriations
 	}
+	
+	scripted_progress_bar = turkfm_sick_main_progress_bar
 	
 	complete = {
 		country_rank >= rank_value:great_power
@@ -174,15 +176,14 @@ je_turkfm_sick_man_main = {
 		set_global_variable = turkfm_sick_man_complete
 	}
 	
-	current_value = {
-		value = var:turkfm_sick_man_var
+	on_weekly_pulse = {
+		effect = {
+			set_bar_progress = {
+				name = turkfm_sick_main_progress_bar
+				value = var:turkfm_sick_man_var
+			}
+		}
 	}
-
-	goal_add_value = {
-		add = 4
-	}
-
-	progressbar = yes
 
 	weight = 5000
 	
@@ -382,11 +383,14 @@ je_turkfm_tanzimat_main = {
 				id = turkfm.100 # The Decaying Empire
 			}
 		}
+		turkfm_initialize_tanzimat = yes
 	}
 	
 	modifiers_while_active = {
 		modifier_turkfm_decentralized_administration
 	}
+	
+	scripted_progress_bar = turkfm_tanzimat_progress_bar
 	
 	scripted_button = turkfm_start_tanzimat_button
 	
@@ -406,16 +410,6 @@ je_turkfm_tanzimat_main = {
 	on_fail = {
 	}
 	
-	current_value = {
-		value = var:turkfm_tanzimat_var
-	}
-
-	goal_add_value = {
-		value = 5
-	}
-
-	progressbar = yes
-	
 	weight = 4000
 
 }
@@ -428,10 +422,27 @@ je_turkfm_tanzimat_argiculture = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		NOR = {
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_agrarianism
+		}
+		NOR = {
+			has_law = law_type:law_serfdom
+			has_law = law_type:law_tenant_farmers
+		}
+		any_scope_building = {
+			is_building_type = building_wheat_farm
+			NOT = {
+				has_active_production_method = pm_simple_farming
+			}
+			level >= 10
+			weekly_profit > 5
+			occupancy >= 0.9
+		}
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -454,10 +465,33 @@ je_turkfm_tanzimat_army = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		army_size >= 100
+		has_technology_researched = napoleonic_warfare
+		any_scope_building = {
+			filter = {
+				is_building_type = building_barracks
+			}			
+			NOR = {
+				building_has_goods_shortage = yes
+				has_active_production_method = pm_no_organization
+			}
+			percent = 1
+		}
+		NOT = {
+			any_military_formation = {
+				filter = {
+					is_army = yes
+				}
+				any_combat_unit = {
+					has_unit_type = unit_type:combat_unit_type_irregular_infantry
+				}
+				percent >= 0.25
+			}
+		}
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -479,11 +513,24 @@ je_turkfm_tanzimat_bureaucracy = {
 	
 	should_be_pinned_by_default = yes
 	
-	complete = {
+	complete = 
+		NOT = {
+			has_law = law_type:law_hereditary_bureaucrats
+		}
+		any_scope_building = {
+			is_building_type = building_government_administration
+			NOT = {
+				has_active_production_method = pm_simple_farming
+			}
+			level >= 2
+			occupancy >= 0.9
+		}
+		bureaucracy >= 0 
+		approaching_bureaucracy_shortage = no
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -506,10 +553,22 @@ je_turkfm_tanzimat_economy = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		NOR = { 
+			has_law = law_type:law_traditionalism
+			has_law = law_type:law_land_based_taxation
+			has_law = law_type:law_consumption_based_taxation
+			has_law = law_type:law_isolationism
+		}
+		in_default = no
+		any_scope_state = {
+			is_incorporated = yes
+			has_building = building_urban_center
+			percent >= 0.75
+		}
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -532,10 +591,20 @@ je_turkfm_tanzimat_education = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		any_scope_building = {
+			is_building_type = building_university
+			occupancy > 0.9
+			level >= 5
+		}
+		institution_investment_level = {
+			institution = institution_schools
+			value >= 3
+		}
+		literacy_rate > 0.30
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -561,7 +630,7 @@ je_turkfm_tanzimat_millet_reform = {
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -584,10 +653,23 @@ je_turkfm_tanzimat_security = {
 	should_be_pinned_by_default = yes
 	
 	complete = {
+		NOR = {
+			has_law = law_type:law_no_police
+			has_law = law_type:law_local_police
+		}
+		institution_investment_level = {
+			institution = institution_police
+			value >= 3
+		}
+		NOT = {
+			any_scope_state = {
+				turmoil > 0.20
+			}
+		}
 	}
 	
 	on_complete = {
-		turkfm_advance_tanzimat_effect = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	invalid = {
@@ -615,6 +697,7 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	should_be_pinned_by_default = yes
 	
 	immediate = {
+		turkfm_initialize_tension_effect = yes
 		hidden_effect = {
 			trigger_event = {
 				id = turkfm.200 # The Millet System
@@ -627,6 +710,8 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	modifiers_while_active = {
 		modifier_turkfm_millet_system
 	}
+	
+	scripted_progress_bar = turkfm_tension_progress_bar
 	
 	complete = {
 		cultural_acceptance_base = {
@@ -789,6 +874,8 @@ je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
 		modifier_turkfm_national_aspiriations
 	}
 	
+	scripted_progress_bar = turkfm_tension_progress_bar
+	
 	complete = {
 		hidden_trigger = {
 			exists = c:TUR
@@ -886,6 +973,8 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 			}
 		}
 	}
+	
+	scripted_progress_bar = turkfm_tension_progress_bar
 	
 	scripted_button = turkfm_pro_turk_button
 	scripted_button = turkfm_anti_turk_button
