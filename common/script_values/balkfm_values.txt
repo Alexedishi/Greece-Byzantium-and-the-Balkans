@@ -79,7 +79,7 @@ balkfm_ottoman_legacy_value = {
 }
 
 ## MONTENEGRO VALUES ##
-balkfm_mon_border_progress_value = {
+balkfm_mon_karadag_progress_value = {
 	value = 0
 	
 	c:MON = { # We scope to Mon so this can get saved to a local value
@@ -223,7 +223,7 @@ balkfm_mon_border_progress_value = {
 	}
 }
 
-balkfm_tur_border_progress_value = {
+balkfm_tur_karadag_progress_value = {
 	value = 0
 	
 	c:TUR = { # We scope to TUR so this can get saved to a local value
@@ -289,67 +289,130 @@ balkfm_tur_border_progress_value = {
 	}
 }
 
-balkfm_total_border_progress_value = {
+balkfm_total_karadag_progress_value = {
 	value = 0
-	add = balkfm_mon_border_progress_value
-	subtract = balkfm_tur_border_progress_value
+	add = var:balkfm_mon_karadag_progress_var
+	subtract = var:balkfm_tur_karadag_progress_value
 }
 
-balkfm_border_control_value = {
+balkfm_mon_provinces_value = {
 	value = 0
-	if = {
-		limit = {
-			p:x8C6292 = {
-				owner = root
+	c:MON = {
+		if = {
+			limit = {
+				p:x8C6292 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_cetinje
+				value = 1
 			}
 		}
-		add = {
-			desc = balkfm_mon_value_from_cetinje
-			value = 1
+		if = {
+			limit = {
+				p:xF5F6C2 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_niksic
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				p:x446E84 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_podgorica
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				p:xA12F82 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_pljevlja
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				p:x90A0E0 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_kotor
+				value = 1
+			}
 		}
 	}
-	if = {
-		limit = {
-			p:xF5F6C2 = {
-				owner = root
+}
+
+balkfm_tur_provinces_value = {
+	value = 0
+	c:TUR = {
+		if = {
+			limit = {
+				p:x8C6292 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_cetinje
+				value = 1
 			}
 		}
-		add = {
-			desc = balkfm_mon_value_from_niksic
-			value = 1
-		}
-	}
-	if = {
-		limit = {
-			p:x446E84 = {
-				owner = root
+		if = {
+			limit = {
+				p:xF5F6C2 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_niksic
+				value = 1
 			}
 		}
-		add = {
-			desc = balkfm_mon_value_from_podgorica
-			value = 1
-		}
-	}
-	if = {
-		limit = {
-			p:xA12F82 = {
-				owner = root
+		if = {
+			limit = {
+				p:x446E84 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_podgorica
+				value = 1
 			}
 		}
-		add = {
-			desc = balkfm_mon_value_from_pljevlja
-			value = 1
-		}
-	}
-	if = {
-		limit = {
-			p:x90A0E0 = {
-				owner = root
+		if = {
+			limit = {
+				p:xA12F82 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_pljevlja
+				value = 1
 			}
 		}
-		add = {
-			desc = balkfm_mon_value_from_kotor
-			value = 1
+		if = {
+			limit = {
+				p:x90A0E0 = {
+					owner = root
+				}
+			}
+			add = {
+				desc = balkfm_mon_value_from_kotor
+				value = 1
+			}
 		}
 	}
 }

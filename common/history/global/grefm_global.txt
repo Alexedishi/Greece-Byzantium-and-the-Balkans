@@ -267,36 +267,6 @@
 		value = 0
 	}
 	
-	# Border Conflict Variables
-	set_global_variable = {
-		name = balkfm_border_influence_var
-		value = 500
-	}
-	set_global_variable = {
-		name = balkfm_mon_border_control_var
-		value = 1
-	}
-	set_global_variable = {
-		name = balkfm_tur_border_control_var
-		value = 3
-	}
-	set_global_variable = {
-		name = balkfm_mon_next_province_var
-		value = 2
-	}
-	set_global_variable = {
-		name = balkfm_tur_next_province_var
-		value = 1
-	}
-	set_global_variable = {
-		name = balkfm_border_incursion_var
-		value = 0
-	}
-	set_global_variable = { # Blocking for balkfm.330
-		name = balkfm_border_event_cooldown_var
-		months = 14
-	}
-	
 	# eocfm Variables
 	set_global_variable = {
 		name = eocfm_council_var
@@ -551,11 +521,24 @@
 		}
 		
 		# The Lands of the Black Mountain
-#		add_journal_entry = {
-#			type = je_balkfm_tur_karadag
-#		}
-		balkfm_initialize_border_variables_effect = yes
+		balkfm_initialize_karadag_effect = yes
+		add_journal_entry = {
+			type = je_balkfm_tur_karadag
+		}
+		add_modifier = modifier_balkfm_practicing_headtaking
 		
+		# Millet System Setup
+		set_institution_investment_level = {
+			institution = institution_millet_system
+			level = 5
+		}
+		add_modifier = modifier_turkfm_millet_system_5
+		set_variable = {
+			name = turkfm_millet_system_var
+			value = 1
+		}
+		
+		# Starting Conditions
 		trigger_event = {
 			id = turkfm.001 # The Sick Man of Europe
 		}
@@ -563,31 +546,23 @@
 			name = modifier_turkfm_imperial_aspiriations
 			months = normal_modifier_time
 		}
-		
-		set_institution_investment_level = {
-			institution = institution_millet_system
-			level = 5
-		}
-		set_variable = {
-			name = turkfm_millet_system_var
-			value = 1
-		}
 		set_variable = eocfm_controls_constantinople
 		set_variable = eocfm_controls_antioch
 	}
 	
 	c:MON = {
 		balkfm_set_up_montenegro_effect = yes
-		balkfm_initialize_border_variables_effect = yes
 		trigger_event = {
 			id = balkfm.300 # A Feudal Relic
 		}
 		add_journal_entry = {
 			type = je_balkfm_mon_prince_bishopric
 		}
+		balkfm_initialize_black_mountain_effect = yes
 		add_journal_entry = {
 			type = je_balkfm_mon_black_mountain
 		}
+		add_modifier = modifier_balkfm_practicing_headtaking
 	}
 	
 	c:SER = {

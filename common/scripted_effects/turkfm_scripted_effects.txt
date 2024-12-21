@@ -115,6 +115,98 @@ turkfm_initialize_tanzimat = {
 	}
 }
 
+turkfm_tanzimat_monthly_effect = {
+	if = {
+		limit = {
+			has_law = law_type:law_turkfm_religious_autonomy
+		}
+		set_variable = {
+			name = turkfm_millet_system_var
+			value = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_turkfm_nominal_equality
+		}
+		set_variable = {
+			name = turkfm_millet_system_var
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_turkfm_judicial_standardization
+		}
+		set_variable = {
+			name = turkfm_millet_system_var
+			value = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_turkfm_millet_abolished
+		}
+		set_variable = {
+			name = turkfm_millet_system_var
+			value = 4
+		}
+	}
+}
+
+turkfm_millet_investment_effect = {
+	remove_modifier = modifier_turkfm_millet_system_1
+	remove_modifier = modifier_turkfm_millet_system_2
+	remove_modifier = modifier_turkfm_millet_system_3
+	remove_modifier = modifier_turkfm_millet_system_4
+	remove_modifier = modifier_turkfm_millet_system_5
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_millet_system 
+				value = 1
+			}
+		}
+		add_modifier = modifier_turkfm_millet_system_1
+	}
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_millet_system 
+				value = 2
+			}
+		}
+		add_modifier = modifier_turkfm_millet_system_2
+	}
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_millet_system 
+				value = 3
+			}
+		}
+		add_modifier = modifier_turkfm_millet_system_3
+	}
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_millet_system 
+				value = 4
+			}
+		}
+		add_modifier = modifier_turkfm_millet_system_4
+	}
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_millet_system 
+				value = 5
+			}
+		}
+		add_modifier = modifier_turkfm_millet_system_5
+	}
+}
+
 turkfm_advance_ottomanism_effect = {
 	if = {
 		limit = {
@@ -162,7 +254,66 @@ turkfm_advance_islamism_effect = {
 }
 
 turkfm_religious_autonomy_enact_effect = {
-	turkfm_advance_islamism_effect = yes
+	if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 2
+		}
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 1
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 3
+		}
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat2_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 2
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 4
+		}
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat3_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 3
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
 	set_variable = {
 		name = turkfm_millet_system_var
 		value = 1
@@ -174,16 +325,61 @@ turkfm_nominal_equality_enact_effect = {
 		limit = {
 			var:turkfm_millet_system_var ?= 1
 		}
-		turkfm_advance_ottomanism_effect = yes
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 1
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
 	}
 	else_if = {
 		limit = {
-			OR = {
-				var:turkfm_millet_system_var ?= 3
-				var:turkfm_millet_system_var ?= 4
+			var:turkfm_millet_system_var ?= 3
+		}
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 1
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
 			}
 		}
-		turkfm_advance_islamism_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 4
+		}
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat2_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 2
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
 	}
 	set_variable = {
 		name = turkfm_millet_system_var
@@ -194,18 +390,63 @@ turkfm_nominal_equality_enact_effect = {
 turkfm_judicial_standardization_enact_effect = {
 	if = {
 		limit = {
-			OR = {
-				var:turkfm_millet_system_var ?= 1
-				var:turkfm_millet_system_var ?= 2
+			var:turkfm_millet_system_var ?= 1
+		}
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat2_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 2
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
 			}
 		}
-		turkfm_advance_ottomanism_effect = yes
+	}
+	else_if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 2
+		}
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 1
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
 	}
 	else_if = {
 		limit = {
 			var:turkfm_millet_system_var ?= 4
 		}
-		turkfm_advance_islamism_effect = yes
+		custom_tooltip = {
+			text = turkfm_regress_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					subtract = 1
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
 	}
 	set_variable = {
 		name = turkfm_millet_system_var
@@ -214,7 +455,66 @@ turkfm_judicial_standardization_enact_effect = {
 }
 
 turkfm_religious_autonomy_enact_effect = {
-	turkfm_advance_ottomanism_effect = yes
+	if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 1
+		}
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat3_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 3
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 2
+		}
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat2_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 2
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_millet_system_var ?= 3
+		}
+		custom_tooltip = {
+			text = turkfm_advance_tanzimat_tt
+			hidden_effect = {
+				change_variable = {
+					name = turkfm_tanzimat_var
+					add = 3
+				}
+				je:je_turkfm_tanzimat_main = {
+					set_bar_progress = {
+						name = turkfm_tanzimat_progress_bar
+						value = owner.var:turkfm_tanzimat_var
+					}
+				}
+			}
+		}
+	}
 	set_variable = {
 		name = turkfm_millet_system_var
 		value = 4

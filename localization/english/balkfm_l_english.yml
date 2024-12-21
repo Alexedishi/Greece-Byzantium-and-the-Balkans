@@ -69,27 +69,55 @@
  je_balkfm_mon_benefactor_rus_tt: "We are either a [concept_subject] of #yellow Russia#!, in the same [concept_power_bloc] as #yellow Russia#!, or we have a #bold Defensive Pact#! or #bold Alliance#! with #yellow Russia#!."
  je_balkfm_mon_benefactor_aus_tt: "We are either a [concept_subject] of #yellow Austria#!, in the same [concept_power_bloc] as #yellow Austria#!, or we have a #bold Defensive Pact#! or #bold Alliance#! with #yellow Austria#!."
  
- ##########
  je_balkfm_mon_black_mountain: "The Lands of the Black Mountain"
- je_balkfm_mon_black_mountain_reason: "Montenegro, named after the appearance of the mountain Lovćen, clings on by a thread. The Prince-Bishop controls the lands within "Old Montenegro," but the majority of the Montenegrin people live under the thumb of the Turks. Heavily taxed and abused, the Montenegrin Serbs dream of a day when they will be free of the burden of the Porte."
- ##########
- je_balkfm_mon_black_mountain_new: "The Lands of the Black Mountain"
- je_balkfm_mon_black_mountain_new_reason: "We control #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown1 [Country.MakeScope.ScriptValue('balkfm_border_control_value')]#!/5 #yellow Montenegrin#! provinces. Every month, we will gain or lose support amongst the Montenegrin tribes living under Ottoman rule. Currently, our strength in the hinterlands will change by #tooltippable;tooltip:[Country.GetTooltipTag],je_balkfm_mon_black_mountain_breakdown2 [Country.MakeScope.ScriptValue('balkfm_mon_border_progress_value')|+=]#! next month.\n\nThis can be influenced by the following factors:\n•Completing the #bold Prince-Bishopric#! journal entries.\n•Maintaining positive [concept_infrastructure] in the capital.\n•Researching #yellow Nationalism#!.\n•Maintaining a standing [concept_army].\n•Capturing and Ransoming Ottoman nobles.\n•Having a #bold Defensive Pact#! or #bold Alliance#! with a [concept_great_power] rivaling the #yellow Ottoman Empire#!.\n•Being in a [concept_power_bloc] led by a [concept_great_power] rivaling the #yellow Ottoman Empire#!\n•Your choices during #bold Border Conflict#! events. \n$TOOLTIP_DELIMITER$\nWhen the forces of Murad I stormed across the Hellespont and laid waste to the Byzantine Empire, the small Prince-Bishopric of Montenegro held out. First aided by the Papacy, and now by Austria and Russia, the small country has endured through the centuries as a bastion of independent Christian rule in the Balkans.\n\nSeparation from the world at large has impeded the development of organized governance in the Montenegrin lands. In many ways, the vicious frontier has preserved many of the pre-medieval customs of conflict and tribal rule. From slave raids to the taking of heads, the hinterlands between represent a bizarre holdover of tribalistic behavior to the outside world. Moreover, despite its control over the lands of "Old Montenegro," tribal leaders have balked at wholesale submission to the Bishopric."
- je_balkfm_mon_black_mountain_status: "We control #bold [GetGlobalVariable('balkfm_mon_border_control_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
- je_balkfm_mon_black_mountain_breakdown1: "[Country.MakeScope.GetScriptValueDesc('balkfm_border_control_value')]"
- je_balkfm_mon_black_mountain_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_border_progress_value')]"
- je_balkfm_mon_black_mountain_complete_tt: "#bold Montenegro#! has reclaimed all lands in the #yellow Montenegro#! state region."
+ je_balkfm_mon_black_mountain_reason: "In many ways, the vicious frontier of [ROOT.GetCountry.GetName] has preserved many of the pre-medieval customs of conflict and tribal rule. From slave raids to the taking of heads, the hinterlands represent a bizarre holdover of tribalistic behavior to the outside world. As the Ottoman Empire struggles to assert its sovereignty, it looks to finally bring the Montenegrin people to heel.\n$TOOLTIP_DELIMITER$\n$je_balkfm_mon_black_mountain_details$\n$TOOLTIP_DELIMITER$\n$je_balkfm_mon_black_mountain_factors$"
  je_balkfm_mon_black_mountain_fail_tt: "#bold Montenegro#! controls no lands in the #yellow Montenegro#! state region."
+ 
  je_balkfm_tur_karadag: "The Vilayet of the Black Mountain"
- je_balkfm_tur_karadag_reason: ""
- je_balkfm_tur_karadag_status: "We control #bold [GetGlobalVariable('balkfm_tur_border_control_var').GetValue]#!/5 #yellow Montenegrin#! provinces."
- je_balkfm_tur_karadag_breakdown1: "[Country.MakeScope.GetScriptValueDesc('balkfm_border_control_value')]"
- je_balkfm_tur_karadag_breakdown2: "[Country.MakeScope.GetScriptValueDesc('balkfm_tur_border_progress_value')]"
- je_balkfm_tur_karadag_complete_tt: "We have reclaimed all lands in the #yellow Montenegro#! state region."
- je_balkfm_tur_karadag_fail_tt: "We control no lands in the #yellow Montenegro#! state region."
+ je_balkfm_tur_karadag_reason: "In many ways, the vicious frontier of [ROOT.GetCountry.GetName] has preserved many of the pre-medieval customs of conflict and tribal rule. From slave raids to the taking of heads, the hinterlands represent a bizarre holdover of tribalistic behavior to the outside world. As the Ottoman Empire struggles to assert its sovereignty, it looks to finally bring the Montenegrin people to heel.\n$TOOLTIP_DELIMITER$\n$je_balkfm_mon_karadag_details$\n$TOOLTIP_DELIMITER$\n$je_balkfm_mon_black_mountain_factors$"
+ je_balkfm_tur_karadag_fail_tt: "We control no lands in the #yellow Montenegro#! state region.
+ 
+ je_balkfm_mon_black_mountain_attacking: "@warning! [ROOT.GetCountry.GetNameNoFlag] #bold #red is leading an incursion into Ottoman lands!#!#!\n$TOOLTIP_DELIMITER$\n"
+ je_balkfm_mon_black_mountain_defending: "@warning! [ROOT.GetCountry.GetNameNoFlag] #bold #red is defending against an incursion into Montenegrin lands!#!#!\n$TOOLTIP_DELIMITER$\n"
+ je_balkfm_mon_black_mountain_details: "[ROOT.GetCountry.GetNameNoFlag] controls --/5 Montenegrin Provinces\n\n#bold #white Monthly Montenegrin Influence#!:#! \n#bold #white Monthly Ottoman Influence#!:#! \n[SCOPE.GetRootScope.GetCountry.GetCustom('balkfm_border_leader_type')]\n#italic When $je_balkfm_border_tt$ is at either extreme, that country will gain a #yellow Montenegrin#! province#!."
+ je_balkfm_mon_black_mountain_factors: "#bold Catalysts towards [ROOT.GetCountry.GetAdjectiveNoFlag] monthly [ROOT.GetCountry.GetAdjectiveNoFlag] influence growth:#!\n•Completing the #bold Prince-Bishopric#! journal entries.\n•Maintaining positive [concept_infrastructure] in the capital.\n•Researching #yellow Nationalism#!.\n•Maintaining a standing [concept_army].\n•Capturing and Ransoming Ottoman nobles.\n•Having a #bold Defensive Pact#! or #bold Alliance#! with a [concept_great_power] rivaling the #yellow Ottoman Empire#!.\n•Being in a [concept_power_bloc] led by a [concept_great_power] rivaling the #yellow Ottoman Empire#!\n•Your choices during #bold Border Conflict#! events."
+ 
+ je_balkfm_mon_karadag_attacking: "@warning!@warning! The [ROOT.GetCountry.GetNameNoFlag] #bold #red is leading an incursion into Montenegrin lands!#!#!\n$TOOLTIP_DELIMITER$\n"
+ je_balkfm_mon_karadag_defending: "@warning! The [ROOT.GetCountry.GetNameNoFlag] #bold #red is defending against an incursion into Ottoman lands!#!#!\n$TOOLTIP_DELIMITER$\n"
+ je_balkfm_mon_karadag_details: "[ROOT.GetCountry.GetNameNoFlag] controls --/5 Montenegrin Provinces\n\n#bold #white Monthly Ottoman Influence#!:#! \n#bold #white Monthly Montenegrin Influence#!:#! \n[SCOPE.GetRootScope.GetCountry.GetCustom('balkfm_border_leader_type')]\n#italic When $je_balkfm_border_tt$ is at either extreme, that country will gain a #yellow Montenegrin#! province#!."
+ je_balkfm_mon_karadag_factors: "#bold Catalysts towards [ROOT.GetCountry.GetAdjectiveNoFlag] monthly [ROOT.GetCountry.GetAdjectiveNoFlag] influence growth:#!\n•"
+ 
+ je_balkfm_karadag_tt: "#o #tooltip:[GetRawTextTooltipTag('je_balkfm_karadag_concept_tt')] Montenegrin Frontier#!#"
+ je_balkfm_karadag_short_tt: "#o #tooltip:[GetRawTextTooltipTag('je_balkfm_karadag_concept_tt')] Frontier#!#"
+ je_balkfm_karadag_concept_tt: "The #bold Montenegrin Frontier#! has been in a fractured and decentralized state since the collapse of Byzantine and Serbian imperial rule. By leveraging $je_balkfm_border_tt$, the Montenegrin and Ottoman states can lure the tribes into their rule."
+ je_balkfm_border_tt: "#o #tooltip:[GetRawTextTooltipTag('je_balkfm_border_concept_tt')] Border Influence#!#"
+ je_balkfm_border_concept_tt: "#bold Border Influence#! represents the amount of socio-political sway a state holds over the Montenegrin tribes."
+ 
+ je_balkfm_karadag_placid: "@balkfm_placid! #bold #green Placid#!#!"
+ je_balkfm_karadag_skirmish: "@balkfm_raiding! #bold #orange Raiding#!#!"
+ je_balkfm_karadag_attacking: "@balkfm_attacking! #bold #red Leading Incursion#!#!"
+ je_balkfm_karadag_defending: "@balkfm_defending #bold #greece Defending Incursion#!#!"
+ 
+ je_balkfm_mon_black_mountain_status_placid: "#bold Current Situation:#! $je_balkfm_karadag_placid$"
+ je_balkfm_mon_black_mountain_status_skirmish: "#bold Current Situation:#! $je_balkfm_karadag_skirmish$"
+ je_balkfm_mon_black_mountain_status_attacking: "#bold Current Situation:#! $je_balkfm_karadag_attacking$"
+ je_balkfm_mon_black_mountain_status_defending: "#bold Current Situation:#! $je_balkfm_karadag_defending$"
+ 
+ je_balkfm_karadag_status_placid: "#bold Current Situation:#! $je_balkfm_karadag_placid$"
+ je_balkfm_karadag_status_skirmish: "#bold Current Situation:#! $je_balkfm_karadag_skirmish$"
+ je_balkfm_karadag_status_attacking: "#bold Current Situation:#! $je_balkfm_karadag_attacking$"
+ je_balkfm_karadag_status_defending: "#bold Current Situation:#! $je_balkfm_karadag_defending$"
+
+ je_balkfm_mon_black_mountain_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_provinces_value')]"
+ je_balkfm_tur_karadag_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_tur_provinces_value')]"
+ je_balkfm_karadag_mon_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_mon_karadag_progress_value')]"
+ je_balkfm_karadag_tur_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_tur_karadag_progress_value')]"
+ je_balkfm_karadag_total_breakdown: "[Country.MakeScope.GetScriptValueDesc('balkfm_total_karadag_progress_value')]"
+
  je_balkfm_mon_ali_pasha: "The Wrath of Ali Pasha"
  je_balkfm_mon_ali_pasha_reason: "#yellow Montenegro#! has been set upon by the Vizier of Herzegovina, #yellow Ali Pasha Rizvanbegović#!. Determined to increase their influence in the eyes of the Porte, both Ali Pasha and #yellow Osman Pasha Skopljak#!, the Vizier of Scutari, have committed themselves to finally bringing Montenegro into the holdings of the #yellow Ottoman Empire#!. Every day, reports come in of new atrocities at our borders. It is all we can do to hold out against their aggression."
  je_balkfm_mon_ali_pasha_tt: "Montenegro has weathered #yellow Ali Pasha's#! aggression."
+ 
  je_balkfm_mon_nationalism: "Montenegrin Nationalism"
  je_balkfm_mon_nationalism_reason: ""
  

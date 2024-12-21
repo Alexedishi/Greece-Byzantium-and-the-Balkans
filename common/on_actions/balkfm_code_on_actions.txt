@@ -9,16 +9,40 @@ on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here t
 #		grefm_monthly_pulse_3
 #		turkfm_monthly_pulse
 		balkfm_monthly_pulse
-#		yug_flavor_pulse
-		mon_flavor_pulse
-		ser_flavor_pulse
-		bul_flavor_pulse
-		rom_flavor_pulse
-#		bos_flavor_pulse
-#		alb_flavor_pulse
-#		cro_flavor_pulse
-#		slo_flavor_pulse
+#		yug_monthly_pulse
+		mon_monthly_pulse
+		ser_monthly_pulse
+		bul_monthly_pulse
+		rom_monthly_pulse
+#		bos_monthly_pulse
+#		alb_monthly_pulse
+#		cro_monthly_pulse
+#		slo_monthly_pulse
 		eocfm_monthly_pulse
+	}
+}
+
+on_investment_increased = {
+	on_actions = {
+		turkfm_investment_increased_pulse
+	}
+}
+
+on_investment_decreased = {
+	on_actions = {
+		turkfm_investment_decreased_pulse
+	}
+}
+
+on_country_released_as_independent = {
+	on_actions = {
+		balkfm_country_release_1
+	}
+}
+
+on_country_released_as_own_subject = {
+	on_actions = {
+		balkfm_country_release_2
 	}
 }
 
@@ -30,13 +54,11 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 		balkfm.020 # Places Yugoslav Secession Variable
 		balkfm.082 # Ali Pasha Ascendant
 		balkfm.208 # Yugoslavism Fizzles Out
-		balkfm.214# Yugoslavist Uprising in State
+		balkfm.214 # Yugoslavist Uprising in State
 		balkfm.484 # May Assembly
 		balkfm.598 # The Bulgarian State
 	}
 }
-
-############
 
 grefm_monthly_pulse_1 = {
 	trigger = {
@@ -115,7 +137,7 @@ turkfm_monthly_pulse = {
 	}
 }
 
-mon_flavor_pulse = {
+mon_monthly_pulse = {
 	trigger = {
 		OR = {
 			c:MON ?= this
@@ -135,7 +157,7 @@ mon_flavor_pulse = {
 	}
 }
 
-ser_flavor_pulse = {
+ser_monthly_pulse = {
 	trigger = {
 		OR = {
 			c:SER ?= this
@@ -151,7 +173,7 @@ ser_flavor_pulse = {
 	}
 }
 
-bul_flavor_pulse = {
+bul_monthly_pulse = {
 	trigger = {
 		OR = {
 			country_has_primary_culture = cu:bulgarian
@@ -165,7 +187,7 @@ bul_flavor_pulse = {
 	}
 }
 
-rom_flavor_pulse = {
+rom_monthly_pulse = {
 	trigger = {
 		OR = {
 			country_has_primary_culture = cu:romanian
@@ -266,21 +288,7 @@ eocfm_schism_monthly_pulse = {
 
 ############
 
-#These on_actions are specifically to catch Bulgaria and create it as BUL & ERUM if possible
-
-on_country_released_as_independent = {
-	on_actions = {
-		balkfm_release_pulse_1
-	}
-}
-
-on_country_released_as_own_subject = {
-	on_actions = {
-		balkfm_release_pulse_2
-	}
-}
-
-balkfm_release_pulse_1 = { # BUL keeps ERUM if fully independent
+balkfm_country_release_1 = { # BUL keeps ERUM if fully independent
 	effect = {
 		if = {
 			limit = {
@@ -298,7 +306,7 @@ balkfm_release_pulse_1 = { # BUL keeps ERUM if fully independent
 	}
 }
 
-balkfm_release_pulse_2 = { # Splits BUL and ERUM if BUL is released as a subject
+balkfm_country_release_2 = { # Splits BUL and ERUM if BUL is released as a subject
 	effect = {
 		if = {
 			limit = {
@@ -376,6 +384,30 @@ turkfm_secession_start = {
 			turkfm_secession_start_effect = yes
 		}
 	}		
+}
+
+############
+
+turkfm_investment_increased_pulse = {
+	trigger = {
+		owner = {
+			has_institution = institution_millet_system
+		}
+	}
+	effect = {
+		turkfm_millet_investment_effect = yes
+	}
+}
+
+turkfm_investment_decreased_pulse = {
+	trigger = {
+		owner = {
+			has_social_hierarchy
+		}
+	}
+	effect = {
+		has_institution = institution_millet_system
+	}
 }
 
 ############

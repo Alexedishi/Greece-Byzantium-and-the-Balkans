@@ -663,130 +663,17 @@ je_balkfm_mon_military_reform = {
 }
 
 je_balkfm_mon_black_mountain = {
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	group = je_group_balkfm_montenegro
 	
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		set_global_variable = {
-			name = balkfm_mon_border_control_var
-			value = balkfm_border_control_value
-		}
-	}
-	
-	modifiers_while_active = {
-		modifier_balkfm_border_feud
-	}
-	
-	complete = {
-		custom_tooltip = {
-			text = je_balkfm_mon_black_mountain_complete_tt
-			owns_entire_state_region = STATE_MONTENEGRO
-		}
-	}
-	
-	on_complete = {
-		trigger_event = {
-			id = balkfm.369 # The Lands of Montenegro
-		}
-		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
-	}
-	
-	fail = {
-		OR = {
-			custom_tooltip = {
-				text = je_balkfm_mon_black_mountain_fail_tt
-				hidden_trigger = {
-					NOT = {
-						any_scope_state = {
-							state_region = s:STATE_MONTENEGRO
-						}
-					}
-				}
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = c:TUR
-			}
-			OR = {
-				is_subject_of = c:TUR
-				is_in_same_power_bloc = c:TUR
-			}
-		}
-	}
-	
-	on_fail = {
-		trigger_event = {
-			id = balkfm.368 # International Indifference
-		}
-		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
-	}
-	
-	invalid = {
-		hidden_trigger = {
-			has_variable = balkfm_border_conflict_resolved
-		}
-	}
-	
-	on_invalid = {
-		balkfm_border_cleanup_effect = yes
-	}
-	
-	
-	on_weekly_pulse = {
-		effect = {
-			set_global_variable = {
-				name = balkfm_mon_border_control_var
-				value = balkfm_border_control_value
-			}
-		}
-	}
-	
-	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_mon_black_mountain_status
-		}
-	}
-	
-	weight = 1000
-	
-}
-
-je_balkfm_mon_black_mountain_new = {
-# This journal is unfortunately more convoluted than I would like and uses a system of global variables to ensure values are passed between MON and TUR
-# Next province variables are handled in root scopes to simplify scripting
-# Monthly progress variables are stored locally
-# The following global variables are used:
-	## balkfm_border_influence_var -> stores the value for the journal progressbar
-	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
-	## balkfm_mon_border_control_var -> stores the number of provinces controled by MON
-	## balkfm_tur_border_control_var -> stores the number of provinces controled by TUR
-	## balkfm_mon_next_province_var -> stores the next province for MON to claim
-	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
-# The following local variables are used:
-	## balkfm_border_control_var -> tracks number of controlled provinces
-	## balkfm_mon_border_progress_var -> cached for performance
-	## balkfm_tur_border_progress_var -> cached for performance
-	## balkfm_total_border_progress_var -> cached for performance
-	
-	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
-	
-	group = je_group_balkfm_montenegro
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-		add_modifier = modifier_balkfm_practicing_headtaking
 		set_variable = {
 			name = balkfm_view_captives_var
 			value = 0
 		}
-		balkfm_update_progress_variables_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -804,20 +691,15 @@ je_balkfm_mon_black_mountain_new = {
 	scripted_button = balkfm_negociate_kotor_button	
 	
 	complete = {
-		custom_tooltip = {
-			text = je_balkfm_mon_black_mountain_complete_tt
-			hidden_trigger = {
-				balkfm_border_control_value >= 5
-			}
-		}
+		owns_entire_state_region = STATE_MONTENEGRO
 	}
 	
 	on_complete = {
 		trigger_event = {
 			id = balkfm.369 # The Lands of Montenegro
 		}
-		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
+		balkfm_black_mountain_cleanup_effect = yes
+		set_global_variable = balkfm_karadag_resolved
 	}
 	
 	fail = {
@@ -848,25 +730,23 @@ je_balkfm_mon_black_mountain_new = {
 		trigger_event = {
 			id = balkfm.368 # International Indifference
 		}
-		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
 	}
 	
 	invalid = {
 		hidden_trigger = {
-			has_global_variable = balkfm_border_conflict_resolved
+			has_global_variable = balkfm_karadag_resolved
 		}
 	}
 	
 	on_invalid = {
-		balkfm_border_cleanup_effect = yes
+		balkfm_black_mountain_cleanup_effect = yes
 	}
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_mon_determine_next_province_effect = yes
+			balkfm_update_karadag_variables_effect = yes
+			balkfm_mon_next_province_effect = yes
 			balkfm_update_captive_variables_effect = yes
-			balkfm_update_progress_variables_effect = yes
 		}
 	}
 	
@@ -881,7 +761,7 @@ je_balkfm_mon_black_mountain_new = {
 				max = 1000
 				min = 0
 			}
-			balkfm_update_border_progressbar_effect = yes
+			balkfm_karadag_progressbar_effect = yes
 		}
 		events = {
 			balkfm.355 # Montenegrin Tribe Rebels
@@ -897,8 +777,36 @@ je_balkfm_mon_black_mountain_new = {
 	}
 	
 	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_mon_black_mountain_status
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_skirmish
+				trigger = {
+					OR = {
+						has_modifier = modifier_balkfm_sponsoring_raids
+						c:TUR ?= {
+							has_modifier = modifier_balkfm_sponsoring_raids
+						}
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_placid
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 0
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_attacking
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_defending
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 2
+				}
+			}
 		}
 	}
 	
@@ -907,21 +815,7 @@ je_balkfm_mon_black_mountain_new = {
 }
 
 je_balkfm_tur_karadag = {
-# This journal's content is shared with je_balkfm_mon_black_mountain; majority of the scripting is handled by that journal
-# Some variables are set locally to minimize the complexity of the scripted effects/script values
-# This journal is kept in balkfm to allow for independent development of turkfm; also it calls zero events in turkfm
-# The following global variables are used:
-	## balkfm_mon_next_province_var -> stores the next province for MON to claim
-	## balkfm_tur_next_province_var -> stores the next province for TUR to claim
-	## balkfm_border_influence_var -> stores the value for the journal progressbar
-	## balkfm_border_incursion_var -> 0 = no incursion, 1 = MON incursion, 2 = TUR incursion
-# The following local variables are used:
-	## balkfm_border_control_var -> tracks number of controlled provinces
-	## balkfm_mon_border_progress_var -> cached for performance
-	## balkfm_tur_border_progress_var -> cached for performance
-	## balkfm_total_border_progress_var -> cached for performance
-
-	icon = "gfx/interface/icons/event_icons/event_montenegro.dds"
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
 	
 	group = je_group_turkfm_eastern_question
 	
@@ -956,8 +850,8 @@ je_balkfm_tur_karadag = {
 		trigger_event = {
 			id = balkfm.367 # The Black Mountain Subdued
 		}
-		balkfm_border_cleanup_effect = yes
-		set_global_variable = balkfm_border_conflict_resolved
+		balkfm_karadag_cleanup_effect = yes
+		set_global_variable = balkfm_karadag_resolved
 	}
 	
 	fail = {
@@ -979,13 +873,12 @@ je_balkfm_tur_karadag = {
 		trigger_event = {
 			id = balkfm.366 # The Black Mountain Lost
 		}
-		balkfm_border_cleanup_effect = yes
 	}
 	
 	invalid = {
 		OR = {
 			hidden_trigger = {
-				has_global_variable = balkfm_border_conflict_resolved
+				has_global_variable = balkfm_karadag_resolved
 			}
 			NOT = {
 				exists = c:MON
@@ -994,7 +887,7 @@ je_balkfm_tur_karadag = {
 	}
 	
 	on_invalid = {
-		balkfm_border_cleanup_effect = yes
+		balkfm_karadag_cleanup_effect = yes
 	}
 	
 	on_weekly_pulse = {

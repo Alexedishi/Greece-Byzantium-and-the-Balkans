@@ -3535,7 +3535,18 @@ balkfm.330 = { # The Battle of Grahovo
 	}
 	
 	immediate = {
-		balkfm_create_ali_pasha_characters = yes
+		create_character = {
+			template = template_balkfm_rizvanbegovic_ali
+			on_created = {
+				place_character_in_void = 500
+			}
+		}
+		create_character = {
+			template = template_balkfm_cengic_smail
+			on_created = {
+				place_character_in_void = 500
+			}
+		}
 		balkfm_save_ali_pasha_scopes = yes
 		trigger_event = {
 			id = balkfm.331 # Negociations At Humac
@@ -3554,7 +3565,7 @@ balkfm.330 = { # The Battle of Grahovo
 				name = modifier_balkfm_ali_pasha
 			}
 		}
-#		balkfm_minor_border_progress_loss_effect = yes
+		balkfm_minor_border_progress_loss_effect = yes
 		c:TUR = {
 			post_notification = notification_balkfm_folk_hero_killed
 		}
@@ -3600,21 +3611,7 @@ balkfm.331 = { # Negociations At Humac
 		name = balkfm.331.a
 		default_option = yes
 		create_character = {
-			# Jakov Daković, Lord of Grahovo and Montenegrin war hero
-			first_name = Jakov
-			last_name = Dakovic
-			historical = yes
-			age = 44 # age in 1838, when was appointed Grand Duke
-			culture = cu:serb
-			religion = rel:orthodox
-			interest_group = ig_landowners
-			ideology = ideology_royalist
-			is_general = yes
-			traits = {
-				brave
-				popular_commander
-				expert_defensive_strategist
-			}
+			template = template_balkfm_dakovic_jakov
 		}
 		hidden_effect = {
 			c:TUR = {
@@ -3623,7 +3620,7 @@ balkfm.331 = { # Negociations At Humac
 				}
 			}
 		}
-#		balkfm_minor_border_progress_loss_effect = yes
+		balkfm_minor_border_progress_loss_effect = yes
 		set_global_variable = balkfm_humac_happened
 		ai_chance = {
 			base = 100
@@ -3642,7 +3639,7 @@ balkfm.331 = { # Negociations At Humac
 			type = dp_return_state
 			target_state = s:STATE_MONTENEGRO.region_state:TUR
 		}
-#		balkfm_minor_border_progress_gain_effect = yes
+		balkfm_minor_border_progress_gain_effect = yes
 		custom_tooltip = balkfm.331.tt
 		ai_chance = {
 			base = 1 # MON really shouldn't go full Rambo
@@ -3701,7 +3698,7 @@ balkfm.332 = { # Knives in the Dark
 			name = modifier_balkfm_tolerated_abuses
 			months = short_modifier_time
 		}
-#		balkfm_minor_border_progress_loss_effect = yes
+		balkfm_minor_border_progress_loss_effect = yes
 		ai_chance = {
 			base = 0
 		}
@@ -3738,27 +3735,14 @@ balkfm.333 = { # A Local Collaborator
 	
 	immediate = {
 		create_character = {
-			# Novica Cerović, Montenegrin vojvoda notable for killing Smaïl-aga
-			first_name = Novica
-			last_name = Cerovic
-			historical = yes
-			age = 35 # age in 1840
-			dna = mr_mon_novica_cerovic
-			culture = cu:serb
-			religion = rel:orthodox
-			interest_group = ig_rural_folk
-			ideology = ideology_land_reformer
-			traits = {
-				brave
-			}
+			template = template_balkfm_cerovic_novica
 			on_created = {
-				set_variable = balkfm_is_cerovic
 				place_character_in_void = 720 # 60 year lease on life
 			}
 		}
 		random_character_in_void = {
 			limit = {
-				has_variable = balkfm_is_cerovic
+				has_template = template_balkfm_cerovic_novica
 			}
 			save_scope_as = novica_cerovic_scope
 		}
@@ -3830,16 +3814,16 @@ balkfm.334 = { # The Demise of Smaïl-aga
 			country = c:TUR
 			value = 5
 		}
-#		c:TUR = {
-#			trigger_event = {
-#				id = balkfm.354 # Ottoman Noble Beheaded
-#			}
-#		}
+		c:TUR = {
+			trigger_event = {
+				id = balkfm.354 # Ottoman Noble Beheaded
+			}
+		}
 		add_loyalists = {
 			strata = poor
 			value = small_radicals
 		}
-#		balkfm_minor_border_progress_gain_effect = yes
+		balkfm_minor_border_progress_gain_effect = yes
 
 	}
 	
@@ -3895,7 +3879,7 @@ balkfm.335 = { # Unintended Consequences
 			id = balkfm.336 # Duplicitous Diplomacy
 			days = 90
 		}
-#		balkfm_minor_border_progress_loss_effect = yes
+		balkfm_minor_border_progress_loss_effect = yes
 	}
 	
 	option = { # expose the truth
@@ -3909,7 +3893,7 @@ balkfm.335 = { # Unintended Consequences
 			months = normal_modifier_time
 			is_decaying = yes
 		}
-#		balkfm_minor_border_progress_gain_effect = yes
+		balkfm_minor_border_progress_gain_effect = yes
 	}
 
 }
@@ -4204,7 +4188,7 @@ balkfm.339 = { # Ali Pasha's Demise
 		scope:ali_pasha_scope = {
 			kill_character = yes
 		}
-#		balkfm_minor_border_progress_gain_effect = yes
+		balkfm_minor_border_progress_gain_effect = yes
 		set_global_variable = balkfm_ali_pasha_waxed
 	}
 
@@ -4236,11 +4220,11 @@ balkfm.340 = { # Border Incursion Repelled (Attacker Variant)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		has_global_variable = balkfm_karadag_resolved
 	}
 	
 	immediate = {
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 	}
 	
 	option = {
@@ -4387,7 +4371,7 @@ balkfm.342 = { # Village Skirmish Escalates (Defender Event)
 			name = balkfm_border_event_cooldown_var
 			months = 10
 		}
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 	}
 	
 	
@@ -4664,7 +4648,7 @@ balkfm.343 = { # Border Incursion Repelled (Defender Event)
 			name = balkfm_border_event_cooldown_var
 			months = 10
 		}
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 		scope:balkfm_border_attacker_scope = {
 			trigger_event = {
 				id = balkfm.340 # Border Incursion Repelled (Attacker Variant)
@@ -4770,7 +4754,7 @@ balkfm.344 = { # Minority Population Massacred (Attacker Event)
 	}
 	
 	immediate = {
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 		if = {
 			limit = {
 				c:MON = this
@@ -5058,7 +5042,7 @@ balkfm.348 = { # Country Crosses the Border (Attacker)
 				value = 2
 			}
 		}
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 		scope:balkfm_border_defender_scope = {
 			trigger_event = {
 				id = balkfm.349 # Country Crosses the Border (Defender)
@@ -5103,7 +5087,7 @@ balkfm.349 = { # Country Crosses the Border (Defender)
 	}
 	
 	immediate = {
-		balkfm_save_border_conflict_scopes_effect = yes
+		balkfm_incursion_scopes_effect = yes
 	}
 	
 	option = {
