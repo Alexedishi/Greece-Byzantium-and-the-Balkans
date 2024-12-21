@@ -81,12 +81,29 @@ turkfm_escalation_progress_value = {
 		value = {
 			every_country = {
 				limit = {
-					has_modifier = modifier_turkfm_accelerating_tensions
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = turkfm_accelerate_tensions
+					}
+				}
+			}
+			add = 2
+		}
+		desc = turkfm_value_from_accelerating_tensions
+	}
+	subtract = {
+		value = {
+			every_country = {
+				limit = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = turkfm_decelerate_tensions
+					}
 				}
 			}
 			add = 1
 		}
-		desc = turkfm_value_from_accelerating_tensions
+		desc = turkfm_value_from_decelerating_tensions
 	}
 	if = {
 		limit = {
@@ -125,12 +142,29 @@ turkfm_deescalation_progress_value = {
 		value = {
 			every_country = {
 				limit = {
-					has_modifier = modifier_turkfm_decelerating_tensions
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = turkfm_decelerate_tensions
+					}
+				}
+			}
+			add = 2
+		}
+		desc = turkfm_value_from_decelerating_tensions
+	}
+	subtract = {
+		value = {
+			every_country = {
+				limit = {
+					has_diplomatic_pact = {
+						who = c:TUR
+						type = turkfm_accelerate_tensions
+					}
 				}
 			}
 			add = 1
 		}
-		desc = turkfm_value_from_decelerating_tensions
+		desc = turkfm_value_from_accelerating_tensions
 	}
 	if = {
 		limit = {
