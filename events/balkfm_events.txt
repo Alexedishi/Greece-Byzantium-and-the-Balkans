@@ -4269,7 +4269,10 @@ balkfm.341 = { # Border Villages Burned (Defender Event)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -4363,7 +4366,10 @@ balkfm.342 = { # Village Skirmish Escalates (Defender Event)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -4640,7 +4646,10 @@ balkfm.343 = { # Border Incursion Repelled (Defender Event)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -4750,7 +4759,10 @@ balkfm.344 = { # Minority Population Massacred (Attacker Event)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -4883,7 +4895,10 @@ balkfm.345 = { # Montenegrin Folk Hero Killed
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -4926,7 +4941,10 @@ balkfm.346 = { # Ottoman Noble Captured
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	cooldown = {
@@ -5016,7 +5034,10 @@ balkfm.348 = { # Country Crosses the Border (Attacker)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -5083,7 +5104,10 @@ balkfm.349 = { # Country Crosses the Border (Defender)
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	immediate = {
@@ -5536,7 +5560,7 @@ balkfm.355 = { # Montenegrin Tribe Rebels (Fired From TUR Scope)
 	dlc = dlc_grefm
 	
 	trigger = {
-		global_var:balkfm_border_influence_var >= 800
+		global_var:balkfm_karadag_var >= 800
 	}
 	
 	cooldown = {
@@ -5639,7 +5663,10 @@ balkfm.356 = { # Tribe Evades Taxation/Requests Aid
 	}
 	
 	cancellation_trigger = {
-		has_global_variable = balkfm_border_conflict_resolved
+		NOR = {
+			has_journal_entry = je_balkfm_mon_black_mountain
+			has_journal_entry = je_balkfm_tur_karadag
+		}
 	}
 	
 	cooldown = {
@@ -5857,15 +5884,15 @@ balkfm.358 = { # Montenegro Gains Ground
 	}
 	
 	immediate = {
-		balkfm_mon_determine_next_province_effect = yes
+		balkfm_mon_next_province_effect = yes
 	}
 	
 	option = {
 		name = balkfm.358.a
 		default_option = yes
-		balkfm_mon_claim_next_province_effect = yes
+		balkfm_claim_province_effect = yes
 		c:TUR = {
-			balkfm_tur_determine_next_province_effect = yes
+			balkfm_tur_next_province_effect = yes
 			post_notification = notification_balkfm_montenegro_advance
 		}
 	}
@@ -5901,15 +5928,15 @@ balkfm.359 = { # Ottomans Gain Ground
 	}
 	
 	immediate = {
-		balkfm_tur_determine_next_province_effect = yes
+		balkfm_tur_next_province_effect = yes
 	}
 	
 	option = {
 		name = balkfm.359.a
 		default_option = yes
-		balkfm_tur_claim_next_province_effect = yes
+		balkfm_claim_province_effect = yes
 		c:MON = {
-			balkfm_mon_determine_next_province_effect = yes
+			balkfm_mon_next_province_effect = yes
 			post_notification = notification_balkfm_ottoman_advance
 		}
 	}

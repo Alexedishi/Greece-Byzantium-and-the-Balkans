@@ -674,6 +674,7 @@ je_balkfm_mon_black_mountain = {
 			name = balkfm_view_captives_var
 			value = 0
 		}
+		add_modifier = modifier_balkfm_practicing_headtaking
 	}
 	
 	modifiers_while_active = {
@@ -753,11 +754,11 @@ je_balkfm_mon_black_mountain = {
 	on_monthly_pulse = {
 		effect = {
 			change_global_variable = {
-				name = balkfm_border_influence_var
-				add = var:balkfm_total_border_progress_var
+				name = balkfm_karadag_var
+				add = var:balkfm_total_karadag_progress_var
 			}
 			clamp_global_variable = {
-				name = balkfm_border_influence_var
+				name = balkfm_karadag_var
 				max = 1000
 				min = 0
 			}
@@ -823,11 +824,6 @@ je_balkfm_tur_karadag = {
 	
 	immediate = {
 		add_modifier = modifier_balkfm_practicing_headtaking
-		set_global_variable = {
-			name = balkfm_tur_border_control_var
-			value = balkfm_border_control_value
-		}
-		balkfm_update_progress_variables_effect = yes
 	}
 	
 	scripted_progress_bar = balkfm_mon_border_progress_bar
@@ -892,7 +888,7 @@ je_balkfm_tur_karadag = {
 	
 	on_weekly_pulse = {
 		effect = {
-			balkfm_tur_determine_next_province_effect = yes
+			balkfm_tur_next_province_effect = yes
 		}
 	}
 	
@@ -913,9 +909,7 @@ je_balkfm_tur_karadag = {
 	}
 	
 	status_desc = {
-		triggered_desc = {
-			desc = je_balkfm_tur_karadag_status
-		}
+		
 	}
 	
 	weight = 1000
