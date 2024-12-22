@@ -1,12 +1,6 @@
 ﻿#########################
 # BALKANS FLAVOR EVENTS #
 #########################
-# Events contained here are for tags that don't have enough content to justify being separated into their own modules, but have more than technical events.
-# This mod is GREECE-FIRST, everything else second (yes, even Byzantium). Just because a tag is included in this mod does NOT mean that it will receive content at the level of fidelity Greece or Byzantium, although everyone will have content up to 1936 eventually.
-# If you think that every country having issues with its constitution or with yeeting their monarchs is boring, take it up with them. The Balkans in the 1800s were allergic to political stability (yes this continued into the 1900s -looking at you Bosnia-).
-# Certain events/effect fire from the TUR scope; this is for ease of scripting since the Ottoman State is THE constant for most Balkan crises.
-
-####################
 
 # For Greek content, see the "grefm" module
 # For Turkish content, see the "turkfm" module
@@ -152,8 +146,8 @@ namespace = balkfm
 #	349 - Country Crosses the Border (Defender)
 
 #350-359 - Border Conflict Mechnical Events
-#	350 - Negociations on Headtaking (TUR)
-#	351 - Negociations on Headtaking (MON)
+#	350 - OPEN
+#	351 - OPEN
 #	352 - Montenegro Offers Ransom
 #	353 - Ottoman Reply to Ransom
 #	354 - Ottoman Noble Beheaded
@@ -167,8 +161,8 @@ namespace = balkfm
 #	360 - ##Osman Pasha Attacks! <<--1843, 1847
 #	361 - ##Omer Pasha Invades! <<--1862
 #	362 - OPEN
-#	363 - OPEN
-#	364 - OPEN
+#	363 - Negociations on Headtaking (TUR)
+#	364 - Negociations on Headtaking (MON)
 #	365 - Negociations Over Cattaro
 #	366 - The Black Mountain Lost
 #	367 - The Black Mountain Subdued
@@ -5124,173 +5118,12 @@ balkfm.349 = { # Country Crosses the Border (Defender)
 
 ## BORDER CONFLICT MECHANICAL EVENTS ##
 
-balkfm.350 = { # Negociations on Headtaking (TUR)
-	type = country_event
-	placement = root
-	
-	title = balkfm.350.t
-	desc = balkfm.350.d
-	flavor = balkfm.350.f
-	
-	event_image = {
-		video = "asia_politician_parliament_motion"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by balkfm_renounce_headtaking_button
-	}
-	
-	immediate = {
-		c:MON = {
-			save_scope_as = montenegro_scope
-		}
-	}	
-	
-	option = { # For TUR, reject headtaking offer
-		name = balkfm.350.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_retained_headtaking
-			months = long_modifier_time
-		}
-		add_radicals = {
-			culture = cu:serb
-			value = medium_radicals
-		}
-		set_global_variable = balkfm_headtaking_rejected
-		c:MON = {
-			trigger_event = {
-				id = balkfm.351 # Negociations On Headtaking
-			}
-		}
-	}
-	
-	option = { # For TUR, accept headtaking offer
-		name = balkfm.350.b
-		add_modifier = {
-			name = modifier_balkfm_abolished_headtaking
-			months = normal_modifier_time
-		}
-		add_loyalists = {
-			culture = cu:serb
-			value = small_radicals
-		}
-		add_radicals = {
-			strata = rich
-			culture = cu:turkish
-			value = small_radicals
-		}
-		set_global_variable = balkfm_headtaking_accepted
-		c:MON = {
-			trigger_event = {
-				id = balkfm.351 # Negociations On Headtaking
-			}
-		}
-	}
-	
+balkfm.350 = {
+	orphan = yes
 }
 
-balkfm.351 = { # Negociations on Headtaking (MON)
-	type = country_event
-	placement = scope:balkfm_headtaking_country_scope
-	
-	title = balkfm.351.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.351.d1
-			trigger = {
-				has_global_variable = balkfm_headtaking_rejected
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.351.d2
-			trigger = {
-				has_global_variable = balkfm_headtaking_accepted
-			}
-		}
-	}
-	flavor = balkfm.351.f
-	
-	gui_window = event_window_1char_tabloid
-
-	left_icon = scope:balkfm_headtaking_event_scope
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by balkfm_renounce_headtaking_button
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				c:TUR = this
-			}
-			c:MON = {
-				save_scope_as = balkfm_headtaking_country_scope
-				ruler = {
-					save_scope_as = balkfm_headtaking_ruler_scope
-				}
-			}
-		}
-		if = {
-			limit = {
-				c:MON = this
-			}
-			c:TUR = {
-				save_scope_as = balkfm_headtaking_country_scope
-				ruler = {
-					save_scope_as = balkfm_headtaking_ruler_scope
-				}
-			}
-		}
-	}
-	
-	option = { # For MON, headtaking offer rejected, retain headtaking
-		name = balkfm.351.a
-		default_option = yes
-		add_modifier = {
-			name = modifier_balkfm_retained_headtaking
-			months = normal_modifier_time
-		}
-		remove_global_variable = balkfm_headtaking_rejected
-	}
-	
-	option = { # For MON, headtaking offer rejected, abolish unilaterally
-		name = balkfm.351.b
-		remove_modifier = modifier_balkfm_practicing_headtaking
-		add_modifier = {
-			name = modifier_balkfm_unilaterally_abolished_headtaking
-			months = long_modifier_time
-		}
-		remove_global_variable = balkfm_headtaking_rejected
-	}
-	
-	option = { # For MON, headtaking offer accepted
-		name = balkfm.351.c
-		remove_modifier = modifier_balkfm_practicing_headtaking
-		add_modifier = {
-			name = modifier_balkfm_abolished_headtaking
-			months = normal_modifier_time
-		}
-		remove_global_variable = balkfm_headtaking_accepted
-	}
-
+balkfm.531 = {
+	orphan = yes
 }
 
 balkfm.352 = { # Montenegro Offers Ransom
@@ -5956,12 +5789,173 @@ balkfm.362 = { # OPEN
 	orphan = yes
 }
 
-balkfm.363 = { # OPEN
-	orphan = yes
+balkfm.363 = { # Negociations on Headtaking (TUR)
+	type = country_event
+	placement = root
+	
+	title = balkfm.363.t
+	desc = balkfm.363.d
+	flavor = balkfm.363.f
+	
+	event_image = {
+		video = "asia_politician_parliament_motion"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_renounce_headtaking_button
+	}
+	
+	immediate = {
+		c:MON = {
+			save_scope_as = montenegro_scope
+		}
+	}	
+	
+	option = { # For TUR, reject headtaking offer
+		name = balkfm.363.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_retained_headtaking
+			months = long_modifier_time
+		}
+		add_radicals = {
+			culture = cu:serb
+			value = medium_radicals
+		}
+		set_global_variable = balkfm_headtaking_rejected
+		c:MON = {
+			trigger_event = {
+				id = balkfm.351 # Negociations On Headtaking
+			}
+		}
+	}
+	
+	option = { # For TUR, accept headtaking offer
+		name = balkfm.363.b
+		add_modifier = {
+			name = modifier_balkfm_abolished_headtaking
+			months = normal_modifier_time
+		}
+		add_loyalists = {
+			culture = cu:serb
+			value = small_radicals
+		}
+		add_radicals = {
+			strata = rich
+			culture = cu:turkish
+			value = small_radicals
+		}
+		set_global_variable = balkfm_headtaking_accepted
+		c:MON = {
+			trigger_event = {
+				id = balkfm.364 # Negociations On Headtaking
+			}
+		}
+	}
+	
 }
 
-balkfm.364 = { # OPEN
-	orphan = yes
+balkfm.364 = { # Negociations on Headtaking (MON)
+	type = country_event
+	placement = scope:balkfm_headtaking_country_scope
+	
+	title = balkfm.364.t
+	desc = {
+		triggered_desc = {
+			desc = balkfm.364.d1
+			trigger = {
+				has_global_variable = balkfm_headtaking_rejected
+			}
+		}
+		triggered_desc = {
+			desc = balkfm.364.d2
+			trigger = {
+				has_global_variable = balkfm_headtaking_accepted
+			}
+		}
+	}
+	flavor = balkfm.364.f
+	
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:balkfm_headtaking_event_scope
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_renounce_headtaking_button
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				c:TUR = this
+			}
+			c:MON = {
+				save_scope_as = balkfm_headtaking_country_scope
+				ruler = {
+					save_scope_as = balkfm_headtaking_ruler_scope
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:MON = this
+			}
+			c:TUR = {
+				save_scope_as = balkfm_headtaking_country_scope
+				ruler = {
+					save_scope_as = balkfm_headtaking_ruler_scope
+				}
+			}
+		}
+	}
+	
+	option = { # For MON, headtaking offer rejected, retain headtaking
+		name = balkfm.364.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_balkfm_retained_headtaking
+			months = normal_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_rejected
+	}
+	
+	option = { # For MON, headtaking offer rejected, abolish unilaterally
+		name = balkfm.364.b
+		remove_modifier = modifier_balkfm_practicing_headtaking
+		add_modifier = {
+			name = modifier_balkfm_unilaterally_abolished_headtaking
+			months = long_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_rejected
+	}
+	
+	option = { # For MON, headtaking offer accepted
+		name = balkfm.364.c
+		remove_modifier = modifier_balkfm_practicing_headtaking
+		add_modifier = {
+			name = modifier_balkfm_abolished_headtaking
+			months = normal_modifier_time
+		}
+		remove_global_variable = balkfm_headtaking_accepted
+	}
+
 }
 
 balkfm.365 = { # Negociations Over Cattaro
