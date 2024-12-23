@@ -133,11 +133,11 @@ namespace = turkfm
 #	252 - ##Double Agent Captured
 #	253 - ##
 #	254 - ##Great Power Intervenes in Riots
-#	255 - ##Riots Break Out in State >>
-#	256 - ##Violence in State Worsens >>
-#	257 - ##Massacre in State >>
-#	258 - ##Balkan Country Rebellion >>
-#	259 - ##Riots in State Suppressed >>
+#	255 - ##Riots Break Out in State
+#	256 - ##Violence in State Worsens
+#	257 - ##Massacre in State
+#	258 - ##Balkan Country Rebellion
+#	259 - ##Riots in State Suppressed
 
 #260-269 - Tension Third Party Events
 #	260 - ##Brigands Raid Turkish Lands 
@@ -1630,13 +1630,13 @@ turkfm.240 = { # OPEN
 
 #### MILLET CRISIS EVENTS ####
 
-turkfm.250 = { # Riots in State
+turkfm.255 = { # Riots in State
 	type = country_event
 	placement = root
 	
-	title = turkfm.250.t
-	desc = turkfm.250.d
-	flavor = turkfm.250.f
+	title = turkfm.255.t
+	desc = turkfm.255.d
+	flavor = turkfm.255.f
 	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
@@ -1653,20 +1653,14 @@ turkfm.250 = { # Riots in State
 	trigger = {
 		NOR = {
 			has_global_variable = turkfm_riot_var
-#			has_global_variable = turkfm_deconfliction_var
+			has_global_variable = turkfm_tension_event_cooldown_var
 		}
-#		global_var:turkfm_tension_var >= 500
+		OR = {
+			global_var:turkfm_separatism_phase_var ?= 3 # Hostility
+			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
+		}
 		any_scope_state = {
-			state_in_balkans = yes
-			is_split_state = no
-#			is_target_of_wargoal = no ##TODO Figure out how to screen riot states from foreign wargoals
-			NOR = { # temporary exclusion
-				state_region = s:STATE_SLOVENIA
-				state_region = s:STATE_CROATIA
-				state_region = s:STATE_SLAVONIA
-				state_region = s:STATE_DALMATIA
-				state_region = s:STATE_EASTERN_THRACE
-			}
+			has_variable = turkfm_riot_state_potential_war
 		}
 	}
 	
@@ -1678,15 +1672,7 @@ turkfm.250 = { # Riots in State
 		set_global_variable = turkfm_riot_var
 		random_scope_state = {
 			limit = {
-				state_in_balkans = yes
-				is_split_state = no
-				NOR = {
-					state_region = s:STATE_SLOVENIA
-					state_region = s:STATE_CROATIA
-					state_region = s:STATE_SLAVONIA
-					state_region = s:STATE_DALMATIA
-					state_region = s:STATE_EASTERN_THRACE
-				}
+				has_variable = turkfm_riot_state_potential_war
 			}
 			save_scope_as = turkfm_riot_state_scope
 			set_variable = turkfm_riot_state_var
@@ -1694,24 +1680,24 @@ turkfm.250 = { # Riots in State
 	}
 	
 	option = { # Drop the Hammer
-		name = turkfm.250.a
+		name = turkfm.255.a
 		default_option = yes
 		scope:turkfm_riot_state_scope = {
 			turkfm_add_medium_radicals_effect = yes
 		}
 		custom_tooltip = {
-			text = turkfm.250.a.tt
+			text = turkfm.255.a.tt
 			hidden_effect = {
 				random_list = {
 					50 = {
 						trigger_event = {
-							id = turkfm.253 # Rebellion in State Suppressed
+							id = turkfm.259 # Rebellion in State Suppressed
 							days = 30
 						}
 					}
 					40 = {
 						trigger_event = {
-							id = turkfm.251 # Violence in State Worsens
+							id = turkfm.256 # Violence in State Worsens
 							days = 30
 						}
 					}
@@ -1724,7 +1710,7 @@ turkfm.250 = { # Riots in State
 							}
 						}
 						trigger_event = {
-							id = turkfm.252 # Massacre in State
+							id = turkfm.257 # Massacre in State
 							days = 30
 						}
 					}
@@ -1734,7 +1720,7 @@ turkfm.250 = { # Riots in State
 	}
 	
 	option = { # Let Them Be
-		name = turkfm.250.b
+		name = turkfm.255.b
 		scope:turkfm_riot_state_scope = {
 			add_modifier = {
 				name = modifier_turkfm_ethnic_riots
@@ -1747,18 +1733,18 @@ turkfm.250 = { # Riots in State
 			}
 		}
 		custom_tooltip = {
-			text = turkfm.250.b.tt
+			text = turkfm.255.b.tt
 			hidden_effect = {
 				random_list = {
 					10 = {
 						trigger_event = {
-							id = turkfm.253 # Rebellion in State Suppressed
+							id = turkfm.259 # Rebellion in State Suppressed
 							days = 30
 						}
 					}
 					90 = {
 						trigger_event = {
-							id = turkfm.251 # Violence in State Worsens
+							id = turkfm.256 # Violence in State Worsens
 							days = 30
 						}
 					}
@@ -1769,13 +1755,13 @@ turkfm.250 = { # Riots in State
 
 }
 
-turkfm.251 = { # Violence in State Worsens
+turkfm.256 = { # Violence in State Worsens
 	type = country_event
 	placement = root
 	
-	title = turkfm.251.t
-	desc = turkfm.251.d
-	flavor = turkfm.251.f
+	title = turkfm.256.t
+	desc = turkfm.256.d
+	flavor = turkfm.256.f
 	
 	event_image = {
 		video = "votp_cops_march"
@@ -1803,7 +1789,7 @@ turkfm.251 = { # Violence in State Worsens
 	}
 	
 	option = { # Thrown Down Harder
-		name = turkfm.251.a
+		name = turkfm.256.a
 		default_option = yes
 		scope:turkfm_riot_state_scope = {
 			add_modifier = {
@@ -1812,7 +1798,7 @@ turkfm.251 = { # Violence in State Worsens
 			}
 		}
 		custom_tooltip = {
-			text = turkfm.251.a.tt
+			text = turkfm.256.a.tt
 			hidden_effect = {
 				random_list = {
 					50 = {
@@ -1824,13 +1810,13 @@ turkfm.251 = { # Violence in State Worsens
 							}
 						}
 						trigger_event = {
-							id = turkfm.252 # Massacre in State
+							id = turkfm.257 # Massacre in State
 							days = 30
 						}
 					}
 					50 = {
 						trigger_event = {
-							id = turkfm.253 # Rebellion in State Suppressed
+							id = turkfm.259 # Rebellion in State Suppressed
 							days = 30
 						}
 					}
@@ -1841,7 +1827,7 @@ turkfm.251 = { # Violence in State Worsens
 							}
 						}
 						trigger_event = {
-							id = turkfm.254 # Creates Revolt Tag
+							id = turkfm.258 # Creates Revolt Tag
 							days = 30
 						}
 					}
@@ -1851,24 +1837,24 @@ turkfm.251 = { # Violence in State Worsens
 	}
 	
 	option = { # Keep Pulling Punches
-		name = turkfm.251.b
+		name = turkfm.256.b
 		add_modifier = {
 			name = modifier_turkfm_impotent_authority
 			months = normal_modifier_time
 		}
 		custom_tooltip = {
-			text = turkfm.251.b.tt
+			text = turkfm.256.b.tt
 			hidden_effect = {
 				random_list = {
 					50 = {
 						trigger_event = {
-							id = turkfm.253 # Rebellion in State Suppressed
+							id = turkfm.259 # Rebellion in State Suppressed
 							days = 30
 						}
 					}
 					50 = {
 						trigger_event = {
-							id = turkfm.254 # Creates Revolt Tag
+							id = turkfm.258 # Creates Revolt Tag
 							days = 30
 						}
 					}
@@ -1879,13 +1865,13 @@ turkfm.251 = { # Violence in State Worsens
 	
 }
 
-turkfm.252 = { # Massacre in State
+turkfm.257 = { # Massacre in State
 	type = country_event
 	placement = root
 	
-	title = turkfm.252.t
-	desc = turkfm.252.d
-	flavor = turkfm.252.f
+	title = turkfm.257.t
+	desc = turkfm.257.d
+	flavor = turkfm.257.f
 	
 	event_image = {
 		video = "southamerica_war_civilians"
@@ -1913,7 +1899,7 @@ turkfm.252 = { # Massacre in State
 	}
 	
 	option = {
-		name = turkfm.252.a
+		name = turkfm.257.a
 		default_option = yes
 		scope:turkfm_riot_state_scope = {
 			turkfm_massacre_effect = yes
@@ -1924,13 +1910,13 @@ turkfm.252 = { # Massacre in State
 			random_list = {
 				50 = {
 					trigger_event = {
-						id = turkfm.253 # Rebellion in State Suppressed
+						id = turkfm.259 # Rebellion in State Suppressed
 						days = 30
 					}
 				}
 				50 ={
 					trigger_event = {
-						id = turkfm.254 # Creates Revolter Tag
+						id = turkfm.258 # Creates Revolter Tag
 						days = 30
 					}
 				}
@@ -1940,90 +1926,13 @@ turkfm.252 = { # Massacre in State
 	
 }
 
-turkfm.253 = { # State Rebellion Suppressed
-	type = country_event
-	placement = root
-	
-	title = turkfm.253.t
-	desc = turkfm.253.d
-	flavor = turkfm.253.f
-	
-	event_image = {
-		video = "votp_prison"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_military.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by turkfm Uprising Event Chain
-	}
-	
-	immediate = {
-		random_scope_state = {
-			limit = {
-				has_variable = turkfm_riot_state_var
-			}
-			save_scope_as = turkfm_riot_state_scope
-		}
-	}
-	
-	option = {
-		name = turkfm.253.a
-		default_option = yes
-		scope:turkfm_riot_state_scope = {
-			add_modifier = {
-				name = modifier_turkfm_separatism_suppressed
-				months = long_modifier_time
-				is_decaying = yes
-			}
-			remove_variable = turkfm_riot_state_var
-		}
-		turkfm_add_very_large_deescalation_effect = yes
-		every_country = {
-			limit = {
-				has_journal_entry = je_turkfm_eastern_question
-			}
-			post_notification = notification_turkfm_riot_suppressed
-		}
-		remove_global_variable = turkfm_riot_var
-	}
-
-}
-
-turkfm.254 = { # Creates a Revolter Tag
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-		# triggered by turkfm Uprising Event Chain
-	}
-
-	immediate = {
-		random_scope_state = {
-			limit = {
-				has_variable = turkfm_riot_state_var
-			}
-			save_scope_as = turkfm_riot_state_scope
-		}
-		turkfm_create_rebellion_effect = yes
-	}
-	
-}
-
-turkfm.255 = { # Balkan Country Rebellion
+turkfm.258 = { # Balkan Country Rebellion
 	type = country_event
 	placement = scope:turkfm_rebellion_scope
 	
-	title = turkfm.255.t
-	desc = turkfm.255.d
-	flavor = turkfm.255.f
+	title = turkfm.258.t
+	desc = turkfm.258.d
+	flavor = turkfm.258.f
 	
 	event_image = {
 		video = "votp_agitator_speaking"
@@ -2042,6 +1951,13 @@ turkfm.255 = { # Balkan Country Rebellion
 	}
 	
 	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = turkfm_riot_state_var
+			}
+			save_scope_as = turkfm_riot_state_scope
+		}
+		turkfm_create_rebellion_effect = yes
 		random_country = {
 			limit = {
 				has_variable = turkfm_rebellion_tag_tracker
@@ -2051,7 +1967,7 @@ turkfm.255 = { # Balkan Country Rebellion
 	}
 	
 	option = { # Assert Our Dominion
-		name = turkfm.255.a
+		name = turkfm.258.a
 		default_option = yes
 		scope:turkfm_rebellion_scope = {
 			make_independent = yes
@@ -2085,7 +2001,7 @@ turkfm.255 = { # Balkan Country Rebellion
 	}
 	
 	option = { # Let Them Go
-		name = turkfm.255.b
+		name = turkfm.258.b
 		create_diplomatic_pact = {
 			country = scope:turkfm_rebellion_scope
 			type = protectorate
@@ -2115,6 +2031,62 @@ turkfm.255 = { # Balkan Country Rebellion
 	after = {
 		scope:turkfm_rebellion_scope = {
 			remove_variable = turkfm_rebellion_tag_tracker
+		}
+		remove_global_variable = turkfm_riot_var
+	}
+
+}
+
+turkfm.259 = { # State Rebellion Suppressed
+	type = country_event
+	placement = root
+	
+	title = turkfm.259.t
+	desc = turkfm.259.d
+	flavor = turkfm.259.f
+	
+	event_image = {
+		video = "votp_prison"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm Uprising Event Chain
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_variable = turkfm_riot_state_var
+			}
+			save_scope_as = turkfm_riot_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.259.a
+		default_option = yes
+		scope:turkfm_riot_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_separatism_suppressed
+				months = long_modifier_time
+				is_decaying = yes
+			}
+			remove_variable = turkfm_riot_state_var
+		}
+		turkfm_add_very_large_deescalation_effect = yes
+		every_country = {
+			limit = {
+				has_journal_entry = je_turkfm_eastern_question
+			}
+			post_notification = notification_turkfm_riot_suppressed
 		}
 		remove_global_variable = turkfm_riot_var
 	}
