@@ -4313,20 +4313,7 @@ balkfm.342 = { # Village Skirmish Escalates (Defender Event)
 	placement = root
 	
 	title = balkfm.342.t
-	desc = {
-		triggered_desc = {
-			desc = balkfm.342.d1
-			trigger = {	
-				c:MON = this
-			}
-		}
-		triggered_desc = {
-			desc = balkfm.342.d2
-			trigger = {	
-				c:TUR = this
-			}
-		}
-	}
+	desc =  balkfm.342.d
 	flavor = balkfm.342.f
 	
 	event_image = {
@@ -5150,6 +5137,15 @@ balkfm.352 = { # Montenegro Offers Ransom
 	}
 	
 	immediate = {
+		c:MON ?= {
+			save_scope_as = montenegro_scope
+		}
+		random_character_in_void = {
+			limit = {
+				has_variable = balkfm_captive_event_target
+			}
+			save_scope_as = balkfm_captive_scope
+		}
 	}
 	
 	option = { # Post Bail
@@ -5167,11 +5163,6 @@ balkfm.352 = { # Montenegro Offers Ransom
 		set_global_variable = balkfm_ransom_accepted
 		ai_chance = {
 			base = 8
-			modifier = {
-				trigger = {
-				}
-				add = 0
-			}
 		}
 	}
 	
@@ -5190,11 +5181,6 @@ balkfm.352 = { # Montenegro Offers Ransom
 		set_global_variable = balkfm_ransom_refused
 		ai_chance = {
 			base = 2
-			modifier = {
-				trigger = {
-				}
-				add = 0
-			}
 		}
 	}
 	
@@ -5206,6 +5192,7 @@ balkfm.352 = { # Montenegro Offers Ransom
 			}
 		}
 	}
+	
 }
 
 balkfm.353 = { # Ottoman Reply to Ransom
@@ -5265,6 +5252,9 @@ balkfm.353 = { # Ottoman Reply to Ransom
 				has_variable = balkfm_captive_event_target
 			}
 			save_scope_as = balkfm_captive_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
 		}
 	}
 	
