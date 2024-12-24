@@ -974,6 +974,47 @@ turkfm_check_phase_effect = {
 	}
 }
 
+turkfm_tension_cooldown_effect = {
+	if = {
+		limit = {
+			OR = {
+				global_var:turkfm_separatism_phase_var = 1 # Stable
+				global_var:turkfm_separatism_phase_var = 2 # Unrest
+				global_var:turkfm_separatism_phase_var = 4 # Deconfliction
+			}
+		}
+		set_global_variable = {
+			name = turkfm_tension_event_cooldown_var
+			years = 2
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				global_var:turkfm_separatism_phase_var = 1 # Stable
+				global_var:turkfm_separatism_phase_var = 2 # Unrest
+				global_var:turkfm_separatism_phase_var = 4 # Deconfliction
+			}
+		}
+		set_global_variable = {
+			name = turkfm_tension_event_cooldown_var
+			years = 1
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				global_var:turkfm_separatism_phase_var = 3 # Hostility
+				global_var:turkfm_separatism_phase_var = 5 # Crisis
+			}
+		}
+		set_global_variable = {
+			name = turkfm_tension_event_cooldown_var
+			months = 3
+		}
+	}
+}
+
 turkfm_update_tension_progressbar_effect = {
 	if = {
 		limit = {
