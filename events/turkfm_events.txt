@@ -2,6 +2,10 @@
 # OTTOMAN & TURKISH FLAVOR EVENTS #
 ###################################
 
+# Content contained here pertains to the Ottoman Empire / Turkish State and associated states
+
+####################
+
 # For Greek content, see the "grefm" module
 # For Turkish content, see the "turkfm" module
 # For Balkan Nations content, see the "balkfm" module
@@ -173,7 +177,7 @@ namespace = turkfm
 #	279 - ##
 
 #280-289 - Tension Subject Events
-#	280 - ## Orthodox Subject Requests Increased Autonomy << IMPORT FROM GREFM
+#	280 - ##Orthodox Subject Requests Increased Autonomy << IMPORT FROM GREFM
 #	281 - ##
 #	282 - ##
 #	283 - ##
@@ -184,17 +188,17 @@ namespace = turkfm
 #	288 - ##
 #	289 - ##
 
-#290-299 - Greek Separatism Events
-#	290 - ##The X Greeks Revolt << IMPORT FROM GREFM
-#	291 - ##Greece Provokes Revolt << IMPORT FROM GREFM
-#	292 - ##Crete Revolts Again << IMPORT FROM GREFM
-#	293 - ##
-#	294 - ##
-#	295 - ##
-#	296 - ##
-#	297 - ##
-#	298 - ##
-#	299 - ##
+#290-299 - Tension Separatism Events
+#	290 - ##The X Hellenes Revolt
+#	291 - ##Hellene Revolt Provoked
+#	292 - ##The X Rhomaios Revolt
+#	293 - ##Rhomaios Revolt Provoked
+#	294 - ##The X Yugoslavs Revolt
+#	295 - ##Yugoslav Country Provokes Revolt
+#	296 - ##The Birth of the X State
+#	297 - ##Hellenes Revolt in State
+#	298 - ##Rhomaioi Revolt in State
+#	299 - ##Yugoslavs Revolt in State
 
 
 ##  #TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
@@ -290,6 +294,12 @@ namespace = turkfm
 
 #520-529 - Turkish Industrialization Events
 #	520 - ##
+
+
+## #TURK6  TURKISH NATIONALISM  Events 600-699  ##
+
+#600-609 - OPEN
+#	600 - ##
 
 
 ########################################################################
@@ -1089,9 +1099,7 @@ turkfm.210 = { # Extortionate Taxation in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOR = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		institution_investment_level = {
 			institution = institution_millet_system 
 			value >= 3
@@ -1181,9 +1189,7 @@ turkfm.211 = { # Plague Outbreak in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		institution_investment_level = {
 			institution = institution_health_system
 			value < 4
@@ -1257,7 +1263,7 @@ turkfm.211 = { # Plague Outbreak in State
 
 turkfm.212 = { # Ecumenical Patriarch Demands Protections
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.212.t
 	desc = turkfm.212.d
@@ -1276,13 +1282,9 @@ turkfm.212 = { # Ecumenical Patriarch Demands Protections
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOR = {
+		turkfm_neutral_events_trigger = yes
+		NOT = {
 			has_variable = turkfm_firman_requested
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
-		OR = {
-			global_var:turkfm_separatism_phase_var = 2 # Unrest
-			global_var:turkfm_separatism_phase_var = 3 # Hostility
 		}
 		has_variable = eocfm_controls_constantinople
 	}
@@ -1363,9 +1365,7 @@ turkfm.213 = { # The Language of Paperwork
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		institution_investment_level = {
 			institution = institution_millet_system 
 			value <= 3
@@ -1480,7 +1480,7 @@ turkfm.213 = { # The Language of Paperwork
 
 turkfm.214 = { # Food Shortages in State
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.214.t
 	desc = turkfm.214.d
@@ -1499,14 +1499,14 @@ turkfm.214 = { # Food Shortages in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		any_scope_state = {
 			state_in_balkans = yes
-			OR = {
-				has_harvest_condition = drought
-				has_harvest_condition = flood
+			state_region = {
+				OR = {
+					has_harvest_condition = drought
+					has_harvest_condition = flood
+				}
 			}
 			NOT = {
 				has_variable = turkfm_food_shortage_var
@@ -1514,10 +1514,8 @@ turkfm.214 = { # Food Shortages in State
 		}
 	}
 	
-	cancellation_trigger = {
-	}
-	
 	cooldown = {
+		years = 3
 	}
 	
 	immediate = {
@@ -1534,10 +1532,6 @@ turkfm.214 = { # Food Shortages in State
 				}
 			}
 			save_scope_as = turkfm_tension_state_scope
-			set_variable = {
-				name = turkfm_food_shortage_var
-				years = 3
-			}
 		}
 	}
 	
@@ -1586,7 +1580,7 @@ turkfm.214 = { # Food Shortages in State
 
 turkfm.215 = { # Peasants March in State
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.215.t
 	desc = turkfm.215.d
@@ -1605,37 +1599,59 @@ turkfm.215 = { # Peasants March in State
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
-	}
-	
-	cancellation_trigger = {
-	}
-	
-	cooldown = {
+		turkfm_neutral_events_trigger = yes
 	}
 	
 	immediate = {
 		turkfm_tension_cooldown_effect = yes
 	}
 	
-	option = {
+	option = { # End the Marches
 		name = turkfm.215.a
 		default_option = yes
-		
+		show_as_unavailable = {
+			always = yes
+		}
+		highlighted_option = yes
+		trigger = {
+			NOR = {
+				has_law = law_type:law_right_of_assembly
+				has_law = law_type:law_protected_speech
+			}
+		}
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				strata = poor
+				value = medium_radicals
+			}
+			add_modifier = {
+				name = modifier_turkfm_supressed_marches
+				months = short_modifier_time
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
 	}
 	
-	option = {
+	option = { # Tolerate the Marches
 		name = turkfm.215.b
-		
+		scope:turkfm_tension_state_scope = {
+			add_loyalists_in_state = {
+				strata = poor
+				value = medium_radicals
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_tolerated_dissent
+			months = normal_modifier_time
+		}
+		turkfm_add_medium_deescalation_effect = yes
 	}
 
 }
 
 turkfm.216 = { # Local Bey Exceeds Authority
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.216.t
 	desc = turkfm.216.d
@@ -1654,9 +1670,7 @@ turkfm.216 = { # Local Bey Exceeds Authority
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		institution_investment_level = {
 			institution = institution_millet_system 
 			value > 1
@@ -1668,12 +1682,6 @@ turkfm.216 = { # Local Bey Exceeds Authority
 				has_modifier = modifier_turkfm_recalled_bey
 			}
 		}
-	}
-	
-	cancellation_trigger = {
-	}
-	
-	cooldown = {
 	}
 	
 	immediate = {
@@ -1744,7 +1752,7 @@ turkfm.216 = { # Local Bey Exceeds Authority
 
 turkfm.217 = { # Church Services Disrupted
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.217.t
 	desc = turkfm.217.d
@@ -1763,9 +1771,7 @@ turkfm.217 = { # Church Services Disrupted
 	dlc = dlc_grefm
 	
 	trigger = {
-		NOT = {
-			has_global_variable = turkfm_tension_event_cooldown_var
-		}
+		turkfm_neutral_events_trigger = yes
 		institution_investment_level = {
 			institution = institution_millet_system 
 			value < 5
@@ -1781,10 +1787,8 @@ turkfm.217 = { # Church Services Disrupted
 		}
 	}
 	
-	cancellation_trigger = {
-	}
-	
 	cooldown = {
+		years = 4
 	}
 	
 	immediate = {
@@ -1806,17 +1810,28 @@ turkfm.217 = { # Church Services Disrupted
 	option = {
 		name = turkfm.217.a
 		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_services_disrupted
+				months = normal_modifier_time
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_services_disrupted
+			}
+		}
+		turkfm_add_small_escalation_effect = yes
 	}
 	
-	option = {
-		name = turkfm.217.b
-	}
-
 }
 
 turkfm.218 = { # Villages Request Schools
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.218.t
 	desc = turkfm.218.d
@@ -1835,32 +1850,116 @@ turkfm.218 = { # Villages Request Schools
 	dlc = dlc_grefm
 	
 	trigger = {
-	}
-	
-	cancellation_trigger = {
+		turkfm_neutral_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			NOR = {
+				has_modifier = modifier_turkfm_funding_schools
+				has_variable = turkfm_schools_requested
+			}
+			any_scope_pop = {
+				has_pop_religion = orthodox
+				pop_acceptance < acceptance_status_4
+				wealth < 20
+				lieracy_rate < 0.33
+			}
+			any_scope_pop = {
+				has_pop_type = academics
+			}
+		}
 	}
 	
 	cooldown = {
+		years = 10
 	}
 	
 	immediate = {
 		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				NOT = {
+					has_variable = turkfm_schools_requestd
+				}
+				save_scope_as = turkfm_tension_state_scope
+				set_variable = {
+					name = turkfm_schools_requested
+					years = 10
+				}
+				random_scope_pop = {
+					limit = {
+						has_pop_religion = orthodox
+						pop_acceptance < acceptance_status_4
+						wealth < 20
+						lieracy_rate < 0.33
+					}
+					save_scope_as = turkfm_tension_culture_scope
+				}
+			}
+		}
 	}
 	
-	option = {
+	option = { # Deny Funding
 		name = turkfm.218.a
 		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				pop_type = academics
+				value = medium_radicals
+			}
+			add_radicals_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_schools_denied
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
 	}
 	
-	option = {
+	option = { # Grant Funding
 		name = turkfm.218.b
+		add_modifier = {
+			name = modifier_turkfm_funding_schools
+			months = normal_modifier_time
+			multiplier = money_multiplier_medium
+		}
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_state_schools
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				pop_type = aristocrats
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_schools_approved
+			}
+		}
+		turkfm_add_small_deescalation_effect = yes
 	}
 
 }
 
 turkfm.219 = { # Revivalist Publications
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.219.t
 	desc = turkfm.219.d
@@ -1879,12 +1978,492 @@ turkfm.219 = { # Revivalist Publications
 	dlc = dlc_grefm
 	
 	trigger = {
+		turkfm_neutral_events_trigger = yes
+		turkfm_can_escalate_tension_trigger = yes
+		has_technology_researched = mass_communication
+		any_scope_state = {
+			state_in_balkans = yes
+			NOT = {
+				has_modifier = modifier_turkfm_nationalist_newspaper
+			}
+			any_scope_pop = {
+				has_pop_religion = orthodox
+				pop_acceptance < acceptance_status_4
+				lieracy_rate > 0.33
+			}
+		}
 	}
 	
-	cancellation_trigger = {
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				NOT = {
+					has_modifier = modifier_turkfm_nationalist_newspaper
+				}
+				save_scope_as = turkfm_tension_state_scope
+				random_scope_pop = {
+					limit = {
+						has_pop_religion = orthodox
+						pop_acceptance < acceptance_status_4
+						lieracy_rate > 0.33
+					}
+					save_scope_as = turkfm_tension_culture_scope
+				}
+			}
+		}
+	}
+	
+	option = { # Shut it Down
+		name = turkfm.219.a
+		default_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
+		highlighted_option = yes
+		trigger = {
+			NOR = {
+				has_law = law_type:law_right_of_assembly
+				has_law = law_type:law_protected_speech
+			}
+		}
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_nationalist_newspaper
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = large_radicals
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_censored_paper
+			months = normal_modifier_time
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_newspaper_censored
+			}
+		}
+		turkfm_add_large_escalation_effect = yes
+	}
+	
+	option = { # Tolerate It
+		name = turkfm.219.b
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_nationalist_newspaper
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = large_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_newspaper_ignored
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
+	}
+
+}
+
+#### MILLET UNREST EVENTS ####
+
+turkfm.220 = { # Storefronts Ransacked
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.220.t
+	desc = turkfm.220.d
+	flavor = turkfm.220.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
 	}
 	
 	cooldown = {
+		years = 3
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				NOT = {
+					has_modifier = modifier_turkfm_stores_ransacked
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+			random_scope_pop = {
+				limit = {
+					has_pop_religion = rel:orthodox
+					pop_acceptance < acceptance_status_4
+				}
+				save_scope_as = scope:turkfm_tension_culture_scope
+			}
+		}
+	}
+	
+	option = { # Take No Action
+		name = turkfm.220.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_stores_ransacked
+				months = short_modifier_time
+			}
+			add_culture_standard_of_living_modifier = {
+				culture = scope:turkfm_tension_culture_scope
+				months = normal_modifier_time
+				multiplier = -2
+			}
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_stores_ransacked
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
+	}
+	
+	option = { # Provide Reparations
+		name = turkfm.220.b
+		add_modifier = {
+			name = modifier_turkfm_providing_reparations
+			months = short_modifier_time
+			multiplier = money_multiplier_large
+		}
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_stores_ransacked
+				months = short_modifier_time
+			}
+			add_loyalists_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = medium_radicals
+			}
+			add_radicals_in_state = {
+				culture = cu:turkish
+				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					turkfm_tension_party_trigger = yes
+				}
+				post_notification = notification_turkfm_stores_ransacked
+			}
+		}
+		turkfm_add_small_escalation_effect = yes
+	}
+
+}
+
+turkfm.221 = { # Minority Rejects Classification
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.221.t
+	desc = turkfm.221.d
+	flavor = turkfm.221.f
+	
+	event_image = {
+		video = "africa_public_protest"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+		institution_investment_level = {
+			institution = institution_millet_system 
+			value >= 3
+		}
+		NOR = {
+			has_modifier = modifier_turkfm_enforced_millets
+			has_modifier = modifier_turkfm_millets_eroding
+		}
+	}
+	
+	cooldown = {
+		years = 20
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+			}
+			random_scope_pop = {
+				limit = {
+					has_pop_religion = orthodox
+				}
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}	
+	}
+	
+	option = { # Enforce the Classification
+		name = turkfm.221.a
+		default_option = yes
+	}
+	
+	option = { # Relent on Classifications
+		name = turkfm.221.b
+	}
+
+}
+
+turkfm.222 = { # Shipping Merchants Held Up
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.222.t
+	desc = turkfm.222.d
+	flavor = turkfm.222.f
+	
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+		NOT = {
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+		any_scope_state = {
+			state_in_balkans = yes
+			is_coastal = yes
+			NOT = {
+				has_modifier = modifier_turkfm_jack_sparrowed
+			}
+		}
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				is_coastal = yes
+				NOT = {
+					has_modifier = modifier_turkfm_jack_sparrowed
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.222.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			name = modifier_turkfm_jack_sparrowed
+			months = short_modifier_time
+		}
+		add_radicals = {
+			pop_type = shopkeepers
+			value = medium_radicals
+		}
+		turkfm_add_small_escalation_effect = yes
+	}
+
+}
+
+turkfm.223 = { # Crowds Gather in City Hub
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.223.t
+	desc = turkfm.223.d
+	flavor = turkfm.223.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			any_scope_pop = {
+				has_pop_religion = orthodox
+				pop_radical_fraction = {
+					value > 0.20
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				any_scope_pop = {
+					has_pop_religion = orthodox
+					pop_radical_fraction = {
+						value > 0.20
+					}
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+			random_scope_pop = {
+				limit = {
+					has_pop_religion = orthodox
+					pop_radical_fraction = {
+						value > 0.20
+					}
+				}
+				culture = {
+					save_scope_as = turkfm_tension_culture_scope
+				}
+			}
+		}
+	}
+	
+	option = { # Disperse the Crowds
+		name = turkfm.223.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = medium_radicals
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
+	}
+	
+	option = { # Give them a Space
+		name = turkfm.223.b
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				culture = cu:turkish
+				value = medium_radicals
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_cultural_protests
+			months = normal_modifier_time
+		}
+		turkfm_add_small_escalation_effect = yes
+	}
+	
+	option = { # Beat Them Down
+		name = turkfm.223.c
+		show_as_unavailable = {
+			always = yes
+		}
+		highlighted_option = yes
+		trigger = {
+			OR = {
+				has_law = law_type:law_militarized_police
+				has_law = law_type:law_outlawed_dissent
+			}
+		}
+		add_radicals = {
+			culture = scope:turkfm_tension_culture_scope
+			value = large_radicals
+		}
+		scope:turkfm_tension_state_scope = {
+			kill_population_percent_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = 0.02
+			}
+			add_modifier = {
+				name = modifier_turkfm_cultural_supression
+				months = normal_modifier_time
+			}
+			add_culture_standard_of_living_modifier = {
+				culture = scope:turkfm_tension_culture_scope
+				months = normal_modifier_time
+				multiplier = -2
+			}
+		}
+		turkfm_add_large_escalation_effect = yes
+	}
+	
+}
+
+turkfm.224 = { # Language Bans in State
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.224.t
+	desc = turkfm.224.d
+	flavor = turkfm.224.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
 	}
 	
 	immediate = {
@@ -1892,22 +2471,224 @@ turkfm.219 = { # Revivalist Publications
 	}
 	
 	option = {
-		name = turkfm.219.a
+		name = turkfm.224.a
 		default_option = yes
 	}
 	
 	option = {
-		name = turkfm.219.b
+		name = turkfm.224.b
 	}
 
 }
 
-#### MILLET UNREST EVENTS ####
+turkfm.225 = { # Gun-Runners Intercepted
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.225.t
+	desc = turkfm.225.d
+	flavor = turkfm.225.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+	}
+	
+	option = {
+		name = turkfm.225.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.225.b
+	}
 
-turkfm.220 = { # OPEN
-	orphan = yes
 }
 
+turkfm.226 = { # Piracy in State
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.226.t
+	desc = turkfm.226.d
+	flavor = turkfm.226.f
+	
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+		NOT = {
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+		any_scope_state = {
+			state_in_balkans = yes
+			has_building = building_port
+			NOT = {
+				has_modifier = modifier_turkfm_convoys_raided
+			}
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+	}
+	
+	option = {
+		name = turkfm.226.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.226.b
+	}
+
+}
+
+turkfm.227 = { # Villagers Displaced in State
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.227.t
+	desc = turkfm.227.d
+	flavor = turkfm.227.f
+	
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+	}
+	
+	option = {
+		name = turkfm.227.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.227.b
+	}
+
+}
+
+turkfm.228 = { # Brigands Cross the Border
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.228.t
+	desc = turkfm.228.d
+	flavor = turkfm.228.f
+	
+	event_image = {
+		video = "votp_cops_march"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+		any_country = {
+			has_journal_entry = je_balkfm_brigandage
+			relations:root < relations_threshold:amicable
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+	}
+	
+	option = {
+		name = turkfm.228.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.228.b
+	}
+
+}
+
+turkfm.229 = { # Noblemen Held Hostage
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.229.t
+	desc = turkfm.229.d
+	flavor = turkfm.229.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_unrest_events_trigger = yes
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+	}
+	
+	option = {
+		name = turkfm.229.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.229.b
+	}
+
+}
 
 #### MILLET HOSTILITY EVENTS ####
 
@@ -2648,39 +3429,78 @@ turkfm.259 = { # State Rebellion Suppressed
 }
 
 
-#### GREAT EASTERN CRISIS EVENTS ####
+#### TENSION THIRD PARTY EVENTS ####
 
-turkfm.260 = { # [TECH] Sets Variables and Starts Warmup Chain
+turkfm.260 = { # Brigands Raid Turkish Lands 
+	orphan = yes
+}
+
+turkfm.261 = { # Gun-Runners Arrested
+	orphan = yes
+}
+
+turkfm.262 = { # Priest Murdered in State
+	orphan = yes
+}
+
+turkfm.263 = { # Wali of State Exceeds Authority
+	orphan = yes
+}
+
+turkfm.264 = { # 
+	orphan = yes
+}
+
+turkfm.265 = { # 
+	orphan = yes
+}
+
+turkfm.266 = { # Diplomat Defuses Tensions
+	orphan = yes
+}
+
+turkfm.267 = { # 
+	orphan = yes
+}
+
+turkfm.268 = { # Activists Call for Famine Relief
+	orphan = yes
+}
+
+turkfm.269 = { # Activists Denounce Riots
 	orphan = yes
 }
 
 
-#### CONGRESS OF BERLIN EVENTS ####
+#### OPEN ####
 
-turkfm.270 = { # [TECH] Sets Variables and Starts Warmup Chain
+turkfm.270 = { # 
 	orphan = yes
 }
 
 
-######################################################
-##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
-######################################################
+#### TENSION SUBJECT EVENTS ####
 
-turkfm.300 = { # The Eastern Question
+turkfm.280 = { # Orthodox Subject Requests Increased Autonomy
+	orphan = yes
+}
+
+
+#### TENSION SEPARATISM EVENTS ####
+
+turkfm.290 = { # The X Greeks Revolt
 	type = country_event
 	placement = root
 	
-	title = turkfm.300.t
-	desc = turkfm.300.d
-	flavor = turkfm.300.f
-	
-	gui_window = event_window_struggle
+	title = turkfm.290.t
+	desc = turkfm.290.d
+	flavor = turkfm.290.f
 	
 	event_image = {
-		video = "dlc_grefm"
+		video = "europenorthamerica_springtime_of_nations"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -2689,7 +3509,543 @@ turkfm.300 = { # The Eastern Question
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_turkfm_eastern_question
+		NOR = {
+			global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+			has_global_variable = turkfm_greek_rebellion_cooldown
+		}
+		any_country = {
+			country_has_primary_culture = cu:greek
+			has_technology_researched = nationalism
+		}
+		OR = {
+			AND = {
+				owns_entire_state_region = STATE_ALBANIA
+				s:STATE_ALBANIA = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_epirus
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_MACEDONIA
+				s:STATE_MACEDONIA = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_macedonia
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_SKOPIA
+				s:STATE_SKOPIA = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_skopia
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_CYPRUS
+				s:STATE_CYPRUS = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_cyprus
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_CRETE
+				s:STATE_CRETE = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_crete
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_AYDIN
+				s:STATE_AYDIN = {
+					any_scope_state = {
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
+							}
+						}
+					}
+				}
+				any_country = {
+					has_modifier = modifier_grefm_supporting_smyrna
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = turkfm_greek_rebellion_cooldown
+			years = 2
+		}
+		if = {
+			limit = {
+				owns_entire_state_region = STATE_CRETE
+				s:STATE_CRETE = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_CRETE = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_ALBANIA
+				owns_entire_state_region = STATE_THESSALIA
+				s:STATE_ALBANIA = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_THESSALIA = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_ALBANIA
+				s:STATE_ALBANIA = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_ALBANIA = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_MACEDONIA
+				s:STATE_MACEDONIA = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_MACEDONIA = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_AYDIN
+				s:STATE_AYDIN = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_AYDIN = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				owns_entire_state_region = STATE_CYPRUS
+				s:STATE_CYPRUS = {
+					any_scope_state = {
+						radical_fraction = {
+							OR = {
+								radical_fraction = {
+									culture = cu:greek
+									value >= 0.50
+								}
+								radical_fraction = {
+									culture = cu:rhomaios
+									value >= 0.50
+								}
+							}
+						}
+					}
+				}
+			}
+			s:STATE_CYPRUS = {
+				random_scope_state = {
+					save_scope_as = grefm_revolt_state_scope
+				}
+			}
+		}
+		turkfm_hellenic_revolt_effect = yes
+		scope:turkfm_greek_revolt_scope = {
+			trigger_event = {
+				id = turkfm.296 # The Birth of the X State
+			}
+			remove_variable = turkfm_greek_rebellion_tracker
+		}
+	}
+	
+	option = { # Bring them to Heel
+		name = turkfm.290.a
+		default_option = yes
+		if = {
+			limit = {
+				turkfm_can_escalate_tension_trigger = yes
+			}
+			turkfm_add_large_escalation_effect = yes
+		}
+		hidden_effect = {
+			scope:turkfm_greek_revolt_scope = {
+				make_independent = yes
+			}
+		}
+		create_diplomatic_play = {
+			name = turkfm_greek_rebellion
+			target_country = scope:turkfm_greek_revolt_scope
+			type = dp_annex_war
+			target_state = scope:turkfm_greek_revolt_capital_scope
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = turkfm.290.b
+		if = {
+			limit = {
+				turkfm_can_escalate_tension_trigger = yes
+			}
+			turkfm_add_medium_escalation_effect = yes
+		}
+		scope:turkfm_greek_revolt_scope = {
+			increase_autonomy = yes
+			add_modifier = {
+				name = modifier_turkfm_autonomy_granted
+				months = long_modifier_time
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_imperial_weakness
+			months = normal_modifier_time
+		}
+	}
+	
+}
+
+turkfm.291 = { # Hellene Revolt Provoked
+	type = country_event
+	placement = root
+	
+	title = turkfm.291.t
+	desc = turkfm.291.d
+	flavor = turkfm.291.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by hellene countries via je_turkfm_eastern_question
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = turkfm_revolt_provocateur_var
+			}
+			save_scope_as = turkfm_provacateur_scope
+		}
+		random_scope_state = {
+			limit = {
+				has_variable = turkfm_revolt_provoke_var
+			}
+			save_scope_as = grefm_revolt_state_scope
+		}
+		turkfm_hellenic_revolt_effect = yes
+		scope:turkfm_greek_revolt_scope = {
+			trigger_event = {
+				id = turkfm.296 # The Birth of the X State
+			}
+			remove_variable = turkfm_greek_rebellion_tracker
+		}
+	}
+	
+	option = { # Bring them to Heel
+		name = turkfm.290.a
+		default_option = yes
+		if = {
+			limit = {
+				turkfm_can_escalate_tension_trigger = yes
+			}
+			turkfm_add_large_escalation_effect = yes
+		}
+		hidden_effect = {
+			scope:turkfm_greek_revolt_scope = {
+				make_independent = yes
+			}
+		}
+		create_diplomatic_play = {
+			name = turkfm_greek_rebellion
+			target_country = scope:turkfm_greek_revolt_scope
+			type = dp_annex_war
+			target_state = scope:turkfm_greek_revolt_capital_scope
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = turkfm.290.b
+		if = {
+			limit = {
+				turkfm_can_escalate_tension_trigger = yes
+			}
+			turkfm_add_medium_escalation_effect = yes
+		}
+		scope:turkfm_greek_revolt_scope = {
+			increase_autonomy = yes
+			add_modifier = {
+				name = modifier_turkfm_autonomy_granted
+				months = long_modifier_time
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_imperial_weakness
+			months = normal_modifier_time
+		}
+	}
+	
+}
+
+turkfm.292 = { # The X Rhomaios Revolt
+	orphan = yes
+}
+
+turkfm.293 = { # Rhomaios Revolt Provoked
+	orphan = yes
+}
+
+turkfm.294 = { # The X Yugoslavs Revolt
+	orphan = yes
+}
+
+turkfm.295 = { # Yugoslav Country Provokes Revolt
+	orphan = yes
+}
+
+turkfm.296 = { # The Birth of the X State
+	type = country_event
+	placement = root
+	
+	title = turkfm.296.t
+	desc = turkfm.296.d
+	flavor = turkfm.296.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by revolt creation effects
+	}
+	
+	immediate = {
+		overlord = {
+			save_scope_as = turkfm_overlord_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.296.a
+		default_option = yes
+		add_loyalists = {
+			value = 0.50
+		}
+		add_modifier = {
+			name = modifier_turkfm_revolutionary_spirit
+			months = long_modifier_time
+		}
+	}
+	
+}
+
+turkfm.297 = { # Hellenes Revolt in State
+	orphan = yes
+}
+
+turkfm.298 = { # Rhomaioi Revolt in State
+	orphan = yes
+}
+
+turkfm.299 = { # Yugoslavs Revolt in State
+	orphan = yes
+}
+
+
+######################################################
+##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
+######################################################
+
+turkfm.300 = { # A Crisis in Rumelia
+	type = country_event
+	placement = root
+	
+	title = turkfm.300.t
+	desc = turkfm.300.d
+	flavor = turkfm.300.f
+	
+	event_image = {
+		video = "dlc_grefm"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
 	}
 	
 	immediate = {

@@ -2085,6 +2085,150 @@ turkfm_create_rebellion_effect = {
 	}
 }
 
+turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, nor clear the revolt variables
+	scope:grefm_revolt_state_scope = {
+		switch = {
+			trigger = state_region
+			s:STATE_THESSALIA = {
+				create_country = {
+					tag = EPI
+					origin = c:TUR
+					state = STATE_THESSALIA.region_state:TUR
+					state = STATE_ALBANIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_ALBANIA = {
+				create_country = {
+					tag = EPI
+					origin = c:TUR
+					state = STATE_ALBANIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_MACEDONIA = {
+				create_country = {
+					tag = MAC
+					origin = c:TUR
+					state = STATE_MACEDONIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_SKOPIA = {
+				create_country = {
+					tag = NMAC
+					origin = c:TUR
+					state = STATE_SKOPIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_AYDIN = {
+				create_country = {
+					tag = SMYR
+					origin = c:TUR
+					state = STATE_AYDIN.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_CYPRUS = {
+				create_country = {
+					tag = CYP
+					origin = c:TUR
+					state = STATE_CYPRUS.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+			s:STATE_CRETE = {
+				create_country = {
+					tag = CRE
+					origin = c:TUR
+					state = STATE_CRETE.region_state:TUR
+					on_created = {
+						set_variable = turkfm_greek_rebellion_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+			}
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_greek_rebellion_tracker
+		}
+		save_scope_as = turkfm_greek_revolt_scope
+		every_scope_state = {
+			add_claim = root
+		}
+		capital = {
+			save_scope_as = turkfm_greek_revolt_capital_scope
+		}
+	}
+	if = {
+		limit = {
+			is_country_type = recognized
+		}
+		create_diplomatic_pact = {
+			country = scope:turkfm_greek_revolt_scope
+			type = puppet
+		}
+	}
+	else_if = {
+		limit = {
+			is_country_type = unrecognized
+		}
+		create_diplomatic_pact = {
+			country = scope:turkfm_greek_revolt_scope
+			type = vassal
+		}
+	}
+	every_country = {
+		limit = {
+			country_has_primary_culture = cu:greek
+			NOT = {
+				scope:turkfm_greek_revolt_scope = this
+			}
+		}
+		trigger_event = {
+			id = turkfm.293 # The X Greeks Revolt
+		}
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				turkfm_tension_party_trigger = yes
+				NOT = {
+					country_has_primary_culture = cu:greek
+				}
+			}
+			post_notification = notification_turkfm_greek_revolt
+		}
+	}
+}
+
+turkfm_rhomaios_revolt_effect = {
+}
+
+turkfm_yugoslav_revolt_effect = {
+}
+
 turkfm_set_rebellion_laws = {
 	activate_law = law_type:law_parliamentary_republic
 	activate_law = law_type:law_state_religion
