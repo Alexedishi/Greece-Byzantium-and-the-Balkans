@@ -373,12 +373,6 @@ je_turkfm_tanzimat_main = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = turkfm.100 # The Decaying Empire
-				days = 30
-			}
-		}
 	}
 	
 	modifiers_while_active = {
@@ -727,13 +721,7 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		hidden_effect = {
-			trigger_event = {
-				id = turkfm.200 # The Millet System
-				days = 90
-			}
-			turkfm_tension_start_effect = yes
-		}
+		turkfm_tension_start_effect = yes
 	}
 	
 	modifiers_while_active = {
@@ -879,10 +867,10 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 			5 = turkfm.255 # Riots Break Out in State
 			
 			# Tension Third Party Events
-			5 = turkfm.260 # Brigands Raid Turkish Lands 
+#			5 = turkfm.260 # Brigands Raid Turkish Lands 
 			
 			# Tension Subject Events
-			5 = turkfm.280 # Orthodox Subject Requests Increased Autonomy
+#			5 = turkfm.280 # Orthodox Subject Requests Increased Autonomy
 		}
 		effect = {
 			turkfm_advance_tension_effect = yes
@@ -929,108 +917,6 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	
 }
 
-je_turkfm_separatism_sub = { # This is assigned to Subjects of the Ottomans
-	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
-	
-	group = je_group_turkfm_separatism
-	
-	should_be_pinned_by_default = yes
-	
-	immediate = {
-	}
-	
-	modifiers_while_active = {
-		modifier_turkfm_national_aspiriations
-	}
-	
-	scripted_progress_bar = turkfm_tension_progress_bar
-	
-	complete = {
-		hidden_trigger = {
-			exists = c:TUR
-		}
-		NOT = {
-			is_subject_of = c:TUR
-		}
-	}
-	
-	on_complete = {
-		turkfm_cleanup_tension_sub_effect = yes
-	}
-	
-	fail = {
-		custom_tooltip = {
-			text = turkfm_separatism_completed_third_tt
-			hidden_trigger = {
-				has_global_variable = turkfm_separatism_complete
-			}
-		}
-	}
-	
-	on_fail = {
-		turkfm_cleanup_tension_eqfm_effect = yes
-	}
-	
-	invalid = {
-		OR = {
-			NOT = {
-				exists = c:TUR
-			}
-			NOT = {
-				has_diplomatic_relevance = c:TUR
-			}
-		}
-	}
-	
-	on_invalid = {
-		turkfm_cleanup_tension_sub_effect = yes
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			turkfm_update_tension_progressbar_effect = yes
-		}
-	}
-	
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_turkfm_separatism_phase_stable
-				trigger = {
-					global_var:turkfm_separatism_phase_var ?= 1
-				}
-			}
-			triggered_desc = {
-				desc = je_turkfm_separatism_phase_unrest
-				trigger = {
-					global_var:turkfm_separatism_phase_var ?= 2
-				}
-			}
-			triggered_desc = {
-				desc = je_turkfm_separatism_phase_hostility
-				trigger = {
-					global_var:turkfm_separatism_phase_var ?= 3
-				}
-			}
-			triggered_desc = {
-				desc = je_turkfm_separatism_phase_deconfliction
-				trigger = {
-					global_var:turkfm_separatism_phase_var ?= 4
-				}
-			}
-			triggered_desc = {
-				desc = je_turkfm_separatism_phase_crisis
-				trigger = {
-					global_var:turkfm_separatism_phase_var ?= 5
-				}
-			}
-		}
-	}
-	
-	weight = 1000
-	
-}
-
 je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
 	
@@ -1039,14 +925,9 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		if = {
-			limit = {
-				country_rank >= rank_value:great_power
-			}
-			trigger_event = {
-				id = turkfm.300 # The Eastern Question
-				days = 1
-			}
+		trigger_event = {
+			id = turkfm.200 # The Eastern Question
+			days = 1
 		}
 	}
 	

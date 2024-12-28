@@ -81,7 +81,7 @@ namespace = turkfm
 ##  #TURK2  THE RISE OF NATIONALISM  Events 100-199  ##
 
 #200-209 - Tension Narrative Events
-#	200 - The Millet System
+#	200 - ##The Eastern Question
 #	201 - ##The Rise of Nationalism
 #	202 - ##
 #	203 - ##
@@ -189,16 +189,16 @@ namespace = turkfm
 #	289 - ##
 
 #290-299 - Tension Separatism Events
-#	290 - ##The X Hellenes Revolt
+#	290 - ##Hellenes Revolt in State
 #	291 - ##Hellene Revolt Provoked
-#	292 - ##The X Rhomaios Revolt
+#	292 - ##Rhomaioi Revolt in State
 #	293 - ##Rhomaios Revolt Provoked
-#	294 - ##The X Yugoslavs Revolt
+#	294 - ##Yugoslavs Revolt in State
 #	295 - ##Yugoslav Country Provokes Revolt
 #	296 - ##The Birth of the X State
-#	297 - ##Hellenes Revolt in State
-#	298 - ##Rhomaioi Revolt in State
-#	299 - ##Yugoslavs Revolt in State
+#	297 - ##Hellenes Revolt in State (Third)
+#	298 - ##Rhomaioi Revolt in State (Third)
+#	299 - ##Yugoslavs Revolt in State (Third)
 
 
 ##  #TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
@@ -336,6 +336,12 @@ turkfm.001 = { # The Sick Man of Europe
 	
 	immediate = {
 		turkfm_calculate_tension_effect = yes
+		hidden_effect = {
+			trigger_event = {
+				id = turkfm.100 # The Decaying Empire
+				days = 90
+			}
+		}
 	}
 	
 	option = {
@@ -621,7 +627,7 @@ turkfm.101 = { # The Reordering of the Empire
 
 #### MILLET NARRATIVE EVENTS ####
 
-turkfm.200 = { # The Millet System
+turkfm.200 = { # The Eastern Question
 	type = country_event
 	placement = root
 	
@@ -1135,7 +1141,7 @@ turkfm.210 = { # Extortionate Taxation in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_overtaxed
 			}
@@ -1158,7 +1164,7 @@ turkfm.210 = { # Extortionate Taxation in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_tax_break
 			}
@@ -1229,7 +1235,7 @@ turkfm.211 = { # Plague Outbreak in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_plague
 			}
@@ -1251,7 +1257,7 @@ turkfm.211 = { # Plague Outbreak in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_quarantine
 			}
@@ -1311,7 +1317,7 @@ turkfm.212 = { # Ecumenical Patriarch Demands Protections
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_faketriarch
 			}
@@ -1334,7 +1340,7 @@ turkfm.212 = { # Ecumenical Patriarch Demands Protections
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_firman
 			}
@@ -1441,7 +1447,7 @@ turkfm.213 = { # The Language of Paperwork
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_translations_denied
 			}
@@ -1468,7 +1474,7 @@ turkfm.213 = { # The Language of Paperwork
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_translations_provided
 			}
@@ -1523,13 +1529,19 @@ turkfm.214 = { # Food Shortages in State
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
-				OR = {
-					has_harvest_condition = drought
-					has_harvest_condition = flood
+				state_region = {
+					OR = {
+						has_harvest_condition = drought
+						has_harvest_condition = flood
+					}
 				}
 				NOT = {
-					has_variable = turkfm_good_shortage_var
+					has_variable = turkfm_food_shortage_var
 				}
+			}
+			set_variable = {
+				name = turkfm_food_shortage_var
+				years = 5
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
@@ -1551,7 +1563,7 @@ turkfm.214 = { # Food Shortages in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_relief_provided
 			}
@@ -1569,7 +1581,7 @@ turkfm.214 = { # Food Shortages in State
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_relief_denied
 			}
@@ -1717,7 +1729,7 @@ turkfm.216 = { # Local Bey Exceeds Authority
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_domineering_bey
 			}
@@ -1740,7 +1752,7 @@ turkfm.216 = { # Local Bey Exceeds Authority
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_recalled_bey
 			}
@@ -1819,7 +1831,7 @@ turkfm.217 = { # Church Services Disrupted
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_services_disrupted
 			}
@@ -1861,10 +1873,10 @@ turkfm.218 = { # Villages Request Schools
 				has_pop_religion = orthodox
 				pop_acceptance < acceptance_status_4
 				wealth < 20
-				lieracy_rate < 0.33
+				literacy_rate < 0.33
 			}
 			any_scope_pop = {
-				has_pop_type = academics
+				is_pop_type = academics
 			}
 		}
 	}
@@ -1879,22 +1891,22 @@ turkfm.218 = { # Villages Request Schools
 			limit = {
 				state_in_balkans = yes
 				NOT = {
-					has_variable = turkfm_schools_requestd
+					has_variable = turkfm_schools_requested
 				}
-				save_scope_as = turkfm_tension_state_scope
-				set_variable = {
-					name = turkfm_schools_requested
-					years = 10
+			}
+			save_scope_as = turkfm_tension_state_scope
+			set_variable = {
+				name = turkfm_schools_requested
+				years = 10
+			}
+			random_scope_pop = {
+				limit = {
+					has_pop_religion = orthodox
+					pop_acceptance < acceptance_status_4
+					wealth < 20
+					literacy_rate < 0.33
 				}
-				random_scope_pop = {
-					limit = {
-						has_pop_religion = orthodox
-						pop_acceptance < acceptance_status_4
-						wealth < 20
-						lieracy_rate < 0.33
-					}
-					save_scope_as = turkfm_tension_culture_scope
-				}
+				save_scope_as = turkfm_tension_culture_scope
 			}
 		}
 	}
@@ -1915,7 +1927,7 @@ turkfm.218 = { # Villages Request Schools
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_schools_denied
 			}
@@ -1928,7 +1940,7 @@ turkfm.218 = { # Villages Request Schools
 		add_modifier = {
 			name = modifier_turkfm_funding_schools
 			months = normal_modifier_time
-			multiplier = money_multiplier_medium
+			multiplier = money_amount_multiplier_medium
 		}
 		scope:turkfm_tension_state_scope = {
 			add_modifier = {
@@ -1947,7 +1959,7 @@ turkfm.218 = { # Villages Request Schools
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_schools_approved
 			}
@@ -1989,7 +2001,7 @@ turkfm.219 = { # Revivalist Publications
 			any_scope_pop = {
 				has_pop_religion = orthodox
 				pop_acceptance < acceptance_status_4
-				lieracy_rate > 0.33
+				literacy_rate > 0.33
 			}
 		}
 	}
@@ -2002,15 +2014,15 @@ turkfm.219 = { # Revivalist Publications
 				NOT = {
 					has_modifier = modifier_turkfm_nationalist_newspaper
 				}
-				save_scope_as = turkfm_tension_state_scope
-				random_scope_pop = {
-					limit = {
-						has_pop_religion = orthodox
-						pop_acceptance < acceptance_status_4
-						lieracy_rate > 0.33
-					}
-					save_scope_as = turkfm_tension_culture_scope
+			}
+			save_scope_as = turkfm_tension_state_scope
+			random_scope_pop = {
+				limit = {
+					has_pop_religion = orthodox
+					pop_acceptance < acceptance_status_4
+					literacy_rate > 0.33
 				}
+				save_scope_as = turkfm_tension_culture_scope
 			}
 		}
 	}
@@ -2045,7 +2057,7 @@ turkfm.219 = { # Revivalist Publications
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_newspaper_censored
 			}
@@ -2068,7 +2080,7 @@ turkfm.219 = { # Revivalist Publications
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_newspaper_ignored
 			}
@@ -2119,10 +2131,10 @@ turkfm.220 = { # Storefronts Ransacked
 			save_scope_as = turkfm_tension_state_scope
 			random_scope_pop = {
 				limit = {
-					has_pop_religion = rel:orthodox
+					has_pop_religion = orthodox
 					pop_acceptance < acceptance_status_4
 				}
-				save_scope_as = scope:turkfm_tension_culture_scope
+				save_scope_as = turkfm_tension_culture_scope
 			}
 		}
 	}
@@ -2148,7 +2160,7 @@ turkfm.220 = { # Storefronts Ransacked
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_stores_ransacked
 			}
@@ -2161,7 +2173,7 @@ turkfm.220 = { # Storefronts Ransacked
 		add_modifier = {
 			name = modifier_turkfm_providing_reparations
 			months = short_modifier_time
-			multiplier = money_multiplier_large
+			multiplier = money_amount_multiplier_medium
 		}
 		scope:turkfm_tension_state_scope = {
 			add_modifier = {
@@ -2180,7 +2192,7 @@ turkfm.220 = { # Storefronts Ransacked
 		hidden_effect = {
 			every_country = {
 				limit = {
-					turkfm_tension_party_trigger = yes
+					has_journal_entry = je_turkfm_eastern_question
 				}
 				post_notification = notification_turkfm_stores_ransacked
 			}
@@ -2307,8 +2319,10 @@ turkfm.222 = { # Shipping Merchants Held Up
 		name = turkfm.222.a
 		default_option = yes
 		scope:turkfm_tension_state_scope = {
-			name = modifier_turkfm_jack_sparrowed
-			months = short_modifier_time
+			add_modifier = {
+				name = modifier_turkfm_jack_sparrowed
+				months = short_modifier_time
+			}
 		}
 		add_radicals = {
 			pop_type = shopkeepers
@@ -2425,7 +2439,7 @@ turkfm.223 = { # Crowds Gather in City Hub
 		scope:turkfm_tension_state_scope = {
 			kill_population_percent_in_state = {
 				culture = scope:turkfm_tension_culture_scope
-				value = 0.02
+				percent = 0.02
 			}
 			add_modifier = {
 				name = modifier_turkfm_cultural_supression
@@ -2730,6 +2744,7 @@ turkfm.230 = { # Churches Burned in State
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
+	}
 	
 	option = { # They Can Deal With It
 		name = turkfm.230.a
@@ -2998,7 +3013,7 @@ turkfm.255 = { # Riots in State
 			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
 		}
 		any_scope_state = {
-			has_variable = turkfm_riot_state_potential_war
+			has_variable = turkfm_riot_state_potential_var
 		}
 	}
 	
@@ -3488,7 +3503,7 @@ turkfm.280 = { # Orthodox Subject Requests Increased Autonomy
 
 #### TENSION SEPARATISM EVENTS ####
 
-turkfm.290 = { # The X Greeks Revolt
+turkfm.290 = { # Hellenes Stage Revolt in State
 	type = country_event
 	placement = root
 	
@@ -3651,16 +3666,14 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_CRETE
 				s:STATE_CRETE = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
 					}
@@ -3678,16 +3691,14 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_THESSALIA
 				s:STATE_ALBANIA = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
 					}
@@ -3704,16 +3715,14 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_ALBANIA
 				s:STATE_ALBANIA = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
 					}
@@ -3730,18 +3739,17 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_MACEDONIA
 				s:STATE_MACEDONIA = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
+						
 					}
 				}
 			}
@@ -3756,16 +3764,14 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_AYDIN
 				s:STATE_AYDIN = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
 					}
@@ -3782,16 +3788,14 @@ turkfm.290 = { # The X Greeks Revolt
 				owns_entire_state_region = STATE_CYPRUS
 				s:STATE_CYPRUS = {
 					any_scope_state = {
-						radical_fraction = {
-							OR = {
-								radical_fraction = {
-									culture = cu:greek
-									value >= 0.50
-								}
-								radical_fraction = {
-									culture = cu:rhomaios
-									value >= 0.50
-								}
+						OR = {
+							radical_fraction = {
+								culture = cu:greek
+								value >= 0.50
+							}
+							radical_fraction = {
+								culture = cu:rhomaios
+								value >= 0.50
 							}
 						}
 					}

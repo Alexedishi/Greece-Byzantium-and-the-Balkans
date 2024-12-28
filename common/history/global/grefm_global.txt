@@ -245,28 +245,6 @@
 	
 ### Global Variable Setup ###
 	
-	# Crete Revolt Momentum Variables
-	set_global_variable = {
-		name = grefm_crete_revolt_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_progress_var
-		value = 0
-	}	
-	set_global_variable = {
-		name = grefm_crete_radicals_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_accelerate_var
-		value = 0
-	}
-	set_global_variable = {
-		name = grefm_crete_nationalism_var
-		value = 0
-	}
-	
 	# eocfm Variables
 	set_global_variable = {
 		name = eocfm_council_var
@@ -652,19 +630,9 @@
 	
 	every_country = {
 		limit = {
-			is_subject_of = c:TUR
-		}
-		add_journal_entry = {
-			type = je_turkfm_separatism_sub
-		}
-	}
-	
-	every_country = {
-		limit = {
 			has_diplomatic_relevance = c:TUR
-			NOR = {
+			NOT = {
 				has_journal_entry = je_turkfm_sick_man_main
-				is_subject_of = c:TUR
 			}
 		}
 		add_journal_entry = {

@@ -1029,17 +1029,6 @@ turkfm_update_tension_progressbar_effect = {
 	}
 	else_if = {
 		limit = {
-			has_journal_entry = je_turkfm_separatism_sub
-		}
-		je:je_turkfm_separatism_sub = {
-			set_bar_progress = {
-				name = turkfm_tension_progress_bar
-				value = global_var:turkfm_separatism_transition_var
-			}
-		}
-	}
-	else_if = {
-		limit = {
 			has_journal_entry = je_turkfm_eastern_question
 		}
 		je:je_turkfm_eastern_question = {
@@ -2079,10 +2068,10 @@ turkfm_create_rebellion_effect = {
 		}
 		save_scope_as = turkfm_rebellion_scope
 	}
-	trigger_event = {
-		id = turkfm.255 # Balkan Country Rebellion
-		days = 1 # Let It Cook
-	}
+#	trigger_event = {
+#		id = turkfm.255 # Balkan Country Rebellion
+#		days = 1 # Let It Cook
+#	}
 }
 
 turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, nor clear the revolt variables
@@ -2093,8 +2082,8 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = EPI
 					origin = c:TUR
-					state = STATE_THESSALIA.region_state:TUR
-					state = STATE_ALBANIA.region_state:TUR
+					state = s:STATE_THESSALIA.region_state:TUR
+					state = s:STATE_ALBANIA.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2105,7 +2094,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = EPI
 					origin = c:TUR
-					state = STATE_ALBANIA.region_state:TUR
+					state = s:STATE_ALBANIA.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2116,7 +2105,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = MAC
 					origin = c:TUR
-					state = STATE_MACEDONIA.region_state:TUR
+					state = s:STATE_MACEDONIA.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2127,7 +2116,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = NMAC
 					origin = c:TUR
-					state = STATE_SKOPIA.region_state:TUR
+					state = s:STATE_SKOPIA.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2138,7 +2127,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = SMYR
 					origin = c:TUR
-					state = STATE_AYDIN.region_state:TUR
+					state = s:STATE_AYDIN.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2149,7 +2138,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = CYP
 					origin = c:TUR
-					state = STATE_CYPRUS.region_state:TUR
+					state = s:STATE_CYPRUS.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2160,7 +2149,7 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 				create_country = {
 					tag = CRE
 					origin = c:TUR
-					state = STATE_CRETE.region_state:TUR
+					state = s:STATE_CRETE.region_state:TUR
 					on_created = {
 						set_variable = turkfm_greek_rebellion_tracker
 						turkfm_set_rebellion_laws = yes
@@ -2175,7 +2164,9 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 		}
 		save_scope_as = turkfm_greek_revolt_scope
 		every_scope_state = {
-			add_claim = root
+			state_region = {
+				add_claim = root
+			}
 		}
 		capital = {
 			save_scope_as = turkfm_greek_revolt_capital_scope
@@ -2207,13 +2198,13 @@ turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, n
 			}
 		}
 		trigger_event = {
-			id = turkfm.293 # The X Greeks Revolt
+			id = turkfm.297 # Hellenes Revolt in State (Third)
 		}
 	}
 	hidden_effect = {
 		every_country = {
 			limit = {
-				turkfm_tension_party_trigger = yes
+				has_journal_entry = je_turkfm_eastern_question
 				NOT = {
 					country_has_primary_culture = cu:greek
 				}
