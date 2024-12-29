@@ -803,6 +803,7 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	on_monthly_pulse = {
 		events = {
 			turkfm.201 # The Rise of Nationalism
+			turkfm.205 # Riots Break Out in State
 			turkfm.208 # Strategic Region Lost
 			turkfm.209 # Strategic Region Secured
 			turkfm.290 # The X Hellenes Revolt
@@ -859,15 +860,8 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 #			5 = turkfm.248 # 
 #			5 = turkfm.249 # 
 			
-			# Revolt Events
-			5 = turkfm.250 # Minorities Crowd the Streets in State
-			5 = turkfm.251 # IG Sides with Minorities
-			5 = turkfm.252 # Double Agent Captured
-#			5 = turkfm.253 # 
-			5 = turkfm.255 # Riots Break Out in State
-			
 			# Tension Third Party Events
-#			5 = turkfm.260 # Brigands Raid Turkish Lands 
+			5 = turkfm.260 # Brigands Raid Turkish Lands 
 			
 			# Tension Subject Events
 #			5 = turkfm.280 # Orthodox Subject Requests Increased Autonomy
@@ -916,6 +910,58 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	weight = 3000
 	
 }
+
+je_turkfm_separatism_riots = {
+	icon = "gfx/interface/icons/event_icons/bicorne_hat.dds"
+	
+	group = je_group_turkfm_separatism
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+		turkfm_setup_riots_effect = yes
+	}
+	
+	scripted_progress_bar = turkfm_riot_progress_bar
+	
+	complete = {
+		NOT = {
+			any_scope_state = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+		}
+	}
+	
+	on_complete = {
+		turkfm_cleanup_riots_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		events = {
+			turkfm.206 # Balkan Country Rebellion
+			turkfm.207 # Riots in State Suppressed
+		}
+		random_events = {
+#			turkfm.250 # 
+#			turkfm.251 # IG Sides with Minorities
+#			turkfm.252 # Double Agent Captured
+#			turkfm.253 #
+#			turkfm.254 #
+#			turkfm.255 #
+#			turkfm.256 # Violence in State Worsens
+#			turkfm.257 # Massacre in State
+#			turkfm.258 # 
+#			turkfm.259 # 
+		}
+		effect = {
+			turkfm_weekly_riot_effect = yes
+		}
+	}
+	
+	weight = 1000
+	
+}
+	
 
 je_turkfm_eastern_question = { # This is assigned to Involved GPs
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
@@ -1021,7 +1067,7 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 		}
 	}
 	
-	weight = 100
+	weight = 1000
 	
 }
 

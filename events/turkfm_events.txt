@@ -86,11 +86,11 @@ namespace = turkfm
 #	202 - ##
 #	203 - ##
 #	204 - ##
-#	205 - ##
-#	206 - ##
-#	207 - ##
-#	208 - Region Lost
-#	209 - Region Secured
+#	205 - ##Riots Break Out in State
+#	206 - ##Balkan Country Rebellion
+#	207 - ##Riots in State Suppressed
+#	208 - ##Region Lost
+#	209 - ##Region Secured
 
 #210-219 - Tension Neutral Events
 #	210 - Extortionate Taxation in State
@@ -140,17 +140,17 @@ namespace = turkfm
 #	248 - ##
 #	249 - ##Great Power Intervenes in Riots
 
-#250-259 - Tension Revolt Events
-#	250 - #Riots Break Out in State
+#250-259 - Tension Riot Events
+#	250 - ##Fortress in State Beseiged
 #	251 - ##IG Sides with Minorities
 #	252 - ##Double Agent Captured
 #	253 - ##
 #	254 - ##
 #	255 - ##
 #	256 - ##Violence in State Worsens
-#	257 - ##Massacre in State
-#	258 - ##Balkan Country Rebellion
-#	259 - ##Riots in State Suppressed
+#	257 - ##
+#	258 - ##
+#	259 - ##Massacre in State
 
 #260-269 - Tension Third Party Events
 #	260 - ##Brigands Raid Turkish Lands 
@@ -714,6 +714,364 @@ turkfm.201 = { # The Rise of Nationalism
 		name = turkfm.200.a
 		default_option = yes
 		custom_tooltip = turkfm_nationalism_tension_tt
+	}
+
+}
+
+turkfm.202 = { # 
+	orphan = yes
+}
+
+turkfm.203 = { #
+	orphan = yes
+}
+
+turkfm.204 = { #
+	orphan = yes
+}
+
+turkfm.205 = { # Riots Break Out in State
+	type = country_event
+	placement = root
+	
+	title = turkfm.205.t
+	desc = turkfm.205.d
+	flavor = turkfm.205.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/bicorne_hat.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		turkfm_riot_counter_value < turkfm_riot_potential_value
+		any_scope_state = {
+			state_in_balkans = yes
+			NOT = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			OR = {
+				radical_fraction = {
+					culture = cu:greek
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:rhomaios
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:serb
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:bulgarian
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:romanian
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:bosniak
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:albanian
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:croat
+					value >= 0.33
+				}
+				radical_fraction = {
+					culture = cu:slovene
+					value >= 0.33
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				NOT = {
+					has_modifier = modifier_turkfm_race_riots
+				}
+				OR = {
+					radical_fraction = {
+						culture = cu:greek
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:rhomaios
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:serb
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:bulgarian
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:romanian
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:bosniak
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:albanian
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:croat
+						value >= 0.33
+					}
+					radical_fraction = {
+						culture = cu:slovene
+						value >= 0.33
+					}
+				}
+			}
+			save_scope_as = turkfm_riot_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.205.a
+		default_option = yes
+		scope:turkfm_riot_state_scope = {
+			add_modifier = modifier_turkfm_race_riots
+		}
+		if = {
+			limit = {
+				NOT ={
+					has_journal_entry = je_turkfm_separatism_riots
+				}
+			}
+			add_journal_entry = {
+				type = je_turkfm_separatism_riots
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_race_riots
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.205.b
+		scope:turkfm_riot_state_scope = {
+			add_modifier = modifier_turkfm_race_riots
+		}
+		if = {
+			limit = {
+				NOT ={
+					has_journal_entry = je_turkfm_separatism_riots
+				}
+			}
+			add_journal_entry = {
+				type = je_turkfm_separatism_riots
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_race_riots
+			}
+		}
+	}
+
+}
+
+turkfm.206 = { # Balkan Country Rebellion
+	type = country_event
+	placement = scope:turkfm_rebellion_scope
+	
+	title = turkfm.206.t
+	desc = turkfm.206.d
+	flavor = turkfm.206.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		je:je_turkfm_separatism_riots = {
+			"scripted_bar_progress(turkfm_riot_progress_bar)" >= 200
+		}
+	}
+	
+	cooldown = {
+		months = 3
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			remove_modifier = modifier_turkfm_race_riots
+			save_scope_as = turkfm_riot_state_scope
+		}
+		turkfm_create_rebellion_effect = yes
+		random_country = {
+			limit = {
+				has_variable = turkfm_rebellion_tag_tracker
+			}
+			save_scope_as = turkfm_rebellion_scope
+			remove_variable = turkfm_rebellion_tag_tracker
+		}
+	}
+	
+	option = { # Assert Our Dominion
+		name = turkfm.206.a
+		default_option = yes
+		scope:turkfm_rebellion_scope = {
+			make_independent = yes
+		}
+		create_diplomatic_play = {
+			name = turkfm_balkan_rebellion
+			target_country = scope:turkfm_rebellion_scope
+			type = dp_secession
+		}
+		hidden_effect = {
+			random_diplomatic_play = {
+				limit = {
+					c:TUR = {
+						is_diplomatic_play_initiator = yes
+					}
+					scope:turkfm_rebellion_scope = {
+						is_diplomatic_play_target = yes
+					}
+				}
+				add_diplomatic_play_war_support = { target = scope:turkfm_rebellion_scope value = 100 }
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_revolt_seccession
+			}
+		}
+	}
+	
+	option = { # Let Them Go
+		name = turkfm.206.b
+		create_diplomatic_pact = {
+			country = scope:turkfm_rebellion_scope
+			type = protectorate
+		}
+		create_bidirectional_truce = {
+			country = scope:turkfm_rebellion_scope
+			months = 60
+		}
+		add_radicals = {
+			culture = cu:turkish
+			value = medium_radicals
+		}
+		add_modifier = {
+			name = modifier_turkfm_caved_to_separatists
+			months = normal_modifier_time
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_revolt_protectorate
+			}
+		}
+	}
+
+}
+
+turkfm.207 = { # State Rebellion Suppressed
+	type = country_event
+	placement = root
+	
+	title = turkfm.207.t
+	desc = turkfm.207.d
+	flavor = turkfm.207.f
+	
+	event_image = {
+		video = "votp_prison"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		je:je_turkfm_separatism_riots = {
+			"scripted_bar_progress(turkfm_riot_progress_bar)" <= 0
+		}
+	}
+	
+	cooldown = {
+		months = 3
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			save_scope_as = turkfm_riot_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.207.a
+		default_option = yes
+		scope:turkfm_riot_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_separatism_suppressed
+				months = long_modifier_time
+				is_decaying = yes
+			}
+			remove_modifier = modifier_turkfm_race_riots
+		}
+		turkfm_add_very_large_deescalation_effect = yes
+		every_country = {
+			limit = {
+				has_journal_entry = je_turkfm_eastern_question
+			}
+			post_notification = notification_turkfm_riot_suppressed
+		}
 	}
 
 }
@@ -2575,14 +2933,16 @@ turkfm.224 = { # Language Bans in State
 	}
 	
 	immediate = {
+		set_variable = turkfm_language_ban_considered
 		turkfm_tension_cooldown_effect = yes
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
 				any_scope_pop = {
-				OR = {
-					has_pop_religion = orthodox
-					has_pop_religion = jewish
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = jewish
+					}
 				}
 			}
 			save_scope_as = turkfm_tension_state_scope
@@ -2599,11 +2959,11 @@ turkfm.224 = { # Language Bans in State
 			}
 			add_radicals_in_state = {
 				value = medium_radicals
-				religion = orthodox
+				religion = rel:orthodox
 			}
 			add_radicals_in_state = {
 				value = medium_radicals
-				religion = jewish
+				religion = rel:jewish
 			}
 		}
 		turkfm_add_large_escalation_effect = yes
@@ -2626,11 +2986,11 @@ turkfm.224 = { # Language Bans in State
 			}
 			add_loyalists_in_state = {
 				value = medium_radicals
-				religion = orthodox
+				religion = rel:orthodox
 			}
 			add_loyalists_in_state = {
 				value = medium_radicals
-				religion = jewish
+				religion = rel:jewish
 			}
 		}
 		turkfm_add_large_deescalation_effect = yes
@@ -2666,11 +3026,11 @@ turkfm.224 = { # Language Bans in State
 			}
 			add_radicals_in_state = {
 				value = medium_radicals
-				religion = orthodox
+				religion = rel:orthodox
 			}
 			add_radicals_in_state = {
 				value = medium_radicals
-				religion = jewish
+				religion = rel:ewish
 			}
 		}
 		turkfm_add_very_large_escalation_effect = yes
@@ -2680,7 +3040,7 @@ turkfm.224 = { # Language Bans in State
 				limit = {
 					has_journal_entry = je_turkfm_eastern_question
 				}
-				post_notification = notification_turkfm_totat_language_ban
+				post_notification = notification_turkfm_total_language_ban
 			}
 		}
 	}
@@ -3146,6 +3506,7 @@ turkfm.228 = { # Villagers Displaced in State
 					has_variable = turkfm_settler_conflict_var
 				}
 			}
+			set_variable = turkfm_settler_conflict_var
 			save_scope_as = turkfm_tension_state_scope
 			random_scope_pop = {
 				limit = {
@@ -3356,7 +3717,7 @@ turkfm.229 = { # Brigands Cross the Border
 		scope:turkfm_tension_country_scope = {
 			post_notification = notification_turkfm_brigandage_ignored
 		}
-		turkfm_add_small_descalation_effect = yes
+		turkfm_add_small_deescalation_effect = yes
 		hidden_effect = {
 			every_country = {
 				limit = {
@@ -3644,180 +4005,9 @@ turkfm.240 = { # OPEN
 }
 
 
-#### TENSION REVOLT EVENTS ####
+#### TENSION RIOT EVENTS ####
 
-turkfm.250 = { # Riots Break Out in State
-	type = country_event
-	placement = root
-	
-	title = turkfm.250.t
-	desc = turkfm.250.d
-	flavor = turkfm.250.f
-	
-	event_image = {
-		video = "media_alias"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_temp.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		turkfm_hostility_events_trigger = yes
-		turkfm_riot_counter_value < turkfm_riot_potential_value
-		any_scope_state = {
-			state_in_balkans = yes
-			NOT = {
-				has_modifier = modifier_turkfm_race_riots
-			}
-			OR = {
-				radical_fraction = {
-					culture = cu:greek
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:rhomaios
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:serb
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:bulgarian
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:romanian
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:bosniak
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:albanian
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:croat
-					value >= 0.33
-				}
-				radical_fraction = {
-					culture = cu:slovene
-					value >= 0.33
-				}
-			}
-		}
-	}
-	
-	immediate = {
-		turkfm_tension_cooldown_effect = yes
-		random_scope_state = {
-			limit = {
-				state_in_balkans = yes
-				NOT = {
-					has_modifier = modifier_turkfm_race_riots
-				}
-				OR = {
-					radical_fraction = {
-						culture = cu:greek
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:rhomaios
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:serb
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:bulgarian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:romanian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:bosniak
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:albanian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:croat
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:slovene
-						value >= 0.33
-					}
-				}
-			}
-			save_scope_as = turkfm_riot_state_scope
-		}
-	}
-	
-	option = {
-		name = turkfm.250.a
-		default_option = yes
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
-		}
-		if = {
-			limit = {
-				NOT ={
-					has_journal_entry = je_turkfm_separatism_riots
-				}
-			}
-			add_journal_entry = {
-				type = je_turkfm_separatism_riots
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				post_notification = notification_turkfm_race_riots
-			}
-		}
-	}
-	
-	option = {
-		name = turkfm.250.b
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
-		}
-		if = {
-			limit = {
-				NOT ={
-					has_journal_entry = je_turkfm_separatism_riots
-				}
-			}
-			add_journal_entry = {
-				type = je_turkfm_separatism_riots
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				post_notification = notification_turkfm_race_riots
-			}
-		}
-	}
 
-}
 
 
 #### TENSION THIRD PARTY EVENTS ####
@@ -4284,7 +4474,7 @@ turkfm.291 = { # Hellene Revolt Provoked
 	}
 	
 	option = { # Bring them to Heel
-		name = turkfm.290.a
+		name = turkfm.291.a
 		default_option = yes
 		if = {
 			limit = {
@@ -4306,7 +4496,7 @@ turkfm.291 = { # Hellene Revolt Provoked
 	}
 	
 	option = { # Grant Autonomy
-		name = turkfm.290.b
+		name = turkfm.291.b
 		if = {
 			limit = {
 				turkfm_can_escalate_tension_trigger = yes
@@ -4436,6 +4626,8 @@ turkfm.300 = { # A Crisis in Rumelia
 		default_option = yes
 		
 	}
+	
+	orphan = yes
 
 }
 
