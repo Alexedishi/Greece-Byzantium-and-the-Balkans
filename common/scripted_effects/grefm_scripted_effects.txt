@@ -19,7 +19,7 @@ grefm_setup_hellene_pops_effect = {
 	every_scope_pop = {
 		limit = {
 			has_pop_culture = greek
-			OR = {
+			NOR = {
 				is_pop_type = aristocrats
 				is_pop_type = capitalists
 				is_pop_type = clergymen
@@ -33,26 +33,8 @@ grefm_setup_hellene_pops_effect = {
 			}
 		}
 		change_pop_culture = {
-			target = cu:hellene
-			value = 1
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-		}
-		change_pop_culture = {
-			target = cu:hellene
-			value = 0.6
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = greek
-		}
-		change_pop_culture = {
 			target = cu:rhomaios
-			value = 1
+			value = 0.4
 		}
 	}
 }
@@ -64,16 +46,7 @@ grefm_setup_rhomaios_pops_effect = {
 		}
 		change_pop_culture = {
 			target = cu:rhomaios
-			value = 1
-		}
-	}
-	every_scope_pop = {
-		limit = {
-			has_pop_culture = rhomaios
-		}
-		change_pop_culture = {
-			target = cu:hellene
-			value = 0.05
+			value = 0.90
 		}
 	}
 }
