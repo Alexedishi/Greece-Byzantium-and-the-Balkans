@@ -1784,6 +1784,139 @@ turkfm_massacre_effect = {
 	}
 }
 
+turkfm_setup_riots_effect = {
+	set_variable = {
+		name = turkfm_riot_var
+		value = 0
+	}
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+		}
+		save_scope_as = turkfm_riot_state_1_scope
+	}
+	set_variable = {
+		name = turkfm_riot_state_1_var
+		value = scope:turkfm_riot_state_1_scope
+	}
+}
+
+turkfm_weekly_riot_effect = {
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+		}
+		save_scope_as = turkfm_riot_state_1_scope
+	}
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+			NOT = {
+				scope:turkfm_riot_state_1_scope ?= this
+			}
+		}
+		save_scope_as = turkfm_riot_state_2_scope
+	}
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+			NOR = {
+				scope:turkfm_riot_state_1_scope ?= this
+				scope:turkfm_riot_state_2_scope ?= this
+			}
+		}
+		save_scope_as = turkfm_riot_state_3_scope
+	}
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+			NOR = {
+				scope:turkfm_riot_state_1_scope ?= this
+				scope:turkfm_riot_state_2_scope ?= this
+				scope:turkfm_riot_state_3_scope ?= this
+			}
+		}
+		save_scope_as = turkfm_riot_state_4_scope
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_riot_state_1_scope
+		}
+		set_variable = {
+			name = turkfm_riot_state_1_var
+			value = scope:turkfm_riot_state_1_scope
+		}
+	}
+	else = {
+		remove_variable = turkfm_riot_state_1_var
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_riot_state_2_scope
+		}
+		set_variable = {
+			name = turkfm_riot_state_2_var
+			value = scope:turkfm_riot_state_2_scope
+		}
+	}
+	else = {
+		remove_variable = turkfm_riot_state_2_var
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_riot_state_3_scope
+		}
+		set_variable = {
+			name = turkfm_riot_state_3_var
+			value = scope:turkfm_riot_state_3_scope
+		}
+	}
+	else = {
+		remove_variable = turkfm_riot_state_3_var
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_riot_state_4_scope
+		}
+		set_variable = {
+			name = turkfm_riot_state_4_var
+			value = scope:turkfm_riot_state_4_scope
+		}
+	}
+	else = {
+		remove_variable = turkfm_riot_state_4_var
+	}
+	change_variable = {
+		name = turkfm_riot_var
+		add = turkfm_riot_progress_value
+	}
+	clamp_variable = {
+		name = turkfm_riot_var
+		max = 200
+		min = 0
+	}
+	je:je_turkfm_separatism_riots = {
+		set_bar_progress = {
+			name = turkfm_riot_progress_bar
+			value = owner.var:turkfm_riot_var
+		}
+	}
+}
+
+turkfm_cleanup_riots_effect = {
+	every_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+		}
+		remove_modifier = modifier_turkfm_race_riots
+	}
+	remove_variable = turkfm_riot_var
+	remove_variable = turkfm_riot_state_1_var
+	remove_variable = turkfm_riot_state_2_var
+	remove_variable = turkfm_riot_state_3_var
+	remove_variable = turkfm_riot_state_4_var
+}
+
 turkfm_create_rebellion_effect = {
 	scope:turkfm_riot_state_scope = {
 		switch = {
