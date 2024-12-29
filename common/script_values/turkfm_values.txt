@@ -42,6 +42,56 @@ turkfm_sick_man_value = {
 
 #### MILLET SYSTEM VALUES ####
 
+turkfm_riot_counter_value = {
+	value = 0
+	add = {
+		value = {
+			every_scope_state = {
+				limit = {
+					has_modifier = modifier_turkfm_race_riots
+				}
+				add = 1
+			}
+		}
+		desc = turkfm_value_from_riots
+	}
+}
+
+turkfm_riot_potential_value = {
+	value = 0
+	add = {
+		value = 1
+		desc = turkfm_value_from_base
+	}
+	if = {
+		limit = {
+			has_technology_researched = nationalism
+		}
+		add = {
+			value = 1
+			desc = turkfm_value_from_nationalism
+		}
+	}
+	if = {
+		limit = {
+			has_technology_researched = human_rights
+		}
+		add = {
+			value = 1
+			desc = turkfm_value_from_human_rights
+		}
+	}
+	if = {	
+		limit = {
+			has_technology_researched = political_agitation
+		}
+		add = {
+			value = 1
+			desc = turkfm_value_from_political_agitation
+		}
+	}
+}
+
 turkfm_escalation_progress_value = {
 	value = 0
 	add = {

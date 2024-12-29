@@ -157,6 +157,20 @@ turkfm_hostility_events_trigger = {
 	}
 }
 
+turkfm_deconfliction_events_trigger = {
+	NOT = {
+		has_global_variable = turkfm_tension_event_cooldown_var
+	}
+	global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+}
+
+turkfm_crisis_events_trigger = {
+	NOT = {
+		has_global_variable = turkfm_tension_event_cooldown_var
+	}
+	global_var:turkfm_separatism_phase_var ?= 5 # Crisis
+}
+
 turkfm_can_escalate_tension_trigger = {
 	OR = {
 		global_var:turkfm_separatism_phase_var = 1 # Stable

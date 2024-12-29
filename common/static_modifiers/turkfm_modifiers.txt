@@ -314,6 +314,8 @@ modifier_turkfm_providing_reparations = {
 modifier_turkfm_enforced_millets = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_authority_positive.dds
 	country_authority_mult = 0.05
+	country_turkfm_orthodox_2_cultural_acceptance_add = -10
+	country_turkfm_orthodox_3_cultural_acceptance_add = -10
 	state_radicalism_increases_open_prejudice_mult = 0.05
 	state_radicalism_increases_cultural_erasure_mult = 0.05
 	state_radicalism_increases_violent_hostility_mult = 0.05
@@ -323,12 +325,10 @@ modifier_turkfm_millets_eroding = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_diplomacy_positive.dds
 	country_authority_mult = -0.10
 	state_assimilation_mult = 0.05
-	state_loyalism_increases_open_prejudice_mult = 0.10
-	state_loyalism_increases_cultural_erasure_mult = 0.10
-	state_loyalism_increases_violent_hostility_mult = 0.10
-	state_radicalism_increases_open_prejudice_mult = -0.05
-	state_radicalism_increases_cultural_erasure_mult = -0.05
-	state_radicalism_increases_violent_hostility_mult = -0.05
+	country_turkfm_orthodox_2_cultural_acceptance_add = 10
+	country_turkfm_orthodox_3_cultural_acceptance_add = 10
+	country_turkfm_orthodox_2_qualification_growth_mult = 0.05
+	country_turkfm_orthodox_3_qualification_growth_mult = 0.05
 }
 
 modifier_turkfm_jack_sparrowed = {
@@ -350,10 +350,59 @@ modifier_turkfm_cultural_supression = {
 	state_decree_cost_mult = -0.10
 }
 
+modifier_turkfm_languages_banned = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	state_assimilation_mult = 0.25
+	state_conversion_mult = 0.25
+	state_radicalism_increases_open_prejudice_mult = 0.25
+	state_radicalism_increases_cultural_erasure_mult = 0.25
+	state_radicalism_increases_violent_hostility_mult = 0.25
+}
+
+modifier_turkfm_languages_protected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_assimilation_mult = -0.10
+	state_conversion_mult = -0.10
+	state_radicalism_increases_open_prejudice_mult = -0.25
+	state_radicalism_increases_cultural_erasure_mult = -0.25
+	state_radicalism_increases_violent_hostility_mult = -0.25
+}
+
+modifier_turkfm_arrested_gunrunners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_slave_positive.dds
+	state_turmoil_effects_mult = -0.20
+	state_mortality_turmoil_mult = -0.10
+}
+
+modifier_turkfm_gunrunner_amnesty = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_negative.dds
+	state_turmoil_effects_mult = 0.20
+	state_mortality_turmoil_mult = 0.10
+	state_radicalism_increases_open_prejudice_mult = 0.05
+	state_radicalism_increases_cultural_erasure_mult = 0.05
+	state_radicalism_increases_violent_hostility_mult = 0.05
+}
+
 modifier_turkfm_convoys_raided = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_clipper_negative.dds
 	state_construction_mult = -0.05
 	state_market_access_price_impact = -0.05
+}
+
+modifier_turkfm_churches_burned = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_bomb_negative.dds
+	state_radicalism_increases_open_prejudice_mult = 0.10
+	state_radicalism_increases_cultural_erasure_mult = 0.10
+	state_radicalism_increases_violent_hostility_mult = 0.10
+}
+
+modifier_turkfm_minorities_displaced = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
+	state_assimilation_mult = 0.25
+	state_turmoil_effects_mult = 0.25
+	state_radicalism_increases_open_prejudice_mult = 0.25
+	state_radicalism_increases_cultural_erasure_mult = 0.25
+	state_radicalism_increases_violent_hostility_mult = 0.25
 }
 
 modifier_turkfm_rebuilding_churches = {
@@ -364,13 +413,6 @@ modifier_turkfm_rebuilding_churches = {
 	state_radicalism_increases_full_acceptance_mult = 0.10
 	state_loyalism_increases_full_acceptance_mult = -0.10
 	state_conversion_mult = -0.50
-}
-
-modifier_turkfm_churches_burned = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_bomb_negative.dds
-	state_radicalism_increases_open_prejudice_mult = 0.10
-	state_radicalism_increases_cultural_erasure_mult = 0.10
-	state_radicalism_increases_violent_hostility_mult = 0.10
 }
 
 modifier_turkfm_minority_leader_killed = {
@@ -390,7 +432,12 @@ modifier_turkfm_protected_minorities = {
 	state_radicalism_increases_violent_hostility_mult = -0.10
 	state_assimilation_mult = -0.50
 }
-	
+
+modifier_turkfm_local_garrison_deployed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_soldier_positive.dds
+	country_expenses_add = 5000
+}
+
 modifier_turkfm_brigandage = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_cop_negative.dds
 	state_mortality_turmoil_mult  = 0.05
@@ -401,9 +448,18 @@ modifier_turkfm_brigandage = {
 	state_radicalism_increases_violent_hostility_mult = 0.10
 }
 
-modifier_turkfm_local_garrison_deployed = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_soldier_positive.dds
-	country_expenses_add = 5000
+modifier_turkfm_massed_crowds = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_protest_negative.dds
+	state_construction_mult = -0.10
+	state_decree_cost_mult = 1
+	state_turmoil_effects_mult = 0.10
+	state_radicals_from_political_movements_mult = 0.10
+}
+
+modifier_turkfm_supporting_protests = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_protest_positive.dds
+	interest_group_pop_attraction_mult = 0.25
+	interest_group_pol_str_mult = 0.05
 }
 
 modifier_turkfm_civilians_massacred = {
