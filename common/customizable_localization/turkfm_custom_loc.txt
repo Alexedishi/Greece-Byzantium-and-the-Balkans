@@ -1,4 +1,34 @@
 ﻿#### Sick Man Custom Loc ####
+turkfm_jack_sparrow_type = {
+	type = country
+	
+	text = {
+		trigger = {
+			global_var:turkfm_pirates_var <= 3
+			exists = var:turkfm_jack_sparrow_var
+		}
+		localization_key = turkfm_custom_stable
+	}
+	
+	text = {
+		trigger = {
+			global_var:turkfm_pirates_var >= 4
+			global_var:turkfm_pirates_var <= 7
+			exists = var:turkfm_jack_sparrow_var
+		}
+		localization_key = turkfm_custom_unrest
+	}
+	
+	text = {
+		trigger = {
+			global_var:turkfm_pirates_var >= 8
+			exists = var:turkfm_jack_sparrow_var
+		}
+		localization_key = turkfm_custom_hostility
+	}
+}
+
+#### Separatism Custom Loc ####
 
 turkfm_tension_type = {
 	type = country

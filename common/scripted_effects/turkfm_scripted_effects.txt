@@ -91,6 +91,47 @@ turkfm_validate_sick_man_effect = {
 	}
 }
 
+turkfm_jack_sparrow_effect = {
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_turkfm_jack_sparrow
+			}
+			
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_jack_sparrow
+			}
+		}
+		save_scope_as = turkfm_jack_sparrow_scope
+	}
+	else = {
+		create_character = {
+			template = template_turkfm_jack_sparrow
+			on_created = {
+				place_character_in_void = 500
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_jack_sparrow
+			}
+			save_scope_as = turkfm_jack_sparrow_scope
+		}
+	}
+	set_variable = {
+		name = turkfm_jack_sparrow_var
+		value = scope:turkfm_jack_sparrow_scope
+	}
+	je:je_turkfm_pirates_of_the_adriatic = {
+		set_bar_progress = {
+			name = turkfm_jack_sparrow_progress_bar
+			value = global_var:turkfm_pirates_var
+		}
+	}
+}
+
 #### TANZIMAT EFFECTS ####
 
 turkfm_initialize_tanzimat = {

@@ -361,6 +361,155 @@ je_turkfm_sick_man_caucasus = {
 	
 }
 
+je_turkfm_pirates_of_the_adriatic = {
+	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		NOT = {
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+		trigger_if = {
+			limit = {
+				country_rank < rank_value:great_power
+			}
+			any_scope_state = {
+				state_is_adriatic = yes
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			c:TUR ?= {
+				any_scope_state = {
+					state_is_adriatic = yes
+				}
+			}
+		}
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				country_rank < rank_value:great_power
+			}
+			any_scope_state = {
+				custom_tooltip = {
+					text = balkfm_state_is_adriatic_tt
+					state_is_adriatic = yes
+				}
+				has_building = building_port
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			has_diplomatic_relevance = c:TUR
+		}
+	}
+	
+	immediate = {
+		turkfm_jack_sparrow_effect = yes
+		trigger_event = {
+			id = turkfm.120 # The Pirates of the Adriatic
+		}
+	}
+	
+	scripted_progress_bar = turkfm_jack_sparrow_progress_bar
+	
+#	scripted_button = turkfm_sanction_privateers_button
+#	scripted_button = turkfm_curtail_privateers_button
+#	scripted_button = turkfm_hire_retired_pirates_button
+#	scripted_button = turkfm_suppress_slavers_button
+
+#	scripted_button = turkfm_demand_patrols_button
+#	scripted_button = turkfm_request_reparations_button
+#	scripted_button = turkfm_
+#	scripted_button = turkfm_
+	
+	complete = {
+		custom_tooltip = {
+			text = turkfm_jack_sparrow_whacked_tt
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+	}
+	
+	on_complete = {
+		set_global_variable = turkfm_jack_sparrow_whacked
+		remove_variable = turkfm_jack_sparrow_var
+	}
+	
+	fail = {
+		trigger_if = {
+			limit = {
+				country_rank < rank_value:great_power
+			}
+			NOT = {
+				any_scope_state = {
+					custom_tooltip = {
+						text = balkfm_state_is_adriatic_tt
+						state_is_adriatic = yes
+					}
+					has_building = building_port
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+				NOT = {
+				
+			}
+			has_diplomatic_relevance = c:TUR
+		}
+	}
+	
+	on_fail = {
+		remove_variable = turkfm_jack_sparrow_var
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			turkfm_jack_sparrow_effect = yes
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_cocky
+				trigger = {
+					global_var:turkfm_pirates_var <= 3
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_cautious
+				trigger = {
+					global_var:turkfm_pirates_var >= 4
+					global_var:turkfm_pirates_var <= 7
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_scared
+				trigger = {
+					global_var:turkfm_pirates_var >= 8
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
+
 ############################################
 ##  #TURK1  THE REORDERING OF THE EMPIRE  ##
 ############################################
@@ -667,23 +816,6 @@ je_turkfm_tanzimat_millet_reform = {
 	weight = 3500
 }
 
-je_turkfm_tanzimat_piracy = {
-	icon = "gfx/interface/icons/event_icons/event_trade.dds"
-	
-	group = je_group_turkfm_tanzimat
-	
-	complete = {
-		
-	}
-	
-	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
-		set_global_variable = turkfm_jack_sparrow_whacked
-	}
-	
-	weight = 3500
-}
-
 je_turkfm_tanzimat_security = {
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
@@ -880,8 +1012,6 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 			# Tension Third Party Events
 			5 = turkfm.260 # Brigands Raid Turkish Lands 
 			
-			# Tension Subject Events
-#			5 = turkfm.280 # Orthodox Subject Requests Increased Autonomy
 		}
 		effect = {
 			turkfm_advance_tension_effect = yes
