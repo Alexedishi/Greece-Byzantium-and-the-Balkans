@@ -2147,9 +2147,32 @@ turkfm.216 = { # Local Bey Exceeds Authority
 		}
 	}
 	
-	option = { # Recall the Bey
+	option = { # Sanction his actions
 		name = turkfm.216.a
 		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_domineering_bey
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_recalled_bey
+			}
+		}
+		turkfm_add_small_escalation_effect = yes
+	}
+	
+	option = { # Recall the Bey
+		name = turkfm.216.b
 		scope:turkfm_tension_state_scope = {
 			add_modifier = {
 				name = modifier_turkfm_recalled_bey
@@ -2175,28 +2198,6 @@ turkfm.216 = { # Local Bey Exceeds Authority
 		turkfm_add_medium_deescalation_effect = yes
 	}
 	
-	option = { # Sanction his actions
-		name = turkfm.216.b
-		scope:turkfm_tension_state_scope = {
-			add_modifier = {
-				name = modifier_turkfm_domineering_bey
-				months = normal_modifier_time
-			}
-			add_radicals_in_state = {
-				religion = rel:orthodox
-				value = medium_radicals
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				post_notification = notification_turkfm_recalled_bey
-			}
-		}
-		turkfm_add_small_deescalation_effect = yes
-	}
 
 }
 

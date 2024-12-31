@@ -364,7 +364,7 @@ je_turkfm_sick_man_caucasus = {
 je_turkfm_pirates_of_the_adriatic = {
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	group = je_group_turkfm_tanzimat
+	group = je_group_turkfm_sick_man
 	
 	should_be_pinned_by_default = yes
 	
@@ -480,13 +480,13 @@ je_turkfm_pirates_of_the_adriatic = {
 					c:TUR ?= this
 				}
 			}
-			NOT = {
-				any_scope_state = {
+			any_scope_state = {
+				count = all
+				NOT = {
 					custom_tooltip = {
 						text = balkfm_state_is_adriatic_tt
 						state_is_adriatic = yes
 					}
-					has_building = building_port
 				}
 			}
 		}
@@ -1043,9 +1043,6 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 #			5 = turkfm.247 # 
 #			5 = turkfm.248 # 
 #			5 = turkfm.249 # 
-			
-			# Tension Third Party Events
-			5 = turkfm.260 # Brigands Raid Turkish Lands 
 			
 		}
 		effect = {

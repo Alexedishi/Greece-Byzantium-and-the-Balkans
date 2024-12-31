@@ -7,7 +7,7 @@ turkfm_jack_sparrow_type = {
 			global_var:turkfm_pirates_var <= 3
 			exists = var:turkfm_jack_sparrow_var
 		}
-		localization_key = turkfm_custom_stable
+		localization_key = turkfm_custom_jack_sparrow_cocky
 	}
 	
 	text = {
@@ -16,7 +16,7 @@ turkfm_jack_sparrow_type = {
 			global_var:turkfm_pirates_var <= 7
 			exists = var:turkfm_jack_sparrow_var
 		}
-		localization_key = turkfm_custom_unrest
+		localization_key = turkfm_custom_jack_sparrow_cautious
 	}
 	
 	text = {
@@ -24,7 +24,7 @@ turkfm_jack_sparrow_type = {
 			global_var:turkfm_pirates_var >= 8
 			exists = var:turkfm_jack_sparrow_var
 		}
-		localization_key = turkfm_custom_hostility
+		localization_key = turkfm_custom_jack_sparrow_scared
 	}
 }
 
@@ -217,5 +217,76 @@ turkfm_tension_factors_type = {
 			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
 		}
 		localization_key = turkfm_custom_deconfliction_factors
+	}
+}
+
+turkfm_escalation_type = {
+	type = country
+	
+	# Stable Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 1 # Stable
+		}
+		localization_key = turkfm_custom_unrest
+	}
+	
+	
+	# Unrest Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 2 # Unrest
+		}
+		localization_key = turkfm_custom_hostility
+	}
+	
+	# Hostility Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 3 # Hostility
+		}
+		localization_key = turkfm_custom_crisis
+	}
+	
+	# Deconfliction Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+		}
+		localization_key = turkfm_custom_stable
+	}
+	
+	# Crisis Phase can only deescalate
+}
+
+turkfm_deescalation_type = {
+	type = country
+	
+	# Stable Phase can only escalate
+	
+	# Unrest Phase can only escalate
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 2 # Unrest
+		}
+		localization_key = turkfm_custom_deconfliction
+	}
+	
+	# Hostility Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 3 # Hostility
+		}
+		localization_key = turkfm_custom_deconfliction
+	}
+	
+	# Deconfliction Phase can only escalate
+	
+	# Crisis Phase
+	text = {
+		trigger = {
+			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
+		}
+		localization_key = turkfm_custom_deconfliction
 	}
 }
