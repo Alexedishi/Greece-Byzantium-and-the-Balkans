@@ -909,7 +909,37 @@ je_balkfm_tur_karadag = {
 	}
 	
 	status_desc = {
-		
+		first_valid = {
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_skirmish
+				trigger = {
+					OR = {
+						has_modifier = modifier_balkfm_sponsoring_raids
+						c:TUR ?= {
+							has_modifier = modifier_balkfm_sponsoring_raids
+						}
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_placid
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 0
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_attacking
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = je_balkfm_mon_black_mountain_status_defending
+				trigger = {
+					global_var:balkfm_border_incursion_var ?= 2
+				}
+			}
+		}
 	}
 	
 	weight = 1000
