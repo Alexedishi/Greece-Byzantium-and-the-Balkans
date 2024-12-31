@@ -1,11 +1,11 @@
 ﻿#### SICK MAN BUTTONS ####
 
 turkfm_sanction_privateers_button = {
-	name = "turkfm_sanction_privateers_button_button"
-	desc = "turkfm_sanction_privateers_button_button_desc"
+	name = "turkfm_sanction_privateers_button"
+	desc = "turkfm_sanction_privateers_button_desc"
 	
 	visible = {
-		always = yes
+		c:TUR ?= this
 	}
 	
 	selected = {
@@ -40,11 +40,11 @@ turkfm_sanction_privateers_button = {
 }
 
 turkfm_curtail_privateers_button = {
-	name = "turkfm_curtail_privateers_button_button"
-	desc = "turkfm_curtail_privateers_button_button_desc"
+	name = "turkfm_curtail_privateers_button"
+	desc = "turkfm_curtail_privateers_button_desc"
 	
 	visible = {
-		always = yes
+		c:TUR ?= this
 	}
 	
 	selected = {
@@ -79,11 +79,11 @@ turkfm_curtail_privateers_button = {
 }
 
 turkfm_hire_retired_pirates_button = {
-	name = "turkfm_hire_retired_pirates_button_button"
-	desc = "turkfm_hire_retired_pirates_button_button_desc"
+	name = "turkfm_hire_retired_pirates_button"
+	desc = "turkfm_hire_retired_pirates_button_desc"
 	
 	visible = {
-		always = yes
+		c:TUR ?= this
 	}
 	
 	possible = {
@@ -105,10 +105,11 @@ turkfm_hire_retired_pirates_button = {
 }
 
 turkfm_suppress_slavers_button = {
-	name = "turkfm_suppress_slavers_button_button"
-	desc = "turkfm_suppress_slavers_button_button_desc"
+	name = "turkfm_suppress_slavers_button"
+	desc = "turkfm_suppress_slavers_button_desc"
 	
 	visible = {
+		c:TUR ?= this
 		NOT = {
 			has_law = law_type:law_slavery_banned
 		}
@@ -120,7 +121,8 @@ turkfm_suppress_slavers_button = {
 	
 	possible = {
 		NOT = {
-			has_modifier = turkfm
+			has_modifier = modifier_turkfm_supressing_slavers
+		}
 	}
 	
 	effect = {

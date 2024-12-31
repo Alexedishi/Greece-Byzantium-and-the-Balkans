@@ -431,6 +431,17 @@ je_turkfm_pirates_of_the_adriatic = {
 	}
 	
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = turkfm_pirates_var
+				}
+			}
+			set_global_variable = {
+				name = turkfm_pirates_var
+				value = 0
+			}
+		}
 		turkfm_jack_sparrow_effect = yes
 		trigger_event = {
 			id = turkfm.190 # The Pirates of the Adriatic
@@ -439,10 +450,10 @@ je_turkfm_pirates_of_the_adriatic = {
 	
 	scripted_progress_bar = turkfm_jack_sparrow_progress_bar
 	
-#	scripted_button = turkfm_sanction_privateers_button
-#	scripted_button = turkfm_curtail_privateers_button
-#	scripted_button = turkfm_hire_retired_pirates_button
-#	scripted_button = turkfm_suppress_slavers_button
+	scripted_button = turkfm_sanction_privateers_button
+	scripted_button = turkfm_curtail_privateers_button
+	scripted_button = turkfm_hire_retired_pirates_button
+	scripted_button = turkfm_suppress_slavers_button
 
 #	scripted_button = turkfm_demand_patrols_button
 #	scripted_button = turkfm_request_reparations_button
@@ -451,7 +462,7 @@ je_turkfm_pirates_of_the_adriatic = {
 	
 	complete = {
 		custom_tooltip = {
-			text = turkfm_jack_sparrow_whacked_tt
+			text = je_turkfm_pirates_of_the_adriatic_complete_tt
 			has_global_variable = turkfm_jack_sparrow_whacked
 		}
 	}
@@ -464,7 +475,10 @@ je_turkfm_pirates_of_the_adriatic = {
 	fail = {
 		trigger_if = {
 			limit = {
-				country_rank < rank_value:great_power
+				OR = {
+					country_rank < rank_value:great_power
+					c:TUR ?= this
+				}
 			}
 			NOT = {
 				any_scope_state = {
@@ -480,7 +494,8 @@ je_turkfm_pirates_of_the_adriatic = {
 			limit = {
 				country_rank >= rank_value:great_power
 				NOT = {
-				
+					c:TUR ?= this
+				}
 			}
 			has_diplomatic_relevance = c:TUR
 		}
