@@ -91,6 +91,33 @@ turkfm_validate_sick_man_effect = {
 	}
 }
 
+turkfm_awaken_jack_sparrow_effect = {
+	create_character = {
+		template = template_turkfm_jack_sparrow
+		first_name = Rafil
+		last_name = Bey #
+		on_created = {
+			place_character_in_void = 300
+		}
+	}
+	random_character_in_void = {
+		limit = {
+			has_template = template_turkfm_jack_sparrow
+		}
+		save_scope_as = turkfm_jack_sparrow_scope
+	}
+	set_variable = {
+		name = turkfm_jack_sparrow_var
+		value = scope:turkfm_jack_sparrow_scope
+	}
+	je:je_turkfm_pirates_of_the_adriatic = {
+		add_to_variable_list = {
+			name = com_journal_characters
+			target = scope:turkfm_jack_sparrow_scope
+		}
+	}
+}
+
 turkfm_jack_sparrow_effect = {
 	if = {
 		limit = {
@@ -110,7 +137,7 @@ turkfm_jack_sparrow_effect = {
 		create_character = {
 			template = template_turkfm_jack_sparrow
 			on_created = {
-				place_character_in_void = 500
+				place_character_in_void = 300
 			}
 		}
 		random_character_in_void = {
@@ -128,6 +155,11 @@ turkfm_jack_sparrow_effect = {
 		set_bar_progress = {
 			name = turkfm_jack_sparrow_progress_bar
 			value = global_var:turkfm_pirates_var
+		}
+		clear_variable_list = com_journal_characters
+		add_to_variable_list = {
+			name = com_journal_characters
+			target = scope:turkfm_jack_sparrow_scope
 		}
 	}
 }

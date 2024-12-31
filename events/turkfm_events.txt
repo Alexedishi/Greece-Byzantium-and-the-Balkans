@@ -54,7 +54,7 @@ namespace = turkfm
 
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 
-#100-109 - Tanzimat Events I
+#100-109 - Tanzimat Narrative Events
 #	100 - The Decaying Empire
 #	101 - ##The Men of the Tanzimat
 #	102 - ##
@@ -66,7 +66,7 @@ namespace = turkfm
 #	108 - ##
 #	109 - ##
 
-#110-119 - Tanzimat Events II
+#110-119 - Tanzimat Reform Events
 #	110 - ##Modernized Agriculture
 #	111 - ##A Formidable Army
 #	112 - ##Stately Governance
@@ -78,12 +78,12 @@ namespace = turkfm
 #	118 - ##Piracy Curtailed
 #	119 - ##
 
-120-129 - The Pirates of the Adriatic Events
-#	120 - ##The Pirates of the Adriatic
-#	121 - ##Merchants Demand Escorts
-#	122 - ##Privateer Provokes International Complaint
-#	123 - ##Pirates Seek Support
-#	124 - ##Slave Ship Captured
+190-199 - The Pirates of the Adriatic Events
+#	190 - ##The Pirates of the Adriatic
+#	191 - ##Merchants Demand Escorts
+#	192 - ##Privateer Provokes International Complaint
+#	193 - ##Pirates Seek Support
+#	194 - ##Slave Ship Captured
 
 
 ##  #TURK2  THE RISE OF NATIONALISM  Events 100-199  ##
@@ -150,12 +150,12 @@ namespace = turkfm
 
 #250-259 - Tension Riot Events
 #	250 - ##Fortress in State Beseiged
-#	251 - ##Crowds Burn Administrative 
+#	251 - ##Crowds Burn Administrative Offices
 #	252 - ##Double Agent Captured
-#	253 - ##
-#	254 - ##IG Sides with Minorities
+#	253 - ##IG Sides with Minorities
+#	254 - ##Armed Forces Request Orders
 #	255 - ##
-#	256 - ##Violence in State Worsens
+#	256 - ##
 #	257 - ##
 #	258 - ##
 #	259 - ##Massacre in State
@@ -344,6 +344,7 @@ turkfm.001 = { # The Sick Man of Europe
 	
 	immediate = {
 		turkfm_calculate_tension_effect = yes
+		turkfm_awaken_jack_sparrow_effect = yes
 		hidden_effect = {
 			trigger_event = {
 				id = turkfm.100 # The Decaying Empire
@@ -558,6 +559,8 @@ turkfm.009 = { # The Healthy Man of Europe
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 200-299  ##
 ############################################################
 
+#### TANZIMAT NARRATIVE EVENTS ####
+
 turkfm.100 = { # The Decaying Empire
 	type = country_event
 	placement = root
@@ -627,6 +630,75 @@ turkfm.101 = { # The Reordering of the Empire
 	}
 
 }
+
+#### TANZIMAT REFORM EVENTS ####
+
+
+
+#### THE PIRATES OF THE ADRIATIC EVENTS ####
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  @@@@@                                        @@@@@     
+# @@@@@@@                                      @@@@@@@
+# @@@@@@@           @@@@@@@@@@@@@@@            @@@@@@@
+#  @@@@@@@@       @@@@@@@@@@@@@@@@@@@        @@@@@@@@
+#      @@@@@     @@@@@@@@@@@@@@@@@@@@@     @@@@@
+#        @@@@@  @@@@@@@@@@@@@@@@@@@@@@@  @@@@@
+#          @@  @@@@@@@@@@@@@@@@@@@@@@@@@  @@
+#             @@@@@@@    @@@@@@    @@@@@@
+#             @@@@@@      @@@@      @@@@@
+#             @@@@@@      @@@@      @@@@@
+#              @@@@@@    @@@@@@    @@@@@
+#               @@@@@@@@@@@  @@@@@@@@@@
+#                @@@@@@@@@@  @@@@@@@@@
+#            @@   @@@@@@@@@@@@@@@@@   @@
+#            @@@@  @@@@ @ @ @ @ @@@@  @@@@
+#           @@@@@   @@@ @ @ @ @ @@@   @@@@@
+#         @@@@@      @@@@@@@@@@@@@      @@@@@
+#       @@@@          @@@@@@@@@@@          @@@@
+#    @@@@@              @@@@@@@              @@@@@
+#   @@@@@@@                                 @@@@@@@
+#    @@@@@                                   @@@@@
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# If you ever find yourself in Albania, be sure to visit the cave of Haxhi Ali, the famed Albanian pirate. Seriously, it's a stop on tours out of Vlore.
+
+turkfm.190 = { # The Pirates of the Adriatic
+	type = country_event
+	placement = root
+	
+	title = turkfm.190.t
+	desc = turkfm.190.d
+	flavor = turkfm.190.f
+	
+	event_image = {
+		video = "unspecific_naval_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_pirates_of_the_adriatic
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.190.a
+		default_option = yes
+		custom_tooltip = turkfm.190.tt
+	}
+
+}
+
 
 
 #########################################################

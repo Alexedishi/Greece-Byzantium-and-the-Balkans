@@ -374,6 +374,14 @@ je_turkfm_pirates_of_the_adriatic = {
 		}
 		trigger_if = {
 			limit = {
+				NOT = {
+					c:TUR ?= this
+				}
+			}
+			has_global_variable = turkfm_pirates_var
+		}
+		trigger_if = {
+			limit = {
 				country_rank < rank_value:great_power
 			}
 			any_scope_state = {
@@ -395,6 +403,12 @@ je_turkfm_pirates_of_the_adriatic = {
 	possible = {
 		trigger_if = {
 			limit = {
+				c:TUR ?= this
+			}
+			year >= 1837
+		}
+		trigger_if = {
+			limit = {
 				country_rank < rank_value:great_power
 			}
 			any_scope_state = {
@@ -408,6 +422,9 @@ je_turkfm_pirates_of_the_adriatic = {
 		trigger_if = {
 			limit = {
 				country_rank >= rank_value:great_power
+				NOT = {
+					c:TUR ?= this
+				}
 			}
 			has_diplomatic_relevance = c:TUR
 		}
@@ -416,7 +433,7 @@ je_turkfm_pirates_of_the_adriatic = {
 	immediate = {
 		turkfm_jack_sparrow_effect = yes
 		trigger_event = {
-			id = turkfm.120 # The Pirates of the Adriatic
+			id = turkfm.190 # The Pirates of the Adriatic
 		}
 	}
 	
@@ -484,6 +501,7 @@ je_turkfm_pirates_of_the_adriatic = {
 			triggered_desc = {
 				desc = turkfm_jack_sparrow_cocky
 				trigger = {
+					has_journal_entry = je_turkfm_pirates_of_the_adriatic
 					global_var:turkfm_pirates_var <= 3
 					exists = var:turkfm_jack_sparrow_var
 				}
@@ -491,6 +509,7 @@ je_turkfm_pirates_of_the_adriatic = {
 			triggered_desc = {
 				desc = turkfm_jack_sparrow_cautious
 				trigger = {
+					has_journal_entry = je_turkfm_pirates_of_the_adriatic
 					global_var:turkfm_pirates_var >= 4
 					global_var:turkfm_pirates_var <= 7
 					exists = var:turkfm_jack_sparrow_var
@@ -499,6 +518,7 @@ je_turkfm_pirates_of_the_adriatic = {
 			triggered_desc = {
 				desc = turkfm_jack_sparrow_scared
 				trigger = {
+					has_journal_entry = je_turkfm_pirates_of_the_adriatic
 					global_var:turkfm_pirates_var >= 8
 					exists = var:turkfm_jack_sparrow_var
 				}
