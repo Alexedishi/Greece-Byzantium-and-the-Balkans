@@ -14,9 +14,6 @@
  je_turkfm_sick_man_crete_reason: "The Eyalet of Crete has been illegitimately occupied by Egypt since the outbreak of the Greek War of Independence. Seizing on the Sultan's moment of weakness, Muhammad Ali seized the island and has since refused to to return it to our rightful rule. We can no longer tolerate this insult."
  je_turkfm_sick_man_caucasus: "Sick Man: Reclaim the Caucasus"
  je_turkfm_sick_man_caucasus_reason: "Before the outbreak of the Russo-Turkish Wars, the Caucasus Mountains were firmly within the grasp of the Sultan. However, the Russian Tsars have taken advantage of Ottoman disorder to encroach on our holdings in the region. The Porte must take decisive action lest these lands be forever lost to us."
- je_turkfm_pirates_of_the_adriatic: "The Pirates of the Adriatic"
- je_turkfm_pirates_of_the_adriatic_reason: "Operating from the Balkan mainland, pirates have persistently terrorized the coasts of the Adriatic Sea. Through the centuries, they have served as an extension of Sultanic authority over the Adriatic. With the decline of central authority however, many have taken increased liberties to raid and pillage without allegiance nor accountability.\n$TOOLTIP_DELIMITER$\n@information![GetPlayer.MakeScope.Var('turkfm_jack_sparrow_var').GetCharacter.GetFullName] leads the largest band of pirates and [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_jack_sparrow_type')]"
- je_turkfm_pirates_of_the_adriatic_complete_tt: "The #bold Pirate Menace#! has been rooted out"
  
  je_turkfm_tanzimat_main: "The Reorganization of the State"
  je_turkfm_tanzimat_main_reason: "For decades, the [ROOT.GetCountry.GetName] has been in steady decline, with the powers of Europe gawning at its borders and unrest spreading across its minorities. In the face of these threats, Sultan #bold Mahmud II#! championed an era of reform, with the aim of creating a truly centralized bureaucracy to govern and unite the Empire. As western thought begins to permeate [ROOT.GetCountry.GetCapital.GetCityHubName], the spirit of reform and progress is in the air."
@@ -48,6 +45,10 @@
  je_turkfm_separatism_riots_reason: ""
  je_turkfm_eastern_question: "The Eastern Question"
  je_turkfm_eastern_question_reason: "The #bold Ottoman Empire#! has fallen from grace. Rocked by revolutions in Greece and Serbia and reeling from the Egyptian Revolt, the authority of the #bold Sublime Porte#! has come into question. With the Empire humiliated by the insults of the Treaty of Adrianople and Convention of Kütahya, many anticipate the imminent disintegration of the Sultanate. The government in [ROOT.GetCountry.GetCapital.GetCityHubName] struggles to defend itelf from the Great Powers, and its #o #tooltip:[GetRawTextTooltipTag('turkfm_balkfm_cultures_concept_tt')] Balkan Subjects#!#! eye their chances to break free from the Empire.$turkfm_tension_details_tt$"
+ 
+ je_turkfm_pirates_of_the_adriatic: "The Pirates of the Adriatic"
+ je_turkfm_pirates_of_the_adriatic_reason: "Operating from the Balkan mainland, pirates have persistently terrorized the coasts of the Adriatic Sea. Through the centuries, they have served as an extension of Sultanic authority over the Adriatic. With the decline of central authority however, many have taken increased liberties to raid and pillage without allegiance nor accountability.\n$TOOLTIP_DELIMITER$\n@information![GetPlayer.MakeScope.Var('turkfm_jack_sparrow_var').GetCharacter.GetFullName] leads the largest band of pirates and [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_jack_sparrow_type')]"
+ je_turkfm_pirates_of_the_adriatic_complete_tt: "The #bold Pirate Menace#! has been rooted out"
  
  # decisions
  
@@ -122,9 +123,33 @@
  turkfm_balkan_loyalists_tt: "#bold Current Contribution from [concept_loyalist] [concept_pop]#o s#! in the [GetStrategicRegion('region_balkans').GetName]#!\n$TOOLTIP_DELIMITER$\n•"
  turkfm_balkan_radicals_tt: "#bold Current Contribution from [concept_radical] [concept_pop]#o s#! in the [GetStrategicRegion('region_balkans').GetName]#!\n$TOOLTIP_DELIMITER$\n•"
  
+ turkfm_expedition_progress_explanation: "#bold Progress#! represents the progress achieved by the members of an expedition. Increasing #bold Expedition#! #bold #green Progress#!#! to #bold 8 or more#! will achieve its goal."
+ turkfm_progress_tt: "#tooltippable;positive_value;TOOLTIP:expedition_progress_explanation_tt Progress#!"
+ turkfm_progress_plus_1: "The #bold Expedition#! gains #bold #green 1#!#! $turkfm_progress_tt$."
+ turkfm_progress_plus_2: "The #bold Expedition#! gains #bold #green 2#!#! $turkfm_progress_tt$."
+ turkfm_progress_plus_3: "The #bold Expedition#! gains #bold #green 3#!#! $turkfm_progress_tt$."
+ turkfm_progress_minus_1: "The #bold Expedition#! loses #bold #red 1#!#! $turkfm_progress_tt$."
+ turkfm_progress_minus_2: "The #bold Expedition#! loses #bold #red 2#!#! $turkfm_progress_tt$."
+ turkfm_progress_minus_3: "The #bold Expedition#! loses #bold #red 3#!#! $turkfm_progress_tt$."
+ turkfm_expedition_peril_explanation: "#bold Peril#! represents the adversity encountered by the members of an expedition. Increasing #bold Expedition#! #bold #red Peril#!#! to #bold 8 or more#! will cause it to fail."
+ turkfm_peril_tt: "#tooltippable;negative_value;TOOLTIP:turkfm_expedition_peril_explanation Peril#!"
+ turkfm_peril_plus_1: "The #bold Expedition#! gains #bold #red 1#!#! $turkfm_peril_tt$."
+ turkfm_peril_plus_2: "The #bold Expedition#! gains #bold #red 2#!#! $turkfm_peril_tt$."
+ turkfm_peril_plus_3: "The #bold Expedition#! gains #bold #red 3#!#! $turkfm_peril_tt$."
+ turkfm_peril_minus_1: "The #bold Expedition#! loses #bold #green 1#!#! $turkfm_peril_tt$."
+ turkfm_peril_minus_2: "The #bold Expedition#! loses #bold #green 2#!#! $turkfm_peril_tt$."
+ turkfm_peril_minus_3: "The #bold Expedition#! loses #bold #green 3#!#! $turkfm_peril_tt$.
+ turkfm_no_effects: "#italic Nothing happens#!..."
+ turkfm_has_expedition: "[ROOT.GetCountry.GetNameNoFlag] has an active #bold Naval Expedition#!"
+ turkfm_has_adriatic_expedition: "[ROOT.GetCountry.GetNameNoFlag] has an active #bold Naval Expedition#! to combat [concept_albanian_piracy]"
+ 
  turkfm_jack_sparrow_cocky: "[GetPlayer.MakeScope.Var('turkfm_jack_sparrow_var').GetCharacter.GetFullName] operates with #red #bold Impunity#!#!"
  turkfm_jack_sparrow_cautious: "[GetPlayer.MakeScope.Var('turkfm_jack_sparrow_var').GetCharacter.GetFullName] is showing #orange #bold Trepidation#!#!"
  turkfm_jack_sparrow_scared: "[GetPlayer.MakeScope.Var('turkfm_jack_sparrow_var').GetCharacter.GetFullName] is #greece #bold In Hiding#!#!"
+ turkfm_adriatic_expedition_tt: "If #bold Expedition#! $turkfm_progress_tt$ reaches #bold #green 8#!#!, [ROOT.GetCountry.GetNameNoFlag] will locate a pirate hideout. If #bold Expedition#! $turkfm_peril_tt$ reaches #red #bold 8#!#!, [ROOT.GetCountry.GetNameNoFlag]'s mission will fail."
+ turkfm_piracy_advance_1: "Progress towards supressing [concept_albanian_piracy] will advance by #bold #green 1#!#!."
+ turkfm_thrown_in_jail_tt: "[SCOPE.sCharacter('jack_sparrow_scope').GetFullName] will languish in prison."
+ turkfm_cutler_beckett_expedition: "[GetPlayer.MakeScope.Var('turkfm_cutler_beckett_var').GetCharacter.GetFullName] leads the expedition.\n$turkfm_progress_tt$: #bold #green [GetPlayer.MakeScope.Var('turkfm_expedition_progress_var').GetValue]#!/8#! $turkfm_peril_tt$: #bold #red [GetPlayer.MakeScope.Var('turkfm_expedition_peril_var').GetValue]#!/8#!"
  
  # custom_loc
  turkfm_custom_stable: "$turkfm_stable$"
@@ -210,6 +235,10 @@
  turkfm_hire_retired_pirates_button_desc: ""
  turkfm_suppress_slavers_button: "Supress Slave Traders"
  turkfm_suppress_slavers_button_desc: ""
+ turkfm_deploy_expedition_button: "Deploy Adriatic Expedition"
+ turkfm_deploy_expedition_button_desc: ""
+ turkfm_recall_expedition_button: "Recall Adriatic Expedition"
+ turkfm_recall_expedition_button_desc: ""
  
  # notifications
  notification_notification_turkfm_transition_stable_name: "$turkfm_balkfm_tensions_tt$ Phase Transitions to $turkfm_stable$"
@@ -324,6 +353,11 @@
  notification_notification_turkfm_garrison_deployed_name: ""
  notification_notification_turkfm_garrison_deployed_desc: ""
  
+ notification_notification_turkfm_jack_sparrow_reincarnated_name: "New Pirate Lord Rises"
+ notification_notification_turkfm_jack_sparrow_reincarnated_desc: ""
+ notification_notification_turkfm_piracy_yearly_progress: "Adriatic Expedition Makes Progress"
+ notification_notification_turkfm_piracy_yearly_progress_desc: ""
+ 
  # country_flavor_text
  
  
@@ -411,10 +445,23 @@
  modifier_turkfm_imperial_weakness: "Imperial Weakness"
  modifier_turkfm_revolutionary_spirit: "Revolutionary Weakness"
  
+ modifier_turkfm_deployed_expedition: "Deployed Expedition"
+ modifier_turkfm_leading_expedition: "Leading Expedition"
+ modifier_turkfm_completed_expedition: "Successful Expedition"
+ modifier_turkfm_cancelled_expedition: "Cancelled Expedition"
+ modifier_turkfm_failed_expedition: "Failed Expedition"
+ 
  modifier_turkfm_sanctioning_privateers: "Sanctioning Privateers"
  modifier_turkfm_curtailing_privateers: "Curtailing Privateers"
  modifier_turkfm_hired_pirates: "Hired Retired Pirates"
  modifier_turkfm_supressing_slavers: "Supressing Slave Traders"
+ modifier_turkfm_coasts_raided: "Coasts Raided"
+ modifier_turkfm_merchants_raided: "Merchants Raided"
+ modifier_turkfm_aid_distributed_state: "Coastal Aid Distributed"
+ modifier_turkfm_aid_distributed_country: "Coastal Aid Distributed"
+ modifier_turkfm_paid_ransom: "Paid Pirate Ransom"
+ modifier_turkfm_abandoned_noble: "Abandoned Captive Noble"
+ modifier_turkfm_pacified_adriatic: "Pacified the Adriatic"
  
  modifier_turkfm_order_of_honor: "İmtiyaz Nişanı"
  modifier_turkfm_order_of_glory: "İftihar Nişanı"
@@ -426,7 +473,8 @@
  Rafil: "Rafil"
  
  # traits
- 
+ trait_turkfm_corsair: "Corsair"
+ trait_turkfm_corsair_desc: "This character has achieved fame as a dreaded pirate of the Adriatic Sea."
  
  # ideologies
  ideology_turkfm_ottomanist: "Ottomanist"

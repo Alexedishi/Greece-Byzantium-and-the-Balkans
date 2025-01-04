@@ -1,5 +1,43 @@
 ﻿#### SICK MAN BUTTONS ####
+# ////
 
+
+#### TANZIMAT BUTTONS ####
+turkfm_start_tanzimat_button = {
+	name = "turkfm_start_tanzimat_button"
+	desc = "turkfm_start_tanzimat_button_desc"
+	
+	visible = {
+		NOT = {
+			has_global_variable = turkfm_tanzimat_started
+		}
+	}
+	
+	possible = {
+		custom_tooltip = turkfm_mahmud_dead_tt
+		hidden_trigger = {
+			ruler = {
+				NOT = {
+					has_template = template_turkfm_osmanoglu_mahmut_ii
+				}
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = turkfm.101 # The Reordering of the Empire
+		}
+		set_global_variable = turkfm_tanzimat_started
+	}
+	
+}
+
+#### EASTERN QUESTIONS BUTTONS ####
+# ////
+
+
+#### ALBANIAN PIRACY BUTTONS ####
 turkfm_sanction_privateers_button = {
 	name = "turkfm_sanction_privateers_button"
 	desc = "turkfm_sanction_privateers_button_desc"
@@ -87,12 +125,20 @@ turkfm_hire_retired_pirates_button = {
 	}
 	
 	possible = {
-		NOT = {
+		NOR = {
 			has_modifier = modifier_turkfm_hired_pirates
+			hidden_trigger = {
+				has_variable = turkfm_selecting_recruits
+			}
 		}
 	}
 	
 	effect = {
+		trigger_event = {
+			id = turkfm.919 # Treating with Corsairs
+			popup = yes
+		}
+		set_variable = turkfm_selecting_recruits
 	}
 	
 	ai_chance = {
@@ -137,41 +183,66 @@ turkfm_suppress_slavers_button = {
 	}
 }
 
-#turkfm_demand_patrols_button
-#turkfm_request_reparations_button
-
-#### TANZIMAT BUTTONS ####
-
-turkfm_start_tanzimat_button = {
-	name = "turkfm_start_tanzimat_button"
-	desc = "turkfm_start_tanzimat_button_desc"
+turkfm_deploy_expedition_button = {
+	name = "turkfm_deploy_expedition_button"
+	desc = "turkfm_deploy_expedition_button_desc"
 	
 	visible = {
 		NOT = {
-			has_global_variable = turkfm_tanzimat_started
+			c:TUR ?= this
 		}
 	}
 	
 	possible = {
-		custom_tooltip = turkfm_mahmud_dead_tt
-		hidden_trigger = {
-			ruler = {
-				NOT = {
-					has_template = template_turkfm_osmanoglu_mahmut_ii
-				}
-			}
+		NOR = {
+			turkfm_has_any_expedition_trigger = no
+			has_modifier = modifier_turkfm_deployed_expedition
+			has_modifier = modifier_turkfm_cancelled_expedition
 		}
 	}
 	
 	effect = {
 		trigger_event = {
-			id = turkfm.101 # The Reordering of the Empire
+			id = turkfm.901 # Pacifying the Adriatic
+			popup = yes
 		}
-		set_global_variable = turkfm_tanzimat_started
+		add_modifier = modifier_turkfm_deployed_expedition
 	}
 	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
 }
 
-#### EASTERN QUESTIONS BUTTONS ####
+turkfm_recall_expedition_button = {
+	name = "turkfm_recall_expedition_button"
+	desc = "turkfm_recall_expedition_button_desc"
+	
+	visible = {
+		turkfm_has_adriatic_expedition_trigger = yes
+	}
+	
+	possible = {
+		turkfm_has_adriatic_expedition_trigger = yes
+	}
+	
+	effect = {
+		turkfm_cancel_piracy_expedition_effect = yes
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
 
-# ////
+
+#turkfm_demand_patrols_button
+#turkfm_request_reparations_button

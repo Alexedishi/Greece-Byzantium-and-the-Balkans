@@ -91,79 +91,6 @@ turkfm_validate_sick_man_effect = {
 	}
 }
 
-turkfm_awaken_jack_sparrow_effect = {
-	create_character = {
-		template = template_turkfm_jack_sparrow
-		first_name = Rafil
-		last_name = Bey #
-		on_created = {
-			place_character_in_void = 300
-		}
-	}
-	random_character_in_void = {
-		limit = {
-			has_template = template_turkfm_jack_sparrow
-		}
-		save_scope_as = turkfm_jack_sparrow_scope
-	}
-	set_variable = {
-		name = turkfm_jack_sparrow_var
-		value = scope:turkfm_jack_sparrow_scope
-	}
-	je:je_turkfm_pirates_of_the_adriatic = {
-		add_to_variable_list = {
-			name = com_journal_characters
-			target = scope:turkfm_jack_sparrow_scope
-		}
-	}
-}
-
-turkfm_jack_sparrow_effect = {
-	if = {
-		limit = {
-			any_character_in_void = {
-				has_template = template_turkfm_jack_sparrow
-			}
-			
-		}
-		random_character_in_void = {
-			limit = {
-				has_template = template_turkfm_jack_sparrow
-			}
-		}
-		save_scope_as = turkfm_jack_sparrow_scope
-	}
-	else = {
-		create_character = {
-			template = template_turkfm_jack_sparrow
-			on_created = {
-				place_character_in_void = 300
-			}
-		}
-		random_character_in_void = {
-			limit = {
-				has_template = template_turkfm_jack_sparrow
-			}
-			save_scope_as = turkfm_jack_sparrow_scope
-		}
-	}
-	set_variable = {
-		name = turkfm_jack_sparrow_var
-		value = scope:turkfm_jack_sparrow_scope
-	}
-	je:je_turkfm_pirates_of_the_adriatic = {
-		set_bar_progress = {
-			name = turkfm_jack_sparrow_progress_bar
-			value = global_var:turkfm_pirates_var
-		}
-		clear_variable_list = com_journal_characters
-		add_to_variable_list = {
-			name = com_journal_characters
-			target = scope:turkfm_jack_sparrow_scope
-		}
-	}
-}
-
 #### TANZIMAT EFFECTS ####
 
 turkfm_initialize_tanzimat = {
@@ -2487,4 +2414,448 @@ turkfm_cleanup_tension_sub_effect = {
 
 turkfm_cleanup_tension_eqfm_effect = {
 
+}
+
+#### ALBANIAN PIRACY EFFECTS ####
+
+turkfm_awaken_jack_sparrow_effect = {
+	create_character = {
+		template = template_turkfm_jack_sparrow
+		first_name = Rafil
+		last_name = Bey #
+		on_created = {
+			place_character_in_void = 300
+		}
+	}
+	random_character_in_void = {
+		limit = {
+			has_template = template_turkfm_jack_sparrow
+		}
+		save_scope_as = turkfm_jack_sparrow_scope
+	}
+	set_variable = {
+		name = turkfm_jack_sparrow_var
+		value = scope:turkfm_jack_sparrow_scope
+	}
+	je:je_turkfm_pirates_of_the_adriatic = {
+		add_to_variable_list = {
+			name = com_journal_characters
+			target = scope:turkfm_jack_sparrow_scope
+		}
+	}
+}
+
+turkfm_jack_sparrow_effect = {
+	## Step 1, Check for pirate leader
+	if = {
+		limit = {
+			any_character_in_void = {
+				has_template = template_turkfm_jack_sparrow
+			}
+			
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_jack_sparrow
+			}
+		}
+		save_scope_as = turkfm_jack_sparrow_scope
+	}
+	else = {
+		create_character = {
+			template = template_turkfm_jack_sparrow
+			on_created = {
+				place_character_in_void = 300
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_jack_sparrow
+			}
+			save_scope_as = turkfm_jack_sparrow_scope
+		}
+		every_country = {
+			limit = {
+				has_journal_entry = je_turkfm_pirates_of_the_adriatic
+			}
+			post_notification = notification_turkfm_jack_sparrow_reincarnated
+		}
+	}
+	set_variable = {
+		name = turkfm_jack_sparrow_var
+		value = scope:turkfm_jack_sparrow_scope
+	}
+	
+	## Step 2, Check for ongoing expedition
+	if = {
+		limit = {
+			any_scope_character = {
+				has_modifier = modifier_turkfm_leading_expedition
+			}
+		}
+		random_scope_character = {
+			limit = {
+				has_modifier = modifier_turkfm_leading_expedition
+			}
+			save_scope_as = turkfm_cutler_beckett_scope
+		}
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_cutler_beckett_scope
+		}
+		set_variable = {
+			name = turkfm_cutler_beckett_var
+			value = scope:turkfm_cutler_beckett_scope
+		}
+	}
+	else = {
+		remove_variable = turkfm_cutler_beckett_var
+	}
+	
+	## Step 3, Update Lists and progress bars
+	je:je_turkfm_pirates_of_the_adriatic = {
+		set_bar_progress = {
+			name = turkfm_jack_sparrow_progress_bar
+			value = global_var:turkfm_pirates_var
+		}
+		clear_variable_list = com_journal_characters
+		add_to_variable_list = {
+			name = com_journal_characters
+			target = scope:turkfm_jack_sparrow_scope
+		}
+		if = {
+			limit = {
+				exists = scope:turkfm_cutler_beckett_scope
+			}
+			add_to_variable_list = {
+				name = com_journal_characters
+				target = scope:turkfm_cutler_beckett_scope
+			}
+		}
+	}
+}
+
+turkfm_piracy_event_effect = {
+	set_variable = {
+		name = turkfm_piracy_cooldown_var
+		days = 45
+	}
+	random_character_in_void = {
+		limit = {
+			has_template = template_turkfm_jack_sparrow
+		}
+		save_scope_as = turkfm_jack_sparrow_scope
+	}
+	random_scope_character = {
+		limit = {
+			has_modifier = modifier_turkfm_leading_expedition
+		}
+		save_scope_as = turkfm_cutler_beckett_scope
+	}
+}
+
+turkfm_cleanup_piracy_effect = {
+	every_scope_character = {
+		limit = {
+			has_modifier = modifier_turkfm_leading_expedition
+		}
+		remove_modifier = modifier_turkfm_leading_expedition
+		add_modifier = {
+			name = modifier_turkfm_failed_expedition
+			months = long_modifier_time
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_deployed_expedition
+		}
+		remove_modifier = modifier_turkfm_deployed_expedition
+	}
+	remove_variable = turkfm_jack_sparrow_var
+	remove_variable = turkfm_cutler_beckett_var
+	remove_variable = turkfm_expedition_transit_var
+	remove_variable = turkfm_expedition_progress_var
+	remove_variable = turkfm_expedition_peril_var
+}
+
+#### EXPEDITION EFFECTS ####
+
+## General Expedition Effects
+
+turkfm_add_minor_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_plus_1
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			add = 1
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_add_medium_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_plus_2
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			add = 2
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+
+}
+
+turkfm_add_large_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_plus_3
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			add = 3
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_remove_minor_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_minus_1
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			subtract = 1
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+
+}
+
+turkfm_remove_medium_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_minus_2
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			subtract = 2
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_remove_large_peril_effect = {
+	custom_tooltip = {
+		text = turkfm_peril_minus_3
+		change_variable = {
+			name = turkfm_expedition_peril_var
+			subtract = 3
+		}
+		clamp_variable = {
+			name = turkfm_expedition_peril_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_add_minor_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_plus_1
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			add = 1
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_add_medium_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_plus_2
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			add = 2
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_add_large_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_plus_3
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			add = 3
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_remove_small_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_minus_1
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			subtract = 1
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_remove_medium_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_minus_2
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			subtract = 2
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+turkfm_remove_large_progress_effect = {
+	custom_tooltip = {
+		text = turkfm_progress_minus_3
+		change_variable = {
+			name = turkfm_expedition_progress_var
+			subtract = 3
+		}
+		clamp_variable = {
+			name = turkfm_expedition_progress_var
+			max = 10
+			min = 0
+		}
+	}
+}
+
+## Piracy Expedition Effects
+
+turkfm_start_piracy_expedition_effect = {
+	remove_variable = turkfm_expedition_transit_var
+	set_variable = {
+		name = turkfm_expedition_var
+		value = 1 # Piracy Expedition
+	}
+	set_variable = {
+		name = turkfm_expedition_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = turkfm_expedition_peril_var
+		value = 0
+	}
+}
+
+turkfm_cancel_piracy_expedition_effect = {
+	every_scope_character = {
+		limit = {
+			has_modifier = modifier_turkfm_leading_expedition
+		}
+		remove_modifier = modifier_turkfm_leading_expedition
+	}
+	remove_modifier = modifier_turkfm_deployed_expedition
+	add_modifier = {
+		name = modifier_turkfm_cancelled_expedition
+		months = short_modifier_time
+	}
+	remove_variable = turkfm_expedition_var
+	remove_variable = turkfm_expedition_progress_var
+	remove_variable = turkfm_expedition_peril_var
+}
+
+turkfm_fail_piracy_expedition_effect = {
+	remove_variable = turkfm_expedition_var
+	remove_variable = turkfm_expedition_progress_var
+	remove_variable = turkfm_expedition_peril_var
+	every_scope_character = {
+		limit = {
+			has_modifier = modifier_turkfm_leading_expedition
+		}
+		remove_modifier = modifier_turkfm_leading_expedition
+		add_modifier = {
+			name = modifier_turkfm_failed_expedition
+			months = long_modifier_time
+		}
+	}
+	remove_modifier = modifier_turkfm_deployed_expedition
+}
+
+turkfm_complete_piracy_expedition_effect = {
+	remove_variable = turkfm_expedition_var
+	remove_variable = turkfm_expedition_progress_var
+	remove_variable = turkfm_expedition_peril_var
+	every_scope_character = {
+		limit = {
+			has_modifier = modifier_turkfm_leading_expedition
+		}
+		remove_modifier = modifier_turkfm_leading_expedition
+		add_modifier = {
+			name = modifier_turkfm_completed_expedition
+			months = long_modifier_time
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_failed_expedition
+			}
+			remove_modifier = modifier_turkfm_failed_expedition
+		}
+	}
+	remove_modifier = modifier_turkfm_deployed_expedition
+	custom_tooltip = {
+		text = turkfm_piracy_advance_1
+		change_global_variable = {
+			name = turkfm_pirates_var
+			add = 1
+		}
+		if = {
+			limit = {
+				global_var:turkfm_pirates_var >= 5
+			}
+			set_variable = turkfm_jack_sparrow_captor
+			hidden_effect = {
+				trigger_event = {
+					id = turkfm.908 # Jack Sparrow Clapped in Irons!
+					days = 7
+				}
+			}
+		}
+	}
+	set_variable = turkfm_completed_pirate_expedition
 }

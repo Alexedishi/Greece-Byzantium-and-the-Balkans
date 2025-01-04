@@ -361,190 +361,6 @@ je_turkfm_sick_man_caucasus = {
 	
 }
 
-je_turkfm_pirates_of_the_adriatic = {
-	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
-	
-	group = je_group_turkfm_sick_man
-	
-	should_be_pinned_by_default = yes
-	
-	is_shown_when_inactive = {
-		NOT = {
-			has_global_variable = turkfm_jack_sparrow_whacked
-		}
-		trigger_if = {
-			limit = {
-				NOT = {
-					c:TUR ?= this
-				}
-			}
-			has_global_variable = turkfm_pirates_var
-		}
-		trigger_if = {
-			limit = {
-				country_rank < rank_value:great_power
-			}
-			any_scope_state = {
-				state_is_adriatic = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				country_rank >= rank_value:great_power
-			}
-			c:TUR ?= {
-				any_scope_state = {
-					state_is_adriatic = yes
-				}
-			}
-		}
-	}
-	
-	possible = {
-		trigger_if = {
-			limit = {
-				c:TUR ?= this
-			}
-			year >= 1837
-		}
-		trigger_if = {
-			limit = {
-				country_rank < rank_value:great_power
-			}
-			any_scope_state = {
-				custom_tooltip = {
-					text = balkfm_state_is_adriatic_tt
-					state_is_adriatic = yes
-				}
-				has_building = building_port
-			}
-		}
-		trigger_if = {
-			limit = {
-				country_rank >= rank_value:great_power
-				NOT = {
-					c:TUR ?= this
-				}
-			}
-			has_diplomatic_relevance = c:TUR
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = {
-					has_global_variable = turkfm_pirates_var
-				}
-			}
-			set_global_variable = {
-				name = turkfm_pirates_var
-				value = 0
-			}
-		}
-		turkfm_jack_sparrow_effect = yes
-		trigger_event = {
-			id = turkfm.190 # The Pirates of the Adriatic
-		}
-	}
-	
-	scripted_progress_bar = turkfm_jack_sparrow_progress_bar
-	
-	scripted_button = turkfm_sanction_privateers_button
-	scripted_button = turkfm_curtail_privateers_button
-	scripted_button = turkfm_hire_retired_pirates_button
-	scripted_button = turkfm_suppress_slavers_button
-
-#	scripted_button = turkfm_demand_patrols_button
-#	scripted_button = turkfm_request_reparations_button
-#	scripted_button = turkfm_
-#	scripted_button = turkfm_
-	
-	complete = {
-		custom_tooltip = {
-			text = je_turkfm_pirates_of_the_adriatic_complete_tt
-			has_global_variable = turkfm_jack_sparrow_whacked
-		}
-	}
-	
-	on_complete = {
-		set_global_variable = turkfm_jack_sparrow_whacked
-		remove_variable = turkfm_jack_sparrow_var
-	}
-	
-	fail = {
-		trigger_if = {
-			limit = {
-				OR = {
-					country_rank < rank_value:great_power
-					c:TUR ?= this
-				}
-			}
-			any_scope_state = {
-				count = all
-				NOT = {
-					custom_tooltip = {
-						text = balkfm_state_is_adriatic_tt
-						state_is_adriatic = yes
-					}
-				}
-			}
-		}
-		trigger_if = {
-			limit = {
-				country_rank >= rank_value:great_power
-				NOT = {
-					c:TUR ?= this
-				}
-			}
-			has_diplomatic_relevance = c:TUR
-		}
-	}
-	
-	on_fail = {
-		remove_variable = turkfm_jack_sparrow_var
-	}
-	
-	on_weekly_pulse = {
-		effect = {
-			turkfm_jack_sparrow_effect = yes
-		}
-	}
-	
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = turkfm_jack_sparrow_cocky
-				trigger = {
-					has_journal_entry = je_turkfm_pirates_of_the_adriatic
-					global_var:turkfm_pirates_var <= 3
-					exists = var:turkfm_jack_sparrow_var
-				}
-			}
-			triggered_desc = {
-				desc = turkfm_jack_sparrow_cautious
-				trigger = {
-					has_journal_entry = je_turkfm_pirates_of_the_adriatic
-					global_var:turkfm_pirates_var >= 4
-					global_var:turkfm_pirates_var <= 7
-					exists = var:turkfm_jack_sparrow_var
-				}
-			}
-			triggered_desc = {
-				desc = turkfm_jack_sparrow_scared
-				trigger = {
-					has_journal_entry = je_turkfm_pirates_of_the_adriatic
-					global_var:turkfm_pirates_var >= 8
-					exists = var:turkfm_jack_sparrow_var
-				}
-			}
-		}
-	}
-	
-	weight = 1000
-	
-}
-
 ############################################
 ##  #TURK1  THE REORDERING OF THE EMPIRE  ##
 ############################################
@@ -1258,15 +1074,285 @@ je_turkfm_eastern_question = { # This is assigned to Involved GPs
 # //OPEN
 
 
-#######################################
-##  TURK8  BALKAN NATIONAL REVIVALS  ##
-#######################################
+#########################################
+##  #TURK5  TURKISH HISTORICAL FLAVOR  ##
+#########################################
 
 # //OPEN
 
-################################################
-##  TURK9  ARAB & ARMENIAN NATIONAL REVIVALS  ##
-################################################
+
+##########################################
+##  #TURK6  TURKISH NATIONALISM  Events ##
+##########################################
 
 # //OPEN
 
+
+###################
+##  #TURK7 OPEN  ##
+###################
+
+# //OPEN
+
+
+###################
+##  #TURK8 OPEN  ##
+###################
+
+# //OPEN
+
+
+################################################
+##  #TURK9  CONTENT NOT ELSEWHERE CLASSIFIED  ##
+################################################
+
+
+je_turkfm_pirates_of_the_adriatic = {
+	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
+	
+	group = je_group_turkfm_sick_man
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		NOT = {
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+		trigger_if = {
+			limit = {
+				NOT = {
+					c:TUR ?= this
+				}
+			}
+			has_global_variable = turkfm_pirates_var
+		}
+		trigger_if = {
+			limit = {
+				country_rank < rank_value:great_power
+			}
+			any_scope_state = {
+				state_is_adriatic = yes
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			c:TUR ?= {
+				any_scope_state = {
+					state_is_adriatic = yes
+				}
+			}
+		}
+	}
+	
+	possible = {
+		trigger_if = {
+			limit = {
+				c:TUR ?= this
+			}
+			year >= 1837
+		}
+		trigger_if = {
+			limit = {
+				country_rank < rank_value:great_power
+			}
+			any_scope_state = {
+				custom_tooltip = {
+					text = balkfm_state_is_adriatic_tt
+					state_is_adriatic = yes
+				}
+				has_building = building_port
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+				NOT = {
+					c:TUR ?= this
+				}
+			}
+			has_diplomatic_relevance = c:TUR
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = turkfm_pirates_var
+				}
+			}
+			set_global_variable = {
+				name = turkfm_pirates_var
+				value = 0
+			}
+		}
+		turkfm_jack_sparrow_effect = yes
+		trigger_event = {
+			id = turkfm.900 # The Pirates of the Adriatic
+		}
+	}
+	
+	scripted_progress_bar = turkfm_jack_sparrow_progress_bar
+	
+	scripted_button = turkfm_sanction_privateers_button
+	scripted_button = turkfm_curtail_privateers_button
+	scripted_button = turkfm_hire_retired_pirates_button
+	scripted_button = turkfm_suppress_slavers_button
+
+	scripted_button = turkfm_deploy_expedition_button
+	scripted_button = turkfm_recall_expedition_button
+#	scripted_button = turkfm_demand_patrols_button
+#	scripted_button = turkfm_request_reparations_button
+	
+	complete = {
+		custom_tooltip = {
+			text = je_turkfm_pirates_of_the_adriatic_complete_tt
+			has_global_variable = turkfm_jack_sparrow_whacked
+		}
+	}
+	
+	on_complete = {
+		turkfm_cleanup_piracy_effect = yes
+	}
+	
+	fail = {
+		trigger_if = {
+			limit = {
+				OR = {
+					country_rank < rank_value:great_power
+					c:TUR ?= this
+				}
+			}
+			any_scope_state = {
+				count = all
+				NOT = {
+					custom_tooltip = {
+						text = balkfm_state_is_adriatic_tt
+						state_is_adriatic = yes
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				country_rank >= rank_value:great_power
+				NOT = {
+					c:TUR ?= this
+				}
+			}
+			has_diplomatic_relevance = c:TUR
+		}
+	}
+	
+	on_fail = {
+		turkfm_cleanup_piracy_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			turkfm_jack_sparrow_effect = yes
+		}
+		events = {
+			turkfm.903 # Cutler Beckett Withdraws from the Adriatic
+			turkfm.904 # Cutler Beckett Has Died!
+			turkfm.907 # Pirate Hideout Destroyed
+		}
+	}
+	
+	on_monthly_pulse = {
+		# General Piracy Events
+		random_events = {
+			chance_of_no_event = 90
+			5 = turkfm.910 # Coastal Village Raided!
+			5 = turkfm.911 # Merchant Vessels Raided!
+			5 = turkfm.912 # Nobleman Held Hostage
+			5 = turkfm.913 # A Pirate's Booty
+			5 = turkfm.914 # Diplomatic Communiques Intercepted
+			5 = turkfm.915 # Slavers Intercepted
+		}
+		# Expedition Events
+		random_events = {
+			chance_of_no_event = 75
+			5 = turkfm.920 # Local Informants
+			5 = turkfm.921 # A Suspicious Inlet
+			5 = turkfm.922 # Man Overboard!
+#			5 = turkfm.923 # 
+			5 = turkfm.924 # Circular Bearing
+			5 = turkfm.925 # Windstorms in the Adriatic
+			5 = turkfm.926 # Foul Waters
+			5 = turkfm.927 # Scouts Pick Up Leads
+			5 = turkfm.928 # Emergency Repairs
+			5 = turkfm.929 # Port of Call
+		}
+		# Chase Events
+		random_events = {
+			1 = turkfm.905 # Beckett & Sparrow Duel
+#			5 = turkfm.930 # Hot on the Scent
+#			5 = turkfm.931 # Pirates Spotted!
+#			5 = turkfm.932 # The Pillagers' Wake
+#			5 = turkfm.933 # Attempting the Approach
+#			5 = turkfm.934 # Without a Trace
+#			5 = turkfm.935 # Bearing Down
+#			5 = turkfm.936 # Cut and Run
+#			5 = turkfm.937 # Action Along the Coast
+#			5 = turkfm.938 # Establishing a Beachhead
+#			5 = turkfm.939 # Storming the Hideout
+		}
+	}
+	
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					var:turkfm_expedition_var ?= 1
+				}
+				change_variable = {
+					name = turkfm_expedition_progress_var
+					add = 1
+				}
+				post_notification = notification_turkfm_piracy_yearly_progress
+			}
+		}
+	}
+	
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = turkfm_cutler_beckett_expedition
+				trigger = {
+					has_variable = turkfm_cutler_beckett_var
+					exists = var:turkfm_cutler_beckett_var
+				}
+			}
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_scared
+				trigger = {
+					has_global_variable = turkfm_pirates_var
+					global_var:turkfm_pirates_var >= 4
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_cautious
+				trigger = {
+					has_global_variable = turkfm_pirates_var
+					global_var:turkfm_pirates_var >= 2
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+			triggered_desc = {
+				desc = turkfm_jack_sparrow_cocky
+				trigger = {
+					has_global_variable = turkfm_pirates_var
+					global_var:turkfm_pirates_var >= 0
+					exists = var:turkfm_jack_sparrow_var
+				}
+			}
+		}
+	}
+	
+	weight = 1000
+	
+}
