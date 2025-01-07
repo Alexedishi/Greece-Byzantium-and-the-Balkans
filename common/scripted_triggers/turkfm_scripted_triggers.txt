@@ -117,10 +117,77 @@ turkfm_controls_caucasus_trigger = {
 	}
 }
 
-turkfm_tension_involved_trigger = {
+turkfm_balkans_involved_trigger = {
 	OR = {
-		has_journal_entry = je_turkfm_separatism_main
-		has_journal_entry = je_turkfm_eastern_question
+		c:TUR ?= this
+		is_subject_of = c:TUR
+		capital = {
+			region = sr:region_balkans
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = alliance
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = rivalry
+		}
+	}
+}
+
+turkfm_balkans_interloper_trigger = {
+	NOR = {
+		c:TUR ?= this
+		is_subject_of = c:TUR
+		capital = {
+			region = sr:region_balkans
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = alliance
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = rivalry
+		}
+	}
+	OR = {
+		has_diplomatic_relevance = c:TUR
+		any_scope_state = {
+			region = sr:region_balkans
+		}
+		any_subject_or_below = {
+			capital = {
+				region = sr:region_balkans
+			}
+		}
+	}
+}
+
+turkfm_balkans_uninvolved_trigger = {
+	NOR = {
+		c:TUR ?= this
+		is_subject_of = c:TUR
+		capital = {
+			region = sr:region_balkans
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = alliance
+		}
+		has_diplomatic_pact = {
+			who = c:TUR
+			type = rivalry
+		}
+		has_diplomatic_relevance = c:TUR
+		any_scope_state = {
+			region = sr:region_balkans
+		}
+		any_subject_or_below = {
+			capital = {
+				region = sr:region_balkans
+			}
+		}
 	}
 }
 

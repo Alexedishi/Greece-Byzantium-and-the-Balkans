@@ -339,7 +339,7 @@ namespace = turkfm
 #	916 - ##
 #	917 - ##
 #	918 - ##
-#	919 - ##
+#	919 - ##Adds the Piracy JE [TECH]
 
 #920-929 - Priates of the Adriatic Expedition Events
 #	920 - Local Informants
@@ -400,12 +400,6 @@ turkfm.001 = { # The Sick Man of Europe
 	immediate = {
 		turkfm_calculate_tension_effect = yes
 		turkfm_awaken_jack_sparrow_effect = yes
-		hidden_effect = {
-			trigger_event = {
-				id = turkfm.100 # The Decaying Empire
-				days = 90
-			}
-		}
 	}
 	
 	option = {
@@ -418,6 +412,20 @@ turkfm.001 = { # The Sick Man of Europe
 			add_modifier = {
 				name = modifier_turkfm_imperial_aspiriations
 				months = normal_modifier_time
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = turkfm.100 # The Decaying Empire
+				days = 30
+			}
+			trigger_event = {
+				id = turkfm.200 # The Peoples of the Empire
+				days = 90
+			}
+			trigger_event = {
+				id = turkfm.900 # The Pirates of the Adriatic
+				days = 150
 			}
 		}
 	}
@@ -637,7 +645,7 @@ turkfm.100 = { # The Decaying Empire
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_turkfm_sick_man_main
+		# triggered by turkfm.001
 	}
 	
 	immediate = {
@@ -736,6 +744,8 @@ turkfm.200 = { # The Peoples of the Empire
 	desc = turkfm.200.d
 	flavor = turkfm.200.f
 	
+	gui_window = event_window_struggle
+	
 	event_image = {
 		video = "turkfm_golden_horn"
 	}
@@ -749,7 +759,7 @@ turkfm.200 = { # The Peoples of the Empire
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_turkfm_tanzimat_main
+		# triggered by turkfm.001
 	}
 	
 	immediate = {
@@ -4940,7 +4950,7 @@ turkfm.900 = { # The Pirates of the Adriatic
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by je_turkfm_pirates_of_the_adriatic
+		# triggered by turkfm.001 / turkfm.919
 	}
 	
 	cancellation_trigger = {
@@ -4948,6 +4958,7 @@ turkfm.900 = { # The Pirates of the Adriatic
 	}
 	
 	immediate = {
+		set_variable = turkfm_piracy_started
 	}
 	
 	option = {
@@ -6151,6 +6162,56 @@ turkfm.915 = { # Slavers Intercepted
 		}
 	}
 
+}
+
+turkfm.919 = { # Adds the Piracy JE [TECH]
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		NOR = {
+			has_global_variable = turkfm_jack_sparrow_whacked
+			has_journal_entry = je_turkfm_pirates_of_the_adriatic
+		}
+		OR = {
+			any_scope_state = {
+				state_is_adriatic = yes
+				is_coastal = yes
+			}
+			AND = {
+				c:TUR ?= {
+					any_scope_state = {
+						state_is_adriatic = yes
+						is_coastal = yes
+					}
+				}
+				any_trade_route = {
+					OR = {
+						exporter.owner = c:TUR
+						importer.owner = c:TUR
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		add_journal_entry = {
+			type = je_turkfm_pirates_of_the_adriatic
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_piracy_started
+				}
+			}
+			trigger_event = {
+				id = turkfm.900 # The Pirates of the Adriatic
+			}
+		}
+	}
+	
 }
 
 #### PIRATES OF THE ADRIATIC EXPEDITION EVENTS ####
