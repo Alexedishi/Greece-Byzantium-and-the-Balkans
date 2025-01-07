@@ -82,7 +82,7 @@ namespace = turkfm
 ##  #TURK2  THE RISE OF NATIONALISM  Events 100-199  ##
 
 #200-209 - Tension Narrative Events
-#	200 - ##The Peoples of the Empire
+#	200 - The Peoples of the Empire
 #	201 - ##The Rise of Nationalism
 #	202 - ##Nationalist Movements Intensify
 #	203 - ##To the Colors!
@@ -204,29 +204,21 @@ namespace = turkfm
 
 ##  #TURK3  THE EASTERN QUESTION  Events 300-399  ##
 
-#300-309 - Great Eastern Crisis Warmup Events
-#	300 - ##A Crisis in Rumelia (Initiator/TUR)
-#	301 - ##A Crisis in Rumelia (Recruit Local Power)
-#	302 - ##A Crisis in the East (Recruit Neutral/Hostile Great Powers)
-#	303 - ##A Crisis in the East (Recruit Allied Countries)
-#	304 - ##Great Britain Attempts Deconfliction
-#	305 - ##France Attempts Deconfliction
-#	306 - ##Greece Attempts Deconfliction
-# 	307 - ##Bosnia Takes Up Arms!
-#	308 - ##Bulgaria Takes Up Arms!
-#	309 - ##Great Eastern Crisis Superevent
+#300-309 - Eastern Question Narrative Events
+#	300 - The Eastern Question
+#	309 - Adds the Eastern Question JE [TECH]
 
 #310-319 - Great Eastern Crisis Events
-#	310 - ##[TECH] Sets Variables and Starts Warmup Chain
-#	311 - ##[TECH] Assigns Tags and Preps event_window Scopes
-#	312 - ##[TECH] Creates GEC DP and Fires Crisis Starts
-#	313 - ##[TECH] Crisis Start for TUR
-#	314 - ##[TECH] Crisis Start for Initiator
-#	315 - ##[TECH] Crisis Start for Attackers
-#	316 - ##[TECH] Crisis Start for Defenders
-#	317 - ##[TECH] Crisis Start for Uninvolved
-#	318 - ##>>The Porte Triumphant
-#	319 - ##>>The Treaty of San Stefano
+#	310 - ##A Crisis in Rumelia (TUR) <- Sets Variables and Starts Warmup Chain
+#	311 - ##A Crisis in Rumelia (Others)
+#	307>>312 - ##Bosnia Takes Up Arms!
+#	308>>313 - ##Bulgaria Takes Up Arms!
+#	304>>314 - ##Great Britain Attempts Deconfliction
+#	305>>315 - ##France Attempts Deconfliction
+#	306>>316 - ##Russia Attempts Deconfliction
+#	309>>317 - ##Great Eastern Crisis Superevent
+#	318 - ##The Porte Triumphant
+#	319 - ##The Treaty of San Stefano
 
 #320-329 - Congress of Berlin Events
 #	320 - ##The Congress of Berlin
@@ -4827,7 +4819,7 @@ turkfm.299 = { # Yugoslavs Revolt in State
 ##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
 ######################################################
 
-turkfm.300 = { # A Crisis in Rumelia
+turkfm.300 = { # The Eastern Question
 	type = country_event
 	placement = root
 	
@@ -4835,11 +4827,13 @@ turkfm.300 = { # A Crisis in Rumelia
 	desc = turkfm.300.d
 	flavor = turkfm.300.f
 	
+	gui_window = event_window_struggle
+	
 	event_image = {
-		video = "dlc_grefm"
+		video = "turkfm_golden_horn"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -4848,19 +4842,57 @@ turkfm.300 = { # A Crisis in Rumelia
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by turkfm.309
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		set_variable = turkfm_eqfm_started
 	}
 	
 	option = {
 		name = turkfm.300.a
 		default_option = yes
-		
+		custom_tooltip = turkfm_no_effects
+	}
+
+}
+
+turkfm.309 = { # Adds the Eastern Question JE
+	type = country_event
+	placement = root
+	hidden = yes
+	
+	trigger = {
+		has_diplomatic_relevance = c:TUR
+		NOR = {
+			has_journal_entry = je_turkfm_separatism_main
+			has_journal_entry = je_turkfm_eastern_question
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_variable = turkfm_eqfm_started
+			}
+			add_journal_entry = {
+				type = je_turkfm_eastern_question
+			}
+		}
+		else = {
+			set_variable = turkfm_eqfm_started
+			add_journal_entry = {
+				type = je_turkfm_eastern_question
+			}
+			trigger_event = {
+				id = turkfm.300 # The Eastern Question
+			}
+		}
 	}
 	
-	orphan = yes
-
 }
 
 ########################################################
@@ -6164,7 +6196,7 @@ turkfm.915 = { # Slavers Intercepted
 
 }
 
-turkfm.919 = { # Adds the Piracy JE [TECH]
+turkfm.919 = { # Adds the Piracy JE
 	type = country_event
 	placement = root
 	hidden = yes
@@ -6197,14 +6229,18 @@ turkfm.919 = { # Adds the Piracy JE [TECH]
 	}
 
 	immediate = {
-		add_journal_entry = {
-			type = je_turkfm_pirates_of_the_adriatic
-		}
 		if = {
 			limit = {
-				NOT = {
-					has_variable = turkfm_piracy_started
-				}
+				has_variable = turkfm_piracy_started
+			}
+			add_journal_entry = {
+				type = je_turkfm_pirates_of_the_adriatic
+			}
+		}
+		else = {
+			set_variable = turkfm_piracy_started
+			add_journal_entry = {
+				type = je_turkfm_pirates_of_the_adriatic
 			}
 			trigger_event = {
 				id = turkfm.900 # The Pirates of the Adriatic

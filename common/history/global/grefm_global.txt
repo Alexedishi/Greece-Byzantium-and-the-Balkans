@@ -421,6 +421,8 @@
 	}
 	
 	c:TUR ?= {
+		turkfm_setup_turkey_effect = yes
+		
 		# The Sick Man of Europe
 		add_journal_entry = {
 			type = je_turkfm_sick_man_main
@@ -575,12 +577,17 @@
 	every_country = {
 		limit = {
 			has_diplomatic_relevance = c:TUR
-			NOT = {
-				has_journal_entry = je_turkfm_sick_man_main
+			NOR = {
+				has_journal_entry = je_turkfm_separatism_main
+				has_journal_entry = je_turkfm_eastern_question
 			}
 		}
 		add_journal_entry = {
 			type = je_turkfm_eastern_question
+		}
+		trigger_event = {
+			id = turkfm.300 # The Eastern Question
+			days = 1
 		}
 	}
 	
