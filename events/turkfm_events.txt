@@ -705,10 +705,10 @@ turkfm.110 = { # Modernized Agriculture
 	flavor = turkfm.110.f
 	
 	event_image = {
-		video = "media_alias"
+		video = "southamerica_factory_opening"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_temp.dds"
+	icon = "gfx/interface/icons/event_icons/event_inustry.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -717,6 +717,7 @@ turkfm.110 = { # Modernized Agriculture
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by je_turkfm_tanzimat_argiculture
 	}
 	
 	immediate = {
@@ -725,6 +726,7 @@ turkfm.110 = { # Modernized Agriculture
 	option = {
 		name = turkfm.110.a
 		default_option = yes
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 }
@@ -4958,6 +4960,7 @@ turkfm.900 = { # The Pirates of the Adriatic
 	}
 	
 	immediate = {
+		turkfm_jack_sparrow_effect = yes
 		set_variable = turkfm_piracy_started
 	}
 	
@@ -5302,15 +5305,12 @@ turkfm.905 = { # Treating with Corsairs
 	}
 	
 	option = {
-		name = turkfm.919.a
+		name = turkfm.905.a
 		default_option = yes
 	}
 	
 	option = {
-		name = turkfm.919.b
-	}
-	
-	after = {
+		name = turkfm.905.b
 	}
 
 }
@@ -5906,7 +5906,7 @@ turkfm.913 = { # A Pirate's Booty
 		name = turkfm.913.a
 		default_option = yes
 		change_relations = {
-			country = turkfm_piracy_country_scope
+			country = scope:turkfm_piracy_country_scope
 			value = 15
 		}
 		create_diplomatic_catalyst = {
@@ -6372,7 +6372,6 @@ turkfm.923 = { # Spoiled Provisions
 		NOT = {
 			has_variable = turkfm_piracy_cooldown_var
 		}
-		var:turkfm_expedition_peril_var 
 	}
 	
 	cancellation_trigger = {
@@ -6399,8 +6398,17 @@ turkfm.923 = { # Spoiled Provisions
 	
 	option = {
 		name = turkfm.923.b
+		show_as_unavailable = {
+			scope:turkfm_cutler_beckett_scope = {
+				has_trait = resupply_commander
+			}
+		}
+		highlighted_option = yes
 		trigger = {
-			scope:
+			scope:turkfm_cutler_beckett_scope = {
+				has_trait = resupply_commander
+			}
+		}
 		turkfm_add_small_peril_effect = yes
 	}
 

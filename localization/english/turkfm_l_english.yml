@@ -52,6 +52,7 @@
  turkfm_no_effects: "#italic No immediate effects#!..."
  turkfm_nothing_happens: "#italic Nothing happens#!..."
  turkfm_is_great_power_tt: "[ROOT.GetCountry.GetNameNoFlag] is a [concept_great_power]"
+ turkfm_tension_involved_tt: "[ROOT.GetCountry.GetNameNoFlag] is $turkfm_involved$ in the $turkfm_balkan_nationalism$ Conflict"
  
  turkfm_sick_man_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Sick Man of Europe#! [concept_journal_entry]"
  turkfm_tanzimat_completed_tt: "[ROOT.GetCountry.GetNameNoFlag] has completed or failed the #bold The Reorganization of the State#! [concept_journal_entry]"
@@ -104,13 +105,15 @@
  turkfm_hostility: "@turkfm_hostility! #bold #red #tooltip:[GetRawTextTooltipTag('turkfm_hostility_concept')] Hostility#!#!#!"
  turkfm_hostility_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nViolence has become routine across the [GetStrategicRegion('region_balkans').GetName] as widespread rejection of Ottoman rule takes root. Should the Porte fail to restore order, this may cause an escalation to the $turkfm_crisis$ phase, give the right circumstances. Should these tensions go unresolved, they will eventually sputter out, causing a descalation to the $turkfm_deconfliction$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_hosility_phase').GetDesc]"
  turkfm_deconfliction: "@turkfm_deconfliction! #bold #greece #tooltip:[GetRawTextTooltipTag('turkfm_deconfliction_concept')] Deconfliction#!#!#!"
- turkfm_deconfliction_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\In the wake of widespread violence, tensions have found release through chaos and destruction in both city and countryside. As noble and peasant alike return to their daily lives, many question how the situation was able to get so far out of control. These conciliatory feelings will not last forever, leading to a natural escalation to the $turkfm_stable$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_deconfliction_phase').GetDesc]"
+ turkfm_deconfliction_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nIn the wake of widespread violence, tensions have found release through chaos and destruction in both city and countryside. As noble and peasant alike return to their daily lives, many question how the situation was able to get so far out of control. These conciliatory feelings will not last forever, leading to a natural escalation to the $turkfm_stable$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_deconfliction_phase').GetDesc]"
  turkfm_crisis: "@turkfm_crisis! #bold #red #tooltip:[GetRawTextTooltipTag('turkfm_crisis_concept')] Crisis#!#!#!"
  turkfm_crisis_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nFollowing years of buildup, tensions have finally boiled over as [GetReligion('orthodox').GetName] and [GetReligion('jewish').GetName] populations seek to tear down the rule of the Porte by any means necessary. With international eyes fixed on the [GetStrategicRegion('region_balkans').GetName], there is an increased risk of diplomatic incidents spiraling out of control. Should these tensions go unresolved, they will eventually sputter out, causing a descalation to the $turkfm_deconfliction$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_crisis_phase').GetDesc]"
  
- turkfm_tension_status: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]"
- turkfm_tension_status_short: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]"
- turkfm_tension_details: "\n$TOOLTIP_DELIMITER$\n#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_next_type')]\n$TOOLTIP_DELIMITER$[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
+ turkfm_tension_status: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_type')]"
+ turkfm_tension_status_short: "[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_type')]"
+ turkfm_tension_status_long: "The [GetStrategicRegion('region_balkans').GetName] are currently experiencing the following phase: [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]"
+ 
+ turkfm_tension_details: "\n$TOOLTIP_DELIMITER$\n#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_next_type')]\n$TOOLTIP_DELIMITER$\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
  turkfm_tension_details_short: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_next_type')]"
  
  turkfm_escalation_factors_tt: "\n•#bold #red +1#!:#! Base Monthly Progress\n•#bold #red +0.1#!x:#! Average [concept_radical] [concept_pop]#o s#! of $turkfm_balkfm_cultures$ (Max +8)\n•#bold #red +0.1#!x:#! Per Ottoman [concept_legitimacy] below 70 (max +3)\n•#bold #red +1#!x:#! Number of [concept_great_power]#o s#! #bold Accelerating Tensions#!\n•#bold #red +3#!:#! Start a [concept_diplomatic_play] against the Ottomans (non-[concept_great_power])\n•#bold #red +3#!:#! Enforce a [concept_war_goal] on the Ottomans\n•#bold #red +3#!:#! Per Month if #yellow Nationalism#! is present in any [GetStrategicRegion('region_balkans').GetName] [concept_subject]\n•#bold #red +3#!:#! Expel Diplomats (non-[concept_great_power])\n•#bold #red +5#!:#! Start a [concept_diplomatic_play] against the Ottomans ([concept_great_power])\n•#bold #red +5#!:#! Conquer Lands in the [GetStrategicRegion('region_balkans').GetName] ([concept_great_power])\n•#bold #red +10#!:#! Expel Diplomats ([concept_great_power])\n•#bold #red +10#!:#! Reduce [concept_autonomy] of a [GetStrategicRegion('region_balkans').GetName] [concept_subject]\n•#bold #red +10#!:#! Enforce a [concept_humiliation] [concept_war_goal] on the Ottomans\n•#bold #red +10#!:#! Declare a [concept_rivalry] against the Ottomans ( [concept_great_power])\n•#bold #red +25#!:#! Conquer Lands in the [GetStrategicRegion('region_balkans').GetName] ([concept_great_power])"
@@ -123,7 +126,8 @@
  turkfm_transition_deconfliction_tt: "$turkfm_balkan_nationalism$ will transition into the $turkfm_deconfliction$ Phase."
  turkfm_transition_crisis_tt: "$turkfm_balkan_nationalism$ will transition into the $turkfm_crisis$ Phase."
 
- turkfm_nationalism_tension_tt: "The arrival of #yellow Nationalism#! will increase $turkfm_balkan_nationalism$ tilt towards #bold Escalations#!"
+ turkfm_nationalism_tension_tt: "The arrival of [GetTechnology('nationalism').GetName] will increase the maximum number of simultaneous $turkfm_balkan_nationalism$ revolts by #bold #red 1#!#! during the #turkfm_hostility$ phase."
+ turkfm_pan_nationalism_tension_tt: "The arrival of [GetTechnology('pan-nationalism').GetName] will increase the maximum number of simultaneous $turkfm_balkan_nationalism$ revolts by #bold #red 1#!#! during the #turkfm_hostility$ phase."
  turkfm_add_small_escalation_tt: "$turkfm_balkan_nationalism$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_escalation_type')] by #bold 10#!."
  turkfm_add_medium_escalation_tt: "$turkfm_balkan_nationalism$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_escalation_type')] by #bold 25#!."
  turkfm_add_large_escalation_tt: "$turkfm_balkan_nationalism$ will advance towards [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_escalation_type')] by #bold 50#!."
@@ -184,11 +188,11 @@
  turkfm_custom_crisis_next: "#bold #white Next Phase Progress#!:#!\n#italic Tensions will eventually transition into Deconfliction#!\n#bold Progress Towards#! $turkfm_deconfliction$: [GetGlobalVariable('turkfm_deescalation_var').GetValue]/500"
  turkfm_custom_deconfliction_next: "#bold #white Next Phase Progress#!:#!\n#italic Tensions will eventually transition into Stable#!\n#bold Progress Towards#! $turkfm_stable$: [GetGlobalVariable('turkfm_escalation_var').GetValue]/500"
  
- turkfm_custom_stable_factors: "\n@information!Catalysts towards the $turkfm_stable$ Phase$turkfm_escalation_factors_tt$"
- turkfm_custom_unrest_factors: "\n@information!Catalysts towards the $turkfm_unrest$ Phase$turkfm_escalation_factors_tt$"
- turkfm_custom_hostility_factors: "\n@information!Catalysts towards the $turkfm_hostility$ Phase$turkfm_escalation_factors_tt$"
- turkfm_custom_deconfliction_factors: "\n@information!Catalysts towards the $turkfm_deconfliction$ Phase$turkfm_deescalation_factors_tt$"
- turkfm_custom_crisis_factors: "\n@information!Catalysts towards the $turkfm_crisis$ Phase$turkfm_escalation_factors_tt$"
+ turkfm_custom_stable_factors: "@information!Catalysts towards the $turkfm_stable$ Phase$turkfm_escalation_factors_tt$"
+ turkfm_custom_unrest_factors: "@information!Catalysts towards the $turkfm_unrest$ Phase$turkfm_escalation_factors_tt$"
+ turkfm_custom_hostility_factors: "@information!Catalysts towards the $turkfm_hostility$ Phase$turkfm_escalation_factors_tt$"
+ turkfm_custom_deconfliction_factors: "@information!Catalysts towards the $turkfm_deconfliction$ Phase$turkfm_deescalation_factors_tt$"
+ turkfm_custom_crisis_factors: "@information!Catalysts towards the $turkfm_crisis$ Phase$turkfm_escalation_factors_tt$"
  
  turkfm_custom_jack_sparrow_cocky: "operates with #red #bold Impunity#!#!, putting us at risk for #bold increased pirate activity#!."
  turkfm_custom_jack_sparrow_cautious: "is showing #orange #bold Trepidation#!#!, putting us at risk for #bold infrequent pirate activity#!."
@@ -484,6 +488,11 @@
  
  # names
  Rafil: "Rafil"
+ 
+ # interest group names
+ turkfm_ig_ottoman_devout: "Ulama"
+ turkfm_ig_ottoman_armed_forces: "Seifiye"
+ turkfm_ig_ottoman_intelligentsia: "Kalemiye"
  
  # traits
  trait_turkfm_corsair: "Corsair"

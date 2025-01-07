@@ -2,6 +2,33 @@
 # TURKFM SCRIPTED EFFECTS #
 ###########################
 
+#### GLOBAL SETUP EFFECTS ####
+
+turkfm_setup_turkey_effect = {
+	ig:ig_intelligentsia = {
+		remove_ideology = ideology_anti_clerical
+		remove_ideology = ideology_republican
+		add_ideology = turkfm_ideology_scribalistic
+		add_ideology = ideology_moralist
+	}
+	ig:ig_devout = {
+		remove_ideology = ideology_moralist
+		add_ideology = turkfm_ideology_islamist
+	}
+	ig:ig_landowners = {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_intelligentsia = {
+		add_ruling_interest_group = yes
+	}
+}
+
+turkfm_setup_egypt_effect = {
+}
+
+turkfm_setup_libya_effect = {
+}
+
 #### SICK MAN EFFECTS ####
 
 turkfm_initialize_sick_man = {
@@ -802,7 +829,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
@@ -818,7 +845,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
@@ -834,7 +861,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_deconfliction
 				}
@@ -867,7 +894,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_unrest
 				}
@@ -883,7 +910,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_hostility
 				}
@@ -899,7 +926,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_crisis
 				}
@@ -915,7 +942,7 @@ turkfm_check_phase_effect = {
 				}
 				every_country = {
 					limit = {
-						turkfm_tension_involved_trigger = yes
+						turkfm_balkans_party_trigger = yes
 					}
 					post_notification = notification_turkfm_transition_stable
 				}
@@ -2436,7 +2463,7 @@ turkfm_secession_start_effect = {
 	turkfm_add_large_deescalation_effect = yes
 	every_country = {
 		limit = {
-			turkfm_tension_involved_trigger = yes
+			turkfm_balkans_party_trigger = yes
 		}
 		post_notification = notification_turkfm_secession_start
 	}
