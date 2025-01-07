@@ -700,7 +700,7 @@ turkfm.110 = { # Modernized Agriculture
 		video = "southamerica_factory_opening"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_inustry.dds"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -6170,12 +6170,6 @@ turkfm.915 = { # Slavers Intercepted
 		trigger = {
 			has_law = law_type:law_slavery_banned
 		}
-		capital = {
-			create_pop = {
-				culture = scope:turkfm_piracy_culture_scope
-				size = 500
-			}
-		}
 		change_relations = {
 			country = c:TUR
 			value = -30
@@ -6874,8 +6868,8 @@ turkfm.930 = { # Pirates Spotted!
 		NOT = {
 			has_variable = turkfm_piracy_chase_var
 		}
-		turkfm_expedition_progress_var >= 2
-		turkfm_expedition_progress_var < 6
+		var:turkfm_expedition_progress_var >= 2
+		var:turkfm_expedition_progress_var < 6
 	}
 	
 	cancellation_trigger = {
