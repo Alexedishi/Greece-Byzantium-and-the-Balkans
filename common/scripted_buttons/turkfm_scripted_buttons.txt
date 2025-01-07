@@ -135,10 +135,13 @@ turkfm_hire_retired_pirates_button = {
 	
 	effect = {
 		trigger_event = {
-			id = turkfm.919 # Treating with Corsairs
+			id = turkfm.905 # Treating with Corsairs
 			popup = yes
 		}
-		set_variable = turkfm_selecting_recruits
+		set_variable = {
+			name = turkfm_selecting_recruits
+			months = 3
+		}
 	}
 	
 	ai_chance = {
@@ -231,6 +234,7 @@ turkfm_recall_expedition_button = {
 	}
 	
 	effect = {
+		turkfm_clear_expedition_effect = yes
 		turkfm_cancel_piracy_expedition_effect = yes
 	}
 	

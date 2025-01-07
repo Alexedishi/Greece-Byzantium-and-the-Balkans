@@ -1799,6 +1799,10 @@ turkfm_setup_riots_effect = {
 		name = turkfm_riot_state_1_var
 		value = scope:turkfm_riot_state_1_scope
 	}
+	set_variable = {
+		name = turkfm_riot_state_1_progress_var
+		value = turkfm_riot_1_progress_value
+	}
 }
 
 turkfm_weekly_riot_effect = {
@@ -1827,17 +1831,6 @@ turkfm_weekly_riot_effect = {
 		}
 		save_scope_as = turkfm_riot_state_3_scope
 	}
-	random_scope_state = {
-		limit = {
-			has_modifier = modifier_turkfm_race_riots
-			NOR = {
-				scope:turkfm_riot_state_1_scope ?= this
-				scope:turkfm_riot_state_2_scope ?= this
-				scope:turkfm_riot_state_3_scope ?= this
-			}
-		}
-		save_scope_as = turkfm_riot_state_4_scope
-	}
 	if = {
 		limit = {
 			exists = scope:turkfm_riot_state_1_scope
@@ -1846,9 +1839,14 @@ turkfm_weekly_riot_effect = {
 			name = turkfm_riot_state_1_var
 			value = scope:turkfm_riot_state_1_scope
 		}
+		set_variable = {
+			name = turkfm_riot_state_1_progress_var
+			value = turkfm_riot_1_progress_value
+		}
 	}
 	else = {
 		remove_variable = turkfm_riot_state_1_var
+		remove_variable = turkfm_riot_state_1_progress_var
 	}
 	if = {
 		limit = {
@@ -1858,9 +1856,13 @@ turkfm_weekly_riot_effect = {
 			name = turkfm_riot_state_2_var
 			value = scope:turkfm_riot_state_2_scope
 		}
+		set_variable = {
+			name = turkfm_riot_state_2_progress_var
+			value = turkfm_riot_2_progress_value
 	}
 	else = {
 		remove_variable = turkfm_riot_state_2_var
+		remove_variable = turkfm_riot_state_2_progress_var
 	}
 	if = {
 		limit = {
@@ -1870,21 +1872,13 @@ turkfm_weekly_riot_effect = {
 			name = turkfm_riot_state_3_var
 			value = scope:turkfm_riot_state_3_scope
 		}
+		set_variable = {
+			name = turkfm_riot_state_3_progress_var
+			value = turkfm_riot_3_progress_value
 	}
 	else = {
 		remove_variable = turkfm_riot_state_3_var
-	}
-	if = {
-		limit = {
-			exists = scope:turkfm_riot_state_4_scope
-		}
-		set_variable = {
-			name = turkfm_riot_state_4_var
-			value = scope:turkfm_riot_state_4_scope
-		}
-	}
-	else = {
-		remove_variable = turkfm_riot_state_4_var
+		remove_variable = turkfm_riot_state_3_progress_var
 	}
 	change_variable = {
 		name = turkfm_riot_var
@@ -1918,6 +1912,13 @@ turkfm_cleanup_riots_effect = {
 }
 
 turkfm_create_rebellion_effect = {
+	random_scope_state = {
+		limit = {
+			has_modifier = modifier_turkfm_race_riots
+		}
+		remove_modifier = modifier_turkfm_race_riots
+		save_scope_as = turkfm_riot_state_scope
+	}
 	scope:turkfm_riot_state_scope = {
 		switch = {
 			trigger = state_region
@@ -2193,18 +2194,76 @@ turkfm_create_rebellion_effect = {
 					}
 				}
 			}
+			s:STATE_SLOVENIA = {
+				create_country = {
+					tag = SLO
+					origin = this
+					state = s:STATE_SLOVENIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_rebellion_tag_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:SLO
+						type = dominion
+					}
+				}
+			}
+			s:STATE_CROATIA = {
+				create_country = {
+					tag = CRO
+					origin = this
+					state = s:STATE_CROATIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_rebellion_tag_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:CRO
+						type = dominion
+					}
+				}
+			}
+			s:STATE_DALMATIA = {
+				create_country = {
+					tag = CRO_DAL
+					origin = this
+					state = s:STATE_DALMATIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_rebellion_tag_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:CRO_DAL
+						type = dominion
+					}
+				}
+			}
+			s:STATE_SLAVONIA = {
+				create_country = {
+					tag = CRO_SLA
+					origin = this
+					state = s:STATE_SLAVONIA.region_state:TUR
+					on_created = {
+						set_variable = turkfm_rebellion_tag_tracker
+						turkfm_set_rebellion_laws = yes
+					}
+				}
+				c:TUR = {
+					create_diplomatic_pact = {
+						country = c:CRO_SLA
+						type = dominion
+					}
+				}
+			}
 		}
 	}
-	random_country = {
-		limit = {
-			has_variable = turkfm_rebellion_tag_tracker
-		}
-		save_scope_as = turkfm_rebellion_scope
-	}
-#	trigger_event = {
-#		id = turkfm.255 # Balkan Country Rebellion
-#		days = 1 # Let It Cook
-#	}
 }
 
 turkfm_hellenic_revolt_effect = { # this does NOT select the revolt state/tag, nor clear the revolt variables
@@ -2536,11 +2595,7 @@ turkfm_jack_sparrow_effect = {
 	}
 }
 
-turkfm_piracy_event_effect = {
-	set_variable = {
-		name = turkfm_piracy_cooldown_var
-		days = 45
-	}
+turkfm_piracy_scopes_effect = {
 	random_character_in_void = {
 		limit = {
 			has_template = template_turkfm_jack_sparrow
@@ -2583,7 +2638,7 @@ turkfm_cleanup_piracy_effect = {
 
 ## General Expedition Effects
 
-turkfm_add_minor_peril_effect = {
+turkfm_add_small_peril_effect = {
 	custom_tooltip = {
 		text = turkfm_peril_plus_1
 		change_variable = {
@@ -2629,7 +2684,7 @@ turkfm_add_large_peril_effect = {
 	}
 }
 
-turkfm_remove_minor_peril_effect = {
+turkfm_remove_small_peril_effect = {
 	custom_tooltip = {
 		text = turkfm_peril_minus_1
 		change_variable = {
@@ -2675,7 +2730,7 @@ turkfm_remove_large_peril_effect = {
 	}
 }
 
-turkfm_add_minor_progress_effect = {
+turkfm_add_small_progress_effect = {
 	custom_tooltip = {
 		text = turkfm_progress_plus_1
 		change_variable = {
@@ -2765,6 +2820,12 @@ turkfm_remove_large_progress_effect = {
 	}
 }
 
+turkfm_clear_expedition_effect = {
+	remove_variable = turkfm_expedition_var
+	remove_variable = turkfm_expedition_progress_var
+	remove_variable = turkfm_expedition_peril_var
+}
+
 ## Piracy Expedition Effects
 
 turkfm_start_piracy_expedition_effect = {
@@ -2795,15 +2856,10 @@ turkfm_cancel_piracy_expedition_effect = {
 		name = modifier_turkfm_cancelled_expedition
 		months = short_modifier_time
 	}
-	remove_variable = turkfm_expedition_var
-	remove_variable = turkfm_expedition_progress_var
-	remove_variable = turkfm_expedition_peril_var
+	
 }
 
 turkfm_fail_piracy_expedition_effect = {
-	remove_variable = turkfm_expedition_var
-	remove_variable = turkfm_expedition_progress_var
-	remove_variable = turkfm_expedition_peril_var
 	every_scope_character = {
 		limit = {
 			has_modifier = modifier_turkfm_leading_expedition
@@ -2818,9 +2874,6 @@ turkfm_fail_piracy_expedition_effect = {
 }
 
 turkfm_complete_piracy_expedition_effect = {
-	remove_variable = turkfm_expedition_var
-	remove_variable = turkfm_expedition_progress_var
-	remove_variable = turkfm_expedition_peril_var
 	every_scope_character = {
 		limit = {
 			has_modifier = modifier_turkfm_leading_expedition

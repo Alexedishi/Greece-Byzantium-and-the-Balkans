@@ -74,26 +74,128 @@ turkfm_riot_potential_value = {
 	}
 	if = {
 		limit = {
-			has_technology_researched = human_rights
+			has_technology_researched = pan-nationalism
 		}
 		add = {
 			value = 1
-			desc = turkfm_value_from_human_rights
-		}
-	}
-	if = {	
-		limit = {
-			has_technology_researched = political_agitation
-		}
-		add = {
-			value = 1
-			desc = turkfm_value_from_political_agitation
+			desc = turkfm_value_from_pan_nationalism
 		}
 	}
 }
 
 turkfm_riot_progress_value = {
 	value = 0
+	if = {
+		limit = {
+			has_variable = turkfm_riot_state_1_progress_var
+		}
+		add = {
+			value = var:turkfm_riot_state_1_progress_var
+			desc = turkfm_value_from_riot_state_1
+		}
+	}
+	if = {
+		limit = {
+			has_variable = turkfm_riot_state_2_progress_var
+		}
+		add = {
+			value = var:turkfm_riot_state_2_progress_var
+			desc = turkfm_value_from_riot_state_2
+		}
+	}
+	if = {
+		limit = {
+			has_variable = turkfm_riot_state_3_progress_var
+		}
+		add = {
+			value = var:turkfm_riot_state_3_progress_var
+			desc = turkfm_value_from_riot_state_3
+		}
+	}
+}
+
+turkfm_riot_1_progress_value = {
+	value = 0
+	scope:turkfm_riot_state_1_scope = {
+		every_scope_pop = {
+			limit = {
+				OR = {
+					has_pop_religion = orthodox
+					has_pop_religion = jewish
+				}
+			}
+			add = pop_radical_fraction
+		}
+		divide = {
+			every_scope_pop = {
+				limit = {
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = jewish
+					}
+				}
+				add = 1
+			}
+			min = 1
+		}
+	}
+	round_to = 0.01
+}
+
+turkfm_riot_2_progress_value = {
+	value = 0
+	scope:turkfm_riot_state_2_scope = {
+		every_scope_pop = {
+			limit = {
+				OR = {
+					has_pop_religion = orthodox
+					has_pop_religion = jewish
+				}
+			}
+			add = pop_radical_fraction
+		}
+		divide = {
+			every_scope_pop = {
+				limit = {
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = jewish
+					}
+				}
+				add = 1
+			}
+			min = 1
+		}
+	}
+	round_to = 0.01
+}
+
+turkfm_riot_3_progress_value = {
+	value = 0
+	scope:turkfm_riot_state_3_scope = {
+		every_scope_pop = {
+			limit = {
+				OR = {
+					has_pop_religion = orthodox
+					has_pop_religion = jewish
+				}
+			}
+			add = pop_radical_fraction
+		}
+		divide = {
+			every_scope_pop = {
+				limit = {
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = jewish
+					}
+				}
+				add = 1
+			}
+			min = 1
+		}
+	}
+	round_to = 0.01
 }
 
 turkfm_escalation_progress_value = {
