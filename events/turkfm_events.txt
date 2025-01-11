@@ -56,8 +56,8 @@ namespace = turkfm
 
 #100-109 - Tanzimat Narrative Events
 #	100 - The Decaying Empire
-#	101 - ##The Men of the Tanzimat
-#	102 - ##
+#	101 - ##
+#	102 - ##The Men of the Tanzimat
 #	103 - ##
 #	104 - ##
 #	105 - ##
@@ -75,7 +75,7 @@ namespace = turkfm
 #	115 - ##Equality Before the Law
 #	116 - ##Countrysides Secured
 #	117 - ##Millet Reformed
-#	118 - ##Piracy Curtailed
+#	118 - ##
 #	119 - ##
 
 
@@ -83,39 +83,39 @@ namespace = turkfm
 
 #200-209 - Tension Narrative Events
 #	200 - The Peoples of the Empire
-#	201 - ##The Rise of Nationalism
-#	202 - ##Nationalist Movements Intensify
+#	201 - The Rise of Nationalism
+#	202 - Nationalist Movements Intensify
 #	203 - ##To the Colors!
 #	204 - ##
-#	205 - ##Riots Break Out in State
-#	206 - ##Balkan Country Rebellion
-#	207 - ##Riots in State Suppressed
-#	208 - ##Region Lost
-#	209 - ##Region Secured
+#	205 - Riots Break Out in State
+#	206 - Balkan Country Rebellion
+#	207 - Riots in State Suppressed
+#	208 - Region Lost
+#	209 - Region Secured
 
 #210-219 - Tension Neutral Events
 #	210 - Extortionate Taxation in State
 #	211 - Plague Outbreak in State
 #	212 - Ecumenical Patriarch Demands Protections
-#	213 - ##The Language of Paperwork
-#	214 - ##Food Shortages in State
-#	215 - ##Peasants March in State
-#	216 - ##Local Bey Exceeds Authority
-#	217 - ##Church Services Disrupted
-#	218 - ##Villages Request Schools
-#	219 - ##Revivalist Publications
+#	213 - The Language of Paperwork
+#	214 - Food Shortages in State
+#	215 - Peasants March in State
+#	216 - Local Bey Exceeds Authority
+#	217 - Church Services Disrupted
+#	218 - Villages Request Schools
+#	219 - Revivalist Publications
 
 #220-229 - Tension Unrest Events
-#	220 - ##Storefronts Ransacked
-#	221 - ##Minority Rejects Classification
-#	222 - ##Shipping Merchants Held Up
-#	223 - ##Crowds Gather in City Hub
-#	224 - ##Language Bans in State
-#	225 - ##Gun-Runners Intercepted (Greek)
-#	226 - ##Gun-Runners Intercepted (Yugoslav)
-#	227 - ##Piracy in State
-#	228 - ##Villagers Displaced in State
-#	229 - ##Brigands Cross the Border
+#	220 - Storefronts Ransacked
+#	221 - Minority Rejects Classification
+#	222 - Shipping Merchants Held Up
+#	223 - Crowds Gather in City Hub
+#	224 - Language Bans in State
+#	225 - Gun-Runners Intercepted (Greek)
+#	226 - Gun-Runners Intercepted (Yugoslav)
+#	227 - Piracy in State
+#	228 - Villagers Displaced in State
+#	229 - Brigands Cross the Border
 
 #230-239 - Tension Hostility Events
 #	230 - Churches Burned in State
@@ -142,16 +142,16 @@ namespace = turkfm
 #	249 - ##Great Power Intervenes in Riots
 
 #250-259 - Tension Riot Events
-#	250 - ##Fortress in State Beseiged
-#	251 - ##Crowds Burn Administrative Offices
-#	252 - ##Double Agent Captured
-#	253 - ##IG Sides with Minorities
-#	254 - ##Armed Forces Request Orders
-#	255 - ##Clergymen Mobilize Crowds
+#	250 - Fortress in State Beseiged
+#	251 - Crowds Burn Provincal Palace
+#	252 - IG Sides with Minorities
+#	253 - Clergymen Mobilize Crowds
+#	254 - Armed Forces Requests Intervention
+#	255 - ##
 #	256 - ##
-#	257 - ##
-#	258 - ##
-#	259 - ##Massacre in State
+#	257 - ##Rioting Worsens in State
+#	258 - ##Massacre in State
+#	259 - ##Crowds Dispersed in State
 
 #260-269 - Tension Third Party Events
 #	260 - ##Brigands Raid Turkish Lands 
@@ -1320,6 +1320,9 @@ turkfm.208 = { # Region Lost
 	dlc = dlc_grefm
 	
 	trigger = {
+		NOT = {
+			has_variable = turkfm_lost_region_var
+		}
 		OR = {
 			AND = {
 				has_variable = turkfm_controls_balkans
@@ -1391,7 +1394,8 @@ turkfm.208 = { # Region Lost
 		}
 		else_if = {
 			limit = {
-
+				has_variable = turkfm_controls_danubia
+				turkfm_controls_danubia_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
@@ -1400,14 +1404,14 @@ turkfm.208 = { # Region Lost
 		}
 		else_if = {
 			limit = {
-
+				has_variable = turkfm_controls_caucasus
+				turkfm_controls_caucasus_trigger = no
 			}
 			set_variable = {
 				name = turkfm_lost_region_var
 				value = 6 # Caucasus
 			}
 		}
-					
 	}
 	
 	option = {
@@ -1489,6 +1493,9 @@ turkfm.209 = { # Region Secured
 	dlc = dlc_grefm
 	
 	trigger = {
+		NOT = {
+			has_variable = turkfm_gained_region_var
+		}
 		OR = {
 			AND = {
 				NOT = {
@@ -4231,7 +4238,479 @@ turkfm.240 = { # OPEN
 
 #### TENSION RIOT EVENTS ####
 
+turkfm.250 = { # Fortress in State Beseiged
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.250.t
+	desc = turkfm.250.d
+	flavor = turkfm.250.f
+	
+	event_image = {
+		video = "votp_barricade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			has_modifier = modifier_turkfm_race_riots
+			any_scope_building = {
+				is_building_type = building_barracks
+			}
+			NOR = {
+				has_modifier = modifier_turkfm_garrison_entrenched
+				has_modifier = modifier_turkfm_garrison_disarmed
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_separatism_riots
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+				any_scope_building = {
+					is_building_type = building_barracks
+				}
+				NOR = {
+					has_modifier = modifier_turkfm_garrison_entrenched
+					has_modifier = modifier_turkfm_garrison_disarmed
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Soldiers mad they can't leave
+		name = turkfm.250.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				value = medium_radicals
+				pop_type = soldiers
+			}
+			add_modifier = {
+				name = modifier_turkfm_garrison_entrenched
+				months = short_modifier_time
+			}
+		}
+		random_list = {
+			2 = {
+				turkfm_remove_small_riot_progress_effect = yes
+			}
+			1 = {
+				turkfm_add_medium_riot_progress_effect = yes
+			}
+		}
+	}
+	
+	option = { # Officers mad you let them leave
+		name = turkfm.250.b
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				value = medium_radicals
+				pop_type = officers
+			}
+			add_modifier = {
+				name = modifier_turkfm_garrison_disarmed
+				months = short_modifier_time
+			}			
+		}
+		random_list = {
+			1 = {
+				turkfm_remove_medium_riot_progress_effect = yes
+			}
+			2 = {
+				turkfm_add_small_riot_progress_effect = yes
+			}
+		}
+	}
 
+}
+
+turkfm.251 = { # Crowds Burn Provincal Palace
+	type = country_event
+	placement = root
+	
+	title = turkfm.251.t
+	desc = turkfm.251.d
+	flavor = turkfm.251.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			has_modifier = modifier_turkfm_race_riots
+			any_scope_building = {
+				is_building_type = building_government_administration
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_separatism_riots
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+				any_scope_building = {
+					is_building_type = building_government_administration
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Where are the cops?
+		name = turkfm.251.a
+		default_option = yes
+		random_list = {
+			1 = {
+				scope:turkfm_tension_state_scope = {
+					add_radicals_in_state = {
+						value = medium_radicals
+					}				
+				}
+			}
+			1 = {
+				turkfm_remove_medium_riot_progress_effect = yes
+			}
+		}
+	}
+	
+	option = { # Deploy the Garrison
+		name = turkfm.251.b
+		trigger = {
+			scope:turkfm_tension_state_scope = {
+				NOT = {
+					has_modifier = modifier_turkfm_garrison_disarmed
+				}
+			}
+		}
+		show_as_unavailable = {
+			always = yes
+		}
+		highlighted_option = yes
+		random_list = {
+			1 = {
+				scope:turkfm_tension_state_scope = {
+					add_loyalists_in_state = {
+						value = small_radicals
+					}				
+				}
+			}
+			1 = {
+				turkfm_add_small_riot_progress_effect = yes
+			}
+		}
+	}
+}
+
+turkfm.252 = { # IG Sides with Minorities
+	type = country_event
+	placement = root
+	
+	title = turkfm.252.t
+	desc = turkfm.252.d
+	flavor = turkfm.252.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/bicorne_hat.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		NOT = {
+			has_law = law_type:law_no_police
+		}
+		any_interest_group = {
+			ig_approval < -10
+			NOR = {
+				has_modifier = modifier_turkfm_membership_arrested
+				has_modifier = modifier_turkfm_outed_as_traitors
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_separatism_riots
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+		random_interest_group = {
+			limit = {
+				ig_approval < -10
+				NOR = {
+					has_modifier = modifier_turkfm_membership_arrested
+					has_modifier = modifier_turkfm_outed_as_traitors
+				}
+			}
+			save_scope_as = turkfm_tension_ig_scope
+		}
+	}
+	
+	option = { # Round them up!
+		name = turkfm.252.a
+		default_option = yes
+		turkfm_remove_medium_riot_progress_effect = yes
+		scope:turkfm_tension_ig_scope = {
+			add_modifier = {
+				name = modifier_turkfm_membership_arrested
+				months = short_modifier_time
+			}
+		}
+	}
+	
+	option = { # Publish an expose
+		name = turkfm.252.b
+		scope:turkfm_tension_ig_scope = {
+			add_modifier = {
+				name = modifier_turkfm_outed_as_traitors
+				months = short_modifier_time
+			}
+		}
+	}
+
+}
+
+turkfm.253 = { # Clergymen Mobilize Crowds
+	type = country_event
+	placement = root
+	
+	title = turkfm.253.t
+	desc = turkfm.253.d
+	flavor = turkfm.253.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_muslim.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		ig:ig_devout = {
+			NOT = {
+				has_modifier = modifier_turkfm_religious_fervor
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_separatism_riots
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Our Imams know best
+		name = turkfm.253.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_religious_fervor
+			months = normal_modifier_time
+		}
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_turkfm_popular_imam
+				months = normal_modifier_time
+			}
+		}
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				religion = rel:sunni
+				value = medium_radicals
+			}
+		}
+		turkfm_add_medium_riot_progress_effect = yes
+	}
+	
+	option = { # Shut him up before things get worse
+		name = turkfm.253.b
+		add_modifier = {
+			name = modifier_turkfm_religious_fervor
+			months = normal_modifier_time
+		}
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_turkfm_imam_muzzled
+				months = normal_modifier_time
+			}
+		}
+		scope:turkfm_tension_state_scope = {
+			add_loyalists_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_radicals_in_state = {
+				religion = rel:sunni
+				value = medium_radicals
+			}
+		}
+		turkfm_remove_small_riot_progress_effect = yes
+	}
+
+}
+
+turkfm.254 = { # Armed Forces Requests Intervention
+	type = country_event
+	placement = root
+	
+	title = turkfm.254.t
+	desc = turkfm.254.d
+	flavor = turkfm.254.f
+	
+	event_image = {
+		video = "europenorthamerica_before_the_battle"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		ig:ig_armed_forces = {
+			NOR = {
+				has_modifier = modifier_turkfm_intervention_denied
+				has_modifier = modifier_turkfm_intervention_granted
+			}
+			ig_approval > 5
+			leader = {
+				NOR = {
+					has_ideology = ideology:ideology_pacifist
+					has_ideology = ideology:ideology_radical
+					has_ideology = ideology:ideology_anarchist
+				}
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_separatism_riots
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Grant the Order
+		name = turkfm.254.a
+		default_option = yes
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = modifier_turkfm_intervention_granted
+				months = normal_modifier_time
+			}
+		}
+		add_radicals_in_state = {
+			religion = rel:orthodox
+			value = medium_radicals
+		}
+		random_list = {
+			2 = {
+				turkfm_remove_small_riot_progress_effect = yes
+			}
+			1 = {
+				turkfm_add_medium_riot_progress_effect = yes
+			}
+		}
+	}
+	
+	option = { # Have them pack up and leave
+		name = turkfm.254.b
+		ig:ig_armed_forces = {
+			add_modifier = {
+				name = modifier_turkfm_intervention_denied
+				months = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			pop_type = officers
+			value = medium_radicals
+		}
+		turkfm_add_small_riot_progress_effect = yes
+	}
+
+}
 
 
 #### TENSION THIRD PARTY EVENTS ####
@@ -5452,7 +5931,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 	flavor = turkfm.908.f
 	
 	event_image = {
-		video = "vtop_hostile_court"
+		video = "votp_hostile_court"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
@@ -5472,6 +5951,9 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 		every_country = {
 			limit = {
 				has_journal_entry = je_turkfm_pirates_of_the_adriatic
+				NOT = {
+					has_variable = turkfm_jack_sparrow_captor
+				}
 			}
 			trigger_event = {
 				id = turkfm.909 # Jack Sparrow Whacked
@@ -5491,6 +5973,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 		scope:turkfm_jack_sparrow_scope = {
 			custom_tooltip = turkfm_thrown_in_jail_tt
 		}
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	option = { # To the Gallows
@@ -5504,6 +5987,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 				kill_character = yes
 			}
 		}
+		turkfm_advance_ottomanism_effect = yes
 	}
 	
 	option = { # Give Him a Job
@@ -5535,6 +6019,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 				months = normal_modifier_time
 			}
 		}
+		turkfm_advance_ottomanism_effect = yes
 	}
 
 }
@@ -5548,7 +6033,7 @@ turkfm.909 = { # Jack Sparrow Whacked
 	flavor = turkfm.909.f
 	
 	event_image = {
-		video = "vtop_hostile_court"
+		video = "votp_hostile_court"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
@@ -5585,6 +6070,7 @@ turkfm.909 = { # Jack Sparrow Whacked
 				months = long_modifier_time
 			}
 		}
+		turkfm_advance_ottomanism_effect = yes
 	}
 
 }
