@@ -208,35 +208,54 @@ namespace = turkfm
 #	300 - The Eastern Question
 #	309 - Adds the Eastern Question JE [TECH]
 
-#310-319 - Great Eastern Crisis Events
-#	310 - ##A Crisis in Rumelia (TUR) <- Sets Variables and Starts Warmup Chain
-#	311 - ##A Crisis in Rumelia (Others)
-#	307>>312 - ##Bosnia Takes Up Arms!
-#	308>>313 - ##Bulgaria Takes Up Arms!
-#	304>>314 - ##Great Britain Attempts Deconfliction
-#	305>>315 - ##France Attempts Deconfliction
-#	306>>316 - ##Russia Attempts Deconfliction
-#	309>>317 - ##Great Eastern Crisis Superevent
-#	318 - ##The Porte Triumphant
-#	319 - ##The Treaty of San Stefano
+#310-319 - Balkan Crisis Narrative Events
+#	310 - ##A Crisis in Region
 
-#320-329 - Congress of Berlin Events
-#	320 - ##The Congress of Berlin
-#	321 - ##The Issue of Bulgaria
-#	322 - ##The Issue of Bosnia
-#	323 - ##The Issue of Montenegro
-#	324 - ##The Issue of Serbia
-#	325 - ##The Issue of the Principalities
-#	326 - ##>>The Issue of the Caucasus
-#	327 - ##OPEN
-#	328 - ##>>The Greek Delegation
-#	329 - ##>>The Treaty of Berlin
+#320-329 - Balkan Crisis Mechanical Events
+#	320 - ##
 
-#330-339 - Congress of Berlin Support Events
-#	330 - ##>>The Convention of Cyprus
-#	331 - ##>>The Convention of Tunis
-#	332 - ##The Convention of Constantinople
-#	339 - ##[TECH] Cleans Up Global Crisis/Berlin Variables
+#360-369 - International Congress Narrative Events
+#	360 - ##
+
+#340-349 - International Congress Mechanical Events
+#	340 - ##
+
+#350-359 - Great Eastern Crisis Events
+#	350 - ##A Crisis in Rumelia (TUR) <- Sets Variables and Starts Warmup Chain
+#	351 - ##A Crisis in Rumelia (Others)
+#	307>>352 - ##Bosnia Takes Up Arms!
+#	308>>353 - ##Bulgaria Takes Up Arms!
+#	304>>354 - ##Great Britain Attempts Deconfliction
+#	305>>355 - ##France Attempts Deconfliction
+#	306>>356 - ##Russia Attempts Deconfliction
+#	309>>357 - ##Great Eastern Crisis Superevent
+#	358 - ##The Porte Triumphant
+#	359 - ##The Treaty of San Stefano
+
+#360-369 - Congress of Berlin Events
+#	360 - ##The Congress of Berlin
+#	361 - ##The Issue of Bulgaria
+#	362 - ##The Issue of Bosnia
+#	363 - ##The Issue of Montenegro
+#	364 - ##The Issue of Serbia
+#	365 - ##The Issue of the Principalities
+#	366 - ##>>The Issue of the Caucasus
+#	367 - ##OPEN
+#	368 - ##>>The Greek Delegation
+#	369 - ##>>The Treaty of Berlin
+#	//340 - ##>>The Convention of Cyprus
+#	//341 - ##>>The Convention of Tunis
+#	//342 - ##The Convention of Constantinople
+#	//349 - ##[TECH] Cleans Up Global Crisis/Berlin Variables
+
+#370-379 - Balkan Wars Events I
+#	370 - ##
+
+#380-389 - Balkan Wars Events II
+#	380 - ##
+
+390-399 - Eastern Question Miscellaneous Events
+#	390 - ##
 
 
 ##  #TURK4  OTTOMAN NATIONAL REVIVALS  Events 400-499  ##
@@ -5724,6 +5743,8 @@ turkfm.299 = { # Yugoslavs Revolt in State
 ##  TURK3  EASTERN QUESTION EVENTS  Events 300-399  ##
 ######################################################
 
+#### EASTERN QUESTION NARRATIVE EVENTS ####
+
 turkfm.300 = { # The Eastern Question
 	type = country_event
 	placement = root
@@ -5798,6 +5819,61 @@ turkfm.309 = { # Adds the Eastern Question JE
 		}
 	}
 	
+}
+
+#### BALKAN CRISIS NARRATIVE EVENTS ####
+
+turkfm.310 = { # A Crisis in Region
+	type = country_event
+	placement = root
+	
+	title = turkfm.310.t
+	desc = turkfm.310.d
+	flavor = turkfm.310.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered during transition to crisis phase
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			NOT = {
+				has_global_variable = turkfm_separatism_phase_var
+			}
+			global_var:turkfm_separatism_phase_var != 5 # Crisis
+		}
+	}
+	
+	immediate = {
+		set_global_variable = {
+			name = turkfm_total_riots_var
+			value = 0
+		}
+	}
+	
+	option = {
+		name = turkfm.310.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.310.b
+	}
+	
+	orphan = yes
+
 }
 
 ########################################################
