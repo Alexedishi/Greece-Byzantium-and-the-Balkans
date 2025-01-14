@@ -932,6 +932,12 @@ turkfm_check_phase_effect = {
 					name = turkfm_separatism_phase_var
 					value = 5 # Crisis
 				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.310 # A Crisis in Rumelia
+						days = 1
+					}
+				}
 				every_country = {
 					limit = {
 						turkfm_balkans_party_trigger = yes
@@ -1093,6 +1099,23 @@ turkfm_increase_escalation_effect = {
 turkfm_add_small_escalation_effect = {
 	if = {
 		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_add_small_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				add = 5
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
+	if = {
+		limit = {
 			turkfm_can_escalate_tension_trigger = yes
 		}
 		c:TUR = {
@@ -1111,6 +1134,23 @@ turkfm_add_small_escalation_effect = {
 }
 
 turkfm_add_medium_escalation_effect = {
+	if = {
+		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_add_medium_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				add = 10
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
 	if = {
 		limit = {
 			turkfm_can_escalate_tension_trigger = yes
@@ -1133,6 +1173,23 @@ turkfm_add_medium_escalation_effect = {
 turkfm_add_large_escalation_effect = {
 	if = {
 		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_add_large_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				add = 15
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
+	if = {
+		limit = {
 			turkfm_can_escalate_tension_trigger = yes
 		}
 		c:TUR = {
@@ -1151,6 +1208,23 @@ turkfm_add_large_escalation_effect = {
 }
 
 turkfm_add_very_large_escalation_effect = {
+	if = {
+		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_add_very_large_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				add = 25
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
 	if = {
 		limit = {
 			turkfm_can_escalate_tension_trigger = yes
@@ -1188,6 +1262,23 @@ turkfm_increase_deescalation_effect = {
 turkfm_add_small_deescalation_effect = {
 	if = {
 		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_remove_small_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				subtract = 5
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
+	if = {
+		limit = {
 			turkfm_can_deescalate_tension_trigger = yes
 		}
 		c:TUR = {
@@ -1206,6 +1297,23 @@ turkfm_add_small_deescalation_effect = {
 }
 
 turkfm_add_medium_deescalation_effect = {
+	if = {
+		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_remove_medium_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				subtract = 10
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
 	if = {
 		limit = {
 			turkfm_can_deescalate_tension_trigger = yes
@@ -1228,6 +1336,23 @@ turkfm_add_medium_deescalation_effect = {
 turkfm_add_large_deescalation_effect = {
 	if = {
 		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_remove_large_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				subtract = 15
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
+	if = {
+		limit = {
 			turkfm_can_deescalate_tension_trigger = yes
 		}
 		c:TUR = {
@@ -1246,6 +1371,23 @@ turkfm_add_large_deescalation_effect = {
 }
 
 turkfm_add_very_large_deescalation_effect = {
+	if = {
+		limit = {
+			has_variable = turkfm_riot_var
+		}
+		custom_tooltip = {
+			text = turkfm_remove_very_large_riot_progress_tt
+			change_variable = {
+				name = turkfm_riot_var
+				subtract = 25
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 100
+				min = 0
+			}
+		}
+	}
 	if = {
 		limit = {
 			turkfm_can_deescalate_tension_trigger = yes
@@ -2014,7 +2156,7 @@ turkfm_weekly_riot_effect = {
 	}
 	clamp_variable = {
 		name = turkfm_riot_var
-		max = 200
+		max = 100
 		min = 0
 	}
 	je:je_turkfm_separatism_riots = {
@@ -2036,6 +2178,9 @@ turkfm_cleanup_riots_effect = {
 	remove_variable = turkfm_riot_state_1_var
 	remove_variable = turkfm_riot_state_2_var
 	remove_variable = turkfm_riot_state_3_var
+	remove_variable = turkfm_riot_state_1_progress_var
+	remove_variable = turkfm_riot_state_2_progress_var
+	remove_variable = turkfm_riot_state_3_progress_var
 }
 
 turkfm_create_rebellion_effect = {

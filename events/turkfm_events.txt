@@ -121,9 +121,9 @@ namespace = turkfm
 #	230 - Churches Burned in State
 #	231 - Popular Speaker Lynched in State
 #	232 - Brigandage in State
-#	233 - ##Port Burned in State
-#	234 - ##Blood Libel
-#	235 - ##Administrative Offices Ransacked
+#	233 - Port Burned in State
+#	234 - Blood Libel
+#	235 - Administrative Offices Ransacked
 #	236 - ##Military Column Attacked
 #	237 - ##Muslim Militia Organizes in State
 #	238 - ##Local Garrison Fires into Crowd
@@ -209,19 +209,19 @@ namespace = turkfm
 #	309 - Adds the Eastern Question JE [TECH]
 
 #310-319 - Balkan Crisis Narrative Events
-#	310 - ##A Crisis in Region
+#	310 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
 
 #320-329 - Balkan Crisis Mechanical Events
-#	320 - ##
+#	320 - ##A Crisis in Rumelia" (Recruit Country to Crisis)
 
-#360-369 - International Congress Narrative Events
-#	360 - ##
+#330-339 - International Congress Narrative Events
+#	330 - ##The Congress of X
 
 #340-349 - International Congress Mechanical Events
 #	340 - ##
 
 #350-359 - Great Eastern Crisis Events
-#	350 - ##A Crisis in Rumelia (TUR) <- Sets Variables and Starts Warmup Chain
+#	350 - ##A Crisis in Rumelia (TUR)
 #	351 - ##A Crisis in Rumelia (Others)
 #	307>>352 - ##Bosnia Takes Up Arms!
 #	308>>353 - ##Bulgaria Takes Up Arms!
@@ -4023,6 +4023,9 @@ turkfm.230 = { # Churches Burned in State
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
+				NOT = {
+					has_modifier = modifier_turkfm_churches_burned
+				}
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
@@ -4106,9 +4109,12 @@ turkfm.231 = { # Popular Speaker Lynched in State
 	
 	trigger = {
 		turkfm_hostility_events_trigger = yes
-		NOR = {
+		NOT = {
 			has_modifier = modifier_turkfm_protected_minorities
-			any_state = {
+		}
+		any_scope_state = {
+			state_in_balkans = yes
+			NOT = {
 				has_modifier = modifier_turkfm_minority_leader_killed
 			}
 		}
@@ -4119,6 +4125,9 @@ turkfm.231 = { # Popular Speaker Lynched in State
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
+				NOT = {
+					has_modifier = modifier_turkfm_minority_leader_killed
+				}
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
@@ -4191,7 +4200,8 @@ turkfm.232 = { # Brigandage in State
 	
 	trigger = {
 		turkfm_hostility_events_trigger = yes
-		any_state = {
+		any_scope_state = {
+			state_in_balkans = yes
 			NOR = {
 				has_modifier = modifier_turkfm_brigandage
 				has_modifier = modifier_turkfm_local_garrison_deployed
@@ -4204,7 +4214,9 @@ turkfm.232 = { # Brigandage in State
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
-				NOT = { has_modifier = modifier_turkfm_local_garrison_deployed }
+				NOT = { 
+					has_modifier = modifier_turkfm_local_garrison_deployed
+				}
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
@@ -4237,6 +4249,12 @@ turkfm.232 = { # Brigandage in State
 				name = modifier_turkfm_local_garrison_deployed
 				months = normal_modifier_time
 			}
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_brigandage
+				}
+				remove_modifier = modifier_turkfm_brigandage
+			}
 		}
 		turkfm_add_medium_deescalation_effect = yes
 		hidden_effect = {
@@ -4246,6 +4264,347 @@ turkfm.232 = { # Brigandage in State
 				}
 				post_notification = notification_turkfm_garrison_deployed
 			}
+		}
+	}
+
+}
+
+turkfm.233 = { # Port Burned in State
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.233.t
+	desc = turkfm.233.d
+	flavor = turkfm.233.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			has_building = building_port
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				has_building = building_port
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Make Arrests
+		name = turkfm.233.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_port_burned
+				months = normal_modifier_time
+			}
+			add_modifier = {
+				name = modifier_turkfm_arrested_arsonists
+				months = normal_modifier_time
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_ports_burned
+			}
+		}
+	}
+	
+	option = { # Do Nothing
+		name = turkfm.233.b
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_port_burned
+				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				pop_type = officers
+				value = medium_radicals
+			}
+		}
+		turkfm_add_medium_escalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_ports_burned
+			}
+		}
+	}
+	
+	option = { # Spend Money
+		name = turkfm.233.c
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_port_burned
+				months = short_modifier_time
+			}
+			add_modifier = {
+				name = modifier_turkfm_arrested_arsonists
+				months = short_modifier_time
+			}
+			add_loyalists_in_state = {
+				pop_type = officers
+				value = medium_radicals
+			}
+		}
+		add_modifier = {
+			name = modifier_turkfm_rebuilding_port
+			months = short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		turkfm_add_large_escalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_ports_burned
+			}
+		}
+	}
+
+}
+
+turkfm.234 = { # Blood Libel
+	type = country_event
+	placement = root
+	
+	title = turkfm.234.t
+	desc = turkfm.234.d
+	flavor = turkfm.234.f
+	
+	event_image = {
+		video = "votp_agitator_speaking"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			any_scope_pop = {
+				OR = {
+					has_pop_religion = orthodox
+					has_pop_religion = oriental_orthodox
+					has_pop_religion = jewish
+				}
+			}
+		}
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				any_scope_pop = {
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = oriental_orthodox
+						has_pop_religion = jewish
+					}
+					pop_acceptance < 60
+				}
+			}
+			random_scope_pop = {
+				limit = {
+					OR = {
+						has_pop_religion = orthodox
+						has_pop_religion = oriental_orthodox
+						has_pop_religion = jewish
+					}
+					pop_acceptance < 60
+				}
+				religion = {
+					save_scope_as = turkfm_tension_religion_scope
+				}
+				culture = {
+					save_scope_as = turkfm_tension_culture_scope
+				}
+			}
+		}
+	}
+	
+	option = { # Not our problem
+		name = turkfm.234.a
+		default_option = yes
+		scope:turkfm_tension_state_scope = {
+			add_culture_standard_of_living_modifier = {
+				culture = scope:turkfm_tension_culture_scope
+				months = short_modifier_time
+				multiplier = -3
+			}
+			add_radicals_in_state = {
+				religion = scope:turkfm_tension_religion_scope
+				value = medium_radicals
+			}
+		}
+		turkfm_add_large_escalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_blood_libel_ignored
+			}
+		}
+	}
+	
+	option = { # Put a lid on their antics
+		name = turkfm.234.b
+		scope:turkfm_tension_state_scope = {
+			add_culture_standard_of_living_modifier = {
+				culture = scope:turkfm_tension_culture_scope
+				months = short_modifier_time
+				multiplier = -1
+			}
+			add_loyalists_in_state = {
+				religion = scope:turkfm_tension_religion_scope
+				value = small_radicals
+			}
+			add_radicals_in_state = {
+				religion = rel:sunni
+				value = medium_radicals
+			}
+		}
+		turkfm_add_medium_deescalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_blood_libel_supressed
+			}
+		}
+	}
+
+}
+
+turkfm.235 = { # Administrative Offices Ransacked
+	type = country_event
+	placement = root
+	
+	title = turkfm.235.t
+	desc = turkfm.235.d
+	flavor = turkfm.235.f
+	
+	event_image = {
+		video = "unspecific_vandalized_storefront"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			has_building = building_government_administration
+			NOT = {
+				has_modifier = modifier_turkfm_admin_ranscaked
+			}
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				has_building = building_government_administration
+				NOT = {
+					has_modifier = modifier_turkfm_admin_ranscaked
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Where are the cops?
+		name = turkfm.235.a
+		default_option = yes
+		random_list = {
+			1 = {
+				scope:turkfm_riot_state_scope = {
+					add_radicals_in_state = {
+						value = medium_radicals
+					}				
+				}
+			}
+			1 = {
+				turkfm_add_medium_deescalation_effect = yes
+			}
+		}
+	}
+	
+	option = { # Deploy the Garrison
+		name = turkfm.235.b
+		trigger = {
+			scope:turkfm_riot_state_scope = {
+				NOT = {
+					has_modifier = modifier_turkfm_garrison_disarmed
+				}
+			}
+		}
+		show_as_unavailable = {
+			always = yes
+		}
+		highlighted_option = yes
+		random_list = {
+			1 = {
+				scope:turkfm_riot_state_scope = {
+					add_loyalists_in_state = {
+						value = small_radicals
+					}				
+				}
+			}
+			1 = {
+				turkfm_add_small_escalation_effect = yes
+			}
+		}
+		add_modifier = { 
+			name = modifier_turkfm_deployed_garrison
+			multiplier = money_amount_multiplier_small
+			months = short_modifier_time
 		}
 	}
 
@@ -4333,10 +4692,10 @@ turkfm.250 = { # Fortress in State Beseiged
 		}
 		random_list = {
 			2 = {
-				turkfm_remove_small_riot_progress_effect = yes
+				turkfm_add_small_deescalation_effect = yes
 			}
 			1 = {
-				turkfm_add_medium_riot_progress_effect = yes
+				turkfm_add_medium_escalation_effect = yes
 			}
 		}
 	}
@@ -4355,10 +4714,10 @@ turkfm.250 = { # Fortress in State Beseiged
 		}
 		random_list = {
 			1 = {
-				turkfm_remove_medium_riot_progress_effect = yes
+				turkfm_add_medium_deescalation_effect = yes
 			}
 			2 = {
-				turkfm_add_small_riot_progress_effect = yes
+				turkfm_add_small_escalation_effect = yes
 			}
 		}
 	}
@@ -4426,7 +4785,7 @@ turkfm.251 = { # Crowds Burn Administrative Palace
 				}
 			}
 			1 = {
-				turkfm_remove_medium_riot_progress_effect = yes
+				turkfm_add_medium_deescalation_effect = yes
 			}
 		}
 	}
@@ -4453,8 +4812,13 @@ turkfm.251 = { # Crowds Burn Administrative Palace
 				}
 			}
 			1 = {
-				turkfm_add_small_riot_progress_effect = yes
+				turkfm_add_small_escalation_effect = yes
 			}
+		}
+		add_modifier = { 
+			name = modifier_turkfm_deployed_garrison
+			multiplier = money_amount_multiplier_small
+			months = short_modifier_time
 		}
 	}
 }
@@ -4534,7 +4898,7 @@ turkfm.252 = { # IG Sides with Minorities
 	option = { # Round them up!
 		name = turkfm.252.a
 		default_option = yes
-		turkfm_remove_medium_riot_progress_effect = yes
+		turkfm_add_medium_deescalation_effect = yes
 		scope:turkfm_riot_ig_scope = {
 			add_modifier = {
 				name = modifier_turkfm_membership_arrested
@@ -4626,7 +4990,7 @@ turkfm.253 = { # Ulema Mobilizes the Faithful
 				value = medium_radicals
 			}
 		}
-		turkfm_add_medium_riot_progress_effect = yes
+		turkfm_add_medium_escalation_effect = yes
 	}
 	
 	option = { # Shut him up before things get worse
@@ -4651,7 +5015,7 @@ turkfm.253 = { # Ulema Mobilizes the Faithful
 				value = medium_radicals
 			}
 		}
-		turkfm_remove_small_riot_progress_effect = yes
+		turkfm_add_small_deescalation_effect = yes
 	}
 
 }
@@ -4734,10 +5098,10 @@ turkfm.254 = { # Armed Forces Requests Intervention
 		}
 		random_list = {
 			2 = {
-				turkfm_remove_small_riot_progress_effect = yes
+				turkfm_add_small_deescalation_effect = yes
 			}
 			1 = {
-				turkfm_add_medium_riot_progress_effect = yes
+				turkfm_add_medium_escalation_effect = yes
 			}
 		}
 	}
@@ -4754,7 +5118,7 @@ turkfm.254 = { # Armed Forces Requests Intervention
 			pop_type = officers
 			value = medium_radicals
 		}
-		turkfm_add_small_riot_progress_effect = yes
+		turkfm_add_small_escalation_effect = yes
 	}
 
 }
@@ -4844,7 +5208,7 @@ turkfm.257 = { # Rioting Worsens in State
 				}
 			}
 		}
-		turkfm_add_medium_riot_progress_effect = yes
+		turkfm_add_medium_escalation_effect = yes
 		hidden_effect = { 
 			random_list = {
 				50 = { 
@@ -4940,7 +5304,7 @@ turkfm.257 = { # Rioting Worsens in State
 				value = very_large_radicals
 			}
 		}
-		turkfm_remove_medium_riot_progress_effect = yes
+		turkfm_add_medium_deescalation_effect = yes
 		hidden_effect = { 
 			random_list = {
 				80 = { 
@@ -5844,7 +6208,7 @@ turkfm.310 = { # A Crisis in Region
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered during transition to crisis phase
+		# triggered by turkfm_check_phase_effect during transition to crisis phase
 	}
 	
 	cancellation_trigger = {
@@ -5942,7 +6306,7 @@ turkfm.310 = { # A Crisis in Region
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# If you ever find yourself in Albania, be sure to visit the cave of Haxhi Ali, the famed Albanian pirate. Seriously, it's a stop on tours out of Vlore.
+# If you should ever find yourself in Albania, be sure to visit the cave of Haxhi Ali, the famed Albanian pirate. Seriously, it's a stop on tours out of Vlore. Whether or not it has any actual relation to the guy is, well, up to interpretation.
 
 turkfm.900 = { # The Pirates of the Adriatic
 	type = country_event

@@ -225,10 +225,7 @@ turkfm_hostility_events_trigger = {
 	NOT = {
 		has_global_variable = turkfm_tension_event_cooldown_var
 	}
-	OR = {
-		global_var:turkfm_separatism_phase_var ?= 3 # Hostility
-		global_var:turkfm_separatism_phase_var ?= 5 # Crisis
-	}
+	global_var:turkfm_separatism_phase_var ?= 3 # Hostility
 }
 
 turkfm_deconfliction_events_trigger = {
@@ -261,12 +258,10 @@ turkfm_can_deescalate_tension_trigger = {
 	OR = {
 		global_var:turkfm_separatism_phase_var = 2 # Unrest
 		global_var:turkfm_separatism_phase_var = 3 # Hostility
-		global_var:turkfm_separatism_phase_var = 5 # Crisis
 	}
 }
 
 turkfm_crisis_possible_trigger = {
-	has_global_variable = turkfm_total_riots_var
 	global_var:turkfm_total_riots_var >= 5
 	c:TUR ?= {
 		has_technology_researched = nationalism

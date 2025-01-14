@@ -895,8 +895,6 @@ je_turkfm_separatism_riots = {
 		turkfm_setup_riots_effect = yes
 	}
 	
-	scripted_progress_bar = turkfm_riot_progress_bar
-	
 	complete = {
 		NOT = {
 			any_scope_state = {
@@ -905,7 +903,39 @@ je_turkfm_separatism_riots = {
 		}
 	}
 	
-	on_complete = {
+	on_complete = { # Set variables for deescalation and call turkfm_check_phase_effect
+		turkfm_cleanup_riots_effect = yes
+		custom_tooltip = {
+			text = turkfm_transition_deconfliction_tt
+			set_global_variable = {
+				name = turkfm_separatism_transition_var
+				value = 500
+			}
+			set_global_variable = {
+				name = turkfm_escalation_var
+				value = 0
+			}
+			set_global_variable = {
+				name = turkfm_deescalation_var
+				value = 500
+			}
+			turkfm_check_phase_effect = yes
+		}
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = je_turkfm_separatism_riots_invalid
+			OR = {
+				NOT = {
+					has_global_variable = turkfm_separatism_phase_var
+				}
+				global_var:turkfm_separatism_phase_var != 3 # Hostility
+			}
+		}
+	}
+	
+	on_invalid = {
 		turkfm_cleanup_riots_effect = yes
 	}
 	
@@ -915,21 +945,29 @@ je_turkfm_separatism_riots = {
 			turkfm.207 # Riots in State Suppressed
 		}
 		random_events = {
-#			turkfm.250 # 
-#			turkfm.251 # 
-#			turkfm.252 # 
-#			turkfm.253 # 
-#			turkfm.254 # 
+			turkfm.250 # Fortress in State Beseiged
+			turkfm.251 # Crowds Burn Administrative Palace
+			turkfm.252 # IG Sides with Minorities
+			turkfm.253 # Ulema Mobilizes the Faithful
+			turkfm.254 # Armed Forces Requests Intervention
 #			turkfm.255 # 
 #			turkfm.256 # 
-#			turkfm.257 # 
-#			turkfm.258 # 
-#			turkfm.259 # 
+			turkfm.257 # Rioting Worsens in State
 		}
 		effect = {
 			turkfm_weekly_riot_effect = yes
 		}
 	}
+	
+	current_value = {
+		value = var:turkfm_riot_var
+	}
+
+	goal_add_value = {
+		value = 100
+	}
+
+	progressbar = yes
 	
 	weight = 1000
 	
