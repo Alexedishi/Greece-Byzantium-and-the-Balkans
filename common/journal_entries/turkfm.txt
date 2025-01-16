@@ -904,21 +904,15 @@ je_turkfm_separatism_riots = {
 	
 	on_complete = { # Set variables for deescalation and call turkfm_check_phase_effect
 		custom_tooltip = {
-			text = turkfm_transition_deconfliction_tt
-			set_global_variable = {
-				name = turkfm_separatism_transition_var
-				value = 500
+			text = turkfm_add_very_large_deescalation_tt
+			hidden_effect = {
+				change_global_variable = {
+					name = turkfm_deescalation_var
+					add = 100
+				}
 			}
-			set_global_variable = {
-				name = turkfm_escalation_var
-				value = 0
-			}
-			set_global_variable = {
-				name = turkfm_deescalation_var
-				value = 500
-			}
-			turkfm_check_phase_effect = yes
 		}
+		turkfm_check_phase_effect = yes
 		every_scope_state = {
 			limit = {
 				has_modifier = modifier_turkfm_race_riots
@@ -947,7 +941,21 @@ je_turkfm_separatism_riots = {
 	}
 	
 	on_invalid = {
-		turkfm_cleanup_riots_effect = yes
+		hidden_effect = {
+			every_scope_state = {
+				limit = {
+					has_modifier = modifier_turkfm_race_riots
+				}
+				remove_modifier = modifier_turkfm_race_riots
+			}
+			remove_variable = turkfm_riot_var
+			remove_variable = turkfm_riot_state_1_var
+			remove_variable = turkfm_riot_state_2_var
+			remove_variable = turkfm_riot_state_3_var
+			remove_variable = turkfm_riot_state_1_progress_var
+			remove_variable = turkfm_riot_state_2_progress_var
+			remove_variable = turkfm_riot_state_3_progress_var
+		}
 	}
 	
 	on_weekly_pulse = {

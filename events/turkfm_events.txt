@@ -208,29 +208,30 @@ namespace = turkfm
 #	300 - The Eastern Question
 #	309 - Adds the Eastern Question JE [TECH]
 
-#310-319 - Balkan Crisis Narrative Events
+#310-319 - Historical Balkan Crisis Events
 #	310 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
+#	307>>311 - ##Bosnia Takes Up Arms! (GEC)
+#	308>>312 - ##Bulgaria Takes Up Arms! (GEC)
+#	358>>313 - ##The Porte Triumphant (GEC)
+#	359>>314 - ##The Treaty of San Stefano (GEC)
 
 #320-329 - Balkan Crisis Mechanical Events
-#	320 - ##A Crisis in Rumelia" (Recruit Country to Crisis)
+#	320 - ##A Crisis in Rumelia (Recruit Country to Crisis)
+#	321 - ##Rebels in State Take Up Arms!
+#	322 - ##Subject Country Rebels!
+#	323 - ##A Chance at Deconfliction
+#	324 - ##Country Attempts Deconfliction
+#	325 - ##
+#	326 - ##
+#	327 - ##
+#	328 - ##
+#	309>>329 - ##Balkan Crisis Superevent
 
-#330-339 - International Congress Narrative Events
-#	330 - ##The Congress of X
+#330-339 - Historical International Congress Events
+#	330 - 
 
 #340-349 - International Congress Mechanical Events
-#	340 - ##
-
-#350-359 - Great Eastern Crisis Events
-#	350 - ##A Crisis in Rumelia (TUR)
-#	351 - ##A Crisis in Rumelia (Others)
-#	307>>352 - ##Bosnia Takes Up Arms!
-#	308>>353 - ##Bulgaria Takes Up Arms!
-#	304>>354 - ##Great Britain Attempts Deconfliction
-#	305>>355 - ##France Attempts Deconfliction
-#	306>>356 - ##Russia Attempts Deconfliction
-#	309>>357 - ##Great Eastern Crisis Superevent
-#	358 - ##The Porte Triumphant
-#	359 - ##The Treaty of San Stefano
+#	340 - ##The Congress of X
 
 #360-369 - Congress of Berlin Events
 #	360 - ##The Congress of Berlin
@@ -247,15 +248,6 @@ namespace = turkfm
 #	//341 - ##>>The Convention of Tunis
 #	//342 - ##The Convention of Constantinople
 #	//349 - ##[TECH] Cleans Up Global Crisis/Berlin Variables
-
-#370-379 - Balkan Wars Events I
-#	370 - ##
-
-#380-389 - Balkan Wars Events II
-#	380 - ##
-
-#390-399 - Eastern Question Miscellaneous Events
-#	390 - ##
 
 
 ##  #TURK4  OTTOMAN NATIONAL REVIVALS  Events 400-499  ##
@@ -1088,6 +1080,9 @@ turkfm.205 = { # Riots Break Out in State
 			name = turkfm_total_riots_var
 			add = 1
 		}
+		scope:turkfm_riot_state_scope = {
+			add_modifier = modifier_turkfm_race_riots
+		}
 		if = {
 			limit = {
 				NOT = {
@@ -1119,11 +1114,6 @@ turkfm.205 = { # Riots Break Out in State
 				name = turkfm_riot_var
 				value = 100
 			}
-		}
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
-		}
-		hidden_effect = {
 			every_country = {
 				limit = {
 					has_journal_entry = je_turkfm_eastern_question
@@ -1132,13 +1122,11 @@ turkfm.205 = { # Riots Break Out in State
 			}
 		}
 		else = {
-			hidden_effect = {
-				every_country = {
-					limit = {
-						has_journal_entry = je_turkfm_eastern_question
-					}
-					post_notification = notification_turkfm_race_riots_worsen
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
 				}
+				post_notification = notification_turkfm_race_riots_worsen
 			}
 		}
 	}
@@ -4862,7 +4850,6 @@ turkfm.252 = { # IG Sides with Minorities
 			law_stance = {
 				law = law_type:law_multicultural
 				value > neutral
-				ig_approval < -5
 			}
 			NOR = {
 				has_modifier = modifier_turkfm_membership_arrested
@@ -4892,7 +4879,6 @@ turkfm.252 = { # IG Sides with Minorities
 				law_stance = {
 					law = law_type:law_multicultural
 					value > neutral
-					ig_approval < -5
 				}
 				NOR = {
 					has_modifier = modifier_turkfm_membership_arrested
@@ -4970,7 +4956,7 @@ turkfm.253 = { # Ulema Mobilizes the Faithful
 			}
 			save_scope_as = turkfm_riot_state_scope
 		}
-		ig_devout = {
+		ig:ig_devout = {
 			save_scope_as = turkfm_riot_ig_scope
 		}
 	}
@@ -5100,7 +5086,7 @@ turkfm.254 = { # Armed Forces Requests Intervention
 				months = short_modifier_time
 			}
 		}
-		add_radicals_in_state = {
+		add_radicalse = {
 			religion = rel:orthodox
 			value = medium_radicals
 		}
@@ -5148,7 +5134,7 @@ turkfm.257 = { # Rioting Worsens in State
 	flavor = turkfm.257.f
 	
 	event_image = {
-		video = "media_alias"
+		video = "europenorthamerica_springtime_of_nations"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
@@ -5270,7 +5256,7 @@ turkfm.257 = { # Rioting Worsens in State
 			religion = rel:sunni
 			value = medium_radicals
 		}
-		turkfm_add_large_riot_progress_effect = yes
+		turkfm_add_large_escalation_effect = yes
 	}
 	
 	option = { # Send the military
@@ -5489,7 +5475,7 @@ turkfm.259 = { # Crowds Dispersed in State
 	option = {
 		name = turkfm.259.a
 		default_option = yes
-		scope:turkfm_riot_state_var = {
+		scope:turkfm_riot_state_scope = {
 			kill_population_percent_in_state = {
 				religion = rel:orthodox
 				percent = 0.05
@@ -6523,16 +6509,17 @@ turkfm.902 = { # Cutler Beckett Arrives in the Adriatic
 	flavor = turkfm.902.f
 	
 	gui_window = event_window_1char_adventure
-
+	
 	left_icon = scope:turkfm_cutler_beckett_scope
 	
 	event_image = {
-		texture = "gbbf_open_ocean"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 2
 	
@@ -6567,13 +6554,18 @@ turkfm.903 = { # Cutler Beckett Withdraws from the Adriatic
 	desc = turkfm.903.d
 	flavor = turkfm.903.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "votp_gunboat_diplomacy"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/iceberg_in_the_antartica"
 	
 	duration = 2
 	
@@ -6712,6 +6704,10 @@ turkfm.906 = { # Pirate Hideout Located
 	desc = turkfm.906.d
 	flavor = turkfm.906.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
 		video = "ep1_redcoats"
 	}
@@ -6761,8 +6757,12 @@ turkfm.907 = { # Pirate Fleet Destroyed
 	desc = turkfm.907.d
 	flavor = turkfm.907.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_naval_battle"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
@@ -6807,6 +6807,15 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 	title = turkfm.908.t
 	desc = turkfm.908.d
 	flavor = turkfm.908.f
+	
+	gui_window = event_window_2char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	right_icon = scope:turkfm_jack_sparrow_scope
+	
+	event_image = {
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
+	}
 	
 	event_image = {
 		video = "votp_hostile_court"
@@ -7675,13 +7684,18 @@ turkfm.921 = { # A Suspicious Inlet
 	desc = turkfm.921.d
 	flavor = turkfm.921.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "africa_construction_colony"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_coastal_village.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 2
 	
@@ -7749,13 +7763,18 @@ turkfm.923 = { # Spoiled Provisions
 	desc = turkfm.923.d
 	flavor = turkfm.923.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "votp_gunboat_diplomacy"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 3
 	
@@ -7816,13 +7835,18 @@ turkfm.924 = { # Circular Bearing
 	desc = turkfm.924.d
 	flavor = turkfm.924.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "votp_gunboat_diplomacy"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/arctic"
 	
 	duration = 2
 	
@@ -7893,13 +7917,18 @@ turkfm.925 = { # Windstorms in the Adriatic
 	desc = turkfm.925.d
 	flavor = turkfm.925.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "unspecific_naval_battle"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/arctic"
 	
 	duration = 2
 	
@@ -7945,13 +7974,18 @@ turkfm.926 = { # Foul Waters
 	desc = turkfm.926.d
 	flavor = turkfm.926.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "votp_gunboat_diplomacy"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/iceberg_in_the_antartica"
 	
 	duration = 2
 	
@@ -8025,13 +8059,18 @@ turkfm.927 = { # Scouts Pick Up Leads
 	desc = turkfm.927.d
 	flavor = turkfm.927.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "votp_agitators_sneaking"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 2
 	
@@ -8078,13 +8117,18 @@ turkfm.928 = { # Emergency Repairs
 	desc = turkfm.928.d
 	flavor = turkfm.928.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "unspecific_gears_pistons"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/iceberg_in_the_antartica"
 	
 	duration = 2
 	
@@ -8152,13 +8196,18 @@ turkfm.929 = { # Port of Call
 	desc = turkfm.929.d
 	flavor = turkfm.929.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "unspecific_steam_ship"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_coastal_village.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 2
 	
@@ -8215,6 +8264,10 @@ turkfm.930 = { # Pirates Spotted!
 	desc = turkfm.930.d
 	flavor = turkfm.930.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
 		video = "votp_gunboat_diplomacy"
 	}
@@ -8263,6 +8316,10 @@ turkfm.931 = { # Man Overboard!
 	title = turkfm.931.t
 	desc = turkfm.931.d
 	flavor = turkfm.931.f
+	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
 	
 	event_image = {
 		video = "unspecific_whaling"
@@ -8369,15 +8426,18 @@ turkfm.932 = { # The Pillagers' Wake
 	option = {
 		name = turkfm.932.a
 		default_option = yes
+		turkfm_add_small_progress_effect = yes
 	}
 	
 	option = {
 		name = turkfm.932.b
+		turkfm_add_small_progress_effect = yes
+		turkfm_add_small_peril_effect = yes
 	}
 	
 }
 
-turkfm.933 = { # Attempting the Approach
+turkfm.933 = { # OPEN
 	type = country_event
 	placement = root
 	
@@ -8438,13 +8498,18 @@ turkfm.934 = { # Without a Trace
 	desc = turkfm.934.d
 	flavor = turkfm.934.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "media_alias"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/iceberg_in_the_antartica"
 	
 	duration = 3
 	
@@ -8485,13 +8550,18 @@ turkfm.935 = { # Bearing Down
 	desc = turkfm.935.d
 	flavor = turkfm.935.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "media_alias"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/DLC/1.3_ip1/Events/unspecific/gunboat_diplomacy"
 	
 	duration = 1
 	
@@ -8536,13 +8606,18 @@ turkfm.936 = { # Cut and Run
 	desc = turkfm.936.d
 	flavor = turkfm.936.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "media_alias"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_open_ocean.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
 	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/naval_battle"
 	
 	duration = 1
 	
@@ -8587,8 +8662,12 @@ turkfm.937 = { # Action Along the Coast
 	desc = turkfm.937.d
 	flavor = turkfm.937.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_cutler_beckett_scope
+	
 	event_image = {
-		video = "media_alias"
+		video = "naval_battle"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_piracy.dds"
