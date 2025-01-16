@@ -130,25 +130,17 @@ eocfm_commission_icon_sgui = {
 			}
 		}
 		custom_tooltip = {
-			text = eocfm_commission_icon_tt1
+			text = eocmf_is_selecting_icon_NOT_tt
 			hidden_trigger = {
-				eocfm_has_icon_trigger = no
-			}
-		}
-		custom_tooltip = {
-			text = eocfm_commission_icon_tt2
-			hidden_trigger = {
-				NOR = {
-					has_variable = icon_page_1
-					has_variable = icon_page_2
-					has_variable = icon_page_3
+				NOT = {
+					has_variable = eocfm_icon_var
 				}
 			}
 		}
 	}
 	
 	effect = {
-		set_variable = icon_page_1
+		set_variable = eocfm_icon_var
 		trigger_event = {
 			id = eocfm.020 # Commissioning an Icon
 			popup = yes

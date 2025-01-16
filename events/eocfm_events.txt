@@ -569,6 +569,8 @@ eocfm.020 = { # Commissioning an Icon
 	desc = eocfm.020.d
 	flavor = eocfm.020.f
 	
+	gui_window = event_window_ethics
+	
 	event_image = {
 		video = "southamerica_christianity"
 	}
@@ -585,194 +587,68 @@ eocfm.020 = { # Commissioning an Icon
 		# triggered by eocfm_commission_icon_button
 	}
 	
-	cancellation_trigger = {
-		OR = {
-			eocfm_has_icon_trigger = yes
-			NOR = {
-				has_variable = icon_page_1
-				has_variable = icon_page_2
-				has_variable = icon_page_3
-			}
-		}
-	}
-	
 	immediate = {
 		ig:ig_devout = {
 			save_scope_as = devout_scope
 		}
 	}
 	
-	## PAGE 1 ##
-	
 	option = {
 		name = eocfm.020.1
-		trigger = {
-			has_variable = icon_page_1
+		default_option = yes
+		custom_tooltip = eocfm.020.1.tt
+		custom_tooltip = {
+			text = turkfm_no_effects
+			remove_variable = eocfm_icon_var
 		}
-		add_modifier = {
-			name = modifier_eocfm_icon_christ_pantocrator
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_1
 	}
-
+	
 	option = {
 		name = eocfm.020.2
-		trigger = {
-			has_variable = icon_page_1
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_eleusa
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_1
+		custom_tooltip = eocfm.020.2.tt
+		add_modifier = modifier_eocfm_icon_christ_pantocrator
 	}
-
+	
 	option = {
 		name = eocfm.020.3
-		trigger = {
-			has_variable = icon_page_1
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_john_climacus
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_1
+		custom_tooltip = eocfm.020.3.tt
+		add_modifier = modifier_eocfm_icon_eleusa
 	}
 	
-	option = { # Show Page 2
-		name = eocfm.020.a
-		trigger = {
-			has_variable = icon_page_1
-		}
-		custom_tooltip = eocfm.020.tt
-		remove_variable = icon_page_1
-		set_variable = icon_page_2
-		hidden_effect = {
-			trigger_event = {
-				id = eocfm.020
-				popup = yes
-			}
-		}
-	}
-	
-	## PAGE 2 ##
-
 	option = {
 		name = eocfm.020.4
-		trigger = {
-			has_variable = icon_page_2
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_michael_archistrategos
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_2
+		custom_tooltip = eocfm.020.4.tt
+		add_modifier = modifier_eocfm_icon_john_climacus
 	}
-
+	
 	option = {
 		name = eocfm.020.5
-		trigger = {
-			has_variable = icon_page_2
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_nikolaos_wonderworker
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_2
+		custom_tooltip = eocfm.020.5.tt
+		add_modifier = modifier_eocfm_icon_michael_archistrategos
 	}
-
+	
 	option = {
 		name = eocfm.020.6
-		trigger = {
-			has_variable = icon_page_2
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_gregory_nazianzus
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_2
-	}
-
-	option = { # Show Page 3
-		name = eocfm.020.a
-		trigger = {
-			has_variable = icon_page_2
-		}
-		custom_tooltip = eocfm.020.tt
-		remove_variable = icon_page_2
-		set_variable = icon_page_3
-		hidden_effect = {
-			trigger_event = {
-				id = eocfm.020
-				popup = yes
-			}
-		}
+		custom_tooltip = eocfm.020.6.tt
+		add_modifier = modifier_eocfm_icon_nikolaos_wonderworker
 	}
 	
-	## PAGE 3 ##
-
 	option = {
 		name = eocfm.020.7
-		trigger = {
-			has_variable = icon_page_3
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_paul_of_thebes
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_3
+		custom_tooltip = eocfm.020.7.tt
+		add_modifier = modifier_eocfm_icon_gregory_nazianzus
 	}
-
+	
 	option = {
 		name = eocfm.020.8
-		trigger = {
-			has_variable = icon_page_3
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_issac_the_syrian
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_3
+		custom_tooltip = eocfm.020.8.tt
+		add_modifier = modifier_eocfm_icon_paul_of_thebes
 	}
-
-
+	
 	option = {
 		name = eocfm.020.9
-		trigger = {
-			has_variable = icon_page_3
-		}
-		add_modifier = {
-			name = modifier_eocfm_icon_basil_megas
-			months = long_modifier_time
-		}
-		remove_variable = icon_page_3
-	}
-	
-	option = { # Show Page 1
-		name = eocfm.020.a
-		trigger = {
-			has_variable = icon_page_3
-		}
-		custom_tooltip = eocfm.020.tt
-		remove_variable = icon_page_3
-		set_variable = icon_page_1
-		hidden_effect = {
-			trigger_event = {
-				id = eocfm.020
-				popup = yes
-			}
-		}
-	}
-	
-	## CANCEL OPTION ##
-
-	option = {
-		name = eocfm.020.b
-		default_option = yes
-		remove_variable = icon_page_1
-		remove_variable = icon_page_2
-		remove_variable = icon_page_3		
+		custom_tooltip = eocfm.020.9.tt
+		add_modifier = modifier_eocfm_icon_issac_the_syrian
 	}
 	
 }
@@ -5627,19 +5503,7 @@ eocfm.309 = { # The Supreme Pontiff of the Universal Church
 
 #### HIDDEN EVENTS ####
 
-eocfm.900 = { # OPEN
-	type = country_event
-	placement = root
-	hidden = yes
-	
-	trigger = {
-	}
-	
-	immediate = {
-	}
-	
-	orphan = yes
-}
+
 
 ########################################
 

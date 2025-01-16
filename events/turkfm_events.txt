@@ -254,7 +254,7 @@ namespace = turkfm
 #380-389 - Balkan Wars Events II
 #	380 - ##
 
-390-399 - Eastern Question Miscellaneous Events
+#390-399 - Eastern Question Miscellaneous Events
 #	390 - ##
 
 
@@ -1164,9 +1164,7 @@ turkfm.206 = { # Balkan Country Rebellion
 	dlc = dlc_grefm
 	
 	trigger = {
-		je:je_turkfm_separatism_riots = {
-			"scripted_bar_progress(turkfm_riot_progress_bar)" >= 200
-		}
+		var:turkfm_riot_var >= 200
 	}
 	
 	cooldown = {
@@ -1279,9 +1277,7 @@ turkfm.207 = { # State Rebellion Suppressed
 	dlc = dlc_grefm
 	
 	trigger = {
-		je:je_turkfm_separatism_riots = {
-			"scripted_bar_progress(turkfm_riot_progress_bar)" <= 0
-		}
+		var:turkfm_riot_var >= 200
 	}
 	
 	cooldown = {
@@ -4931,7 +4927,7 @@ turkfm.253 = { # Ulema Mobilizes the Faithful
 		video = "votp_agitator_speaking"
 	}
 	
-	icon = "gfx/interface/icons/event_icons/event_muslim.dds"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	
@@ -5400,7 +5396,7 @@ turkfm.258 = { # Massacre in State
 				value = medium_radicals
 			}
 		}
-		turkfm_remove_large_riot_progress_effect = yes
+		turkfm_add_large_deescalation_effect = yes
 	}
 	
 	option = { # Order them to stand down
@@ -5433,7 +5429,7 @@ turkfm.258 = { # Massacre in State
 				value = very_large_radicals
 			}
 		}
-		turkfm_remove_large_riot_progress_effect = yes
+		turkfm_add_large_deescalation_effect = yes
 	}
 
 }
