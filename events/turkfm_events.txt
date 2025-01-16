@@ -1088,57 +1088,71 @@ turkfm.205 = { # Riots Break Out in State
 			name = turkfm_total_riots_var
 			add = 1
 		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_riot_var
+				}
+			}
+			set_variable = {
+				name = turkfm_riot_var
+				value = 0
+			}
+			random_scope_state = {
+				limit = {
+					has_modifier = modifier_turkfm_race_riots
+				}
+				save_scope_as = turkfm_riot_state_1_scope
+			}
+			set_variable = {
+				name = turkfm_riot_state_1_var
+				value = scope:turkfm_riot_state_1_scope
+			}
+			set_variable = {
+				name = turkfm_riot_state_1_progress_var
+				value = turkfm_riot_1_progress_value
+			}
+			add_journal_entry = {
+				type = je_turkfm_separatism_riots
+			}
+			set_variable = {
+				name = turkfm_riot_var
+				value = 100
+			}
+		}
+		scope:turkfm_riot_state_scope = {
+			add_modifier = modifier_turkfm_race_riots
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_race_riots
+			}
+		}
+		else = {
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_journal_entry = je_turkfm_eastern_question
+					}
+					post_notification = notification_turkfm_race_riots_worsen
+				}
+			}
+		}
 	}
 	
 	option = {
 		name = turkfm.205.a
 		default_option = yes
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
-		}
-		if = {
-			limit = {
-				NOT ={
-					has_journal_entry = je_turkfm_separatism_riots
-				}
-			}
-			add_journal_entry = {
-				type = je_turkfm_separatism_riots
+		custom_tooltip = turkfm.205.tt
+		show_as_tooltip = {
+			scope:turkfm_riot_state_scope = {
+				add_modifier = modifier_turkfm_race_riots
 			}
 		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				post_notification = notification_turkfm_race_riots
-			}
-		}
-	}
-	
-	option = {
-		name = turkfm.205.b
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
-		}
-		if = {
-			limit = {
-				NOT ={
-					has_journal_entry = je_turkfm_separatism_riots
-				}
-			}
-			add_journal_entry = {
-				type = je_turkfm_separatism_riots
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				post_notification = notification_turkfm_race_riots
-			}
-		}
+		turkfm_update_riot_variables_effect = yes
 	}
 
 }
@@ -1183,12 +1197,6 @@ turkfm.206 = { # Balkan Country Rebellion
 		set_variable = {
 			name = turkfm_riot_var
 			value = 100
-		}
-		je:je_turkfm_separatism_riots = {
-			set_bar_progress = {
-				name = turkfm_riot_progress_bar
-				value = owner.var:turkfm_riot_var
-			}
 		}
 	}
 	
@@ -1277,7 +1285,7 @@ turkfm.207 = { # State Rebellion Suppressed
 	dlc = dlc_grefm
 	
 	trigger = {
-		var:turkfm_riot_var >= 200
+		var:turkfm_riot_var <= 0
 	}
 	
 	cooldown = {
@@ -1291,6 +1299,10 @@ turkfm.207 = { # State Rebellion Suppressed
 			}
 			save_scope_as = turkfm_riot_state_scope
 			remove_modifier = modifier_turkfm_race_riots
+		}
+		set_variable = {
+			name = turkfm_riot_var
+			value = 100
 		}
 	}
 	
@@ -4536,7 +4548,7 @@ turkfm.235 = { # Administrative Offices Ransacked
 			state_in_balkans = yes
 			has_building = building_government_administration
 			NOT = {
-				has_modifier = modifier_turkfm_admin_ranscaked
+				has_modifier = modifier_turkfm_admin_ransacked
 			}
 		}
 	}
@@ -4548,7 +4560,7 @@ turkfm.235 = { # Administrative Offices Ransacked
 				state_in_balkans = yes
 				has_building = building_government_administration
 				NOT = {
-					has_modifier = modifier_turkfm_admin_ranscaked
+					has_modifier = modifier_turkfm_admin_ransacked
 				}
 			}
 			save_scope_as = turkfm_tension_state_scope

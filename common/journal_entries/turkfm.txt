@@ -892,7 +892,6 @@ je_turkfm_separatism_riots = {
 	should_be_pinned_by_default = yes
 	
 	immediate = {
-		turkfm_setup_riots_effect = yes
 	}
 	
 	complete = {
@@ -904,7 +903,6 @@ je_turkfm_separatism_riots = {
 	}
 	
 	on_complete = { # Set variables for deescalation and call turkfm_check_phase_effect
-		turkfm_cleanup_riots_effect = yes
 		custom_tooltip = {
 			text = turkfm_transition_deconfliction_tt
 			set_global_variable = {
@@ -921,6 +919,19 @@ je_turkfm_separatism_riots = {
 			}
 			turkfm_check_phase_effect = yes
 		}
+		every_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
+			}
+			remove_modifier = modifier_turkfm_race_riots
+		}
+		remove_variable = turkfm_riot_var
+		remove_variable = turkfm_riot_state_1_var
+		remove_variable = turkfm_riot_state_2_var
+		remove_variable = turkfm_riot_state_3_var
+		remove_variable = turkfm_riot_state_1_progress_var
+		remove_variable = turkfm_riot_state_2_progress_var
+		remove_variable = turkfm_riot_state_3_progress_var
 	}
 	
 	invalid = {
@@ -955,7 +966,16 @@ je_turkfm_separatism_riots = {
 			5 = turkfm.257 # Rioting Worsens in State
 		}
 		effect = {
-			turkfm_weekly_riot_effect = yes
+			turkfm_update_riot_variables_effect = yes
+			change_variable = {
+				name = turkfm_riot_var
+				add = turkfm_riot_progress_value
+			}
+			clamp_variable = {
+				name = turkfm_riot_var
+				max = 200
+				min = 0
+			}
 		}
 	}
 	
@@ -964,7 +984,7 @@ je_turkfm_separatism_riots = {
 	}
 
 	goal_add_value = {
-		value = 100
+		value = 200
 	}
 
 	progressbar = yes

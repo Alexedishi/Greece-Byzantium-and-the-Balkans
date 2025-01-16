@@ -2052,28 +2052,7 @@ turkfm_massacre_effect = {
 	}
 }
 
-turkfm_setup_riots_effect = {
-	set_variable = {
-		name = turkfm_riot_var
-		value = 0
-	}
-	random_scope_state = {
-		limit = {
-			has_modifier = modifier_turkfm_race_riots
-		}
-		save_scope_as = turkfm_riot_state_1_scope
-	}
-	set_variable = {
-		name = turkfm_riot_state_1_var
-		value = scope:turkfm_riot_state_1_scope
-	}
-	set_variable = {
-		name = turkfm_riot_state_1_progress_var
-		value = turkfm_riot_1_progress_value
-	}
-}
-
-turkfm_weekly_riot_effect = {
+turkfm_update_riot_variables_effect = {
 	random_scope_state = {
 		limit = {
 			has_modifier = modifier_turkfm_race_riots
@@ -2150,37 +2129,6 @@ turkfm_weekly_riot_effect = {
 		remove_variable = turkfm_riot_state_3_var
 		remove_variable = turkfm_riot_state_3_progress_var
 	}
-	change_variable = {
-		name = turkfm_riot_var
-		add = turkfm_riot_progress_value
-	}
-	clamp_variable = {
-		name = turkfm_riot_var
-		max = 100
-		min = 0
-	}
-	je:je_turkfm_separatism_riots = {
-		set_bar_progress = {
-			name = turkfm_riot_progress_bar
-			value = owner.var:turkfm_riot_var
-		}
-	}
-}
-
-turkfm_cleanup_riots_effect = {
-	every_scope_state = {
-		limit = {
-			has_modifier = modifier_turkfm_race_riots
-		}
-		remove_modifier = modifier_turkfm_race_riots
-	}
-	remove_variable = turkfm_riot_var
-	remove_variable = turkfm_riot_state_1_var
-	remove_variable = turkfm_riot_state_2_var
-	remove_variable = turkfm_riot_state_3_var
-	remove_variable = turkfm_riot_state_1_progress_var
-	remove_variable = turkfm_riot_state_2_progress_var
-	remove_variable = turkfm_riot_state_3_progress_var
 }
 
 turkfm_create_rebellion_effect = {
