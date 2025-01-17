@@ -394,6 +394,8 @@ je_turkfm_tanzimat_main = {
 	
 	on_complete = {
 		set_global_variable = turkfm_tanzimat_complete
+		remove_variable = turkfm_tanzimat_progress_var
+		remove_variable = turkfm_tanzimat_var
 	}
 	
 	fail = {
@@ -406,29 +408,36 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	on_fail = {
+		set_global_variable = turkfm_tanzimat_complete
+		remove_variable = turkfm_tanzimat_progress_var
+		remove_variable = turkfm_tanzimat_var
 	}
 	
 	on_weekly_pulse = {
-		set_variable = {
-			name = turkfm_tanzimat_progress_var
-			value = turkfm_tanzimat_progress_value
+		effect = {
+			set_variable = {
+				name = turkfm_tanzimat_progress_var
+				value = turkfm_tanzimat_progress_value
+			}
 		}
 	}
 	
 	on_monthly_pulse = {
-		change_variable = {
-			name = turkfm_tanzimat_var
-			add = var:turkfm_tanzimat_progress_var
-		}
-		clamp_global_variable = {
-			name = turkfm_tanzimat_var
-			max = 1000
-			min = 0
-		}
-		je:je_turkfm_tanzimat_main = {
-			set_bar_progress = {
-				name = turkfm_tanzimat_progress_bar
-				value = var:turkfm_tanzimat_var
+		effect = {
+			change_variable = {
+				name = turkfm_tanzimat_var
+				add = var:turkfm_tanzimat_progress_var
+			}
+			clamp_global_variable = {
+				name = turkfm_tanzimat_var
+				max = 1000
+				min = 0
+			}
+			je:je_turkfm_tanzimat_main = {
+				set_bar_progress = {
+					name = turkfm_tanzimat_progress_bar
+					value = var:turkfm_tanzimat_var
+				}
 			}
 		}
 	}
@@ -520,7 +529,7 @@ je_turkfm_tanzimat_army = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -561,7 +570,7 @@ je_turkfm_tanzimat_bureaucracy = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -601,7 +610,7 @@ je_turkfm_tanzimat_economy = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -639,7 +648,7 @@ je_turkfm_tanzimat_education = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -679,7 +688,7 @@ je_turkfm_tanzimat_millet_reform = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -720,7 +729,7 @@ je_turkfm_tanzimat_security = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	invalid = {
@@ -1203,7 +1212,7 @@ je_turkfm_pirates_of_the_adriatic = {
 	on_complete = {
 		turkfm_cleanup_piracy_effect = yes
 		show_as_tooltip = {
-			turkfm_advance_ottomanism_effect = yes
+			turkfm_advance_ottomanism1_effect = yes
 		}
 	}
 	
