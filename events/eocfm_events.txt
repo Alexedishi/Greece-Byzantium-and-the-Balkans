@@ -597,9 +597,61 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.1
 		default_option = yes
 		custom_tooltip = eocfm.020.1.tt
-		custom_tooltip = {
-			text = turkfm_no_effects
-			remove_variable = eocfm_icon_var
+		trigger_if = {
+			limit = {
+				eocfm_has_icon_trigger = no
+			}
+			custom_tooltip = turkfm_no_effects
+		}
+		trigger_else = {
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_christ_pantocrator
+				}
+				remove_modifier = modifier_eocfm_icon_christ_pantocrator
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_eleusa
+				}
+				remove_modifier = modifier_eocfm_icon_eleusa
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_john_climacus
+				}
+				remove_modifier = modifier_eocfm_icon_john_climacus
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_michael_archistrategos
+				}
+				remove_modifier = modifier_eocfm_icon_michael_archistrategos
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_nikolaos_wonderworker
+				}
+				remove_modifier = modifier_eocfm_icon_nikolaos_wonderworker
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_gregory_nazianzus
+				}
+				remove_modifier = modifier_eocfm_icon_gregory_nazianzus
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_paul_of_thebes
+				}
+				remove_modifier = modifier_eocfm_icon_paul_of_thebes
+			}
+			if = {
+				limit = {
+					has_modifier = modifier_eocfm_icon_issac_the_syrian
+				}
+				remove_modifier = modifier_eocfm_icon_issac_the_syrian
+			}
 		}
 	}
 	
@@ -649,6 +701,10 @@ eocfm.020 = { # Commissioning an Icon
 		name = eocfm.020.9
 		custom_tooltip = eocfm.020.9.tt
 		add_modifier = modifier_eocfm_icon_issac_the_syrian
+	}
+	
+	after = {
+		remove_variable = eocfm_icon_var
 	}
 	
 }

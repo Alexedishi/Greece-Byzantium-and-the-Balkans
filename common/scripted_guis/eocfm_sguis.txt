@@ -122,18 +122,23 @@ eocfm_commission_icon_sgui = {
 	}
 	
 	is_valid = {
-		has_technology_researched = romanticism
-		custom_tooltip = {
-			text = eocfm_need_200_tt
-			hidden_trigger = {
-				eocfm_caesaropapism_capacity_value >= 200
-			}
-		}
 		custom_tooltip = {
 			text = eocmf_is_selecting_icon_NOT_tt
 			hidden_trigger = {
 				NOT = {
 					has_variable = eocfm_icon_var
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				eocfm_has_icon_trigger = no
+			}
+			has_technology_researched = romanticism
+			custom_tooltip = {
+				text = eocfm_need_200_tt
+				hidden_trigger = {
+					eocfm_caesaropapism_capacity_value >= 200
 				}
 			}
 		}
