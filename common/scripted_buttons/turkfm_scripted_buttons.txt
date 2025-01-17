@@ -34,8 +34,89 @@ turkfm_start_tanzimat_button = {
 }
 
 #### EASTERN QUESTIONS BUTTONS ####
-# ////
+turkfm_crisis_defender_button = {
+	name = "turkfm_crisis_defender_button"
+	desc = "turkfm_crisis_defender_button_desc"
+	
+	visible = {
+		has_global_variable = turkfm_active_crisis_var
+	}
+	
+	selected = {
+		has_variable = turkfm_crisis_defender
+	}
+	
+	possible = {
+		hidden_trigger = {
+			NOR = {
+				has_global_variable = turkfm_crisis_launched_var
+				has_variable = turkfm_crisis_attacker
+			}
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = turkfm_crisis_defender
+			}
+			remove_variable = turkfm_crisis_defender
+		}
+		else = {
+			set_variable = turkfm_crisis_defender
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
 
+turkfm_crisis_attacker_button = {
+	name = "turkfm_crisis_attacker_button"
+	desc = "turkfm_crisis_attacker_button_desc"
+	
+	visible = {
+		has_global_variable = turkfm_active_crisis_var
+	}
+	
+	selected = {
+		has_variable = turkfm_crisis_attacker
+	}
+	
+	possible = {
+		hidden_trigger = {
+			NOR = {
+				has_global_variable = turkfm_crisis_launched_var
+				has_variable = turkfm_crisis_defender
+			}
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = turkfm_crisis_attacker
+			}
+			remove_variable = turkfm_crisis_attacker
+		}
+		else = {
+			set_variable = turkfm_crisis_attacker
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+		modifier = {
+			trigger = {}
+			add = 0
+		}
+	}
+}
 
 #### ALBANIAN PIRACY BUTTONS ####
 turkfm_sanction_privateers_button = {

@@ -50,18 +50,18 @@ je_turkfm_sick_man_main = {
 	
 	complete = {
 		country_rank >= rank_value:great_power
+		custom_tooltip = {
+			text = turkfm_controls_anatolia_tt
+			hidden_trigger = {
+				has_variable = turkfm_controls_anatolia
+			}
+		}
 		calc_true_if = {
-			amount >= 4
+			amount >= 3
 			custom_tooltip = {
 				text = turkfm_controls_balkans_tt
 				hidden_trigger = {
 					has_variable = turkfm_controls_balkans
-				}
-			}
-			custom_tooltip = {
-				text = turkfm_controls_anatolia_tt
-				hidden_trigger = {
-					has_variable = turkfm_controls_anatolia
 				}
 			}
 			custom_tooltip = {
@@ -387,7 +387,7 @@ je_turkfm_tanzimat_main = {
 		custom_tooltip = {
 			text = je_turkfm_tanzimat_main_complete
 			hidden_trigger = {
-				var:turkfm_tanzimat_var >= 20
+				var:turkfm_tanzimat_var >= 1000
 			}
 		}
 	}
@@ -406,6 +406,31 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	on_fail = {
+	}
+	
+	on_weekly_pulse = {
+		set_variable = {
+			name = turkfm_tanzimat_progress_var
+			value = turkfm_tanzimat_progress_value
+		}
+	}
+	
+	on_monthly_pulse = {
+		change_variable = {
+			name = turkfm_tanzimat_var
+			add = var:turkfm_tanzimat_progress_var
+		}
+		clamp_global_variable = {
+			name = turkfm_tanzimat_var
+			max = 1000
+			min = 0
+		}
+		je:je_turkfm_tanzimat_main = {
+			set_bar_progress = {
+				name = turkfm_tanzimat_progress_bar
+				value = var:turkfm_tanzimat_var
+			}
+		}
 	}
 	
 	weight = 4000
@@ -878,6 +903,12 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 				always = yes
 			}
 		}
+		triggered_desc = {
+			desc = turkfm_tension_crisis_status
+			trigger = {
+				has_global_variable = turkfm_active_crisis_var
+			}
+		}
 	}
 	
 	weight = 3000
@@ -1000,7 +1031,6 @@ je_turkfm_separatism_riots = {
 	weight = 1000
 	
 }
-	
 
 je_turkfm_eastern_question = {
 	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
@@ -1026,6 +1056,9 @@ je_turkfm_eastern_question = {
 	scripted_button = grefm_cyprus_provoke_button
 	scripted_button = grefm_crete_support_button
 	scripted_button = grefm_crete_provoke_button
+	
+	scripted_button = turkfm_crisis_defender_button
+	scripted_button = turkfm_crisis_attacker_button
 	
 	complete = {
 		custom_tooltip = {
@@ -1072,6 +1105,12 @@ je_turkfm_eastern_question = {
 			desc = turkfm_tension_status
 			trigger = {
 				always = yes
+			}
+		}
+		triggered_desc = {
+			desc = turkfm_tension_crisis_status
+			trigger = {
+				has_global_variable = turkfm_active_crisis_var
 			}
 		}
 	}

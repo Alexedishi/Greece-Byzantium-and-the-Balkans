@@ -208,7 +208,7 @@ namespace = turkfm
 #	300 - The Eastern Question
 #	309 - Adds the Eastern Question JE [TECH]
 
-#310-319 - Historical Balkan Crisis Events
+#310-319 - Balkan Crisis Narrative Events
 #	310 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
 #	307>>311 - ##Bosnia Takes Up Arms! (GEC)
 #	308>>312 - ##Bulgaria Takes Up Arms! (GEC)
@@ -227,7 +227,7 @@ namespace = turkfm
 #	328 - ##
 #	309>>329 - ##Balkan Crisis Superevent
 
-#330-339 - Historical International Congress Events
+#330-339 - International Congress Narrative Events
 #	330 - 
 
 #340-349 - International Congress Mechanical Events
@@ -729,7 +729,7 @@ turkfm.110 = { # Modernized Agriculture
 	option = {
 		name = turkfm.110.a
 		default_option = yes
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 }
@@ -6219,18 +6219,87 @@ turkfm.310 = { # A Crisis in Region
 			name = turkfm_total_riots_var
 			value = 0
 		}
+		change_global_variable = {
+			name = turkfm_crisis_var
+			add = 1
+		}
+		set_global_variable = {
+			name = turkfm_active_crisis_var
+			value = 0
+		}
 	}
 	
 	option = {
 		name = turkfm.310.a
 		default_option = yes
+		custom_tooltip = turkfm_no_effects
+		hidden_effect = {
+			every_country = {	
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				trigger_event = {
+					id = turkfm.320 # A Crisis in Rumelia (Recruit Country to Crisis)
+				}
+			}
+		}
+	}
+
+}
+
+#### BALKAN CRISIS MECHANICAL EVENTS ####
+
+turkfm.320 = { # 
+	type = country_event
+	placement = root
+	
+	title = turkfm.320.t
+	desc = turkfm.320.d
+	flavor = turkfm.320.f
+	
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.310
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			NOT = {
+				has_global_variable = turkfm_separatism_phase_var
+			}
+			global_var:turkfm_separatism_phase_var != 5 # Crisis
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
 	}
 	
 	option = {
-		name = turkfm.310.b
+		name = turkfm.320.a
+		default_option = yes
 	}
 	
-	orphan = yes
+	option = {
+		name = turkfm.320.b
+	}
+	
+	option = {
+		name = turkfm.320.c
+	}
 
 }
 
@@ -6860,7 +6929,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 		scope:turkfm_jack_sparrow_scope = {
 			custom_tooltip = turkfm_thrown_in_jail_tt
 		}
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	option = { # To the Gallows
@@ -6874,7 +6943,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 				kill_character = yes
 			}
 		}
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 	
 	option = { # Give Him a Job
@@ -6906,7 +6975,7 @@ turkfm.908 = { # Jack Sparrow Clapped in Irons!
 				months = normal_modifier_time
 			}
 		}
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 
 }
@@ -6957,7 +7026,7 @@ turkfm.909 = { # Jack Sparrow Whacked
 				months = long_modifier_time
 			}
 		}
-		turkfm_advance_ottomanism_effect = yes
+		turkfm_advance_ottomanism1_effect = yes
 	}
 
 }
