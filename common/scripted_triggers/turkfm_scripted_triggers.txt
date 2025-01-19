@@ -232,7 +232,12 @@ turkfm_deconfliction_events_trigger = {
 	NOT = {
 		has_global_variable = turkfm_tension_event_cooldown_var
 	}
-	global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+	OR = {
+		global_var:turkfm_separatism_phase_var ?= 1 # Stable
+		global_var:turkfm_separatism_phase_var ?= 2 # Unrest
+		global_var:turkfm_separatism_phase_var ?= 3 # Hostility
+		global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+	}
 }
 
 turkfm_crisis_events_trigger = {
