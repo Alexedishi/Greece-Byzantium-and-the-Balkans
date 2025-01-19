@@ -979,48 +979,168 @@ turkfm.205 = { # Riots Break Out in State
 	trigger = {
 		turkfm_hostility_events_trigger = yes
 		turkfm_riot_counter_value < turkfm_riot_potential_value
-		any_scope_state = {
-			state_in_balkans = yes
-			is_split_state = no
-			NOT = {
-				has_modifier = modifier_turkfm_race_riots
+		NOT = {
+			has_variable = turkfm_riot_cooldown_var
+		}
+		OR = {
+			AND = {
+				owns_entire_state_region = STATE_BOSNIA
+				s:STATE_BOSNIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
 			}
-			OR = {
-				radical_fraction = {
-					culture = cu:greek
-					value >= 0.33
+			AND = {
+				owns_entire_state_region = STATE_MONTENEGRO
+				s:STATE_MONTENEGRO.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:rhomaios
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_ALBANIA
+				s:STATE_ALBANIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:serb
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_SKOPIA
+				s:STATE_SKOPIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:bulgarian
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_NORTHERN_THRACE
+				s:STATE_NORTHERN_THRACE.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:romanian
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_WESTERN_THRACE
+				s:STATE_WESTERN_THRACE.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:bosniak
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_BULGARIA
+				s:STATE_BULGARIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:albanian
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				s:STATE_SOUTHERN_SERBIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:croat
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_NORTHERN_SERBIA
+				s:STATE_NORTHERN_SERBIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
-				radical_fraction = {
-					culture = cu:slovene
-					value >= 0.33
+			}
+			AND = {
+				owns_entire_state_region = STATE_PELOPONNESE
+				s:STATE_PELOPONNESE.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_IONIAN_ISLANDS
+				s:STATE_IONIAN_ISLANDS.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_ATTICA
+				s:STATE_ATTICA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_THESSALIA
+				s:STATE_THESSALIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_MACEDONIA
+				s:STATE_MACEDONIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_CRETE
+				s:STATE_CRETE.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+				s:STATE_WEST_AEGEAN_ISLANDS.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_SLOVENIA
+				s:STATE_SLOVENIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_CROATIA
+				s:STATE_CROATIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_DALMATIA
+				s:STATE_DALMATIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
+				}
+			}
+			AND = {
+				owns_entire_state_region = STATE_SLAVONIA
+				s:STATE_SLAVONIA.region_state:TUR = {
+					NOT = {
+						has_modifier = modifier_turkfm_race_riots
+					}
 				}
 			}
 		}
@@ -1028,60 +1148,174 @@ turkfm.205 = { # Riots Break Out in State
 	
 	immediate = {
 		turkfm_tension_cooldown_effect = yes
-		random_scope_state = {
-			limit = {
-				state_in_balkans = yes
-				is_split_state = no
-				NOT = {
-					has_modifier = modifier_turkfm_race_riots
+		random_list = {
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_BOSNIA
 				}
-				OR = {
-					radical_fraction = {
-						culture = cu:greek
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:rhomaios
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:serb
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:bulgarian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:romanian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:bosniak
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:albanian
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:croat
-						value >= 0.33
-					}
-					radical_fraction = {
-						culture = cu:slovene
-						value >= 0.33
-					}
+				s:STATE_BOSNIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
 				}
 			}
-			save_scope_as = turkfm_riot_state_scope
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_MONTENEGRO
+				}
+				s:STATE_MONTENEGRO.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_ALBANIA
+				}
+				s:STATE_ALBANIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_SKOPIA
+				}
+				s:STATE_SKOPIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+				s:STATE_NORTHERN_THRACE.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_WESTERN_THRACE
+				}
+				s:STATE_WESTERN_THRACE.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_BULGARIA
+				}
+				s:STATE_BULGARIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_SOUTHERN_SERBIA
+				}
+				s:STATE_SOUTHERN_SERBIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_NORTHERN_SERBIA
+				}
+				s:STATE_NORTHERN_SERBIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_PELOPONNESE
+				}
+				s:STATE_PELOPONNESE.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_IONIAN_ISLANDS
+				}
+				s:STATE_IONIAN_ISLANDS.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_ATTICA
+				}
+				s:STATE_ATTICA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_THESSALIA
+				}
+				s:STATE_THESSALIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+				s:STATE_MACEDONIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_CRETE
+				}
+				s:STATE_CRETE.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_WEST_AEGEAN_ISLANDS
+				}
+				s:STATE_WEST_AEGEAN_ISLANDS.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_SLOVENIA
+				}
+				s:STATE_SLOVENIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_CROATIA
+				}
+				s:STATE_CROATIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_DALMATIA
+				}
+				s:STATE_DALMATIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_SLAVONIA
+				}
+				s:STATE_SLAVONIA.region_state:TUR = {
+					save_scope_as = turkfm_riot_state_scope
+				}
+			}
+		}
+		scope:turkfm_riot_state_scope = {
+			add_modifier = modifier_turkfm_race_riots
 		}
 		change_global_variable = {
 			name = turkfm_total_riots_var
 			add = 1
-		}
-		scope:turkfm_riot_state_scope = {
-			add_modifier = modifier_turkfm_race_riots
 		}
 		if = {
 			limit = {
@@ -1129,6 +1363,7 @@ turkfm.205 = { # Riots Break Out in State
 				post_notification = notification_turkfm_race_riots_worsen
 			}
 		}
+		turkfm_update_riot_variables_effect = yes
 	}
 	
 	option = {
@@ -1140,7 +1375,6 @@ turkfm.205 = { # Riots Break Out in State
 				add_modifier = modifier_turkfm_race_riots
 			}
 		}
-		turkfm_update_riot_variables_effect = yes
 	}
 
 }
