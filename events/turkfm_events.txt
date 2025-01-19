@@ -6818,7 +6818,59 @@ turkfm.296 = { # The Birth of the X State
 }
 
 turkfm.297 = { # Hellenes Revolt in State
-	orphan = yes
+	type = country_event
+	placement = scope:turkfm_greek_revolt_scope
+	
+	title = turkfm.297.t
+	desc = turkfm.297.d
+	flavor = turkfm.297.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm_hellenic_revolt_effect
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = turkfm_greek_rebellion_tracker
+			}
+			save_scope_as = turkfm_greek_revolt_scope
+		}
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.297.a
+		default_option = yes
+		show_as_tooltip = turkfm_no_effects
+	}
+	
+	option = {
+		name = turkfm.297.b
+		trigger = {
+			has_truce_with = c:TUR
+		}
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+		end_truce = c:TUR
+	}
+	
 }
 
 turkfm.298 = { # Rhomaioi Revolt in State
