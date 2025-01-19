@@ -4606,6 +4606,62 @@ turkfm.235 = { # Administrative Offices Ransacked
 
 }
 
+turkfm.236 = { # Military Column Attacked
+	type = country_event
+	placement = root
+	
+	title = turkfm.236.t
+	desc = turkfm.236.d
+	flavor = turkfm.236.f
+	
+	event_image = {
+		video = "ep1_redcoats"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		turkfm_hostility_events_trigger = yes
+		any_scope_state = {
+			state_in_balkans = yes
+			OR = {
+				has_building = building_barrack
+				has_decree = decree_violent_suppression
+			}
+		}
+	}
+	
+	immediate = {
+		turkfm_tension_cooldown_effect = yes
+		random_scope_state = {
+			limit = {
+				state_in_balkans = yes
+				OR = {
+					has_building = building_barrack
+					has_decree = decree_violent_suppression
+				}
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.236.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.236.b
+	}
+
+}
+
 
 #### TENSION DECONFLICTION EVENTS ####
 
