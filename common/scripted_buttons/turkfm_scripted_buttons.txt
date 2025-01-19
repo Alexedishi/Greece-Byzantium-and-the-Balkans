@@ -91,7 +91,13 @@ turkfm_greek_gunrunners_button = {
 			}
 			remove_modifier = modifier_turkfm_supporting_gunrunners
 		}
-		custom_tooltip = turkfm_greek_gunrunners_effect2
+		custom_tooltip = {
+			text = turkfm_greek_gunrunners_effect2
+			set_variable = {
+				name = turkfm_gunrunners_lockout
+				years = 2
+			}
+		}
 	}
 	
 	ai_chance = {
@@ -145,9 +151,9 @@ turkfm_greek_gunrunners_button = {
 	
 }
 
-grefm_epirus_provoke_button = {
-	name = "grefm_epirus_provoke_button"
-	desc = "grefm_epirus_provoke_button_desc"
+turkfm_epirus_provoke_button = {
+	name = "turkfm_epirus_provoke_button"
+	desc = "turkfm_epirus_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -187,7 +193,7 @@ grefm_epirus_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_epirus_provoke_tt
+			text = turkfm_epirus_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				if = {
@@ -200,7 +206,7 @@ grefm_epirus_provoke_button = {
 					s:STATE_THESSALIA = {
 						random_scope_state = {
 							set_variable = turkfm_revolt_provoke_var
-							save_scope_as = grefm_revolt_state_scope
+							save_scope_as = turkfm_revolt_state_scope
 						}
 					}
 				}
@@ -208,7 +214,7 @@ grefm_epirus_provoke_button = {
 					s:STATE_ALBANIA = {
 						random_scope_state = {
 							set_variable = turkfm_revolt_provoke_var
-							save_scope_as = grefm_revolt_state_scope
+							save_scope_as = turkfm_revolt_state_scope
 						}
 					}
 				}
@@ -217,7 +223,7 @@ grefm_epirus_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var
@@ -246,9 +252,9 @@ grefm_epirus_provoke_button = {
 	}
 }
 
-grefm_macedonia_provoke_button = {
-	name = "grefm_macedonia_provoke_button"
-	desc = "grefm_macedonia_provoke_button_desc"
+turkfm_macedonia_provoke_button = {
+	name = "turkfm_macedonia_provoke_button"
+	desc = "turkfm_macedonia_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -275,13 +281,13 @@ grefm_macedonia_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_macedonia_provoke_tt
+			text = turkfm_macedonia_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				s:STATE_MACEDONIA = {
 					random_scope_state = {
 						set_variable = turkfm_revolt_provoke_var
-						save_scope_as = grefm_revolt_state_scope
+						save_scope_as = turkfm_revolt_state_scope
 					}
 				}
 				c:TUR ?= {
@@ -289,7 +295,7 @@ grefm_macedonia_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var
@@ -319,9 +325,9 @@ grefm_macedonia_provoke_button = {
 	
 }
 
-grefm_skopia_provoke_button = {
-	name = "grefm_skopia_provoke_button"
-	desc = "grefm_skopia_provoke_button_desc"
+turkfm_skopia_provoke_button = {
+	name = "turkfm_skopia_provoke_button"
+	desc = "turkfm_skopia_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -348,13 +354,13 @@ grefm_skopia_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_skopia_provoke_tt
+			text = turkfm_skopia_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				s:STATE_SKOPIA = {
 					random_scope_state = {
 						set_variable = turkfm_revolt_provoke_var
-						save_scope_as = grefm_revolt_state_scope
+						save_scope_as = turkfm_revolt_state_scope
 					}
 				}
 				c:TUR ?= {
@@ -362,7 +368,7 @@ grefm_skopia_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var
@@ -389,9 +395,9 @@ grefm_skopia_provoke_button = {
 	
 }
 
-grefm_smyrna_provoke_button = {
-	name = "grefm_smyrna_provoke_button"
-	desc = "grefm_smyrna_provoke_button_desc"
+turkfm_smyrna_provoke_button = {
+	name = "turkfm_smyrna_provoke_button"
+	desc = "turkfm_smyrna_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -418,13 +424,13 @@ grefm_smyrna_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_smyrna_provoke_tt
+			text = turkfm_smyrna_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				s:STATE_AYDIN = {
 					random_scope_state = {
 						set_variable = turkfm_revolt_provoke_var
-						save_scope_as = grefm_revolt_state_scope
+						save_scope_as = turkfm_revolt_state_scope
 					}
 				}
 				c:TUR ?= {
@@ -432,7 +438,7 @@ grefm_smyrna_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var
@@ -462,9 +468,9 @@ grefm_smyrna_provoke_button = {
 	
 }
 
-grefm_cyprus_provoke_button = {
-	name = "grefm_cyprus_provoke_button"
-	desc = "grefm_cyprus_provoke_button_desc"
+turkfm_cyprus_provoke_button = {
+	name = "turkfm_cyprus_provoke_button"
+	desc = "turkfm_cyprus_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -491,13 +497,13 @@ grefm_cyprus_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_cyprus_provoke_tt
+			text = turkfm_cyprus_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				s:STATE_CYPRUS = {
 					random_scope_state = {
 						set_variable = turkfm_revolt_provoke_var
-						save_scope_as = grefm_revolt_state_scope
+						save_scope_as = turkfm_revolt_state_scope
 					}
 				}
 				c:TUR ?= {
@@ -505,7 +511,7 @@ grefm_cyprus_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var
@@ -535,9 +541,9 @@ grefm_cyprus_provoke_button = {
 	
 }
 
-grefm_crete_provoke_button = {
-	name = "grefm_crete_provoke_button"
-	desc = "grefm_crete_provoke_button_desc"
+turkfm_crete_provoke_button = {
+	name = "turkfm_crete_provoke_button"
+	desc = "turkfm_crete_provoke_button_desc"
 	
 	visible = {
 		country_has_primary_culture = cu:greek
@@ -564,13 +570,13 @@ grefm_crete_provoke_button = {
 	
 	effect = {
 		custom_tooltip = {
-			text = grefm_crete_provoke_tt2
+			text = turkfm_crete_provoke_tt
 			hidden_effect = {
 				set_variable = turkfm_revolt_provocateur_var
 				s:STATE_CRETE = {
 					random_scope_state = {
 						set_variable = turkfm_revolt_provoke_var
-						save_scope_as = grefm_revolt_state_scope
+						save_scope_as = turkfm_revolt_state_scope
 					}
 				}
 				c:TUR ?= {
@@ -578,7 +584,7 @@ grefm_crete_provoke_button = {
 						id = turkfm.291 # Hellene Revolt Provoked
 					}
 				}
-				scope:grefm_revolt_state_scope = {
+				scope:turkfm_revolt_state_scope = {
 					remove_variable = turkfm_revolt_provoke_var
 				}
 				remove_variable = turkfm_revolt_provocateur_var

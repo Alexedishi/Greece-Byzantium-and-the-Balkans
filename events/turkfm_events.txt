@@ -3320,7 +3320,7 @@ turkfm.225 = { # Gun-Runners Intercepted
 	trigger = {
 		turkfm_unrest_events_trigger = yes
 		any_country = {
-			has_modifier = modifier_grefm_supporting_epirus
+			has_modifier = modifier_turkfm_supporting_gunrunners
 		}
 	}
 	
@@ -4824,7 +4824,7 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 				value = large_radicals
 			}
 			add_modifier = {
-				name = modifier_turkfm_crowd_massacre
+				name = modifier_turkfm_civilians_killed
 				months = short_modifier_time
 			}
 			add_culture_standard_of_living_modifier = {
@@ -4833,6 +4833,7 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 				multiplier = -1
 			}
 		}
+		turkfm_add_medium_deescalation_effect = yes
 	}
 	
 	option = { # Encourage the Garrison
@@ -4847,11 +4848,11 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 				value = very_large_radicals
 			}
 			add_radicals_in_state = {
-				culture = rel:orthodox
+				religion = rel:orthodox
 				value = large_radicals
 			}
 			add_modifier = {
-				name = modifier_turkfm_crowd_slaughter
+				name = modifier_turkfm_civilians_massacred
 				months = short_modifier_time
 			}
 			add_culture_standard_of_living_modifier = {
@@ -4860,6 +4861,7 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 				multiplier = -2
 			}
 		}
+		turkfm_add_large_escalation_effect = yes
 	}
 
 }
@@ -5053,7 +5055,7 @@ turkfm.241 = { # Inter-faith Dialogue
 
 turkfm.242 = { # Great Power Mediates Local Conflict
 	type = country_event
-	placement = global_var:turkfm_tension_third_party_var
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.242.t
 	desc = turkfm.242.d
@@ -5076,8 +5078,17 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 	}
 	
 	immediate = {
-		global_var:turkfm_tension_third_party_var = {
-			save_scope_as = turkfm_tension_third_party_scope
+		random_country = {
+			limit = {
+				has_variable = turkfm_tension_third_party_var
+			}
+			save_scope_as = turkfm_tension_country_scope
+		}
+		random_scope_state = {
+			limit = {
+				has_variable = turkfm_riot_intervention_var
+			}
+			save_scope_as = turkfm_tension_state_scope
 		}
 	}
 	
@@ -5086,12 +5097,12 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 		default_option = yes
 		turkfm_add_large_deescalation_effect = yes
 		change_relations = {
-			country = global_var:turkfm_tension_third_party_var
+			country = scope:turkfm_tension_country_scope
 			value = 15
 		}
 		create_diplomatic_catalyst = {
 			type = catalyst_relations_level_increased
-			target = global_var:turkfm_tension_third_party_var
+			target = scope:turkfm_tension_country_scope
 		}
 	}
 	
@@ -5099,12 +5110,12 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 		name = turkfm.242.b
 		turkfm_add_medium_escalation_effect = yes
 		change_relations = {
-			country = global_var:turkfm_tension_third_party_var
+			country = scope:turkfm_tension_country_scope
 			value = -25
 		}
 		create_diplomatic_catalyst = {
 			type = catalyst_relations_level_decreased
-			target = global_var:turkfm_tension_third_party_var
+			target = scope:turkfm_tension_country_scope
 		}
 	}
 
@@ -5205,8 +5216,11 @@ turkfm.249 = { # Great Power Intervenes in Riots
 	}
 	
 	immediate = {
-		global_var:turkfm_tension_third_party_var = {
-			save_scope_as = turkfm_tension_third_party_scope
+		random_country = {
+			limit = {
+				has_variable = turkfm_tension_third_party_var
+			}
+			save_scope_as = turkfm_tension_country_scope
 		}
 		random_scope_state = {
 			limit = {
@@ -5228,12 +5242,12 @@ turkfm.249 = { # Great Power Intervenes in Riots
 			}
 		}
 		change_relations = {
-			country = global_var:turkfm_tension_third_party_var
+			country = scope:turkfm_tension_country_scope
 			value = 15
 		}
 		create_diplomatic_catalyst = {
 			type = catalyst_relations_level_increased
-			target = global_var:turkfm_tension_third_party_var
+			target = scope:turkfm_tension_country_scope
 		}
 	}
 	
@@ -5247,12 +5261,12 @@ turkfm.249 = { # Great Power Intervenes in Riots
 			}
 		}
 		change_relations = {
-			country = global_var:turkfm_tension_third_party_var
+			country = scope:turkfm_tension_country_scope
 			value = -25
 		}
 		create_diplomatic_catalyst = {
 			type = catalyst_relations_level_decreased
-			target = global_var:turkfm_tension_third_party_var
+			target = scope:turkfm_tension_country_scope
 		}
 	}
 
