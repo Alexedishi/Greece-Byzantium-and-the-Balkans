@@ -1551,6 +1551,97 @@ turkfm_add_large_loyalists_effect = {
 	}
 }
 
+turkfm_add_very_large_loyalists_effect = {
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = greek
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:greek
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = rhomaios
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:rhomaios
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = serb
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:serb
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bulgarian
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:bulgarian
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = bosniak
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:bosniak
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = albanian
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:albanian
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = croat
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:croat
+			value = very_large_radicals
+		}
+	}
+	if = {
+		limit = {
+			any_scope_pop = {
+				has_pop_culture = slovene
+			}
+		}
+		add_loyalists_in_state = {
+			culture = cu:slovene
+			value = very_large_radicals
+		}
+	}
+}
+
 turkfm_add_medium_radicals_effect = {
 	if = {
 		limit = {
@@ -1919,6 +2010,92 @@ turkfm_reduce_state_sol_effect = {
 			culture = cu:croat
 			months = normal_modifier_time
 			multiplier = -1
+		}
+	}
+}
+
+
+turkfm_select_balkan_pop_effect = { # execute this from the state scope
+	random_list = {
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = greek
+				}
+			}
+			cu:greek = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = rhomaios
+				}
+			}
+			cu:rhomaios = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = serb
+				}
+			}
+			cu:serb = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = bulgarian
+				}
+			}
+			cu:bulgarian = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = bosniak
+				}
+			}
+			cu:bosniak = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = albanian
+				}
+			}
+			cu:albanian = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = croat
+				}
+			}
+			cu:croat = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
+		}
+		1 = {
+			trigger = {
+				any_scope_pop = {
+					has_pop_culture = slovene
+				}
+			}
+			cu:slovene = {
+				save_scope_as = turkfm_tension_culture_scope
+			}
 		}
 	}
 }

@@ -139,7 +139,7 @@ namespace = turkfm
 #	246 - ##
 #	247 - ##
 #	248 - ##
-#	249 - ##Great Power Intervenes in Riots
+#	249 - Great Power Intervenes in Riots
 
 #250-259 - Tension Riot Events
 #	250 - Fortress in State Beseiged
@@ -154,7 +154,7 @@ namespace = turkfm
 #	259 - Crowds Dispersed in State
 
 #260-269 - Tension Third Party Events
-#	260 - ##Brigands Raid Turkish Lands 
+#	260 - Brigands Raid Turkish Lands 
 #	261 - ##Gun-Runners Arrested
 #	262 - ##Diplomat Defuses Tensions
 #	263 - ##Priest Murdered in State
@@ -3935,6 +3935,7 @@ turkfm.229 = { # Brigands Cross the Border
 				name = modifier_turkfm_brigandage
 				months = short_modifier_time
 			}
+			set_variable = turkfm_brigandage_event_var
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
@@ -4892,20 +4893,7 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 			}
 			set_variable = turkfm_crowd_massacre_var
 			save_scope_as = turkfm_tension_state_scope
-			random_scope_pop = {
-				limit = {
-					OR = {
-						has_pop_religion = orthodox
-						has_pop_religion = oriental_orthodox
-					}
-				}
-				culture = {
-					save_scope_as = turkfm_tension_culture_scope
-				}
-				religion = {
-					save_scope_as = turkfm_tension_religion_scope
-				}
-			}
+			turkfm_select_balkan_pop_effect = yes
 		}
 	}
 	
@@ -4945,7 +4933,7 @@ turkfm.238 = { # Local Garrison Fires into Crowd
 				value = very_large_radicals
 			}
 			add_radicals_in_state = {
-				culture = scope:turkfm_tension_religion_scope
+				culture = rel:orthodox
 				value = large_radicals
 			}
 			add_modifier = {
@@ -5134,38 +5122,7 @@ turkfm.241 = { # Inter-faith Dialogue
 				state_in_balkans = yes
 			}
 			save_scope_as = turkfm_tension_state_scope
-			random_list = {
-				10 = {
-					trigger = {
-						any_scope_pop = {
-							has_pop_religion = orthodox
-						}
-					}
-					rel:orthodox = {
-						save_scope_as = turkfm_tension_religion_scope
-					}
-				}
-				5 = {
-					trigger = {
-						any_scope_pop = {
-							has_pop_religion = oriental_orthodox
-						}
-					}
-					rel:oriental_orthodox = {
-						save_scope_as = turkfm_tension_religion_scope
-					}
-				}
-				5 = {
-					trigger = {
-						any_scope_pop = {
-							has_pop_religion = jewish
-						}
-					}
-					rel:jewish = {
-						save_scope_as = turkfm_tension_religion_scope
-					}
-				}
-			}
+			turkfm_select_balkan_pop_effect = yes
 		}
 	}
 	
@@ -5173,10 +5130,7 @@ turkfm.241 = { # Inter-faith Dialogue
 		name = turkfm.241.a
 		default_option = yes
 		scope:turkfm_tension_state_scope = {
-			add_loyalists_in_state = {
-				religion = scope:turkfm_tension_religion_scope
-				value = very_large_radicals
-			}
+			turkfm_add_very_large_loyalists_effect = yes
 		}
 		turkfm_add_large_deescalation_effect = yes
 	}
@@ -5263,7 +5217,14 @@ turkfm.243 = { # Spy Ring Busted
 	dlc = dlc_grefm
 	
 	trigger = {
-		turkfm_deconfliction_events_trigger = yes
+		NOT = {
+			has_global_variable = turkfm_tension_event_cooldown_var
+		}
+		OR = {
+			global_var:turkfm_separatism_phase_var ?= 2 # Unrest
+			global_var:turkfm_separatism_phase_var ?= 3 # Hostility
+			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
+		}
 	}
 	
 	cooldown = {
@@ -5277,15 +5238,108 @@ turkfm.243 = { # Spy Ring Busted
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
+		scope:turkfm_tension_state_scope = {
+			turkfm_select_balkan_pop_effect = yes
+		}
 	}
 	
-	option = {
+	option = { # Arrest the Ring
 		name = turkfm.243.a
 		default_option = yes
+		turkfm_add_large_deescalation_effect = yes
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				culture = scope:turkfm_tension_culture_scope
+				value = medium_radicals
+			}
+			add_loyalists_in_state = {
+				religion = rel:sunni
+				value = medium_radicals
+			}
+		}
 	}
 	
-	option = {
+	option = { # Keep an Eye on Them
 		name = turkfm.243.b
+		turkfm_add_medium_deescalation_effect = yes
+	}
+
+}
+
+turkfm.249 = { # Great Power Intervenes in Riots
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.249.t
+	desc = turkfm.249.d
+	flavor = turkfm.249.f
+	
+	event_image = {
+		video = "ep1_persian_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.269
+	}
+	
+	immediate = {
+		global_var:turkfm_tension_third_party_var = {
+			save_scope_as = turkfm_tension_third_party_scope
+		}
+		random_scope_state = {
+			limit = {
+				has_variable = turkfm_riot_intervention_var
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
+	}
+	
+	option = { # Accept the Assist
+		name = turkfm.249.a
+		default_option = yes
+		turkfm_add_large_deescalation_effect = yes
+		scope:turkfm_tension_state_scope = {
+			turkfm_add_large_radicals_effect = yes
+			add_loyalists_in_state = {
+				religion = rel:sunni
+				value = very_large_radicals
+			}
+		}
+		change_relations = {
+			country = global_var:turkfm_tension_third_party_var
+			value = 15
+		}
+		create_diplomatic_catalyst = {
+			type = catalyst_relations_level_increased
+			target = global_var:turkfm_tension_third_party_var
+		}
+	}
+	
+	option = { # Reject the Assist
+		name = turkfm.249.b
+		turkfm_add_medium_escalation_effect = yes
+		scope:turkfm_tension_state_scope = {
+			add_radicals_in_state = {
+				religion = rel:sunni
+				value = large_radicals
+			}
+		}
+		change_relations = {
+			country = global_var:turkfm_tension_third_party_var
+			value = -25
+		}
+		create_diplomatic_catalyst = {
+			type = catalyst_relations_level_decreased
+			target = global_var:turkfm_tension_third_party_var
+		}
 	}
 
 }
@@ -6195,11 +6249,93 @@ turkfm.259 = { # Crowds Dispersed in State
 #### TENSION THIRD PARTY EVENTS ####
 
 turkfm.260 = { # Brigands Raid Turkish Lands 
+	type = country_event
+	placement = scope:turkfm_brigandage_event_scope
+	
+	title = turkfm.260.t
+	desc = turkfm.260.d
+	flavor = turkfm.260.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.229
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_brigandage
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			random_scope_state = {
+				limit = {
+					has_variable = turkfm_brigandage_event_var
+				}
+				save_scope_as = turkfm_brigandage_event_scope
+				remove_variable = turkfm_brigandage_event_var
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.260.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.260.b
+	}
 	
 }
 
 turkfm.261 = { # Gun-Runners Arrested
+	type = country_event
+	placement = root
 	
+	title = turkfm.261.t
+	desc = turkfm.261.d
+	flavor = turkfm.261.f
+	
+	event_image = {
+		video = "votp_hostile_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.261.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.261.b
+	}
 }
 
 turkfm.262 = { # Priest Murdered in State
