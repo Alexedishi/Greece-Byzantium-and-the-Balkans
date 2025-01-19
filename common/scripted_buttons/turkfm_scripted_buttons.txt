@@ -34,6 +34,579 @@ turkfm_start_tanzimat_button = {
 }
 
 #### EASTERN QUESTIONS BUTTONS ####
+
+turkfm_greek_gunrunners_button = {
+	name = "turkfm_greek_gunrunners_button"
+	desc = "turkfm_greek_gunrunners_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		OR = {
+			c:TUR ?= {
+				owns_entire_state_region = STATE_ALBANIA
+				owns_entire_state_region = STATE_MACEDONIA
+				owns_entire_state_region = STATE_SKOPIA
+				owns_entire_state_region = STATE_CYPRUS
+				owns_entire_state_region = STATE_CRETE
+				owns_entire_state_region = STATE_AYDIN
+			}
+			has_modifier = modifier_turkfm_supporting_gunrunners
+		}
+	}
+	
+	selected = {
+		has_modifier = modifier_turkfm_supporting_gunrunners
+	}
+	
+	possible = {
+		has_technology_researched = nationalism
+		OR = {
+			owns_entire_state_region = STATE_ATTICA
+			owns_entire_state_region = STATE_MACEDONIA
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_turkfm_supporting_gunrunners
+				}
+			}
+			custom_tooltip = turkfm_supporting_gunrunners_tt
+			add_modifier = {
+				name = modifier_turkfm_supporting_gunrunners
+				multiplier = money_amount_multiplier_medium
+			}
+		}
+		else_if = {
+			limit = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+			}
+			remove_modifier = modifier_turkfm_supporting_gunrunners
+		}
+	}
+	
+	ai_chance = {
+		base = -5
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_turkfm_supporting_gunrunners }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_turkfm_supporting_gunrunners }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
+				}
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_epirus_provoke_button = {
+	name = "grefm_epirus_provoke_button"
+	desc = "grefm_epirus_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_ALBANIA
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_epirus
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_ALBANIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.33
+					culture = cu:greek
+				}
+			}
+		}
+		trigger_if = {
+			c:TUR = {
+				owns_entire_state_region = STATE_THESSALIA
+			}
+			s:STATE_THESSALIA = {
+				any_scope_state = {
+					radical_fraction = {
+						value >= 0.33
+						culture = cu:greek
+					}
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_epirus_provoke_tt
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				if = {
+					limit = {
+						c:TUR ?= {
+							owns_entire_state_region = STATE_ALBANIA
+							owns_entire_state_region = STATE_THESSALIA
+						}
+					}
+					s:STATE_THESSALIA = {
+						random_scope_state = {
+							set_variable = turkfm_revolt_provoke_var
+							save_scope_as = grefm_revolt_state_scope
+						}
+					}
+				}
+				else = {
+					s:STATE_ALBANIA = {
+						random_scope_state = {
+							set_variable = turkfm_revolt_provoke_var
+							save_scope_as = grefm_revolt_state_scope
+						}
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_epirus
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:cold
+				}
+			}
+			add = 1000
+		}
+	}
+}
+
+grefm_macedonia_provoke_button = {
+	name = "grefm_macedonia_provoke_button"
+	desc = "grefm_macedonia_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_MACEDONIA
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_macedonia
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_MACEDONIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.33
+					culture = cu:greek
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_macedonia_provoke_tt
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				s:STATE_MACEDONIA = {
+					random_scope_state = {
+						set_variable = turkfm_revolt_provoke_var
+						save_scope_as = grefm_revolt_state_scope
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_macedonia
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:cold
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_skopia_provoke_button = {
+	name = "grefm_skopia_provoke_button"
+	desc = "grefm_skopia_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_SKOPIA
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_skopia
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_SKOPIA = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.33
+					culture = cu:greek
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_skopia_provoke_tt
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				s:STATE_SKOPIA = {
+					random_scope_state = {
+						set_variable = turkfm_revolt_provoke_var
+						save_scope_as = grefm_revolt_state_scope
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_skopia
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		change_infamy = 5
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_smyrna_provoke_button = {
+	name = "grefm_smyrna_provoke_button"
+	desc = "grefm_smyrna_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_AYDIN
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_smyrna
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_AYDIN = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.33
+					culture = cu:greek
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_smyrna_provoke_tt
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				s:STATE_AYDIN = {
+					random_scope_state = {
+						set_variable = turkfm_revolt_provoke_var
+						save_scope_as = grefm_revolt_state_scope
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_smyrna
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:cold
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_cyprus_provoke_button = {
+	name = "grefm_cyprus_provoke_button"
+	desc = "grefm_cyprus_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_CYPRUS
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_cyprus
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_CYPRUS = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.25
+					culture = cu:greek
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_cyprus_provoke_tt
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				s:STATE_CYPRUS = {
+					random_scope_state = {
+						set_variable = turkfm_revolt_provoke_var
+						save_scope_as = grefm_revolt_state_scope
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_cyprus
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
+grefm_crete_provoke_button = {
+	name = "grefm_crete_provoke_button"
+	desc = "grefm_crete_provoke_button_desc"
+	
+	visible = {
+		country_has_primary_culture = cu:greek
+		c:TUR ?= {
+			owns_entire_state_region = STATE_CRETE
+		}
+	}
+	
+	possible = {
+		has_modifier = modifier_grefm_supporting_crete
+		NOT = { has_modifier = modifier_grefm_nationalist_agitation }
+		s:STATE_CRETE = {
+			any_scope_state = {
+				radical_fraction = {
+					value >= 0.33
+					culture = cu:greek
+				}
+			}
+		}
+		c:TUR = {
+			relations:root < relations_threshold:cold
+		}
+	}
+	
+	effect = {
+		custom_tooltip = {
+			text = grefm_crete_provoke_tt2
+			hidden_effect = {
+				set_variable = turkfm_revolt_provocateur_var
+				s:STATE_CRETE = {
+					random_scope_state = {
+						set_variable = turkfm_revolt_provoke_var
+						save_scope_as = grefm_revolt_state_scope
+					}
+				}
+				c:TUR ?= {
+					trigger_event = {
+						id = turkfm.291 # Hellene Revolt Provoked
+					}
+				}
+				scope:grefm_revolt_state_scope = {
+					remove_variable = turkfm_revolt_provoke_var
+				}
+				remove_variable = turkfm_revolt_provocateur_var
+			}
+		}
+		remove_modifier = modifier_grefm_supporting_crete
+		add_modifier = {
+			name = modifier_grefm_nationalist_agitation
+			months = normal_modifier_time
+		}
+		create_incident = {
+			country = c:TUR
+			value = 5
+		}
+	}
+	
+	ai_chance = {
+		base = -100
+		modifier = {
+			trigger = {
+				c:TUR ?= {
+					relations:root < relations_threshold:cold
+				}
+			}
+			add = 1000
+		}
+	}
+	
+}
+
 turkfm_crisis_defender_button = {
 	name = "turkfm_crisis_defender_button"
 	desc = "turkfm_crisis_defender_button_desc"

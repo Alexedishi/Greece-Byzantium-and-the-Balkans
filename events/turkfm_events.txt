@@ -190,13 +190,13 @@ namespace = turkfm
 #	289 - ##
 
 #290-299 - Tension Separatism Events
-#	290 - ##Hellenes Revolt in State
-#	291 - ##Hellene Revolt Provoked
+#	290 - Hellenes Revolt in State
+#	291 - Hellene Revolt Provoked
 #	292 - ##Rhomaioi Revolt in State
 #	293 - ##Rhomaios Revolt Provoked
 #	294 - ##Yugoslavs Revolt in State
 #	295 - ##Yugoslav Country Provokes Revolt
-#	296 - ##The Birth of the X State
+#	296 - The Birth of the X State
 #	297 - ##Hellenes Revolt in State (Third)
 #	298 - ##Rhomaioi Revolt in State (Third)
 #	299 - ##Yugoslavs Revolt in State (Third)
@@ -3319,43 +3319,8 @@ turkfm.225 = { # Gun-Runners Intercepted
 	
 	trigger = {
 		turkfm_unrest_events_trigger = yes
-		OR = {
-			AND = {
-				owns_entire_state_region = STATE_THESSALIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_epirus
-				}
-			}
-			AND = {
-				owns_entire_state_region = STATE_MACEDONIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_macedonia
-				}
-			}
-			AND = {
-				owns_entire_state_region = STATE_SKOPIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_skopia
-				}
-			}
-			AND = {
-				owns_entire_state_region = STATE_CRETE
-				any_country = {
-					has_modifier = modifier_grefm_supporting_crete
-				}
-			}
-			AND = {
-				owns_entire_state_region = STATE_AYDIN
-				any_country = {
-					has_modifier = modifier_grefm_supporting_smyrna
-				}
-			}
-			AND = {
-				owns_entire_state_region = STATE_CYPRUS
-				any_country = {
-					has_modifier = modifier_grefm_supporting_cyprus
-				}
-			}
+		any_country = {
+			has_modifier = modifier_grefm_supporting_epirus
 		}
 	}
 	
@@ -3365,126 +3330,73 @@ turkfm.225 = { # Gun-Runners Intercepted
 	
 	immediate = {
 		turkfm_tension_cooldown_effect = yes
-		if = {
-			limit = {
-				owns_entire_state_region = STATE_THESSALIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_epirus
+		random_list = {
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_THESSALIA
+				}
+				s:STATE_THESSALIA = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
-			s:STATE_THESSALIA = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_MACEDONIA
+				}
+				s:STATE_MACEDONIA = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
-			random_country = {
-				limit = {
-					has_modifier = modifier_grefm_supporting_epirus
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_SKOPIA
 				}
-				save_scope_as = turkfm_tension_country_scope
-			}	
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_MACEDONIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_macedonia
+				s:STATE_SKOPIA = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
-			s:STATE_MACEDONIA = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_CRETE
+				}
+				s:STATE_CRETE = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
-			random_country = {
-				limit = {
-					has_modifier = modifier_grefm_supporting_macedonia
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_AYDIN
 				}
-				save_scope_as = turkfm_tension_country_scope
-			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_SKOPIA
-				any_country = {
-					has_modifier = modifier_grefm_supporting_skopia
+				s:STATE_AYDIN = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
-			s:STATE_SKOPIA = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
+			1 = {
+				trigger = {
+					owns_entire_state_region = STATE_CYPRUS
 				}
-			}
-			random_country = {
-				limit = {
-					has_modifier = modifier_grefm_supporting_skopia
-				}
-				save_scope_as = turkfm_tension_country_scope
-			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_CRETE
-				any_country = {
-					has_modifier = modifier_grefm_supporting_crete
-				}
-			}
-			s:STATE_CRETE = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
+				s:STATE_CYPRUS = {
+					random_scope_state = {
+						save_scope_as = turkfm_tension_state_scope
+					}
 				}
 			}
 			random_country = {
 				limit = {
-					has_modifier = modifier_grefm_supporting_crete
+					has_modifier = modifier_turkfm_supporting_gunrunners
 				}
 				save_scope_as = turkfm_tension_country_scope
 			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_AYDIN
-				any_country = {
-					has_modifier = modifier_grefm_supporting_smyrna
-				}
-			}
-			s:STATE_AYDIN = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
-				}
-			}
-			random_country = {
-				limit = {
-					has_modifier = modifier_grefm_supporting_smyrna
-				}
-				save_scope_as = turkfm_tension_country_scope
-			}
-		}
-		else_if = {
-			limit = {
-				owns_entire_state_region = STATE_CYPRUS
-				any_country = {
-					has_modifier = modifier_grefm_supporting_cyprus
-				}
-			}
-			s:STATE_CYPRUS = {
-				random_scope_state = {
-					set_variable = turkfm_gunrunners_var
-				}
-			}
-			random_country = {
-				limit = {
-					has_modifier = modifier_grefm_supporting_cyprus
-				}
-				save_scope_as = turkfm_tension_country_scope
-			}
-		}
-		random_scope_state = {
-			limit = {
-				has_variable = turkfm_gunrunners_var
-			}
-			save_scope_as = turkfm_tension_state_scope
-		}
 	}
 	
 	option = { # Press the Issue
@@ -3495,6 +3407,7 @@ turkfm.225 = { # Gun-Runners Intercepted
 				name = modifier_turkfm_arrested_gunrunners
 				months = normal_modifier_time
 			}
+			set_variable = turkfm_gunrunners_var
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
@@ -6304,7 +6217,7 @@ turkfm.260 = { # Brigands Raid Turkish Lands
 
 turkfm.261 = { # Gun-Runners Arrested
 	type = country_event
-	placement = root
+	placement = scope:turkfm_tension_state_scope
 	
 	title = turkfm.261.t
 	desc = turkfm.261.d
@@ -6323,9 +6236,20 @@ turkfm.261 = { # Gun-Runners Arrested
 	dlc = dlc_grefm
 	
 	trigger = {
+		# triggered by turkfm.225/226
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			random_scope_state = {
+				limit = {
+					has_variable = turkfm_gunrunners_var
+				}
+				save_scope_as = turkfm_tension_state_scope
+				remove_variable = turkfm_gunrunners_var
+			}
+		}
 	}
 	
 	option = {
@@ -6414,7 +6338,7 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 		}
 		any_country = {
 			country_has_primary_culture = cu:greek
-			has_technology_researched = nationalism
+			has_modifier = modifier_turkfm_supporting_gunrunners
 		}
 		OR = {
 			AND = {
@@ -6433,9 +6357,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 						}
 					}
 				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_epirus
-				}
 			}
 			AND = {
 				owns_entire_state_region = STATE_MACEDONIA
@@ -6452,9 +6373,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 							}
 						}
 					}
-				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_macedonia
 				}
 			}
 			AND = {
@@ -6473,9 +6391,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 						}
 					}
 				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_skopia
-				}
 			}
 			AND = {
 				owns_entire_state_region = STATE_CYPRUS
@@ -6492,9 +6407,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 							}
 						}
 					}
-				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_cyprus
 				}
 			}
 			AND = {
@@ -6513,9 +6425,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 						}
 					}
 				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_crete
-				}
 			}
 			AND = {
 				owns_entire_state_region = STATE_AYDIN
@@ -6532,9 +6441,6 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 							}
 						}
 					}
-				}
-				any_country = {
-					has_modifier = modifier_grefm_supporting_smyrna
 				}
 			}
 		}
@@ -6897,7 +6803,7 @@ turkfm.296 = { # The Birth of the X State
 }
 
 turkfm.297 = { # Hellenes Revolt in State
-	
+	orphan = yes
 }
 
 turkfm.298 = { # Rhomaioi Revolt in State
