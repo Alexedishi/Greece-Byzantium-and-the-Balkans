@@ -2014,7 +2014,6 @@ turkfm_reduce_state_sol_effect = {
 	}
 }
 
-
 turkfm_select_balkan_pop_effect = { # execute this from the state scope
 	random_list = {
 		1 = {
@@ -2096,6 +2095,123 @@ turkfm_select_balkan_pop_effect = { # execute this from the state scope
 			cu:slovene = {
 				save_scope_as = turkfm_tension_culture_scope
 			}
+		}
+	}
+}
+
+turkfm_hellenic_separatism_effect = {
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_supporting_gunrunners
+		}
+		if = {
+			limit = {
+				c:TUR ?= {
+					OR = {
+						owns_entire_state_region = STATE_THESSALIA
+						owns_entire_state_region = STATE_MACEDONIA
+						owns_entire_state_region = STATE_SKOPIA
+						owns_entire_state_region = STATE_CRETE
+						owns_entire_state_region = STATE_AYDIN
+						owns_entire_state_region = STATE_CYPRUS
+					}
+				}
+			}
+			random_list = {
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_THESSALIA
+						}
+					}
+					s:STATE_THESSALIA = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_MACEDONIA
+						}
+					}
+					s:STATE_MACEDONIA = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_SKOPIA
+						}
+					}
+					s:STATE_SKOPIA = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_CRETE
+						}
+					}
+					s:STATE_CRETE = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_AYDIN
+						}
+					}
+					s:STATE_AYDIN = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						c:TUR = {
+							owns_entire_state_region = STATE_CYPRUS
+						}
+					}
+					s:STATE_CYPRUS = {
+						random_scope_state = {
+							add_radicals_in_state = {
+								culture = cu:greek
+								value = 0.05
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			remove_modifier = modifier_turkfm_supporting_gunrunners
 		}
 	}
 }
