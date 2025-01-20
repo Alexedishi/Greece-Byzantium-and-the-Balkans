@@ -9,7 +9,7 @@ on_monthly_pulse_country = { # There's a lot of tiny on_actions specified here t
 #		grefm_monthly_pulse_3
 		turkfm_monthly_pulse
 		balkfm_monthly_pulse
-#		yug_monthly_pulse
+		yug_monthly_pulse
 		mon_monthly_pulse
 		ser_monthly_pulse
 		bul_monthly_pulse
@@ -41,10 +41,8 @@ balkfm_monthly_pulse = { # These events are monitored from all scopes
 	events = {
 		turkfm.309 # Adds the Eastern Question JE
 		turkfm.919 # Adds the Piracy JE
-		
 		balkfm.020 # Places Yugoslav Secession Variable
 		balkfm.082 # Ali Pasha Ascendant
-		balkfm.208 # Yugoslavism Fizzles Out
 		balkfm.214 # Yugoslavist Uprising in State
 		balkfm.484 # May Assembly
 		balkfm.598 # The Bulgarian State
@@ -130,6 +128,26 @@ turkfm_monthly_pulse = {
 	random_events = {
 	}
 }
+
+yug_monthly_pulse = {
+	trigger = {
+		OR = {
+			country_has_primary_culture = cu:serb
+			country_has_primary_culture = cu:bulgarian
+			country_has_primary_culture = cu:bosniak
+			country_has_primary_culture = cu:croat
+			country_has_primary_culture = cu:slovene
+		}
+	}
+	events = {
+		balkfm.208 # Yugoslavism Fizzles Out
+	}
+	random_events = {
+	}
+	effect = {
+		turkfm_yugoslav_separatism_effect = yes
+	}
+}
 	
 mon_monthly_pulse = {
 	trigger = {
@@ -149,6 +167,8 @@ mon_monthly_pulse = {
 		 20 = balkfm.307 # An Intractable Illness
 		 20 = balkfm.308 # The Passing of the Bishop
 	}
+	effect = {
+	}
 }
 
 ser_monthly_pulse = {
@@ -165,13 +185,13 @@ ser_monthly_pulse = {
 	random_events = {
 		100 = 0
 	}
+	effect = {
+	}
 }
 
 bul_monthly_pulse = {
 	trigger = {
-		OR = {
-			country_has_primary_culture = cu:bulgarian
-		}
+		country_has_primary_culture = cu:bulgarian
 	}
 	events = {
 		balkfm.530 # The University of Sofia
@@ -179,19 +199,73 @@ bul_monthly_pulse = {
 	random_events = {
 		100 = 0
 	}
+	effect = {
+	}
 }
 
 rom_monthly_pulse = {
 	trigger = {
-		OR = {
-			country_has_primary_culture = cu:romanian
-		}
+		country_has_primary_culture = cu:romanian
 	}
 	events = {
 		balkfm.660 # The Academy of Romania
 	}
 	random_events = {
 		100 = 0
+	}
+	effect = {
+	}
+}
+
+bos_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:bosniak
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+	effect = {
+	}
+}
+
+alb_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:albanian
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+	effect = {
+	}
+}
+
+cro_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:croat
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+	effect = {
+	}
+}
+
+slo_monthly_pulse = {
+	trigger = {
+		country_has_primary_culture = cu:slovene
+	}
+	events = {
+	}
+	random_events = {
+		100 = 0
+	}
+	effect = {
 	}
 }
 

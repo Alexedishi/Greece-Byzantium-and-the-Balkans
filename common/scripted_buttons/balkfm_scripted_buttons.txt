@@ -176,122 +176,211 @@ balkfm_form_yugoslavia_button = {
 	
 }
 
-balkfm_austrian_agitation_button = {
+balkfm_austrian_gunrunners_button = {
 	name = "balkfm_austrian_agitation"
 	desc = "balkfm_austrian_agitation_desc"
 	
 	visible = {
 		c:AUS ?= {
 			any_scope_state = {
-				is_homeland_of_country_cultures = root
+				balkfm_is_yugoslav_homeland_trigger = yes
 			}
 		}
+	}
+	
+	selected = {
+		has_modifier = modifier_balkfm_austrian_gunrunners
 	}
 	
 	possible = {
-		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_austrian_gunrunners_possible
+			NOT = {
+				has_variable = balkfm_austrian_gunrunners_lockout
+			}
+		}
 	}
 	
 	effect = {
-		set_variable = balkfm_yugoslav_agitation_actor
-		add_modifier = {
-			name = modifier_balkfm_nationalist_agitation
-			months = 37
-		}
-		c:AUS ?= {
-			random_scope_state = {
-				limit = {
-					is_homeland_of_country_cultures = root
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_balkfm_austrian_gunrunners
 				}
-				set_variable = balkfm_yugoslav_state_target
 			}
-			trigger_event = {
-				id = balkfm.211 # Yugoslavist Agitation (Target Event)
-			}
-		}
-		trigger_event = {
-			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
-		}
-		show_as_tooltip = {
-			create_incident = {
-				country = c:AUS
-				value = 10
+			custom_tooltip = balkfm_austrian_gunrunners_effect1
+			add_modifier = {
+				name = modifier_balkfm_austrian_gunrunners
+				multiplier = money_amount_multiplier_medium
 			}
 		}
-		remove_variable = balkfm_yugoslav_agitation_actor
+		else_if = {
+			limit = {
+				has_modifier = modifier_balkfm_austrian_gunrunners
+			}
+			remove_modifier = modifier_balkfm_austrian_gunrunners
+		}
+		custom_tooltip = {
+			text = balkfm_austrian_gunrunners_effect2
+			set_variable = {
+				name = balkfm_austrian_gunrunners_lockout
+				years = 2
+			}
+		}
 	}
 	
 	ai_chance = {
-		base = 0
+		base = -5
 		modifier = {
 			trigger = {
-				has_secret_goal = {
-					who = c:AUS
-					secret_goal = antagonize
+				NOT = { has_modifier = modifier_balkfm_austrian_gunrunners }
+				c:AUS ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_balkfm_austrian_gunrunners }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_austrian_gunrunners
+				c:AUS ?= {
+					relations:root > relations_threshold:neutral
 				}
 			}
-			add = 10
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_austrian_gunrunners
+				c:AUS ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_austrian_gunrunners
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
 		}
 	}
 }
 
-balkfm_ottoman_agitation_button = {
-	name = "balkfm_ottoman_agitation"
-	desc = "balkfm_ottoman_agitation_desc"
+balkfm_ottoman_gunrunners_button = {
+	name = "balkfm_ottoman_gunrunners_button"
+	desc = "balkfm_ottoman_gunrunners_button_desc"
 	
 	visible = {
 		c:TUR ?= {
 			any_scope_state = {
-				is_homeland_of_country_cultures = root
+				balkfm_is_yugoslav_homeland_trigger = yes
 			}
 		}
+	}
+	
+	selected = {
+		has_modifier = modifier_balkfm_ottoman_gunrunners
 	}
 	
 	possible = {
-		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
+		custom_tooltip = {
+			text = balkfm_ottoman_gunrunners_possible
+			NOT = {
+				has_variable = balkfm_ottoman_gunrunners_lockout
+			}
+		}
 	}
 	
 	effect = {
-		set_variable = balkfm_yugoslav_agitation_actor
-		add_modifier = {
-			name = modifier_balkfm_nationalist_agitation
-			months = 37
-		}
-		c:TUR ?= {
-			random_scope_state = {
-				limit = {
-					is_homeland_of_country_cultures = root
+		if = {
+			limit = {
+				NOT = { 
+					has_modifier = modifier_balkfm_ottoman_gunrunners
 				}
-				set_variable = balkfm_yugoslav_state_target
 			}
-			trigger_event = {
-				id = balkfm.211 # Yugoslavist Agitation (Target Event)
-			}
-		}
-		trigger_event = {
-			id = balkfm.210 # Yugoslavist Agitation (Agitator Event)
-		}
-		show_as_tooltip = {
-			create_incident = {
-				country = c:TUR
-				value = 10
+			custom_tooltip = balkfm_ottoman_gunrunners_effect1
+			add_modifier = {
+				name = modifier_balkfm_ottoman_gunrunners
+				multiplier = money_amount_multiplier_medium
 			}
 		}
-		remove_variable = balkfm_yugoslav_agitation_actor
+		else_if = {
+			limit = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+			}
+			remove_modifier = modifier_balkfm_ottoman_gunrunners
+		}
+		custom_tooltip = {
+			text = balkfm_ottoman_gunrunners_effect2
+			set_variable = {
+				name = balkfm_ottoman_gunrunners_lockout
+				years = 2
+			}
+		}
 	}
 	
 	ai_chance = {
-		base = 0
+		base = -5
 		modifier = {
 			trigger = {
-				has_secret_goal = {
-					who = c:TUR
-					secret_goal = antagonize
+				NOT = { has_modifier = modifier_balkfm_ottoman_gunrunners }
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+				weekly_net_fixed_income > money_amount_multiplier_medium
+				gold_reserves > 0
+			}
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				NOT = { has_modifier = modifier_balkfm_ottoman_gunrunners }
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = -1000
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+				c:TUR ?= {
+					relations:root > relations_threshold:neutral
 				}
 			}
-			add = 10
+			add = 100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+				c:TUR ?= {
+					relations:root < relations_threshold:neutral
+				}
+			}
+			add = -100
+		}
+		modifier = {
+			trigger = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+				weekly_net_fixed_income < money_amount_multiplier_medium
+				gold_reserves < 0
+			}
+			add = 1000
 		}
 	}
+	
 }
 
 balkfm_austrian_provokation_button = {
@@ -308,15 +397,11 @@ balkfm_austrian_provokation_button = {
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
-		custom_tooltip = {
-			text = balkfm_austrian_provokation_tt
-			hidden_trigger = {
-				c:AUS ?= {
-					any_scope_state = {
-						balkfm_is_yugoslav_homeland_trigger = yes
-						balkfm_yugoslav_radicals_trigger = yes
-					}
-				}
+		c:AUS ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+				is_split_state = no
+				balkfm_yugoslav_radicals_trigger = yes
 			}
 		}
 	}
@@ -328,19 +413,21 @@ balkfm_austrian_provokation_button = {
 			months = 37
 		}
 		c:AUS ?= {
+			save_scope_as = balkfm_rebellion_overlord_scope
 			random_scope_state = {
 				limit = {
 					balkfm_is_yugoslav_homeland_trigger = yes
+					is_split_state = no
 					balkfm_yugoslav_radicals_trigger = yes
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+				id = balkfm.211 # Yugoslavist Provocation (Austrian Event)
 			}
 		}
 		trigger_event = {
-			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+			id = balkfm.210 # Yugoslavist Provocation (Provocateur Event)
 		}
 		show_as_tooltip = {
 			create_incident = {
@@ -367,15 +454,11 @@ balkfm_ottoman_provokation_button = {
 	
 	possible = {
 		NOT = { has_modifier = modifier_balkfm_nationalist_agitation }
-		custom_tooltip = {
-			text = balkfm_ottoman_provokation_tt
-			hidden_trigger = {
-				c:TUR ?= {
-					any_scope_state = {
-						balkfm_is_yugoslav_homeland_trigger = yes
-						balkfm_yugoslav_radicals_trigger = yes
-					}
-				}
+		c:TUR ?= {
+			any_scope_state = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+				is_split_state = no
+				balkfm_yugoslav_radicals_trigger = yes
 			}
 		}
 	}
@@ -387,19 +470,21 @@ balkfm_ottoman_provokation_button = {
 			months = 37
 		}
 		c:TUR ?= {
+			save_scope_as = balkfm_rebellion_overlord_scope
 			random_scope_state = {
 				limit = {
 					balkfm_is_yugoslav_homeland_trigger = yes
+					is_split_state = no
 					balkfm_yugoslav_radicals_trigger = yes
 				}
 				set_variable = balkfm_yugoslav_state_target
 			}
 			trigger_event = {
-				id = balkfm.213 # Yugoslavist Provocation (Target Event)
+				id = balkfm.212 # Yugoslavist Provocation (Ottoman Event)
 			}
 		}
 		trigger_event = {
-			id = balkfm.212 # Yugoslavist Provocation (Provocateur Event)
+			id = balkfm.210 # Yugoslavist Provocation (Provocateur Event)
 		}
 		show_as_tooltip = {
 			create_incident = {

@@ -87,10 +87,10 @@ namespace = balkfm
 #	209 - The Birth of Yugoslavia
 
 #210-219 - Yugoslavian Unification Mechnical Events
-#	210 - Yugoslavist Agitation (Agitator Event)
-#	211 - Yugoslavist Agitation (Target Event)
-#	212 - Yugoslavist Provocation (Provokatur Event)
-#	213 - Yugoslavist Provocation (Target Event)
+#	212>>210 - Yugoslavist Provocation (Provokatur Event)
+#	211 - ##Yugoslavist Provocation (Austrian Event)
+#	212 - ##Yugoslavist Provocation (Ottoman Event)
+#	213 - //
 #	214 - Yugoslavist Uprising in State
 #	215 - ##Yugoslav Country Seeks Union (Same Culture)
 #	216 - ##Yugoslav Country Seeks Union (Different Culture)
@@ -2161,126 +2161,13 @@ balkfm.209 = { # The Birth of Yugoslavia
 
 #### YUGOSLAVIAN UNIFICATION MECHANICAL EVENTS ####
 
-balkfm.210 = { # Yugoslavist Agitation (Agitator Event)
+balkfm.210 = { # Yugoslavist Provocation (Provocateur Event)
 	type = country_event
-	placement = scope:balkfm_agitation_state_scope
+	placement = scope:balkfm_rebellion_scope
 	
 	title = balkfm.210.t
 	desc = balkfm.210.d
 	flavor = balkfm.210.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		random_state = {
-			limit = {
-				has_variable = balkfm_yugoslav_state_target
-			}
-			save_scope_as = balkfm_agitation_state_scope
-			owner = {
-				save_scope_as = balkfm_agitation_owner_scope
-			}
-		}
-		scope:balkfm_agitation_state_scope = {
-			remove_variable = balkfm_yugoslav_state_target
-		}
-	}
-	
-	option = {
-		name = balkfm.210.a
-		default_option = yes
-		create_incident = {
-			country = scope:balkfm_agitation_owner_scope
-			value = 10
-		}
-		show_as_tooltip = {
-			scope:balkfm_agitation_state_scope = {
-				balkfm_rile_up_yugoslavs_effect = yes
-			}
-		}
-		show_as_tooltip = {
-			scope:balkfm_agitation_state_scope = {
-				add_modifier = {
-					name = modifier_balkfm_separatist_tensions
-					months = normal_modifier_time
-				}
-			}
-		}
-	}
-
-}
-
-balkfm.211 = { # Yugoslavist Agitation (Target Event)
-	type = country_event
-	placement = scope:balkfm_agitation_state_scope
-	
-	title = balkfm.211.t
-	desc = balkfm.211.d
-	flavor = balkfm.211.f
-	
-	event_image = {
-		video = "europenorthamerica_springtime_of_nations"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-	}
-	
-	immediate = {
-		random_state = {
-			limit = {
-				has_variable = balkfm_yugoslav_state_target
-			}
-			save_scope_as = balkfm_agitation_state_scope
-		}
-		random_country = {
-			limit = {
-				has_variable = balkfm_yugoslav_agitation_actor
-			}
-			save_scope_as = balkfm_yugoslav_agitator_scope
-		}
-	}
-	
-	option = {
-		name = balkfm.211.a
-		default_option = yes
-		scope:balkfm_agitation_state_scope = {
-			balkfm_rile_up_yugoslavs_effect = yes
-			add_modifier = {
-				name = modifier_balkfm_separatist_tensions
-			}
-		}
-	}
-
-}
-
-balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
-	type = country_event
-	placement = scope:balkfm_rebellion_scope
-	
-	title = balkfm.212.t
-	desc = balkfm.212.d
-	flavor = balkfm.212.f
 	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
@@ -2303,10 +2190,7 @@ balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
 			limit = {
 				has_variable = balkfm_yugoslav_state_target
 			}
-			save_scope_as = balkfm_provocation_state_scope
-			owner = {
-				save_scope_as = balkfm_provocation_owner_scope
-			}
+			save_scope_as = balkfm_rebellion_state_scope
 			remove_variable = balkfm_yugoslav_state_target
 		}
 		random_country = {
@@ -2319,7 +2203,7 @@ balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
 	}
 	
 	option = { # 
-		name = balkfm.212.a
+		name = balkfm.210.a
 		default_option = yes
 		create_incident = {
 			country = scope:balkfm_provocation_owner_scope
@@ -2340,13 +2224,13 @@ balkfm.212 = { # Yugoslavist Provocation (Provocateur Event)
 	
 }
 
-balkfm.213 = { # Yugoslavist Provocation (Target Event)
+balkfm.211 = { # Yugoslavist Provocation (Austrian Event)
 	type = country_event
 	placement = scope:balkfm_rebellion_scope
 	
-	title = balkfm.213.t
-	desc = balkfm.213.d
-	flavor = balkfm.213.f
+	title = balkfm.211.t
+	desc = balkfm.211.d
+	flavor = balkfm.211.f
 	
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
@@ -2369,10 +2253,7 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 			limit = {
 				has_variable = balkfm_yugoslav_state_target
 			}
-			save_scope_as = balkfm_provocation_state_scope
-			owner = {
-				save_scope_as = balkfm_provocation_owner_scope
-			}
+			save_scope_as = balkfm_rebellion_state_scope
 		}
 		balkfm_create_yugoslav_rebel_effect = yes
 		random_country = {
@@ -2387,7 +2268,7 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 			}
 			save_scope_as = balkfm_rebellion_scope
 		}
-		scope:balkfm_provocation_state_scope = {
+		scope:balkfm_rebellion_state_scope = {
 			state_region = {
 				add_claim = root
 			}
@@ -2405,16 +2286,16 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 	}
 	
 	option = { # Slap Them Down
-		name = balkfm.213.a
+		name = balkfm.211.a
 		default_option = yes
 		create_diplomatic_play = {
 			name = dp_yugoslav_rebellion
 			type = dp_return_state
-			target_state = scope:balkfm_provocation_state_scope
+			target_state = scope:balkfm_rebellion_state_scope
 			add_war_goal = {
 				holder = scope:balkfm_rebellion_scope
 				type = revoke_claim
-				target_state = scope:balkfm_provocation_state_scope
+				target_state = scope:balkfm_rebellion_state_scope
 				target_country = root
 			}
 		}
@@ -2424,7 +2305,7 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 	}
 	
 	option = { # Grant Autonomy
-		name = balkfm.213.b
+		name = balkfm.211.b
 		if = {
 			limit = {
 				is_country_type = unrecognized
@@ -2456,6 +2337,123 @@ balkfm.213 = { # Yugoslavist Provocation (Target Event)
 	
 }
 
+balkfm.212 = { # Yugoslavist Provocation (Ottoman Event)
+	type = country_event
+	placement = scope:balkfm_rebellion_scope
+	
+	title = balkfm.212.t
+	desc = balkfm.212.d
+	flavor = balkfm.212.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_opened_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by balkfm_austrian_provokation_button / balkfm_ottoman_provokation_button
+	}
+	
+	immediate = {
+		random_state = {
+			limit = {
+				has_variable = balkfm_yugoslav_state_target
+			}
+			save_scope_as = balkfm_rebellion_state_scope
+		}
+		balkfm_create_yugoslav_rebel_effect = yes
+		random_country = {
+			limit = {
+				has_variable = balkfm_yugoslav_provocation_actor
+			}
+			save_scope_as = balkfm_yugoslav_provocateur_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = balkfm_rebellion_tag_tracker
+			}
+			save_scope_as = balkfm_rebellion_scope
+		}
+		scope:balkfm_rebellion_state_scope = {
+			state_region = {
+				add_claim = root
+			}
+		}
+		scope:balkfm_rebellion_scope = {
+			every_scope_state = {
+				remove_modifier = modifier_balkfm_separatist_tensions
+				add_modifier = {
+					name = modifier_balkfm_realized_rebellion
+					months = short_modifier_time
+				}
+				balkfm_calm_down_yugoslavs_effect = yes
+			}
+		}
+	}
+	
+	option = { # Slap Them Down
+		name = balkfm.212.a
+		default_option = yes
+		create_diplomatic_play = {
+			name = dp_yugoslav_rebellion
+			type = dp_return_state
+			target_state = scope:balkfm_rebellion_state_scope
+			add_war_goal = {
+				holder = scope:balkfm_rebellion_scope
+				type = revoke_claim
+				target_state = scope:balkfm_rebellion_state_scope
+				target_country = root
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Grant Autonomy
+		name = balkfm.212.b
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			create_diplomatic_pact = {
+				country = scope:balkfm_rebellion_scope
+				type = tributary
+			}
+		}
+		else = {
+			create_diplomatic_pact = {
+				country = scope:balkfm_rebellion_scope
+				type = protectorate
+			}
+		}
+		every_country = {
+			limit = {
+				is_subject_of = root
+			}
+			add_modifier = {
+				name = modifier_balkfm_spineless_overlord
+				months = long_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	
+}
+
+balkfm.213 = { # OPEN
+	orphan = yes
+}
+
 balkfm.214 = { # Yugoslavist Uprising in State
 	type = country_event
 	placement = root
@@ -2483,6 +2481,7 @@ balkfm.214 = { # Yugoslavist Uprising in State
 		has_technology_researched = nationalism
 		any_scope_state = {
 			balkfm_is_yugoslav_homeland_trigger = yes
+			is_split_state = no
 			balkfm_yugoslav_high_radicals_trigger = yes
 		}
 	}
@@ -2496,6 +2495,7 @@ balkfm.214 = { # Yugoslavist Uprising in State
 		random_state = {
 			limit = {
 				balkfm_is_yugoslav_homeland_trigger = yes
+				is_split_state = no
 				balkfm_yugoslav_high_radicals_trigger = yes
 			}
 			save_scope_as = balkfm_provocation_state_scope
@@ -2506,6 +2506,7 @@ balkfm.214 = { # Yugoslavist Uprising in State
 				has_variable = balkfm_rebellion_tag_tracker
 			}
 			save_scope_as = balkfm_rebellion_scope
+			remove_variable = balkfm_rebellion_tag_tracker
 		}
 		scope:balkfm_provocation_state_scope = {
 			state_region = {
@@ -2690,7 +2691,7 @@ balkfm.216 = { # Yugoslav Country Seeks Union (Different Culture)
 			is_player = no
 			is_diplomatic_play_committed_participant = no
 			is_subject = no
-			relations:root >= relations_threshold:cordial
+			relations:root >= relations_threshold:amicable
 		}
 	}
 	

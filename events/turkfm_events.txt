@@ -3531,7 +3531,7 @@ turkfm.224 = { # Language Bans in State
 		
 }
 
-turkfm.225 = { # Gun-Runners Intercepted
+turkfm.225 = { # Gun-Runners Intercepted (Greek)
 	type = country_event
 	placement = scope:turkfm_tension_state_scope
 	
@@ -3715,10 +3715,25 @@ turkfm.226 = { # Gun-Runners Intercepted (Yugoslav)
 	
 	trigger = {
 		turkfm_unrest_events_trigger = yes
+		any_country = {
+			has_modifier = modifier_balkfm_ottoman_gunrunners
+		}
 	}
 	
 	immediate = {
 		turkfm_tension_cooldown_effect = yes
+		random_country = {
+			limit = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+			}
+			save_scope_as = turkfm_tension_country_scope
+		}
+		random_scope_state = {
+			limit = {
+				balkfm_is_yugoslav_homeland_trigger = yes
+			}
+			save_scope_as = turkfm_tension_state_scope
+		}
 	}
 	
 	option = { # Press the Issue
@@ -3729,6 +3744,7 @@ turkfm.226 = { # Gun-Runners Intercepted (Yugoslav)
 				name = modifier_turkfm_arrested_gunrunners
 				months = normal_modifier_time
 			}
+			set_variable = turkfm_gunrunners_var
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
@@ -3776,8 +3792,6 @@ turkfm.226 = { # Gun-Runners Intercepted (Yugoslav)
 			}
 		}
 	}
-	
-	orphan = yes
 
 }
 
@@ -6501,9 +6515,34 @@ turkfm.261 = { # Gun-Runners Arrested
 		}
 	}
 	
-	option = {
+	option = { # Halt Support
 		name = turkfm.261.a
 		default_option = yes
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+			}
+			remove_modifier = modifier_turkfm_supporting_gunrunners
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_austrian_gunrunners
+			}
+			remove_modifier = modifier_balkfm_austrian_gunrunners
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+			}
+			remove_modifier = modifier_balkfm_ottoman_gunrunners
+		}
+		custom_tooltip = {
+			text = balkfm_ottoman_gunrunners_effect2
+			set_variable = {
+				name = balkfm_ottoman_gunrunners_lockout
+				years = 2
+			}
+		}
 	}
 	
 	option = {
@@ -6693,6 +6732,11 @@ turkfm.290 = { # Hellenes Stage Revolt in State
 				}
 			}
 		}
+	}
+	
+	
+	cooldown = {
+		years = 2
 	}
 	
 	immediate = {
