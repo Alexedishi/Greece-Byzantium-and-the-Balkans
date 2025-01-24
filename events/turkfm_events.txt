@@ -1147,6 +1147,10 @@ turkfm.205 = { # Riots Break Out in State
 	}
 	
 	immediate = {
+		set_variable = {
+			name = turkfm_riot_cooldown_var
+			years = 1
+		}
 		turkfm_tension_cooldown_effect = yes
 		random_list = {
 			1 = {
@@ -7766,6 +7770,7 @@ turkfm.903 = { # Cutler Beckett Withdraws from the Adriatic
 	dlc = dlc_grefm
 	
 	trigger = {
+		has_variable = turkfm_expedition_progress_var
 		var:turkfm_expedition_progress_var < 8
 		var:turkfm_expedition_peril_var >= 8
 		NOT = {
