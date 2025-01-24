@@ -127,31 +127,22 @@ turkfm_validate_sick_man_effect = {
 turkfm_initialize_tanzimat = {
 	set_variable = {
 		name = turkfm_tanzimat_var
-		value = 800
+		value = 300
 	}
 	set_variable = {
 		name = turkfm_tanzimat_progress_var
-		value = 0
+		value = turkfm_tanzimat_progress_value
 	}
 	set_variable = {
 		name = turkfm_tanzimat_completion_var
 		value = 0
 	}
-	add_journal_entry = {
-		type = je_turkfm_tanzimat_army
-	}
-	add_journal_entry = {
-		type = je_turkfm_tanzimat_argiculture
-	}
-	add_journal_entry = {
-		type = je_turkfm_tanzimat_bureaucracy
-	}
-	add_journal_entry = {
-		type = je_turkfm_tanzimat_economy
-	}
-	add_journal_entry = {
-		type = je_turkfm_tanzimat_security
-	}
+	add_modifier = modifier_turkfm_feudal_argiculture
+	add_modifier = modifier_turkfm_cizye_tax
+	add_modifier = modifier_turkfm_outmoded_bureaucracy
+	add_modifier = modifier_turkfm_stagnant_economy
+	add_modifier = modifier_turkfm_illiterate_populace
+	add_modifier = modifier_turkfm_insecure_countryside
 }
 
 turkfm_tanzimat_monthly_effect = {

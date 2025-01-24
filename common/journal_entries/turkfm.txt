@@ -453,8 +453,18 @@ je_turkfm_tanzimat_argiculture = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_feudal_argiculture
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
@@ -507,8 +517,18 @@ je_turkfm_tanzimat_army = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_cizye_tax
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
@@ -565,8 +585,18 @@ je_turkfm_tanzimat_bureaucracy = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_outmoded_bureaucracy
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
@@ -574,12 +604,22 @@ je_turkfm_tanzimat_bureaucracy = {
 			has_law = law_type:law_hereditary_bureaucrats
 		}
 		any_scope_building = {
+			is_building_type = building_university
+			NOR = {
+				has_active_production_method = pm_simple_organization
+				has_active_production_method = pm_religious_bureaucrats
+			}
+			occupancy > 0.9
+			level >= 10
+		}
+		any_scope_building = {
 			filter = {
 				is_building_type = building_government_administration
 			}
 			count = all
-			NOT = {
+			NOR = {
 				has_active_production_method = pm_simple_organization
+				has_active_production_method = pm_religious_bureaucrats
 			}
 			occupancy >= 0.9
 		}
@@ -615,8 +655,18 @@ je_turkfm_tanzimat_economy = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_stagnant_economy
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
@@ -662,8 +712,18 @@ je_turkfm_tanzimat_education = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_illiterate_populace
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
@@ -671,6 +731,16 @@ je_turkfm_tanzimat_education = {
 			is_building_type = building_university
 			occupancy > 0.9
 			level >= 5
+		}
+		any_scope_building = {
+			filter = {
+				is_building_type = building_university
+			}
+			count = all
+			NOT = {
+				has_active_production_method = pm_religious_academia
+			}
+			occupancy >= 0.9
 		}
 		institution_investment_level = {
 			institution = institution_schools
@@ -707,8 +777,18 @@ je_turkfm_tanzimat_millet_reform = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_ottomanist_thought
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	is_shown_when_inactive = {
@@ -754,8 +834,18 @@ je_turkfm_tanzimat_security = {
 	
 	group = je_group_turkfm_tanzimat
 	
-	modifiers_while_active = {
-		modifier_turkfm_insecure_countryside
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
 	}
 	
 	complete = {
