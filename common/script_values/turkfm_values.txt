@@ -82,16 +82,24 @@ turkfm_tanzimat_progress_value = {
 		}
 		desc = turkfm_value_from_tanzimat_completion
 	}
+	add = {
+		value = {
+			add = government_legitimacy
+		}
+		desc = turkfm_value_from_legitimacy
+	}
 	
 	## Islamism Sources ##
 	subtract = {
 		value = {
 			every_interest_group = {
-				law_stance = {
-					law = law_type:law_state_religion
-					value > 0
+				limit = {
+					law_stance = {
+						law = law_type:law_state_religion
+						value > 0
+					}
+					add = ig_clout
 				}
-				add = ig_clout
 			}
 			if = {
 				limit = {
