@@ -43,9 +43,74 @@ turkfm_sick_man_value = {
 #### TANZIMAT VALUES ####
 
 turkfm_tanzimat_progress_value = {
-# This value is weighted to lean towards the Islamist side. Idealized loss is approx. -1.6 per month for a failure in mid-1877. This is balanced to -2 per month at game start for playability.
 	value = 0
+	# This value is weighted to lean towards the Islamist side. Idealized loss is approx. -1.6 per month for a failure in mid-1877. This is balanced to -2 per month at game start for playability.	
+	
+	## Ottomanism Sources ##
+	add = {
+		value = {
+			every_interest_group = {
+				limit = {
+					OR = {
+						law_stance = {
+							law = law_type:law_landed_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_wealth_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_census_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_universal_suffrage
+							value > 0
+						}
+					}
+				}
+				add = ig_clout
+			}
+		}
+		desc = turkfm_value_from_ottomanists
+	}
+	add = {
+		value = {
+			add = 0.2
+			multiply = var:turkfm_tanzimat_completion_var
+		}
+		desc = turkfm_value_from_tanzimat_completion
+	}
+	
+	## Islamism Sources ##
+	subtract = {
+		value = {
+			every_interest_group = {
+				law_stance = {
+					law = law_type:law_state_religion
+					value > 0
+				}
+				add = ig_clout
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_state_religion
+				}
+				multiply = 10
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_freedom_of_conscience
+				}
+				multiply = 5
+			}
+		}
+		desc = turkfm_value_from_islamism
+	}
+	
 }
+
 
 #### SEPARATISM VALUES ####
 

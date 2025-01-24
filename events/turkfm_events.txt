@@ -155,7 +155,7 @@ namespace = turkfm
 
 #260-269 - Tension Third Party Events
 #	260 - Brigands Raid Turkish Lands 
-#	261 - ##Gun-Runners Arrested
+#	261 - Gun-Runners Arrested
 #	262 - ##Diplomat Defuses Tensions
 #	263 - ##Priest Murdered in State
 #	264 - ##Wali of State Exceeds Authority
@@ -2312,6 +2312,10 @@ turkfm.213 = { # The Language of Paperwork
 				value = small_radicals
 			}
 		}
+		add_modifier = {
+			name = modifier_turkfm_adhoc_translations
+			months = normal_modifier_time
+		}
 		hidden_effect = {
 			every_country = {
 				limit = {
@@ -2638,6 +2642,9 @@ turkfm.217 = { # Church Services Disrupted
 			any_scope_pop = {
 				has_pop_religion = orthodox
 			}
+			any_scope_pop = {
+				has_pop_religion = sunni
+			}
 		}
 	}
 	
@@ -2661,13 +2668,47 @@ turkfm.217 = { # Church Services Disrupted
 		}
 	}
 	
-	option = {
+	option = { # Stick up for the Churches
 		name = turkfm.217.a
 		default_option = yes
+		ig:ig_devout = {
+			add_modifier = {
+				name = modifier_turkfm_protected_churches
+				months = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+		scope:turkfm_tension_state_scope = {
+			add_loyalists_in_state = {
+				religion = rel:orthodox
+				value = medium_radicals
+			}
+			add_radicals_in_state = {
+				religion = rel:sunni
+				value = medium_radicals
+			}
+		}
+		turkfm_add_small_deescalation_effect = yes
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_protected_churches
+			}
+		}
+	}
+	
+	option = { # lol who cares
+		name = turkfm.217.b
 		scope:turkfm_tension_state_scope = {
 			add_modifier = {
-				name = modifier_turkfm_services_disrupted
+				name = modifier_turkfm_churches_disrupted
 				months = normal_modifier_time
+			}
+			add_radicals_in_state = {
+				religion = rel:orthodox
+				value = large_radicals
 			}
 		}
 		hidden_effect = {
@@ -2675,10 +2716,9 @@ turkfm.217 = { # Church Services Disrupted
 				limit = {
 					has_journal_entry = je_turkfm_eastern_question
 				}
-				post_notification = notification_turkfm_services_disrupted
+				post_notification = notification_turkfm_churches_disrupted
 			}
 		}
-		turkfm_add_small_escalation_effect = yes
 	}
 	
 }
@@ -2732,14 +2772,24 @@ turkfm.218 = { # Villages Request Schools
 		random_scope_state = {
 			limit = {
 				state_in_balkans = yes
-				NOT = {
+				NOR = {
+					has_modifier = modifier_turkfm_funding_schools
 					has_variable = turkfm_schools_requested
+				}
+				any_scope_pop = {
+					has_pop_religion = orthodox
+					pop_acceptance < acceptance_status_4
+					wealth < 20
+					literacy_rate < 0.33
+				}
+				any_scope_pop = {
+					is_pop_type = academics
 				}
 			}
 			save_scope_as = turkfm_tension_state_scope
 			set_variable = {
 				name = turkfm_schools_requested
-				years = 10
+				years = 20
 			}
 			random_scope_pop = {
 				limit = {
@@ -6526,12 +6576,6 @@ turkfm.261 = { # Gun-Runners Arrested
 		}
 		if = {
 			limit = {
-				has_modifier = modifier_balkfm_austrian_gunrunners
-			}
-			remove_modifier = modifier_balkfm_austrian_gunrunners
-		}
-		if = {
-			limit = {
 				has_modifier = modifier_balkfm_ottoman_gunrunners
 			}
 			remove_modifier = modifier_balkfm_ottoman_gunrunners
@@ -6543,10 +6587,28 @@ turkfm.261 = { # Gun-Runners Arrested
 				years = 2
 			}
 		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+		c:TUR = {
+			post_notification = notification_turkfm_gunrunners_halted
+		}
 	}
 	
 	option = {
 		name = turkfm.261.b
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+		c:TUR = {
+			post_notification = notification_turkfm_gunrunners_continued
+		}
 	}
 }
 

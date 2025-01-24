@@ -1,8 +1,104 @@
-﻿#######################
-# STARTING CHARACTERS #
+﻿########################
+# STARTING POLITICIANS #
+########################
+
+template_turkfm_rauf_mehmed = {
+	# Mehmed Emin Rauf Pasha, Grand Vizier of the Ottoman Empire 1833-1839, 1842-1846, and in 1852
+	first_name = "Mehmet_Emin_Rauf"
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	dna = dna_mehmed_emin_rauf_pasha
+	age = 56 # not sure of his actual birth date, born in 1780
+	ig_leader = yes
+	interest_group = ig_landowners
+	ideology = ideology_moderate
+	traits = {
+		cautious
+	}
+}
+
+template_turkfm_bushatli_mustafa = {
+	# Mustafa Pasha Bushatli, last hereditary governor of northern Albania
+	first_name = "Mustafa"
+	last_name = "Bushatli"
+	historical = yes
+	age = 39 # not sure of his actual birth date, born in 1797
+	ig_leader = yes
+	culture = cu:albanian
+	interest_group = ig_rural_folk
+	ideology = ideology_moderate
+	traits = {
+		imperious
+	}
+}
+
+template_turkfm_mehmed_koca = {
+	# Koca Husrev Mehmed Pasha 
+	first_name = "Koca_Huesrev"
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	dna = dna_koca_husrev_mehmed_pasha
+	age = 67 # not sure of his actual birth date, born in 1756 or thereabouts
+	ig_leader = yes
+	interest_group = ig_armed_forces
+	ideology = ideology_moderate
+	traits = {
+	}
+}
+
+#######################
+# STARTING COMMANDERS #
 #######################
 
+template_turkfm_resid_mehmed = {
+	is_general = yes
+	first_name = Resid_Mehmed
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	dna = dna_reshid_mehmed_pasha
+	age = 56
+	hq = region_balkans
+	commander_rank = commander_rank_3
+	traits = {
+		mountain_commander
+		cruel
+	}
+}
 
+template_turkfm_abdulkerim_nadir = {
+	is_general = yes
+	first_name = abdulkerim_nadir
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	age = 29
+	dna = dna_abdulkerim_nadir_pasha
+	hq = region_anatolia
+	commander_rank = commander_rank_3
+	traits = {
+		cruel
+		basic_offensive_planner
+	}
+}
+
+template_turkfm_yaver_pasha = {
+	is_admiral = yes
+	first_name = "Yaver"
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	dna = dna_yaver_pasha
+	hq = region_anatolia
+	commander_rank = commander_rank_3
+	age = 42
+	traits = {
+		basic_diplomat
+		basic_naval_commander
+	}
+}
 
 #############################
 # HOUSE OF OSMAN CHARACTERS #
@@ -75,7 +171,27 @@ template_turkfm_osmanoglu_abdulhamid_ii_ = {
 # TANZIMAT CHARACTERS #
 #######################
 
-template_turkfm_mustafa_reshid = { 
+## Ottomanist Faction ##
+
+template_turkfm_reshid_mustafa = {
+	# Mustafa Reshid Pasha, architect of the Tanzimat Reforms
+	first_name = "Mustafa_Reshid"
+	last_name = "Pasha"
+	historical = yes
+	culture = primary_culture
+	dna = dna_mustafa_reshid_pasha
+	birth_date = 1800.3.13
+	ig_leader = yes
+	interest_group = ig_intelligentsia
+	ideology = ideology_turkfm_ottomanist
+	traits = {
+		experienced_political_operator
+		experienced_diplomat
+		persistent
+	}
+}
+
+template_turkfm_mustafa_reshid = {
 	# Damad (or Damat) Mehmed Asi Pasha, grand vizier in 1852-1853
     first_name = Damad_Mehmed
     last_name = Ali
@@ -89,11 +205,12 @@ template_turkfm_mustafa_reshid = {
     birth_date = 1813.1.1
     traits = {
         tactful
+		experienced_political_operator
+		persistent
     }   
     interest_group_leader_usage = {
         country_trigger = {
-            exists = c:TUR
-            this = c:TUR
+            c:TUR ?= this
         }
         interest_group_trigger = {
             is_marginal = no
@@ -112,6 +229,170 @@ template_turkfm_mustafa_reshid = {
     }   
 }
 
+template_turkfm_ali_mehmed = {
+	# Mehmed Emin Âli Pasha
+	first_name = Mehmet_Emin
+	last_name = Ali
+	birth_date = 1815.3.5
+#	dna = 
+	culture = cu:turkish
+	religion = rel:sunni
+	historical = yes
+	ig_leader = yes
+	ideology = ideology_turkfm_ottomanist
+	interest_group = ig_intelligentsia
+	traits = {
+		basic_political_operator
+		experienced_diplomat
+		trait_turkfm_dragoman
+	}
+	interest_group_leader_usage = {
+        country_trigger = {
+           c:TUR ?= this
+        }
+        interest_group_trigger = {
+            is_marginal = no
+            is_interest_group_type = ig_intelligentsia
+            NOR = {
+				has_variable = communist_ig_var
+				has_variable = chose_vanguardism
+				has_variable = chose_fascism
+				has_variable = chose_conservatism
+				has_variable = chose_ethno_nationalism
+			}
+        }   
+        earliest_usage_date = 1856.1.1
+        latest_usage_date = 1871.1.1
+        chance = 100
+    }
+	agitator_usage = {
+		country_trigger = {
+			has_dlc_feature = voice_of_the_people_content
+			c:TUR ?= this
+		}
+        interest_group_trigger = {
+            is_marginal = no
+            is_interest_group_type = ig_intelligentsia
+        }   
+		earliest_usage_date = 1856.1.1
+        latest_usage_date = 1871.1.1
+        chance = 25
+	}
+}
+
+template_turkfm_ahmed_cevdet = {
+	# Ahmed Cevdet Pasha
+	first_name = Ahmed_Cevdet
+	last_name = Pasha
+	birth_date = 1822.3.22
+#	dna = 
+	culture = cu:turkish
+	religion = rel:sunni
+	historical = yes
+	ideology = ideology_turkfm_ottomanist
+	interest_group = ig_intelligentsia
+	traits = {
+		pious
+		basic_diplomat
+		master_bureaucrat
+	}
+	agitator_usage = {
+		country_trigger = {
+			has_dlc_feature = voice_of_the_people_content
+			c:TUR ?= this
+		}
+        interest_group_trigger = {
+            is_marginal = no
+            is_interest_group_type = ig_intelligentsia
+        }   
+		earliest_usage_date = 1856.1.1 # Entry into the Ilmiye
+        latest_usage_date = 1882.1.1
+        chance = 25
+	}
+}
+
+template_turkfm_midhat_ahmed = {
+	# Ahmed Shefik Midhat Pasha
+	first_name = Ahmed_Shefik
+	last_name = Midhat
+	birth_date = 1822.1.1
+#	dna = 
+	culture = cu:turkish
+	religion = rel:sunni
+#	historical = yes 
+	ideology = ideology_turkfm_ottomanist
+	interest_group = ig_intelligentsia
+	traits = {
+		master_bureaucrat
+		basic_offensive_planner
+		experienced_political_operator
+	}
+	interest_group_leader_usage = {
+        country_trigger = {
+           c:TUR ?= this
+        }
+        interest_group_trigger = {
+            is_marginal = no
+            is_interest_group_type = ig_intelligentsia
+            NOR = {
+				has_variable = communist_ig_var
+				has_variable = chose_vanguardism
+				has_variable = chose_fascism
+				has_variable = chose_conservatism
+				has_variable = chose_ethno_nationalism
+			}
+        }   
+        earliest_usage_date = 1854.1.1
+        latest_usage_date = 1881.1.1
+        chance = 50
+    }
+	agitator_usage = {
+		country_trigger = {
+			has_dlc_feature = voice_of_the_people_content
+			c:TUR ?= this
+		}
+        interest_group_trigger = {
+            is_marginal = no
+            is_interest_group_type = ig_intelligentsia
+        }   
+		earliest_usage_date = 1854.1.1
+        latest_usage_date = 1881.1.1
+        chance = 50
+	}
+}
+
+## Islamist Faction ##
+
+template_turkfm_mekkizade_mustafa = {
+	# Mekkizade Mustafa Asim Efendi, Sheikh-ul-Islam of the Ottoman Empire from 1818-1819, 1823-1825, 1833-1846
+	first_name = "Mustafa_Asim"
+	last_name = "Mekkizade"
+	historical = yes
+	culture = primary_culture
+	age = 74
+	ig_leader = yes
+	interest_group = ig_devout
+	ideology = ideology_turkfm_islamist
+	traits = {
+		tactful
+		pious
+	}
+}
+
+template_turkfm_fuad_mehmed = {
+	# Keçecizade Mehmed Fuad
+	first_name = Kececizade_Mehmed
+	last_name = Fuad
+	birth_date = 1814.1.1
+#	dna = 
+	culture = cu:turkish
+	religion = rel:sunni
+	historical = yes
+	ideology = ideology_turkfm_islamist
+	interest_group = ig_intelligentsia
+	traits = {
+	}
+}
 
 ##############################
 # PROMINENT MILTIARY LEADERS #
@@ -267,6 +548,18 @@ template_turkfm_hobart_augustus = {
 ####################
 # OTHER CHARACTERS #
 ####################
+
+template_turkfm_rizvanbegovic_ali = {
+	# Ali-Pasha Rizvanbegovic, also known as Ali Ridvanoglu Pasha, vizier of Hezegovina Eyalet from 1833 to 1851; THIS IS PDX's TEMPLATE
+	first_name = "Ali"
+	last_name = "Rizvanbegovic"
+	age = 53
+	ig_leader = yes
+	culture = cu:bosniak
+	interest_group = ig_rural_folk
+	traits = {
+	}
+}
 
 template_turkfm_jack_sparrow = {
 	# This is a generic template to create an Albanian pirate
