@@ -72,19 +72,39 @@ turkfm_tanzimat_progress_value = {
 				}
 				add = ig_clout
 			}
+			round_to = 0.01
 		}
 		desc = turkfm_value_from_ottomanists
 	}
 	add = {
 		value = {
-			add = 0.2
-			multiply = var:turkfm_tanzimat_completion_var
+			every_scope_building = {
+				limit = {
+					is_building_type = building_government_administration
+					has_active_production_method = pm_secular_bureaucrats
+				}
+				add = 0.1
+			}
 		}
-		desc = turkfm_value_from_tanzimat_completion
+		desc - turkfm_value_from_religious_bureaucrats
+	}
+	add = {
+		value = {
+			every_scope_building = {
+				limit = {
+					is_building_type = building_university
+					has_active_production_method = pm_secular_academia
+				}
+				add = 0.1
+			}
+		}
+		desc = turkfm_value_from_religious_academia
 	}
 	add = {
 		value = {
 			add = government_legitimacy
+			divide = 100
+			round_to = 0.01
 		}
 		desc = turkfm_value_from_legitimacy
 	}
@@ -98,25 +118,55 @@ turkfm_tanzimat_progress_value = {
 						law = law_type:law_state_religion
 						value > 0
 					}
+					NOR = {
+						law_stance = {
+							law = law_type:law_landed_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_wealth_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_census_voting
+							value > 0
+						}
+						law_stance = {
+							law = law_type:law_universal_suffrage
+							value > 0
+						}
+					}
 					add = ig_clout
 				}
 			}
-			if = {
-				limit = {
-					has_law = law_type:law_state_religion
-				}
-				multiply = 10
-			}
-			if = {
-				limit = {
-					has_law = law_type:law_freedom_of_conscience
-				}
-				multiply = 5
-			}
+			round_to = 0.01
 		}
 		desc = turkfm_value_from_islamism
 	}
-	
+	subtract = {
+		value = {
+			every_scope_building = {
+				limit = {
+					is_building_type = building_government_administration
+					has_active_production_method = pm_religious_bureaucrats
+				}
+				add = 0.1
+			}
+		}
+		desc - turkfm_value_from_religious_bureaucrats
+	}
+	subtract = {
+		value = {
+			every_scope_building = {
+				limit = {
+					is_building_type = building_university
+					has_active_production_method = pm_religious_academia
+				}
+				add = 0.1
+			}
+		}
+		desc = turkfm_value_from_religious_academia
+	}
 }
 
 

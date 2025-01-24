@@ -574,11 +574,13 @@ je_turkfm_tanzimat_bureaucracy = {
 			has_law = law_type:law_hereditary_bureaucrats
 		}
 		any_scope_building = {
-			is_building_type = building_government_administration
-			NOT = {
-				has_active_production_method = pm_simple_farming
+			filter = {
+				is_building_type = building_government_administration
 			}
-			level >= 2
+			count = all
+			NOT = {
+				has_active_production_method = pm_simple_organization
+			}
 			occupancy >= 0.9
 		}
 		bureaucracy >= 0 
