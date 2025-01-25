@@ -16,7 +16,7 @@
  je_turkfm_sick_man_caucasus_reason: "Before the outbreak of the Russo-Turkish Wars, the Caucasus Mountains were firmly within the grasp of the Sultan. However, the Russian Tsars have taken advantage of Ottoman disorder to encroach on our holdings in the region. The Porte must take decisive action lest these lands be forever lost to us."
  
  je_turkfm_tanzimat_main: "The Reorganization of the State"
- je_turkfm_tanzimat_main_reason: "For decades, the [ROOT.GetCountry.GetName] has been in steady decline, with the powers of Europe gawning at its borders and unrest spreading across its minorities. In the face of these threats, Sultan #bold Mahmud II#! championed an era of reform, with the aim of creating a truly centralized bureaucracy to govern and unite the Empire. As western thought begins to permeate [ROOT.GetCountry.GetCapital.GetCityHubName], the spirit of reform and progress is in the air.\n$TOOLTIP_DELIMITER$\nCurrently, reform momentum is expected to [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tanzimat_progress_type')] next month due to the following factors:\n[Country.MakeScope.GetScriptValueDesc('turkfm_tanzimat_progress_value')]"
+ je_turkfm_tanzimat_main_reason: "For decades, the [ROOT.GetCountry.GetName] has been in steady decline, with the powers of Europe gawning at its borders and unrest spreading across its minorities. In the face of these threats, Sultan #bold Mahmud II#! championed an era of reform, with the aim of creating a truly centralized bureaucracy to govern and unite the Empire. As western thought begins to permeate [ROOT.GetCountry.GetCapital.GetCityHubName], the spirit of reform and progress is in the air.\n$TOOLTIP_DELIMITER$\n#hite Currently, reform momentum is expected to [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tanzimat_progress_type')] next month based on #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_ottomanism_sources')] Ottomanist sources#!#! and #tooltippable #tooltip:[GetRawTextTooltipTag('turkfm_islamism_sources')] Islamist sources#!#!."
  je_turkfm_tanzimat_main_complete: "The #bold Tanzimât#! progress bar has fully advanced towards the [GetIdeology('ideology_turkfm_ottomanist').GetName] movement"
  je_turkfm_tanzimat_main_fail: "The #bold Tanzimât#! progress bar has fully advanced towards the  [GetIdeology('ideology_turkfm_islamist').GetName] movement"
  je_turkfm_tanzimat_argiculture: "Tanzimât: Argicultural Reforms"
@@ -201,9 +201,10 @@
  turkfm_cutler_beckett_expedition: "[GetPlayer.MakeScope.Var('turkfm_cutler_beckett_var').GetCharacter.GetFullName] leads the expedition.\n$turkfm_progress_tt$: #bold #green [GetPlayer.MakeScope.Var('turkfm_expedition_progress_var').GetValue]#!/8#! $turkfm_peril_tt$: #bold #red [GetPlayer.MakeScope.Var('turkfm_expedition_peril_var').GetValue]#!/8#!"
  
  # custom_loc
- turkfm_tanzimat_islamism_progress: "progress by #greece #bold [GetPlayer.MakeScope.Var('turkfm_tanzimat_progress_var').GetValue]#!#! in favor of the [GetIdeology('ideology_turkfm_islamist').GetName] movement"
- turkfm_tanzimat_ottomanism_progress: "progress by #greece #bold [GetPlayer.MakeScope.Var('turkfm_tanzimat_progress_var').GetValue]#!#! in favor of the [GetIdeology('ideology_turkfm_ottomanist').GetName] movement"
+ turkfm_tanzimat_islamism_progress: "progress by #greece #tooltippable;tooltip:[Country.GetTooltipTag],turkfm_tanzimat_progress_breakdown [Country.MakeScope.ScriptValue('turkfm_tanzimat_progress_var')]#!#! in favor of the [GetIdeology('ideology_turkfm_islamist').GetName] movement"
+ turkfm_tanzimat_ottomanism_progress: "progress by #greece #tooltippable;tooltip:[Country.GetTooltipTag],turkfm_tanzimat_progress_breakdown [Country.MakeScope.ScriptValue('turkfm_tanzimat_progress_var')]#!#! in favor of the [GetIdeology('ideology_turkfm_ottomanist').GetName] movement"
  turkfm_tanzimat_no_progress: "remain #greece #bold Unchanged#!#!"
+ turkfm_tanzimat_progress_breakdown: "[Country.MakeScope.GetScriptValueDesc('turkfm_tanzimat_progress_value')]"
  
  turkfm_custom_stable: "$turkfm_stable$"
  turkfm_custom_unrest: "$turkfm_unrest$"
@@ -237,13 +238,13 @@
  # script value breakdowns
  turkfm_value_from_base: "Base Monthly Progress"
  
- turkfm_value_from_ottomanists: "From the [concept_clout] of Pro-#yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')]"
- turkfm_value_from_secular_bureaucrats: "From [GetBuildingType('building_government_administration').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Secular Administration#! [concept_production_method] active"
- turkfm_value_from_secular_academia: "From [GetBuildingType('building_university').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Secular Academia#! [concept_production_method] active"
- turkfm_value_from_legitimacy: "From [concept_government] [concept_legitimacy]"
- turkfm_value_from_islamism: "From the [concept_clout] of Pro-[GetLawType('law_state_religion').GetName] [Concept('concept_interest_group','$concept_interest_groups$')]"
- turkfm_value_from_religious_bureaucrats: "From [GetBuildingType('building_government_administration').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Administrative Clergy#! [concept_production_method] active""
- turkfm_value_from_religious_academia: "From [GetBuildingType('building_university').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Clerical Educators#! [concept_production_method] active"
+ turkfm_value_from_ottomanists: "•From the [concept_clout] of Pro-#yellow Suffrage#! [Concept('concept_interest_group','$concept_interest_groups$')]"
+ turkfm_value_from_secular_bureaucrats: "•From [GetBuildingType('building_government_administration').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Secular Administration#! [concept_production_method] active"
+ turkfm_value_from_secular_academia: "•From [GetBuildingType('building_university').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Secular Academia#! [concept_production_method] active"
+ turkfm_value_from_legitimacy: "•From [concept_government] [concept_legitimacy]"
+ turkfm_value_from_islamism: "•From the [concept_clout] of Pro-[GetLawType('law_state_religion').GetName] [Concept('concept_interest_group','$concept_interest_groups$')]"
+ turkfm_value_from_religious_bureaucrats: "•From [GetBuildingType('building_government_administration').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Administrative Clergy#! [concept_production_method] active"
+ turkfm_value_from_religious_academia: "•From [GetBuildingType('building_university').GetName] [Concept('concept_building','$concept_buildings$')] with the #yellow Clerical Educators#! [concept_production_method] active"
  
  turkfm_value_from_nationalism: "From [GetTechnology('nationalism').GetName] being present in the [GetStrategicRegion('region_balkans').GetName]"
  turkfm_value_from_pan_nationalism: "From [GetTechnology('pan-nationalism').GetName] being present in the [GetStrategicRegion('region_balkans').GetName]"
