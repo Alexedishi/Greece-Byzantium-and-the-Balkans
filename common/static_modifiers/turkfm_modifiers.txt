@@ -48,7 +48,12 @@ modifier_turkfm_deconfliction_phase = {
 }
 
 modifier_turkfm_crisis_phase = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_fire_negative.dds
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
+	state_turmoil_effects_mult = 0.25
+	state_mortality_turmoil_mult = 0.05
+	state_radicalism_increases_open_prejudice_mult = 0.25
+	state_radicalism_increases_cultural_erasure_mult = 0.25
+	state_radicalism_increases_violent_hostility_mult = 0.25
 }
 
 modifier_turkfm_secured_region = {
@@ -79,17 +84,39 @@ modifier_turkfm_sultanate_shattered = {
 
 #### TANZIMAT MODIFIERS ####
 
+modifier_turkfm_reorganizing_spirit = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
+	country_agitator_slots_add = 2
+	country_society_tech_spread_mult = 0.10
+	interest_group_ig_intelligentsia_pol_str_mult = 0.10
+}
+
+modifier_turkfm_influence_questioned = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
+	interest_group_approval_add = -5
+}
+
+modifier_turkfm_declared_reforms = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
+	political_movement_pop_attraction_mult = 0.25
+	political_movement_radicalism_from_enactment_approval_mult = 0.50
+	political_movement_radicalism_from_enactment_disapproval_mult = 0.50
+}
+
 modifier_turkfm_decentralized_administration = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_negative.dds
 	country_institution_size_change_speed_mult = -0.25
 	country_bureaucracy_investment_cost_factor_mult = 0.10
 }
 
-modifier_turkfm_ottomanist_thought = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
-	country_agitator_slots_add = 2
-	country_society_tech_spread_mult = 0.10
-	interest_group_ig_intelligentsia_pol_str_mult = 0.10
+modifier_turkfm_feudal_argiculture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_negative.dds
+	building_wheat_farm_throughput_add = -0.10
+}
+
+modifier_turkfm_modernized_agriculture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_positive.dds
+	building_wheat_farm_throughput_add = 0.10
 }
 
 modifier_turkfm_cizye_tax = {
@@ -98,9 +125,10 @@ modifier_turkfm_cizye_tax = {
 	state_conscription_rate_mult = -0.2
 }
 
-modifier_turkfm_feudal_argiculture = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_grain_negative.dds
-	building_wheat_farm_throughput_add = -0.10
+modifier_turkfm_modernized_army = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_positive.dds
+	state_conscription_rate_mult = 0.20
+	building_training_rate_add = 5
 }
 
 modifier_turkfm_outmoded_bureaucracy = {
@@ -109,10 +137,23 @@ modifier_turkfm_outmoded_bureaucracy = {
 	state_tax_capacity_mult -0.20
 }
 
+modifier_turkfm_modernized_bureaucracy = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_positive.dds
+	country_bureaucracy_mult = 0.10
+	country_institution_size_change_speed_mult = 0.25
+	state_tax_capacity_mult = 0.10
+}
+
 modifier_turkfm_stagnant_economy = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_trade_negative.dds
 	country_trade_route_competitiveness_mult = -0.15
 	country_trade_route_cost_mult = 0.15
+}
+
+modifier_turkfm_modernized_economy = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_trade_positive.dds
+	country_trade_route_competitiveness_mult = 0.25
+	country_trade_route_cost_mult = -0.10
 }
 
 modifier_turkfm_illiterate_populace = {
@@ -120,10 +161,27 @@ modifier_turkfm_illiterate_populace = {
 	state_pop_qualifications_mult = -0.10
 }
 
+modifier_turkfm_modernized_education = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_academic_positive.dds
+	state_pop_qualifications_mult = 0.10
+}
+
 modifier_turkfm_insecure_countryside = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_cop_negative.dds
 	state_turmoil_effects_mult = 0.05
 	state_construction_mult = -0.05
+}
+
+modifier_turkfm_modernized_policing = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_cop_positive.dds
+	state_turmoil_effects_mult = -0.20
+	state_mortality_turmoil_mult = -0.10
+	state_construction_mult = 0.05
+}
+
+modifier_turkfm_slavery_abolished = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue2_positive.dds
+	country_prestige_mult = 0.05
 }
 
 #### MILLET SYSTEM MODIFIERS ####

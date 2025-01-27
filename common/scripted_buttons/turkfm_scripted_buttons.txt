@@ -26,9 +26,71 @@ turkfm_start_tanzimat_button = {
 	
 	effect = {
 		trigger_event = {
-			id = turkfm.101 # The Reordering of the Empire
+			id = turkfm.101 # Edict of Gülhane
 		}
-		custom_tooltip = turkfm_advance_tanzimat1_tt
+		show_as_tooltip = {
+			add_modifier = {
+				name = modifier_turkfm_reorganizing_spirit
+				years = 30
+			}
+			custom_tooltip = {
+				text = turkfm_reform_completed_tt
+				change_variable = {
+					name = turkfm_tanzimat_completion_var
+					add = 1
+				}
+			}
+			custom_tooltip = {
+				text = turkfm_reform_completed_tt
+				change_variable = {
+					name = turkfm_tanzimat_completion_var
+					add = 1
+				}
+			}
+			every_interest_group = {
+				limit = {
+					law_stance = {
+						law = law_type:law_state_religion
+						value > neutral
+					}
+					NOR = {
+						law_stance = {
+							law = law_type:law_landed_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_wealth_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_census_voting
+							value > neutral
+						}
+						law_stance = {
+							law = law_type:law_universal_suffrage
+							value > neutral
+						}
+					}
+				}
+				add_modifier = {
+					name = modifier_turkfm_tradition_challenged
+					months = long_modifier_time
+					is_decaying = yes
+				}
+			}
+			every_political_movement = {
+				limit = {
+					OR = {
+						is_political_movement_type = movement_religious_majority
+						is_political_movement_type = movement_modernizer
+					}
+				}
+				add_modifier = {
+					name = modifier_turkfm_declared_reforms
+					years = 20
+				}
+			}
+		}
 		set_global_variable = turkfm_tanzimat_started
 	}
 	

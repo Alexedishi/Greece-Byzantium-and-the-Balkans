@@ -27,16 +27,26 @@ namespace = turkfm
 
 #001-009 - Sick Man Mainline Events
 #	001 - The Sick Man of Europe (TUR)
-#	002 - 
-#	003 - 
-#	004 - 
+#	002 - ##
+#	003 - ##
+#	004 - ##
 #	005 - ##Region Lost
 #	006 - ##Region Secured
 #	007 - The Empire Shattered
 #	008 - The Dead Man of Europe
 #	009 - The Healthy Man of Europe
 
-#010-019 - The Reign of Murad II
+#010-019 - The Reign of Mahmud II
+#	010 - ##
+#	011 - ##
+#	012 - ##
+#	013 - ##
+#	014 - ##
+#	015 - ##
+#	016 - ##
+#	017 - ##
+#	018 - ##A Consuming Sickness
+#	019 - ##
 
 #020-029 - The Reign of Abdulmecid
 
@@ -56,7 +66,7 @@ namespace = turkfm
 
 #100-109 - Tanzimat Narrative Events
 #	100 - The Decaying Empire
-#	101 - ##
+#	101 - Edict of Gülhane
 #	102 - ##The Men of the Tanzimat
 #	103 - ##
 #	104 - ##
@@ -67,14 +77,14 @@ namespace = turkfm
 #	109 - ##
 
 #110-119 - Tanzimat Reform Events
-#	110 - ##Modernized Agriculture
-#	111 - ##A Formidable Army
-#	112 - ##Stately Governance
-#	113 - ##Revitalizing the Economy
-#	114 - ##An Educated Populace
-#	115 - ##Equality Before the Law
-#	116 - ##Countrysides Secured
-#	117 - ##Millet Reformed
+#	110 - Modernized Agriculture
+#	111 - A Formidable Army
+#	112 - Stately Governance
+#	113 - Revitalizing the Economy
+#	114 - An Educated Populace
+#	115 - Equality Before the Law
+#	116 - Countrysides Secured
+#	117 - Slavery Abolished
 #	118 - ##
 #	119 - ##
 
@@ -662,7 +672,7 @@ turkfm.100 = { # The Decaying Empire
 
 }
 
-turkfm.101 = { # The Reordering of the Empire
+turkfm.101 = { # Edict of Gülhane
 	type = country_event
 	placement = root
 	
@@ -670,13 +680,18 @@ turkfm.101 = { # The Reordering of the Empire
 	desc = turkfm.101.d
 	flavor = turkfm.101.f
 	
+	gui_window = event_window_1char_adventure
+
+	left_icon = scope:turkfm_ruler_scope
+	
 	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_turkish_palace2.dds"
 	}
 	
 	icon = "gfx/interface/icons/event_icons/event_fez.dds"
 	
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
 	
 	duration = 3
 	
@@ -687,11 +702,18 @@ turkfm.101 = { # The Reordering of the Empire
 	}
 	
 	immediate = {
+		ruler = {
+			save_scope_as = turkfm_ruler_scope
+		}
 	}
 	
 	option = {
 		name = turkfm.101.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_reorganizing_spirit
+			years = 30
+		}
 		custom_tooltip = {
 			text = turkfm_reform_completed_tt
 			change_variable = {
@@ -699,6 +721,112 @@ turkfm.101 = { # The Reordering of the Empire
 				add = 1
 			}
 		}
+		custom_tooltip = {
+			text = turkfm_reform_completed_tt
+			change_variable = {
+				name = turkfm_tanzimat_completion_var
+				add = 1
+			}
+		}
+		every_interest_group = {
+			limit = {
+				law_stance = {
+					law = law_type:law_state_religion
+					value > neutral
+				}
+				NOR = {
+					law_stance = {
+						law = law_type:law_landed_voting
+						value > neutral
+					}
+					law_stance = {
+						law = law_type:law_wealth_voting
+						value > neutral
+					}
+					law_stance = {
+						law = law_type:law_census_voting
+						value > neutral
+					}
+					law_stance = {
+						law = law_type:law_universal_suffrage
+						value > neutral
+					}
+				}
+			}
+			add_modifier = {
+				name = modifier_turkfm_tradition_challenged
+				months = long_modifier_time
+				is_decaying = yes
+			}
+		}
+		every_political_movement = {
+			limit = {
+				OR = {
+					is_political_movement_type = movement_religious_majority
+					is_political_movement_type = movement_modernizer
+				}
+			}
+			add_modifier = {
+				name = modifier_turkfm_declared_reforms
+				years = 20
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_eastern_question
+				}
+				post_notification = notification_turkfm_tanzimat_started
+			}
+		}
+	}
+
+}
+
+turkfm.102 = { # The Men of the Tanzimat
+	type = country_event
+	placement = root
+	
+	title = turkfm.102.t
+	desc = turkfm.102.d
+	flavor = turkfm.102.f
+	
+	gui_window = event_window_2char_adventure
+
+	left_icon = scope:turkfm_tanzimat_character_1
+	right_icon = scope:turkfm_tanzimat_character_2
+	
+	event_image = {
+		texture = "gfx/event_pictures/gbbf_backgrounds/gbbf_turkish_palace.dds"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		NOT = {
+			has_variable = turkfm_tanzimat_men_happened
+		}
+		has_global_variable = turkfm_tanzimat_started
+	}
+	
+	immediate = {
+		set_variable = turkfm_tanzimat_men_happened
+	}
+	
+	option = {
+		name = turkfm.102.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.102.b
 	}
 
 }
@@ -735,11 +863,295 @@ turkfm.110 = { # Modernized Agriculture
 	option = {
 		name = turkfm.110.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_agriculture
+			months = long_modifier_time
+		}
 		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
 	}
 	
 }
 
+turkfm.111 = { # A Formidable Army
+	type = country_event
+	placement = root
+	
+	title = turkfm.111.t
+	desc = turkfm.111.d
+	flavor = turkfm.111.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_army
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.111.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_army
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.112 = { # Stately Governance
+	type = country_event
+	placement = root
+	
+	title = turkfm.112.t
+	desc = turkfm.112.d
+	flavor = turkfm.112.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_bureaucracy
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.112.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_bureaucracy
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.113 = { # Revitalizing the Economy
+	type = country_event
+	placement = root
+	
+	title = turkfm.113.t
+	desc = turkfm.113.d
+	flavor = turkfm.113.f
+	
+	event_image = {
+		video = "ip2_india_factory"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_economy
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.113.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_economy
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.114 = { # An Educated Populace
+	type = country_event
+	placement = root
+	
+	title = turkfm.114.t
+	desc = turkfm.114.d
+	flavor = turkfm.114.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_education
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.114.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_education
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.115 = { # Equality Before the Law
+	type = country_event
+	placement = root
+	
+	title = turkfm.115.t
+	desc = turkfm.115.d
+	flavor = turkfm.115.f
+	
+	event_image = {
+		video = "middleeast_middleclass_cafe"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_millet_reform
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.115.a
+		default_option = yes
+#		add_modifier = {
+#			name = 
+#			months = long_modifier_time
+#		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.116 = { # Countrysides Secured
+	type = country_event
+	placement = root
+	
+	title = turkfm.116.t
+	desc = turkfm.116.d
+	flavor = turkfm.116.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_security
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.116.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_modernized_policing
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
+
+turkfm.117 = { # Slavery Abolished
+	type = country_event
+	placement = root
+	
+	title = turkfm.117.t
+	desc = turkfm.117.d
+	flavor = turkfm.117.f
+	
+	event_image = {
+		video = "southamerica_factory_opening"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tanzimat_slavery
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.117.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_slavery_abolished
+			months = long_modifier_time
+		}
+		turkfm_advance_ottomanism1_effect = yes
+		turkfm_complete_reform_effect = yes
+	}
+	
+}
 
 #######################################################
 ##  #TURK2  THE RISE OF NATIONALISM  Events 200-299  ##

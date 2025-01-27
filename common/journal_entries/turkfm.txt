@@ -393,10 +393,7 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	on_complete = {
-		set_global_variable = turkfm_tanzimat_complete
-		remove_variable = turkfm_tanzimat_progress_var
-		remove_variable = turkfm_tanzimat_var
-		remove_variable = turkfm_tanzimat_completion_var
+		turkfm_cleanup_tanzimat_effect = yes
 	}
 	
 	fail = {
@@ -409,10 +406,7 @@ je_turkfm_tanzimat_main = {
 	}
 	
 	on_fail = {
-		set_global_variable = turkfm_tanzimat_complete
-		remove_variable = turkfm_tanzimat_progress_var
-		remove_variable = turkfm_tanzimat_var
-		remove_variable = turkfm_tanzimat_completion_var
+		turkfm_cleanup_tanzimat_effect = yes
 	}
 	
 	on_weekly_pulse = {
@@ -465,6 +459,7 @@ je_turkfm_tanzimat_argiculture = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_feudal_argiculture
 	}
 	
 	complete = {
@@ -491,12 +486,9 @@ je_turkfm_tanzimat_argiculture = {
 		trigger_event = {
 			id = turkfm.110 # Modernized Agriculture
 		}
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -529,6 +521,7 @@ je_turkfm_tanzimat_army = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_cizye_tax
 	}
 	
 	complete = {
@@ -558,13 +551,12 @@ je_turkfm_tanzimat_army = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.111 # A Formidable Army
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -597,6 +589,7 @@ je_turkfm_tanzimat_bureaucracy = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_outmoded_bureaucracy
 	}
 	
 	complete = {
@@ -628,13 +621,12 @@ je_turkfm_tanzimat_bureaucracy = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.112 # Stately Governance
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -667,6 +659,7 @@ je_turkfm_tanzimat_economy = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_stagnant_economy
 	}
 	
 	complete = {
@@ -685,13 +678,12 @@ je_turkfm_tanzimat_economy = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.113 # Revitalizing the Economy
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -724,6 +716,7 @@ je_turkfm_tanzimat_education = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_illiterate_populace
 	}
 	
 	complete = {
@@ -750,13 +743,12 @@ je_turkfm_tanzimat_education = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.114 # An Educated Populace
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -797,16 +789,19 @@ je_turkfm_tanzimat_millet_reform = {
 			has_law = law_type:law_turkfm_religious_autonomy
 			has_law = law_type:law_turkfm_nominal_equality
 		}
+		institution_investment_level = {
+			institution = institution_millet_system
+			value <= 3
+		}
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.115 # Equality Before the Law
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -839,6 +834,7 @@ je_turkfm_tanzimat_security = {
 			text = turkfm_tanzimat_started_tt
 			has_global_variable = turkfm_tanzimat_started
 		}
+		has_modifier = modifier_turkfm_insecure_countryside
 	}
 	
 	complete = {
@@ -858,13 +854,12 @@ je_turkfm_tanzimat_security = {
 	}
 	
 	on_complete = {
-		turkfm_advance_ottomanism1_effect = yes
-		custom_tooltip = {
-			text = turkfm_reform_completed_tt
-			change_variable = {
-				name = turkfm_tanzimat_completion_var
-				add = 1
-			}
+		trigger_event = {
+			id = turkfm.116 # Countrysides Secured
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
 		}
 	}
 	
@@ -880,6 +875,54 @@ je_turkfm_tanzimat_security = {
 	weight = 3500
 }
 
+je_turkfm_tanzimat_slavery = {
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	
+	group = je_group_turkfm_tanzimat
+	
+	is_shown_when_inactive = {
+		c:TUR ?= this
+		NOT = {
+			has_global_variable = turkfm_tanzimat_complete
+		}
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_started_tt
+			has_global_variable = turkfm_tanzimat_started
+		}
+		NOT = {
+			has_law = law_type:law_slavery_banned
+		}
+	}
+	
+	complete = {
+		has_law = law_type:law_slavery_banned
+	}
+	
+	on_complete = {
+		trigger_event = {
+			id = turkfm.117 # Slavery Abolished
+		}
+		show_as_tooltip = {
+			turkfm_advance_ottomanism1_effect = yes
+			turkfm_complete_reform_effect = yes
+		}
+	}
+	
+	invalid = {
+		custom_tooltip = {
+			text = turkfm_tanzimat_completed_tt
+			hidden_trigger = {
+				has_global_variable = turkfm_tanzimat_complete
+			}
+		}
+	}
+	
+	weight = 3500
+	
+}
 
 #######################################################
 ##  #TURK2  THE RISE OF NATIONALISM  Events 100-199  ##
@@ -903,37 +946,40 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 	scripted_progress_bar = turkfm_tension_progress_bar
 	
 	complete = {
-		cultural_acceptance_base = {
-			target = cu:greek
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:rhomaios
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:serb
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:bulgarian
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:bosniak
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:albanian
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:croat
-			value >= acceptance_status_5
-		}
-		cultural_acceptance_base = {
-			target = cu:slovene
-			value >= acceptance_status_5
+		custom_tooltip = {
+			text = je_turkfm_separatism_main_complete
+			cultural_acceptance_base = {
+				target = cu:greek
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:rhomaios
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:serb
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:bulgarian
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:bosniak
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:albanian
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:croat
+				value >= acceptance_status_5
+			}
+			cultural_acceptance_base = {
+				target = cu:slovene
+				value >= acceptance_status_5
+			}
 		}
 	}
 	

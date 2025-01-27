@@ -145,6 +145,49 @@ turkfm_initialize_tanzimat = {
 	add_modifier = modifier_turkfm_insecure_countryside
 }
 
+turkfm_cleanup_tanzimat_effect = {
+	set_global_variable = turkfm_tanzimat_complete
+	remove_variable = turkfm_tanzimat_progress_var
+	remove_variable = turkfm_tanzimat_var
+	remove_variable = turkfm_tanzimat_completion_var
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_feudal_argiculture
+		}
+		remove_modifier = modifier_turkfm_feudal_argiculture
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_cizye_tax
+		}
+		remove_modifier = modifier_turkfm_cizye_tax
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_outmoded_bureaucracy
+		}
+		remove_modifier = modifier_turkfm_outmoded_bureaucracy
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_stagnant_economy
+		}
+		remove_modifier = modifier_turkfm_stagnant_economy
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_illiterate_populace
+		}
+		remove_modifier = modifier_turkfm_illiterate_populace
+	}
+	if = {
+		limit = {
+			has_modifier = modifier_turkfm_insecure_countryside
+		}
+		remove_modifier = modifier_turkfm_insecure_countryside
+	}
+}
+
 turkfm_tanzimat_monthly_effect = {
 	if = {
 		limit = {
@@ -180,6 +223,16 @@ turkfm_tanzimat_monthly_effect = {
 		set_variable = {
 			name = turkfm_millet_system_var
 			value = 4
+		}
+	}
+}
+
+turkfm_complete_reform_effect = {
+	custom_tooltip = {
+		text = turkfm_reform_completed_tt
+		change_variable = {
+			name = turkfm_tanzimat_completion_var
+			add = 1
 		}
 	}
 }
