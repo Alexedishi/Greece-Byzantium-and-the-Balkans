@@ -5,25 +5,31 @@
 #### GLOBAL SETUP EFFECTS ####
 
 turkfm_setup_turkey_effect = {
-	ig:ig_intelligentsia = {
-		remove_ideology = ideology_anti_clerical
-		remove_ideology = ideology_republican
-		add_ideology = turkfm_ideology_scribalistic
-		add_ideology = ideology_moralist
-		set_interest_group_name = turkfm_ig_ottoman_intelligentsia
+	ig:ig_landowners = {
+		add_ruling_interest_group = yes
+		set_interest_group_name = turkfm_ig_ottoman_beylerbey
 	}
 	ig:ig_devout = {
 		remove_ideology = ideology_moralist
 		add_ideology = turkfm_ideology_islamist
 		set_interest_group_name = turkfm_ig_ottoman_devout
 	}
-	ig:ig_landowners = {
-		add_ruling_interest_group = yes
-		set_interest_group_name = turkfm_ig_ottoman_landowners
-	}
 	ig:ig_armed_forces = {
 		add_ruling_interest_group = yes
-		set_interest_group_name = turkfm_ig_ottoman_intelligentsia
+		set_interest_group_name = turkfm_ig_ottoman_armed_forces
+	}
+	ig:ig_intelligentsia = {
+		remove_ideology = ideology_anti_clerical
+		remove_ideology = ideology_republican
+		add_ideology = turkfm_ideology_scribalistic
+		add_ideology = ideology_moralist
+		set_interest_group_name = turkfm_ig_ottoman_scribes
+	}
+	ig:ig_petty_bourgeoisie = {
+		set_interest_group_name = turkfm_ig_ottoman_petty_bourgeoisie
+	}
+	ig:ig_rural_folk = {
+		set_interest_group_name = turkfm_ig_ottoman_rural_folk
 	}
 }
 
@@ -124,14 +130,14 @@ turkfm_validate_sick_man_effect = {
 
 #### TANZIMAT EFFECTS ####
 
-turkfm_initialize_tanzimat = {
+turkfm_initialize_tanzimat_effect = {
 	set_variable = {
 		name = turkfm_tanzimat_var
 		value = 300
 	}
 	set_variable = {
 		name = turkfm_tanzimat_progress_var
-		value = turkfm_tanzimat_progress_value
+		value = 0
 	}
 	set_variable = {
 		name = turkfm_tanzimat_completion_var
