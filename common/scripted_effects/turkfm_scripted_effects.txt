@@ -535,7 +535,7 @@ turkfm_initialize_tension_effect = {
 		value = 0
 	}
 	set_global_variable = {
-		name = turkfm_crisis_var
+		name = turkfm_crisis_counter_var
 		value = 0
 	}
 	set_variable = {
@@ -3007,12 +3007,73 @@ turkm_cleanup_tension_main_effect = {
 	remove_variable = turkfm_tension_event_cooldown_var
 }
 
-turkfm_cleanup_tension_sub_effect = {
+#### NATIONALISM CRISIS EFFECTS ####
 
+turkfm_initialize_crisis_effect = {
+	set_global_variable = {
+		name = turkfm_total_riots_var
+		value = 0
+	}
+	set_global_variable = {
+		name = turkfm_crisis_var
+		value = 0
+	}
+	set_global_variable = {
+		name = turkfm_crisis_progress_var
+		value = 0
+	}
+	change_global_variable = {
+		name = turkfm_crisis_counter_var
+		add = 1
+	}
 }
 
-turkfm_cleanup_tension_eqfm_effect = {
-
+turkfm_crisis_weekly_effect = {
+	if = {
+		limit = {
+			has_global_variable = turkfm_crisis_var
+		}
+		if = {
+			limit = {
+				has_global_variable = turkfm_crisis_leader_var
+				exists = global_var:turkfm_crisis_leader_var
+			}
+			global_var:turkfm_crisis_leader_var = {
+				remove_variable = turkfm_crisis_leader
+			}
+		}
+		remove_global_variable = turkfm_crisis_leader_var
+		ordered_country = {
+			limit = {
+				has_variable = turkfm_crisis_attacker
+			}
+			order_by = prestige
+			max = 1
+			check_range_bounds = no
+			save_scope_as = turkfm_crisis_leader_scope
+		}
+		if = {
+			limit = {
+				exists = scope:turkfm_crisis_leader_scope
+			}
+			scope:turkfm_crisis_leader_scope = {
+				set_variable = turkfm_crisis_leader
+			}
+				
+			set_global_variable = {
+				name = turkfm_crisis_leader_var
+				value = scope:turkfm_crisis_leader_scope
+			}
+		}
+		change_global_variable = {
+			name = turkfm_crisis_var
+			add = var:turkfm_crisis_progress_var
+		}
+		set_global_variable = {
+			name = turkfm_crisis_progress_var
+			value = turkfm_crisis_progress_value
+		}
+	}
 }
 
 #### ALBANIAN PIRACY EFFECTS ####

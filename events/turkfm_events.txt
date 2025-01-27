@@ -1822,6 +1822,9 @@ turkfm.206 = { # Balkan Country Rebellion
 	dlc = dlc_grefm
 	
 	trigger = {
+		NOT = {
+			has_global_variable = turkfm_crisis_var
+		}
 		var:turkfm_riot_var >= 200
 	}
 	
@@ -7762,18 +7765,7 @@ turkfm.310 = { # A Crisis in Region
 	}
 	
 	immediate = {
-		set_global_variable = {
-			name = turkfm_total_riots_var
-			value = 0
-		}
-		change_global_variable = {
-			name = turkfm_crisis_var
-			add = 1
-		}
-		set_global_variable = {
-			name = turkfm_active_crisis_var
-			value = 0
-		}
+		turkfm_initialize_crisis_effect = yes
 	}
 	
 	option = {
