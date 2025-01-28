@@ -163,17 +163,17 @@ namespace = turkfm
 #	258 - Massacre in State
 #	259 - Crowds Dispersed in State
 
-#260-269 - Tension Third Party Events
-#	260 - Brigands Raid Turkish Lands 
-#	261 - Gun-Runners Arrested
-#	262 - ##Diplomat Offers Mediation
-#	263 - ##Priest Murdered in State
-#	264 - ##Wali of State Exceeds Authority
+#260-269 - OPEN
+#	260 - ##
+#	261 - ##
+#	262 - ##
+#	263 - ##
+#	264 - ##
 #	265 - ##
 #	266 - ##
 #	267 - ##
-#	268 - ##Activists Call for Famine Relief
-# 	269 - ##Activists Denounce Riots
+#	268 - ##
+# 	269 - ##
  
 #270-279 - OPEN
 #	270 - ##
@@ -218,47 +218,41 @@ namespace = turkfm
 #	300 - The Eastern Question
 #	309 - Adds the Eastern Question JE [TECH]
 
-#310-319 - Balkan Crisis Narrative Events
-#	310 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
-#	307>>311 - ##Bosnia Takes Up Arms! (GEC)
-#	308>>312 - ##Bulgaria Takes Up Arms! (GEC)
-#	358>>313 - ##The Porte Triumphant (GEC)
-#	359>>314 - ##The Treaty of San Stefano (GEC)
+#310-319 - Eastern Question Balkan Tension Events
+#	310 - Brigands Raid Turkish Lands 
+#	311 - Gun-Runners Arrested
+#	312 - ##Diplomat Offers Mediation
+#	313 - ##Priest Murdered in State
+#	314 - ##Wali of State Exceeds Authority
+#	315 - ##
+#	316 - ##
+#	317 - ##
+#	318 - ##Activists Call for Famine Relief
+# 	319 - ##Activists Denounce Riots
 
-#320-329 - Balkan Crisis Mechanical Events
-#	320 - ##A Crisis in Rumelia (Recruit Country to Crisis)
-#	321 - ##Rebels in State Take Up Arms!
-#	322 - ##Subject Country Rebels!
-#	323 - ##A Chance at Deconfliction
-#	324 - ##Country Attempts Deconfliction
-#	325 - ##
-#	326 - ##
-#	327 - ##
-#	328 - ##
-#	309>>329 - ##Balkan Crisis Superevent
+#320-329 - Balkan Crisis Events
+#	320 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
+#	321 - ##A Crisis in Rumelia <- Notifies Other Countries of the Crisis Phase
+#	322 - ##Rebel Country Takes Up Arms! <- Grabs Riot State and creates Rebel tag
+#	323 - ##Subject Country Rebels!
+#	324 - ##A Chance at Deconfliction
+#	325 - ##Country Attempts Deconfliction
+#	326 - ##Balkan Crisis Superevent <- Creates DP
+#	327 - ##Balkan Crisis Superevent <- Cosmetic Event
+#	328 - ##The Porte Triumphant (Ottoman Victory)
+#	329 - ##The Treaty of X (Ottoman Defeat)
 
 #330-339 - International Congress Narrative Events
-#	330 - 
-
-#340-349 - International Congress Mechanical Events
-#	340 - ##The Congress of X
-
-#360-369 - Congress of Berlin Events
-#	360 - ##The Congress of Berlin
-#	361 - ##The Issue of Bulgaria
-#	362 - ##The Issue of Bosnia
-#	363 - ##The Issue of Montenegro
-#	364 - ##The Issue of Serbia
-#	365 - ##The Issue of the Principalities
-#	366 - ##>>The Issue of the Caucasus
-#	367 - ##OPEN
-#	368 - ##>>The Greek Delegation
-#	369 - ##>>The Treaty of Berlin
-#	//340 - ##>>The Convention of Cyprus
-#	//341 - ##>>The Convention of Tunis
-#	//342 - ##The Convention of Constantinople
-#	//349 - ##[TECH] Cleans Up Global Crisis/Berlin Variables
-
+#	330 - ##The Congress of X
+#	331 - ##The Issue of X
+#	332 - ##The Convention of X
+#	333 - ##The X Delegation
+#	334 - ##
+#	335 - ##
+#	336 - ##
+#	337 - ##
+#	338 - The Treaty of X <- Cleans Up Crisis/Congress Variables & Transitions to Stable
+#	339 - The Treat of X <- Cosmetic Event
 
 ##  #TURK4  OTTOMAN NATIONAL REVIVALS  Events 400-499  ##
 # This section is being created to take pressure off of the event structure in BALKFM
@@ -7731,7 +7725,7 @@ turkfm.309 = { # Adds the Eastern Question JE
 
 #### BALKAN CRISIS NARRATIVE EVENTS ####
 
-turkfm.310 = { # A Crisis in Region
+turkfm.320 = { # A Crisis in Rumelia
 	type = country_event
 	placement = root
 	
@@ -7778,7 +7772,7 @@ turkfm.310 = { # A Crisis in Region
 					has_journal_entry = je_turkfm_eastern_question
 				}
 				trigger_event = {
-					id = turkfm.320 # A Crisis in Rumelia (Recruit Country to Crisis)
+					id = turkfm.321 # A Crisis in Rumelia (Notify Country of Crisis)
 				}
 			}
 		}

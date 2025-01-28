@@ -483,7 +483,43 @@ on_wargoal_enforced = {
 	}
 }
 
-# These on_actions changes the Crusade target's state religion or penalize the Crusade initiator if they lose. The crusade variables are set by the Crusade DP. This is very janky, I agree.
+turkfm_wargoal_enforced_1 = { # From TUR, in the case of Ottoman victory
+	trigger = {
+		has_variable = turkfm_crisis_target
+		scope:target = {
+			has_variable = turkfm_crisis_initiator
+		}
+		NOT = {
+			has_global_variable = turkfm_crisis_enforced
+		}
+	}
+	effect = {
+		set_global_variable = turkfm_crisis_enforced
+		every_country = {
+			trigger_event = {
+				id = 
+			}
+		}
+		turkfm_crisis_wargoal_effect = yes
+	}
+}
+
+turkfm_wargoal_enforced_2 = { # From Crisis initiator, in the case of Ottoman defeat
+	trigger = {
+		has_variable = turkfm_crisis_initiator
+		scope:target = {
+			has_variable = turkfm_crisis_target
+		}
+	}
+	effect = {
+		c:TUR = {
+			trigger_event = {
+				id =
+			}
+		}
+		turkfm_crisis_wargoal_effect = yes
+	}
+}
 
 eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade success
 	trigger = {
