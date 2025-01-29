@@ -120,19 +120,21 @@
  turkfm_deconfliction: "@turkfm_deconfliction! #bold #greece #tooltip:[GetRawTextTooltipTag('turkfm_deconfliction_concept')] Deconfliction#!#!#!"
  turkfm_deconfliction_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nIn the wake of widespread violence, tensions have found release through chaos and destruction in both city and countryside. As noble and peasant alike return to their daily lives, many question how the situation was able to get so far out of control. These conciliatory feelings will not last forever, leading to a natural escalation to the $turkfm_stable$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_deconfliction_phase').GetDesc]"
  turkfm_crisis: "@turkfm_crisis! #bold #red #tooltip:[GetRawTextTooltipTag('turkfm_crisis_concept')] Crisis#!#!#!"
- turkfm_crisis_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nFollowing years of buildup, tensions have finally boiled over as [GetReligion('orthodox').GetName] and [GetReligion('jewish').GetName] populations seek to tear down the rule of the $turkfm_porte$ by any means necessary. With international eyes fixed on the [GetStrategicRegion('region_balkans').GetName], there is an increased risk of diplomatic incidents spiraling out of control. Should these tensions go unresolved, they will eventually sputter out, causing a descalation to the $turkfm_deconfliction$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_crisis_phase').GetDesc]"
+ turkfm_crisis_concept: "One of the phases in $turkfm_balkan_nationalism$ Conflict.\n\nFollowing years of buildup, tensions have finally boiled over as [GetReligion('orthodox').GetName] and [GetReligion('jewish').GetName] populations seek to tear down the rule of the $turkfm_porte$ by any means necessary. With international eyes fixed on the [GetStrategicRegion('region_balkans').GetName], the Ottoman Empire faces widespread dissent from their subjects in Rumelia. [concept_great_power]#o s#! will have the opportinuty to support or hamper these movements. Should these tensions go unresolved, they will eventually sputter out, causing a descalation to the $turkfm_deconfliction$ phase.\n$TOOLTIP_DELIMITER$\nThis phase provides the following effects:\n[GetStaticModifier('modifier_turkfm_crisis_phase').GetDesc]\n\n#italic War will break out if #bold Crisis Progress#! reaches #bold 100#!.#!"
  
  turkfm_tension_status: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_type')]"
  turkfm_tension_status_short: "[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_type')]"
  turkfm_tension_status_long: "The [GetStrategicRegion('region_balkans').GetName] are currently experiencing the following phase: [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]"
- turkfm_tension_crisis_status: "#white #bold Crisis Progress: [GetGlobalVariable('turkfm_crisis_var').GetValue]/100[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_crisis_team_type')]
- turkfm_tension_crisis_concept: "During a #bold Balkan Crisis#!, the Ottoman Empire faces widespread rebellions amongst their subjects in the [GetStrategicRegion('region_balkans').GetName]. [concept_great_power]#o s#! will have the opportinuty to support or hamper these movements. War will break out if #bold Crisis Progress#! reaches #bold 100#!."
+ turkfm_tension_crisis_status: "#white #bold $turkfm_crisis$ Progress: [GetGlobalVariable('turkfm_crisis_var').GetValue]/100[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_crisis_team_type')]"
+ turkfm_tension_congress_status: ""
  turkfm_crisis_defender: "[ROOT.GetCountry.GetNameNoFlag] is #o #tooltip:[GetRawTextTooltipTag('turkfm_crisis_defender_tt')] supporting#!#! the Ottomans"
  turkfm_crisis_defender_tt: "If #bold Crisis Progress#! reaches #bold 100#!, [ROOT.GetCountry.GetNameNoFlag] will join the war supporting the Ottomans."
  turkfm_crisis_attacker: "[ROOT.GetCountry.GetNameNoFlag] is  #o #tooltip:[GetRawTextTooltipTag('turkfm_crisis_attacker_tt')] opposing#!#! the Ottomans"
  turkfm_crisis_attacker_tt: "If #bold Crisis Progress#! reaches #bold 100#!, [ROOT.GetCountry.GetNameNoFlag] will join the war supporting the Ottomans. We will not be the [concept_diplomatic_play] leader as we do not have the highest [concept_prestige] of all participating countries."
  turkfm_crisis_leader: "[ROOT.GetCountry.GetNameNoFlag] is  #o #tooltip:[GetRawTextTooltipTag('turkfm_crisis_leader_tt')] opposing#!#! the Ottomans\nWe will lead the [concept_diplomatic_play]"
  turkfm_crisis_leader_tt: "If #bold Crisis Progress#! reaches #bold 100#!, [ROOT.GetCountry.GetNameNoFlag] will join the war supporting the Ottomans. We will be the [concept_diplomatic_play] leader as we have the highest [concept_prestige] of all participating countries."
+ turkfm_crisis_rebellion_tt: "[SCOPE.sCountry('turkfm_rebellion_scope').GetName] will #red #bold Oppose#!#! [ROOT.GetCountry.GetName] in the upcoming crisis."
+ turkfm_crisis_deconfliction_tt: "[SCOPE.sCountry('turkfm_deconfliction_scope').GetName] will #bold withdraw#! from the upcoming crisis, but they will expect remuneration."
  
  turkfm_tension_details: "\n$TOOLTIP_DELIMITER$\n#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_next_type')]\n$TOOLTIP_DELIMITER$\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_factors_type')]"
  turkfm_tension_details_short: "#bold #white Current Phase#!:#! [SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_desc_type')]\n\n[SCOPE.GetRootScope.GetCountry.GetCustom('turkfm_tension_next_type')]"
@@ -180,6 +182,11 @@
  turkfm_smyrna_provoke_tt: "The #yellow Smyrnite Greeks#! will take up arms."
  turkfm_cyprus_provoke_tt: "The #yellow Cypriot Greeks#! will take up arms."
  turkfm_crete_provoke_tt: "The #yellow Cretan Greeks#! will take up arms."
+ 
+ turkfm_crisis_defender_button_tt: "[ROOT.GetCountry.GetNameNoFlag] is #bold not#! opposing the #yellow Ottoman Empire#! in the upcoming crisis"
+ turkfm_crisis_attacker_button_tt: "[ROOT.GetCountry.GetNameNoFlag] is #bold not#! supporting the #yellow Ottoman Empire#! in the upcoming crisis"
+ turkfm_crisis_launched_tt: "The #bold Crisis War#! has not occurred"
+ turkfm_crisis_deconflicted_tt: "[ROOT.GetCountry.GetNameNoFlag] has #bold not#! accepted a #bold Deconfliction#! offer by the #yellow Ottoman Empire#!"
  
  turkfm_expedition_progress_explanation: "#bold Progress#! represents the progress achieved by the members of an expedition. Increasing #bold Expedition#! #bold #green Progress#!#! to #bold 8 or more#! will achieve its goal."
  turkfm_progress_tt: "#tooltippable;positive_value;TOOLTIP:expedition_progress_explanation_tt Progress#!"
@@ -465,6 +472,15 @@
  notification_notification_turkfm_blood_libel_supressed_name: ""
  notification_notification_turkfm_blood_libel_supressed_desc: ""
  
+ notification_notification_turkfm_tensions_defused_name: ""
+ notification_notification_turkfm_tensions_defused_desc: ""
+ notification_notification_turkfm_tensions_ignored_name: ""
+ notification_notification_turkfm_tensions_ignored_desc: ""
+ 
+ notification_notification_turkfm_brigandage_reparations_name: ""
+ notification_notification_turkfm_brigandage_reparations_desc: ""
+ notification_notification_turkfm_brigandage_permitted_name: ""
+ notification_notification_turkfm_brigandage_permitted_desc: ""
  notification_notification_turkfm_gunrunners_halted_name: ""
  notification_notification_turkfm_gunrunners_halted_desc: ""
  notification_notification_turkfm_gunrunners_continued_name: ""

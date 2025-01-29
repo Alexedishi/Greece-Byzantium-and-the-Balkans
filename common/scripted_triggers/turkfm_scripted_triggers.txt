@@ -276,10 +276,48 @@ turkfm_crisis_possible_trigger = {
 
 turkfm_crisis_participant_trigger = {
 	OR = {
-		has_variable = turkfm_crisis_initiator
+		has_variable = turkfm_crisis_leader
 		has_variable = turkfm_crisis_attacker
 		has_variable = turkfm_crisis_defender
 		has_variable = turkfm_crisis_target
+	}
+}
+
+turkfm_crisis_deconfliction_trigger = {
+	has_variable = turkfm_crisis_attacker
+	trigger_if = {
+		limit = {
+			c:GBR ?= this
+		}
+		OR = {
+			c:TUR ?= {
+				owns_entire_state_region = STATE_CYPRUS
+			}
+			c:CYP ?= {
+				is_subject_of = c:TUR
+			}
+		}
+	}
+	trigger_if = {
+		limit = {
+			c:FRA ?= this
+		}
+		OR = {
+			c:TUR ?= {
+				owns_entire_state_region = STATE_TUNISIA
+			}
+			c:TUN ?= {
+				is_subject_of = c:TUR
+			}
+		}
+	}
+	trigger_if = {
+		limit = {
+			c:RUS ?= this
+		}
+		c:TUR ?= {
+			owns_entire_state_region = STATE_DOBRUDJA
+		}
 	}
 }
 

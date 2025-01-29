@@ -163,42 +163,6 @@ namespace = turkfm
 #	258 - Massacre in State
 #	259 - Crowds Dispersed in State
 
-#260-269 - OPEN
-#	260 - ##
-#	261 - ##
-#	262 - ##
-#	263 - ##
-#	264 - ##
-#	265 - ##
-#	266 - ##
-#	267 - ##
-#	268 - ##
-# 	269 - ##
- 
-#270-279 - OPEN
-#	270 - ##
-#	271 - ##
-#	272 - ##
-#	273 - ##
-#	274 - ##
-#	275 - ##
-#	276 - ##
-#	277 - ##
-#	278 - ##
-#	279 - ##
-
-#280-289 - OPEN
-#	280 - ##
-#	281 - ##
-#	282 - ##
-#	283 - ##
-#	284 - ##
-#	285 - ##
-#	286 - ##
-#	287 - ##
-#	288 - ##
-#	289 - ##
-
 #290-299 - Tension Separatism Events
 #	290 - Hellenes Revolt in State
 #	291 - Hellene Revolt Provoked
@@ -221,7 +185,7 @@ namespace = turkfm
 #310-319 - Eastern Question Balkan Tension Events
 #	310 - Brigands Raid Turkish Lands 
 #	311 - Gun-Runners Arrested
-#	312 - ##Diplomat Offers Mediation
+#	312 - Diplomat Offers Mediation -> turkfm.242
 #	313 - ##Priest Murdered in State
 #	314 - ##Wali of State Exceeds Authority
 #	315 - ##
@@ -231,12 +195,12 @@ namespace = turkfm
 # 	319 - ##Activists Denounce Riots
 
 #320-329 - Balkan Crisis Events
-#	320 - ##A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
-#	321 - ##A Crisis in Rumelia <- Notifies Other Countries of the Crisis Phase
-#	322 - ##Rebel Country Takes Up Arms! <- Grabs Riot State and creates Rebel tag
+#	320 - A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
+#	321 - A Crisis in Rumelia <- Notifies Other Countries of the Crisis Phase
+#	322 - Rebel Country Takes Up Arms! <- Grabs Riot State and creates Rebel tag
 #	323 - ##Subject Country Rebels!
-#	324 - ##A Chance at Deconfliction
-#	325 - ##Country Attempts Deconfliction
+#	324 - A Chance at Deconfliction (Third Party Event)
+#	325 - A Chance at Deconfliction (Ottoman Event)
 #	326 - ##Balkan Crisis Superevent <- Creates DP
 #	327 - ##Balkan Crisis Superevent <- Cosmetic Event
 #	328 - ##The Porte Triumphant (Ottoman Victory)
@@ -252,7 +216,7 @@ namespace = turkfm
 #	336 - ##
 #	337 - ##
 #	338 - The Treaty of X <- Cleans Up Crisis/Congress Variables & Transitions to Stable
-#	339 - The Treat of X <- Cosmetic Event
+#	339 - The Treaty of X <- Cosmetic Event
 
 ##  #TURK4  OTTOMAN NATIONAL REVIVALS  Events 400-499  ##
 # This section is being created to take pressure off of the event structure in BALKFM
@@ -623,7 +587,6 @@ turkfm.009 = { # The Healthy Man of Europe
 	}
 	
 }
-
 
 ############################################################
 ##  #TURK1  THE REORDERING OF THE EMPIRE  Events 100-199  ##
@@ -1839,11 +1802,27 @@ turkfm.206 = { # Balkan Country Rebellion
 			name = turkfm_riot_var
 			value = 100
 		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = root
+			}
+			create_bidirectional_truce = {
+				country = scope:turkfm_rebellion_scope
+				months = 60
+			}
+		}
+		create_bidirectional_truce = {
+			country = scope:turkfm_rebellion_scope
+			months = 60
+		}
 	}
 	
 	option = { # Assert Our Dominion
 		name = turkfm.206.a
 		default_option = yes
+		hidden_effect = {
+			end_truce = scope:turkfm_rebellion_scope
+		}
 		scope:turkfm_rebellion_scope = {
 			make_independent = yes
 		}
@@ -1880,10 +1859,6 @@ turkfm.206 = { # Balkan Country Rebellion
 		create_diplomatic_pact = {
 			country = scope:turkfm_rebellion_scope
 			type = protectorate
-		}
-		create_bidirectional_truce = {
-			country = scope:turkfm_rebellion_scope
-			months = 60
 		}
 		add_radicals = {
 			culture = cu:turkish
@@ -4115,7 +4090,7 @@ turkfm.225 = { # Gun-Runners Intercepted (Greek)
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
-				id = turkfm.261 # Gun-Runners Arrested
+				id = turkfm.311 # Gun-Runners Arrested
 			}
 			create_incident = {
 				country = root
@@ -4217,7 +4192,7 @@ turkfm.226 = { # Gun-Runners Intercepted (Yugoslav)
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
-				id = turkfm.261 # Gun-Runners Arrested
+				id = turkfm.311 # Gun-Runners Arrested
 			}
 			create_incident = {
 				country = root
@@ -4535,6 +4510,9 @@ turkfm.229 = { # Brigands Cross the Border
 			is_adjacent_to_country = root
 			has_journal_entry = je_balkfm_brigandage
 			relations:root < relations_threshold:amicable
+			NOT = {
+				has_modifier = modifier_turkfm_brigandage_reparations
+			}
 		}
 	}
 	
@@ -4570,7 +4548,7 @@ turkfm.229 = { # Brigands Cross the Border
 		}
 		scope:turkfm_tension_country_scope = {
 			trigger_event = {
-				id = turkfm.260 # Brigands Raid Turkish Lands
+				id = turkfm.310 # Brigands Raid Turkish Lands
 			}
 		}
 		turkfm_add_small_escalation_effect = yes
@@ -5791,7 +5769,7 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by turkfm.262
+		# triggered by turkfm.312
 	}
 	
 	immediate = {
@@ -5803,7 +5781,7 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 		}
 		random_scope_state = {
 			limit = {
-				has_variable = turkfm_riot_intervention_var
+				has_variable = turkfm_intervention_var
 			}
 			save_scope_as = turkfm_tension_state_scope
 		}
@@ -5821,6 +5799,15 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 			type = catalyst_relations_level_increased
 			target = scope:turkfm_tension_country_scope
 		}
+		scope:turkfm_tension_state_scope = {
+			add_modifier = {
+				name = modifier_turkfm_tensions_defused
+				months = short_modifier_time
+			}
+		}
+		scope:turkfm_tension_country_scope = {
+			post_notification = notification_turkfm_tensions_defused
+		}
 	}
 	
 	option = { # Reject the Assist
@@ -5833,6 +5820,19 @@ turkfm.242 = { # Great Power Mediates Local Conflict
 		create_diplomatic_catalyst = {
 			type = catalyst_relations_level_decreased
 			target = scope:turkfm_tension_country_scope
+		}
+		scope:turkfm_tension_country_scope = {
+			post_notification = notification_turkfm_tensions_ignored
+		}
+		
+	}
+	
+	after = {
+		scope:turkfm_tension_country_scope = {
+			remove_variable = turkfm_tension_third_party_var
+		}
+		scope:turkfm_tension_state_scope = {
+			remove_variable = turkfm_intervention_var
 		}
 	}
 
@@ -5986,7 +5986,9 @@ turkfm.249 = { # Great Power Intervenes in Riots
 			target = scope:turkfm_tension_country_scope
 		}
 	}
-
+	
+	orphan = yes
+	
 }
 
 #### TENSION RIOT EVENTS ####
@@ -6890,194 +6892,6 @@ turkfm.259 = { # Crowds Dispersed in State
 
 }
 
-
-#### TENSION THIRD PARTY EVENTS ####
-
-turkfm.260 = { # Brigands Raid Turkish Lands 
-	type = country_event
-	placement = scope:turkfm_brigandage_event_scope
-	
-	title = turkfm.260.t
-	desc = turkfm.260.d
-	flavor = turkfm.260.f
-	
-	event_image = {
-		video = "rp1_social_banditry"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by turkfm.229
-	}
-	
-	cancellation_trigger = {
-		NOT = {
-			has_journal_entry = je_balkfm_brigandage
-		}
-	}
-	
-	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-			random_scope_state = {
-				limit = {
-					has_variable = turkfm_brigandage_event_var
-				}
-				save_scope_as = turkfm_brigandage_event_scope
-				remove_variable = turkfm_brigandage_event_var
-			}
-		}
-	}
-	
-	option = {
-		name = turkfm.260.a
-		default_option = yes
-	}
-	
-	option = {
-		name = turkfm.260.b
-	}
-	
-}
-
-turkfm.261 = { # Gun-Runners Arrested
-	type = country_event
-	placement = scope:turkfm_tension_state_scope
-	
-	title = turkfm.261.t
-	desc = turkfm.261.d
-	flavor = turkfm.261.f
-	
-	event_image = {
-		video = "votp_hostile_court"
-	}
-	
-	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	
-	duration = 3
-	
-	dlc = dlc_grefm
-	
-	trigger = {
-		# triggered by turkfm.225/226
-	}
-	
-	immediate = {
-		c:TUR = {
-			save_scope_as = ottoman_scope
-			random_scope_state = {
-				limit = {
-					has_variable = turkfm_gunrunners_var
-				}
-				save_scope_as = turkfm_tension_state_scope
-				remove_variable = turkfm_gunrunners_var
-			}
-		}
-	}
-	
-	option = { # Halt Support
-		name = turkfm.261.a
-		default_option = yes
-		if = {
-			limit = {
-				has_modifier = modifier_turkfm_supporting_gunrunners
-			}
-			remove_modifier = modifier_turkfm_supporting_gunrunners
-		}
-		if = {
-			limit = {
-				has_modifier = modifier_balkfm_ottoman_gunrunners
-			}
-			remove_modifier = modifier_balkfm_ottoman_gunrunners
-		}
-		custom_tooltip = {
-			text = balkfm_ottoman_gunrunners_effect2
-			set_variable = {
-				name = balkfm_ottoman_gunrunners_lockout
-				years = 2
-			}
-		}
-		change_relations = {
-			country = c:TUR
-			value = 15
-		}
-		c:TUR = {
-			post_notification = notification_turkfm_gunrunners_halted
-		}
-	}
-	
-	option = { # Continue Support
-		name = turkfm.261.b
-		create_incident = {
-			country = c:TUR
-			value = 10
-		}
-		change_relations = {
-			country = c:TUR
-			value = 15
-		}
-		c:TUR = {
-			post_notification = notification_turkfm_gunrunners_continued
-		}
-	}
-}
-
-turkfm.262 = { # Diplomat Offers Mediation
-	orphan = yes
-}
-
-turkfm.263 = { # Priest Murdered in State
-	orphan = yes
-}
-
-turkfm.264 = { # Wali of State Exceeds Authority
-	orphan = yes
-}
-
-turkfm.265 = { # 
-	orphan = yes
-}
-
-turkfm.266 = { # Diplomat Defuses Tensions
-	orphan = yes
-}
-
-turkfm.267 = { # 
-	orphan = yes
-}
-
-turkfm.268 = { # Activists Call for Famine Relief
-	orphan = yes
-}
-
-turkfm.269 = { # Activists Denounce Riots
-	orphan = yes
-}
-
-
-#### OPEN ####
-
-turkfm.270 = { # 
-	orphan = yes
-}
-
-
-#### OPEN ####
-
-turkfm.280 = { # 
-	orphan = yes
-}
-
-
 #### TENSION SEPARATISM EVENTS ####
 
 turkfm.290 = { # Hellenes Stage Revolt in State
@@ -7723,9 +7537,284 @@ turkfm.309 = { # Adds the Eastern Question JE
 	
 }
 
-#### BALKAN CRISIS NARRATIVE EVENTS ####
+#### EASTERN QUESTION THIRD PARTY EVENTS ####
 
-turkfm.320 = { # A Crisis in Rumelia
+turkfm.310 = { # Brigands Raid Turkish Lands 
+	type = country_event
+	placement = scope:turkfm_brigandage_event_scope
+	
+	title = turkfm.310.t
+	desc = turkfm.310.d
+	flavor = turkfm.310.f
+	
+	event_image = {
+		video = "rp1_social_banditry"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.229
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_balkfm_brigandage
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			random_scope_state = {
+				limit = {
+					has_variable = turkfm_brigandage_event_var
+				}
+				save_scope_as = turkfm_brigandage_event_scope
+				remove_variable = turkfm_brigandage_event_var
+			}
+		}
+		set_global_variable = {
+			name = turkfm_global_reference_var
+			value = money_amount_multiplier_small
+		}
+	}
+	
+	option = { # Offer Compensation
+		name = turkfm.310.a
+		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_brigandage_reparations
+			months = normal_modifier_time
+			multiplier = global_var:turkfm_global_reference_var
+		}
+		c:TUR = {
+			add_modifier = {
+				name = modifier_turkfm_brigandage_reparations
+				months = normal_modifier_time
+				multiplier = global_var:turkfm_global_reference_var
+			}
+			post_notification = notification_turkfm_brigandage_reparations
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+	}
+	
+	option = { # Ignore the Complaint
+		name = turkfm.310.b
+		c:TUR = {
+			post_notification = notification_turkfm_brigandage_permitted
+		}
+		change_relations = {
+			country = c:TUR
+			value = -15
+		}
+	}
+	
+	after = {
+		remove_global_variable = turkfm_global_reference_var
+	}
+	
+}
+
+turkfm.311 = { # Gun-Runners Arrested
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.311.t
+	desc = turkfm.311.d
+	flavor = turkfm.311.f
+	
+	event_image = {
+		video = "votp_hostile_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.225/226
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			random_scope_state = {
+				limit = {
+					has_variable = turkfm_gunrunners_var
+				}
+				save_scope_as = turkfm_tension_state_scope
+				remove_variable = turkfm_gunrunners_var
+			}
+		}
+	}
+	
+	option = { # Halt Support
+		name = turkfm.311.a
+		default_option = yes
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_supporting_gunrunners
+			}
+			remove_modifier = modifier_turkfm_supporting_gunrunners
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_balkfm_ottoman_gunrunners
+			}
+			remove_modifier = modifier_balkfm_ottoman_gunrunners
+		}
+		custom_tooltip = {
+			text = balkfm_ottoman_gunrunners_effect2
+			set_variable = {
+				name = balkfm_ottoman_gunrunners_lockout
+				years = 2
+			}
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+		c:TUR = {
+			post_notification = notification_turkfm_gunrunners_halted
+		}
+	}
+	
+	option = { # Continue Support
+		name = turkfm.311.b
+		create_incident = {
+			country = c:TUR
+			value = 10
+		}
+		change_relations = {
+			country = c:TUR
+			value = 15
+		}
+		c:TUR = {
+			post_notification = notification_turkfm_gunrunners_continued
+		}
+	}
+}
+
+turkfm.312 = { # Diplomat Offers Mediation
+	type = country_event
+	placement = scope:turkfm_tension_state_scope
+	
+	title = turkfm.312.t
+	desc = turkfm.312.d
+	flavor = turkfm.312.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		OR = {
+			has_diplomatic_pact = {
+				who = c:TUR
+				type = increase_relations
+			}
+			has_diplomatic_pact = {
+				who = c:TUR
+				type = turkfm_decelerate_tensions
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			exists = c:TUR
+		}
+	}
+	
+	cooldown = {
+		years = 5
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+			random_scope_state = {
+				limit = {
+					state_in_balkans = yes
+					NOT = {
+						has_modifier = modifier_turkfm_tensions_defused
+					}
+				}
+				save_scope_as = turkfm_tension_state_scope
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.312.a
+		default_option = yes
+		set_variable = turkfm_tension_third_party_var
+		c:TUR = {
+			trigger_event = {
+				id = turkfm.242 # Great Power Mediates Local Conflict
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.312.b
+		custom_tooltip = turkfm_nothing_happens
+	}
+}
+
+turkfm.313 = { # Priest Murdered in State
+	orphan = yes
+}
+
+turkfm.314 = { # Wali of State Exceeds Authority
+	orphan = yes
+}
+
+turkfm.315 = { # 
+	orphan = yes
+}
+
+turkfm.316 = { # 
+	orphan = yes
+}
+
+turkfm.317 = { # 
+	orphan = yes
+}
+
+turkfm.318 = { # Activists Call for Famine Relief
+	orphan = yes
+}
+
+turkfm.319 = { # Activists Denounce Riots
+	orphan = yes
+}
+
+#### BALKAN CRISIS EVENTS ####
+
+turkfm.320 = { # A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
 	type = country_event
 	placement = root
 	
@@ -7780,15 +7869,13 @@ turkfm.320 = { # A Crisis in Rumelia
 
 }
 
-#### BALKAN CRISIS MECHANICAL EVENTS ####
-
-turkfm.320 = { # 
+turkfm.321 = { # A Crisis in Rumelia <- Notifies Other Countries of the Crisis Phase
 	type = country_event
 	placement = root
 	
-	title = turkfm.320.t
-	desc = turkfm.320.d
-	flavor = turkfm.320.f
+	title = turkfm.321.t
+	desc = turkfm.321.d
+	flavor = turkfm.321.f
 	
 	event_image = {
 		video = "europenorthamerica_political_extremism"
@@ -7822,16 +7909,264 @@ turkfm.320 = { #
 	}
 	
 	option = {
-		name = turkfm.320.a
+		name = turkfm.321.a
 		default_option = yes
+		custom_tooltip = turkfm_no_effects
+	}
+
+}
+
+turkfm.322 = { # Rebel Country Takes Up Arms!
+	type = country_event
+	placement = root
+	
+	title = turkfm.322.t
+	desc = turkfm.322.d
+	flavor = turkfm.322.f
+	
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = turkfm_crisis_var
+		global_var:turkfm_crisis_var >= 30
+		any_scope_state = {
+			has_modifier = modifier_turkfm_race_riots
+		}
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			NOT = {
+				has_global_variable = turkfm_separatism_phase_var
+			}
+			global_var:turkfm_separatism_phase_var != 5 # Crisis
+		}
+	}
+	
+	cooldown = {
+		months = 3
+	}
+	
+	immediate = {
+		turkfm_create_rebellion_effect = yes
+		random_country = {
+			limit = {
+				has_variable = turkfm_rebellion_tag_tracker
+			}
+			save_scope_as = turkfm_rebellion_scope
+		}
+		scope:turkfm_rebellion_scope = {
+			remove_variable = turkfm_rebellion_tag_tracker
+			set_variable = turkfm_crisis_attacker
+		}
+		every_country = {
+			limit = {
+				has_diplomatic_relevance = root
+			}
+			create_bidirectional_truce = {
+				country = scope:turkfm_rebellion_scope
+				months = 60
+			}
+		}
+		create_bidirectional_truce = {
+			country = scope:turkfm_rebellion_scope
+			months = 60
+		}
 	}
 	
 	option = {
-		name = turkfm.320.b
+		name = turkfm.322.a
+		default_option = yes
+		custom_tooltip = turkfm_crisis_rebellion_tt
+	}
+
+}
+
+turkfm.323 = { # Subject Country Rebels!
+	orphan = yes
+}
+
+turkfm.324 = { # A Chance at Deconfliction (Third Party Event)
+	type = country_event
+	placement = scope:ottoman_scope
+	
+	title = turkfm.324.t
+	desc = turkfm.324.d
+	flavor = turkfm.324.f
+	
+	event_image = {
+		video = "ep1_clandestine_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = turkfm_crisis_var
+		global_var:turkfm_crisis_var >= 30
+		global_var:turkfm_crisis_var < 90
+		country_rank >= rank_value:great_power
+		turkfm_crisis_deconfliction_trigger = yes
+	}
+	
+	cancellation_trigger = {
+		OR = {
+			NOT = {
+				has_global_variable = turkfm_separatism_phase_var
+			}
+			global_var:turkfm_separatism_phase_var != 5 # Crisis
+		}
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = { # Attempt Deconfliction
+		name = turkfm.324.a
+		default_option = yes
+		custom_tooltip = turkfm.324.a.tt
+		if = {
+			limit = {
+				c:GBR ?= this
+			}
+			set_global_variable = {
+				name = turkfm_deconfliction_var
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				c:FRA ?= this
+			}
+			set_global_variable = {
+				name = turkfm_deconfliction_var
+				value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				c:RUS ?= this
+			}
+			set_global_variable = {
+				name = turkfm_deconfliction_var
+				value = 3
+			}
+		}
+		c:TUR = {
+			trigger_event = {
+				id = turkfm.325 # A Chance at Deconfliction (Ottoman Event)
+			}
+		}
+	}
+	
+	option = { # Continue into the Fight
+		name = turkfm.324.b
+		custom_tooltip = turkfm.324.b.tt
+	}
+
+}
+
+turkfm.325 = { # A Chance at Deconfliction (Ottoman Event)
+	type = country_event
+	placement = scope:turkfm_deconfliction_scope
+	
+	title = turkfm.325.t
+	desc = turkfm.325.d
+	flavor = turkfm.325.f
+	
+	event_image = {
+		video = "ep1_clandestine_meeting"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.324
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = turkfm_deconfliction_var
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				global_var:turkfm_deconfliction_var = 1
+			}
+			c:GBR ?= {
+				save_scope_as = turkfm_deconfliction_scope
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_deconfliction_var = 2
+			}
+			c:FRA ?= {
+				save_scope_as = turkfm_deconfliction_scope
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:turkfm_deconfliction_var = 3
+			}
+			c:RUS ?= {
+				save_scope_as = turkfm_deconfliction_scope
+			}
+		}
 	}
 	
 	option = {
-		name = turkfm.320.c
+		name = turkfm.325.a
+		default_option = yes
+		custom_tooltip = {
+			text = turkfm_crisis_deconfliction_tt
+			scope:turkfm_deconfliction_scope = {
+				remove_variable = turkfm_crisis_attacker
+				set_variable = turkfm_crisis_deconflicted
+			}
+		}
+		change_relations = {
+			country = scope:turkfm_deconfliction_scope
+			value = 15
+		}
+	}
+	
+	option = {
+		name = turkfm.325.b
+		change_relations = {
+			country = scope:turkfm_deconfliction_scope
+			value = -15
+		}
 	}
 
 }

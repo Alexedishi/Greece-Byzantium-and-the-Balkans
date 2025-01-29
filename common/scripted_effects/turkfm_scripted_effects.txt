@@ -538,6 +538,10 @@ turkfm_initialize_tension_effect = {
 		name = turkfm_crisis_counter_var
 		value = 0
 	}
+	set_global_variable = {
+		name = turkfm_congress_counter_var
+		value = 0
+	}
 	set_variable = {
 		name = turkfm_hellene_loyalists_var
 		value = 0
@@ -3032,6 +3036,9 @@ turkfm_crisis_weekly_effect = {
 	if = {
 		limit = {
 			has_global_variable = turkfm_crisis_var
+			NOT = {
+				has_global_variable = turkfm_crisis_launched
+			}
 		}
 		if = {
 			limit = {
@@ -3059,7 +3066,6 @@ turkfm_crisis_weekly_effect = {
 			scope:turkfm_crisis_leader_scope = {
 				set_variable = turkfm_crisis_leader
 			}
-				
 			set_global_variable = {
 				name = turkfm_crisis_leader_var
 				value = scope:turkfm_crisis_leader_scope
@@ -3074,6 +3080,86 @@ turkfm_crisis_weekly_effect = {
 			value = turkfm_crisis_progress_value
 		}
 	}
+}
+
+turkfm_build_crisis_effect = {
+	
+	remove_global_variable = turkfm_crisis_var
+	remove_global_variable = turkfm_crisis_progress_var
+	set_global_variable = turkfm_crisis_launched
+}
+
+turkfm_crisis_armistice_effect = {
+	set_global_variable = turkfm_congress_var
+	if = {
+		limit = {
+			global_var:turkfm_congress_counter_var = 0 # special hardcoding for the Great Eastern Crisis
+		}
+		c:PRU ?= {
+			save_scope_as = prussia_scope
+		}
+		if = {
+			limit = {
+				exists = scope:prussia_scope
+			}
+			scope:prussia_scope = {
+				set_variable = turkfm_congress_host
+			}
+		}
+		else = {
+			random_country = {
+				limit = {
+					country_rank >= rank_value:great_power
+					NOR = {
+						has_variable = turkfm_crisis_leader
+						has_variable = turkfm_crisis_target
+					}
+				}
+				set_variable = turkfm_congress_host
+			}
+		}
+	}
+	else = {
+		random_country = {
+			limit = {
+				turkfm_balkans_party_trigger = yes
+				NOT = {
+					has_variable = turkfm_crisis_leader
+				}
+			}
+			set_variable = turkfm_armistice_host_var
+		}
+		random_country = {
+			limit = {
+				country_rank >= rank_value:great_power
+				NOR = {
+					has_variable = turkfm_crisis_leader
+					has_variable = turkfm_crisis_target
+				}
+			}
+			set_variable = turkfm_congress_host
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_congress_host
+		}
+		save_scope_as = turkfm_congress_host_scope
+	}
+	set_global_variable = {
+		name = turkfm_congress_host_var
+		value = scope:turkfm_congress_host_scope
+	}
+}
+
+turkfm_cleanup_congress_effect = {
+	remove_global_variable = turkfm_congress_var
+	remove_global_variable = turkfm_congress_host_var
+	remove_variable = turkfm_crisis_leader
+	remove_variable = turkfm_crisis_target
+	remove_variable = turkfm_crisis_attacker
+	remove_variable = turkfm_crisis_defender
+	remove_variable = turkfm_congress_host
 }
 
 #### ALBANIAN PIRACY EFFECTS ####

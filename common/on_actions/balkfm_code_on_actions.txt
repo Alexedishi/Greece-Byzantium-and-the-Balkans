@@ -485,39 +485,45 @@ on_wargoal_enforced = {
 
 turkfm_wargoal_enforced_1 = { # From TUR, in the case of Ottoman victory
 	trigger = {
+		has_global_variable = turkfm_crisis_launched
 		has_variable = turkfm_crisis_target
 		scope:target = {
-			has_variable = turkfm_crisis_initiator
-		}
-		NOT = {
-			has_global_variable = turkfm_crisis_enforced
+			has_variable = turkfm_crisis_leader
 		}
 	}
 	effect = {
-		set_global_variable = turkfm_crisis_enforced
+		remove_global_variable = turkfm_crisis_launched
 		every_country = {
+			limit = {
+				turkfm_crisis_participant_trigger = yes
+			}
 			trigger_event = {
-				id = 
+				id = turkfm.328 # The Porte Triumphant
 			}
 		}
-		turkfm_crisis_wargoal_effect = yes
+		turkfm_cleanup_congress_effect = yes # skip the Congress, transition to Stable
 	}
 }
 
 turkfm_wargoal_enforced_2 = { # From Crisis initiator, in the case of Ottoman defeat
 	trigger = {
-		has_variable = turkfm_crisis_initiator
+		has_global_variable = turkfm_crisis_launched
+		has_variable = turkfm_crisis_leader
 		scope:target = {
 			has_variable = turkfm_crisis_target
 		}
 	}
 	effect = {
-		c:TUR = {
+		remove_global_variable = turkfm_crisis_launched
+		every_country = {
+			limit = {
+				turkfm_crisis_participant_trigger = yes
+			}
 			trigger_event = {
-				id =
+				id = turkfm.329 # The Treaty of X
 			}
 		}
-		turkfm_crisis_wargoal_effect = yes
+		turkfm_crisis_armistice_effect = yes
 	}
 }
 
@@ -545,7 +551,7 @@ eocfm_wargoal_enforced_1 = { # From the initiator, in the case of crusade succes
 eocfm_wargoal_enforced_2 = { # From the target, in the case of crusade failure
 	trigger = {
 		has_variable = eocfm_crusade_target
-		any_country = { # scope:initiator and scope:actor aren't available here, pdx pls
+		scope:target = {
 			has_variable = eocfm_crusade_initiator
 		}
 	}
