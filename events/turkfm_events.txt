@@ -5940,9 +5940,9 @@ turkfm.249 = { # Great Power Intervenes in Riots
 			save_scope_as = turkfm_tension_country_scope
 		}
 		random_scope_state = {
-			limit = {
-				has_variable = turkfm_riot_intervention_var
-			}
+#			limit = {
+#				has_variable = turkfm_riot_intervention_var
+#			}
 			save_scope_as = turkfm_tension_state_scope
 		}
 	}
@@ -7590,13 +7590,13 @@ turkfm.310 = { # Brigands Raid Turkish Lands
 		name = turkfm.310.a
 		default_option = yes
 		add_modifier = {
-			name = modifier_turkfm_brigandage_reparations
+			name = modifier_turkfm_brigandage_reparations_negative
 			months = normal_modifier_time
 			multiplier = global_var:turkfm_global_reference_var
 		}
 		c:TUR = {
 			add_modifier = {
-				name = modifier_turkfm_brigandage_reparations
+				name = modifier_turkfm_brigandage_reparations_positive
 				months = normal_modifier_time
 				multiplier = global_var:turkfm_global_reference_var
 			}
@@ -7775,6 +7775,9 @@ turkfm.312 = { # Diplomat Offers Mediation
 			trigger_event = {
 				id = turkfm.242 # Great Power Mediates Local Conflict
 			}
+		}
+		scope:turkfm_tension_state_scope = {
+			set_variable = turkfm_intervention_var
 		}
 	}
 	
