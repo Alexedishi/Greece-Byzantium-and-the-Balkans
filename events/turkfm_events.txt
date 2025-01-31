@@ -201,17 +201,17 @@ namespace = turkfm
 #	323 - ##Subject Country Rebels!
 #	324 - A Chance at Deconfliction (Third Party Event)
 #	325 - A Chance at Deconfliction (Ottoman Event)
-#	326 - ##Balkan Crisis Superevent <- Creates DP
-#	327 - ##Balkan Crisis Superevent <- Cosmetic Event
-#	328 - ##The Porte Triumphant (Ottoman Victory)
-#	329 - ##The Treaty of X (Ottoman Defeat)
+#	326 - Balkan Crisis Superevent <- Creates DP
+#	327 - Balkan Crisis Superevent <- Participant Event
+#	328 - The Porte Triumphant (Ottoman Victory)
+#	329 - The Treaty of X (Ottoman Defeat)
 
-#330-339 - International Congress Narrative Events
-#	330 - ##The Congress of X
-#	331 - ##The Issue of X
-#	332 - ##The Convention of X
-#	333 - ##The X Delegation
-#	334 - ##
+#330-339 - International Congress Events
+#	330 - ##The Congress of X <- Sets Up Global Variable System
+#	331 - ##The Congress of X <- Sets Up Local Variables
+#	332 - ##The Issue of X
+#	333 - ##The Convention of X
+#	334 - ##The X Delegation
 #	335 - ##
 #	336 - ##
 #	337 - ##
@@ -1353,7 +1353,7 @@ turkfm.205 = { # Riots Break Out in State
 	
 	trigger = {
 		turkfm_hostility_events_trigger = yes
-		turkfm_riot_counter_value < turkfm_riot_potential_value
+		var:turkfm_riot_current_tally_var < turkfm_riot_potential_value
 		NOT = {
 			has_variable = turkfm_riot_cooldown_var
 		}
@@ -1693,7 +1693,11 @@ turkfm.205 = { # Riots Break Out in State
 			add_modifier = modifier_turkfm_race_riots
 		}
 		change_global_variable = {
-			name = turkfm_total_riots_var
+			name = turkfm_riot_counter_var
+			add = 1
+		}
+		change_variable = {
+			name = turkfm_riot_current_tally_var
 			add = 1
 		}
 		if = {
@@ -1780,7 +1784,7 @@ turkfm.206 = { # Balkan Country Rebellion
 	
 	trigger = {
 		NOT = {
-			has_global_variable = turkfm_crisis_var
+			global_var:turkfm_separatism_phase_var ?= 5 # Crisis
 		}
 		var:turkfm_riot_var >= 200
 	}
@@ -8170,6 +8174,348 @@ turkfm.325 = { # A Chance at Deconfliction (Ottoman Event)
 			country = scope:turkfm_deconfliction_scope
 			value = -15
 		}
+	}
+
+}
+
+turkfm.326 = { # Balkan Crisis Superevent <- Creates DP
+	type = country_event
+	placement = root
+	
+	title = turkfm.326.t
+	desc = turkfm.326.d
+	flavor = turkfm.326.f
+	
+	event_image = {
+		video = "turkfm_balkan_crisis"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		has_global_variable = turkfm_crisis_var
+		global_var:turkfm_crisis_var >= 100
+	}
+	
+	immediate = {
+		random_country = {	
+			limit = {
+				has_variable = turkfm_crisis_leader
+			}
+			if = {
+				limit = {
+					has_truce_with = c:TUR
+				}
+				end_truce = c:TUR
+			}
+			save_scope_as = turkfm_crisis_leader_scope
+		}
+		scope:turkfm_crisis_leader_scope = {
+			create_diplomatic_play = {
+				type = dp_turkfm_crisis
+				target_country = c:TUR
+				war = yes
+			}
+		}
+		remove_global_variable = turkfm_crisis_var
+		remove_global_variable = turkfm_crisis_progress_var
+		set_global_variable = turkfm_crisis_launched
+		every_country = {
+			limit = {
+				OR = {
+					has_variable = turkfm_crisis_attacker
+					has_variable = turkfm_crisis_defender
+				}
+				has_truce_with = c:TUR
+			}
+			end_truce = c:TUR
+			trigger_event = {
+				id = turkfm.327 # Balkan Crisis Superevent <- Participant Event
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.326.a
+		default_option = yes
+	}
+
+}
+
+turkfm.327 = { # Balkan Crisis Superevent <- Participant Event
+	type = country_event
+	placement = root
+	
+	title = turkfm.327.t
+	desc = turkfm.327.d
+	flavor = turkfm.327.f
+	
+	event_image = {
+		video = "turkfm_balkan_crisis"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.326
+	}
+	
+	immediate = {
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_turkfm_crisis
+			}
+			save_scope_as = turkfm_crisis_scope
+		}
+		if = {
+			limit = {
+				has_variable = turkfm_crisis_attacker
+				NOT = {
+					has_variable = turkfm_crisis_leader
+				}
+			}
+			scope:turkfm_crisis_scope = {
+				add_initiator_backers = { root }
+				add_diplomatic_play_war_support  = {
+					target = root
+					value = 100
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_crisis_defender
+			}
+			scope:turkfm_crisis_scope = {
+				add_target_backers = { root }
+				add_diplomatic_play_war_support = {
+					target = root
+					value = 100
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.327.a
+		default_option = yes
+	}
+
+}
+
+turkfm.328 = { # The Porte Triumphant (Ottoman Victory)
+	type = country_event
+	placement = root
+	
+	title = turkfm.328.t
+	desc = turkfm.328.d
+	flavor = turkfm.328.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm_wargoal_enforced_1
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+	}
+	
+	option = { # For TUR
+		name = turkfm.328.a
+		default_option = yes
+		trigger = {
+			c:TUR = this
+		}
+		add_modifier = {
+			name = modifier_turkfm_won_crisis
+			months = normal_modifier_time
+		}
+		turkfm_cleanup_congress_effect = yes
+	}
+	
+	option = { # For Defenders
+		name = turkfm.328.b
+		trigger = {
+			c:TUR != this
+			has_variable = turkfm_crisis_defender
+		}
+		add_modifier = {
+			name = modifier_turkfm_protected_balance
+			months = normal_modifier_time
+		}
+		turkfm_cleanup_congress_effect = yes
+	}
+	
+	option = { # For Attackers
+		name = turkfm.328.b
+		trigger = {
+			c:TUR != this
+			has_variable = turkfm_crisis_attacker
+		}
+		custom_tooltip = {
+			text = turkfm_no_effects
+			turkfm_cleanup_congress_effect = yes
+		}
+	}
+	
+	option = { # For Deconflicted/Non-Participants
+		name = turkfm.328.c
+		trigger = {
+			NOR = {
+				c:TUR = this
+				has_variable = turkfm_crisis_attacker
+				has_variable = turkfm_crisis_defender
+			}
+		}
+		custom_tooltip = {
+			text = turkfm_no_effects
+			turkfm_cleanup_congress_effect = yes
+		}
+	}
+
+}
+
+turkfm.329 = { # The Treaty of X (Ottoman Defeat)
+	type = country_event
+	placement = scope:turkfm_armistice_host_scope
+	
+	title = turkfm.329.t
+	desc = turkfm.329.d
+	flavor = turkfm.329.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm_wargoal_enforced_2
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_armistice_host
+			}
+			save_scope_as = turkfm_armistice_host_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
+		if = {
+			limit = {
+				NOT = {
+					exists = turkfm_armistice_host_scope
+				}
+				scope:turkfm_congress_host_scope = {
+					save_scope_as = turkfm_armistice_host_scope
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.329.a
+		default_option = yes
+		trigger = {
+			c:TUR = this
+		}
+		add_modifier = {
+			name = modifier_turkfm_lost_crisis
+			months = normal_modifier_time
+		}
+		custom_tooltip = turkfm_congress_dispatch
+	}
+	
+	option = {
+		name = turkfm.329.b
+		trigger = {
+			NOT = {
+				c:TUR = this
+			}
+		}
+		custom_tooltip = turkfm_congress_dispatch
+	}
+
+}
+
+#### INTERNATIONAL CONGRESS EVENTS ####
+
+turkfm.330 = { # The Congress of X <- Sets Up Global Variable System
+	type = country_event
+	placement = root
+	
+	title = turkfm.330.t
+	desc = turkfm.330.d
+	flavor = turkfm.330.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by 
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.330.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.330.b
+	}
+	
+	after = {
 	}
 
 }

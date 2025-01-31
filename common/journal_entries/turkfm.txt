@@ -1034,6 +1034,9 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 			turkfm.290 # The X Hellenes Revolt
 #			turkfm.292 # The X Rhomaios Revolt
 #			turkfm.294 # The X Yugoslavs Revolt
+			turkfm.322 # Rebel Country Takes Up Arms!
+#			turkfm.323 # Subject Country Rebels!
+			turkfm.326 # Balkan Crisis Superevent
 		}
 		random_events = {
 			5 = turkfm.250 # Fortress in State Beseiged
@@ -1093,7 +1096,6 @@ je_turkfm_separatism_main = { # This is assigned to TUR
 #			5 = turkfm.246 # 
 #			5 = turkfm.247 # 
 #			5 = turkfm.248 # 
-#			5 = turkfm.249 # 
 		}
 		effect = {
 			turkfm_advance_tension_effect = yes
@@ -1162,6 +1164,10 @@ je_turkfm_separatism_riots = {
 		remove_variable = turkfm_riot_state_1_progress_var
 		remove_variable = turkfm_riot_state_2_progress_var
 		remove_variable = turkfm_riot_state_3_progress_var
+		set_variable = {
+			name = turkfm_riot_current_tally_var
+			value = 0
+		}
 	}
 	
 	invalid = {
@@ -1177,20 +1183,22 @@ je_turkfm_separatism_riots = {
 	}
 	
 	on_invalid = {
-		hidden_effect = {
-			every_scope_state = {
-				limit = {
-					has_modifier = modifier_turkfm_race_riots
-				}
-				remove_modifier = modifier_turkfm_race_riots
+		every_scope_state = {
+			limit = {
+				has_modifier = modifier_turkfm_race_riots
 			}
-			remove_variable = turkfm_riot_var
-			remove_variable = turkfm_riot_state_1_var
-			remove_variable = turkfm_riot_state_2_var
-			remove_variable = turkfm_riot_state_3_var
-			remove_variable = turkfm_riot_state_1_progress_var
-			remove_variable = turkfm_riot_state_2_progress_var
-			remove_variable = turkfm_riot_state_3_progress_var
+			remove_modifier = modifier_turkfm_race_riots
+		}
+		remove_variable = turkfm_riot_var
+		remove_variable = turkfm_riot_state_1_var
+		remove_variable = turkfm_riot_state_2_var
+		remove_variable = turkfm_riot_state_3_var
+		remove_variable = turkfm_riot_state_1_progress_var
+		remove_variable = turkfm_riot_state_2_progress_var
+		remove_variable = turkfm_riot_state_3_progress_var
+		set_variable = {
+			name = turkfm_riot_current_tally_var
+			value = 0
 		}
 	}
 	

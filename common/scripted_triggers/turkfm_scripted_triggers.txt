@@ -268,18 +268,24 @@ turkfm_can_deescalate_tension_trigger = {
 }
 
 turkfm_crisis_possible_trigger = {
-	global_var:turkfm_total_riots_var >= 5
+	global_var:turkfm_riot_counter_var>= 5
 	c:TUR ?= {
 		has_technology_researched = nationalism
 	}
 }
 
-turkfm_crisis_participant_trigger = {
+turkfm_crisis_participant_trigger = { # Excludes TUR
 	OR = {
-		has_variable = turkfm_crisis_leader
 		has_variable = turkfm_crisis_attacker
 		has_variable = turkfm_crisis_defender
-		has_variable = turkfm_crisis_target
+	}
+}
+
+turkfm_crisis_party_trigger = { # Excludes TUR
+	OR = {
+		has_variable = turkfm_crisis_attacker
+		has_variable = turkfm_crisis_defender
+		has_variable = turkfm_crisis_deconflicted
 	}
 }
 
