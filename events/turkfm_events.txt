@@ -7856,22 +7856,20 @@ turkfm.320 = { # A Crisis in Rumelia <- Sets Variables and Starts Warmup Chain
 	
 	immediate = {
 		turkfm_initialize_crisis_effect = yes
+		every_country = {	
+			limit = {
+				has_journal_entry = je_turkfm_eastern_question
+			}
+			trigger_event = {
+				id = turkfm.321 # A Crisis in Rumelia (Notify Country of Crisis)
+			}
+		}
 	}
 	
 	option = {
 		name = turkfm.310.a
 		default_option = yes
 		custom_tooltip = turkfm_no_effects
-		hidden_effect = {
-			every_country = {	
-				limit = {
-					has_journal_entry = je_turkfm_eastern_question
-				}
-				trigger_event = {
-					id = turkfm.321 # A Crisis in Rumelia (Notify Country of Crisis)
-				}
-			}
-		}
 	}
 
 }
@@ -7897,7 +7895,7 @@ turkfm.321 = { # A Crisis in Rumelia <- Notifies Other Countries of the Crisis P
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by turkfm.310
+		# triggered by turkfm.320
 	}
 	
 	cancellation_trigger = {

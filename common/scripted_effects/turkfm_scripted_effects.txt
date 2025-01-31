@@ -958,8 +958,7 @@ turkfm_check_phase_effect = {
 				}
 				c:TUR ?= {
 					trigger_event = {
-						id = turkfm.310 # A Crisis in Rumelia
-						days = 1
+						id = turkfm.320 # A Crisis in Rumelia
 					}
 				}
 				every_country = {
@@ -3152,6 +3151,212 @@ turkfm_crisis_weekly_effect = {
 			name = turkfm_crisis_progress_var
 			value = turkfm_crisis_progress_value
 		}
+	}
+}
+
+turkfm_stage_crisis_characters_effect = {
+# event_window_crisis has this layout, from top to bottom, attackers on the left & defenders on the right:
+# 1 4 <--attackers and defenders
+# 2 5 <--initiator and target
+# 3 6 <--attackers and defenders
+# you need to save each character scope into the variable "crisis_scope_(1-6)" which is read by the gui
+	# Saves country scopes for the localization
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_leader
+		}
+		save_scope_as = turkfm_crisis_leader_scope
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_target
+		}
+		save_scope_as = turkfm_crisis_target_scope
+	}
+
+	# First round of assignments
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_attacker
+			NOT = { has_variable = turkfm_crisis_leader }
+			country_rank >= rank_value:great_power
+		}
+		ruler = {
+			save_scope_as = crisis_scope_1
+		}
+	}		
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_leader
+		}
+		ruler = {
+			save_scope_as = crisis_scope_2
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_attacker
+			NOT = {
+				ruler = {
+					THIS = scope:crisis_scope_1
+					THIS = scope:crisis_scope_2
+				}
+			}
+		}
+		ruler = {
+			save_scope_as = crisis_scope_3
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_defender
+		}
+		ruler = {
+			save_scope_as = crisis_scope_4
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_target
+		}
+		ruler = {
+			save_scope_as = crisis_scope_5
+		}
+	}
+	random_country = {
+		limit = {
+			has_variable = turkfm_crisis_defender
+			NOT = {
+				ruler = {
+					scope:crisis_scope_4 = this
+				}
+			}
+		}
+		ruler = { 
+			save_scope_as = crisis_scope_6
+		}
+	}
+	
+	# Second round checking for missing scopes
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_1
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_crisis_attacker
+				NOT = {
+					ruler = {
+						THIS = scope:crisis_scope_3 # There should be at least two minors involed in the crisis
+					}
+				}
+			}
+			ruler = {
+				save_scope_as = crisis_scope_1
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_4
+			}
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					any_scope_character = {
+						has_template = template_turkfm_hakki_ismail
+					}
+				}
+			}
+			c:TUR = {
+				random_scope_character = {
+					limit = {
+						has_template = template_turkfm_hakki_ismail
+					}
+					save_scope_as = crisis_scope_4
+				}
+			}
+		}
+		else = {
+			c:TUR = {
+				create_character = {
+					template = template_turkfm_hakki_ismail
+				}
+				random_character = {
+					limit = {
+						has_template = template_turkfm_hakki_ismail
+					}
+					save_scope_as = crisis_scope_4
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:crisis_scope_6
+			}
+		}
+		if = {
+			limit = {
+				c:TUR = {
+					any_scope_character = {
+						has_template = template_turkfm_nuri_osman
+					}
+				}
+			}
+			c:TUR = {
+				random_character = {
+					limit = {
+						has_template = template_turkfm_nuri_osman
+					}
+					save_scope_as = crisis_scope_6
+				}
+			}
+		}
+		else = {
+			c:TUR = {
+				create_character = {
+					template = template_turkfm_nuri_osman
+				}
+				random_character = {
+					limit = {
+						has_template = template_turkfm_nuri_osman
+					}
+					save_scope_as = crisis_scope_6
+				}
+			}
+		}
+	}
+
+	# Assigning scopes to variables so they can be accessed by the gui
+	set_variable = {
+		name = crisis_character_1
+		value = scope:crisis_scope_1
+	}
+	set_variable = {
+		name = crisis_character_2
+		value = scope:crisis_scope_2
+	}
+	set_variable = {
+		name = crisis_character_3
+		value = scope:crisis_scope_3
+	}
+	set_variable = {
+		name = crisis_character_4
+		value = scope:crisis_scope_4
+	}
+	set_variable = {
+		name = crisis_character_5
+		value = scope:crisis_scope_5
+	}
+	set_variable = {
+		name = crisis_character_6
+		value = scope:crisis_scope_6
 	}
 }
 
