@@ -1298,6 +1298,14 @@ je_turkfm_eastern_question = {
 		}
 	}
 	
+	on_monthly_pulse = {
+		random_events = [
+			chance_of_no_event = 95
+			turkfm.312 # Diplomat Offers Mediation
+			turkfm.324 # A Chance at Deconfliction
+		}
+	}
+	
 	status_desc = {
 		triggered_desc = {
 			desc = turkfm_tension_status
@@ -1311,6 +1319,33 @@ je_turkfm_eastern_question = {
 				has_global_variable = turkfm_crisis_var
 			}
 		}
+	}
+	
+	weight = 1000
+	
+}
+
+je_turkfm_international_congress = {
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	group = je_group_turkfm_eastern_question
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+		custom_tooltip = je_turkfm_international_congress_complete
+	}
+	
+	on_complete = {
+	}
+	
+	invalid = {
+	}
+	
+	on_invalid = {
 	}
 	
 	weight = 1000

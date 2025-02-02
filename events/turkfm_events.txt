@@ -207,14 +207,14 @@ namespace = turkfm
 #	329 - The Treaty of X (Ottoman Defeat)
 
 #330-339 - International Congress Events
-#	330 - ##The Congress of X <- Sets Up Global Variable System
+#	330 - ##Congress System Monitor
 #	331 - ##The Congress of X <- Sets Up Local Variables
 #	332 - ##The Issue of X
 #	333 - ##The Convention of X
 #	334 - ##The X Delegation
 #	335 - ##
 #	336 - ##
-#	337 - ##
+#	337 - ##Resolution on the X Matter
 #	338 - The Treaty of X <- Cleans Up Crisis/Congress Variables & Transitions to Stable
 #	339 - The Treaty of X <- Cosmetic Event
 
@@ -8023,18 +8023,20 @@ turkfm.324 = { # A Chance at Deconfliction (Third Party Event)
 	
 	trigger = {
 		has_global_variable = turkfm_crisis_var
+		country_rank >= rank_value:great_power
+		NOT = {
+			has_global_variable = turkfm_deconfliction_var
+		}
 		global_var:turkfm_crisis_var >= 30
 		global_var:turkfm_crisis_var < 90
-		country_rank >= rank_value:great_power
 		turkfm_crisis_deconfliction_trigger = yes
 	}
 	
 	cancellation_trigger = {
-		OR = {
-			NOT = {
-				has_global_variable = turkfm_separatism_phase_var
-			}
+		NOR = {
 			global_var:turkfm_separatism_phase_var != 5 # Crisis
+			has_global_variable = turkfm_separatism_phase_var
+			has_variable = turkfm_crisis_attacker
 		}
 	}
 	
@@ -8164,6 +8166,7 @@ turkfm.325 = { # A Chance at Deconfliction (Ottoman Event)
 			country = scope:turkfm_deconfliction_scope
 			value = 15
 		}
+		remove_global_variable = turkfm_deconfliction_var
 	}
 	
 	option = {
@@ -8172,6 +8175,7 @@ turkfm.325 = { # A Chance at Deconfliction (Ottoman Event)
 			country = scope:turkfm_deconfliction_scope
 			value = -15
 		}
+		remove_global_variable = turkfm_deconfliction_var
 	}
 
 }
@@ -8460,30 +8464,130 @@ turkfm.329 = { # The Treaty of X (Ottoman Defeat)
 			name = modifier_turkfm_lost_crisis
 			months = normal_modifier_time
 		}
-		custom_tooltip = turkfm_congress_dispatch
+		trigger_event = {
+			id = turkfm.331 # The Congress of X
+			days = 30
+		}
 	}
 	
 	option = {
 		name = turkfm.329.b
 		trigger = {
-			NOT = {
-				c:TUR = this
-			}
+			c:TUR != this
 		}
 		custom_tooltip = turkfm_congress_dispatch
+		trigger_event = {
+			id = turkfm.331 # The Congress of X
+			days = 30
+		}
+	}
+	
+	option = {
+		name = turkfm.329.c
+		trigger = {
+			c:TUR != this
+			has_variable = turkfm_crisis_deconflicted
+		}
+		custom_tooltip = {
+			text = turkfm_congress_refusal
+			remove_variable = turkfm_crisis_deconflicted
+		}
 	}
 
 }
 
 #### INTERNATIONAL CONGRESS EVENTS ####
 
-turkfm.330 = { # The Congress of X <- Sets Up Global Variable System
+turkfm.330 = { # Congress System Monitor
+	type = country_event
+	hidden = yes
+	
+	trigger = {
+		has_global_variable = turkfm_congress_var
+		NOT = {
+			has_global_variable = turkfm_congress_issue_var
+		}
+		any_country = {
+			OR = {
+				has_variable = turkfm_crisis_attacker
+				has_variable = turkfm_crisis_deconflicted
+			}
+		}
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_global_variable = turkfm_congress_var
+		}
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				OR = {
+					has_variable = turkfm_crisis_attacker
+					has_variable = turkfm_crisis_deconflicted
+				}
+			}
+			save_scope_as = turkfm_congress_issue_scope
+		}
+		set_global_variable = {
+			name = turkfm_congress_issue_var
+			value = scope:turkfm_congress_issue_scope
+		}
+		if = {
+			limit = {
+				scope:turkfm_congress_issue_scope = {
+					has_variable = turkfm_crisis_attacker
+				}
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_international_congress
+				}
+				trigger_event = {
+					id = turkfm.332 # The Issue of X
+				}
+				trigger_event = {
+					id = turkfm.337 # Resolution on the X Matter
+					days = 45
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:turkfm_congress_issue_scope = {
+					has_variable = turkfm_crisis_attacker
+				}
+			}
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_international_congress
+				}
+				trigger_event = {
+					id = turkfm.334 # The Convention of X
+				}
+				trigger_event = {
+					id = turkfm.337 # Resolution on the X Matter
+					days = 45
+				}
+			}
+		}
+		else = {
+			remove_global_variable = turkfm_congress_issue_var
+		}
+	}
+	
+}
+
+
+turkfm.331 = { # Congress of X
 	type = country_event
 	placement = root
 	
-	title = turkfm.330.t
-	desc = turkfm.330.d
-	flavor = turkfm.330.f
+	title = turkfm.331.t
+	desc = turkfm.331.d
+	flavor = turkfm.331.f
 	
 	event_image = {
 		video = "ep1_power_blocs"
@@ -8498,7 +8602,7 @@ turkfm.330 = { # The Congress of X <- Sets Up Global Variable System
 	dlc = dlc_grefm
 	
 	trigger = {
-		# triggered by 
+		# triggered by turkfm.329
 	}
 	
 	immediate = {
@@ -8507,16 +8611,12 @@ turkfm.330 = { # The Congress of X <- Sets Up Global Variable System
 	option = {
 		name = turkfm.330.a
 		default_option = yes
-	}
-	
-	option = {
-		name = turkfm.330.b
-	}
-	
-	after = {
+		
 	}
 
 }
+
+
 
 ########################################################
 ##  TURK4  TURKISH HISTORICAL FLAVOR  Events 400-499  ##
