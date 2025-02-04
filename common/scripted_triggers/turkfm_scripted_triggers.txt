@@ -255,7 +255,12 @@ turkfm_can_escalate_tension_trigger = {
 			global_var:turkfm_separatism_phase_var ?= 3 # Hostility
 			turkfm_crisis_possible_trigger = yes
 		}
-		global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+		AND = {
+			global_var:turkfm_separatism_phase_var ?= 4 # Deconfliction
+			NOT = {
+				has_global_variable = turkfm_congress_var
+			}
+		}
 	}
 }
 
@@ -268,7 +273,7 @@ turkfm_can_deescalate_tension_trigger = {
 }
 
 turkfm_crisis_possible_trigger = {
-	global_var:turkfm_riot_counter_var>= 5
+	global_var:turkfm_riot_counter_var >= 5
 	c:TUR ?= {
 		has_technology_researched = nationalism
 	}

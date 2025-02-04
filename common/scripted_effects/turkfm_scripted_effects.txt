@@ -1106,6 +1106,34 @@ turkfm_force_stable_effect = {
 	}
 }
 
+turkfm_force_deconfliction_effect = {
+	set_global_variable = {
+		name = turkfm_separatism_phase_var
+		value = 4 # Deconfliction
+	}
+	every_country = {
+		limit = {
+			turkfm_balkans_party_trigger = yes
+		}
+		post_notification = notification_turkfm_transition_deconfliction
+	}
+	set_global_variable = {
+		name = turkfm_separatism_transition_var
+		value = 0
+	}
+	set_global_variable = {
+		name = turkfm_escalation_var
+		value = 0
+	}
+	set_global_variable = {
+		name = turkfm_deescalation_var
+		value = 0
+	}
+	c:TUR ?= {
+		turkfm_check_modifiers_effect = yes
+	}
+}
+
 turkfm_tension_cooldown_effect = {
 	if = {
 		limit = {
@@ -3434,6 +3462,7 @@ turkfm_crisis_armistice_effect = {
 		trigger_event = {
 			id = turkfm.329 # The Treaty of X
 		}
+		turkfm_force_deconfliction_effect = yes
 	}
 }
 

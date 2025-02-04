@@ -207,16 +207,16 @@ namespace = turkfm
 #	329 - The Treaty of X (Ottoman Defeat)
 
 #330-339 - International Congress Events
-#	330 - ##Congress System Monitor [TECH]
-#	331 - ##The Congress of X <- Sets Up Local Variables
+#	330 - Congress System Monitor [TECH]
+#	331 - ##The Congress of X
 #	332 - ##The Issue of X
-#	333 - ##The Convention of X
-#	334 - ##The X Delegation
+#	333 - ##The X Delegation
+#	334 - ##
 #	335 - ##
 #	336 - ##
-#	337 - ##Resolution on the X Matter
-#	338 - The Treaty of X <- Cleans Up Crisis/Congress Variables & Transitions to Stable
-#	339 - The Treaty of X <- Cosmetic Event
+#	337 - ##The Convention of X
+#	338 - ##Resolution on the X Matter
+#	339 - The Treaty of X
 
 ##  #TURK4  OTTOMAN NATIONAL REVIVALS  Events 400-499  ##
 # This section is being created to take pressure off of the event structure in BALKFM
@@ -8505,7 +8505,7 @@ turkfm.330 = { # Congress System Monitor
 	trigger = {
 		has_global_variable = turkfm_congress_var
 		NOT = {
-			has_global_variable = turkfm_congress_issue_var
+			has_global_variable = turkfm_congress_cooldown_var
 		}
 		any_country = {
 			OR = {
@@ -8517,11 +8517,17 @@ turkfm.330 = { # Congress System Monitor
 	
 	cancellation_trigger = {
 		NOT = {
-			has_global_variable = turkfm_congress_var
+			has_journal_entry = je_turkfm_international_congress
 		}
 	}
 	
 	immediate = {
+		every_country = {
+			limit = {
+				has_variable = turkfm_congress_issue_var
+			}
+			remove_variable = turkfm_congress_issue_var
+		}
 		random_country = {
 			limit = {
 				OR = {
@@ -8530,51 +8536,63 @@ turkfm.330 = { # Congress System Monitor
 				}
 			}
 			save_scope_as = turkfm_congress_issue_scope
-		}
-		set_global_variable = {
-			name = turkfm_congress_issue_var
-			value = scope:turkfm_congress_issue_scope
+			set_variable = turkfm_congress_issue_var
 		}
 		if = {
-			limit = {
-				scope:turkfm_congress_issue_scope = {
-					has_variable = turkfm_crisis_attacker
-				}
+			limit = {	
+				exists = scope:turkfm_congress_issue_scope
 			}
-			every_country = {
+			set_global_variable = {
+				name = turkfm_congress_cooldown_var
+				days = 45
+			}
+			if = {
 				limit = {
-					has_journal_entry = je_turkfm_international_congress
+					scope:turkfm_congress_issue_scope = {
+						has_variable = turkfm_crisis_attacker
+					}
 				}
-				trigger_event = {
-					id = turkfm.332 # The Issue of X
-				}
-				trigger_event = {
-					id = turkfm.337 # Resolution on the X Matter
-					days = 45
+				every_country = {
+					limit = {
+						has_journal_entry = je_turkfm_international_congress
+					}
+					trigger_event = {
+						id = turkfm.332 # The Issue of X
+					}
+					trigger_event = {
+						id = turkfm.338 # Resolution on the X Matter
+						days = 45
+					}
 				}
 			}
-		}
-		else_if = {
-			limit = {
-				scope:turkfm_congress_issue_scope = {
-					has_variable = turkfm_crisis_attacker
-				}
-			}
-			every_country = {
+			else_if = {
 				limit = {
-					has_journal_entry = je_turkfm_international_congress
+					scope:turkfm_congress_issue_scope = {
+						has_variable = turkfm_crisis_attacker
+					}
 				}
-				trigger_event = {
-					id = turkfm.334 # The Convention of X
-				}
-				trigger_event = {
-					id = turkfm.337 # Resolution on the X Matter
-					days = 45
+				every_country = {
+					limit = {
+						has_journal_entry = je_turkfm_international_congress
+					}
+					trigger_event = {
+						id = turkfm.337 # The Convention of X
+					}
 				}
 			}
 		}
 		else = {
-			remove_global_variable = turkfm_congress_issue_var
+			every_country = {
+				limit = {
+					has_journal_entry = je_turkfm_international_congress
+				}
+				trigger_event = {
+					id = turkfm.339 # The Treaty of X
+				}
+			}
+			remove_global_variable = turkfm_congress_cooldown_var
+			remove_global_variable = turkfm_congress_var
+			turkfm_force_deconfliction_effect = yes
 		}
 	}
 	
@@ -8605,18 +8623,188 @@ turkfm.331 = { # Congress of X
 		# triggered by turkfm.329
 	}
 	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
 	immediate = {
+		c:
 	}
 	
 	option = {
 		name = turkfm.330.a
 		default_option = yes
-		
+		custom_tooltip = turkfm_congress_in_session
 	}
 
 }
 
+turkfm.332 = { # The Issue of X
+	type = country_event
+	placement = scope:turkfm_congress_host_scope
+	
+	title = turkfm.332.t
+	desc = turkfm.332.d
+	flavor = turkfm.332.f
+	
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.330
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.332.a
+		default_option = yes
+	}
+	
+	option = {
+		name = turkfm.332.b
+	}
 
+}
+
+turkfm.333 = { # The X Delegation
+	type = country_event
+	placement = scope:turkfm_congress_host_scope
+	
+	title = turkfm.333.t
+	desc = turkfm.333.d
+	flavor = turkfm.333.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.330
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.333.a
+		default_option = yes
+	}
+	
+	orphan = yes
+	
+}
+
+turkfm.338 = { # Resolution on the X Matter
+	type = country_event
+	placement = scope:turkfm_congress_host_scope
+	
+	title = turkfm.338.t
+	desc = turkfm.338.d
+	flavor = turkfm.338.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.330
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.338.a
+		default_option = yes
+	}
+
+turkfm.339 = { # The Treaty of X
+	type = country_event
+	placement = scope:turkfm_congress_host_scope
+	
+	title = turkfm.339.t
+	desc = turkfm.339.d
+	flavor = turkfm.339.f
+	
+	event_image = {
+		video = "ep1_power_blocs"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.330
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.339.a
+		default_option = yes
+		custom_tooltip = turkfm_no_effects
+	}
+	
+}
 
 ########################################################
 ##  TURK4  TURKISH HISTORICAL FLAVOR  Events 400-499  ##
