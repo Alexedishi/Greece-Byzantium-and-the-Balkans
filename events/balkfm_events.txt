@@ -12662,20 +12662,22 @@ balkfm.598 = { # The Bulgarian State
 	dlc = dlc_grefm
 	
 	trigger = {
-		always = no ## TODO re-enabled when the reworked EQ is added
-		NOT = { has_global_variable = balkfm_bulgaria_tag_switch_accepted }
-		NOT = { has_global_variable = balkfm_bulgaria_tag_switch_technical }
-		NOT = { has_variable = balkfm_bulgaria_tag_switch_offered }
+		has_global_variable = balkfm_bulgaria_congress_var
+		NOR = {
+			has_global_variable = turkfm_congress_var
+			has_global_variable = balkfm_bulgarian_switch_var
+			has_variable = balkfm_bulgarian_switch_offer
+		}
 		is_player = yes
-		has_diplomatic_relevance = c:BUL
 		c:BUL ?= {
 			is_ai = yes
 		}
+		has_diplomatic_relevance = c:BUL
 	}
 	
 	immediate = {
-		set_global_variable = balkfm_bulgaria_tag_switch_technical # this is in case we have multiple players
-		set_variable = balkfm_bulgaria_tag_switch_offered
+		set_global_variable = balkfm_bulgarian_switch_var # in case this is an MP game
+		set_variable = balkfm_bulgarian_switch_offer
 		c:BUL = {
 			save_scope_as = bulgaria_scope
 			ruler = {
@@ -12687,11 +12689,15 @@ balkfm.598 = { # The Bulgarian State
 	option = { # Do Nothing
 		name = balkfm.598.a
 		default_option = yes
-		remove_global_variable = balkfm_bulgaria_tag_switch_technical
+		custom_tooltip = {
+			text = turkfm_nothing_happens
+			remove_global_variable = balkfm_bulgaria_tag_switch_technical
+		}
 	}
 	
 	option = { # Play as BUL
 		name = balkfm.598.b
+		play_as = c:BUL
 		hidden_effect = {
 			if = {
 				limit = {
@@ -12705,9 +12711,14 @@ balkfm.598 = { # The Bulgarian State
 				}
 			}
 		}
-		set_global_variable = balkfm_bulgaria_tag_switch_accepted
-		remove_global_variable = balkfm_bulgaria_tag_switch_technical
-		play_as = c:BUL
+		remove_global_variable = balkfm_bulgaria_congress_var
+		remove_global_variable = balkfm_bulgarian_switch_var
+		every_country = {
+			limit = {
+				has_variable = balkfm_bulgarian_switch_offer
+			}
+			remove_variable = balkfm_bulgarian_switch_offer
+		}
 	}
 
 }

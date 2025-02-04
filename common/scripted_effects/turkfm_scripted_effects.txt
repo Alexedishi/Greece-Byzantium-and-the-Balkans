@@ -3467,18 +3467,101 @@ turkfm_crisis_armistice_effect = {
 }
 
 turkfm_crisis_san_stefano_effect = {
+	if = {
+		limit = { 
+			c:ERUM ?= {
+				has_variable = turkfm_crisis_attacker
+				NOT = {
+					owns_entire_state_region = STATE_NORTHERN_THRACE
+				}
+			}
+			has_state_in_state_region = STATE_NORTHERN_THRACE
+		}
+		c:TUR ?= {
+			every_scope_state = {
+				limit = {
+					state_region = s:STATE_NORTHERN_THRACE
+				}
+				set_state_owner = c:ERUM
+			}
+			create_diplomatic_pact = {
+				country = c:ERUM
+				type = protectorate
+			}
+		}
+	}
+	if = {
+		limit = {
+			c:BUL ?= {
+				has_variable = turkfm_crisis_attacker
+				has_variable = turkfm_crisis_upstart
+			}
+		}
+		c:TUR ?= {
+			every_scope_state = {
+				limit = {
+					OR = {
+						state_region = s:STATE_MACEDONIA
+						state_region = s:STATE_BULGARIA
+						state_region = s:STATE_DOBRUDJA
+						state_region = s:STATE_NORTHERN_THRACE
+					}
+				}
+			}
+			set_variable = turkfm_san_stefano_var
+			set_state_owner = c:BUL
+		}
+		c:BUL = {
+			remove_variable = turkfm_crisis_upstart
+		}
+		set_global_variable = balkfm_bulgaria_congress_var
+	}
+	if = {
+		limit = {
+			c:BOS ?= {
+				has_variable = turkfm_crisis_attacker
+				has_variable = turkfm_crisis_upstart
+			}
+		}
+		c:TUR = {
+			create_diplomatic_pact = {
+				country = c:BOS
+				type = protectorate
+			}
+		}
+		c:BOS = {
+			remove_variable = turkfm_crisis_upstart
+		}
+	}
+}
 
+turkfm_split_bulgaria_effect = {
+	create_country = {
+		tag = ERUM
+		origin = c:TUR
+		state = STATE_NORTHERN_THRACE.region_state:BUL
+	}
+	c:TUR ?= {
+		create_diplomatic_pact = {
+			country = c:ERUM
+			type = protectorate
+		}
+	}
 }
 
 turkfm_cleanup_congress_effect = {
 	remove_global_variable = turkfm_congress_var
 	remove_global_variable = turkfm_congress_host_var
+	remove_global_variable = turkfm_congress_cooldown_var
+	remove_global_variable = turkfm_congress_vote_var
 	remove_variable = turkfm_crisis_leader
 	remove_variable = turkfm_crisis_target
 	remove_variable = turkfm_crisis_attacker
 	remove_variable = turkfm_crisis_defender
 	remove_variable = turkfm_armistice_host
 	remove_variable = turkfm_congress_host
+	remove_variable = turkfm_congress_issue_var
+#	remove_variable = turkfm_congress_delegation
 }
 
 #### ALBANIAN PIRACY EFFECTS ####

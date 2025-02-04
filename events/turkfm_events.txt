@@ -8546,6 +8546,10 @@ turkfm.330 = { # Congress System Monitor
 				name = turkfm_congress_cooldown_var
 				days = 45
 			}
+			set_global_variable = {
+				name = turkfm_congress_vote_var
+				value = 0
+			}
 			if = {
 				limit = {
 					scope:turkfm_congress_issue_scope = {
@@ -8590,8 +8594,6 @@ turkfm.330 = { # Congress System Monitor
 					id = turkfm.339 # The Treaty of X
 				}
 			}
-			remove_global_variable = turkfm_congress_cooldown_var
-			remove_global_variable = turkfm_congress_var
 			turkfm_force_deconfliction_effect = yes
 		}
 	}
@@ -8601,7 +8603,7 @@ turkfm.330 = { # Congress System Monitor
 
 turkfm.331 = { # Congress of X
 	type = country_event
-	placement = root
+	placement = scope:turkfm_congress_host_scope
 	
 	title = turkfm.331.t
 	desc = turkfm.331.d
@@ -8630,7 +8632,15 @@ turkfm.331 = { # Congress of X
 	}
 	
 	immediate = {
-		c:
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
 	}
 	
 	option = {
@@ -8672,15 +8682,122 @@ turkfm.332 = { # The Issue of X
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_issue_var
+			}
+			save_scope_as = turkfm_congress_issue_scope
+		}
 	}
 	
 	option = {
 		name = turkfm.332.a
 		default_option = yes
+		trigger = {
+			NOT = {
+				has_diplomatic_pact = {
+					who = c:TUR
+					type = rivalry
+				}
+			}
+		}
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
+		custom_tooltip = turkfm_congress_support_tt
+		if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				add = 3
+			}
+			custom_tooltip = turkfm_congress_support_3
+		}
+		else_if = {
+			limit = {
+				OR = {
+					country_rank = rank_value:major_power
+					country_rank = rank_value:unrecognized_major_power
+				}
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				add = 2
+			}
+			custom_tooltip = turkfm_congress_support_2
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				add = 1
+			}
+			custom_tooltip = turkfm_congress_support_1
+		}
 	}
 	
 	option = {
 		name = turkfm.332.b
+		trigger = {
+			NOT = {
+				has_diplomatic_pact = {
+					who = c:TUR
+					type = alliance
+				}
+			}
+		}
+		highlighted_option = yes
+		show_as_unavailable = {
+			always = yes
+		}
+		custom_tooltip = turkfm_congress_oppose_tt
+		if = {
+			limit = {
+				country_rank >= rank_value:great_power
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				subtract = 3
+			}
+			custom_tooltip = turkfm_congress_oppose_3
+		}
+		else_if = {
+			limit = {
+				OR = {
+					country_rank = rank_value:major_power
+					country_rank = rank_value:unrecognized_major_power
+				}
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				subtract = 2
+			}
+			custom_tooltip = turkfm_congress_oppose_2
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			change_global_variable = {
+				name = turkfm_congress_vote_var
+				subtract = 1
+			}
+			custom_tooltip = turkfm_congress_oppose_1
+		}
 	}
 
 }
@@ -8716,6 +8833,21 @@ turkfm.333 = { # The X Delegation
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
+		random_country = {
+			limit = {
+#				has_variable = turkfm_congress_delegation
+			}
+			save_scope_as = turkfm_congress_delegation_scope
+		}
 	}
 	
 	option = {
@@ -8758,12 +8890,29 @@ turkfm.338 = { # Resolution on the X Matter
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_issue_var
+			}
+			save_scope_as = turkfm_congress_issue_scope
+		}
 	}
 	
 	option = {
 		name = turkfm.338.a
 		default_option = yes
 	}
+	
+}
 
 turkfm.339 = { # The Treaty of X
 	type = country_event
@@ -8796,6 +8945,15 @@ turkfm.339 = { # The Treaty of X
 	}
 	
 	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
 	}
 	
 	option = {
