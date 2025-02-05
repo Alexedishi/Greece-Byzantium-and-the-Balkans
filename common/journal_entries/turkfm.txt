@@ -1583,3 +1583,150 @@ je_turkfm_pirates_of_the_adriatic = {
 	weight = 1000
 	
 }
+
+####################
+# EGYPTIAN CONTENT #
+####################
+
+## //we'll get there
+
+##################
+# LIBYAN CONTENT #
+##################
+
+je_turkfm_tri_centralization = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_libya
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	modifiers_while_active = {
+		modifier_turkfm_decentralized_administration
+	}
+	
+	complete = {
+		NOR = {
+			has_law = law_type:law_hereditary_bureaucrats
+			has_law = law_type:law_peasant_levies
+			has_law = law_type:law_no_police
+		}
+		any_scope_building = {
+			is_building_type = building_university
+			NOR = {
+				has_active_production_method = pm_simple_organization
+				has_active_production_method = pm_religious_bureaucrats
+			}
+			occupancy > 0.9
+			level >= 10
+		}
+		any_scope_building = {
+			filter = {
+				is_building_type = building_government_administration
+			}
+			count = all
+			NOR = {
+				has_active_production_method = pm_simple_organization
+				has_active_production_method = pm_religious_bureaucrats
+			}
+			occupancy >= 0.9
+		}
+		bureaucracy >= 0 
+		approaching_bureaucracy_shortage = no
+		ig:ig_intelligentsia = {
+			is_marginal = no
+		}
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+	}
+	
+	on_fail = {
+	}
+	
+	invalid = {
+	}
+	
+	on_invalid = {
+	}
+
+	weight = 4000
+	
+}
+
+je_turkfm_tri_libyan_desert = {
+	icon = "gfx/interface/icons/event_icons/event_fez.dds"
+	
+	group = je_group_turkfm_libya
+	
+	should_be_pinned_by_default = yes
+	
+	is_shown_when_inactive = {
+		c:TRI ?= this
+		NOT = {
+			owns_entire_state_region = STATE_LIBYAN_DESERT
+		}
+	}
+	
+	possible = {
+		has_technology_researched = colonization
+	}
+	
+	immediate = {
+	}
+	
+	complete = {
+		owns_entire_state_region = STATE_TRIPOLI
+		owns_entire_state_region = STATE_LIBYA
+		owns_entire_state_region = STATE_LIBYAN_DESERT
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+		NOR = {
+			has_state_in_state_region = STATE_TRIPOLI
+			has_state_in_state_region = STATE_LIBYA
+			has_state_in_state_region = STATE_LIBYAN_DESERT
+		}
+	}
+	
+	on_fail = {
+	}
+
+	weight = 500
+	
+}
+
+je_turkfm_tri_senusiyya = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	group = je_group_turkfm_libya
+	
+	should_be_pinned_by_default = yes
+	
+	immediate = {
+	}
+	
+	complete = {
+	}
+	
+	on_complete = {
+	}
+	
+	fail = {
+	}
+	
+	on_fail = {
+	}
+
+	weight = 1000
+	
+}

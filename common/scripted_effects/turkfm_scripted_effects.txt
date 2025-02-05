@@ -37,6 +37,20 @@ turkfm_setup_egypt_effect = {
 }
 
 turkfm_setup_libya_effect = {
+	create_country = {
+		tag = LIB_KUF
+		origin = c:TRI
+		state = STATE_LIBYAN_DESERT.region_state:TRI
+	}
+	c:TRI = {
+		effect_starting_technology_tier_6_tech = yes
+		effect_native_conscription_5 = yes
+		effect_starting_politics_traditional = yes
+		activate_law = law_type:law_slave_trade
+	}
+	s:STATE_LIBYAN_DESERT = {
+		add_claim = root
+	}
 }
 
 #### SICK MAN EFFECTS ####
@@ -44,7 +58,7 @@ turkfm_setup_libya_effect = {
 turkfm_initialize_sick_man = {
 	set_variable = {
 		name = turkfm_sick_man_var
-		value = 2
+		value = 1
 	}
 	turkfm_validate_sick_man_effect = yes
 	add_journal_entry = {
