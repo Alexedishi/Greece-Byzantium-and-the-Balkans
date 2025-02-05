@@ -9443,9 +9443,9 @@ turkfm.905 = { # Treating with Corsairs
 	type = country_event
 	placement = root
 	
-	title = turkfm.919.t
-	desc = turkfm.919.d
-	flavor = turkfm.919.f
+	title = turkfm.905.t
+	desc = turkfm.905.d
+	flavor = turkfm.905.f
 	
 	event_image = {
 		video = "votp_gunboat_diplomacy"
@@ -9493,17 +9493,35 @@ turkfm.905 = { # Treating with Corsairs
 	option = {
 		name = turkfm.905.a
 		default_option = yes
+		add_modifier = {
+			name = modifier_turkfm_hired_pirates
+			months = long_modifier_time
+			is_decaying = yes
+		}
+		add_modifier = {
+			name = modifier_turkfm_corsair_recruits
+			months = long_modifier_time
+		}
+	}
+	
+	option = {
+		name = turkfm.905.b
+		default_option = yes
 		scope:turkfm_hector_barbossa_scope = {
 			hidden_effect = {
 				free_character_from_void = yes
 			}
 			add_character_role = admiral
 		}
-		remove_variable = turkfm_selecting_recruits
+		add_modifier = {
+			name = modifier_turkfm_hired_pirates
+			months = long_modifier_time
+			is_decaying = yes
+		}
 	}
 	
 	option = {
-		name = turkfm.905.b
+		name = turkfm.905.c
 		custom_tooltip = {
 			text = turkfm_nothing_happens
 			scope:turkfm_hector_barbossa_scope = {
@@ -9512,6 +9530,9 @@ turkfm.905 = { # Treating with Corsairs
 				}
 			}
 		}
+	}
+	
+	after = {
 		remove_variable = turkfm_selecting_recruits
 	}
 
