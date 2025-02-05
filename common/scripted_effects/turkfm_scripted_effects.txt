@@ -42,13 +42,91 @@ turkfm_setup_libya_effect = {
 		origin = c:TRI
 		state = s:STATE_LIBYAN_DESERT.region_state:TRI
 	}
+	s:STATE_LIBYAN_DESERT = {
+		set_owner_of_provinces = {
+			country = C:TRI
+			provinces = {
+				xAFD438
+				x229F5B
+				xACA5B1
+				xA17BD6
+				x0CA694
+			}
+		}
+		set_owner_of_provinces = {
+			country = C:TBI
+			provinces = {
+				x180269
+				x148330
+				x39A829
+				xC5601C
+#				x29E247
+				xFAB14C
+				x2129BE
+				x8C8E28
+				xBCDCC0
+#				xCF807F
+				xA5C57A
+				x8F71C6
+				x148330
+				x372EB1
+				xC75D31
+				x4EF9F0
+				xC88B2A
+				x1A8994
+				xEBD8DF
+				xAD746A
+				xA79085
+				x73B161
+				xF1D2C1
+			}
+		}
+	}
+	s:STATE_TRIPOLI = {
+		set_owner_of_provinces = {
+			country = c:TBI
+			provinces = {
+				x8C63E2	
+				x4508B3
+			}
+		}
+		set_owner_of_provinces = {
+			country = c:LIB_KUF
+			provinces = {
+				x1F8886
+				x1F3EAA
+				x8207BC
+			}
+		}
+	}
 	c:TRI = {
-		effect_starting_technology_tier_6_tech = yes
-		effect_native_conscription_5 = yes
-		effect_starting_politics_traditional = yes
-		activate_law = law_type:law_slave_trade
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = teda
+			}
+			move_pop = s:STATE_LIBYAN_DESERT.region_state:TBI
+		}
+	}
+	c:LIB_KUF = {
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = teda
+			}
+			move_pop = s:STATE_LIBYAN_DESERT.region_state:TBI
+		}
+	}
+	c:TBI = {
+		every_scope_pop = {
+			limit = {
+				has_pop_culture = bedouin
+			}
+			move_pop = s:STATE_LIBYAN_DESERT.region_state:LIB_KUF
+		}
 	}
 	s:STATE_LIBYAN_DESERT = {
+		add_claim = c:TRI
+	}
+	s:STATE_TRIPOLI = {
 		add_claim = c:TRI
 	}
 }
