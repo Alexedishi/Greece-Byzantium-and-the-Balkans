@@ -9478,16 +9478,41 @@ turkfm.905 = { # Treating with Corsairs
 		}
 		create_character = {
 			template = template_turkfm_hector_barbossa
+			on_created = {
+				place_character_in_void = 12
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_hector_barbossa
+			}
+			save_scope_as = turkfm_hector_barbossa_scope
 		}
 	}
 	
 	option = {
 		name = turkfm.905.a
 		default_option = yes
+		scope:turkfm_hector_barbossa_scope = {
+			hidden_effect = {
+				free_character_from_void = yes
+			}
+			add_character_role = admiral
+		}
+		remove_variable = turkfm_selecting_recruits
 	}
 	
 	option = {
 		name = turkfm.905.b
+		custom_tooltip = {
+			text = turkfm_nothing_happens
+			scope:turkfm_hector_barbossa_scope = {
+				hidden_effect = {
+					free_character_from_void = yes
+				}
+			}
+		}
+		remove_variable = turkfm_selecting_recruits
 	}
 
 }
