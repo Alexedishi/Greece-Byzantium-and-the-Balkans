@@ -208,13 +208,13 @@ namespace = turkfm
 
 #330-339 - International Congress Events
 #	330 - Congress System Monitor [TECH]
-#	331 - ##The Congress of X
-#	332 - ##The Issue of X
+#	331 - The Congress of X
+#	332 - The Issue of X
 #	333 - ##The X Delegation
 #	334 - ##
 #	335 - ##
 #	336 - ##
-#	337 - ##The Convention of X
+#	337 - The Convention of X
 #	338 - ##Resolution on the X Matter
 #	339 - The Treaty of X
 
@@ -8572,7 +8572,7 @@ turkfm.330 = { # Congress System Monitor
 			else_if = {
 				limit = {
 					scope:turkfm_congress_issue_scope = {
-						has_variable = turkfm_crisis_attacker
+						has_variable = turkfm_crisis_deconflicted
 					}
 				}
 				every_country = {
@@ -8859,6 +8859,62 @@ turkfm.333 = { # The X Delegation
 	
 }
 
+turkfm.337 = { # The Convention of X
+	type = country_event
+	placement = root
+	
+	title = turkfm.337.t
+	desc = turkfm.337.d
+	flavor = turkfm.337.f
+	
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_congress.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm.330
+	}
+	
+	cancellation_trigger = {
+		NOT = {
+			has_journal_entry = je_turkfm_international_congress
+		}
+	}
+	
+	immediate = {
+		c:TUR = {
+			save_scope_as = ottoman_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_host
+			}
+			save_scope_as = turkfm_congress_host_scope
+		}
+		random_country = {
+			limit = {
+				has_variable = turkfm_congress_issue_var
+			}
+			save_scope_as = turkfm_congress_issue_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.337.a
+		default_option = yes
+		custom_tooltip = turkfm_no_effects
+	}
+
+}
+
 turkfm.338 = { # Resolution on the X Matter
 	type = country_event
 	placement = scope:turkfm_congress_host_scope
@@ -8910,6 +8966,15 @@ turkfm.338 = { # Resolution on the X Matter
 	option = {
 		name = turkfm.338.a
 		default_option = yes
+		if = {
+			limit = {
+				global_var:turkfm_congress_vote_var >= 0
+			}
+			custom_tooltip = turkfm_congress_issue_pass
+		}
+		else = {
+			custom_tooltip = turkfm_congress_issue_fail
+		}
 	}
 	
 }
