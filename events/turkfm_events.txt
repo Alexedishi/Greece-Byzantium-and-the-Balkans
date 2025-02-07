@@ -345,10 +345,12 @@ namespace = turkfm
 
 #1100-1109 - The Centralization of Tripolitania
 #	1100 - On the Margins of the Empire
-#	1101 - The Libyan Deserts
+#	1101 - ##The Libyan Deserts
 
 #1110-1119 - The Senusiyya Movement
-#	1110 - 
+#	1110 - ##The Senussi Order
+#	1111 - ##The Grand Sanusi
+#	1112 - ##Senussi Withdraws to the Desert
 
 ########################################################################
 ##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  Events  001-099  ##
@@ -11820,6 +11822,123 @@ turkfm.1101 = { # The Libyan Deserts
 		default_option = yes
 	}
 
+}
+
+#### THE SENUSIYYA MOVEMENT ####
+
+turkfm.1110 = { # The Senussi Order
+	type = country_event
+	placement = root
+	
+	title = turkfm.1110.t
+	desc = turkfm.1110.d
+	flavor = turkfm.1110.f
+	
+	event_image = {
+		video = "middleeast_islam"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+		create_character = {
+			template = template_turkfm_senussi_muhammad
+			on_created = {
+				place_character_in_void = 300
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				has_template = template_turkfm_senussi_muhammad
+			}
+			save_scope_as = turkfm_senussi_scope
+		}
+		set_variable = {
+			name = turkfm_senussi_var
+			value = 0
+		}
+	}
+	
+	option = {
+		name = turkfm.1110.a
+		default_option = yes
+	}
+	
+}
+
+turkfm.1111 = { # The Grand Sanusi
+	type = country_event
+	placement = root
+	
+	title = turkfm.1111.t
+	desc = turkfm.1111.d
+	flavor = turkfm.1111.f
+	
+	event_image = {
+		video = "middleeast_islam"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1111.a
+		default_option = yes
+	}
+	
+}
+
+turkfm.1112 = { # Senussi Withdraws to the Desert
+	type = country_event
+	placement = root
+	
+	title = turkfm.1112.t
+	desc = turkfm.1112.d
+	flavor = turkfm.1112.f
+	
+	event_image = {
+		video = "africa_desert_expedition"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1112.a
+		default_option = yes
+	}
+	
 }
 
 ########################################
