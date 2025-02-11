@@ -1616,21 +1616,12 @@ je_turkfm_tri_centralization = {
 		}
 		any_scope_building = {
 			is_building_type = building_university
-			NOR = {
-				has_active_production_method = pm_simple_organization
-				has_active_production_method = pm_religious_bureaucrats
-			}
 			occupancy > 0.9
-			level >= 10
 		}
 		any_scope_building = {
-			filter = {
-				is_building_type = building_government_administration
-			}
-			count = all
-			NOR = {
+			is_building_type = building_government_administration
+			NOT = {
 				has_active_production_method = pm_simple_organization
-				has_active_production_method = pm_religious_bureaucrats
 			}
 			occupancy >= 0.9
 		}
@@ -1712,19 +1703,86 @@ je_turkfm_tri_senusiyya = {
 	
 	should_be_pinned_by_default = yes
 	
-	immediate = {
+	is_shown_when_inactive = {
+		c:TRI ?= this
+		NOT = {
+			has_variable = turkfm_senusiyya_completed
+		}
 	}
 	
+	possible = {
+		has_technology_researched = romanticism
+		has_technology_researched = empiricism
+	}
+	
+	immediate = {
+		trigger_event = {
+			id = turkfm.1110 # The Senussi Order
+		}
+	}
+	
+	scripted_button = turkfm_embrace_senussi_button
+	scripted_button = turkfm_sweep_desert_button
+	scripted_button = turkfm_root_out_senusiyya_button
+	scripted_button = turkfm_armed_delegation_button
+	
 	complete = {
+		custom_tooltip = {
+			text = je_turkfm_tri_senusiyya_complete
+			OR = {
+				has_variable = turkfm_embraced_senussi
+				has_variable = turkfm_sweept_senussi
+			}
+		}
 	}
 	
 	on_complete = {
+		custom_tooltip = {
+			text = je_turkfm_tri_senusiyya_on_complete_1
+		}
+		custom_tooltip = {
+			text = je_turkfm_tri_senusiyya_on_complete_2
+		}
+		turkfm_cleanup_senussi_effect = yes
 	}
 	
 	fail = {
+		OR = {
+			has_law = law_type:law_total_separation
+			has_law = law_type:law_state_atheism
+		}
 	}
 	
 	on_fail = {
+		turkfm_cleanup_senussi_effect = yes
+	}
+	
+	on_weekly_pulse = {
+		effect = {
+			turkfm_update_senussi_effect = yes
+		}
+	}
+	
+	on_monthly_pulse = {
+		events = {
+			
+		}
+		random_events = {
+			chance_of_no_event = 90
+			5 = turkfm.1111 # The Grand Senussi
+			5 = turkfm.1112 # Senussi Withdraws to the Desert
+		}
+		effect = {
+			change_variable = {
+				name = turkfm_senussi_var
+				add = var:turkfm_senussi_progress_var
+			}
+			clamp_variable = {
+				name = turkfm_senussi_var
+				max = 100
+				min = 0
+			}
+		}
 	}
 	
 	current_value = {

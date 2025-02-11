@@ -1216,3 +1216,43 @@ turkfm_crisis_progress_value = {
 		desc = turkfm_value_from_base
 	}
 }
+
+#### LIBYA VALUES ####
+
+turkfm_senussi_progress_var = {
+	value = 0
+	add = {
+		value = var:turkfm_desert_control_var
+		desc = turkfm_value_from_desert_control
+	}
+	subtract = {
+		value = var:turkfm_senussi_control_var
+		desc = turkfm_value_from_senussi_control
+	}
+}
+
+turkfm_desert_control_value = {
+	value = 0
+	add = {
+		value = {
+			s:STATE_LIBYAN_DESERT = {
+				region_state:TRI = {
+					add = num_provinces
+				}
+			}
+		}
+	}
+}
+
+turkfm_senussi_control_value = {
+	value = 0
+	add = {
+		value = {
+			s:STATE_LIBYAN_DESERT = {
+				region_state:LIB_KUF = {
+					add = num_provinces
+				}
+			}
+		}
+	}
+}

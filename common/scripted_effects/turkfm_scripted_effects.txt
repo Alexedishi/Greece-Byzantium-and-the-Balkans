@@ -4096,3 +4096,147 @@ turkfm_complete_piracy_expedition_effect = {
 	}
 	set_variable = turkfm_completed_pirate_expedition
 }
+
+## Libya Effects ##
+
+turkfm_initialize_senussi_effect = {
+	set_variable = {
+		name = turkfm_senussi_var
+		value = 0
+	}
+	set_variable = {
+		name = turkfm_senussi_progress_var
+		value = 0
+	}
+	set_variable = {
+		name = turkfm_senussi_counter_var
+		value = 0
+	}
+	set_variable = {
+		name = turkfm_desert_control_var
+		value = 0
+	}
+	set_variable = {
+		name = turkfm_senussi_control_var
+		value = 0
+	}
+}
+
+turkfm_update_senussi_effect = {
+	set_variable = {
+		name = turkfm_senussi_progress_var
+		value = turkfm_senussi_progress_value
+	}
+	set_variable = {
+		name = turkfm_desert_control_var
+		value = turkfm_desert_control_value
+	}
+	set_variable = {
+		name = turkfm_senussi_control_var
+		value = turkfm_senussi_control_value
+	}
+	remove_variable = turkfm_senussi_character_var
+	random_character_in_void = {
+		limit = {
+			turkfm_is_senussi_trigger = yes
+		}
+		save_scope_as = turkfm_senussi_character_scope
+	}
+	if = {
+		limit = {
+			exists = scope:turkfm_senussi_character_scope
+		}
+		set_variable = {
+			name = turkfm_senussi_character_var
+			value = scope:turkfm_senussi_character_scope
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				var:turkfm_senussi_counter_var >= 5
+			}
+			create_character = {
+				template = template_turkfm_senussi_dynamic
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_counter_var = 4
+			}
+			create_character = {
+				template = 
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_counter_var = 3
+			}
+			create_character = {
+				template = 
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_counter_var = 2
+			}
+			create_character = {
+				template = 
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_counter_var = 1
+			}
+			create_character = {
+				template = 
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		else = {
+			create_character = {
+				template = template_turkfm_senussi_muhammad_i
+				on_created = {
+					place_character_in_void = 120
+				}
+			}
+		}
+		random_character_in_void = {
+			limit = {
+				turkfm_is_senussi_trigger = yes
+			}
+			save_scope_as = turkfm_senussi_character_scope
+		}
+		set_variable = {
+			name = turkfm_senussi_character_var
+			value = scope:turkfm_senussi_character_scope
+		}
+		change_variable = {
+			name = turkfm_senussi_counter_var
+			add = 1
+		}
+	}
+}
+
+turkfm_cleanup_senussi_effect = {
+	remove_variable = turkfm_senussi_var
+	remove_variable = turkfm_senussi_progress_var
+	remove_variable = turkfm_senussi_counter_var
+	remove_variable = turkfm_senussi_character_var
+	remove_variable = turkfm_desert_control_var
+	remove_variable = turkfm_senussi_control_var
+}
