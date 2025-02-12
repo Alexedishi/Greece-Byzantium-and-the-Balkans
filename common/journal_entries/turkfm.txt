@@ -1705,8 +1705,10 @@ je_turkfm_tri_senusiyya = {
 	
 	is_shown_when_inactive = {
 		c:TRI ?= this
-		NOT = {
-			has_variable = turkfm_senusiyya_completed
+		NOR = {
+			has_variable = turkfm_embraced_senussi
+			has_variable = turkfm_swept_senussi
+			owns_entire_state_region = STATE_LIBYAN_DESERT
 		}
 	}
 	
