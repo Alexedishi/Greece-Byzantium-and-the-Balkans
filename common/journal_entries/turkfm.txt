@@ -1731,7 +1731,7 @@ je_turkfm_tri_senusiyya = {
 			text = je_turkfm_tri_senusiyya_complete
 			OR = {
 				has_variable = turkfm_embraced_senussi
-				has_variable = turkfm_sweept_senussi
+				has_variable = turkfm_swept_senussi
 			}
 		}
 	}
@@ -1739,9 +1739,25 @@ je_turkfm_tri_senusiyya = {
 	on_complete = {
 		custom_tooltip = {
 			text = je_turkfm_tri_senusiyya_on_complete_1
+			if = {
+				limit = {
+					has_variable = turkfm_embraced_senussi
+				}
+				trigger_event = {
+					id = turkfm.1119 # The Senussi of Libya
+				}
+			}
 		}
 		custom_tooltip = {
 			text = je_turkfm_tri_senusiyya_on_complete_2
+			if = {
+				limit = {
+					has_variable = turkfm_swept_senussi
+				}
+				trigger_event = {
+					id = turkfm.1118 # The Senusiyya Extinguished
+				}
+			}
 		}
 		turkfm_cleanup_senussi_effect = yes
 	}
