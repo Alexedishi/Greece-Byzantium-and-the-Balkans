@@ -62,10 +62,15 @@
  je_turkfm_tri_libyan_desert_reason: ""
  je_turkfm_tri_senusiyya: "The Teachings of al-Sanusi"
  je_turkfm_tri_senusiyya_reason: ""
- je_turkfm_tri_senusiyya_status: ""
  je_turkfm_tri_senusiyya_goal: ""
- je_turkfm_tri_senusiyya_complete: ""
- je_turkfm_tri_senusiyya_fail: ""
+ je_turkfm_tri_senusiyya_complete: "[ROOT.GetCountry.GetNameNoFlag] has either #bold Embraced#! or #bold Swept Away#! the $turkfm_senusiyya_movement$"
+ je_turkfm_tri_senusiyya_on_complete_1: "If [ROOT.GetCountry.GetNameNoFlag] has #bold Embraced#! the $turkfm_senusiyya_movement$, triggers the event #bold #white --#!#!"
+ je_turkfm_tri_senusiyya_on_complete_2: "If [ROOT.GetCountry.GetNameNoFlag] has #bold Swept Away#! the $turkfm_senusiyya_movement$, triggers the event #bold #white --#!#!"
+ je_turkfm_tri_senusiyya_status_0: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName]'s whereabouts are unknown."
+ je_turkfm_tri_senusiyya_status_1: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] is hiding in the desert."
+ je_turkfm_tri_senusiyya_status_2: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] operates in desert villages."
+ je_turkfm_tri_senusiyya_status_3: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] operates in major cities."
+ je_turkfm_tri_senusiyya_status_4: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] is entreched at court."
  
  # decisions
  
@@ -248,6 +253,10 @@
  turkfm_thrown_in_jail_tt: "[SCOPE.sCharacter('jack_sparrow_scope').GetFullName] will languish in prison."
  turkfm_cutler_beckett_expedition: "[GetPlayer.MakeScope.Var('turkfm_cutler_beckett_var').GetCharacter.GetFullName] leads the expedition.\n$turkfm_progress_tt$: #bold #green [GetPlayer.MakeScope.Var('turkfm_expedition_progress_var').GetValue]#!/8#! $turkfm_peril_tt$: #bold #red [GetPlayer.MakeScope.Var('turkfm_expedition_peril_var').GetValue]#!/8#!"
  
+ turkfm_senusiyya: "#o #tooltip:[GetRawTextTooltipTag('turkfm_senusiyya_concept')] @turkfm_senusiyya! Senusiyya#!#!"
+ turkfm_senusiyya_movement: "#o #tooltip:[GetRawTextTooltipTag('turkfm_senusiyya_concept')] @turkfm_senusiyya! Senusiyya Movement#!#!"
+ turkfm_senusiyya_concept: "The #bold Senusiyya Movement#!, founded by Muhammad ibn Ali al-Sanusi, seeks to purify Islam and explictly rejects fanaticism while encouraging jurisprudence on both the part of the people and the state."
+ 
  # custom_loc
  turkfm_tanzimat_islamism_progress: "progress by #greece #tooltippable;tooltip:[Country.GetTooltipTag],turkfm_tanzimat_progress_breakdown [Country.MakeScope.ScriptValue('turkfm_tanzimat_progress_var')]#!#! in favor of the [GetIdeology('ideology_turkfm_islamist').GetName] movement"
  turkfm_tanzimat_ottomanism_progress: "progress by #greece #tooltippable;tooltip:[Country.GetTooltipTag],turkfm_tanzimat_progress_breakdown [Country.MakeScope.ScriptValue('turkfm_tanzimat_progress_var')]#!#! in favor of the [GetIdeology('ideology_turkfm_ottomanist').GetName] movement"
@@ -374,6 +383,18 @@
  turkfm_deploy_expedition_button_desc: ""
  turkfm_recall_expedition_button: "Recall Adriatic Expedition"
  turkfm_recall_expedition_button_desc: ""
+ 
+ turkfm_embrace_senussi_button: "Embrace Senusiyya"
+ turkfm_embrace_senussi_button_desc:
+ turkfm_embrace_senussi_possible: "Support for the Senusiyya is at #bold Maximum#!"
+ turkfm_sweep_desert_button: "Sweep the Desert"
+ turkfm_sweep_desert_button_desc:
+ turkfm_sweep_desert_possible: "Support for the Senusiyya is #bold Less Than 50#!"
+ turkfm_supress_senusiyya_button: "Supress Senussi's Followers"
+ turkfm_supress_senusiyya_button_desc:
+ turkfm_supress_senusiyya_possible: "[ROOT.GetCountry.GetNameNoFlag] pushed the Senussi into hiding"
+ turkfm_armed_delegation_button: "Send Armed Delegation"
+ turkfm_armed_delegation_button_desc:
  
  # notifications
  notification_notification_turkfm_tanzimat_started_name: "#yellow Ottoman Empire#! Declares the #bold Tanzimât#!"
@@ -523,6 +544,23 @@
  notification_notification_turkfm_jack_sparrow_reincarnated_desc: ""
  notification_notification_turkfm_piracy_yearly_progress: "Adriatic Expedition Makes Progress"
  notification_notification_turkfm_piracy_yearly_progress_desc: ""
+ 
+ notification_notification_turkfm_senussi_ghosted_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Vanishes!"
+ notification_notification_turkfm_senussi_ghosted_desc: "Security services have reported that [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName] has vanished without a trace."
+ notification_notification_turkfm_senussi_entrenched_name: " Becomes Entrenched"
+ notification_notification_turkfm_senussi_entrenched_desc: "The Dominance of the $turkfm_senusiyya_movement$ has allowed [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName] to entrench himself in the Court at [ROOT.GetCountry.GetCapital.GetCityHubName]."
+ notification_notification_turkfm_senussi_urbanized_up_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Advances into the Cities"
+ notification_notification_turkfm_senussi_urbanized_up_desc: "The Dominance of the $turkfm_senusiyya_movement$ has allowed [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to advance into urban areas."
+ notification_notification_turkfm_senussi_urbanized_down_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Regroups in the Cities"
+ notification_notification_turkfm_senussi_urbanized_down_desc: "Recent setbacks in the unfluence of the $turkfm_senusiyya_movement$ has forced [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to withdraw into urban centers."
+ notification_notification_turkfm_senussi_villages_up_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Advances into Desert Villages"
+ notification_notification_turkfm_senussi_villages_up_desc: "The Dominance of the $turkfm_senusiyya_movement$ has allowed [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to advance into desert villages."
+ notification_notification_turkfm_senussi_villages_down_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Withdraws to Desert Villages"
+ notification_notification_turkfm_senussi_villages_down_desc: "Recent setbacks in the unfluence of the $turkfm_senusiyya_movement$ has forced [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to withdraw into desert villages."
+ notification_notification_turkfm_senussi_desert_up_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Arrives in the Desert"
+ notification_notification_turkfm_senussi_desert_up_desc: "The Dominance of the $turkfm_senusiyya_movement$ has allowed [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to advance into the depths of the desert wastelands."
+ notification_notification_turkfm_senussi_desert_down_name: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] Withdraws into the Desert"
+ notification_notification_turkfm_senussi_desert_down_desc: "Recent setbacks in the unfluence of the $turkfm_senusiyya_movement$ has forced [GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetFullName]'s followers to withdraw into the depths of the desert wastelands."
  
  # country_flavor_text
  

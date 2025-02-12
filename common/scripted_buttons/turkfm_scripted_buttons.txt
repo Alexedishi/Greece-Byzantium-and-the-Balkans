@@ -996,6 +996,131 @@ turkfm_recall_expedition_button = {
 	}
 }
 
+turkfm_embrace_senussi_button = {
+	name = "turkfm_embrace_senussi_button"
+	desc = "turkfm_embrace_senussi_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_embrace_senussi_possible
+			var:turkfm_senussi_var >= 100
+		}
+		hidden_trigger = {
+			NOT = {
+				has_variable = turkfm_senussi_outcome_var
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = 
+		}
+		set_variable = turkfm_senussi_outcome_var
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
 
-#turkfm_demand_patrols_button
-#turkfm_request_reparations_button
+turkfm_sweep_desert_button = {
+	name = "turkfm_sweep_desert_button"
+	desc = "turkfm_sweep_desert_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	possible = {
+		custom_tooltip = {
+			text = turkfm_sweep_desert_possible
+			var:turkfm_senussi_var < 50
+		}
+		owns_entire_state_region = STATE_LIBYAN_DESERT
+		hidden_trigger = {
+			NOT = {
+				has_variable = turkfm_senussi_outcome_var
+			}
+		}
+	}
+	
+	effect = {
+		trigger_event = {
+			id = 
+		}
+		set_variable = turkfm_senussi_outcome_var
+	}
+	
+	ai_chance = {
+		base = 100
+	}
+}
+
+turkfm_supress_senusiyya_button = {
+	name = "turkfm_supress_senusiyya_button"
+	desc = "turkfm_supress_senusiyya_button_desc"
+	
+	visible = {
+		always = yes
+	}
+	
+	selected = {
+		has_modifier = modifier_turkfm_desert_raids
+	}
+	
+	possible = {
+		has_technology_researched = centralization
+		custom_tooltip = {
+			text = turkfm_supress_senusiyya_possible
+			has_variable = turkfm_intimidated_sensussi
+		}
+	}
+	
+	effect = {
+		if = {	
+			limit = {
+				has_modifier = modifier_turkfm_desert_raids
+			}
+			remove_modifier = modifier_turkfm_desert_raids
+		}
+		else = {
+			add_modifier = modifier_turkfm_desert_raids
+		}
+	}
+	
+	ai_chance = {
+		base = 0
+	}
+}
+
+turkfm_armed_delegation_button = {
+	name = "turkfm_armed_delegation_button"
+	desc = "turkfm_armed_delegation_button_desc"
+	
+	visible = {
+		NOR = {
+			has_variable = turkfm_intimidated_sensussi
+		}
+	}
+	
+	possible = {
+		has_technology_researched = centralization
+		army_size >= 5
+	}
+	
+	effect = {
+		trigger_event = {
+			id = 
+		}
+		set_variable = turkfm_intimidated_sensussi
+	}
+	
+	ai_chance = {
+		base = 10
+	}
+}

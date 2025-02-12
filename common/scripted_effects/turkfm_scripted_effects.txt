@@ -4123,18 +4123,44 @@ turkfm_initialize_senussi_effect = {
 }
 
 turkfm_update_senussi_effect = {
+	# Step 1, Update math variables
 	set_variable = {
 		name = turkfm_senussi_progress_var
 		value = turkfm_senussi_progress_value
 	}
-	set_variable = {
-		name = turkfm_desert_control_var
-		value = turkfm_desert_control_value
+	if = {
+		limit = {
+			has_state_in_state_region = STATE_LIBYAN_DESERT
+		}
+		set_variable = {
+			name = turkfm_desert_control_var
+			value = turkfm_desert_control_value
+		}
 	}
-	set_variable = {
-		name = turkfm_senussi_control_var
-		value = turkfm_senussi_control_value
+	else = {
+		set_variable = {
+			name = turkfm_desert_control_var
+			value = 0
+		}
 	}
+	if = {
+		limit = {
+			c:LIB_KUF ?= {
+				has_state_in_state_region = STATE_LIBYAN_DESERT
+			}
+		}
+		set_variable = {
+			name = turkfm_senussi_control_var
+			value = turkfm_senussi_control_value
+		}
+	}
+	else = {
+		set_variable = {
+			name = turkfm_senussi_control_var
+			value = 0
+		}
+	}
+	# Step 2, Validate our current Senussi character and update the journal character list
 	remove_variable = turkfm_senussi_character_var
 	random_character_in_void = {
 		limit = {
@@ -4168,7 +4194,7 @@ turkfm_update_senussi_effect = {
 				var:turkfm_senussi_counter_var = 4
 			}
 			create_character = {
-				template = 
+				template = template_turkfm_senussi_hasan
 				on_created = {
 					place_character_in_void = 120
 				}
@@ -4179,7 +4205,7 @@ turkfm_update_senussi_effect = {
 				var:turkfm_senussi_counter_var = 3
 			}
 			create_character = {
-				template = 
+				template = template_turkfm_senussi_idris
 				on_created = {
 					place_character_in_void = 120
 				}
@@ -4190,7 +4216,7 @@ turkfm_update_senussi_effect = {
 				var:turkfm_senussi_counter_var = 2
 			}
 			create_character = {
-				template = 
+				template = template_turkfm_senussi_ahmed
 				on_created = {
 					place_character_in_void = 120
 				}
@@ -4201,10 +4227,13 @@ turkfm_update_senussi_effect = {
 				var:turkfm_senussi_counter_var = 1
 			}
 			create_character = {
-				template = 
+				template = template_turkfm_senussi_muhammad_ii
 				on_created = {
 					place_character_in_void = 120
 				}
+			}
+			trigger_event = {
+				id = turkfm.1111 # The Grand Sanusi
 			}
 		}
 		else = {
@@ -4230,6 +4259,115 @@ turkfm_update_senussi_effect = {
 			add = 1
 		}
 	}
+	je:je_turkfm_tri_senusiyya = {
+		clear_variable_list = com_journal_characters
+		add_to_variable_list = {
+			name = com_journal_characters
+			target = scope:turkfm_senussi_character_scope
+		}
+	}
+	# Step 3, determine where Senussi should be
+	if = {
+		limit = {
+			NOT = {
+				exists = scope:turkfm_senussi_character_scope
+			}
+		}
+		if = {
+			limit = {
+				var:turkfm_senussi_location_var != 0
+			}
+			post_notification = notification_turkfm_senussi_ghosted
+		}
+		set_variable = {
+			name = turkfm_senussi_location_var
+			value = 0 # Location Unknown
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_senussi_var >= 99
+		}
+		if = {
+			limit = {
+				var:turkfm_senussi_location_var != 4
+			}
+			post_notification = notification_turkfm_senussi_entrenched
+			set_variable = {
+				name = turkfm_senussi_var
+				value = 100
+			}
+		}
+		set_variable = {
+			name = turkfm_senussi_location_var
+			value = 4 # Entreched in Court
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_senussi_var > 75
+		}
+		if = {
+			limit = {
+				var:turkfm_senussi_location_var < 3
+			}
+			post_notification = notification_turkfm_senussi_urbanized_up
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_location_var > 3
+			}
+			post_notification = notification_turkfm_senussi_urbanized_down
+		}
+		set_variable = {
+			name = turkfm_senussi_location_var
+			value = 3 # In Urban Areas
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_senussi_var < 70
+			var:turkfm_senussi_var > 50
+		}
+		if = {
+			limit = {
+				var:turkfm_senussi_location_var < 2
+			}
+			post_notification = notification_turkfm_senussi_villages_up
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_location_var > 2
+			}
+			post_notification = notification_turkfm_senussi_villages_down
+		}
+		set_variable = {
+			name = turkfm_senussi_location_var
+			value = 2 # Out in the Open
+		}
+	}
+	else_if = {
+		limit = {
+			var:turkfm_senussi_var < 45
+			has_variable = turkfm_intimidated_sensussi
+		}
+		if = {
+			limit = {
+				var:turkfm_senussi_location_var < 1
+			}
+			post_notification = notification_turkfm_senussi_desert_up
+		}
+		else_if = {
+			limit = {
+				var:turkfm_senussi_location_var > 1
+			}
+			post_notification = notification_turkfm_senussi_desert_down
+		}
+		set_variable = {
+			name = turkfm_senussi_location_var
+			value = 1 # Hiding in the Desert
+		}
+	}
 }
 
 turkfm_cleanup_senussi_effect = {
@@ -4239,4 +4377,6 @@ turkfm_cleanup_senussi_effect = {
 	remove_variable = turkfm_senussi_character_var
 	remove_variable = turkfm_desert_control_var
 	remove_variable = turkfm_senussi_control_var
+	remove_variable = turkfm_senussi_outcome_var
+	remove_variable = turkfm_intimidated_sensussi
 }

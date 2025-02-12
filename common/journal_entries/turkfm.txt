@@ -1723,7 +1723,7 @@ je_turkfm_tri_senusiyya = {
 	
 	scripted_button = turkfm_embrace_senussi_button
 	scripted_button = turkfm_sweep_desert_button
-	scripted_button = turkfm_root_out_senusiyya_button
+	scripted_button = turkfm_supress_senusiyya_button
 	scripted_button = turkfm_armed_delegation_button
 	
 	complete = {
@@ -1769,7 +1769,6 @@ je_turkfm_tri_senusiyya = {
 		}
 		random_events = {
 			chance_of_no_event = 90
-			5 = turkfm.1111 # The Grand Senussi
 			5 = turkfm.1112 # Senussi Withdraws to the Desert
 		}
 		effect = {
@@ -1794,10 +1793,41 @@ je_turkfm_tri_senusiyya = {
 	}
 	
 	status_desc = {
-		triggered_desc = {
-			desc = je_turkfm_tri_senusiyya_status
-			trigger = {
-				has_variable = turkfm_senussi_var
+		first_valid = {
+			triggered_desc = {
+				desc = je_turkfm_tri_senusiyya_status_0
+				trigger = {
+					has_variable = turkfm_senussi_location_var
+					var:turkfm_senussi_location_var = 0
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_tri_senusiyya_status_1
+				trigger = {
+					has_variable = turkfm_senussi_location_var
+					var:turkfm_senussi_location_var = 1
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_tri_senusiyya_status_2
+				trigger = {
+					has_variable = turkfm_senussi_location_var
+					var:turkfm_senussi_location_var = 2
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_tri_senusiyya_status_3
+				trigger = {
+					has_variable = turkfm_senussi_location_var
+					var:turkfm_senussi_location_var = 3
+				}
+			}
+			triggered_desc = {
+				desc = je_turkfm_tri_senusiyya_status_4
+				trigger = {
+					has_variable = turkfm_senussi_location_var
+					var:turkfm_senussi_location_var = 4
+				}
 			}
 		}
 	}
