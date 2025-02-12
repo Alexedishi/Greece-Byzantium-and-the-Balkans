@@ -1630,21 +1630,18 @@ je_turkfm_tri_centralization = {
 		ig:ig_intelligentsia = {
 			is_marginal = no
 		}
+		OR = {
+			owns_entire_state_region = STATE_LIBYAN_DESERT
+			NOT = {
+				has_state_in_state_region = STATE_LIBYAN_DESERT
+			}
+		}
 	}
 	
 	on_complete = {
-	}
-	
-	fail = {
-	}
-	
-	on_fail = {
-	}
-	
-	invalid = {
-	}
-	
-	on_invalid = {
+		trigger_event = {
+			id = turkfm.1101
+		}
 	}
 
 	weight = 4000
@@ -1746,7 +1743,7 @@ je_turkfm_tri_senusiyya = {
 					has_variable = turkfm_embraced_senussi
 				}
 				trigger_event = {
-					id = turkfm.1119 # The Senussi of Libya
+					id = turkfm.1109 # The Senussi of Libya
 				}
 			}
 		}
@@ -1757,7 +1754,7 @@ je_turkfm_tri_senusiyya = {
 					has_variable = turkfm_swept_senussi
 				}
 				trigger_event = {
-					id = turkfm.1118 # The Senusiyya Extinguished
+					id = turkfm.1108 # The Senusiyya Extinguished
 				}
 			}
 		}

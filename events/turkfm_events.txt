@@ -345,7 +345,10 @@ namespace = turkfm
 
 #1100-1109 - The Centralization of Tripolitania
 #	1100 - On the Margins of the Empire
-#	1101 - ##The Libyan Deserts
+#	1101 - ##
+#	1107 - ##The Libyan Deserts
+#	1108 - ##The Senusiyya Extinguished
+#	1109 - ##The Senussi of Libya
 
 #1110-1119 - The Senusiyya Movement
 #	1110 - ##The Senussi Order
@@ -353,8 +356,6 @@ namespace = turkfm
 #	1112 - ##Senussi Withdraws to the Desert
 #	1113 - ##Armed Diplomacy
 #
-#	1118 - ##The Senusiyya Extinguished
-#	1119 - ##The Senussi of Libya
 
 ########################################################################
 ##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  Events  001-099  ##
@@ -11794,13 +11795,47 @@ turkfm.1100 = { # On the Margins of the Empire
 
 }
 
-turkfm.1101 = { # The Libyan Deserts
+turkfm.1101 = { # 
 	type = country_event
 	placement = root
 	
 	title = turkfm.1101.t
 	desc = turkfm.1101.d
 	flavor = turkfm.1101.f
+	
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tri_centralization
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1101.a
+		default_option = yes
+	}
+	
+}
+
+turkfm.1107 = { # The Libyan Deserts
+	type = country_event
+	placement = scope:turkfm_desert_scope
+	
+	title = turkfm.1107.t
+	desc = turkfm.1107.d
+	flavor = turkfm.1107.f
 	
 	event_image = {
 		video = "africa_desert_expedition"
@@ -11819,13 +11854,92 @@ turkfm.1101 = { # The Libyan Deserts
 	}
 	
 	immediate = {
+		s:STATE_LIBYAN_DESERT = {
+			random_scope_state = {
+				save_scope_as = turkfm_desert_scope
+			}
+		}
 	}
 	
 	option = {
-		name = turkfm.1101.a
+		name = turkfm.1107.a
 		default_option = yes
+		scope:turkfm_desert_scope = {
+			add_modifier = {
+				name = modifier_turkfm_centralized_authority
+				months = long_modifier_time
+			}
+		}
 	}
 
+}
+
+turkfm.1108 = { # The Senusiyya Extinguished
+	type = country_event
+	placement = root
+	
+	title = turkfm.1108.t
+	desc = turkfm.1108.d
+	flavor = turkfm.1108.f
+	
+	event_image = {
+		video = "votp_hostile_court"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tri_senusiyya
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1108.a
+		default_option = yes
+	}
+	
+}
+
+turkfm.1109 = { # The Senussi of Libya
+	type = country_event
+	placement = root
+	
+	title = turkfm.1109.t
+	desc = turkfm.1109.d
+	flavor = turkfm.1109.f
+	
+	event_image = {
+		video = "middleeast_islam"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by je_turkfm_tri_senusiyya
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1109.a
+		default_option = yes
+	}
+	
 }
 
 #### THE SENUSIYYA MOVEMENT ####
@@ -11854,27 +11968,23 @@ turkfm.1110 = { # The Senussi Order
 	}
 	
 	immediate = {
-		create_character = {
-			template = template_turkfm_senussi_muhammad
-			on_created = {
-				place_character_in_void = 300
-			}
-		}
+		turkfm_update_senussi_effect = yes
 		random_character_in_void = {
 			limit = {
-				has_template = template_turkfm_senussi_muhammad
+				turkfm_is_senussi_trigger = yes
 			}
-			save_scope_as = turkfm_senussi_scope
-		}
-		set_variable = {
-			name = turkfm_senussi_var
-			value = 0
+			save_scope_as = turkfm_senussi_character_scope
 		}
 	}
 	
 	option = {
 		name = turkfm.1110.a
 		default_option = yes
+		c:LIB_KUF ?= {
+			random_scope_state = {
+				add_modifier = modifier_turkfm_senussi_stronghold
+			}
+		}
 	}
 	
 }
@@ -11942,6 +12052,52 @@ turkfm.1112 = { # Senussi Withdraws to the Desert
 	option = {
 		name = turkfm.1112.a
 		default_option = yes
+	}
+	
+}
+
+turkfm.1113 = { # Armed Diplomacy
+	type = country_event
+	placement = root
+	
+	title = turkfm.1113.t
+	desc = turkfm.1113.d
+	flavor = turkfm.1113.f
+	
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		# triggered by turkfm_armed_delegation_button
+	}
+	
+	immediate = {
+	}
+	
+	option = {
+		name = turkfm.1113.a
+		default_option = yes
+		custom_tooltip = {
+			text = turkfm.1113.tt
+			change_variable = {
+				name = turkfm_senussi_var
+				subtract = 10
+			}
+			clamp_variable = {
+				name = turkfm_senussi_var
+				max = 100
+				min = 0
+			}
+		}
 	}
 	
 }
