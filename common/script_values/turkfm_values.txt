@@ -1222,12 +1222,34 @@ turkfm_crisis_progress_value = {
 turkfm_senussi_progress_value = {
 	value = 0
 	add = {
+		value = {
+			random_character_in_void = {
+				limit = {
+					turkfm_is_senussi_trigger = yes
+				}
+				add = popularity
+			}
+			divide = 100
+			round_to = 0.01
+		}
+		desc = turkfm_value_from_senussi_popularity
+	}
+	add = {
+		value = var:turkfm_senussi_control_var
+		desc = turkfm_value_from_senussi_control
+	}
+	subtract = {
 		value = var:turkfm_desert_control_var
 		desc = turkfm_value_from_desert_control
 	}
 	subtract = {
-		value = var:turkfm_senussi_control_var
-		desc = turkfm_value_from_senussi_control
+		value = {
+			ig:ig_devout = {
+				add = ig_clout
+			}
+			round_to = 0.01
+		}
+		desc = turkfm_value_from_devout_clout
 	}
 }
 
@@ -1242,6 +1264,8 @@ turkfm_desert_control_value = {
 			}
 		}
 	}
+	divide = 282
+	round_to = 0.01
 }
 
 turkfm_senussi_control_value = {
@@ -1255,4 +1279,6 @@ turkfm_senussi_control_value = {
 			}
 		}
 	}
+	divide = 282
+	round_to = 0.01
 }
