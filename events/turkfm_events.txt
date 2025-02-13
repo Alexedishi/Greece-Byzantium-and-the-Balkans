@@ -26,12 +26,12 @@ namespace = turkfm
 ##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  Events  001-099  ##
 
 #001-009 - Sick Man Mainline Events
-#	001 - The Sick Man of Europe (TUR)
+#	001 - The Sick Man of Europe
 #	002 - ##
 #	003 - ##
 #	004 - ##
-#	005 - ##Region Lost
-#	006 - ##Region Secured
+#	005 - Region Lost
+#	006 - Region Secured
 #	007 - The Empire Shattered
 #	008 - The Dead Man of Europe
 #	009 - The Healthy Man of Europe
@@ -347,7 +347,7 @@ namespace = turkfm
 #	1100 - On the Margins of the Empire
 #	1101 - ##
 #	1107 - ##The Libyan Deserts
-#	1108 - ##The Senusiyya Extinguished
+#	1108 - ##Senusiyya Extinguished
 #	1109 - ##House Senussi of Libya
 
 #1110-1119 - The Senusiyya Movement
@@ -355,7 +355,7 @@ namespace = turkfm
 #	1111 - ##The Grand Sanussi
 #	1112 - ##Senussi Withdraws to the Desert
 #	1113 - ##Armed Diplomacy
-#
+#	1114 - ##Senusiyya Takes Root in State
 
 ########################################################################
 ##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  Events  001-099  ##
@@ -371,7 +371,7 @@ turkfm.001 = { # The Sick Man of Europe
 	desc = turkfm.001.d
 	flavor = turkfm.001.f
 	
-#	gui_window = event_window_struggle
+	gui_window = event_window_superevent_modern_full
 	
 	event_image = {
 		video = "turkfm_ottoman_intro"
@@ -420,6 +420,372 @@ turkfm.001 = { # The Sick Man of Europe
 				days = 150
 			}
 		}
+	}
+	
+}
+
+turkfm.005 = { # Region Lost
+	type = country_event
+	placement = root
+	
+	title = turkfm.005.t
+	desc = turkfm.005.d
+	flavor = turkfm.005.f
+	
+	event_image = {
+		video = "middleeast_battlefield_trenches"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_ottoman.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		OR = {
+			AND = {
+				has_variable = turkfm_controls_balkans
+				turkfm_controls_balkans_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_anatolia
+				turkfm_controls_anatolia_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_arabia
+				turkfm_controls_arabia_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_nile
+				turkfm_controls_nile_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_danubia
+				turkfm_controls_danubia_trigger = no
+			}
+			AND = {
+				has_variable = turkfm_controls_caucasus
+				turkfm_controls_caucasus_trigger = no
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_variable = turkfm_controls_balkans
+				turkfm_controls_balkans_trigger = no
+			}
+			sr:region_balkans = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_controls_anatolia
+				turkfm_controls_anatolia_trigger = no
+			}
+			sr:region_anatolia = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_controls_arabia
+				turkfm_controls_arabia_trigger = no
+			}
+			sr:region_arabic = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_controls_nile
+				turkfm_controls_nile_trigger = no
+			}
+			sr:region_nile_basin = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_controls_danubia
+				turkfm_controls_danubia_trigger = no
+			}
+			sr:region_danubia = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = turkfm_controls_caucasus
+				turkfm_controls_caucasus_trigger = no
+			}
+			sr:region_caucasus = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.005.a
+		default_option = yes
+		custom_tooltip = {
+			text = turkfm_region_lost_tt
+			if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_balkans
+				}
+				remove_variable = turkfm_controls_balkans
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_anatolia
+				}
+				remove_variable = turkfm_controls_anatolia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_arabic
+				}
+				remove_variable = turkfm_controls_arabia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_nile_basin
+				}
+				remove_variable = turkfm_controls_nile
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_danubia
+				}
+				remove_variable = turkfm_controls_danubia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_nile_basin
+				}
+				remove_variable = turkfm_controls_nile
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_lost_region
+				}
+				remove_modifier = modifier_turkfm_lost_region
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_secured_region
+			}
+			remove_modifier = modifier_turkfm_secured_region
+		}
+		add_modifier = {
+			name = modifier_turkfm_lost_region
+			months = normal_modifier_time
+		}
+		turkfm_calculate_sick_man_effect = yes
+	}
+
+}
+
+turkfm.006 = { # Region Secured
+	type = country_event
+	placement = root
+	
+	title = turkfm.006.t
+	desc = turkfm.006.d
+	flavor = turkfm.006.f
+	
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_temp.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		OR = {
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_balkans
+				}
+				turkfm_controls_balkans_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_anatolia
+				}
+				turkfm_controls_anatolia_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_arabia
+				}
+				turkfm_controls_arabia_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_nile
+				}
+				turkfm_controls_nile_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_danubia
+				}
+				turkfm_controls_danubia_trigger = yes
+			}
+			AND = {
+				NOT = {
+					has_variable = turkfm_controls_caucasus
+				}
+				turkfm_controls_caucasus_trigger = yes
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_balkans
+				}
+				turkfm_controls_balkans_trigger = yes
+			}
+			sr:region_balkans = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_anatolia
+				}
+				turkfm_controls_anatolia_trigger = yes
+			}
+			sr:region_anatolia = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_arabia
+				}
+				turkfm_controls_arabia_trigger = yes
+			}
+			sr:region_arabic = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_nile
+				}
+				turkfm_controls_nile_trigger = yes
+			}
+			sr:region_nile_basin = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_danubia
+				}
+				turkfm_controls_danubia_trigger = yes
+			}
+			sr:region_danubia = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_variable = turkfm_controls_caucasus
+				}
+				turkfm_controls_caucasus_trigger = yes
+			}
+			sr:region_caucasus = {
+				save_scope_as = turkfm_sregion_scope
+			}
+		}
+	}
+	
+	option = {
+		name = turkfm.006.a
+		default_option = yes
+		custom_tooltip = {
+			text = turkfm_region_secured_tt
+			if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_balkans
+				}
+				set_variable = turkfm_controls_balkans
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_anatolia
+				}
+				set_variable = turkfm_controls_anatolia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_arabic
+				}
+				set_variable = turkfm_controls_arabia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_nile_basin
+				}
+				set_variable = turkfm_controls_nile
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_danubia
+				}
+				set_variable = turkfm_controls_danubia
+			}
+			else_if = {
+				limit = {
+					scope:turkfm_sregion_scope = sr:region_nile_basin
+				}
+				set_variable = turkfm_controls_nile
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = modifier_turkfm_secured_region
+				}
+				remove_modifier = modifier_turkfm_secured_region
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_turkfm_lost_region
+			}
+			remove_modifier = modifier_turkfm_lost_region
+		}
+		add_modifier = {
+			name = modifier_turkfm_secured_region
+			months = normal_modifier_time
+		}
+		turkfm_calculate_sick_man_effect = yes
 	}
 	
 }
