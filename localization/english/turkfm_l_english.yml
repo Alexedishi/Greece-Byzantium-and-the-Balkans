@@ -64,7 +64,7 @@
  je_turkfm_tri_senusiyya_reason: ""
  je_turkfm_tri_senusiyya_complete: "[ROOT.GetCountry.GetNameNoFlag] has either #bold Embraced#! or #bold Swept Away#! the $turkfm_senusiyya_movement$"
  je_turkfm_tri_senusiyya_on_complete_1: "If [ROOT.GetCountry.GetNameNoFlag] has #bold Embraced#! the $turkfm_senusiyya_movement$, triggers the event #bold #white House Senussi of Libya#!#!"
- je_turkfm_tri_senusiyya_on_complete_2: "If [ROOT.GetCountry.GetNameNoFlag] has #bold Swept Away#! the $turkfm_senusiyya_movement$, triggers the event #bold #white The Senusiyya Extinguished#!#!"
+ je_turkfm_tri_senusiyya_on_complete_2: "If [ROOT.GetCountry.GetNameNoFlag] has #bold Swept Away#! the $turkfm_senusiyya_movement$, triggers the event #bold #white The Senusiyya Movement Extinguished#!#!"
  je_turkfm_tri_senusiyya_status_0: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName]'s whereabouts are unknown."
  je_turkfm_tri_senusiyya_status_1: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] is hiding in the desert."
  je_turkfm_tri_senusiyya_status_2: "[GetPlayer.MakeScope.Var('turkfm_senussi_character_var').GetCharacter.GetLastName] operates in desert villages."
@@ -336,6 +336,7 @@
  
  turkfm_value_from_senussi_popularity: "From the [concept_popularity] of #bold as-Senussi#!"
  turkfm_value_from_senussi_control: "From the number of [concept_province]#o s#! controlled by [concept_decentralized_nation]#o s#!"
+ turkfm_value_from_strongholds: "From the number of [ROOT.GetCountry.GetAdjectiveNoFlag] [concept_state]#o s#! hosting a [GetStaticModifier('modifier_turkfm_senussi_stronghold').GetName]"
  turkfm_value_from_desert_control: "From the number of [concept_province]#o s#! controlled by [ROOT.GetCountry.GetNameNoFlag]"
  turkfm_value_from_devout_clout: "From the [concept_clout] of the [GetInterestGroupVariant('ig_devout',GetPlayer).GetName]"
  
@@ -390,15 +391,17 @@
  turkfm_recall_expedition_button: "Recall Adriatic Expedition"
  turkfm_recall_expedition_button_desc: ""
  
- turkfm_embrace_senussi_button: "Embrace Senusiyya"
+ turkfm_embrace_senussi_button: "Embrace $turkfm_senusiyya$"
  turkfm_embrace_senussi_button_desc: ""
- turkfm_embrace_senussi_possible: "Support for the Senusiyya is at #bold Maximum#!"
+ turkfm_embrace_senussi_possible: "Support for $turkfm_senusiyya$ is at #bold Maximum#!"
  turkfm_sweep_desert_button: "Sweep the Desert"
  turkfm_sweep_desert_button_desc: ""
- turkfm_sweep_desert_possible: "Support for the Senusiyya is #bold Less Than 50#!"
+ turkfm_sweep_desert_possible: "Support for the $turkfm_senusiyya$ is #bold Less Than 50#!"
  turkfm_supress_senusiyya_button: "Supress Senussi's Followers"
  turkfm_supress_senusiyya_button_desc: ""
- turkfm_supress_senusiyya_possible: "[ROOT.GetCountry.GetNameNoFlag] pushed the Senussi into hiding"
+ turkfm_supress_senusiyya_possible_1: "[ROOT.GetCountry.GetNameNoFlag] has #bold Sent an Armed Delegation to Senussi#!"
+ turkfm_supress_senusiyya_possible_2: "[ROOT.GetCountry.GetNameNoFlag] has not changed its stance towards [GetStaticModifier('modifier_turkfm_desert_raids').GetName] within the last #bold 2 years#!"
+ turkfm_supress_senusiyya_effect: "[ROOT.GetCountry.GetNameNoFlag] will be unable to change its stance towards [GetStaticModifier('modifier_turkfm_desert_raids').GetName] for #bold 2 years#!"
  turkfm_armed_delegation_button: "Send Armed Delegation"
  turkfm_armed_delegation_button_desc: ""
  
@@ -680,6 +683,11 @@
  modifier_turkfm_order_of_osmanieh: "Osmaniye Nişanı"
  modifier_turkfm_order_of_the_medjidie: "Mecidiye Nişanı"
  modifier_turkfm_chelengk: "Çelenk"
+ 
+ modifier_turkfm_informal_administration: "Informal Administration"
+ modifier_turkfm_centralized_authority: "Centralized Authority"
+ modifier_turkfm_senussi_stronghold: "$turkfm_senusiyya$ Stronghold"
+ modifier_turkfm_desert_raids: "Desert Patrols"
  
  # names
  Mehmet_Emin: "Mehmed Emin"

@@ -356,6 +356,7 @@ namespace = turkfm
 #	1112 - ##Senussi Withdraws to the Desert
 #	1113 - ##Armed Diplomacy
 #	1114 - ##Senusiyya Takes Root in State
+#	1115 - ##Senusiyya Expunged from State
 
 ########################################################################
 ##  #TURK0  THE LAST STRUGGLE OF THE OTTOMAN EMPIRE  Events  001-099  ##
@@ -12318,6 +12319,10 @@ turkfm.1110 = { # The Senussi Order
 	desc = turkfm.1110.d
 	flavor = turkfm.1110.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
+	
 	event_image = {
 		video = "middleeast_islam"
 	}
@@ -12363,6 +12368,10 @@ turkfm.1111 = { # The Grand Sanusi
 	desc = turkfm.1111.d
 	flavor = turkfm.1111.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
+	
 	event_image = {
 		video = "middleeast_islam"
 	}
@@ -12380,6 +12389,7 @@ turkfm.1111 = { # The Grand Sanusi
 	}
 	
 	immediate = {
+		turkfm_senussi_scope_effect = yes
 	}
 	
 	option = {
@@ -12396,6 +12406,10 @@ turkfm.1112 = { # Senussi Withdraws to the Desert
 	title = turkfm.1112.t
 	desc = turkfm.1112.d
 	flavor = turkfm.1112.f
+	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
 	
 	event_image = {
 		video = "africa_desert_expedition"
@@ -12430,6 +12444,10 @@ turkfm.1113 = { # Armed Diplomacy
 	desc = turkfm.1113.d
 	flavor = turkfm.1113.f
 	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
+	
 	event_image = {
 		video = "middleeast_courtroom_upheaval"
 	}
@@ -12463,6 +12481,160 @@ turkfm.1113 = { # Armed Diplomacy
 				max = 100
 				min = 0
 			}
+		}
+	}
+	
+}
+
+turkfm.1114 = { # Senusiyya Takes Root in State
+	type = country_event
+	placement = scope:turkfm_senussi_state_scope
+	
+	title = turkfm.1114.t
+	desc = turkfm.1114.d
+	flavor = turkfm.1114.f
+	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
+	
+	event_image = {
+		video = "middleeast_islam"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:turkfm_senussi_var >= 70
+		NOT = {
+			has_modifier = modifier_turkfm_desert_raids
+		}
+		any_scope_state = {
+			OR = {
+				state_region = STATE_LIBYA
+				state_region = STATE_LIBYAN_DESERT
+				state_region = STATE_TRIPOLI
+			}
+			NOT = {
+				has_modifier = modifier_turkfm_senussi_stronghold
+			}
+		}
+	}
+	
+	cooldown = {
+		years = 4
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				OR = {
+					state_region = STATE_LIBYA
+					state_region = STATE_LIBYAN_DESERT
+					state_region = STATE_TRIPOLI
+				}
+				NOT = {
+					has_modifier = modifier_turkfm_senussi_stronghold
+				}
+			}
+			save_scope_as = turkfm_senussi_state_scope
+		}
+	}
+	
+	option = { # Allow them to Spread
+		name = turkfm.1114.a
+		default_option = yes
+		scope:turkfm_senussi_state_scope = {
+			add_modifier = modifier_turkfm_senussi_stronghold
+		}
+	}
+	
+	option = { # Attempt to Supress Them
+		name = turkfm.1114.b
+		default_option = yes
+		trigger = {
+			has_technology_researched = centralization
+			has_variable = turkfm_intimidated_sensussi
+			authority >= 200
+		}
+		add_modifier = modifier_turkfm_desert_raids
+		custom_tooltip = {
+			text = turkfm_supress_senusiyya_effect
+			set_variable = {
+				name = turkfm_desert_raids_var
+				years = 2
+			}
+		}
+	}
+	
+}
+
+turkfm.1115 = { # Senusiyya Expunged from State
+	type = country_event
+	placement = root
+	
+	title = turkfm.1115.t
+	desc = turkfm.1115.d
+	flavor = turkfm.1115.f
+	
+	gui_window = event_window_1char_adventure
+	
+	left_icon = scope:turkfm_senussi_scope
+	
+	event_image = {
+		video = "africa_desert_expedition"
+	}
+	
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	
+	duration = 3
+	
+	dlc = dlc_grefm
+	
+	trigger = {
+		var:turkfm_senussi_var < 30
+		has_modifier = modifier_turkfm_desert_raids
+		any_scope_state = {
+			OR = {
+				state_region = STATE_LIBYA
+				state_region = STATE_LIBYAN_DESERT
+				state_region = STATE_TRIPOLI
+			}
+			has_modifier = modifier_turkfm_senussi_stronghold
+		}
+	}
+	
+	cooldown = {
+		years = 2
+	}
+	
+	immediate = {
+		random_scope_state = {
+			limit = {
+				OR = {
+					state_region = STATE_LIBYA
+					state_region = STATE_LIBYAN_DESERT
+					state_region = STATE_TRIPOLI
+				}
+				has_modifier = modifier_turkfm_senussi_stronghold
+			}
+			save_scope_as = turkfm_senussi_state_scope
+		}
+	}
+	
+	option = {
+		name = turkfm.1115.a
+		default_option = yes
+		scope:turkfm_senussi_state_scope = {
+			remove_modifier = modifier_turkfm_senussi_stronghold
 		}
 	}
 	

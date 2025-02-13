@@ -1071,10 +1071,6 @@ turkfm_supress_senusiyya_button = {
 	
 	possible = {
 		has_technology_researched = centralization
-		custom_tooltip = {
-			text = turkfm_supress_senusiyya_possible
-			has_variable = turkfm_intimidated_sensussi
-		}
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1082,6 +1078,16 @@ turkfm_supress_senusiyya_button = {
 				}
 			}
 			authority >= 200
+		}
+		custom_tooltip = {
+			text = turkfm_supress_senusiyya_possible_1
+			has_variable = turkfm_intimidated_sensussi
+		}
+		custom_tooltip = {
+			text = turkfm_supress_senusiyya_possible_2
+			NOT = {
+				has_variable = turkfm_desert_raids_var
+			}
 		}
 	}
 	
@@ -1094,6 +1100,13 @@ turkfm_supress_senusiyya_button = {
 		}
 		else = {
 			add_modifier = modifier_turkfm_desert_raids
+		}
+		custom_tooltip = {
+			text = turkfm_supress_senusiyya_effect
+			set_variable = {
+				name = turkfm_desert_raids_var
+				years = 2
+			}
 		}
 	}
 	
