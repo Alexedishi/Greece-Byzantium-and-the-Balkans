@@ -200,10 +200,17 @@ New Additions:
 - ##Rebuilt "The Teachings of al-Sanusi" into a global journal with new mechanics, events, and modifiers
 
 Fixes:
-- - ##Fixed several issues that could derail Greece's "Military League" journal
+- ##Fixed several issues that could derail Greece's "Military League" journal
 
 
 ####---------- Published Updates ----------####
+
+--Update 4.1.2--
+Fixes:
+- Fixed modifier_balkfm_yugoslavist_separatism also being applied to subjects of Yugoslav overlords
+- Fixed turkfm_tanzimat.201 accidentally being linked to Young Turks weekly pulse
+- Small fixes since CMF/GotB are out of sync during the 1.14 open beta
+
 
 --Update 4.1.1--
 Fixes:
