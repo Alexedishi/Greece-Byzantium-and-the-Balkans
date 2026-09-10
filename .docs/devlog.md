@@ -205,6 +205,13 @@ Fixes:
 
 ####---------- Published Updates ----------####
 
+--Update 4.1.2--
+Fixes:
+- Fixed modifier_balkfm_yugoslavist_separatism also being applied to subjects of Yugoslav overlords
+- Fixed turkfm_tanzimat.201 accidentally being linked to Young Turks weekly pulse
+- Small fixes since CMF/GotB are out of sync during the 1.14 open beta
+
+
 --Update 4.1.1--
 Fixes:
 - Fixed STATE_IONIAN_ISLANDS missing from several georegions
